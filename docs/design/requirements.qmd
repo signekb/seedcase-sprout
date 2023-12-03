@@ -1,0 +1,32 @@
+---
+title: "Requirements"
+---
+
+{{< include ../_wip.qmd >}}
+
+
+## Technical requirements
+
+- Run on Windows, MacOS, and Linux (likely on servers): Our potential users work on any of these systems, so we need to design for that
+- Use open source software dependencies: We will use an open license, so we need to use components that are open as well
+- Integrate GDPR, privacy, and security compliance: Our target users work with health data, so this is vital to consider
+- Deployable to servers and locally: Could be used locally but mainly used on a server environment
+- Storage and computing may be at different locations: Where data are stored vs analyzed will likely be different
+
+### Core functionality
+
+-   **One Seedcase "instance" per Data Resource**: Some users may have
+    multiple Data Resources, so the Seedcase Product will create
+    separate "instances" for each Data Resource.
+-   **Upload or update data**: Input data into the Data Resource in
+    batches or continuously into the backend storage, either into the
+    database or as raw data files.
+-   **Upload or update metadata**: When inputting data, attach metadata
+    along side it.
+-   **Store changes to the data in a changelog**: Track and list changes
+    made to the data within the Data Resource for auditing and
+    recordkeeping.
+-   **Display metadata and basic information on the data in the Data
+    Resource on a user interface**: So external users and users
+    interested in data in the Data Resource can browse what is
+    available.
