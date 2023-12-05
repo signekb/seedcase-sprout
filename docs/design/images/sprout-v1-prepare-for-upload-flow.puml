@@ -1,0 +1,25 @@
+@startuml sprout-v1-prepare-for-upload-flow
+
+title Sprout-v1: Prepare for Upload
+
+:User selects option to "Upload new data";
+:System shows data entry UI;
+:User selects file and clicks "Upload";
+:System loads file and extracts headers and data types;
+    while (System checks that all headers have definitions*) is (no)
+:System generates list of headers and displays with a text box for\ndescription, drop-down for type, and optional text box for title;
+:User completes/edits data type and description;
+    end while (yes)
+    while (System shows list of headers and definitions\n(i.e., the schema) for user confirmation) is (no)
+:System generates list of headers and displays with a text box for\ndescription, drop-down for type, and optional text box for title;
+:User edits definitions;
+    end while (yes)
+:System saves the schema to backend;
+:Systems confirms back to user that
+new schema has been saved;
+
+footer \n*Definition includes the header (variable name), data type, description (sentence describing\nwhat's in the variable),and an optional title (reader friendly variable name)\nExample:\nHeader = "adr1",\ndata type = varchar,\ndescription = "first address line of patient's address",\ntitle (optional): "address line 1"
+
+@enduml
+
+' Question: Are users able to edit headers or are they "set" by the data/file/csv?
