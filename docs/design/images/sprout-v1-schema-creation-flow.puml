@@ -1,10 +1,11 @@
-@startuml sprout-v1-prepare-for-upload-flow
+@startuml sprout-v1-schema-creation-flow
 
-title Sprout-v1: Prepare for Upload
+title Sprout-v1: Schema Creation (Preparation for Data Upload)
+' User prepares to upload data by creating data schema
 
 :User selects option to "Upload new data";
 :System shows data entry UI;
-:User selects file and clicks "Upload";
+:User selects file and clicks "Create Schema";
 :System loads file and extracts headers and data types;
     while (System checks that all headers have definitions*) is (no)
 :System generates list of headers and displays with a text box for\ndescription, drop-down for type, and optional text box for title;

@@ -1,6 +1,7 @@
-@startuml sprout-v1-prepare-for-upload-sequence
+@startuml sprout-v1-schema-creation-sequence
 
-' Data upload step 1: User prepares to upload data by creating data schema
+title Sprout-v1: Schema Creation (Preparation for Data Upload)
+' User prepares to upload data by creating data schema
 
 participant "User" as u
 participant "Front end" as f
@@ -13,24 +14,24 @@ u -> f: User selects file (csv) and clicks "Upload"
 f -> api: System transfers file to API
 api -> api: System extracts headers and analyse data types
 api -> api: System checks for missing definitions*
-api -> f: System transfers extracted headers and definitions
-f -> u: System shows headers and definitions to user
+api -> f: System transfers extracted headers and definitions*
+f -> u: System shows headers and definitions* to user
 note right of u
     Descriptions will always be missing from
-    definitions initially, since they are not
+    definitions* initially, since they are not
     found in the file
 end note
-u -> f: User completes and/or edits definitions
+u -> f: User completes and/or edits definitions*
 f -> api: User clicks "Save and Submit"
-api -> api: System validates data\n(i.e., checks for missing fields definitions)
-group Validation error (missing definitions)
+api -> api: System validates data\n(i.e., checks for missing fields definitions*)
+group Validation error (missing definitions*)
     api --> f: System sends back error with missing fields highlighted
-    f --> u: System shows headers and definitions to user
-    u --> f: User completes and/or edits definitions
+    f --> u: System shows headers and definitions* to user
+    u --> f: User completes and/or edits definitions*
     f --> api: User clicks "Save and Submit"
-    api --> api: System validates data\n(i.e., checks for missing fields definitions)
+    api --> api: System validates data\n(i.e., checks for missing fields definitions*)
 end
-group Validation success (no missing definitions)
+group Validation success (no missing definitions*)
     api -> b: System posts schema with "Completed" flag
     b -> b : System creates record
     b -> api: System confirms created schema
