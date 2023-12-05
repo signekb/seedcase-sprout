@@ -1,0 +1,24 @@
+@startuml sprout-v1-prepare-for-upload
+
+title Sprout-v1 (Prepare schema for upload)
+
+start
+:User selects option to upload new file (csv);
+:System loads file and displays back
+headers and data types from upload;
+    while (System checks that all headers have definitions\n(data type, description (what is it), title (optional))) is (no)
+:System generates list of undefined headers 
+and displays with drop-down for type, 
+and text boxes for name and description;
+:User enters field name, data type and 
+description against non-defined headers;
+    end while (yes)
+    while (System shows schema for user confirmation) is (no)
+:User edits fields (headers,\ndata type, description, title);
+    end while (yes)
+:System saves the new schema to db;
+:Systems confirms back to user that
+new schema has been saved;
+stop
+
+@enduml
