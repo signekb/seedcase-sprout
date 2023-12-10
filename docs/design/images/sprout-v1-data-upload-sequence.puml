@@ -3,6 +3,9 @@
 title Sprout-v1: Data Upload from Existing Schema
 ' User uploads data to existing data schema
 
+'Question: Will this process be identical for initial and subsequent uploads? 
+'I'm guessing not? Should we create a new sequence diagram for that?
+
 participant "User" as u
 participant "Front end" as f
 participant "API" as api

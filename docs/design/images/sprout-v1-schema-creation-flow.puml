@@ -22,5 +22,3 @@ new schema has been saved;
 footer \n*Definition includes the header (variable name), data type, description (sentence describing\nwhat's in the variable),and an optional title (reader friendly variable name)\nExample:\nHeader = "adr1",\ndata type = varchar,\ndescription = "first address line of patient's address",\ntitle (optional): "address line 1"
 
 @enduml
-
-' Question: Are users able to edit headers or are they "set" by the data/file/csv?

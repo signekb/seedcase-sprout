@@ -11,10 +11,12 @@ participant "Backend" as b
 u -> f: User selects option to "Upload data"
 f -> u: System shows data entry UI
 u -> f: User selects the file (csv) to upload\nand clicks "Create New Schema"
+' What "schema" means might not be understandable for all users. Description needed?
 f -> api: System transfers file to API
 api -> api: System extracts headers and analyse data types
 api -> api: System checks for missing definitions*
 api -> f: System transfers extracted headers and definitions*
+' HOTSPOT: Data ingress file life cycle?
 f -> u: System shows headers and definitions* to user
 note right of u
     Descriptions will always be missing from
@@ -41,3 +43,5 @@ end
 footer \n*Definitions include a header (variable name), data type, description (sentence describing what's in the variable),and an optional title (reader friendly variable name)\nExample:\nHeader = "adr1",\ndata type = varchar,\ndescription = "first address line of patient's address",\ntitle (optional): "address line 1"
 
 @enduml
+
+' Question: Are users able to edit headers or are they "set" by the data/file/csv?
