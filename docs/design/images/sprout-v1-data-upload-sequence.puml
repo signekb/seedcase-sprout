@@ -1,14 +1,16 @@
 @startuml sprout-v1-data-upload-sequence
 
 title Sprout-v1: Data Upload from Existing Schema
+' User uploads data to existing data schema
 
 participant "User" as u
 participant "Front end" as f
 participant "API" as api
 participant "Backend" as b
 
-f -> u: User selects "Upload Data based on Existing Schema"
-u -> f: User selects existing schema from dropdown and file to upload (csv).\nThey click "Upload data"
+u -> f: User selects option to "Upload data"
+f -> u: System shows data entry UI
+u -> f: User selects "Upload Data based on Existing Schema"\nand selects existing schema from dropdown and file to\nupload (csv).
 f -> api: System transfers data and ID of selected schema
 api -> b: System transfers ID of selected schema 
 b -> api: System retrieves existing schema

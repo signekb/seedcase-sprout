@@ -8,9 +8,9 @@ participant "Front end" as f
 participant "API" as api
 participant "Backend" as b
 
-u -> f: User selects option to upload new data
+u -> f: User selects option to "Upload data"
 f -> u: System shows data entry UI
-u -> f: User selects file (csv) and clicks "Upload"
+u -> f: User selects the file (csv) to upload\nand clicks "Create New Schema"
 f -> api: System transfers file to API
 api -> api: System extracts headers and analyse data types
 api -> api: System checks for missing definitions*
@@ -23,7 +23,7 @@ note right of u
 end note
 u -> f: User completes and/or edits definitions*
 f -> api: User clicks "Save and Submit"
-api -> api: System validates data\n(i.e., checks for missing fields definitions*)
+api -> api: System validates schema\n(i.e., checks for missing fields definitions*)
 group Validation error (missing definitions*)
     api --> f: System sends back error with missing fields highlighted
     f --> u: System shows headers and definitions* to user
@@ -33,7 +33,7 @@ group Validation error (missing definitions*)
 end
 group Validation success (no missing definitions*)
     api -> b: System posts schema with "Completed" flag
-    b -> b : System creates record
+    b -> b : System creates record\nand logs data changes
     b -> api: System confirms created schema
     api -> f: System retrieves confirmation
     f -> u: System displays confirmation
