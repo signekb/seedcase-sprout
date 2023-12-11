@@ -14,7 +14,7 @@ u -> f: User selects the file (csv) to upload\nand clicks "Create New Schema"
 ' What "schema" means might not be understandable for all users. Description needed?
 f -> api: System transfers file to API
 api -> api: System extracts headers and analyse data types
-api -> api: System validates schema (missing definitions* in BLUE) 
+api -> api: System checks for missing definitions*
 api -> f: System transfers extracted headers and definitions*
 ' HOTSPOT: Data ingress file life cycle?
 f -> u: System shows headers and definitions* to user
@@ -25,9 +25,9 @@ note right of u
 end note
 u -> f: User completes and/or edits definitions*
 f -> api: User clicks "Save and Submit"
-api -> api: System validates schema\n(checks for missing fields definitions*)
+api -> api: System validates schema\n(i.e., checks for missing fields definitions*)
 group Validation error (missing definitions*)
-    api --> f: System sends back error with missing fields highlighted in RED
+    api --> f: System sends back error with missing fields highlighted
     f --> u: System shows headers and definitions* to user
     u --> f: User completes and/or edits definitions*
     f --> api: User clicks "Save and Submit"
@@ -40,7 +40,7 @@ group Validation success (no missing definitions*)
     api -> f: System retrieves confirmation
     f -> u: System displays confirmation
 end
-footer \n*Definitions include a header (variable name), data type, description (sentence describing what's in the variable), NULL/not NULL, and an optional title (reader friendly variable name)\nExample:\nHeader = "adr1",\ndata type = varchar,\ndescription = "first address line of patient's address",\ntitle (optional): "address line 1"
+footer \n*Definitions include a header (variable name), data type, description (sentence describing what's in the variable), and an optional title (reader friendly variable name).\nFor example: Header = "adr1"; data type = varchar; description = "First address line of patient's address"; title (optional): "Address line 1".
 
 @enduml
 

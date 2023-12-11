@@ -20,18 +20,12 @@ b -> api: System retrieves existing schema
 api -> api: System validates\nby comparing data to schema
 
 group Validation error (data does not match schema)
-    api --> f: System sends back error "Upload failed"\n with information on where they don't match.\n E.g., NULL values in column A, line 22, and column A cannot contain NULL values
+    api --> f: System sends back error "Upload failed"\n with information on where they don't match.
     note right of f
         This could be a system endpoint.
-        Alternatively, User could be given the option to
-        "Cancel Upload" or "Upload Edited/New version of file(?)"
-        Goal: Precise error messages to guide the user to fix errors. 
-        User will then go to raw data and fix the error in their editor of choice (e.g., Excel) and then upload again.
+        Alternatively, user could be given the option to
+        "Cancel Upload" or "Correct Upload(?)"
     end note
-f -> u: Error messages showing/telling user where the validation failed 
-u -> f: Choose to "Cancel Upload" or "Upload Edited/New Version of file"
-f -> api: Send new data to validation 
-api -> api: System validates by comparing data to schema
 end
 group Validation success (data matches schema)
     api -> b: System posts data upload with "Completed" flag
@@ -42,4 +36,3 @@ group Validation success (data matches schema)
 end
 
 @enduml
-' add "Audit" to validation success parts of diagrams
