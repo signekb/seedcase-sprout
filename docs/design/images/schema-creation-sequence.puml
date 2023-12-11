@@ -40,7 +40,7 @@ group Validation success (no missing definitions*)
     api -> f: System retrieves confirmation
     f -> u: System displays confirmation
 end
-footer \n*Definitions include a header (variable name), data type, description (sentence describing what's in the variable),and an optional title (reader friendly variable name)\nExample:\nHeader = "adr1",\ndata type = varchar,\ndescription = "first address line of patient's address",\ntitle (optional): "address line 1"
+footer \n*Definitions include a header (variable name), data type, description (sentence describing what's in the variable), and an optional title (reader friendly variable name).\nFor example: Header = "adr1"; data type = varchar; description = "First address line of patient's address"; title (optional): "Address line 1".
 
 @enduml
 

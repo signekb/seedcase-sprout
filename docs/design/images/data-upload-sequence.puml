@@ -23,7 +23,7 @@ group Validation error (data does not match schema)
     api --> f: System sends back error "Upload failed"\n with information on where they don't match.
     note right of f
         This could be a system endpoint.
-        Alternatively, User could be given the option to
+        Alternatively, user could be given the option to
         "Cancel Upload" or "Correct Upload(?)"
     end note
 end
