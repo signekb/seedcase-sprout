@@ -1,6 +1,6 @@
-@startuml sprout-v1-schema-creation-flow
+@startuml schema-creation-flow
 
-title Sprout-v1: Schema Creation (Preparation for Data Upload)
+title Schema Creation (Preparation for Data Upload)
 ' User prepares to upload data by creating data schema
 
 :User selects option to "Create New Data Schema";

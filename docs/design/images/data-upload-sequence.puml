@@ -1,6 +1,6 @@
-@startuml sprout-v1-data-upload-sequence
+@startuml data-upload-sequence
 
-title Sprout-v1: Data Upload from Existing Schema
+title Data Upload from Existing Schema
 ' User uploads data to existing data schema
 
 'Question: Will this process be identical for initial and subsequent uploads? 
