@@ -1,0 +1,83 @@
+@startuml user-flow
+
+title Entire User Flow: Schema Creation and Data Upload
+
+:User selects option to "Upload Data";
+'Data vs file: File indicates only a single file (e.g., csv) can be uploaded at a time. Is that what we want?
+'That could be very annoying for researchers with one file per participant (per visit)
+if (System shows data upload UI) then (Create New Schema)
+  :User selects\n"Create New Data Schema";
+  if (System shows create schema UI) then (Create Schema from File)
+    :User selects\n"Create Schema from File";
+    :System shows UI with file upload;
+    :User selects file and clicks "Create Schema";
+    :System loads file and attempts to extract
+    headers and definitions*;
+  else (Create Schema Manually)
+    :User selects\n"Create Schema Manually";
+    :System shows UI where user 
+    can create schema manually;
+    :User adds headers and definitions;
+    :User clicks "Save and Submit Schema";
+  endif
+    while (VALIDATION CHECK:\nSystem checks that all headers have definitions*) is (Validation failed)
+      :System shows "Validation failed"
+      and shows UI with schema for user 
+      to edit, including: 
+      - headers
+      - textbox for description (empty initially)
+      - drop-down for type
+      - boolean for is NULLable, and 
+      - optional textbox for readable title
+      Missing fields are highlighted;
+      :User completes/edits definitions;
+      :User clicks "Save and Submit Schema"
+      and cannot continue if definitions are missing;
+    end while (Validation successful)
+    :System shows UI with schema for user confirmation;
+    while (User decides whether schema is complete or needs editing) is (Incomplete/incorrect\nschema)
+      :User clicks "Edit Schema";
+      :System shows "Validation failed"
+      and shows UI with schema for user 
+      to edit, including: 
+      - headers
+      - textbox for description (empty initially)
+      - drop-down for type
+      - boolean for is NULLable, and 
+      - optional textbox for readable title
+      Missing fields are highlighted;
+      :User edits definitions;
+    end while (Complete schema);
+  :User clicks "Save and Submit Schema"
+  and cannot continue if definitions are missing;
+  #palegreen:Systems confirms: "New Schema added Successfully";
+  if (Upload data) then (User does not want to upload data)
+    :User "quits" Sprout; 
+    end
+  else (User wants to upload data using new schema)
+    :User clicks "Continue to Data Upload";
+  endif
+else (Use Existing Schema)
+    :User selects\n"Use Existing Schema";
+    :System shows UI with existing schemas 
+    to choose from and file upload;
+    :User selects existing schema and 
+    selects file to upload;
+    :User clicks "Continue to Data Upload";
+endif 
+:System initialises data upload;
+while (VALIDATION CHECK:\nSystem checks whether data and schema mathces) is (Validation failed)
+    while (Systems shows "Upload failed" along\nwith description on where data and\nschema do not match) is (Cancel Upload)
+        :User clicks "Cancel Upload";
+        end
+    end while (User edits file and\nattempts to fix errors\noutside of Sprout);
+    :User clicks "Upload Edited/New Version of File";
+    :System shows UI where user can add file; 
+    :User selects file and clicks "Upload File";
+
+end while (Validation successful);
+#palegreen:System displays confirmation: "Upload Successful";
+
+footer \n*Definition includes the header (variable name), data type, description (sentence describing\nwhat's in the variable),and an optional title (reader friendly variable name)\nExample:\nHeader = "adr1",\ndata type = varchar,\ndescription = "first address line of patient's address",\ntitle (optional): "address line 1"
+
+@enduml
