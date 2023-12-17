@@ -2,16 +2,18 @@
 ' Container diagram showing overview of Seedcase
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
+' C4 Container diagram
+
 Person(user_request_input, "Data Contributor")
 Person(user_admin, "Admin")
 
 System_Boundary(seedcase, "Seedcase Sprout instance for Data Resource") {
   Container(web_framework, "Web Interface")
-  Container(management, "User and Data Management Layer")
+  Container(management, "User and Data Management Layer (API)")
   ' Authentication inside or outside?
   'Container(id_authentication, "User Authentication")
 
-  Container_Boundary(backend, "Backend environment") {
+  Container_Boundary(bee, "Backend Environment") {
     ContainerDb(backend_database_data, "Relational Database for Data")
     ContainerDb(backend_database_metadata, "Relational Database for Metadata")
     ContainerDb(backend_file_storage, "File Storage")

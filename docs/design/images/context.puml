@@ -1,10 +1,10 @@
 @startuml context
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
 
+' C4 Context diagram
+
 Person(user_data_input, "Data input")
 Person(user_admin, "Admin", "Data controllers or data managers")
-
-'Lay_Right(user_admin, user_results)
 
 System(ui, "Data Resource structured by Seedcase Sprout")
 

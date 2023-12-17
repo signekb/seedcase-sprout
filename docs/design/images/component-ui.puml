@@ -1,10 +1,10 @@
-@startuml 
-' Component diagram for the Seedcase product - Backend: File Storage
+@startuml component-ui
 !include  https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
 
+' C4 Component diagram for the user interface
+
 Container(bee, "Backend Environment")
-Container(management, "User and Data Management Layer")
-Container(auth, "Authentication")
+Container(management, "User and Data Management Layer (API)")
 Container(auth, "Authentication") {
   Component(user_info, "Information on users", $descr="Metadata on registered users of the Data Resource")
 }
