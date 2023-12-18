@@ -1,0 +1,48 @@
+@startuml user-flow-1-schema-creation
+
+title User Flow: Schema Creation
+
+:User selects option to "Upload Data";
+'Data vs file: File indicates only a single file (e.g., csv) can be uploaded at a time. Is that what we want?
+'That could be very annoying for researchers with one file per participant (per visit)
+if (\nSystem shows data upload\nUI with option to create new\nschema or use existing one\n) then (Create New Schema)
+  :User selects\n"Create New Schema";
+switch (System shows create schema UI)
+case (Create Schema\nfrom File)
+  :User selects
+  "Create Schema
+  from File";
+  :System shows UI
+  with file upload;
+  :User selects file and
+  clicks "Create Schema";
+  :System loads file and
+  attempts to extract 
+  headers and definitions*;
+case (V2: Create Schema from\nExisting Schema)
+  #White:User selects
+  "Create New Schema
+  from Existing Schema";
+  #White:System shows list of
+  existing schemas;
+  #White:User inspects schemas
+  and selects base schema;
+case (V3+: Create Schema Manually)
+  #White:User selects
+  "Create Schema Manually";
+  #white:System shows UI where
+  user can create schema manually;
+  #white:User adds headers
+  and definitions;
+  #white:User clicks "Save
+  and Submit Schema";
+endswitch
+#palegreen:Initial schema has been created;
+:...;
+kill
+else (Use Existing Schema)
+  :...;
+  kill
+endif
+
+@enduml
