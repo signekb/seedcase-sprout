@@ -41,13 +41,13 @@ Together, we call these the *schema definitions*, or simply *definitions*.
 
 |schema |table | column-name | description | data-type | is-nullable | title (optional)
 | --- | --- | --- | --- | --- | --- | --- |
-| dr1 | tbl1 | userid | unique ID identifying the user | int | 0 | NULL |
-| dr1 | tbl1 | lastname | user's last name | varchar | 0 | NULL |
-| dr1 | tbl1 | firstname | user's first name | varchar | 0 | NULL |
-| dr1 | tbl1 | email | unique ID identifying the user | int | 0 | NULL |
-| dr1 | tbl1 | adr1 | first address line of user's address | varchar | 1 | address line 1 |
+| `data_resource` | `table_1` | `user_id` | Unique ID identifying the user | `int` | 0 | NULL |
+| `data_resource` | `table_1` | `last_name` | User's last name | `varchar` | 0 | NULL |
+| `data_resource` | `table_1` | `first_name` | User's first name | `varchar` | 0 | NULL |
+| `data_resource` | `table_1` | `email` | Unique ID identifying the user | `int` | 0 | NULL |
+| `data_resource` | `table_1` | `address` | first address line of user's address | `varchar` | 1 | address line 1 |
 
-: Example of schema named dr1 for *data resource 1*, containing one table, tbl1, with user information.
+: Example of schema named `data_resource` for a data resource that contains one table (`table_1`) with user information.
 
 Users with the role [Data Management Administrators](users.qmd#data-management-administrators) are responsible for setting up these initial structures of the database. 
 
