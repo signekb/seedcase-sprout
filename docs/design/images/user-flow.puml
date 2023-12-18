@@ -34,25 +34,20 @@ if (System shows data upload UI) then (Create New Schema)
       - textbox for description (empty initially)
       - drop-down for type
       - boolean for is NULLable, and 
-      - optional textbox for readable title
-      - option to "Add field"
+      - optional textbox for readable title      - option to "Add field"
       Missing fields are highlighted;
       :User completes/edits definitions;
-      if (System asks user if they want to save only or submit) then (Save only)
-        :User clicks "Save Draft";
+      if (System asks user if they want to save only or submit) then (V2: Save only)
+        #White:User clicks "Save Draft";
         end
       else (Save and Submit)
         :User clicks "Save and Submit Schema";
       endif
-'V2: Endpoint with safe only
     end while (Validation successful)
 'V2: With save only option: System shows UI with all available schemas, 
 'if user wants to access schema that was saved earlier
     :System shows UI with schema for user confirmation;
-    if (User decides whether schema is correct or needs editing) then (Ccorrect schema)
-      :User clicks "Save and Submit Schema";
-      #palegreen:Systems confirms: "New Schema added Successfully";
-    else (Incorrect Schema)
+    while (User decides whether schema is correct or needs editing) then (Incorrect schema)
       :User clicks "Edit Schema";
       :System shows UI with schema for user to edit, 
       including: 
@@ -63,10 +58,12 @@ if (System shows data upload UI) then (Create New Schema)
       - optional textbox for readable title
       - option to "Add field";
       :User edits definition;
-      :System goes back to\nVALIDATION CHECK: Schema Completeness;
-      detach
 'Arrow from "User edits definitions" should go back up to VALIDATION CHECK      
-    endif
+      :System goes back to VALIDATION CHECK: Schema Completeness
+      Ignore arrow that goes to "User decides whether schema is correct [...]";
+     end while (Incorrect schema)
+      :User clicks "Save and Submit Schema";
+      #palegreen:Systems confirms: "New Schema added Successfully";
   if (System asks user if they want to upload data) then (No)
     :User "quits" Sprout; 
     end
