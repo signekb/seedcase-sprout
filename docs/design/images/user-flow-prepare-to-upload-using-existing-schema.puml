@@ -1,4 +1,4 @@
-@startuml user-flow-4-prepare-to-upload-using-existing-schema
+@startuml user-flow-prepare-to-upload-using-existing-schema
 
 title User Flow: Prepare to Upload using Existing Schema
 

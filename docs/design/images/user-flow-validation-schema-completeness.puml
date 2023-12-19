@@ -6,11 +6,11 @@ title User Flow: Validation check/Schema Completeness
 :Initial schema has been created;
   while (\nVALIDATION CHECK: Schema Completeness\nSystem checks that schema has name\nand that all headers have definitions*\n) is (Validation failed)
     :System shows "Validation failed"
-    and s:System shows UI with schema for user to edit, 
-    including: 
+    and shows UI with schema for 
+    user to edit, including: 
     - headers (textbox)
     - textbox for description (textbox)
-    - data type (dropdown?)
+    - data type (dropdown)
     - nullable (boolean), and 
     - title (optional textbox)
     - option to "Add field"
@@ -26,20 +26,19 @@ title User Flow: Validation check/Schema Completeness
 :System shows UI with schema for user confirmation;
   while (User decides whether schema is correct or needs editing) is (Incorrect schema)
     :User clicks "Edit Schema";
-    :System shows UI with schema for user to edit, 
-    including: 
+    :System shows UI with schema for 
+    user to edit, including: 
     - headers (textbox)
     - textbox for description (textbox)
-    - data type (dropdown?)
+    - data type (dropdown)
     - nullable (boolean), and 
     - title (optional textbox)
     - option to "Add field";
     :User edits schema;
     :User clicks "Continue";
 'Arrow from "User edits definitions" should go back up to VALIDATION CHECK      
-    :Arrow that goes to "User decides whether schema is correct [...]"
-    should go back to Validation check
-    System goes back to VALIDATION CHECK: Schema Completeness;
+    :System goes back to VALIDATION CHECK: Schema Completeness;
+    detach
    end while (Correct schema)
    :User clicks "Save and Submit Schema";
     #palegreen:Systems confirms: "New Schema added Successfully";

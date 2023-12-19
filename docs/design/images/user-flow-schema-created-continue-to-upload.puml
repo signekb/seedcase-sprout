@@ -1,4 +1,4 @@
-@startuml user-flow-3-schema-created-continue-to-upload
+@startuml user-flow-schema-created-continue-to-upload
 
 title User Flow: Schema created - Continue to Upload?
 
