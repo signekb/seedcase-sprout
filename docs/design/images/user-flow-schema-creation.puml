@@ -43,5 +43,6 @@ else (Use Existing Schema)
   detach
 endif
 
-footer \n*Definition includes the header (column name), data type, description (sentence describing what is in the variable),\nis-nullable (boolean), and an optional title (reader friendly column name).\nExample:\nHeader = "adr1",\ndata type = varchar,\ndescription = "first address line of patient's address",\nisNULLABLE = 0, \ntitle (optional): "address line 1"
+footer \n*Definition includes the header (column name), data type, description (sentence describing what is in the variable),\nis-nullable (boolean), and an optional title (reader friendly column name).\nExample:\nheader = "adr1",\ndata type = varchar,\ndescription = "first address line of patient's address",\nis-nullable = 0, \ntitle (optional): "address line 1"
+
 @enduml
