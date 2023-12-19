@@ -16,8 +16,8 @@ title User Flow: Validation Check of Schema Completeness
     - option to "Add field"
     Missing fields are highlighted;
     :User completes/edits schema;
-    if (V2: System asks user if they want to save only or submit) then (V2: Save only)
-      #White:User clicks "Save Draft";
+    if (System asks user if they want to save only or submit) then (Save only)
+      :User clicks "Save Draft";
       end
     else (Save and Submit)
       :User clicks "Save and Submit Schema";
