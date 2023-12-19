@@ -49,15 +49,15 @@ In Sprout, there are three ways to create schemas:
 
 ### Create Schema from File
 
-The first option is to create a schema from a file. This workflow includes that the user selects a file to upload and then clicks "Create Schema from File". Then, Sprout will extract the headers and definitions of the columns in the file. 
+The first option is to create a schema from a file. This workflow includes that the [Data Management Administrator](users.qmd#data-management-administrators) selects a file to upload and then clicks "Create Schema from File". Then, Sprout will extract the headers and definitions of the columns in the file. 
 
 ### Create Schema from Existing Schema 
 
-The second option is to create a schema from an existing schema. This includes choosing an existing schema as a "base schema" for the user to build a new schema from.
+The second option is to create a schema from an existing schema. This includes choosing an existing schema as a "base schema" for the [Data Management Administrator](users.qmd#data-management-administrators) to build a new schema from.
 
 ### Create Schema Manually
 
-The third option is to create a schema manually. In this scenario, the user will add headers and definitions of the table(s) manully. 
+The third option is to create a schema manually. In this scenario, the [Data Management Administrator](users.qmd#data-management-administrators) will add headers and definitions of the schema manully. 
 
 ## Validation Check: Schema Completeness
 
@@ -65,32 +65,35 @@ When the initial schema has been created, Sprout will complete a validation chec
 
 If there are missing fields (e.g., a column is missing a data type), the validation will fail. "Validation failed" will be shown on a user interface together with the schema. 
 
+::: {.callout-note}
+When a schema is created using a file, the *description* fields will initially be empty, since descriptions of headers are not within the file itself. By ensuring that [Data Management Administrators](users.qmd#data-management-administrators) add descriptions of the headers, it will be easier for others to understand what that header/column contains.
+:::
 
 Then, the user will have the option to click "Save and Submit Schema", or to save a draft of the schema.
 
-At this user interface, missing fields will initially be highlighted in blue so the user's attention is led to these missing fields. The user will only be able to continue, if no fields have missing values. If a user clicks "Save and Submit Schema" without having filled in all fields, the missing fields will be highlighted in red. 
+At this user interface, missing fields will initially be highlighted in blue so the [Data Management Administrator](users.qmd#data-management-administrators)'s attention is led to these missing fields. They will only be able to continue, if no fields have missing values. If a user clicks "Save and Submit Schema" without having filled in all fields, the missing fields will be highlighted in red. 
 
 ![](images/user-flow-validation-schema-completeness.png)
 
 ### User Confirmation: Schema Correctness
 
-Then, when the validation is successful, Sprout will show the user the final schema for confirmation. This works as a user-driven check for *corretness*, i.e., is the schema filled in correctly, rather than is the schema complete, as the validation check before this step.
+Then, when the validation is successful, Sprout will show the [Data Management Administrator](users.qmd#data-management-administrators) the final schema for confirmation. This works as a user-driven check for *corretness*, i.e., is the schema filled in correctly, rather than is the schema complete, as the validation check before this step.
 
-If the user decides that the schema is not correct, they will click "Edit Schema" and they will be shown a user interface with the schema where they can edit the headers, definitions, and add new fields if needed.
+If the [Data Management Administrator](users.qmd#data-management-administrators) decides that the schema is not correct, they will click "Edit Schema", and they will be shown a user interface with the schema where they can edit the headers, definitions, and add new fields if needed.
 
-When the user is satisfied with their adaptions, they click "Save and Submit Schema". The schema will then go through the validation check, "Schema Completeness" again and if the validation is successful, Sprout will confirm: "New Schema added Successfully".
+When the [Data Management Administrator](users.qmd#data-management-administrators) is satisfied with their adaptions, they click "Save and Submit Schema". The schema will then go through the validation check, "Schema Completeness" again and if the validation is successful, Sprout will confirm: "New Schema Added Successfully".
 
 <!--TODO This description and the user flow diagram is not entirely identical. It needs further work. -->
 
 ### Continue to Data Upload or Quit?
 
-Now, that the schema has been created successfully, the user has two options: Either they can "Continue to Data Upload", if they want to add data to the newly created schema right after the schema has been submitted, or they can choose to quit Sprout at this step, if they only wanted to create the schema as preparation for future uploads.
+Now, that the schema has been created successfully, the [Data Management Administrator](users.qmd#data-management-administrators) has two options: Either they can "Continue to Data Upload", if they want to add data to the newly created schema right after the schema has been submitted, or they can choose to quit Sprout at this step, if they only wanted to create the schema as preparation for future uploads.
 
 ![](images/user-flow-schema-created-continue-to-upload.png)
 
 ## Data Upload
 
-There are two entry points for a user to upload data using an existing schema. The first option is to continue from the diagram above, where the user wants to upload data right after they have created a new schema. In this option, they click "Continue to Data Upload" (left path of diagram below).
+There are two entry points for a user to upload data using an existing schema. The first option is to continue from the diagram above, where the [Data Management Administrator](users.qmd#data-management-administrators) will upload data right after they have created a new schema. In this option, they click "Continue to Data Upload" (left path of diagram below).
 
 ![](images/user-flow-prepare-to-upload-using-existing-schema.png)
 
@@ -108,13 +111,8 @@ If validation succeeds, the data will be uploaded and Sprout will confirm: "Uplo
 
 ## Entire User Flow
 
-In the text and diagrams above, we have "chopped" the user flow of Sprout into five pieces and gone through each of them. In the diagram below, you can see the user flow in its entirety. 
+In the text and diagrams above, we have "chopped" the user flow of Sprout into five pieces and gone through each of them. In the diagram below, you can see the user flow in its entirety.
 
 <!-- TODO: Update full user flow diagram to include all the other diagrams after review -->  
 
 ![](images/user-flow.png)
-
-
-
-
-
