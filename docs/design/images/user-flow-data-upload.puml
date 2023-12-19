@@ -16,6 +16,10 @@ while (\nVALIDATION CHECK: Check if Schema and data match\n) is (Validation fail
     :User selects file and clicks "Upload File";
 
 end while (Validation successful);
+while (\nSystem displays the number of \nsuccessfully validated rows \nto the user for agreement\n) is (No)
+:User clicks "Cancel Upload";
+end
+end while (Yes);
 #palegreen:System displays confirmation: "Upload Successful";
 
 @enduml
