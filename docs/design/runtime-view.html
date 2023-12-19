@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Runtime view</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="runtime-view_files/libs/clipboard/clipboard.min.js"></script>
+<script src="runtime-view_files/libs/quarto-html/quarto.js"></script>
+<script src="runtime-view_files/libs/quarto-html/popper.min.js"></script>
+<script src="runtime-view_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="runtime-view_files/libs/quarto-html/anchor.min.js"></script>
+<link href="runtime-view_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="runtime-view_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="runtime-view_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="runtime-view_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="runtime-view_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Runtime view</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>This section describes the concrete behaviour, interactions, and pathways that data take within Seedcase. “Runtime” in this case refers to how the software works “in action”.</p>
+<section id="login-and-authentication" class="level2">
+<h2 class="anchored" data-anchor-id="login-and-authentication">Login and authentication</h2>
+<p>Almost all users will need to log into the Seedcase-managed Data Resources. The steps for logging in and having their permission levels checked follows the sequence described in the figure below.</p>
+<div id="fig-login-sequence" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="/design/images/runtime-login-sequence.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Figure&nbsp;1: Login and authentication sequence of a registered user.</figcaption>
+</figure>
+</div>
+<!--TODO convert puml file to png so that the link above works-->
+</section>
+<section id="data-input" class="level2">
+<h2 class="anchored" data-anchor-id="data-input">Data input</h2>
+<p>The overall aim of this section is to describe the general path that data takes through a Seedcase Data Resource, from input into the final output. Specifically, these items are described as:</p>
+<ul>
+<li><em>Input</em>: Because we currently focus on health research, the type of input data and metadata will be what is typically generated from health studies.</li>
+<li><em>Output</em>: The final output object would be the input data stored together as a single database, or at least multiple databases and files explicitly linked in such a way that it conceptually represents a single database.</li>
+<li><em>Path</em>: The computational and programmatic steps the input data and metadata takes from being uploaded by a human (and potentially automatically by a program) into Seedcase, passing through quality control checks, adding to the changelog, and storage into the database.</li>
+</ul>
+<section id="expected-type-of-input-data" class="level3">
+<h3 class="anchored" data-anchor-id="expected-type-of-input-data">Expected type of input data</h3>
+<p>Given the (current) focus on health data as well as our own experiences, we make some assumptions about the type of data that will be input into Seedcase. Health data tends to consist of specific types of data: <!---
+-   **Clinical**: This data is typically collected during patient visits
+    to doctors. Depending on the country or administrative region, there
+    will likely already be well-established data processing and storage
+    pipelines in place. ---> - <strong>Register</strong>: This type of data is highly dependent on the country or region. Generally, this data is collected for national or regional administrative purposes, such as, recording employment status, income, address, medication purchases, and diagnoses. Like the routine clinical data, the pipelines in place for processing and storage of this data are usually very extensive and established. <!---
+-   **Biological sample analysis**: This type of data is generated from
+    biological samples, like blood, saliva, semen, hair, or urine. Data
+    generated from sample analytic techniques often produce large
+    volumes of data per person. Samples may be generated in larger
+    established laboratories or in smaller research groups, depending on
+    how what analytic technology is used and how new it is. The
+    structure and format of the generated data also tends to be highly
+    variable and depends heavily on the technology used, sometimes
+    requiring specialized software to process and output. ---> - <strong>Survey or questionnaire</strong>: This type of data is often done based on a given study’s aims and research questions. There are hundreds of different questionnaires that can have highly specific purposes and uses for their data. They are also highly variable in the volume of data collected based on the survey, and on the format of the data.</p>
+</section>
+<section id="expected-flow-of-input-data" class="level3">
+<h3 class="anchored" data-anchor-id="expected-flow-of-input-data">Expected flow of input data</h3>
+<p>The above described data tends to fit into, mostly, two categories for data input.</p>
+<ul>
+<li><em>Routine or continuous collection</em>, where ingested data into Seedcase would occur as soon as the data was collected from one “observational unit”<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> or very shortly afterwards. Clinical data as well as survey or questionnaire data may likely fall under this category.</li>
+<li><em>Batch collection</em>, where ingested data occurs some time after the data was collected and from multiple observational units. Biological sample data would fall under this category, since laboratories usually run several samples at once and input data after internal quality control checks and machine-specific data processing. While register-based data does get collected continuously, direct access to it is only given on a batch basis, usually once every year. Survey data may also come in batches, depending on the questionnaire and software used for its collection.</li>
+</ul>
+<p>For sources of data from routine collection with well-established data input processes, the data input pipeline would likely involve redirecting these data sources from their generation into Seedcase via a direct call to the API so the data continues on to the backend and eventual data storage.</p>
+<p>Sources of data that don’t have well-established data input processes, such as from hospitals or medical laboratories, would need to use the Seedcase data batch-input Web Portal. This Portal would only accept data that is in a pre-defined format (as determined and created by the data owner) and would include documentation, and potentially automation scripts, on how to pre-process the data prior to uploading it.</p>
+<p>These uploaded files might be a variety of file types, like <code>.csv</code>, <code>.xls</code>, or <code>.txt</code>). Only users with the correct permission levels are allowed to upload data. In either case it will be the administrator who will be doing the initial upload, as that will entail setting up tables and allocating space in the raw data file storage. The second way of getting data into the Data Resource is by manually enter it by an authorized user.</p>
+<p>Once the data is submitted through the Portal, it would get sent in an encrypted, legally-compliant format to the server and stored in the way defined by the API and common data model.</p>
+</section>
+<section id="preparation-for-getting-data-into-seedcase" class="level3">
+<h3 class="anchored" data-anchor-id="preparation-for-getting-data-into-seedcase">Preparation for getting data into Seedcase</h3>
+<p>An approved user will open the login screen in the Web Portal. They will enter their credentials which will be transmitted to the API layer. The API Security layer will check with the list of users and permissions in the database and confirm that the specific user has permission to enter data into a specific table (or set of tables) in the database.</p>
+<p>Once this check is complete the frontend will receive permission from the API Security layer to display the data entry/upload options.</p>
+<p>Before any of the actions described below can be done, it is expected that appropriate table schemas or entry forms have been created by one or more administrators of the system. This process is described elsewhere.</p>
+
+<!--TODO change elsewhere above to the actual location of where we describe table schema and data entry form creation-->
+<section id="batch-upload-of-data" class="level4">
+<h4 class="anchored" data-anchor-id="batch-upload-of-data">Batch upload of data</h4>
+<p>The user has selected a valid table schema to use, and have uploaded the file to the holding area. This prompts the system to check that the data in the file match the schema in the database on headers and data type. If this validation is successful then the system will inform the user about how many rows of data it found and validated. If the user is in agreement, then the system will write the data into the relevant table and display a confirmation back to the user. Should the user disagree with the number of rows then they cancel the upload and take the file away to investigate why the system can’t see the correct number of rows, this is an action which happens outside of Seedcase.</p>
+<div id="fig-batch-data-entry" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="/design/images/user-flow-5-data-upload.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Figure&nbsp;2: Logged in user who choses to use the batch upload function with existing table schema.</figcaption>
+</figure>
+</div>
+<!--TODO Ensure that the link above will still work once SKB has finished updating the diagrams-->
+</section>
+<section id="manual-data-entry-done-in-one-session" class="level4">
+<h4 class="anchored" data-anchor-id="manual-data-entry-done-in-one-session">Manual data entry: Done in one session</h4>
+<p>The user completes all fields in the form and clicks “Save and Submit”. This sends the data to the API layer where it is confirmed as valid, parcelled up and submitted to the database. The database will then write the data into a new record in the table (or tables). Once done the database will confirm successful entry of data to the API which will in turn send the confirmation back to the user via the frontend.</p>
+<div id="fig-manual-data-entry" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="/design/images/runtime-manual-data-entry.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Figure&nbsp;3: Logged in user who manually writes a new row to the Data Resource.</figcaption>
+</figure>
+</div>
+<!--TODO convert puml file to png so that the link above works-->
+</section>
+<section id="manual-data-entry-done-in-multiple-sessions" class="level4">
+<h4 class="anchored" data-anchor-id="manual-data-entry-done-in-multiple-sessions">Manual data entry: Done in multiple sessions</h4>
+<p>There may be situations where an approved user will be prevented from completing the data entry form in one session. In that case it would be beneficial if there is an option of saving the data as it is, and be able to return to the data entry at a later time. Much of the initial workflow is the same as above, until the user is interrupted and selects “Save” instead of “Save and Submit”. This will send the data to the API with a flag showing that fields may be incomplete, thus preventing the API from rejecting the data due to NULL values. The API will submit the data to the database along the incomplete flag.</p>
+<p>When the user at a later time goes back to the data entry they will be presented with the option of completing any incomplete records as well as entering new data. If they click on “Complete Records” they are shown the records that they have started but not submitted. Once they select a partially completed record the frontend will request the currently completed items from the database via the API layer before displaying the entry form with the completed fields.</p>
+<p>Once the user has completed more data they can either click on “Save” or “Save and Submit”. The first option will put them back to the top of this workflow, the second will send the data back to the API layer for validation. Once the data is validated it will be submitted to the database. The database will then write the data into a new record in the table (or tables) and update the flag to show the record is complete. Once done the database will confirm successful entry of data to the API which will in turn send the confirmation back to the user via the front end.</p>
+<div id="fig-manual-data-update" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="/design/images/runtime-manual-data-update.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Figure&nbsp;4: Logged in user enters data manually in more than one session</figcaption>
+</figure>
+</div>
+<!--TODO convert puml file to png so that the link above works-->
+</section>
+</section>
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Observational unit is the “entity” that the data was collected from at a given point in time, such as a human participant in a cohort study or a rat in an animal study at a specific time point.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
