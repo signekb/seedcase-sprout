@@ -1,4 +1,4 @@
-@startuml user-flow-2-schema-validation-completeness
+@startuml user-flow-validation-schema-completeness
 
 title User Flow: Validation Check of Schema Completeness
 
