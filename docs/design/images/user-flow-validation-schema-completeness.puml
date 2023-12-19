@@ -1,6 +1,6 @@
 @startuml user-flow-2-schema-validation-completeness
 
-title User Flow: Validation check/Schema Completeness
+title User Flow: Validation Check of Schema Completeness
 
 :...;
 :Initial schema has been created;
