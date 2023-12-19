@@ -1,45 +1,44 @@
 @startuml data-upload-sequence
 
 title Data Upload from Existing Schema
-' User uploads data to existing data schema
-
-'Question: Will this process be identical for initial and subsequent uploads? 
-'I'm guessing not? Should we create a new sequence diagram for that?
-
 participant "User" as u
 participant "Front end" as f
 participant "API" as api
 participant "Backend" as b
 
-u -> f: User selects option to "Upload data"
-f -> u: System shows data entry UI
-u -> f: User selects "Upload Data based on Existing Schema"\nand selects existing schema from dropdown and file to\nupload (csv).
+u -> f: User selects "Upload Data based on Existing\nSchema"
+f -> u: Systems shows UI with overview of existing\nschemas to choose from
+u -> f: User selects existing schema (from dropdown?)\nand data to upload (csv)
 f -> api: System transfers data and ID of selected schema
 api -> b: System transfers ID of selected schema 
 b -> api: System retrieves existing schema
-api -> api: System validates\nby comparing data to schema
+api -> api: System validates by comparing\ndata to schema
 
 group Validation error (data does not match schema)
-    api --> f: System sends back error "Upload failed"\n with information on where they don't match.\n E.g., NULL values in column A, line 22, and column A cannot contain NULL values
-    note right of f
-        This could be a system endpoint.
-        Alternatively, User could be given the option to
-        "Cancel Upload" or "Upload Edited/New version of file(?)"
-        Goal: Precise error messages to guide the user to fix errors. 
-        User will then go to raw data and fix the error in their editor of choice (e.g., Excel) and then upload again.
+    api --> f: System sends back error "Upload failed"\n with information on where they don't match
+    f --> u: System shows error messages with details\non why and where the validation failed
+    note right of u
+        Example of error message 
+        Upload failed. Data does not match schema. 
+        NULL values in column A, line 22. 
+        Column A cannot contain NULL values
     end note
-f -> u: Error messages showing/telling user where the validation failed 
-u -> f: Choose to "Cancel Upload" or "Upload Edited/New Version of file"
-f -> api: Send new data to validation 
-api -> api: System validates by comparing data to schema
+    note right of u
+        Now, user has the option to 1) cancel upload or 2)
+        manually attempt to fix errors in the raw data outside
+        of Sprout and attempt to upload again
+    end note
+    u -->o f: User clicks "Cancel Upload" (endpoint), or
+    u --> f: User has edited file and attempted to fix errors outside\nof Sprout and selects "Upload Edited/New Version of Data"
+    f --> api: System sends new data to validation 
+    api --> api: System validates by comparing\ndata to schema
 end
 group Validation success (data matches schema)
-    api -> b: System posts data upload with "Completed" flag
+    api -> b: System logs data upload with "Completed" flag
     b -> b : System creates record\nand saves data upload
     b -> api: System confirms data upload
     api -> f: System retrieves confirmation
-    f -> u: System displays confirmation
+    f -> u: System displays confirmation:\n"Upload Succeeded"
 end
 
 @enduml
-' add "Audit" to validation success parts of diagrams?

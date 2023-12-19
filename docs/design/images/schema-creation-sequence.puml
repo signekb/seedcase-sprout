@@ -1,7 +1,6 @@
 @startuml schema-creation-sequence
 
 title Schema Creation (Preparation for Data Upload)
-' User prepares to upload data by creating data schema
 
 participant "User" as u
 participant "Front end" as f
@@ -11,27 +10,26 @@ participant "Backend" as b
 u -> f: User selects option to "Upload data"
 f -> u: System shows data entry UI
 u -> f: User selects the file (csv) to upload\nand clicks "Create New Schema"
-' What "schema" means might not be understandable for all users. Description needed?
 f -> api: System transfers file to API
 api -> api: System extracts headers and analyse data types
 api -> api: System validates schema (missing definitions* in BLUE) 
 api -> f: System transfers extracted headers and definitions*
-' HOTSPOT: Data ingress file life cycle?
 f -> u: System shows headers and definitions* to user
 note right of u
     Descriptions will always be missing from
     definitions* initially, since they are not
-    found in the file
+    in the file (but something that the user needs
+    to add manually)
 end note
 u -> f: User completes and/or edits definitions*
 f -> api: User clicks "Save and Submit"
 api -> api: System validates schema\n(checks for missing fields definitions*)
 group Validation error (missing definitions*)
-    api --> f: System sends back error with missing fields highlighted in RED
+    api --> f: System sends back error (missing definitions* in RED)
     f --> u: System shows headers and definitions* to user
-    u --> f: User completes and/or edits definitions*
-    f --> api: User clicks "Save and Submit"
-    api --> api: System validates data\n(i.e., checks for missing fields definitions*)
+    u --> f: User completes and/or edits definitions* again
+    f --> api: User clicks "Save and Submit" again
+    api --> api: System validates schema again\n(checks for missing fields definitions*)
 end
 group Validation success (no missing definitions*)
     api -> b: System posts schema with "Completed" flag
@@ -43,5 +41,3 @@ end
 footer \n*Definitions include a header (variable name), data type, description (sentence describing what's in the variable), NULL/not NULL, and an optional title (reader friendly variable name)\nExample:\nHeader = "adr1",\ndata type = varchar,\ndescription = "first address line of patient's address",\ntitle (optional): "address line 1"
 
 @enduml
-
-' Question: Are users able to edit headers or are they "set" by the data/file/csv?
