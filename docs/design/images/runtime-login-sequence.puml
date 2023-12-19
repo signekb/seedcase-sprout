@@ -1,6 +1,6 @@
 @startuml runtime-login-sequence
 
-' Login and authentication sequence of a registered user
+title Login and Authentication Sequence of a Registered User
 
 participant "User" as u
 participant "Frontend" as f
