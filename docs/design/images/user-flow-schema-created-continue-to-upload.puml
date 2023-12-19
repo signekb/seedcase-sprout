@@ -4,7 +4,7 @@ title User Flow: Schema created - Continue to Upload?
 
 :...;
 :User clicks "Save and Submit Schema";
-#palegreen:Systems confirms: "New Schema added Successfully";
+#palegreen:System confirms: "New Schema added Successfully";
 if (System asks user if they want to upload data) then (No)
   :User "quits" Sprout; 
   end

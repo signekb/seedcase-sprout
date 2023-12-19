@@ -3,8 +3,6 @@
 title User Flow: Prepare to Upload using Existing Schema
 
 :User selects option to "Upload Data";
-'Data vs file: File indicates only a single file (e.g., csv) can be uploaded at a time. Is that what we want?
-'That could be very annoying for researchers with one file per participant (per visit)
 if (System shows data upload UI) then (Create New Schema)
   :...;
   :User clicks "Continue to Data Upload";
