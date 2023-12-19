@@ -8,6 +8,14 @@ This document describes the user flow of Sprout. The user flow is split into fiv
 
 In this document, we will mention different user roles. Go to the [Users](users.qmd) for definitions of user roles. 
 
+## Initial Schema Creation 
+
+The first step of uploading the data to Sprout is to create a *schema* for the data.
+
+A **schema** in [PostgreSQL](https://www.postgresql.org/) is a named collection of tables, views, sequences, and/or indices. The schemas in Sprout will only contain tables. 
+
+<!--TODO Add link to PostgreSQL decision post, when Design documentation has been rendered to website: (as to why we use PostgreSQL, see the [PostgreSQL decision post](website link))-->
+
 A schema includes:
 
 - table names, 
@@ -17,7 +25,7 @@ A schema includes:
 - whether the columns can contain NULL values, and 
 - an optional reader-friendly title. 
 
-Together, we call these the *schema definitions*, or simply *definitions*.
+Together, we call these the *schema definitions*, or simply *definitions*. In the table below, you can see an example of a schema named `data_resource` for a data resource that contains one table `table_1` with user information.
 
 |schema |table | column-name | description | data-type | is-nullable | title (optional)
 | --- | --- | --- | --- | --- | --- | --- |
@@ -27,11 +35,11 @@ Together, we call these the *schema definitions*, or simply *definitions*.
 | `data_resource` | `table_1` | `email` | Unique ID identifying the user | `int` | 0 | NULL |
 | `data_resource` | `table_1` | `address` | first address line of user's address | `varchar` | 1 | address line 1 |
 
-: Example of schema named `data_resource` for a data resource that contains one table (`table_1`) with user information.
+: Example of schema named `data resource` with one table `table_1` with user information
 
 Users with the role [Data Management Administrators](users.qmd#data-management-administrators) are responsible for setting up these initial structures of the database. 
 
-In Sprout, you will eventually be able to create schemas in three ways: 
+In Sprout, there are three ways to create schemas: 
 
 - Create Schema from file
 - Create Schema from Existing Schema
@@ -39,7 +47,7 @@ In Sprout, you will eventually be able to create schemas in three ways:
 
 ![](images/user-flow-schema-creation.png)
 
-### Create Schema from file
+### Create Schema from File
 
 The first option is to create a schema from a file. This workflow includes that the user selects a file to upload and then clicks "Create Schema from File". Then, Sprout will extract the headers and definitions of the columns in the file. 
 
@@ -84,10 +92,9 @@ Now, that the schema has been created successfully, the user has two options: Ei
 
 There are two entry points for a user to upload data using an existing schema. The first option is to continue from the diagram above, where the user wants to upload data right after they have created a new schema. In this option, they click "Continue to Data Upload" (left path of diagram below).
 
-![](images/user-flow-4-prepare-to-upload-using-existing-schema.png)
+![](images/user-flow-prepare-to-upload-using-existing-schema.png)
 
-The other option is the typical [Data Contributor](users.qmd#data-contributors) route where the user will enter Sprout, click "Upload Data", and then "Use Existing Schema".
-Sprout will then show the user a list of existing schemas to choose from and the user will select a schema and select a file to upload. Then, they will click "Continue to Data Upload" (right path in the diagram above). 
+The other option is the typical [Data Contributor](users.qmd#data-contributors) route where the user will enter Sprout, click "Upload Data", and then "Use Existing Schema". Sprout will then show the user a list of existing schemas to choose from and the user will select a schema and select a file to upload. Then, they will click "Continue to Data Upload" (right path in the diagram above). 
 
 After these steps, Sprout will initialise the data upload. This initialisation includes a validation check, *Schema and Data Match*, as seen in the diagram below. At this step, Sprout checks whether the data and schema match. If this validation fails, Sprout will show "Validation Failed" along with error messages where the system detects that the data does not match the schema. 
 
