@@ -4,31 +4,11 @@ title: User Flow
 
 {{< include ../_wip.qmd >}}
 
-This document describes the user flow of Sprout. The user flow will be chopped into five diagrams to go through the flow in more detail. At the end of the post, you can see the user flow of Sprout in its entirety.
+This document describes the user flow of Sprout. The user flow is split into five diagrams that go through the flow in more detail. At the end of the post, you can see the user flow of Sprout in its entirety.
 
 In this document, we will mention different user roles. Go to the [Users](users.qmd) for definitions of user roles. 
 
-NOTE: ADD USER ROLES MORE SPECIFICALLY THROUGHOUT THIS.
-
-::: {.callout-important}
-Things we need to define/get clearer on: 
-
-- Schema vs table definitions
-  - @K-Beicher: When we have talked about schemas, did you mean a "schema" in the sense of a "create table" script for **one** table or in the sense of a schema able to contain multiple tables, as defined below?
-  - In the way we use schema is that short for *database schema*, which would be the "“blueprint” of a database which describes how the data may relate to other tables or other data models. However, the schema does not actually contain data. A sample of data from a database at a single moment in time is known as a database instance."? [source: IBM](https://www.ibm.com/topics/database-schema#:~:text=A%20database%20schema%20is%20considered,known%20as%20a%20database%20instance.)
-- Data vs file upload? Is it only a file or also multiple files at a time? 
-- What the text should be on the buttons (currently, the user clicks "Save and Submit Schema" many times)
-- ... other things?
-
-:::
-
-## Schema Creation 
-
-When data has been collected, the first step of uploading the data to Sprout is to create a *schema* for the data.
-
-A **schema** in [PostgreSQL](https://www.postgresql.org/) is a named collection of tables, views, sequences, and/or indices. The schemas in Sprout will (mostly?) contain tables.
-
-A schema will include:
+A schema includes:
 
 - table names, 
 - column names (*headers*), 
@@ -53,39 +33,36 @@ Users with the role [Data Management Administrators](users.qmd#data-management-a
 
 In Sprout, you will eventually be able to create schemas in three ways: 
 
-- Create Schema from file (version 1)
-- Create Schema from Existing Schema (later version) 
-- Create Schema Manually (later version)
+- Create Schema from file
+- Create Schema from Existing Schema
+- Create Schema Manually
 
-![](images/user-flow-1-schema-creation.png)
-
-*Definition in the figure above includes the header (column name), data type, description (sentence describing what is in the variable), nullable (boolean), and an optional title (reader friendly column name).
+![](images/user-flow-schema-creation.png)
 
 ### Create Schema from file
 
-The initial version of Sprout will only include the option to create schema from a file. This workflow includes that the user selects a file to upload and then clicks "Create Schema". Then, Sprout will extract the headers and definitions of the columns in the file. 
+The first option is to create a schema from a file. This workflow includes that the user selects a file to upload and then clicks "Create Schema from File". Then, Sprout will extract the headers and definitions of the columns in the file. 
 
 ### Create Schema from Existing Schema 
 
-In a future version, Sprout will include the option to create a schema from an existing schema. This includes choosing an existing schema as a "base schema" for the user to build a new schema from.
+The second option is to create a schema from an existing schema. This includes choosing an existing schema as a "base schema" for the user to build a new schema from.
 
 ### Create Schema Manually
 
-In the future, Sprout will also include an option to create a schema manually. In this scenario, the user will add headers and definitions of the table(s) manully. 
+The third option is to create a schema manually. In this scenario, the user will add headers and definitions of the table(s) manully. 
 
 ## Validation Check: Schema Completeness
 
-When the initial schema has been created, Sprout will complete a validation check, "Schema Completeness". This check identifies whether all headers/column names (what do we want to call them, @K-Beicher?) have definitions. 
+When the initial schema has been created, Sprout will complete a validation check, "Schema Completeness". This check identifies whether all headers/column names have definitions. 
 
 If there are missing fields (e.g., a column is missing a data type), the validation will fail. "Validation failed" will be shown on a user interface together with the schema. 
 
-Note: When a schema is created using a file, as will be the only option in the initial version of Sprout, the *description* fields will initially be empty.
 
-In a future version of Sprout, the user will have the option to save a draft of the schema and return to it later, but for the initial version, the only option will be for the user to click "Save and Submit Schema". 
+Then, the user will have the option to click "Save and Submit Schema", or to save a draft of the schema.
 
 At this user interface, missing fields will initially be highlighted in blue so the user's attention is led to these missing fields. The user will only be able to continue, if no fields have missing values. If a user clicks "Save and Submit Schema" without having filled in all fields, the missing fields will be highlighted in red. 
 
-![](images/user-flow-2-schema-validation-completeness.png)
+![](images/user-flow-validation-schema-completeness.png)
 
 ### User Confirmation: Schema Correctness
 
@@ -95,15 +72,13 @@ If the user decides that the schema is not correct, they will click "Edit Schema
 
 When the user is satisfied with their adaptions, they click "Save and Submit Schema". The schema will then go through the validation check, "Schema Completeness" again and if the validation is successful, Sprout will confirm: "New Schema added Successfully".
 
-::: {.callout-important}
-Note: This description and the user flow diagram is not entirely identical. It needs further work.
-:::
+<!--TODO This description and the user flow diagram is not entirely identical. It needs further work. -->
 
 ### Continue to Data Upload or Quit?
 
 Now, that the schema has been created successfully, the user has two options: Either they can "Continue to Data Upload", if they want to add data to the newly created schema right after the schema has been submitted, or they can choose to quit Sprout at this step, if they only wanted to create the schema as preparation for future uploads.
 
-![](images/user-flow-3-schema-created-continue-to-upload.png)
+![](images/user-flow-schema-created-continue-to-upload.png)
 
 ## Data Upload
 
@@ -114,23 +89,21 @@ There are two entry points for a user to upload data using an existing schema. T
 The other option is the typical [Data Contributor](users.qmd#data-contributors) route where the user will enter Sprout, click "Upload Data", and then "Use Existing Schema".
 Sprout will then show the user a list of existing schemas to choose from and the user will select a schema and select a file to upload. Then, they will click "Continue to Data Upload" (right path in the diagram above). 
 
-After these steps, Sprout will initialise the data upload. This initialisation includes a validation check, *Schema and Data Match*, as seen in the dragram below. At this step,Sprout checks whether the data and schema matches. If this validation fails, Sprout will show "Validation failed" along side error messages where the system detects that the data does not match the schema. 
+After these steps, Sprout will initialise the data upload. This initialisation includes a validation check, *Schema and Data Match*, as seen in the diagram below. At this step, Sprout checks whether the data and schema match. If this validation fails, Sprout will show "Validation Failed" along with error messages where the system detects that the data does not match the schema. 
 
-The aim here is to show the users as meaningful and helpful error messages as possible. These messages should enable the user to go to their raw data and edit them to attempt to fix the errors. This step is, naturally, outside of Sprout (therefore, marked in blue in the diagram below). The user will then click "Upload Edited/New Version of File" (we need a better text for this, any ideas?) and Sprout will show a user interface, where the user can add the new version of the file. When the user have selected the file and clicks "Upload File", the validation check runs again. 
+The aim here is to show the user error messages that are as meaningful and helpful as possible. These messages should enable the user to go to their raw data and edit them to attempt to fix the errors. This step is, naturally, outside of Sprout (therefore, marked in blue in the diagram below). The user will then click "Upload Edited/New Version of File" and Sprout will show a user interface, where the user can add the new version of the file. When the user has selected the file and clicks "Upload File", the validation check runs again. 
 
 If the validation fails, the loop with showing errors, user editing file outside of Sprout and uploading it again, will happen again. 
 
 If validation succeeds, the data will be uploaded and Sprout will confirm: "Upload Successful". 
 
-![](images/user-flow-5-data-upload.png)
+![](images/user-flow-data-upload.png)
 
 ## Entire User Flow
 
 In the text and diagrams above, we have "chopped" the user flow of Sprout into five pieces and gone through each of them. In the diagram below, you can see the user flow in its entirety. 
 
-::: {.callout-important}
-@signekb will update entire user-flow to fit the partial user flow diagrams, when they have been reviewed/are final.
-:::
+<!-- TODO: Update full user flow diagram to include all the other diagrams after review -->  
 
 ![](images/user-flow.png)
 
