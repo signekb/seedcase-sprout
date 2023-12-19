@@ -39,6 +39,7 @@ output. Specifically, these items are described as:
 Given the (current) focus on health data as well as our own experiences,
 we make some assumptions about the type of data that will be input into
 Seedcase. Health data tends to consist of specific types of data:
+
 <!---
 -   **Clinical**: This data is typically collected during patient visits
     to doctors. Depending on the country or administrative region, there
