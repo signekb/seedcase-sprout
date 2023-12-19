@@ -15,8 +15,6 @@ checked follows the sequence described in the figure below.
 
 ![Login and authentication sequence of a registered user.](/design/images/runtime-login-sequence.png){#fig-login-sequence}
 
-<!--TODO convert puml file to png so that the link above works-->
-
 ## Data input
 
 The overall aim of this section is to describe the general path that
