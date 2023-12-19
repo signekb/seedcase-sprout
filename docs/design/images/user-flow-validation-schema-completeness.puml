@@ -21,6 +21,7 @@ title User Flow: Validation check/Schema Completeness
       end
     else (Save and Submit)
       :User clicks "Save and Submit Schema";
+      label l
     endif
   end while (Validation successful)
 :System shows UI with schema for user confirmation;
@@ -37,8 +38,7 @@ title User Flow: Validation check/Schema Completeness
     :User edits schema;
     :User clicks "Continue";
 'Arrow from "User edits definitions" should go back up to VALIDATION CHECK      
-    :System goes back to VALIDATION CHECK: Schema Completeness;
-    detach
+    goto l
    end while (Correct schema)
    :User clicks "Save and Submit Schema";
     #palegreen:Systems confirms: "New Schema added Successfully";
