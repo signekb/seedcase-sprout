@@ -20,6 +20,7 @@ while (\nSystem displays the number of \nsuccessfully validated rows \nto the us
 :User clicks "Cancel Upload";
 end
 end while (Yes);
+:User confirms by clicking: "Confirm Number\nof Rows to Upload and Upload Data";
 #palegreen:System displays confirmation: "Upload Successful";
 
 @enduml
