@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "seedcase-sprout"
+version = "0.0.1"
+description = "Data input."
+authors = ["Luke W. Johnston <lwjohnst@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+django = "4.2.8"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
