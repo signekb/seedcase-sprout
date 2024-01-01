@@ -30,3 +30,11 @@ resume-docker:
 # Update the Django migration files
 update-migrations:
   python manage.py makemigrations
+
+# Run Python linter to check for any errors in the code
+lint-python:
+  poetry run ruff check --fix .
+
+# Reformat Python code to match coding style and general structure
+format-python:
+  poetry run ruff format .
