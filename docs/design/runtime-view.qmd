@@ -1,9 +1,8 @@
 ---
-title: "Runtime View"
+title: "Dynamic runtime behaviour"
 ---
 
-This section describes the concrete behaviour, interactions, and
-pathways that data take within Sprout. "Runtime" in this case refers
+This section describes the behaviour and interactions that individual components of Sprout have with each other over time. For instance, what is the sequence of chronological steps that happens when a user inputs data until the final output of a structured database. "Runtime" in this case refers
 to how the software works "in action".
 
 ## Login and Authentication
@@ -12,17 +11,19 @@ Almost all users will need to log into the Sprout-managed Data
 Resources. The steps for logging in and having their permission levels
 checked follows the sequence described in the figure below.
 
-![Login and Authentication Sequence of a Registered User.](images/runtime-login-sequence.png)
+![Login and authentication sequence of steps for a registered user.](images/runtime-login-sequence.png)
+
+<!-- TODO: Make a link to authentication app instead of describing here? Or in design repo, since this is necessary for all components. -->
 
 ## Data Input
 
-The overall aim of this section is to describe the general path that
-data takes through a Seedcase Data Resource, from input into the final
+The overall aim of this section is to describe the general path/sequence of steps that
+data takes through a Data Resource, from raw input into the final
 output. Specifically, these items are described as:
 
 -   *Input*: Because we currently focus on health research, the type of
-    input data and metadata is what is typically generated from
-    health studies. This could be in the form of e.g., csv or Excel files, json files, or image files.
+    input data and metadata would be what is typically generated from
+    health studies. This could be in the form of e.g., CSV, Excel sheets, or image files.
 -   *Output*: The final output is the input data stored
     together as a single database, or at least multiple databases and
     files explicitly linked in such a way that it conceptually
@@ -30,38 +31,37 @@ output. Specifically, these items are described as:
 
 ### Expected Type of Input Data
 
-Given the (current) focus on health data as well as the team's experiences with research and health data,
+Given our focus on health data as well as the team's expertise in research using health data,
 we make some assumptions about the type of data that will be input into
 Sprout. Health data tends to consist of specific types of data:
 
-<!---
 -   **Clinical**: This data is typically collected during patient visits
     to doctors. Depending on the country or administrative region, there
     will likely already be well-established data processing and storage
-    pipelines in place. --->
+    pipelines in place. 
 -   **Register**: This type of data is highly dependent on the country
     or region. Generally, this data is collected for national or
     regional administrative purposes, such as, recording employment
     status, income, address, medication purchases, and diagnoses. Like
     the routine clinical data, the pipelines in place for processing and
     storage of this data are usually very extensive and well established. 
-<!---
 -   **Biological sample data**: This type of data is generated from
     biological samples, like blood, saliva, semen, hair, or urine. Data
     generated from sample analytic techniques often produce large
     volumes of data per person. Samples may be generated in larger
     established laboratories or in smaller research groups, depending on
-    how what analytic technology is used and how new it is. The
+    what analytic technology is used and how new it is. The
     structure and format of the generated data also tends to be highly
     variable and depends heavily on the technology used, sometimes
-    requiring specialized software to process and output. --->
+    requiring specialized software to process and output.
 -   **Survey or questionnaire**: This type of data is often done based
     on a given study's aims and research questions. There are hundreds
     of different questionnaires that can have highly specific purposes
     and uses for their data. They are also highly variable in the volume
     of data collected based on the survey, and on the format of the
     data.
-These types of input data are commonly formatted in text (txt) files, comma-separated value (csv) files, Excel (XLSX) files, and JSON structures. 
+
+These types of input data are formatted in a wide variety of files, including as text (`.txt`) files, comma-separated value (`.csv`) files, Excel (`.xls` or `.xlsx`) files, as well as other proprietry formats.
 
 ### Expected Flow of Input Data
 
@@ -78,8 +78,8 @@ data input.
     sample data would fall under this category, since laboratories
     usually run several samples at once and input data after internal
     quality control checks and machine-specific data processing. While
-    register-based data does get collected continuously, direct access
-    to it is only given on a batch basis, usually once every year.
+    register-based and clinical data does get collected continuously, direct access
+    to it is only given on an batch and infrequent basis.
     Survey data may also come in batches, depending on the questionnaire
     and software used for its collection.
 
@@ -89,7 +89,7 @@ data input.
 
 For sources of data from routine collection with well-established data
 input processes, the data input pipeline would likely involve
-redirecting these data sources from their generation into Seedcase via a
+redirecting these data sources from their generation into Sprout via a
 direct call to the API so the data continues on to the backend and
 eventual data storage.
 
@@ -105,12 +105,12 @@ These uploaded files might be a variety of file types, like `.csv`,
 allowed to upload data. It will be the Data Access Administrator who
 will be doing the initial upload, as that will entail setting up table schemas
 and allocating space in the raw data file storage. The second way of
-getting data into the Data Resource is by manually enter it by an
+getting data into the Data Resource is by manually entering it by an
 authorized Data Contributor.
 
 Once the data is submitted through the Portal, it is sent in an
 encrypted, legally-compliant format to a server and stored in the way
-defined by the API and common data model.
+defined by the API and data model.
 
 ### Upload Data to Sprout
 
@@ -129,9 +129,11 @@ Before any of the actions described below can be done, it is expected that appro
 
 #### Batch Upload of Data 
 
-The user has selected a valid table schema to use, and have uploaded the file to the holding area. This prompts the system to check that the data in the file match the schema in the database on headers and data type. If this validation is successful then the system will inform the user about how many rows of data it found and validated. If the user is in agreement, then the system will write the data into the relevant table and display a confirmation back to the user. Should the user disagree with the number of rows then they cancel the upload and take the file away to investigate why the system can't see the correct number of rows, this is an action which happens outside of Seedcase.
+<!-- TODO: Add user flow diagrams? -->
 
-![Logged In User Who Chooses to Use the Batch Upload Function with Existing Table Schema.](/design/images/user-flow-data-upload.png){#fig-batch-data-entry}
+The user has selected an existing table schema to use, and has uploaded the file to the holding area. This prompts the system to check that the data in the file match the schema in the database on headers and data type. If this validation is successful then the system will inform the user about how many rows of data it found and has validated. If the user is in agreement, then the system will write the data into the relevant table and display a confirmation back to the user. Should the user disagree with the number of rows then they can cancel the upload and investigate issues within the file, which is an action that happens outside of Sprout.
+
+![Logged in user chooses to use the batch upload function with an existing table schema.](images/user-flow-data-upload.png){#fig-batch-data-entry}
 
 <!--TODO Ensure that the link above will still work once SKB has finished updating the diagrams-->
 
@@ -144,22 +146,18 @@ into a new record in the table (or tables). Once done the database will
 confirm successful entry of data to the API which will in turn send the
 confirmation back to the user via the frontend.
 
-![Logged In User Who Manually Writes a New Row to the Data
-Resource.](/design/images/runtime-manual-data-entry.png){#fig-manual-data-entry}
-
-<!--TODO convert puml file to png so that the link above works-->
+![Logged in user manually writes a new row to the Data
+Resource.](images/runtime-manual-data-entry.png){#fig-manual-data-entry}
 
 #### Manual Data Entry: Done in Multiple Sessions
 
-There may be situations where an approved user will be prevented from
-completing the data entry form in one session. In that case it would be
-beneficial if there is an option of saving the data as it is, and be
-able to return to the data entry at a later time. Much of the initial
+When a user can't finish inputting data in one session, they can save the "state" of inputted data to return to it later.
+Much of the initial
 workflow is the same as above, until the user is interrupted and selects
 "Save" instead of "Save and Submit". This will send the data to the API with
 a flag showing that fields may be incomplete, thus preventing the API
 from rejecting the data due to NULL values. The API will submit the data
-to the database along the incomplete flag.
+to the database along with the incomplete flag.
 
 When the Data Contributor goes back to the data entry at a later time, they will be
 presented with the option of completing any incomplete records as well
@@ -179,7 +177,5 @@ Once done the database will confirm successful entry of data to the API
 which will in turn send the confirmation back to the user via the front
 end.
 
-![Logged In User Enters Data Manually in More Than One
-Session](/design/images/runtime-manual-data-update.png){#fig-manual-data-update}
-
-<!--TODO convert puml file to png so that the link above works-->
+![Logged in user enters data manually in more than one
+session.](images/runtime-manual-data-update.png){#fig-manual-data-update}
