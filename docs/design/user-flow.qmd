@@ -4,7 +4,7 @@ title: User Flow
 
 {{< include ../_wip.qmd >}}
 
-This document describes the user flow of Sprout. The user flow is split into five diagrams that go through the flow in more detail. At the end of the post, you can see the user flow of Sprout in its entirety.
+This document describes the user flow of Sprout. The user flow is split into five diagrams that go through the flow in more detail. At the end of the document, you can see the user flow of Sprout in its entirety.
 
 In this document, we will mention different user roles. Go to the [Users](users.qmd) for definitions of user roles. 
 
@@ -35,7 +35,7 @@ Together, we call these the *schema definitions*, or simply *definitions*. In th
 | `data_resource` | `table_1` | `email` | Unique ID identifying the user | `int` | 0 | NULL |
 | `data_resource` | `table_1` | `address` | first address line of user's address | `varchar` | 1 | address line 1 |
 
-: Example of schema named `data resource` with one table `table_1` with user information
+: Example of schema named `data resource` with one table `table_1` with user information.
 
 Users with the role [Data Management Administrators](users.qmd#data-management-administrators) are responsible for setting up these initial structures of the database. 
 
@@ -45,7 +45,7 @@ In Sprout, there are three ways to create schemas:
 - Create Schema from Existing Schema
 - Create Schema Manually
 
-![](images/user-flow-schema-creation.png)
+![Diagram of the flow that occurs when a new schema is created.](images/user-flow-schema-creation.png)
 
 ### Create Schema from File
 
@@ -89,13 +89,13 @@ When the [Data Management Administrator](users.qmd#data-management-administrator
 
 Now, that the schema has been created successfully, the [Data Management Administrator](users.qmd#data-management-administrators) has two options: Either they can "Continue to Data Upload", if they want to add data to the newly created schema right after the schema has been submitted, or they can choose to quit Sprout at this step, if they only wanted to create the schema as preparation for future uploads.
 
-![](images/user-flow-schema-created-continue-to-upload.png)
+![Diagram describing the next steps given after creating the schema and passing the validation steps.](images/user-flow-schema-created-continue-to-upload.png)
 
 ## Data Upload
 
 There are two entry points for a user to upload data using an existing schema. The first option is to continue from the diagram above, where the [Data Management Administrator](users.qmd#data-management-administrators) will upload data right after they have created a new schema. In this option, they click "Continue to Data Upload" (left path of diagram below).
 
-![](images/user-flow-prepare-to-upload-using-existing-schema.png)
+![Diagram showing the steps taken for uploading data when using an existing schema.](images/user-flow-prepare-to-upload-using-existing-schema.png)
 
 The other option is the typical [Data Contributor](users.qmd#data-contributors) route where the user will enter Sprout, click "Upload Data", and then "Use Existing Schema". Sprout will then show the user a list of existing schemas to choose from and the user will select a schema and select a file to upload. Then, they will click "Continue to Data Upload" (right path in the diagram above). 
 
@@ -107,7 +107,7 @@ If the validation fails, the loop with showing errors, user editing file outside
 
 If validation succeeds, the data will be uploaded and Sprout will confirm: "Upload Successful". 
 
-![](images/user-flow-data-upload.png)
+![Diagram showing the steps that occur after validation and final data upload from a Data Contributor.](images/user-flow-data-upload.png)
 
 ## Entire User Flow
 
@@ -115,4 +115,4 @@ In the text and diagrams above, we have "chopped" the user flow of Sprout into f
 
 <!-- TODO: Update full user flow diagram to include all the other diagrams after review -->  
 
-![](images/user-flow.png)
+![Diagram showing the full flow from user inputting data into it finally being stored in the database.](images/user-flow.png)
