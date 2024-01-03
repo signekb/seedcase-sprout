@@ -1,72 +1,78 @@
 @startuml user-flow
 
-title Entire User Flow: Schema Creation and Data Upload
+title Entire User Flow of Sprout
 
 :User selects option to "Upload Data";
-'Data vs file: File indicates only a single file (e.g., csv) can be uploaded at a time. Is that what we want?
-'That could be very annoying for researchers with one file per participant (per visit)
-if (System shows data upload UI) then (Create New Schema)
-  :User selects\n"Create New Data Schema";
+if (\nSystem shows data upload\nUI with option to create new\nschema or use existing one\n) then (Create New Schema)
+  :User selects\n"Create New Schema";
   switch (System shows create schema UI)
-  case (Create Schema from File)
-    :User selects\n"Create Schema from File";
-    :System shows UI with file upload;
-    :User selects file and clicks "Create Schema";
-    :System loads file and attempts to extract
-    headers and definitions*;
-  case (V2: Create Schema from Existing Schema)
-    #White:User selects\n"Create New Schema from Existing Schema";
-    #White:System shows list of existing schemas;
-    #White:User inspects schemas and selects base schema;
-  case (V3+: Create Schema Manually)
-    #White:User selects\n"Create Schema Manually";
-    #white:System shows UI where user 
-    can create schema manually;
-    #white:User adds headers and definitions;
-    #white:User clicks "Save and Submit Schema";
-  endswitch
-    while (\nVALIDATION CHECK: Schema Completeness\nSystem checks that schema has name\nand that all headers have definitions*\n) is (Validation failed)
-      :System shows "Validation failed"
-      and shows UI with schema for user to edit, 
-      including: 
-      - schema name
-      - headers
-      - textbox for description (empty initially)
-      - drop-down for type
-      - boolean for is NULLable, and 
-      - optional textbox for readable title
-      - option to "Add field"
-      Missing fields are highlighted;
-      :User completes/edits definitions;
-      if (System asks user if they want to save only or submit) then (Save only)
-        :User clicks "Save Draft";
-        end
-      else (Save and Submit)
-        :User clicks "Save and Submit Schema";
-      endif
-'V2: Endpoint with safe only
-    end while (Validation successful)
-'V2: With save only option: System shows UI with all available schemas, 
-'if user wants to access schema that was saved earlier
-    :System shows UI with schema for user confirmation;
-    if (User decides whether schema is correct or needs editing) then (Ccorrect schema)
+    case (Create Schema\nfrom File)
+      :User selects
+      "Create Schema
+      from File";
+      :System shows UI
+      with file upload;
+      :User selects file and
+      clicks "Create Schema";
+      :System loads file and
+      attempts to extract 
+      headers and definitions*;
+    case (Create Schema from\nExisting Schema)
+      :User selects
+      "Create New Schema
+      from Existing Schema";
+      :System shows list of
+      existing schemas;
+      :User inspects schemas
+      and selects base schema;
+    case (Create Schema Manually)
+      :User selects
+      "Create Schema Manually";
+      :System shows UI where
+      user can create schema manually;
+      :User adds headers
+      and definitions;
+      :User clicks "Save
+      and Submit Schema";
+    endswitch
+    #palegreen:Initial schema has been created;
+   while (\nVALIDATION CHECK: Schema Completeness\nSystem checks that schema has name\nand that all headers have definitions*\n) is (Validation failed)
+    :System shows "Validation failed"
+    and shows UI with schema for 
+    user to edit, including: 
+    - headers (textbox)
+    - textbox for description (textbox)
+    - data type (dropdown)
+    - nullable (boolean), and 
+    - title (optional textbox)
+    - option to "Add field"
+    Missing fields are highlighted;
+    :User completes/edits schema;
+    if (System asks user if they want to save only or submit) then (Save only)
+      :User clicks "Save Draft";
+      end
+    else (Save and Submit)
       :User clicks "Save and Submit Schema";
-      #palegreen:Systems confirms: "New Schema added Successfully";
-    else (Incorrect Schema)
-      :User clicks "Edit Schema";
-      :System shows UI with schema for user to edit, 
-      including: 
-      - headers
-      - textbox for description
-      - drop-down for type
-      - boolean for is NULLable, and 
-      - optional textbox for readable title
-      - option to "Add field";
-      :User edits definition;
-      :System goes back to\nVALIDATION CHECK: Schema Completeness;
-      detach
-'Arrow from "User edits definitions" should go back up to VALIDATION CHECK      
+      label l
     endif
+  end while (Validation successful)
+  :System shows UI with schema for user confirmation;
+  while (User decides whether schema is correct or needs editing) is (Incorrect schema)
+    :User clicks "Edit Schema";
+    :System shows UI with schema for 
+    user to edit, including: 
+    - headers (textbox)
+    - textbox for description (textbox)
+    - data type (dropdown)
+    - nullable (boolean), and 
+    - title (optional textbox)
+    - option to "Add field";
+    :User edits schema;
+    :User clicks "Continue";
+    goto l
+   end while (Correct schema)
+   :User clicks "Save and Submit Schema";
+    #palegreen:Systems confirms: "New Schema added Successfully";
   if (System asks user if they want to upload data) then (No)
     :User "quits" Sprout; 
     end
@@ -82,20 +88,23 @@ else (Use Existing Schema)
     :User clicks "Continue to Data Upload";
 endif 
 :System initialises data upload;
-while (\nVALIDATION CHECK: Schema and data match\nSystem checks if data and schema matches\n) is (Validation failed)
-:Systems shows "Upload failed" along\nwith description on where data and\nschema do not match;
+while (\nVALIDATION CHECK: Check if Schema and data match\n) is (Validation failed)
+  :Systems shows "Upload Failed" along\nwith description on where data and\nschema do not match;
     while (User decides if they want to continue upload) is (No)
         :User clicks "Cancel Upload";
         end
     end while (Yes);
-    #LightBlue:User edits file and attempts to fix errors\noutside of Sprout;
-    :User clicks "Upload Edited/New Version of File";
-    :System shows UI where user can add file; 
-    :User selects file and clicks "Upload File";
-
+  #LightBlue:User edits file and attempts to fix errors\noutside of Sprout;
+  :User clicks "Upload Edited/New Version of File";
+  :System shows UI where user can add file; 
+  :User selects file and clicks "Upload File";
 end while (Validation successful);
+while (\nSystem displays the number of \nsuccessfully validated rows \nto the user for agreement\n) is (No)
+  :User clicks "Cancel Upload";
+  end
+end while (Yes);
+:User confirms by clicking: "Confirm Number\nof Rows to Upload and Upload Data";
 #palegreen:System displays confirmation: "Upload Successful";
 
-footer \n*Definition includes the header (variable name), data type, description (sentence describing\nwhat is in the variable), is NULLABLE? (boolean), and an optional title (reader friendly variable name)\nExample:\nHeader = "adr1",\ndata type = varchar,\ndescription = "first address line of patient's address",\nisNULLABLE: 0, \ntitle (optional): "address line 1"
-
+footer \n*Definition includes the header (column name), data type, description (sentence describing what is in the variable),\nis-nullable (boolean), and an optional title (reader friendly column name).\nExample:\nheader = "adr1",\ndata type = varchar,\ndescription = "first address line of patient's address",\nis-nullable = 0, \ntitle (optional): "address line 1"
 @enduml

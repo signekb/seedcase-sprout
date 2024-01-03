@@ -1,0 +1,47 @@
+@startuml user-flow-validation-schema-completeness
+
+title User Flow: Validation Check of Schema Completeness
+
+:...;
+:Initial schema has been created;
+  while (\nVALIDATION CHECK: Schema Completeness\nSystem checks that schema has name\nand that all headers have definitions*\n) is (Validation failed)
+    :System shows "Validation failed"
+    and shows UI with schema for 
+    user to edit, including: 
+    - headers (textbox)
+    - textbox for description (textbox)
+    - data type (dropdown)
+    - nullable (boolean), and 
+    - title (optional textbox)
+    - option to "Add field"
+    Missing fields are highlighted;
+    :User completes/edits schema;
+    if (System asks user if they want to save only or submit) then (Save only)
+      :User clicks "Save Draft";
+      end
+    else (Save and Submit)
+      :User clicks "Save and Submit Schema";
+      label l
+    endif
+  end while (Validation successful)
+:System shows UI with schema for user confirmation;
+  while (User decides whether schema is correct or needs editing) is (Incorrect schema)
+    :User clicks "Edit Schema";
+    :System shows UI with schema for 
+    user to edit, including: 
+    - headers (textbox)
+    - textbox for description (textbox)
+    - data type (dropdown)
+    - nullable (boolean), and 
+    - title (optional textbox)
+    - option to "Add field";
+    :User edits schema;
+    :User clicks "Continue";
+'Arrow from "User edits definitions" should go back up to VALIDATION CHECK      
+    goto l
+   end while (Correct schema)
+   :User clicks "Save and Submit Schema";
+    #palegreen:Systems confirms: "New Schema added Successfully";
+:...;
+
+@enduml
