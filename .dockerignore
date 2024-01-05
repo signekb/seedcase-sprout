@@ -1,0 +1,11 @@
+
+docs
+.git
+.gitignore
+.env
+.github
+.vscode
+.idea
+
+db.sqlite3
+Dockerfile
