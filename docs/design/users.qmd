@@ -4,22 +4,27 @@ title: Target users
 
 {{< include ../_wip.qmd >}}
 
-Sprout is built for these target users.
 
-## Data contributors
+Sprout is built for the target users described below.
 
-These are users who will be uploading or inputting collected data into the database. We assume that these users are authorized research or data collection centers, researchers, or technicians. They are the people responsible for inputting data into the database of the specific Data Resource managed by Sprout. 
+## Data Contributors
+
+Data contributors will be uploading or inputting collected data into the database. We assume that these users are from authorized research or data collection centers and are researchers, technicians, or other research personnel. They are the people responsible for inputting data into the database of a specific Data Resource managed by Sprout. 
+
+These users will:
 
 - Upload standardized and routine data through a public web portal.
 - Upload collected data through an internal portal.
 - Upload collected data through a local-only portal (on a work computer and not a server).
-- Upload generated data of new variables (for instance, from new calculations of existing variables) from a project using data from the Data Resource, either through an internal portal or a public web portal.
+- Upload new variables generated using existing variables (for instance, from new calculations of existing variables) from a project using data from the Data Resource, either through an internal portal or a public web portal.
 
 Some data will need to be manually processed and cleaned by the users before being inputted (or input in raw form and processed with a plugin or extension). For instance, some data may have been entered into an Excel spreadsheet, which is well-known to modify the values without the users knowledge (e.g. date values), and may incorrectly save data in the wrong data type. This type of data entry errors need human attention to fix before they can correctly be put into Sprout.
 
 ## User Access Administrators
 
-These are users who are the administrators that are responsible for managing and controling access to who can contribute data and whether those data contributors have access to structure the database itself. These admin users may or may not also be the data controllers/owners or they may be acting on behalf of them. 
+User Access Administrators are responsible for managing and controlling user accesses, i.e., who can contribute data and whether those data contributors have access to structure the database itself. These admin users may or may not also be the data controllers/owners or they may be acting on behalf of them. 
+
+These users will:
 
 - Approve and authorize who can upload to the database.
 - Approve and authorize who can make changes to the structure of the database.
@@ -27,7 +32,9 @@ These are users who are the administrators that are responsible for managing and
 
 ## Data Management Administrators
 
-These users are the administrators responsible for the database itself and the quality of the data that gets entered into Sprout. They may or may not be the same user as the User Access Administrators and the data controllers/owners.
+Data Management Administrators are responsible for the database itself and the quality of the data that gets entered into Sprout. They may or may not be the same user as the User Access Administrators and the data controllers/owners.
 
-- Initial structuring of core database tables (e.g. the database key to link data together) and allocating space in the raw data file storage.
+These users will:
+
+- Initially structure the core database tables (e.g. the database key to link data together) and allocate space in the raw data file storage.
 - Manage or handle potential issues with the data itself that are detected from validation checks, through direct access to the database and data storage.

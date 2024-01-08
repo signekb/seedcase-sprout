@@ -9,8 +9,14 @@
   "autoDocstring.docstringFormat": "numpy",
   "autoDocstring.includeName": true,
   "autoDocstring.startOnNewLine": true,
-  "[quarto]": {
-    "editor.tabCompletion": "on",
-    "editor.snippetSuggestions": "inline"
-  }
+  "editor.tabCompletion": "on",
+  "editor.snippetSuggestions": "inline",
+  "conventional-branch.type": [
+    "docs",
+    "feat",
+    "fix",
+    "build",
+    "chore"
+  ],
+  "conventional-branch.format": "{Type}/{Branch}"
 }
