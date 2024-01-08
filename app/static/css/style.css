@@ -3,10 +3,6 @@
   min-block-size: 90vh !important;
 }
 
-.w100 {
-  width: 100%;
-}
-
 .margin10 {
   margin: 20px !important;
 }
@@ -14,13 +10,4 @@
 .card-button-size {
   width: 400px;
   height: 400px;
-}
-
-.card-button {
-  width: 400px;
-  height: 400px;
-  background-color: lightgray;
-  border: 2px solid lightgray;
-  box-shadow: 3px 3px 3px 3px lightgray;
-  border-radius: 5px;
 }
