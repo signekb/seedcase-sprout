@@ -30,7 +30,7 @@ jobs:
         run: |
           docker build . --tag local-seedcase-sprout
           docker tag local-seedcase-sprout ghcr.io/seedcase-project/seedcase-sprout:${{ steps.date.outputs.date }}-${GITHUB_SHA::7}
-          docker push ghcr.io/seedcase-project/seedcase-sprout:v${{ steps.date.outputs.date }}-${GITHUB_SHA::7}
+          docker push ghcr.io/seedcase-project/seedcase-sprout:${{ steps.date.outputs.date }}-${GITHUB_SHA::7}
       - name: 'Release'
         if: github.ref == 'refs/heads/main'
         run: |
