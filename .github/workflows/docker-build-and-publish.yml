@@ -16,8 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Add semantic version tag, Disabled
-        if: false
+      - name: Add semantic version tag
         id: semanticVersion
         uses: anothrNick/github-tag-action@1.67.0
         env:
@@ -36,10 +35,10 @@ jobs:
       - name: 'Build and publish image'
         run: |
           docker build . --tag local-seedcase-sprout
-          docker tag local-seedcase-sprout ghcr.io/seedcase-project/seedcase-sprout:${{ steps.date.outputs.date }}-${GITHUB_SHA::7}
-          docker push ghcr.io/seedcase-project/seedcase-sprout:${{ steps.date.outputs.date }}-${GITHUB_SHA::7}
+          docker tag local-seedcase-sprout ghcr.io/seedcase-project/seedcase-sprout:${{ steps.semanticVersion.outputs.tag }}-${GITHUB_SHA::7}
+          docker push ghcr.io/seedcase-project/seedcase-sprout:${{ steps.semanticVersion.outputs.tag }}-${GITHUB_SHA::7}
       - name: 'Release'
         if: github.ref == 'refs/heads/main'
         run: |
-          docker tag local-seedcase-sprout ghcr.io/seedcase-project/seedcase-sprout:${{ steps.date.outputs.date }}
-          docker push local-seedcase-sprout ghcr.io/seedcase-project/seedcase-sprout:${{ steps.date.outputs.date }}
+          docker tag local-seedcase-sprout ghcr.io/seedcase-project/seedcase-sprout:${{ steps.semanticVersion.outputs.tag }}
+          docker push local-seedcase-sprout ghcr.io/seedcase-project/seedcase-sprout:${{ steps.semanticVersion.outputs.tag }}
