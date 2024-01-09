@@ -1,0 +1,20 @@
+@startuml user-flow-prepare-to-upload-using-existing-schema
+
+title User Flow: Prepare to Upload using Existing Schema
+
+:User selects option to "Upload Data";
+if (System shows data upload UI) then (Create New Schema)
+  :...;
+  :User clicks "Continue to Data Upload";
+else (Use Existing Schema)
+    :User selects\n"Use Existing Schema";
+    :System shows UI with existing schemas 
+    to choose from and file upload;
+    :User selects existing schema and 
+    selects file to upload;
+    :User clicks "Continue to Data Upload";
+endif 
+:System initialises data upload;
+:...;
+
+@enduml

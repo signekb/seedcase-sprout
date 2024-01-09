@@ -1,0 +1,16 @@
+@startuml user-flow-schema-created-continue-to-upload
+
+title User Flow: Schema created - Continue to Upload?
+
+:...;
+:User clicks "Save and Submit Schema";
+#palegreen:System confirms: "New Schema added Successfully";
+if (System asks user if they want to upload data) then (No)
+  :User "quits" Sprout; 
+  end
+else (Yes)
+  :User clicks "Continue to Data Upload";
+endif
+:...;
+
+@enduml

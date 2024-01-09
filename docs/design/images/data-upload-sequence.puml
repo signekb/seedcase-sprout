@@ -1,0 +1,46 @@
+@startuml data-upload-sequence
+
+' TODO: Need to update this
+
+title Data Upload from Existing Schema
+participant "User" as u
+participant "Front end" as f
+participant "API" as api
+participant "Backend" as b
+
+u -> f: User selects "Upload Data based on Existing\nSchema"
+f -> u: Systems shows UI with overview of existing\nschemas to choose from
+u -> f: User selects existing schema (from dropdown?)\nand data to upload (csv)
+f -> api: System transfers data and ID of selected schema
+api -> b: System transfers ID of selected schema 
+b -> api: System retrieves existing schema
+api -> api: System validates by comparing\ndata to schema
+
+group Validation error (data does not match schema)
+    api --> f: System sends back error "Upload failed"\n with information on where they don't match
+    f --> u: System shows error messages with details\non why and where the validation failed
+    note right of u
+        Example of error message 
+        Upload failed. Data does not match schema. 
+        NULL values in column A, line 22. 
+        Column A cannot contain NULL values
+    end note
+    note right of u
+        Now, user has the option to 1) cancel upload or 2)
+        manually attempt to fix errors in the raw data outside
+        of Sprout and attempt to upload again
+    end note
+    u -->o f: User clicks "Cancel Upload" (endpoint), or
+    u --> f: User has edited file and attempted to fix errors outside\nof Sprout and selects "Upload Edited/New Version of Data"
+    f --> api: System sends new data to validation 
+    api --> api: System validates by comparing\ndata to schema
+end
+group Validation success (data matches schema)
+    api -> b: System logs data upload with "Completed" flag
+    b -> b : System creates record\nand saves data upload
+    b -> api: System confirms data upload
+    api -> f: System retrieves confirmation
+    f -> u: System displays confirmation:\n"Upload Succeeded"
+end
+
+@enduml

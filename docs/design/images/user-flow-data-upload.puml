@@ -1,0 +1,26 @@
+@startuml user-flow-data-upload
+
+title User Flow: Data Upload
+
+:...;
+:System initialises data upload;
+while (\nVALIDATION CHECK: Check if Schema and data match\n) is (Validation failed)
+:Systems shows "Upload Failed" along\nwith description on where data and\nschema do not match;
+    while (User decides if they want to continue upload) is (No)
+        :User clicks "Cancel Upload";
+        end
+    end while (Yes);
+    #LightBlue:User edits file and attempts to fix errors\noutside of Sprout;
+    :User clicks "Upload Edited/New Version of File";
+    :System shows UI where user can add file; 
+    :User selects file and clicks "Upload File";
+
+end while (Validation successful);
+while (\nSystem displays the number of \nsuccessfully validated rows \nto the user for agreement\n) is (No)
+:User clicks "Cancel Upload";
+end
+end while (Yes);
+:User confirms by clicking: "Confirm Number\nof Rows to Upload and Upload Data";
+#palegreen:System displays confirmation: "Upload Successful";
+
+@enduml
