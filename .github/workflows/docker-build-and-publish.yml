@@ -4,8 +4,8 @@ on:
   push:
 
 jobs:
-  permissions: write-all
   push-store-image:
+    permissions: write-all
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout'
