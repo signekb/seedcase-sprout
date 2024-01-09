@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Add tag for new version, Disabled
+      - name: Add semantic version tag, Disabled
         if: false
         id: semanticVersion
         uses: anothrNick/github-tag-action@1.67.0
@@ -17,7 +17,7 @@ jobs:
           DEFAULT_BUMP: patch
           DRY_RUN: github.ref != 'refs/heads/main'
           GITHUB_TOKEN: ${{ secrets.GIT_TOKEN}}
-      - name: Get current date
+      - name: Get date for image version
         id: date
         run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
       - name: 'Login to GitHub Container Registry'
@@ -29,10 +29,10 @@ jobs:
       - name: 'Build and publish image'
         run: |
           docker build . --tag local-seedcase-sprout
-          docker tag local-seedcase-sprout ghcr.io/seedcase-project/seedcase-sprout:v${{ steps.date.outputs.date }}-${GITHUB_SHA::7}
+          docker tag local-seedcase-sprout ghcr.io/seedcase-project/seedcase-sprout:${{ steps.date.outputs.date }}-${GITHUB_SHA::7}
           docker push ghcr.io/seedcase-project/seedcase-sprout:v${{ steps.date.outputs.date }}-${GITHUB_SHA::7}
       - name: 'Release'
         if: github.ref == 'refs/heads/main'
         run: |
-          docker tag local-seedcase-sprout ghcr.io/seedcase-project/seedcase-sprout:v${{ steps.date.outputs.date }}
-          docker push local-seedcase-sprout ghcr.io/seedcase-project/seedcase-sprout:v${{ steps.date.outputs.date }}
+          docker tag local-seedcase-sprout ghcr.io/seedcase-project/seedcase-sprout:${{ steps.date.outputs.date }}
+          docker push local-seedcase-sprout ghcr.io/seedcase-project/seedcase-sprout:${{ steps.date.outputs.date }}
