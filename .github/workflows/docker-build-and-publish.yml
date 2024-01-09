@@ -8,17 +8,24 @@ jobs:
     permissions: write-all
     runs-on: ubuntu-latest
     steps:
-      - name: 'Checkout'
-        uses: actions/checkout@main
-
+      - name: Add tag for new version
+        id: semanticVersion
+        uses: anothrNick/github-tag-action@1.67.0
+        env:
+          DEFAULT_BUMP: patch
+          DRY_RUN: github.ref != 'refs/heads/main'
+          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN}}
       - name: 'Login to GitHub Container Registry'
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
           username: ${{github.actor}}
           password: ${{secrets.GITHUB_TOKEN}}
-
       - name: 'Build and publish image'
         run: |
-          docker build . --tag ghcr.io/seedcase-project/seedcase-sprout:latest
-          docker push ghcr.io/seedcase-project/seedcase-sprout:latest
+          docker build . --tag local-seedcase-sprout
+          docker push local-seedcase-sprout ghcr.io/seedcase-project/seedcase-sprout:${{ steps.semanticVersion.outputs.tag }}-${GITHUB_SHA::7}
+      - name: 'Release'
+        if: github.ref == 'refs/heads/main'
+        run: |
+          docker push local-seedcase-sprout ghcr.io/seedcase-project/seedcase-sprout:${{ steps.semanticVersion.outputs.tag }}
