@@ -31,7 +31,7 @@ jobs:
           password: ${{secrets.GITHUB_TOKEN}}
       - name: 'Build and publish image with 0.1.0'
         run: |
-          docker build . --tag local-ghcr.io/seedcase-project/seedcase-sprout:${{ steps.semanticVersion.outputs.tag }}-prerelease-${GITHUB_SHA::7}
+          docker build . --tag ghcr.io/seedcase-project/seedcase-sprout:${{ steps.semanticVersion.outputs.tag }}-prerelease-${GITHUB_SHA::7}
           docker push ghcr.io/seedcase-project/seedcase-sprout:${{ steps.semanticVersion.outputs.tag }}-prerelease-${GITHUB_SHA::7}
       - name: 'Release by tagging prerelease'
         if: github.ref == 'refs/heads/main'
