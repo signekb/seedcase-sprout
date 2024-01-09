@@ -73,7 +73,7 @@ Then, the user will have the option to click "Save and Submit Schema", or to sav
 
 At this user interface, missing fields will initially be highlighted in blue so the [Data Management Administrator](users.qmd#data-management-administrators)'s attention is led to these missing fields. They will only be able to continue, if no fields have missing values. If a user clicks "Save and Submit Schema" without having filled in all fields, the missing fields will be highlighted in red. 
 
-![](images/user-flow-validation-schema-completeness.png)
+![Diagram of the process flow for validating the schema.](images/user-flow-validation-schema-completeness.png)
 
 ### User Confirmation: Schema Correctness
 
@@ -83,7 +83,7 @@ If the [Data Management Administrator](users.qmd#data-management-administrators)
 
 When the [Data Management Administrator](users.qmd#data-management-administrators) is satisfied with their adaptions, they click "Save and Submit Schema". The schema will then go through the validation check, "Schema Completeness" again and if the validation is successful, Sprout will confirm: "New Schema Added Successfully".
 
-<!--TODO This description and the user flow diagram is not entirely identical. It needs further work. -->
+<!-- TODO: This description and the user flow diagram is not entirely identical. It needs further work. -->
 
 ### Continue to Data Upload or Quit?
 
