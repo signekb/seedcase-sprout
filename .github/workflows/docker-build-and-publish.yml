@@ -1,7 +1,14 @@
 name: Deploy Images to Github Container registry
 
+# Actions are triggered on: push to main branch, pull requests targeting the main branch and manual triggers
 on:
   push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
 
 jobs:
   push-store-image:
