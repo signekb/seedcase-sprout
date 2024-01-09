@@ -4,6 +4,7 @@ on:
   push:
 
 jobs:
+  permissions: write-all
   push-store-image:
     runs-on: ubuntu-latest
     steps:

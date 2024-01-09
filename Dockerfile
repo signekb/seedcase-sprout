@@ -11,6 +11,7 @@ RUN pip install --no-cache-dir poetry==1.7.1
 # Install dependencies first to speed up docker build (This step is cached and only
 # executed when dependecy files change)
 COPY pyproject.toml poetry.lock ./
+RUN touch README.md
 RUN poetry install --no-cache --no-interaction
 
 # Copy all code to image
