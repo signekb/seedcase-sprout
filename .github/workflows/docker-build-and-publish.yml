@@ -12,7 +12,8 @@ on:
 
 jobs:
   push-store-image:
-    permissions: write-all
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
