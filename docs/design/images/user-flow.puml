@@ -3,42 +3,42 @@
 title Entire User Flow of Sprout
 
 :User selects option to "Upload Data";
-if (\nSystem shows data upload\nUI with option to create new\nschema or use existing one\n) then (Create New Schema)
-  :User selects\n"Create New Schema";
-  switch (System shows create schema UI)
-    case (Create Schema\nfrom File)
+if (\nSystem shows data upload\nUI with option to create new\ntable or use existing one\n) then (Create New Table)
+  :User selects\n"Create New Table";
+  switch (System shows create table UI)
+    case (Create Table\nfrom File)
       :User selects
-      "Create Schema
+      "Create Table
       from File";
       :System shows UI
       with file upload;
       :User selects file and
-      clicks "Create Schema";
+      clicks "Create Table";
       :System loads file and
       attempts to extract 
       headers and definitions*;
-    case (Create Schema from\nExisting Schema)
+    case (Create Table from\nExisting Table)
       :User selects
-      "Create New Schema
-      from Existing Schema";
+      "Create New Table
+      from Existing Table";
       :System shows list of
-      existing schemas;
-      :User inspects schemas
-      and selects base schema;
-    case (Create Schema Manually)
+      existing tables;
+      :User inspects tables
+      and selects base table;
+    case (Create Table Manually)
       :User selects
-      "Create Schema Manually";
+      "Create Table Manually";
       :System shows UI where
-      user can create schema manually;
+      user can create table manually;
       :User adds headers
       and definitions;
       :User clicks "Save
-      and Submit Schema";
+      and Submit Table";
     endswitch
-    #palegreen:Initial schema has been created;
-   while (\nVALIDATION CHECK: Schema Completeness\nSystem checks that schema has name\nand that all headers have definitions*\n) is (Validation failed)
+    #palegreen:Initial table has been created;
+   while (\nVALIDATION CHECK: Table Completeness\nSystem checks that table has name\nand that all headers have definitions*\n) is (Validation failed)
     :System shows "Validation failed"
-    and shows UI with schema for 
+    and shows UI with table for 
     user to edit, including: 
     - headers (textbox)
     - textbox for description (textbox)
@@ -47,19 +47,19 @@ if (\nSystem shows data upload\nUI with option to create new\nschema or use exis
     - title (optional textbox)
     - option to "Add field"
     Missing fields are highlighted;
-    :User completes/edits schema;
+    :User completes/edits table;
     if (System asks user if they want to save only or submit) then (Save only)
       :User clicks "Save Draft";
       end
     else (Save and Submit)
-      :User clicks "Save and Submit Schema";
+      :User clicks "Save and Submit Table";
       label l
     endif
   end while (Validation successful)
-  :System shows UI with schema for user confirmation;
-  while (User decides whether schema is correct or needs editing) is (Incorrect schema)
-    :User clicks "Edit Schema";
-    :System shows UI with schema for 
+  :System shows UI with table for user confirmation;
+  while (User decides whether table is correct or needs editing) is (Incorrect table)
+    :User clicks "Edit Table";
+    :System shows UI with table for 
     user to edit, including: 
     - headers (textbox)
     - textbox for description (textbox)
@@ -67,29 +67,29 @@ if (\nSystem shows data upload\nUI with option to create new\nschema or use exis
     - nullable (boolean), and 
     - title (optional textbox)
     - option to "Add field";
-    :User edits schema;
+    :User edits table;
     :User clicks "Continue";
     goto l
-   end while (Correct schema)
-   :User clicks "Save and Submit Schema";
-    #palegreen:Systems confirms: "New Schema added Successfully";
+   end while (Correct table)
+   :User clicks "Save and Submit Table";
+    #palegreen:Systems confirms: "New Table added Successfully";
   if (System asks user if they want to upload data) then (No)
     :User "quits" Sprout; 
     end
   else (Yes)
     :User clicks "Continue to Data Upload";
   endif
-else (Use Existing Schema)
-    :User selects\n"Use Existing Schema";
-    :System shows UI with existing schemas 
+else (Use Existing Table)
+    :User selects\n"Use Existing Table";
+    :System shows UI with existing tables 
     to choose from and file upload;
-    :User selects existing schema and 
+    :User selects existing table and 
     selects file to upload;
     :User clicks "Continue to Data Upload";
 endif 
 :System initialises data upload;
-while (\nVALIDATION CHECK: Check if Schema and data match\n) is (Validation failed)
-  :Systems shows "Upload Failed" along\nwith description on where data and\nschema do not match;
+while (\nVALIDATION CHECK: Check if Table and data match\n) is (Validation failed)
+  :Systems shows "Upload Failed" along\nwith description on where data and\ntable do not match;
     while (User decides if they want to continue upload) is (No)
         :User clicks "Cancel Upload";
         end

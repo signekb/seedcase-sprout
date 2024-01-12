@@ -4,8 +4,8 @@ title User Flow: Data Upload
 
 :...;
 :System initialises data upload;
-while (\nVALIDATION CHECK: Check if Schema and data match\n) is (Validation failed)
-:Systems shows "Upload Failed" along\nwith description on where data and\nschema do not match;
+while (\nVALIDATION CHECK: Check if Table and data match\n) is (Validation failed)
+:Systems shows "Upload Failed" along\nwith description on where data and\ntable do not match;
     while (User decides if they want to continue upload) is (No)
         :User clicks "Cancel Upload";
         end
