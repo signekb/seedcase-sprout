@@ -1,3 +1,11 @@
+docs
+.git
+.gitignore
+.env
+.github
+.vscode
+.idea
+Dockerfile
 fly.toml
 .git/
 *.sqlite3

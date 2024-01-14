@@ -13,7 +13,33 @@ pipx install poetry
 To run any Python commands within this project, always append the command with `poetry run`, for instance:
 
 ```
-poetry run python manage.py
+poetry run python manage.py runserver
+```
+Or with the justfile:
+
+```
+just start-app
+```
+... which will run the Django project locally.
+
+
+### Running the application with docker
+
+You can run the Django application with docker:
+
+```
+# Run application
+docker compose up -d
+
+Check "http://localhost:10000"
+
+# Terminate application
+docker compose down
 ```
 
-... which will run the Django `manage.py` project.
+Or with the `justfile`:
+
+```
+just start-docker
+just stop-docker
+```

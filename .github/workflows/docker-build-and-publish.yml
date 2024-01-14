@@ -1,0 +1,67 @@
+name: Deploy Images to Github Container registry
+
+# Actions are triggered on: push to main branch, pull requests targeting the main branch and manual triggers
+on:
+  # Commenting for now to only run when we manually trigger it.
+  # push:
+  #   branches:
+  #     - main
+  # pull_request:
+  #   branches:
+  #     - main
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  push-store-image:
+    permissions: 
+    	contents: read
+    	packages: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+      # This aims to automatically update the version number for each PR. 
+      # This would be useful, but not sure how it will look like yet.
+      # Holding off on this, but keeping it here.
+      # TODO: Add or remove this once we've added more things and seen how things are deployed.
+      # - name: Add semantic version tag
+      #   id: semanticVersion
+      #   uses: anothrNick/github-tag-action@1.67.0
+      #   env:
+      #     DEFAULT_BUMP: patch
+      #     DRY_RUN: ${{ github.ref != 'refs/heads/main' }}
+      #     GITHUB_TOKEN: ${{ secrets.GIT_TOKEN}}
+
+      - name: Log in to the GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: "Build and publish Docker image"
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+      # Not sure this makes sense yet, but keeping here to decide and figure out later.
+      # TODO: Use or remove this, depending on how things go as we develop more.
+      # - name: 'Release by tagging prerelease'
+      #   if: github.ref == 'refs/heads/main'
+      #   run: |
+      #     docker tag ghcr.io/seedcase-project/seedcase-sprout:${{ steps.semanticVersion.outputs.tag }}-prerelease-${GITHUB_SHA::7} ghcr.io/seedcase-project/seedcase-sprout:${{ steps.semanticVersion.outputs.tag }}
+      #     docker push local-seedcase-sprout ghcr.io/seedcase-project/seedcase-sprout:${{ steps.semanticVersion.outputs.tag }}
