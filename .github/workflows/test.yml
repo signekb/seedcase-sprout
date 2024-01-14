@@ -1,4 +1,4 @@
-name: Test
+name: Run tests
 
 on:
   push:
@@ -9,21 +9,26 @@ on:
       - main
 
 jobs:
-  Test:
+  test:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Install poetry
-        run: pipx install poetry
+
       - name: Install python 3.11 with cache
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
           cache: 'poetry'
+
+      - name: Install poetry
+        run: pipx install poetry
+
       - name: Install dependencies with poetry
         run: poetry install
+
       - name: Add migrations to test database
         run: poetry run python manage.py migrate
+  
       - name: Run unit tests
         run: poetry run python manage.py test
