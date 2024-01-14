@@ -15,7 +15,11 @@ To run any Python commands within this project, always append the command with `
 ```
 poetry run python manage.py runserver
 ```
+Or with the justfile:
 
+```
+just start-app
+```
 ... which will run the Django project locally.
 
 
@@ -25,10 +29,17 @@ You can run the Django application with docker:
 
 ```
 # Run application
-docker-compose up -d
+docker compose up -d
 
-# Check "http://localhost:10000"
+Check "http://localhost:10000"
 
 # Terminate application
-docker-compose down
+docker compose down
+```
+
+Or with the `justfile`:
+
+```
+just start-docker
+just stop-docker
 ```
