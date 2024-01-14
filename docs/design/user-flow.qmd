@@ -1,0 +1,118 @@
+---
+title: User Flow
+---
+
+{{< include ../_wip.qmd >}}
+
+This document describes the user flow of Sprout. The user flow is split into five diagrams that go through the flow in more detail. At the end of the document, you can see the user flow of Sprout in its entirety.
+
+In this document, we will mention different user roles. Go to the [Users](users.qmd) for definitions of user roles. 
+
+## Initial Table Creation 
+
+The first step of uploading the data to Sprout is to create a *table* for the data.
+
+A **table** in [PostgreSQL](https://www.postgresql.org/) is a named collection of tables, views, sequences, and/or indices. The tables in Sprout will only contain tables. 
+
+<!--TODO Add link to PostgreSQL decision post, when Design documentation has been rendered to website: (as to why we use PostgreSQL, see the [PostgreSQL decision post](website link))-->
+
+A table includes:
+
+- table names, 
+- column names (*headers*), 
+- descriptions (a sentence describe what the column contains), 
+- data types, 
+- whether the columns can contain NULL values, and 
+- an optional reader-friendly title. 
+
+Together, we call these the *table definitions*, or simply *definitions*. In the table below, you can see an example of a table named `data_resource` for a data resource that contains one table `table_1` with user information.
+
+|table |table | column-name | description | data-type | is-nullable | title (optional)
+| --- | --- | --- | --- | --- | --- | --- |
+| `data_resource` | `table_1` | `user_id` | Unique ID identifying the user | `int` | 0 | NULL |
+| `data_resource` | `table_1` | `last_name` | User's last name | `varchar` | 0 | NULL |
+| `data_resource` | `table_1` | `first_name` | User's first name | `varchar` | 0 | NULL |
+| `data_resource` | `table_1` | `email` | Unique ID identifying the user | `int` | 0 | NULL |
+| `data_resource` | `table_1` | `address` | first address line of user's address | `varchar` | 1 | address line 1 |
+
+: Example of table named `data resource` with one table `table_1` with user information.
+
+Users with the role [Data Management Administrators](users.qmd#data-management-administrators) are responsible for setting up these initial structures of the database. 
+
+In Sprout, there are three ways to create tables: 
+
+- Create Table from file
+- Create Table from Existing Table
+- Create Table Manually
+
+![Diagram of the flow that occurs when a new table is created.](images/user-flow-table-creation.png)
+
+### Create Table from File
+
+The first option is to create a table from a file. This workflow includes that the [Data Management Administrator](users.qmd#data-management-administrators) selects a file to upload and then clicks "Create Table from File". Then, Sprout will extract the headers and definitions of the columns in the file. 
+
+### Create Table from Existing Table 
+
+The second option is to create a table from an existing table. This includes choosing an existing table as a "base table" for the [Data Management Administrator](users.qmd#data-management-administrators) to build a new table from.
+
+### Create Table Manually
+
+The third option is to create a table manually. In this scenario, the [Data Management Administrator](users.qmd#data-management-administrators) will add headers and definitions of the table manully. 
+
+## Validation Check: Table Completeness
+
+When the initial table has been created, Sprout will complete a validation check, "Table Completeness". This check identifies whether all headers/column names have definitions. 
+
+If there are missing fields (e.g., a column is missing a data type), the validation will fail. "Validation failed" will be shown on a user interface together with the table. 
+
+::: {.callout-note}
+When a table is created using a file, the *description* fields will initially be empty, since descriptions of headers are not within the file itself. By ensuring that [Data Management Administrators](users.qmd#data-management-administrators) add descriptions of the headers, it will be easier for others to understand what that header/column contains.
+:::
+
+Then, the user will have the option to click "Save and Submit Table", or to save a draft of the table.
+
+At this user interface, missing fields will initially be highlighted in blue so the [Data Management Administrator](users.qmd#data-management-administrators)'s attention is led to these missing fields. They will only be able to continue, if no fields have missing values. If a user clicks "Save and Submit Table" without having filled in all fields, the missing fields will be highlighted in red. 
+
+![Diagram of the process flow for validating the table.](images/user-flow-validation-table-completeness.png)
+
+### User Confirmation: Table Correctness
+
+Then, when the validation is successful, Sprout will show the [Data Management Administrator](users.qmd#data-management-administrators) the final table for confirmation. This works as a user-driven check for *corretness*, i.e., is the table filled in correctly, rather than is the table complete, as the validation check before this step.
+
+If the [Data Management Administrator](users.qmd#data-management-administrators) decides that the table is not correct, they will click "Edit Table", and they will be shown a user interface with the table where they can edit the headers, definitions, and add new fields if needed.
+
+When the [Data Management Administrator](users.qmd#data-management-administrators) is satisfied with their adaptions, they click "Save and Submit Table". The table will then go through the validation check, "Table Completeness" again and if the validation is successful, Sprout will confirm: "New Table Added Successfully".
+
+<!-- TODO: This description and the user flow diagram is not entirely identical. It needs further work. -->
+
+### Continue to Data Upload or Quit?
+
+Now, that the table has been created successfully, the [Data Management Administrator](users.qmd#data-management-administrators) has two options: Either they can "Continue to Data Upload", if they want to add data to the newly created table right after the table has been submitted, or they can choose to quit Sprout at this step, if they only wanted to create the table as preparation for future uploads.
+
+![Diagram describing the next steps given after creating the table and passing the validation steps.](images/user-flow-table-created-continue-to-upload.png)
+
+## Data Upload
+
+There are two entry points for a user to upload data using an existing table. The first option is to continue from the diagram above, where the [Data Management Administrator](users.qmd#data-management-administrators) will upload data right after they have created a new table. In this option, they click "Continue to Data Upload" (left path of diagram below).
+
+![Diagram showing the steps taken for uploading data when using an existing table.](images/user-flow-prepare-to-upload-using-existing-table.png)
+
+The other option is the typical [Data Contributor](users.qmd#data-contributors) route where the user will enter Sprout, click "Upload Data", and then "Use Existing Table". Sprout will then show the user a list of existing tables to choose from and the user will select a table and select a file to upload. Then, they will click "Continue to Data Upload" (right path in the diagram above). 
+
+After these steps, Sprout will initialise the data upload. This initialisation includes a validation check, *Table and Data Match*, as seen in the diagram below. At this step, Sprout checks whether the data and table match. If this validation fails, Sprout will show "Validation Failed" along with error messages where the system detects that the data does not match the table. 
+
+The aim here is to show the user error messages that are as meaningful and helpful as possible. These messages should enable the user to go to their raw data and edit them to attempt to fix the errors. This step is, naturally, outside of Sprout (therefore, marked in blue in the diagram below). The user will then click "Upload Edited/New Version of File" and Sprout will show a user interface, where the user can add the new version of the file. When the user has selected the file and clicks "Upload File", the validation check runs again. 
+
+If the validation fails, the loop with showing errors, user editing file outside of Sprout and uploading it again, will happen again. 
+
+If validation succeeds, the data will be uploaded and Sprout will confirm: "Upload Successful". 
+
+![Diagram showing the steps that occur after validation and final data upload from a Data Contributor.](images/user-flow-data-upload.png)
+
+## Entire User Flow
+
+In the text and diagrams above, we have "chopped" the user flow of Sprout into five pieces and gone through each of them. In the diagram below, you can see the user flow in its entirety.
+
+<!-- TODO: Update full user flow diagram to include all the other diagrams after review -->  
+
+![Diagram showing the full flow from user inputting data into it finally being stored in the database.](images/user-flow.png)

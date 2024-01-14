@@ -1,4 +1,3 @@
-
 docs
 .git
 .gitignore
@@ -6,6 +5,7 @@ docs
 .github
 .vscode
 .idea
-
-db.sqlite3
 Dockerfile
+fly.toml
+.git/
+*.sqlite3

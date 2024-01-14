@@ -1,35 +1,21 @@
 @_default:
     just --list --unsorted
 
-# Run Python code styler.
-style-python:
-  # From https://black.readthedocs.io/en/stable/usage_and_configuration/black_docker_image.html
-  docker run \
-    --rm \
-    --volume $(pwd):/py-style \
-    --workdir /py-style \
-    pyfound/black:latest_release \
-    black .
-
 # Generate PNG images from PlantUML files
 generate-puml:
   docker run --rm -v $(pwd):/puml -w /puml ghcr.io/plantuml/plantuml:latest -tpng "**/*.puml"
 
-# Start up the docker container (with build)
+# Start up the docker container
 start-docker:
-  docker compose -f docker-compose.yml up -d --build
+  docker compose up -d
 
 # Close the docker container
 stop-docker:
-  docker compose -f docker-compose.yml down
-
-# Resume running docker container (without build)
-resume-docker:
-  docker compose -f docker-compose.yml up -d
+  docker compose down
 
 # Update the Django migration files
 update-migrations:
-  python manage.py makemigrations
+  poetry run python manage.py makemigrations
 
 # Run Python linter to check for any errors in the code
 lint-python:
@@ -38,3 +24,9 @@ lint-python:
 # Reformat Python code to match coding style and general structure
 format-python:
   poetry run ruff format .
+
+# Builds and starts a development web server for the Django app (at http://localhost:8000)
+start-app:
+  poetry run python ./manage.py runserver
+  # Not sure if this works for others?
+  # xdg-open http://localhost:8000
