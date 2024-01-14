@@ -1,0 +1,20 @@
+@startuml user-flow-prepare-to-upload-using-existing-table
+
+title User Flow: Prepare to Upload using Existing Table
+
+:User selects option to "Upload Data";
+if (System shows data upload UI) then (Create New Table)
+  :...;
+  :User clicks "Continue to Data Upload";
+else (Use Existing Table)
+    :User selects\n"Use Existing Table";
+    :System shows UI with existing tables 
+    to choose from and file upload;
+    :User selects existing table and 
+    selects file to upload;
+    :User clicks "Continue to Data Upload";
+endif 
+:System initialises data upload;
+:...;
+
+@enduml

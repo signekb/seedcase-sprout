@@ -1,8 +1,8 @@
-@startuml schema-creation-sequence
+@startuml table-creation-sequence
 
 ' TODO: Need to update this
 
-title Schema Creation (Preparation for Data Upload)
+title Table Creation (Preparation for Data Upload)
 
 participant "User" as u
 participant "Front end" as f
@@ -11,10 +11,10 @@ participant "Backend" as b
 
 u -> f: User selects option to "Upload data"
 f -> u: System shows data entry UI
-u -> f: User selects the file (csv) to upload\nand clicks "Create New Schema"
+u -> f: User selects the file (csv) to upload\nand clicks "Create New Table"
 f -> api: System transfers file to API
 api -> api: System extracts headers and analyse data types
-api -> api: System validates schema (missing definitions* in BLUE) 
+api -> api: System validates table (missing definitions* in BLUE) 
 api -> f: System transfers extracted headers and definitions*
 f -> u: System shows headers and definitions* to user
 note right of u
@@ -25,18 +25,18 @@ note right of u
 end note
 u -> f: User completes and/or edits definitions*
 f -> api: User clicks "Save and Submit"
-api -> api: System validates schema\n(checks for missing fields definitions*)
+api -> api: System validates table\n(checks for missing fields definitions*)
 group Validation error (missing definitions*)
     api --> f: System sends back error (missing definitions* in RED)
     f --> u: System shows headers and definitions* to user
     u --> f: User completes and/or edits definitions* again
     f --> api: User clicks "Save and Submit" again
-    api --> api: System validates schema again\n(checks for missing fields definitions*)
+    api --> api: System validates table again\n(checks for missing fields definitions*)
 end
 group Validation success (no missing definitions*)
-    api -> b: System posts schema with "Completed" flag
+    api -> b: System posts table with "Completed" flag
     b -> b : System creates record\nand logs data changes
-    b -> api: System confirms created schema
+    b -> api: System confirms created table
     api -> f: System retrieves confirmation
     f -> u: System displays confirmation
 end
