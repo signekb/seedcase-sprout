@@ -17,9 +17,9 @@ env:
 
 jobs:
   push-store-image:
-    permissions: 
-    	contents: read
-    	packages: write
+    permissions:
+      contents: read
+      packages: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
