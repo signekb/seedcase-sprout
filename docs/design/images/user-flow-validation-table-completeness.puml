@@ -1,0 +1,47 @@
+@startuml user-flow-validation-table-completeness
+
+title User Flow: Validation Check of Table Completeness
+
+:...;
+:Initial table has been created;
+  while (\nVALIDATION CHECK: Table Completeness\nSystem checks that table has name\nand that all headers have definitions*\n) is (Validation failed)
+    :System shows "Validation failed"
+    and shows UI with table for 
+    user to edit, including: 
+    - headers (textbox)
+    - textbox for description (textbox)
+    - data type (dropdown)
+    - nullable (boolean), and 
+    - title (optional textbox)
+    - option to "Add field"
+    Missing fields are highlighted;
+    :User completes/edits table;
+    if (System asks user if they want to save only or submit) then (Save only)
+      :User clicks "Save Draft";
+      end
+    else (Save and Submit)
+      :User clicks "Save and Submit Table";
+      label l
+    endif
+  end while (Validation successful)
+:System shows UI with table for user confirmation;
+  while (User decides whether table is correct or needs editing) is (Incorrect table)
+    :User clicks "Edit Table";
+    :System shows UI with table for 
+    user to edit, including: 
+    - headers (textbox)
+    - textbox for description (textbox)
+    - data type (dropdown)
+    - nullable (boolean), and 
+    - title (optional textbox)
+    - option to "Add field";
+    :User edits table;
+    :User clicks "Continue";
+'Arrow from "User edits definitions" should go back up to VALIDATION CHECK      
+    goto l
+   end while (Correct table)
+   :User clicks "Save and Submit Table";
+    #palegreen:Systems confirms: "New Table added Successfully";
+:...;
+
+@enduml
