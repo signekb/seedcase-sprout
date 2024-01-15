@@ -5,6 +5,6 @@ def home(request):
     return render(request, "home.html")
 
 
-def data_import_page(request):
+def data_import(request):
     now = datetime.now()
-    return render(request, "data-import-page.html", {"now": now})
+    return render(request, "data-import.html")

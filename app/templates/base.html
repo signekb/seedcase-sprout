@@ -5,7 +5,6 @@
   <meta charset="UTF-8">
   <title>Seedcase Sprout: Data Import</title>
   <link rel="icon" type="image/x-icon" href="{% static 'images/seedcase.png' %}">
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
   <!-- beercss framework is added -->
   <link href="https://cdn.jsdelivr.net/npm/beercss@3.4.11/dist/cdn/beer.min.css" rel="stylesheet" />
@@ -17,25 +16,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
 
-
+  <!-- Global css -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body >
-  <header class="fill">
-    <nav>
-      <a href="/">
-        <button class="border circle extra">
-        <img class="responsive" src="{% static 'images/seedcase.png' %}">
-      </button>
-      </a>
-
-      <h5 class="max center-align"><a href="/">Seedcase Sprout</a></h5>
-
-      <button class="circle transparent">
-        <i>account_circle</i>
-      </button>
-    </nav>
-  </header>
-
+  {% include 'navigation-bar.html' %}
   <main class="responsive y90">
     {% block content %}
     {% endblock content %}
