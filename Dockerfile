@@ -7,7 +7,7 @@ RUN mkdir -p /code
 WORKDIR /code
 
 # poetry is installed with pip (without caching the package)
-RUN pip install --no-cache-dir poetry
+RUN pip install --no-cache-dir poetry==1.7.1
 
 # Install dependencies first to speed up docker build (This step is cached and only
 # executed when dependecy files change)
