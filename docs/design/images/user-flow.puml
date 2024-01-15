@@ -25,6 +25,13 @@ if (\nSystem shows data upload\nUI with option to create new\ntable or use exist
       :System loads file and
       attempts to extract 
       headers and definitions*;
+      while (\nVALIDATION CHECK: Is file a CSV?\n) is (No)
+        :System shows error message: 
+        "The file is not a CSV file. 
+        Please choose a CSV file to 
+        extract table metadata from";
+        :User selects new file to upload;
+      end while (Yes)
     case (Create Table from\nExisting Table)
       :User selects
       "Create New Table
