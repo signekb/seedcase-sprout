@@ -5,7 +5,6 @@ docs
 .github
 .vscode
 .idea
-Dockerfile
 fly.toml
 .git/
 *.sqlite3

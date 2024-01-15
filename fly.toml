@@ -5,7 +5,6 @@
 
 app = "seedcase-sprout"
 primary_region = "ams"
-console_command = "/code/manage.py shell"
 
 [build]
 
