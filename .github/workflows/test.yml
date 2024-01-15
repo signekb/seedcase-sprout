@@ -15,20 +15,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Install poetry
+        run: pipx install poetry
+
       - name: Install python 3.11 with cache
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
           cache: 'poetry'
 
-      - name: Install poetry
-        run: pipx install poetry
-
       - name: Install dependencies with poetry
-        run: poetry install
+        run: poetry install --no-interaction --no-root
 
       - name: Add migrations to test database
         run: poetry run python manage.py migrate
-  
+
       - name: Run unit tests
         run: poetry run python manage.py test
