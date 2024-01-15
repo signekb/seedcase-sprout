@@ -10,7 +10,7 @@ if (\nSystem shows data upload\nUI with option to create new\ntable or use exist
   while (\nVALIDATION CHECK: Does table with this name already exist?\n) is (Yes)
     :System shows error message:
     "Table with this name already
-    exist. Please rename your table";
+    exists. Please rename your table.";
     :User renames table; 
   end while (No)
   switch (System shows create table UI)
