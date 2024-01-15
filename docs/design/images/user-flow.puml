@@ -5,6 +5,8 @@ title Entire User Flow of Sprout
 :User selects option to "Upload Data";
 if (\nSystem shows data upload\nUI with option to create new\ntable or use existing one\n) then (Create New Table)
   :User selects\n"Create New Table";
+  :System shows overlay where user will define table name and description;
+  :User fills out table name and description and clicks "Create";
   switch (System shows create table UI)
     case (Create Table\nfrom File)
       :User selects
