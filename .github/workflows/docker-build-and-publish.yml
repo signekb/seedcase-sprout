@@ -31,9 +31,9 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
-      # This aims to automatically update the version number for each PR. 
+      # This aims to automatically update the version number for each PR.
       # This would be useful, but not sure how it will look like yet.
-      # Holding off on this, but keeping it here.
+      # Holding off on this, but keeping it here. (it also requires contents: write)
       # TODO: Add or remove this once we've added more things and seen how things are deployed.
       # - name: Add semantic version tag
       #   id: semanticVersion
