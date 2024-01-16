@@ -2,6 +2,8 @@
 
 Sprout is a component of the Seedcase ecosystem that aims to take data created or collected for research studies and "grow" it in a structured way using modern best practices for storing data.
 
+Want to see a demo of the software? Check out our [app](https://seedcase-sprout.fly.dev/).
+
 ## Installation
 
 This project uses Poetry to manage dependencies. To install Poetry, run:
