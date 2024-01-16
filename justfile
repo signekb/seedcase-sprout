@@ -17,6 +17,9 @@ stop-docker:
 update-migrations:
   poetry run python manage.py makemigrations
 
+run-tests:
+  poetry run python manage.py test
+
 # Run Python linter to check for any errors in the code
 lint-python:
   poetry run ruff check --fix .
