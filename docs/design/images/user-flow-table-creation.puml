@@ -1,0 +1,41 @@
+@startuml user-flow-table-creation
+
+title User Flow: Table Creation
+
+:...;
+'start of block copied form user-flow.puml
+:User selects\n"Create New Table";
+  switch (System shows create table UI)
+    case (Create Table\nfrom File)
+      :User selects
+      "Create Table
+      from File";
+      :System shows UI
+      with file upload;
+      :User selects file and
+      clicks "Create Table";
+      :System loads file and
+      attempts to extract 
+      headers and definitions*;
+    case (Create Table from\nExisting Table)
+      :User selects
+      "Create New Table
+      from Existing Table";
+      :System shows list of
+      existing tables;
+      :User inspects tables
+      and selects base table;
+    case (Create Table Manually)
+      :User selects
+      "Create Table Manually";
+      :System shows UI where
+      user can create table manually;
+      :User adds headers
+      and definitions;
+      :User clicks "Save
+      and Submit Table";
+    endswitch
+    #palegreen:Initial table has been created;
+'end of block copied from user-flow.puml
+
+@enduml
