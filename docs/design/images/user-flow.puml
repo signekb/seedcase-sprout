@@ -17,6 +17,15 @@ if (\nSystem shows data upload\nUI with option to create new\ntable or use exist
       :System loads file and
       attempts to extract 
       headers and definitions*;
+    case (Create Table from \nTable Metadata)
+      :User selects "Create Table
+      from Table Metadata";
+      :System shows UI with
+      file upload;
+      :User selects file with
+      metadata and clicks 
+      "Create Table";
+      :System extracts metadata from file;
     case (Create Table from\nExisting Table)
       :User selects
       "Create New Table
@@ -107,4 +116,5 @@ end while (Yes);
 #palegreen:System displays confirmation: "Upload Successful";
 
 footer \n*Definition includes the header (column name), data type, description (sentence describing what is in the variable),\nis-nullable (boolean), and an optional title (reader friendly column name).\nExample:\nheader = "adr1",\ndata type = varchar,\ndescription = "first address line of patient's address",\nis-nullable = 0, \ntitle (optional): "address line 1"
+
 @enduml
