@@ -27,11 +27,22 @@ class MetadataTests(TestCase):
         self.assertEqual(0, TableMetadata.objects.count(), "Table should be deleted")
         self.assertEqual(0, ColumnMetadata.objects.count(), "Column should be deleted")
 
+    def test_verify_table_is_not_deleted_when_column_is_deleted(self):
+        # Arrange
+        self.create_metadata_table_and_column()
+
+        # Act
+        ColumnMetadata.objects.first().delete()
+
+        # Assert
+        self.assertEqual(1, TableMetadata.objects.count(), "Table should not be deleted")
+        self.assertEqual(0, ColumnMetadata.objects.count(), "Column should be deleted")
+
     @staticmethod
     def create_metadata_table_and_column():
         table_metadata = TableMetadata(name="TestTable",
                                        original_file_name="test_file.csv",
-                                       description="Table create for testing",
+                                       description="Table created for testing",
                                        created_by=1)
         table_metadata.save()
 
@@ -45,3 +56,11 @@ class MetadataTests(TestCase):
                                 allow_missing_value=True,
                                 allow_duplicate_value=True)
         column.save()
+
+        column2 = ColumnMetadata(table_metadata=table_metadata, name="ColumnName",
+                                title="Friendly Column Name",
+                                description="Description of column",
+                                data_type=column_data_type,
+                                allow_missing_value=True,
+                                allow_duplicate_value=True)
+        column_second.save()

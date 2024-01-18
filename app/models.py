@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 
 class TableMetadata(models.Model):
@@ -6,11 +7,16 @@ class TableMetadata(models.Model):
     original_file_name = models.CharField(max_length=200)
     description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
-    created_by = models.IntegerField()
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True,
+                                   on_delete=models.PROTECT, related_name='creator')
+    modified_at = models.DateTimeField(auto_now=True)
+    modified_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True,
+                                    on_delete=models.PROTECT, related_name='modifier')
 
 
 class ColumnDataType(models.Model):
     display_name = models.TextField()
+    description = models.TextField()
 
 
 class ColumnMetadata(models.Model):

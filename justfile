@@ -17,6 +17,7 @@ stop-docker:
 update-migrations:
   poetry run python manage.py makemigrations
 
+# Run Django tests
 run-tests:
   poetry run python manage.py test
 
