@@ -1,7 +1,8 @@
 /* global css styles can be added here */
-.y90 {
+.height-90-pct {
   min-block-size: 90vh !important;
 }
+
 
 .margin10 {
   margin: 20px !important;
@@ -10,4 +11,13 @@
 .card-button-size {
   width: 400px;
   height: 400px;
+}
+
+.file-upload {
+  height: 200px;
+  border-radius: 10px;
+  border: 2px dashed darkgray;
+  background-color: lightgray;
+  width: 70%;
+  cursor: pointer;
 }

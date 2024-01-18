@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h4>{{ table_name }}</h4>
+  <p>To create the structure for your new table, please upload a CSV data file to be
+    used as a template</p>
+
+  <div class="file-upload center-align row"
+       onclick="document.getElementById('uploaded_file').click()">
+    <div class="center-align">
+      <p>DRAG YOUR CSV HERE</p>
+      <i class="large-space">attach_file</i>
+      <p>OR CLICK TO OPEN YOUR FILE</p>
+    </div>
+  </div>
+  <form action="/your-name/" method="post">
+    <input hidden type="file" id="uploaded_file" name="uploaded_file"
+           accept="image/png, image/jpeg" class="file-upload"/>
+    <br/>
+    <input type="submit" value="OK">
+  </form>
+
+{% endblock content %}
