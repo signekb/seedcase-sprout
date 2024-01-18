@@ -4,13 +4,11 @@
   <div class="padding absolute center middle">
     <div class="row center-align">
       <div>
-        <a href="create-new-table">
-          <article class="card-button-size">
-            <!-- In beercss, a small material icon is added with <i class="large">add</i>,
-             but to create a large icon, I grabbed the svg from https://fonts.google.com/icons-->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" ><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>
-          </article>
-        </a>
+        <article class="card-button-size" data-ui="#dialog">
+          <!-- In beercss, a small material icon is added with <i class="large">add</i>,
+            but to create a large icon, I grabbed the svg from https://fonts.google.com/icons-->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" ><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>
+        </article>
         <h6 class="center-align margin10">CREATE NEW TABLE</h6>
       </div>
       <div style="width: 10%"></div>
@@ -24,4 +22,24 @@
       </div>
     </div>
   </div>
+  <dialog class="active" id="dialog">
+    <h5>Create new table</h5>
+    <form method="post">
+      {% csrf_token %}
+      <div class="field label border">
+        <input type="text" id="table_name" name="table_name">
+        <label>Name</label>
+        <span class="helper">Name of the table you are creating</span>
+      </div>
+      <div class="field textarea label border">
+        <textarea id="table_description" name="table_description"></textarea>
+        <label>Description</label>
+        <span class="helper">Short description of table content</span>
+      </div>
+      <nav class="right-align no-space">
+        <button class="transparent link" data-ui="#dialog">Cancel</button>
+        <button class="transparent link" data-ui="#dialog">Confirm</button>
+      </nav>
+    </form>
+  </dialog>
 {% endblock content %}
