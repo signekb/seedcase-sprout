@@ -5,6 +5,14 @@ title Entire User Flow of Sprout
 :User selects option to "Upload Data";
 if (\nSystem shows data upload\nUI with option to create new\ntable or use existing one\n) then (Create New Table)
   :User selects\n"Create New Table";
+  :System shows overlay where user will define table name and description;
+  :User fills out table name and description and clicks "Create";
+  while (\nVALIDATION CHECK: Does table with this name already exist?\n) is (Yes)
+    :System shows error message:
+    "Table with this name already
+    exists. Please rename your table.";
+    :User renames table; 
+  end while (No)
   switch (System shows create table UI)
     case (Create Table\nfrom File)
       :User selects
@@ -17,6 +25,13 @@ if (\nSystem shows data upload\nUI with option to create new\ntable or use exist
       :System loads file and
       attempts to extract 
       headers and definitions*;
+      while (\nVALIDATION CHECK: Is file a CSV?\n) is (No)
+        :System shows error message: 
+        "The file is not a CSV file. 
+        Please choose a CSV file to 
+        extract table metadata from";
+        :User selects new file to upload;
+      end while (Yes)
     case (Create Table from\nExisting Table)
       :User selects
       "Create New Table
