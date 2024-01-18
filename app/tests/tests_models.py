@@ -42,8 +42,7 @@ class MetadataTests(TestCase):
     def create_metadata_table_and_column():
         table_metadata = TableMetadata(name="TestTable",
                                        original_file_name="test_file.csv",
-                                       description="Table created for testing",
-                                       created_by=1)
+                                       description="Table created for testing")
         table_metadata.save()
 
         column_data_type = ColumnDataType(display_name="Text")
@@ -56,11 +55,3 @@ class MetadataTests(TestCase):
                                 allow_missing_value=True,
                                 allow_duplicate_value=True)
         column.save()
-
-        column2 = ColumnMetadata(table_metadata=table_metadata, name="ColumnName",
-                                title="Friendly Column Name",
-                                description="Description of column",
-                                data_type=column_data_type,
-                                allow_missing_value=True,
-                                allow_duplicate_value=True)
-        column_second.save()
