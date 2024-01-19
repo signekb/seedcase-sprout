@@ -4,7 +4,16 @@ title Entire User Flow of Sprout
 
 :User selects option to "Upload Data";
 if (\nSystem shows data upload\nUI with option to create new\ntable or use existing one\n) then (Create New Table)
+'table creation start
   :User selects\n"Create New Table";
+  :System shows overlay where user will define table name and description;
+  :User fills out table name and description and clicks "Create";
+  while (\nVALIDATION CHECK: Does table with this name already exist?\n) is (Yes)
+    :System shows error message:
+    "Table with this name already
+    exists. Please rename your table.";
+    :User renames table; 
+  end while (No)
   switch (System shows create table UI)
     case (Create Table\nfrom File)
       :User selects
@@ -17,6 +26,13 @@ if (\nSystem shows data upload\nUI with option to create new\ntable or use exist
       :System loads file and
       attempts to extract 
       headers and definitions*;
+      while (\nVALIDATION CHECK: Is file a CSV?\n) is (No)
+        :System shows error message: 
+        "The file is not a CSV file. 
+        Please choose a CSV file to 
+        extract table metadata from";
+        :User selects new file to upload;
+      end while (Yes)
     case (Create Table from\nExisting Table)
       :User selects
       "Create New Table
@@ -36,6 +52,8 @@ if (\nSystem shows data upload\nUI with option to create new\ntable or use exist
       and Submit Table";
     endswitch
     #palegreen:Initial table has been created;
+'table-creation end
+'validation table completeness start
    while (\nVALIDATION CHECK: Table Completeness\nSystem checks that table has name\nand that all headers have definitions*\n) is (Validation failed)
     :System shows "Validation failed"
     and shows UI with table for 
@@ -72,13 +90,17 @@ if (\nSystem shows data upload\nUI with option to create new\ntable or use exist
     goto l
    end while (Correct table)
    :User clicks "Save and Submit Table";
-    #palegreen:Systems confirms: "New Table added Successfully";
+  #palegreen:Systems confirms: "New Table added Successfully";
+'validation table completeness end
+'table created - continue to upload? start
   if (System asks user if they want to upload data) then (No)
     :User "quits" Sprout; 
     end
   else (Yes)
     :User clicks "Continue to Data Upload";
   endif
+'table created - continue to upload? end
+'prepare to upload using existing table start
 else (Use Existing Table)
     :User selects\n"Use Existing Table";
     :System shows UI with existing tables 
@@ -87,6 +109,8 @@ else (Use Existing Table)
     selects file to upload;
     :User clicks "Continue to Data Upload";
 endif 
+'prepare to upload using existing table start
+'data upload start
 :System initialises data upload;
 while (\nVALIDATION CHECK: Check if Table and data match\n) is (Validation failed)
   :Systems shows "Upload Failed" along\nwith description on where data and\ntable do not match;
@@ -105,6 +129,7 @@ while (\nSystem displays the number of \nsuccessfully validated rows \nto the us
 end while (Yes);
 :User confirms by clicking: "Confirm Number\nof Rows to Upload and Upload Data";
 #palegreen:System displays confirmation: "Upload Successful";
+'data upload end
 
 footer \n*Definition includes the header (column name), data type, description (sentence describing what is in the variable),\nis-nullable (boolean), and an optional title (reader friendly column name).\nExample:\nheader = "adr1",\ndata type = varchar,\ndescription = "first address line of patient's address",\nis-nullable = 0, \ntitle (optional): "address line 1"
 @enduml
