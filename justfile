@@ -39,3 +39,8 @@ start-app:
   poetry run python ./manage.py runserver
   # Not sure if this works for others?
   # xdg-open http://localhost:8000
+
+# Install Python packagee dependencies
+install-deps:
+  # no-root to not install the parent folder as a package
+  poetry install --no-root
