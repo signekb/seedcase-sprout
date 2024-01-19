@@ -25,12 +25,13 @@ update-migrations:
 run-tests:
   poetry run python manage.py test
 
-# Run Python linter to check for any errors in the code
-lint-python:
-  poetry run ruff check --fix .
+# Check Python code with the linter for any errors that need manual attention
+check-python:
+  poetry run ruff check .
 
 # Reformat Python code to match coding style and general structure
 format-python:
+  poetry run ruff check --fix .
   poetry run ruff format .
 
 # Builds and starts a development web server for the Django app (at http://localhost:8000)
