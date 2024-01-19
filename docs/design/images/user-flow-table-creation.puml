@@ -4,7 +4,16 @@ title User Flow: Table Creation
 
 :...;
 'copied from user-flow.puml start
-:User selects\n"Create New Table";
+'table creation start
+  :User selects\n"Create New Table";
+  :System shows overlay where user will define table name and description;
+  :User fills out table name and description and clicks "Create";
+  while (\nVALIDATION CHECK: Does table with this name already exist?\n) is (Yes)
+    :System shows error message:
+    "Table with this name already
+    exists. Please rename your table.";
+    :User renames table; 
+  end while (No)
   switch (System shows create table UI)
     case (Create Table\nfrom File)
       :User selects
@@ -16,7 +25,25 @@ title User Flow: Table Creation
       clicks "Create Table";
       :System loads file and
       attempts to extract 
-      headers and definitions*;
+      table metadata*;
+    while (\nVALIDATION CHECK: Is file a CSV?\n) is (No)
+      :System shows error message: 
+      "The file is not a CSV. Please
+      choose a CSV to extract table
+      metadata from";
+      :User selects new file to upload;
+    end while (Yes)
+    :System extracts table
+    metadata from CSV;
+    case (Create Table from \nTable Metadata)
+      :User selects "Create Table
+      from Table Metadata";
+      :System shows UI with
+      file upload;
+      :User selects file with
+      metadata and clicks 
+      "Create Table";
+      :System extracts metadata from file;
     case (Create Table from\nExisting Table)
       :User selects
       "Create New Table
@@ -30,12 +57,12 @@ title User Flow: Table Creation
       "Create Table Manually";
       :System shows UI where
       user can create table manually;
-      :User adds headers
-      and definitions;
+      :User adds table metadata;
       :User clicks "Save
       and Submit Table";
     endswitch
     #palegreen:Initial table has been created;
+'table-creation end
 'copied from user-flow.puml end
 
 @enduml
