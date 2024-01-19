@@ -15,35 +15,35 @@ if (\nSystem shows data upload\nUI with option to create new\ntable or use exist
     :User renames table; 
   end while (No)
   switch (System shows create table UI)
-    case (Create Table\nfrom File)
+    case (Create Column Metadata\nfrom File with Data)
       :User selects
-      "Create Table
-      from File";
+      "Create Column Metadata
+      from Data File";
       :System shows UI
       with file upload;
       :User selects file and
-      clicks "Create Table";
+      clicks "Extract Data Structure";
       :System loads file and
-      attempts to extract 
-      table metadata*;
-    while (\nVALIDATION CHECK: Is file a CSV?\n) is (No)
+      extracts column metadata*;
+    while (\nVALIDATION CHECK: Is file a supported file type?\n) is (No)
       :System shows error message: 
-      "The file is not a CSV. Please
-      choose a CSV to extract table
-      metadata from";
+      "Woops! Seems like you added
+      an unsupported file type.
+      Please add a .csv file and
+      try again";
       :User selects new file to upload;
     end while (Yes)
-    :System extracts table
-    metadata from CSV;
-    case (Create Table from \nTable Metadata)
-      :User selects "Create Table
-      from Table Metadata";
+    :System extracts column
+    metadata;
+    case (Create Column Metadata from \nFile with Column Metadata)
+      :User selects "Create Column Metadata
+      from File with Metadata";
       :System shows UI with
       file upload;
       :User selects file with
       metadata and clicks 
-      "Create Table";
-      :System extracts metadata from file;
+      "Extract Data Structure";
+      :System extracts column metadata;
     case (Create Table from\nExisting Table)
       :User selects
       "Create New Table
@@ -58,11 +58,8 @@ if (\nSystem shows data upload\nUI with option to create new\ntable or use exist
       :System shows UI where
       user can create table manually;
       :User adds table metadata;
-      :User clicks "Save
-      and Submit Table";
+      :User clicks "Submit";
     endswitch
-    #palegreen:Initial table has been created;
-'table-creation end
 'validation table completeness start
     :System shows UI where user can 
     add/edit the following fields:
@@ -142,7 +139,7 @@ while (\nSystem displays the number of \nsuccessfully validated rows \nto the us
   end
 end while (Yes);
 :User confirms by clicking: "Confirm Number\nof Rows to Upload and Upload Data";
-#palegreen:System displays confirmation: "Upload Successful";
+#palegreen:System displays confirmation: "Data Upload Successful";
 'data upload end
 
 @enduml
