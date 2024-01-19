@@ -1,9 +1,13 @@
 @_default:
     just --list --unsorted
 
-# Generate PNG images from PlantUML files
-generate-puml:
+# Generate PNG images from all PlantUML files
+generate-puml-all:
   docker run --rm -v $(pwd):/puml -w /puml ghcr.io/plantuml/plantuml:latest -tpng "**/*.puml"
+
+# Generate PNG image from specific PlantUML file
+generate-puml name:
+  docker run --rm -v  $(pwd):/puml -w /puml ghcr.io/plantuml/plantuml:latest -tpng "**/{{name}}.puml"
 
 # Start up the docker container
 start-docker:
@@ -16,6 +20,10 @@ stop-docker:
 # Update the Django migration files
 update-migrations:
   poetry run python manage.py makemigrations
+
+# Run Django tests
+run-tests:
+  poetry run python manage.py test
 
 # Run Python linter to check for any errors in the code
 lint-python:

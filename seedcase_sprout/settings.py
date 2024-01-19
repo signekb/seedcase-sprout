@@ -33,6 +33,11 @@ DEBUG = os.environ.get("DJANGO_DEBUG", "") != "False"
 
 ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 
+# Fly.io deployment settings
+APP_NAME = os.environ.get("FLY_APP_NAME")
+if APP_NAME:
+    ALLOWED_HOSTS.append(f"{APP_NAME}.fly.dev")
+
 
 # Application definition
 
