@@ -1,8 +1,8 @@
 @_default:
     just --list --unsorted
 
-# Generate PNG images from PlantUML files
-generate-puml:
+# Generate PNG images from all PlantUML files
+generate-puml-all:
   docker run --rm -v $(pwd):/puml -w /puml ghcr.io/plantuml/plantuml:latest -tpng "**/*.puml"
 
 # Start up the docker container
