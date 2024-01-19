@@ -1,0 +1,13 @@
+/* global css styles can be added here */
+.y90 {
+  min-block-size: 90vh !important;
+}
+
+.margin10 {
+  margin: 20px !important;
+}
+
+.card-button-size {
+  width: 400px;
+  height: 400px;
+}
