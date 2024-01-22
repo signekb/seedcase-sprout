@@ -4,7 +4,6 @@ from app.tests.db_test_utils import create_metadata_table_and_column
 
 
 class MetadataTests(TestCase):
-
     def test_create_metadata_for_a_table_and_columns_and_verify_creation(self):
         # Arrange
         create_metadata_table_and_column()
@@ -36,7 +35,7 @@ class MetadataTests(TestCase):
         ColumnMetadata.objects.first().delete()
 
         # Assert
-        self.assertEqual(1, TableMetadata.objects.count(), "Table should not be deleted")
-        self.assertEqual(0, ColumnMetadata.objects.count(), "Column should be deleted")
-
-
+        table_count = TableMetadata.objects.count()
+        self.assertEqual(1, table_count, "Table should not be deleted")
+        column_count = ColumnMetadata.objects.count()
+        self.assertEqual(0, column_count, "Column should be deleted")

@@ -13,7 +13,7 @@ class FileUploadTests(TestCase):
         create_table(table_name).save()
 
         # Act
-        response = Client().get('/file-upload/1')
+        response = Client().get("/file-upload/1")
 
         # Assert. assertContains checks if status_code=200 and
         # html should contain "TestTable"
@@ -26,7 +26,7 @@ class FileUploadTests(TestCase):
         file = SimpleUploadedFile("file.csv", b"first_name,second_name,age")
 
         # Act
-        response = Client().post('/file-upload/1', {"uploaded_file": file})
+        response = Client().post("/file-upload/1", {"uploaded_file": file})
 
         # Assert
         self.assertEqual(302, response.status_code, "Redirect is expected")
