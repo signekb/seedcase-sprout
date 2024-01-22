@@ -13,11 +13,11 @@
   height: 400px;
 }
 
-.file-upload {
-  height: 200px;
-  border-radius: 10px;
+.file-upload-box {
+  height: 40vh;
+  border-radius: 10px !important;
   border: 2px dashed darkgray;
   background-color: lightgray;
-  width: 70%;
+  width: 100%;
   cursor: pointer;
 }
