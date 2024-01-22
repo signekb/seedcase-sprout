@@ -1,12 +1,13 @@
 from django.test import TestCase
-from app.models import TableMetadata, ColumnMetadata, ColumnDataType
+from app.models import TableMetadata, ColumnMetadata
+from app.tests.db_test_utils import create_metadata_table_and_column
 
 
 class MetadataTests(TestCase):
 
     def test_create_metadata_for_a_table_and_columns_and_verify_creation(self):
         # Arrange
-        self.create_metadata_table_and_column()
+        create_metadata_table_and_column()
 
         # Act
         table_count = TableMetadata.objects.count()
@@ -18,7 +19,7 @@ class MetadataTests(TestCase):
 
     def test_verify_foreign_key_constraint_by_deleting_table_which_should_delete_column(self):
         # Arrange
-        self.create_metadata_table_and_column()
+        create_metadata_table_and_column()
 
         # Act
         TableMetadata.objects.first().delete()
@@ -29,7 +30,7 @@ class MetadataTests(TestCase):
 
     def test_verify_table_is_not_deleted_when_column_is_deleted(self):
         # Arrange
-        self.create_metadata_table_and_column()
+        create_metadata_table_and_column()
 
         # Act
         ColumnMetadata.objects.first().delete()
@@ -38,20 +39,4 @@ class MetadataTests(TestCase):
         self.assertEqual(1, TableMetadata.objects.count(), "Table should not be deleted")
         self.assertEqual(0, ColumnMetadata.objects.count(), "Column should be deleted")
 
-    @staticmethod
-    def create_metadata_table_and_column():
-        table_metadata = TableMetadata(name="TestTable",
-                                       original_file_name="test_file.csv",
-                                       description="Table created for testing")
-        table_metadata.save()
 
-        column_data_type = ColumnDataType(display_name="Text")
-        column_data_type.save()
-
-        column = ColumnMetadata(table_metadata=table_metadata, name="ColumnName",
-                                title="Friendly Column Name",
-                                description="Description of column",
-                                data_type=column_data_type,
-                                allow_missing_value=True,
-                                allow_duplicate_value=True)
-        column.save()
