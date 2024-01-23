@@ -3,7 +3,6 @@
   min-block-size: 90vh !important;
 }
 
-
 .margin10 {
   margin: 20px !important;
 }
@@ -11,13 +10,4 @@
 .card-button-size {
   width: 400px;
   height: 400px;
-}
-
-.file-upload-box {
-  height: 40vh;
-  border-radius: 10px !important;
-  border: 2px dashed darkgray;
-  background-color: lightgray;
-  width: 100%;
-  cursor: pointer;
 }
