@@ -4,7 +4,7 @@
   <div class="padding absolute center middle">
     <div class="row center-align">
       <div>
-        <article class="card-button-size" data-ui="#dialog">
+        <article class="card-button-size" data-ui="#create-table-dialog">
           <!-- In beercss, a small material icon is added with <i class="large">add</i>,
             but to create a large icon, I grabbed the svg from https://fonts.google.com/icons-->
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" ><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>
@@ -22,24 +22,30 @@
       </div>
     </div>
   </div>
-  <dialog class="active" id="dialog">
+ 
+<!-- Create table dialog -->
+  <dialog class="active dialog" id="create-table-dialog">
     <h5>Create new table</h5>
-    <form method="post">
+    <form method="post"> <!-- action="/file-upload/">-->
       {% csrf_token %}
       <div class="field label border">
+        {{form.name}}
         <input type="text" id="table_name" name="table_name">
         <label>Name</label>
-        <span class="helper">Name of the table you are creating</span>
+        <span class="helper">Name of the table you want to create</span>
       </div>
       <div class="field textarea label border">
+        {{form.description}}
         <textarea id="table_description" name="table_description"></textarea>
         <label>Description</label>
-        <span class="helper">Short description of table content</span>
+        <span class="helper">Short description of the table's content</span>
       </div>
       <nav class="right-align no-space">
-        <button class="transparent link" data-ui="#dialog">Cancel</button>
-        <button class="transparent link" data-ui="#dialog">Confirm</button>
+        <a class="transparent link" data-ui="#create-table-dialog">Cancel</a>
+        <!-- making the Cancel button an 'a', avoids validation of form fields -->
+        <button class="transparent link" data-ui="#create-table-dialog">Create</button>
       </nav>
     </form>
+  </dialog>
   </dialog>
 {% endblock content %}
