@@ -1,0 +1,8 @@
+# Data types in use in Seedcase Sprout
+
+When defining a table template before upload of data the data types will be chosen from a pre-defined list of data types. These will be a subset of the data types that are available no matter which database we chose to work with.
+
+## Main data types
+
+The primary data types in most databases are text, numbers, dates and some form of yes/no (boolean) option.  We expect that this first iteration of Seedcase Sprout will be able to handle one or two of each of those, as well as some that are more machine-readable.
+
