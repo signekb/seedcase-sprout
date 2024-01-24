@@ -2,17 +2,21 @@
 
 <form method="post" enctype="multipart/form-data">
   {% csrf_token %}
+
+  <!-- Drop zone for uploading a file -->
   <div class="file-upload-box row center-align" id="drag_zone"
        onclick="document.getElementById('uploaded_file').click()">
 
-    <!-- Empty drop zone -->
+    <!-- Empty drop zone. Visible when a file is NOT added -->
     <div class="center-align" id="drag_zone_empty">
-      <h5 class="center-align">DRAG YOUR CSV HERE</h5>
-      <i class="large-space extra">attach_file</i>
-      <h5 class="center-align">OR CLICK TO OPEN YOUR FILE</h5>
+      <h5 class="center-align bold">DRAG YOUR .CSV FILE HERE</h5>
+      <div class="medium-space"></div>
+      <i class="extra">attach_file</i>
+      <div class="medium-space"></div>
+      <h5 class="center-align bold">OR CLICK TO OPEN YOUR FILE EXPLORER</h5>
     </div>
 
-    <!-- Drop zone with a file -->
+    <!-- Drop zone with file name and size. Visible when file is added -->
     <div hidden id="drag_zone_with_file" class="file-upload-info-box"
          onclick="event.stopPropagation()">
       <article class="center-align ">
@@ -20,7 +24,7 @@
           <i class="large-space extra">attach_file</i>
           <div class="max">
             <p class="bold" id="drag_zone_file_name">File name</p>
-            <p id="drag_zone_file_size" class="bold" style="color: grey">Size</p>
+            <p id="drag_zone_file_size" class="bold grey-text">Size</p>
           </div>
           <i class="large-space extra pointer"
              onclick="selectedFiles(new DataTransfer().files)">close</i>
@@ -35,10 +39,11 @@
          name="uploaded_file"
          onchange="selectedFiles(event.target.files)"
          accept="text/csv"/>
+  <p class="grey-text">Supported formats: .csv</p>
 
   <div class="row center-align">
-    <button disabled id="submit_button" type="submit" value="OK">EXTRACT DATA
-      STRUCTURE
+    <button disabled id="submit_button" type="submit" value="OK">
+      EXTRACT DATA STRUCTURE
     </button>
   </div>
 </form>
