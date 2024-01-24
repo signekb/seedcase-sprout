@@ -7,7 +7,7 @@ class TableMetadata(models.Model):
     original_file_name = models.CharField(max_length=200)
     description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
-    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True,
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, default=None, # remove default=None, when we start handling users
                                    on_delete=models.PROTECT, related_name='creator')
     modified_at = models.DateTimeField(auto_now=True)
     modified_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True,
