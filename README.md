@@ -45,3 +45,17 @@ Or with the `justfile`:
 just start-docker
 just stop-docker
 ```
+
+# fly.io
+You can deploy to fly.io with 'flyctl'.
+
+```bash
+# Login to fly.io
+flyctl auth login
+
+# Deploy 'seedcase-sprout' based on 'fly.toml' file
+flyctl deploy
+
+# Deploy 'seedcase-sprout-pr' with
+flyctl deploy --app seedcase-sprout-pr
+```

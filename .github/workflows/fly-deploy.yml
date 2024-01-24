@@ -1,10 +1,23 @@
 name: Deploy to Fly.io
 
-# Only trigger when pushed/merged to main
+# We want to trigger a deployment in these cases
+# - push to main deploys to seedcase-sprout
+# - pull requests to main deploys to seedcase-sprout-pr
+# - workflow_dispatch allow for manual deployments
 on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  # sprout is deployed to two different environments based on APP_NAME:
+  # - seedcase-sprout on main-branch
+  # - seedcase-sprout-pr on pull requests
+  APP_NAME: ${{github.ref == 'refs/heads/main' && 'seedcase-sprout' || 'seedcase-sprout-pr'}}
 
 jobs:
   deploy:
@@ -16,8 +29,9 @@ jobs:
       - name: Checkout the repository
         uses: actions/checkout@v3
 
-      - name: Deploy to Fly.io
+      - name: Setup flyctl tool
         uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: flyctl deploy --remote-only
+      - name: Deploy app to seedcase-sprout or seedcase-sprout-pr
+        run: flyctl deploy --remote-only --app ${{env.APP_NAME}}
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
