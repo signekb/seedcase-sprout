@@ -1,6 +1,10 @@
 from django import forms
 
+from app.models import TableMetadata
 
-class TableCreationForm(forms.Form):
-    table_name = forms.CharField(label="table_name", max_length=200)
-    table_description = forms.TextField(label="table_description")
+
+class TableMetadataForm(forms.ModelForm):
+    class Meta:
+        model = TableMetadata
+        fields = ["name", "description"]
+
