@@ -56,6 +56,6 @@ flyctl auth login
 # Deploy 'seedcase-sprout' based on 'fly.toml' file
 flyctl deploy
 
-# Deploy 'seedcase-sprout-pr' with
-flyctl deploy --app seedcase-sprout-pr
+# Deploy 'seedcase-sprout-preview' with
+flyctl deploy --app seedcase-sprout-preview
 ```
