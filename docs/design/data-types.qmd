@@ -18,7 +18,10 @@ We will be using the Varchar without a limit at this point in time as Text is no
 | --- | ------ |
 | Text  | This is a text field without a limit on how much text can be stored in the field. Please see our documentation on the Seedcase website for further information.  |
 
+<!-- TODO Add hyperlink to documentation when it's done -->
+
 ### Numbers
+
 There are several options when it comes to dealing with storing numbers in a database. The most basic is the Integer, which stores whole numbers (both positive and negative). This data type is typically used where a decimal number doesn't make sense (eg. when you are counting people, you can't have half a person). Often though, it is important to be able to record a decimal number, which will allow for greater precision, and is often used when storing for instance measurements or lab results. The choice of number format will also in some instances allow for the database to enforce data quality, by rejecting data at upload if it doesn't conform to type (eg. height is stored in cm, but there is a reading in meters, if the value is an integer then the height of 1.69 won't be allowed).
 
 #### Choice, Naming, and Description in Seedcase Sprout
@@ -30,7 +33,10 @@ We will be offering two options for number formats for now, the Integer for whol
 | Whole number   | Also known as Integer. This is a number field which will only allow whole numbers to be stored. Pick this option if you want to store whole numbers (like postcode, number of people in a household, or height in cm), not if you want to store things like lab results. Please see our documentation on the Seedcase website for further information. |
 | Decimal number | Also known as Float or Double Precision. This is a number field which will store decimal numbers. Pick this option if you want to store things like lab results, or height in meters. You should look at Whole number if you want to store things like postcodes. Please see our documentation on the Seedcase website for further information. |
 
+<!-- TODO Add hyperlink to documentation when it's done -->
+
 ### Date and Time
+
 There are many ways for recording a date and/or time in a database system, the most common would be date, time, and datetime. There is also a choice to be made with regards to time zones and whether or not a system should be able to deal with data coming from around the world. We do not expect Seedcase to be used across time zones, so we have made the choice to not handle time zones in out first batch of data type options.
 
 #### Choice, Naming, and Description in Seedcase Sprout
@@ -41,7 +47,10 @@ There are many ways for recording a date and/or time in a database system, the m
 | Time  | The time value will be stored as hh:mm:ss.  Please see our documentation on the Seedcase website for further information.|
 | Date and Time  |  Also known as DateTime or Timestamp. The value will be stored as yyyy-mm-dd hh:mm:ss. If you only need to store a date then look at the Date data type, likewise if you need to only store a time then look at the data type Time.  Please see our documentation on the Seedcase website for further information.|
 
+<!-- TODO Add hyperlink to documentation when it's done -->
+
 ### True/False, Yes/No, Boolean
+
 A standard data type in any system is the option of a boolean value, which can represent a set of either/or options. This could be yes/no or true/false, the values stored in the system will typically be 0 and 1 (or -1 and 0), the interpretation of these is up to the individual data user.
 
 #### Choice, Naming, and Description in Seedcase Sprout
