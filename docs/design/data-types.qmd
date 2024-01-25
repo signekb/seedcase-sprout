@@ -8,7 +8,9 @@ The primary data types in most databases are text, numbers, dates and some form 
 
 ### Text
 
-Raw text without any form of manipulation should be one of the primary types of data that Seedcase Sprout will store.  The precise name will vary depending on the database system, it may be referred to as Char, Varchar, nVarchar, or Text. In most systems more than one variation will be in use, all dependent on what input the person setting up the tables would expect to see saved. All variations of Char will have an option of limiting the number of characters that it is possible to store, this was especially crucial when disk space was at a premium, and can still be used as a blunt form of validation of data being saved to a table (eg. you can't save the full name of a US state, if the field is limited to 2 characters).
+Raw text without any form of manipulation is one of the primary types of data Seedcase Sprout is able to store. The precise name varies depending on the database system, and it may be referred to as `Char`, `Varchar`, `nVarchar`, or `Text`. In most systems, more than one variation will be in use, all dependent on what data is expected. 
+
+All variations of `Char` will have an option of limiting the number of characters that it is possible to store. This was especially crucial when disk space was at a premium and can still be used as a blunt form of validation of data being saved to a table. For instance, if the field is limited to 2 characters, you can't save the full name of a US state.
 
 #### Choice, Naming, and Description in Seedcase Sprout
 
