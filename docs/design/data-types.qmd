@@ -37,7 +37,7 @@ We will be offering two options for number formats for now, the Integer for whol
 
 ### Date and Time
 
-There are many ways for recording a date and/or time in a database system, the most common would be date, time, and datetime. There is also a choice to be made with regards to time zones and whether or not a system should be able to deal with data coming from around the world. We do not expect Seedcase to be used across time zones, so we have made the choice to not handle time zones in out first batch of data type options.
+Date and/or time can be stored in many ways in a database system. The most common are `date`, `time`, and `datetime`. There is also a choice to be made with regards to time zones and whether or not a system should be able to deal with data coming from around the world. We do not expect Seedcase to be used across time zones, so we have made the choice to not handle time zones.
 
 #### Choice, Naming, and Description in Seedcase Sprout
 
@@ -57,7 +57,7 @@ A standard data type in any system is the option of a boolean value, which can r
 
 |Name used in user interface |Description |
 | --- | ----- |
-| True/False  | Also known as Yes/No or Boolean. This is the option to pick if you have data that falls into the either/or category, it will normally be stored as 0/1. Should you need to store the actual words of 'Yes' and 'No' then you should look at the data type Text. Please see our documentation on the Seedcase website for further information. |
+| True/False  | Also known as Yes/No or Boolean. This is the option to pick if you have data that falls into the either/or category, it will normally be stored as 0/1 or True/False. Should you need to store the actual words of 'Yes' and 'No' then you should look at the data type Text. Please see our documentation on the Seedcase website for further information. |
 
 <!-- TODO Add hyperlink to documentation when it's done -->
 
@@ -70,3 +70,6 @@ JSON is a language for organizing and sharing data between computers. It is easy
 |Name used in user interface |Description |
 | --- | ----- |
 | JSON | This is a specialised data type which will check that the JSON data is correctly formatted on upload. If you do not wish to have such a check carried out then chose Text as the data type, even if you are uploading JSON data. Please see our documentation on the Seedcase website for further information. |
+
+<!-- TODO Add hyperlink to documentation when it's done -->
+
