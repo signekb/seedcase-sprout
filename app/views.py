@@ -14,9 +14,9 @@ def data_import(request):
         form = TableMetadataForm(request.POST)
         # if user input passes validation
         if form.is_valid():
-            form.save()
-            
-            return HttpResponseRedirect("/file-upload/")
+            table = form.save()
+
+            return HttpResponseRedirect(f"/file-upload/{table.id}")
     # if GET (or any other method) we'll create a blank form
     else:
         form = TableMetadataForm()
