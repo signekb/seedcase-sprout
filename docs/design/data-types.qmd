@@ -24,11 +24,13 @@ We will be using the Varchar without a limit at this point in time as Text is no
 
 ### Numbers
 
-There are several options when it comes to dealing with storing numbers in a database. The most basic is the Integer, which stores whole numbers (both positive and negative). This data type is typically used where a decimal number doesn't make sense (eg. when you are counting people, you can't have half a person). Often though, it is important to be able to record a decimal number, which will allow for greater precision, and is often used when storing for instance measurements or lab results. The choice of number format will also in some instances allow for the database to enforce data quality, by rejecting data at upload if it doesn't conform to type (eg. height is stored in cm, but there is a reading in meters, if the value is an integer then the height of 1.69 won't be allowed).
+There are several options when it comes to dealing with storing numbers in a database. The most basic is `Integer`, which stores whole, i.e., non-decimal, numbers (both positive and negative). This data type is typically used where a decimal number doesn't make sense (e.g., when you are counting people, you can't have half a person). Often though, it is important to be able to record a decimal number, which will allow for greater precision. Decimals are often used when storing, for instance, measurements or lab results. 
+
+The choice of number format will also in some instances allow for the database to enforce data quality, by rejecting data at upload if it doesn't conform to type. E.g., if height is stored as integers in cm, a reading in meters like 1.69 won't be allowed.
 
 #### Choice, Naming, and Description in Seedcase Sprout
 
-We will be offering two options for number formats for now, the Integer for whole numbers and double precision (or float), for decimal numbers.
+We offer two options for number formats, the `integer` for whole numbers and `double precision` (or `float`), for decimal numbers.
 
 |Name used in user interfaces |Description  |
 | --- | ----- |
