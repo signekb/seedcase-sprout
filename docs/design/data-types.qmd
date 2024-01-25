@@ -59,8 +59,11 @@ A standard data type in any system is the option of a boolean value, which can r
 | --- | ----- |
 | True/False  | Also known as Yes/No or Boolean. This is the option to pick if you have data that falls into the either/or category, it will normally be stored as 0/1. Should you need to store the actual words of 'Yes' and 'No' then you should look at the data type Text. Please see our documentation on the Seedcase website for further information. |
 
+<!-- TODO Add hyperlink to documentation when it's done -->
+
 ### JSON
-JSON is a language for organizing and sharing data between computers. It is easy for both humans and computers to read, making it a popular choice for exchanging information on the internet. Many database systems offers a JSON data type which will to some extent check that the text being uploaded is formatted in the correct way. This will offer a user a way of doing data quality control during upload to the database, minimising problems later on.
+
+JSON is a language for organizing and sharing data between computers. It is easy for both humans and computers to read, making it a popular choice for exchanging information on the internet. Many database systems offers a `JSON` data type which will to some extent check that the text being uploaded is formatted in the correct way. This will offer a user a way of doing data quality control during upload to the database, minimising problems later on.
 
 #### Choice, Naming, and Description in Seedcase Sprout
 
