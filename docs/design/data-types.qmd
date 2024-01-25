@@ -2,11 +2,12 @@
 
 When defining a table before upload of data the data types will be chosen from a pre-defined list of data types. These will be a subset of the data types that are available no matter which database we chose to work with.
 
-## Main data types
+## Main Data Types
 
 The primary data types in most databases are text, numbers, dates and some form of yes/no (boolean) option.  We expect that this first iteration of Seedcase Sprout will be able to handle one or two of each of those, as well as some that are more machine-readable.
 
 ### Text
+
 Raw text without any form of manipulation should be one of the primary types of data that Seedcase Sprout will store.  The precise name will vary depending on the database system, it may be referred to as Char, Varchar, nVarchar, or Text. In most systems more than one variation will be in use, all dependent on what input the person setting up the tables would expect to see saved. All variations of Char will have an option of limiting the number of characters that it is possible to store, this was especially crucial when disk space was at a premium, and can still be used as a blunt form of validation of data being saved to a table (eg. you can't save the full name of a US state, if the field is limited to 2 characters).
 
 #### Choice, Naming, and Description in Seedcase Sprout
