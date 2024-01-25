@@ -55,7 +55,7 @@ Date and/or time can be stored in many ways in a database system. The most commo
 
 ### True/False, Yes/No, Boolean
 
-A standard data type in any system is the option of a boolean value, which can represent a set of either/or options. This could be yes/no or true/false, the values stored in the system will typically be 0 and 1 (or -1 and 0), the interpretation of these is up to the individual data user.
+A standard data type in any system is the option of a boolean value, which can represent a set of either/or options. This could be yes/no or true/false. The values stored in the system will typically be 0 and 1 (or -1 and 0) and the interpretation of these is up to the individual data user.
 
 #### Choice, Naming, and Description in Seedcase Sprout
 
