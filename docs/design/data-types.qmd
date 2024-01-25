@@ -1,6 +1,6 @@
-# Data types in use in Seedcase Sprout
+# Data Types in Use in Seedcase Sprout
 
-When defining a table template before upload of data the data types will be chosen from a pre-defined list of data types. These will be a subset of the data types that are available no matter which database we chose to work with.
+When defining a table before upload of data the data types will be chosen from a pre-defined list of data types. These will be a subset of the data types that are available no matter which database we chose to work with.
 
 ## Main data types
 
