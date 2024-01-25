@@ -14,7 +14,7 @@ All variations of `Char` will have an option of limiting the number of character
 
 #### Choice, Naming, and Description in Seedcase Sprout
 
-We will be using the Varchar without a limit at this point in time as Text is not a standard SQL type at present.  
+We will be using the Varchar without a limit for Seedcase Sprout, in the application this will be called a Text field even though it is the name of a different data type.
 
 |Name used in user interfaces |Description |
 | --- | ------ |
