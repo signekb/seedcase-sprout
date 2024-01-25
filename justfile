@@ -44,3 +44,7 @@ start-app:
 install-deps:
   # no-root to not install the parent folder as a package
   poetry install --no-root
+
+# Add test data when running locally based on app/fixtures/sample.json
+add-test-data:
+  poetry run python manage.py loaddata sample
