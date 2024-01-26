@@ -1,9 +1,13 @@
 from django.db import models
 from django.conf import settings
 
+from app.validators.field_validators import does_field_include_special_characters
+
 
 class TableMetadata(models.Model):
-    name = models.CharField(max_length=128)
+    name = models.CharField(
+        max_length=128, validators=[does_field_include_special_characters]
+    )
     original_file_name = models.CharField(max_length=200)
     description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
