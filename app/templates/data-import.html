@@ -28,12 +28,29 @@
     <h5>Create new table</h5>
     <form method="post"> <!-- action="/file-upload/">-->
       {% csrf_token %}
+      <!-- name field -->
+      <!-- if field validation, i.e., special characters, fails -->
+      {% if form.name.errors %}
+      <div class="field label invalid border">
+        {{form.name}}
+        <label>Name</label>
+        <span class="error"> {{form.name.errors|striptags}} </span> 
+      </div>
+      <!-- if model dependent validator, i.e., table already exists, fails -->
+      {% elif error_msg %}
+      <div class="field label invalid border">
+        {{form.name}}
+        <label>Name</label>
+        <span class="error"> {{error_msg}} </span> 
+      </div>
+      <!-- else: validation is successful -->
+      {% else %}
       <div class="field label border">
         {{form.name}}
-        <input type="text" id="table_name" name="table_name">
         <label>Name</label>
         <span class="helper">Name of the table you want to create</span>
       </div>
+      {% endif %}
       <div class="field textarea label border">
         {{form.description}}
         <textarea id="table_description" name="table_description"></textarea>
