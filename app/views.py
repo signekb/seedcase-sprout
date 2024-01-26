@@ -2,6 +2,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 from app.forms import TableMetadataForm
+from app.validators.model_dependent_validators import does_table_name_exist_in_db
 
 def home(request):
     return render(request, "home.html")
@@ -14,6 +15,19 @@ def data_import(request):
         form = TableMetadataForm(request.POST)
         # if user input passes validation
         if form.is_valid():
+            # extra val: does table name exist in db
+            name = form.cleaned_data["name"]
+
+            if does_table_name_exist_in_db(name=name):
+                return render(
+                    request,
+                    "data-import.html",
+                    {
+                        "form": form,
+                        "error_msg": "Table name already exists. Please provide another name.",
+                    },
+                )
+
             table = form.save()
 
             return HttpResponseRedirect(f"/file-upload/{table.id}")
