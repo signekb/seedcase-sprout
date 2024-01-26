@@ -7,4 +7,3 @@ class TableMetadataForm(forms.ModelForm):
     class Meta:
         model = TableMetadata
         fields = ["name", "description"]
-
