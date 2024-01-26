@@ -21,6 +21,9 @@
         <h6 class="center-align margin10">ADD DATA TO EXISTING TABLE</h6>
       </div>
     </div>
+    <div class="row center-align">
+      <button class="circle medium fill" data-ui="#help-dialog"><i>question_mark</i></button> 
+    </div>
   </div>
  
 <!-- Create table dialog -->
@@ -68,5 +71,16 @@
       </nav>
     </form>
   </dialog>
+
+<!-- Help dialog -->
+  <dialog class="dialog" id="help-dialog">
+    <div>
+      <h5 class="center-align">What is a table?</h5>
+      A table is ... <br> See our <a href="https://design.seedcase-project.org/">documentation for more information.</a>
+    </div>
+    <nav class="right-align no-space">
+      <a class="transparent link" data-ui="#help-dialog">Cancel</a>
+    </nav>
   </dialog>
+
 {% endblock content %}
