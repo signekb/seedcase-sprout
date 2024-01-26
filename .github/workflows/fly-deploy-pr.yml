@@ -30,6 +30,8 @@ jobs:
       - name: Deploy preview of PR
         id: deploy
         uses: superfly/fly-pr-review-apps@1.0.0
+        with:
+          name: seedcase-sprout-pr-${{ github.event.number }}
 
       # TODO: Uncomment this after seeing how things get built in GitHub. This action might not be necessary.
       # This removes left over items in GitHub from the building and deploying.
