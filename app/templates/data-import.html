@@ -29,6 +29,7 @@
       <i class="large">mobile_friendly</i>
     </div>
     <h5 class="center-align">Create new table</h5>
+    <form method="post">
       {% csrf_token %}
       <!-- name field -->
       <!-- if field validation, i.e., special characters, fails -->
@@ -61,7 +62,7 @@
       <nav class="right-align no-space">
         <a class="transparent link" data-ui="#create-table-dialog">Cancel</a>
         <!-- making the Cancel button an 'a', avoids validation of form fields -->
-        <button class="transparent link" data-ui="#create-table-dialog">Create</button>
+        <button class="transparent link">Create</button>
       </nav>
     </form>
   </dialog>
