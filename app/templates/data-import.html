@@ -35,19 +35,12 @@
     <form method="post">
       {% csrf_token %}
       <!-- name field -->
-      <!-- if field validation, i.e., special characters, fails -->
+      <!-- if validation fails -->
       {% if form.name.errors %}
       <div class="field label invalid border">
         {{form.name}}
         <label>Name</label>
         <span class="error"> {{form.name.errors|striptags}} </span> 
-      </div>
-      <!-- if model dependent validator, i.e., table already exists, fails -->
-      {% elif error_msg %}
-      <div class="field label invalid border">
-        {{form.name}}
-        <label>Name</label>
-        <span class="error"> {{error_msg}} </span> 
       </div>
       <!-- else: validation is successful -->
       {% else %}

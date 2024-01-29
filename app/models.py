@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
 
-from app.validators.field_validators import does_field_include_special_characters
+from app.validators import does_field_include_special_characters
 
 
 class TableMetadata(models.Model):
