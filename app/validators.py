@@ -1,6 +1,3 @@
-"""This script contains field validators that can be included in the validator parameter
-when defining fields in a model."""
-
 from django.core.validators import RegexValidator
 from django import forms
 
