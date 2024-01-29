@@ -47,4 +47,5 @@ install-deps:
 
 # Add test data when running locally based on app/fixtures/sample.json
 add-test-data:
+  poetry run python manage.py migrate
   poetry run python manage.py loaddata sample
