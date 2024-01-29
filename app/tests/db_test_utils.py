@@ -1,13 +1,13 @@
 from app.models import TableMetadata, ColumnMetadata
 
 
-def create_table(name):
+def create_table(name: str):
     return TableMetadata(
         name=name, original_file_name=name + ".csv", description=name + " description"
     )
 
 
-def create_column(name, table):
+def create_column(name: str, table: TableMetadata):
     return ColumnMetadata(
         table_metadata=table,
         name=name,
@@ -19,9 +19,10 @@ def create_column(name, table):
     )
 
 
-def create_metadata_table_and_column():
-    table = create_table("TestTable")
+def create_metadata_table_and_column(table_name: str = "TestTable",
+                                     column_name: str = "Column"):
+    table = create_table(table_name)
     table.save()
 
-    column = create_column("Column", table)
+    column = create_column(column_name, table)
     column.save()

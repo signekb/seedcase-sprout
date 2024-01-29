@@ -1,4 +1,11 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block header_tags %}
+  <link rel="stylesheet" href="{% static 'css/file-drop-zone.css' %}">
+  <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+{% endblock header_tags %}
 
 {% block content %}
   <h4>{{ table_name }}</h4>
@@ -10,7 +17,8 @@
 
   <!-- Dialog is only showing if upload_error is not empty -->
   {% if upload_error %}
-  <dialog class="modal active" id="dialog">
+  <div class="overlay blur active" data-ui="#dialog"></div>
+  <dialog class="active" id="dialog">
     <div class="center-align">
       <i class="fill">error</i>
     </div>

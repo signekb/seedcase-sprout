@@ -6,15 +6,17 @@ from app.tests.db_test_utils import create_metadata_table_and_column
 class MetadataTests(TestCase):
     def test_create_metadata_for_a_table_and_columns_and_verify_creation(self):
         # Arrange
-        create_metadata_table_and_column()
+        table_name = "TableName"
+        column_name = "ColumnName"
+        create_metadata_table_and_column(table_name, column_name)
 
         # Act
-        table_count = TableMetadata.objects.count()
-        column_count = ColumnMetadata.objects.count()
+        table_exists = TableMetadata.objects.filter(name=table_name).exists()
+        column_exists = ColumnMetadata.objects.filter(name=column_name).exists()
 
         # Assert
-        self.assertEqual(1, table_count, "Table metadata should be created")
-        self.assertEqual(1, column_count, "Column metadata should be created")
+        self.assertTrue(table_exists, "Table metadata should be created")
+        self.assertTrue(column_exists, "Column metadata should be created")
 
     def test_verify_foreign_key_constraint_by_deleting_table_which_should_delete_column(self):
         # Arrange
