@@ -9,7 +9,7 @@ validate_no_special_characters = RegexValidator(
 )
 
 
-def validate_table_name_already_exists(name):
+def validate_table_name_does_not_exist(name):
     if TableMetadata.objects.filter(name=name).exists():
         raise forms.ValidationError(
             "A table with this name already exists. Please provide another name."

@@ -3,7 +3,7 @@ from django import forms
 from app.models import TableMetadata
 from app.validators import (
     validate_no_special_characters,
-    validate_table_name_already_exists,
+    validate_table_name_does_not_exist,
 )
 
 
@@ -16,7 +16,7 @@ class TableMetadataForm(forms.ModelForm):
         name = self.cleaned_data.get("name")
 
         # If a table name already exists in the db, raise a validation error
-        validate_table_name_already_exists(name=name)
+        validate_table_name_does_not_exist(name=name)
 
         # If name contains special characters, raise validation error
         validate_no_special_characters(name)
