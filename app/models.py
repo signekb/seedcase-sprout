@@ -1,12 +1,12 @@
 from django.db import models
 from django.conf import settings
 
-from app.validators import does_field_include_special_characters
+from app.validators import validate_no_special_characters
 
 
 class TableMetadata(models.Model):
     name = models.CharField(
-        max_length=128, validators=[does_field_include_special_characters]
+        max_length=128, validators=[validate_no_special_characters],
     )
     original_file_name = models.CharField(max_length=200)
     description = models.TextField()
