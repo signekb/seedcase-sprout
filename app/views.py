@@ -9,19 +9,19 @@ def home(request):
 
 
 def data_import(request):
-    # if this is a POST request, we need to process the form data
+    # if this is a POST request, process the form data
     if request.method == "POST":
         # create a form instance and populate it with data from the request
         form = TableMetadataForm(request.POST)
 
-        # if user input passes validation
+        # if user input passes validation, save form and redirect to file upload
         if form.is_valid():
 
             table = form.save()
 
             return HttpResponseRedirect(f"/file-upload/{table.id}")
 
-    # if GET (or any other method) we'll create a blank form
+    # if GET (or any other method), create a blank form
     else:
         form = TableMetadataForm()
 
