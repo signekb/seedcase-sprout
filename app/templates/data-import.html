@@ -27,7 +27,7 @@
   </div>
 
 <!-- Create table dialog -->
-  <dialog class="active dialog" id="create-table-dialog">
+  <dialog class="dialog {% if form.name.errors %}active{% endif %}" id="create-table-dialog">
     <div class="row center-align">
       <i class="large">mobile_friendly</i>
     </div>
