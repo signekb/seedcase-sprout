@@ -19,9 +19,6 @@ class TableMetadataForm(forms.ModelForm):
         validate_table_name_does_not_exist(name=name)
 
         # val: table name should not contain special characters
-        # define field_name for error msg
-        val_no_special_characters = validate_no_special_characters(field_name="name")
-        # run validator
-        val_no_special_characters(name)
+        validate_no_special_characters(field_name="name", field_value=name_value)
 
         return name
