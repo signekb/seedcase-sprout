@@ -15,10 +15,13 @@ class TableMetadataForm(forms.ModelForm):
     def clean_name(self):
         name = self.cleaned_data.get("name")
 
-        # If a table name already exists in the db, raise a validation error
+        # val: table name should not already exists in the db
         validate_table_name_does_not_exist(name=name)
 
+        # val: table name should not contain special characters
+        # define field_name for error msg
         val_no_special_characters = validate_no_special_characters(field_name="name")
+        # run validator
         val_no_special_characters(name)
 
         return name
