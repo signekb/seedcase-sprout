@@ -27,5 +27,6 @@ def validate_table_name_does_not_exist(name: str):
     """
     if TableMetadata.objects.filter(name=name).exists():
         raise forms.ValidationError(
-            "A table with this name already exists. Please provide another name."
+            message="A table with this name already exists. Please provide another name.",
+            code="invalid_table_name_already_exists",
         )
