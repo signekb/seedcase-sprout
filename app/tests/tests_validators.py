@@ -24,7 +24,6 @@ class ValidateNoSpecialCharactersTests(TestCase):
                 field_name=field_name, field_value=field_value
             )
 
-        # val = validate_no_special_characters(field_name=field_name, field_value=field_value)
         # Assert
         self.assertEqual(
             context.exception.message,
@@ -46,8 +45,6 @@ class ValidateNoSpecialCharactersTests(TestCase):
             validate_no_special_characters(
                 field_name=field_name, field_value=field_value
             )
-
-        # val = validate_no_special_characters(field_name=field_name, field_value=field_value)
 
         # Assert
         self.assertEqual(
