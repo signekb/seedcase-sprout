@@ -18,8 +18,7 @@ class TableMetadataForm(forms.ModelForm):
         # If a table name already exists in the db, raise a validation error
         validate_table_name_does_not_exist(name=name)
 
-        # If name contains special characters, raise validation error
-        validate_no_special_characters(name)
+        val_no_special_characters = validate_no_special_characters(field_name="name")
+        val_no_special_characters(name)
 
-        # If the name is unique, return the cleaned data
         return name

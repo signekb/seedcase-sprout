@@ -3,10 +3,13 @@ from django import forms
 
 from app.models import TableMetadata
 
-validate_no_special_characters = RegexValidator(
-    regex=r"^[-a-zA-Z0-9_]+$",
-    message="Please provide a value without special characters",
-)
+
+def validate_no_special_characters(field_name: str):
+    return RegexValidator(
+        regex=r"^[-a-zA-Z0-9_]+$",
+        message=f"Please provide a {field_name} without special characters",
+        code="invalid_value_special_characters",
+    )
 
 
 def validate_table_name_does_not_exist(name):
