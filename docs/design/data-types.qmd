@@ -34,7 +34,7 @@ We offer two options for number formats, the `integer` for whole numbers and `do
 
 |Name used in user interfaces |Description  |
 | --- | ----- |
-| Whole number   | Also known as Integer. This is a number field which will only allow whole numbers to be stored. Pick this option if you want to store whole numbers (like postcode, number of people in a household, or height in cm), not if you want to store things like lab results. Please see our documentation on the Seedcase website for further information. |
+| Whole number   | Also known as `integer`. This is a number field which will only allow whole numbers to be stored. Pick this option if you want to store whole numbers (like postcode, number of people in a household, or height in cm). Please see our documentation on the Seedcase website for further information. |
 | Decimal number | Also known as Float or Double Precision. This is a number field which will store decimal numbers. Pick this option if you want to store things like lab results, or height in meters. You should look at Whole number if you want to store things like postcodes. Please see our documentation on the Seedcase website for further information. |
 
 <!-- TODO Add hyperlink to documentation when it's done -->
@@ -47,7 +47,7 @@ Date and/or time can be stored in many ways in a database system. The most commo
 
 |Name used in user interface |Description |
 | --- | ----- |
-| Date  | The date value will be stored as yyyy-mm-dd, should you need to store time alongside the date this can either be done separately (Time) or in the same field, which would mean that you need to chose the 'Date and Time' data type. Please see our documentation on the Seedcase website for further information. |
+| Date  | The date value will be stored as `yyyy-mm-dd`. Should you need to store time alongside the date this can either be done separately (`time`) or in the same field (`date and time`). Please see our documentation on the Seedcase website for further information. |
 | Time  | The time value will be stored as hh:mm:ss.  Please see our documentation on the Seedcase website for further information.|
 | Date and Time  |  Also known as DateTime or Timestamp. The value will be stored as yyyy-mm-dd hh:mm:ss. If you only need to store a date then look at the Date data type, likewise if you need to only store a time then look at the data type Time.  Please see our documentation on the Seedcase website for further information.|
 
