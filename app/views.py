@@ -1,5 +1,5 @@
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.http import HttpResponse, HttpRequest
 
 from app.forms import TableMetadataForm
 
@@ -17,9 +17,7 @@ def data_import(request):
         # if user input passes validation, save form and redirect to file upload
         if form.is_valid():
 
-            table = form.save()
-
-            return HttpResponseRedirect(f"/file-upload/{table.id}")
+            return redirect(to=f"file-upload/{table_metadata.id}")
 
     # if GET (or any other method), create a blank form
     else:
