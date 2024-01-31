@@ -28,6 +28,7 @@ class DataImportTests(TestCase):
         test_fields_are_required checks that the expected errors occur when
         the form is empty (i.e., "This field is required)
         """
+
         # Arrange/Act
         response = self.client.post(self.url, self.empty_form)
 
@@ -40,6 +41,7 @@ class DataImportTests(TestCase):
         test_redirect_with_valid_form checks that the page is redirected when a valid form
         is submitted
         """
+
         # Arrange/Act
         response = self.client.post(
             self.url,
@@ -57,6 +59,7 @@ class DataImportTests(TestCase):
         isn't redirected when an invalid form with special characters in the "name" field
         is submitted
         """
+
         # Arrange/Act
         response = self.client.post(
             self.url,
@@ -72,6 +75,7 @@ class DataImportTests(TestCase):
         when a valid form with a table name that already exists in the database is
         submitted
         """
+
         # Arrange
         TableMetadata.objects.create(name="TestTable", description="Test description")
 
