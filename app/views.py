@@ -12,7 +12,7 @@ def data_import(request: HttpRequest) -> HttpResponse:
     """
     data_import initially renders a blank form using the data-import template, if request.method != "POST".
     If request.method == "POST", the form is validated.
-    If validation is successful, the form is saved and the page is redirected to the file-upload upload template.
+    If validation is successful, the form is saved and the page is redirected to the file-upload template.
 
     Args:
         request (HttpRequest): Contains metadata about the request, including method ("POST", "GET") and input in the form
