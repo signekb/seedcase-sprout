@@ -1,5 +1,5 @@
 from django.core.validators import RegexValidator
-from django import forms
+from django.forms import ValidationError
 
 
 from app.models import TableMetadata
@@ -7,7 +7,7 @@ from app.models import TableMetadata
 
 def validate_no_special_characters(
     field_name: str, field_value: str
-) -> forms.ValidationError | None:
+) -> ValidationError | None:
     """
     validate_no_special_characters checks that a field does not include
     special characters, i.e., characters that are not considered numbers or letters
@@ -17,7 +17,7 @@ def validate_no_special_characters(
         value (str): Field value which will be evaluated with the validator
 
     Returns:
-        forms.ValidationError | None: Returns validation error, if validation fails
+        ValidationError | None: Returns validation error, if validation fails
     """
 
     validator = RegexValidator(
@@ -28,7 +28,7 @@ def validate_no_special_characters(
     return validator(field_value)
 
 
-def validate_table_name_does_not_exist(name: str) -> forms.ValidationError | None:
+def validate_table_name_does_not_exist(name: str) -> ValidationError | None:
     """
     validate_table_name_does_not_exist checks whether a table with the given
     name does not exist in the database
@@ -37,14 +37,14 @@ def validate_table_name_does_not_exist(name: str) -> forms.ValidationError | Non
         name (Str): Table name
 
     Raises:
-        forms.ValidationError: If a table with the name already exists
+        ValidationError: If a table with the name already exists
 
     Returns:
-        forms.ValidationError | None: Returns validation error, if validation fails
+        ValidationError | None: Returns validation error, if validation fails
     """
 
     if TableMetadata.objects.filter(name=name).exists():
-        raise forms.ValidationError(
+        raise ValidationError(
             message="A table with this name already exists. Please provide another name.",
             code="invalid_table_name_already_exists",
         )

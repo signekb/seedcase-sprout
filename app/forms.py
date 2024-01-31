@@ -1,4 +1,4 @@
-from django import forms
+from django.forms import ModelForm, ValidationError
 
 from app.models import TableMetadata
 from app.validators import (
@@ -7,7 +7,7 @@ from app.validators import (
 )
 
 
-class TableMetadataForm(forms.ModelForm):
+class TableMetadataForm(ModelForm):
     class Meta:
         model = TableMetadata
         fields = ["name", "description"]
