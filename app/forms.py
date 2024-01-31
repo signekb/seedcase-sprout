@@ -12,7 +12,15 @@ class TableMetadataForm(forms.ModelForm):
         model = TableMetadata
         fields = ["name", "description"]
 
-    def clean_name(self):
+    def clean_name(self) -> ValidationError | str:
+        """
+        clean_name adds extra validations for the field "name" on top of
+        the validations defined by the model
+
+        Returns:
+            ValidationError | str: name_value if validation is successful
+        """
+
         name_value = self.cleaned_data.get("name")
 
         # val: table name should not already exists in the db
