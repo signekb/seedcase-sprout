@@ -131,6 +131,7 @@ class TableMetadataFormTests(TestCase):
         test_description_not_empty checks that form validation succeeds when description
         is not empty (and table name is provided)
         """
+        
         # Arrange
         form_data = {"name": "TestTable", "description": "Test description"}
 
