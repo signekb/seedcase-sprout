@@ -1,4 +1,6 @@
-# Data Types Used
+---
+title: Data Types Used
+---
 
 When defining a table before uploading the data, the data types must be chosen from a pre-defined list of data types. These are a subset of the all possible data types that are available to most database systems, since most of them are not necessary for research purposes.
 
