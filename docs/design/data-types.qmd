@@ -14,10 +14,11 @@ The primary data types in most databases are text, numbers, dates (or time or da
 | Date | This field only stores dates, following the [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format of `yyyy-mm-dd` (year, month, day). |
 | Time | Stores time following the [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format of `hh:mm:ss.ms` (hours, minutes, seconds, milliseconds). |
 | Date and Time  |  Also known as DateTime or Timestamp. The field stores the date time following the [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format as `yyyy-mm-dd hh:mm:ss.ms` (year, month, day, hour, minutes, seconds, milliseconds). |
-| JSON | This is a specialised data type which will check that the JSON data is correctly formatted on upload. If you do not wish to have such a check carried out then chose Text as the data type, even if you are uploading JSON data. |
 | True/False  | Also known as Yes/No, Boolean, or Logical. This stores data as either 0/1 or True/False. If you need/want to store actual words, use the Text field. |
 
-### Text
+<!-- TODO: Keep this hidden for now, decide to add it later. -->
+<!--| JSON | This is a specialised data type which will check that the JSON data is correctly formatted on upload. If you do not wish to have such a check carried out then chose Text as the data type, even if you are uploading JSON data. |-->
+
 
 Raw, unprocessed text is a core data type that Seedcase Sprout stores. The precise name varies depending on the database system, and is often referred to as `Char`, `Varchar`, `nVarchar`, or `Text`. In most systems, more than one variation will be in use, dependent on what data is expected.
 
