@@ -38,8 +38,9 @@ APP_NAME = os.environ.get("FLY_APP_NAME")
 if APP_NAME:
     ALLOWED_HOSTS.append(f"{APP_NAME}.fly.dev")
 
-# HTTP is automatically forwarded to https to fix CSRF
-SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTOCOL", "https")
+    # We trust our own url
+    CSRF_TRUSTED_ORIGINS = [f"https://{APP_NAME}.fly.dev"]
+
 
 # Application definition
 INSTALLED_APPS = [
