@@ -1,20 +1,19 @@
-# Data Types in Use in Seedcase Sprout
+# Data Types Used
 
-When defining a table before upload of data the data types will be chosen from a pre-defined list of data types. These will be a subset of the data types that are available no matter which database we chose to work with.
+When defining a table before uploading the data, the data types must be chosen from a pre-defined list of data types. These are a subset of the all possible data types that are available to most database systems, since most of them are not necessary for research purposes.
 
 ## Main Data Types
 
-The primary data types in most databases are text, numbers, dates and some form of yes/no (boolean) option.  We expect that this first iteration of Seedcase Sprout will be able to handle one or two of each of those, as well as some that are more machine-readable.
+The primary data types in most databases are text, numbers, dates (or time or date-time) and some form of yes/no (boolean, logic) option.
 
 ### Text
 
-Raw text without any form of manipulation is one of the primary types of data Seedcase Sprout is able to store. The precise name varies depending on the database system, and it may be referred to as `Char`, `Varchar`, `nVarchar`, or `Text`. In most systems, more than one variation will be in use, all dependent on what data is expected. 
+Raw, unprocessed text is a core data type that Seedcase Sprout stores. The precise name varies depending on the database system, and is often referred to as `Char`, `Varchar`, `nVarchar`, or `Text`. In most systems, more than one variation will be in use, dependent on what data is expected.
 
-All variations of `Char` will have an option of limiting the number of characters that it is possible to store. This was especially crucial when disk space was at a premium and can still be used as a blunt form of validation of data being saved to a table. For instance, if the field is limited to 2 characters, you can't save the full name of a US state.
+All variations of `Char` have an option to limit the number of characters that can be stored. This is especially crucial when disk space is at a premium, but that is rarely the case with current technologies. Limiting characters could be used as a primitive form of data validation, for example, for abbreviations of country codes (2 letters) or airports (3 letters).
 
-#### Choice, Naming, and Description in Seedcase Sprout
 
-We will be using the Varchar without a limit for Seedcase Sprout, in the application this will be called a Text field even though it is the name of a different data type.
+The main text data type used in Seedcase Sprout is `Varchar` without any limit. This will be renamed to the more natural-language word of simply a "Text" data type.
 
 |Name used in user interfaces |Description |
 | --- | ------ |
