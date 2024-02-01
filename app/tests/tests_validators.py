@@ -27,7 +27,7 @@ class ValidateNoSpecialCharactersTests(TestCase):
         # Assert
         self.assertEqual(
             context.exception.message,
-            f"Please provide a {field_name} without special characters",
+            f"Please use only a-z, A-Z, 0-9, -, or _ when specifying {field_name}",
         )
         self.assertEqual(context.exception.code, "invalid_value_special_characters")
 
@@ -49,7 +49,7 @@ class ValidateNoSpecialCharactersTests(TestCase):
         # Assert
         self.assertEqual(
             context.exception.message,
-            f"Please provide a {field_name} without special characters",
+            f"Please use only a-z, A-Z, 0-9, -, or _ when specifying {field_name}",
         )
         self.assertEqual(context.exception.code, "invalid_value_special_characters")
 

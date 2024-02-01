@@ -21,7 +21,10 @@ class TableMetadataFormTests(TestCase):
         # Assert
         self.assertFalse(form.is_valid())
         self.assertEqual(
-            form.errors["name"], ["Please provide a name without special characters"]
+            form.errors["name"],
+            [
+                f"Please use only a-z, A-Z, 0-9, -, or _ when specifying {list(form_data.keys())[0]}"
+            ],
         )
 
     def test_table_name_contains_space(self):
@@ -39,7 +42,10 @@ class TableMetadataFormTests(TestCase):
         # Assert
         self.assertFalse(form.is_valid())
         self.assertEqual(
-            form.errors["name"], ["Please provide a name without special characters"]
+            form.errors["name"],
+            [
+                f"Please use only a-z, A-Z, 0-9, -, or _ when specifying {list(form_data.keys())[0]}"
+            ],
         )
 
     def test_table_name_does_not_contain_special_characters(self):
@@ -131,7 +137,7 @@ class TableMetadataFormTests(TestCase):
         test_description_not_empty checks that form validation succeeds when description
         is not empty (and table name is provided)
         """
-        
+
         # Arrange
         form_data = {"name": "TestTable", "description": "Test description"}
 
