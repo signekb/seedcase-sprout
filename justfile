@@ -17,9 +17,10 @@ start-docker:
 stop-docker:
   docker compose down
 
-# Update the Django migration files
+# Create and apply migration files
 update-migrations:
   poetry run python manage.py makemigrations
+  poetry run python manage.py migrate
 
 # Run Django tests
 run-tests:
@@ -47,5 +48,5 @@ install-deps:
 
 # Add test data when running locally based on app/fixtures/sample.json
 add-test-data:
-  poetry run python manage.py migrate
+  just update-migrations
   poetry run python manage.py loaddata sample
