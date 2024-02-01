@@ -38,7 +38,7 @@ APP_NAME = os.environ.get("FLY_APP_NAME")
 if APP_NAME:
     ALLOWED_HOSTS.append(f"{APP_NAME}.fly.dev")
 
-
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTOCOL", "https")
 # Application definition
 
 INSTALLED_APPS = [
