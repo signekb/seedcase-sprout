@@ -6,18 +6,16 @@ When defining a table before uploading the data, the data types must be chosen f
 
 The primary data types in most databases are text, numbers, dates (or time or date-time) and some form of yes/no (boolean, logic) option. Below is a table summarizing the data types used.
 
-|Name used in user interfaces |Description |
-| --- | ------ |
-| Text  | This is a text field without a limit on how much text can be stored in the field. Please see our documentation on the Seedcase website for further information.  |
-| Whole number   | Also known as `integer`. This is a number field which will only allow whole numbers to be stored. Pick this option if you want to store whole numbers (like postcode, number of people in a household, or height in cm). Please see our documentation on the Seedcase website for further information. |
-| Decimal number | Also known as Float or Double Precision. This is a number field which will store decimal numbers. Pick this option if you want to store things like lab results, or height in meters. You should look at Whole number if you want to store things like postcodes. Please see our documentation on the Seedcase website for further information. |
-| Date  | The date value will be stored as `yyyy-mm-dd`. Should you need to store time alongside the date this can either be done separately (`time`) or in the same field (`date and time`). Please see our documentation on the Seedcase website for further information. |
-| Time  | The time value will be stored as hh:mm:ss.  Please see our documentation on the Seedcase website for further information.|
-| Date and Time  |  Also known as DateTime or Timestamp. The value will be stored as yyyy-mm-dd hh:mm:ss. If you only need to store a date then look at the Date data type, likewise if you need to only store a time then look at the data type Time.  Please see our documentation on the Seedcase website for further information.|
-| JSON | This is a specialised data type which will check that the JSON data is correctly formatted on upload. If you do not wish to have such a check carried out then chose Text as the data type, even if you are uploading JSON data. Please see our documentation on the Seedcase website for further information. |
-| True/False  | Also known as Yes/No or Boolean. This is the option to pick if you have data that falls into the either/or category, it will normally be stored as 0/1 or True/False. Should you need to store the actual words of 'Yes' and 'No' then you should look at the data type Text. Please see our documentation on the Seedcase website for further information. |
-
-<!-- TODO Add hyperlink to documentation when it's done -->
+| Name | Description |
+|---|------|
+| Text  | A text field without a limit to how many characters can be stored. |
+| Whole number   | Also known as an `integer`. This field only allows whole numbers to be stored. Use this when you want to store data that doesn't need a decimal (e.g. number of people in a household). |
+| Decimal number | Also known as a Float or Double Precision. This field stores decimal numbers. Use this for items like height, blood glucose, or other measurements with high degrees of precision. |
+| Date | This field only stores dates, following the [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format of `yyyy-mm-dd` (year, month, day). |
+| Time | Stores time following the [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format of `hh:mm:ss.ms` (hours, minutes, seconds, milliseconds). |
+| Date and Time  |  Also known as DateTime or Timestamp. The field stores the date time following the [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format as `yyyy-mm-dd hh:mm:ss.ms` (year, month, day, hour, minutes, seconds, milliseconds). |
+| JSON | This is a specialised data type which will check that the JSON data is correctly formatted on upload. If you do not wish to have such a check carried out then chose Text as the data type, even if you are uploading JSON data. |
+| True/False  | Also known as Yes/No, Boolean, or Logical. This stores data as either 0/1 or True/False. If you need/want to store actual words, use the Text field. |
 
 ### Text
 
