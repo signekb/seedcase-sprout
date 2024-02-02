@@ -36,7 +36,7 @@ Whenever a new table metadata is added, Sprout will check whether a table with t
 
 ![Diagram of the flow that occurs when table metadata is created.](images/user-flow-table-metadata-creation.png)
 
-After a table's metadata has been created, the next step is to define the columsn within the table. Column metadata includes:
+After a table's metadata has been created, the next step is to define the columns within the table. Column metadata includes:
 
 - Column name (machine-readable column name, textbox)
 - Title (human-readable column name, textbox, optional)
