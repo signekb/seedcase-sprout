@@ -3,14 +3,23 @@
 title User Flow: Table created - Continue to Upload?
 
 :...;
-:User clicks "Save and Submit Table";
 #palegreen:System confirms: "New Table added Successfully";
-if (System asks user if they want to upload data) then (No)
-  :User "quits" Sprout; 
-  end
-else (Yes)
-  :User clicks "Continue to Data Upload";
-endif
+'copied from user-flow.puml start
+'table created - continue to upload? start
+  if (System asks user if they want to upload data) then (No)
+    if (System asks user if they want\nto download metadata) then (No)
+      :User quits Sprout; 
+      end
+    else (Yes)
+      :User clicks "Download Metadata";
+      :User quits Sprout;
+      end
+    endif
+  else (Yes)
+    :User clicks "Upload Data to Table";
+  endif
+'table created - continue to upload? end
+'copied from user-flow.puml end
 :...;
 
 @enduml
