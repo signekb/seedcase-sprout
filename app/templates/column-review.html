@@ -1,0 +1,67 @@
+<h1>Hello World</h1>
+<!--{% extends 'base.html' %}
+{% load static %}
+
+{% block header_tags %}
+  <link rel="stylesheet" href="{% static 'css/file-drop-zone.css' %}">
+  <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+{% endblock header_tags %}
+
+{% block content %}
+  <h4>{{ table_name }}</h4>
+  <p>Please review the information extracted from your file and complete the description fields.</p>
+
+  <div class="small-height scroll">
+    <table class="border">
+      <thead class="fixed">
+        <tr>
+          <th>Header</th>
+          <th>Header</th>
+          <th>Header</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Cell</td>
+          <td>Cell</td>
+          <td>Cell</td>
+        </tr>
+        <tr>
+          <td>Cell</td>
+          <td>Cell</td>
+          <td>Cell</td>
+        </tr>
+        <tr>
+          <td>Cell</td>
+          <td>Cell</td>
+          <td>Cell</td>
+        </tr>
+        <tr>
+          <td>Cell</td>
+          <td>Cell</td>
+          <td>Cell</td>
+        </tr>
+        <tr>
+          <td>Cell</td>
+          <td>Cell</td>
+          <td>Cell</td>
+        </tr>
+        <tr>
+          <td>Cell</td>
+          <td>Cell</td>
+          <td>Cell</td>
+        </tr>
+      </tbody>
+      <tfoot class="fixed">
+        <tr>
+          <th>Footer</th>
+          <th>Footer</th>
+          <th>Footer</th>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+{% endblock content %}
+--

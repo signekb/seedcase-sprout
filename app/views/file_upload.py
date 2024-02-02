@@ -45,6 +45,7 @@ def handle_post_request_with_file(request: HttpRequest,
     validation fails
 
     """
+    
     try:
         validate_csv_and_save_columns(table_id, request.FILES)
     except StopUpload as upload_error:
