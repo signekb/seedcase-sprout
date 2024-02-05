@@ -1,5 +1,6 @@
 from django.test import TestCase
-from app.models import TableMetadata, ColumnMetadata
+
+from app.models import ColumnMetadata, TableMetadata
 from app.tests.db_test_utils import create_metadata_table_and_column
 
 
