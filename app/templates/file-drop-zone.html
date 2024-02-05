@@ -42,7 +42,7 @@
   <p class="grey-text">Supported formats: .csv</p>
 
   <div class="row center-align">
-    <button disabled id="submit_button" type="submit" value="OK">
+    <button disabled id="submit_button" type="submit" value="OK" onclick="showDialog()">
       EXTRACT DATA STRUCTURE
     </button>
   </div>
@@ -61,6 +61,8 @@
 
   const highlightClass = "file-upload-box-highlight"
   const dragZone = query("drag_zone")
+  const dialog = document.getElementById("progress-dialog"); 
+
 
   function selectedFiles(files) {
     const isFilesListEmpty = files.length === 0;
@@ -94,4 +96,9 @@
     e.preventDefault()
     dragZone.classList.add(highlightClass)
   }, false)
+
+
+  function showDialog() { 
+  dialog.show(); 
+} 
 </script>
