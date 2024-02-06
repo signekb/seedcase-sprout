@@ -6,12 +6,11 @@ from app.models import TableMetadata
 
 class TableMetadataFormTests(TestCase):
     def test_table_name_contains_special_character(self):
-        """
-        test_table_name_contains_special_character checks that form validation fails when
-        the table name includes a special character (here "/") (and description is
-        provided)
-        """
+        """test_table_name_contains_special_character Check for special characters.
 
+        Checks that form validation fails when the table name includes a special
+        character (here "/") (and description is provided).
+        """
         # Arrange
         form_data = {"name": "Table/Name", "description": "Test description"}
 
@@ -28,11 +27,11 @@ class TableMetadataFormTests(TestCase):
         )
 
     def test_table_name_contains_space(self):
-        """
-        test_table_name_contains_space checks that form validation fails when the table name
-        includes a space (and description is provided)
-        """
+        """test_table_name_contains_space Check for spaces in name.
 
+        Checks that form validation fails when the table name includes a space
+        (and description is provided)
+        """
         # Arrange
         form_data = {"name": "Table Name", "description": "Test description"}
 
@@ -49,12 +48,11 @@ class TableMetadataFormTests(TestCase):
         )
 
     def test_table_name_does_not_contain_special_characters(self):
-        """
-        test_table_name_does_not_contain_special_characters checks that form validation
-        succeeds when the table name doesn't include special characters (and description
-        is provided)
-        """
+        """test_table_name_does_not_contain_special_characters Check for special characters.
 
+        Checks that form validation succeeds when the table name doesn't include
+        special characters (and description is provided)
+        """
         # Arrange
         form_data = {"name": "TestTableName", "description": "Test description"}
 
@@ -66,13 +64,15 @@ class TableMetadataFormTests(TestCase):
         self.assertEqual(form.errors, {})
 
     def test_table_name_exists_in_db(self):
-        """
-        test_table_name_exists_in_db checks that form validation fails when a table with the
-        provided name exists in the database (and description is provided)
-        """
+        """test_table_name_exists_in_db Check if table already exists.
 
+        Checks that form validation fails when a table with the provided name
+        exists in the database (and description is provided)
+        """
         # Arrange
-        TableMetadata.objects.create(name="TestTable", description="Test description")
+        TableMetadata.objects.create(
+            name="TestTable", description="Test description"
+        )
         form_data = {"name": "TestTable", "description": "Test description"}
 
         # Act
@@ -82,17 +82,22 @@ class TableMetadataFormTests(TestCase):
         self.assertFalse(form.is_valid())
         self.assertEqual(
             form.errors["name"],
-            ["A table with this name already exists. Please provide another name."],
+            [
+                "A table with this name already exists. Please provide another name."
+            ],
         )
 
     def test_table_name_does_not_exist_in_db(self):
-        """
-        test_table_name_does_not_exist_in_db checks that form validation succeeds when the table name
+        """test_table_name_does_not_exist_in_db Checks that table doesn't exist already.
+
+        Checks that form validation succeeds when the table name
         does not exist in the database (and description is provided)
         """
-
         # Arrange
-        form_data = {"name": "TestTableName", "description": "Test description"}
+        form_data = {
+            "name": "TestTableName",
+            "description": "Test description",
+        }
 
         # Act
         form = TableMetadataForm(data=form_data)
@@ -102,10 +107,7 @@ class TableMetadataFormTests(TestCase):
         self.assertEqual(form.errors, {})
 
     def test_table_name_empty(self):
-        """
-        test_table_name_empty checks that form validation fails when table name is empty
-        """
-
+        """test_table_name_empty Checks that form validation fails when table name is empty."""
         # Arrange
         form_data = {"name": ""}
 
@@ -117,11 +119,11 @@ class TableMetadataFormTests(TestCase):
         self.assertEqual(form.errors["name"], ["This field is required."])
 
     def test_description_empty(self):
-        """
-        test_description_empty checks that form validation fails when description is empty
-        (and table name is provided)
-        """
+        """test_description_empty Check if description is empty.
 
+        Checks that form validation fails when description is empty
+        (and table name is provided).
+        """
         # Arrange
         form_data = {"name": "TestTable", "description": ""}
 
@@ -130,14 +132,16 @@ class TableMetadataFormTests(TestCase):
 
         # Assert
         self.assertFalse(form.is_valid())
-        self.assertEqual(form.errors["description"], ["This field is required."])
+        self.assertEqual(
+            form.errors["description"], ["This field is required."]
+        )
 
     def test_description_not_empty(self):
-        """
-        test_description_not_empty checks that form validation succeeds when description
+        """test_description_not_empty Check if description isn't empty
+
+        Checks that form validation succeeds when description
         is not empty (and table name is provided)
         """
-
         # Arrange
         form_data = {"name": "TestTable", "description": "Test description"}
 
