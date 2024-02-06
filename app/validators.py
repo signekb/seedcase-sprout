@@ -1,7 +1,6 @@
 from django.core.validators import RegexValidator
 from django.forms import ValidationError
 
-
 from app.models import TableMetadata
 
 
