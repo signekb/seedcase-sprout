@@ -1,3 +1,4 @@
+import time
 from typing import IO, Dict
 
 from django.core.files.uploadhandler import StopUpload
@@ -49,6 +50,9 @@ def handle_form_submit_with_file(request: HttpRequest,
         validate_csv_and_save_columns(table_id, request.FILES)
     except StopUpload as upload_error:
         return render_file_upload_page(request, table_id, upload_error.args[0])
+
+    # wait to sec (to show the progress bar)
+    time.sleep(2)
 
     return redirect("/edit-table-columns/" + str(table_id))
 
