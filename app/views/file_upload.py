@@ -3,15 +3,16 @@ from typing import IO, Dict
 
 from django.core.files.uploadhandler import StopUpload
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
 
 from app.models import ColumnMetadata, TableMetadata
 
 
-def file_upload(request: HttpRequest, table_id: int) -> HttpResponse:
-    """
-    Method is called at url="file-upload/<int:table_id>". The table_id comes from the
-    url. The table_id is used fetch the table_metadata from the database.
+def file_upload(request: HttpRequest, table_id: int):
+    """Method is called at url="file-upload/<int:table_id>". 
+    
+    The table_id comes from the url. The table_id is used fetch the table_metadata from the database.
+    
     - On GET requests, the file-upload page is rendered.
     - On POST requests, a csv file is submitted from the user. This file is validated
     and column metadata is persisted for the table.
@@ -22,17 +23,15 @@ def file_upload(request: HttpRequest, table_id: int) -> HttpResponse:
 
     Returns:
     """
-
     if request.method == "POST":
         return handle_form_submit_with_file(request, table_id)
 
     return render_file_upload_page(request, table_id, "")
 
 
-def handle_form_submit_with_file(request: HttpRequest,
-                                 table_id: int) -> HttpResponse | HttpResponseRedirect:
-    """
-    The post request should contain a CSV file, which is validated in this method.
+def handle_post_request_with_file(request: HttpRequest,
+                                  table_id: int) -> HttpResponse | HttpResponseRedirect:
+    """The post request should contain a CSV file, which is validated in this method.
     The method have two scenarios:
     - If the validation is successful, then we persist the column metadata and redirect
     to the next page in the flow

@@ -1,5 +1,4 @@
-"""
-WSGI config for seedcase_sprout project.
+"""WSGI config for seedcase_sprout project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
