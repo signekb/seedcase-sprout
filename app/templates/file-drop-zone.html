@@ -61,7 +61,6 @@
 
   const highlightClass = "file-upload-box-highlight"
   const dragZone = query("drag_zone")
-  const dialog = document.getElementById("progress-dialog"); 
 
 
   function selectedFiles(files) {
@@ -99,6 +98,7 @@
 
 
   function showDialog() { 
-  dialog.show(); 
+    const dialog = document.getElementById("progress-dialog")
+    dialog.show(); 
 } 
 </script>
