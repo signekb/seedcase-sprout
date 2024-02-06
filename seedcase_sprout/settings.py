@@ -38,9 +38,11 @@ APP_NAME = os.environ.get("FLY_APP_NAME")
 if APP_NAME:
     ALLOWED_HOSTS.append(f"{APP_NAME}.fly.dev")
 
+    # We trust our own url
+    CSRF_TRUSTED_ORIGINS = [f"https://{APP_NAME}.fly.dev"]
+
 
 # Application definition
-
 INSTALLED_APPS = [
     "app",
     "django.contrib.admin",
