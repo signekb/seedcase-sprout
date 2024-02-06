@@ -1,3 +1,4 @@
+import time
 from typing import IO, Dict
 
 from django.core.files.uploadhandler import StopUpload
@@ -8,8 +9,10 @@ from app.models import ColumnMetadata, TableMetadata
 
 
 def file_upload(request: HttpRequest, table_id: int):
-    """Method is called at url="file-upload/<int:table_id>". The table_id comes from the
-    url. The table_id is used fetch the table_metadata from the database.
+    """Method is called at url="file-upload/<int:table_id>". 
+    
+    The table_id comes from the url. The table_id is used fetch the table_metadata from the database.
+    
     - On GET requests, the file-upload page is rendered.
     - On POST requests, a csv file is submitted from the user. This file is validated
     and column metadata is persisted for the table.
@@ -21,7 +24,7 @@ def file_upload(request: HttpRequest, table_id: int):
     Returns:
     """
     if request.method == "POST":
-        return handle_post_request_with_file(request, table_id)
+        return handle_form_submit_with_file(request, table_id)
 
     return render_file_upload_page(request, table_id, "")
 
@@ -47,26 +50,54 @@ def handle_post_request_with_file(request: HttpRequest,
     except StopUpload as upload_error:
         return render_file_upload_page(request, table_id, upload_error.args[0])
 
+    # wait to sec (to show the progress bar)
+    time.sleep(2)
+
     return redirect("/edit-table-columns/" + str(table_id))
 
 
-def render_file_upload_page(request: HttpRequest, table_id: int, upload_error: str):
+def render_file_upload_page(request: HttpRequest, table_id: int,
+                            upload_error: str) -> HttpResponse:
+    """
+    Render file-upload page with an error if there is any
+
+    Args:
+        request: The http request
+        table_id: The id of the table
+        upload_error: The error message if there is any
+
+    Returns:
+        HttpResponse: A html page based on the file-upload.html template
+    """
     table_metadata = TableMetadata.objects.get(pk=table_id)
     file_upload_data = {"table_name": table_metadata.name, "upload_error": upload_error}
     return render(request, "file-upload.html", file_upload_data)
 
 
-def validate_csv_and_save_columns(table_id: int, files: Dict[str, IO]):
+def validate_csv_and_save_columns(table_id: int, files: Dict[str, IO]) -> None:
+    """
+    Validate the csv and persist column metadata if valid
+
+    Args:
+        table_id: The id of the table
+        files: A dictionary of files where the csv is in the key "uploaded_file"
+    """
     uploaded_file = files.get("uploaded_file", None)
 
     if not uploaded_file.name.endswith(".csv"):
         error_msg = "Unsupported file format: ." + uploaded_file.name.split(".")[-1]
         raise StopUpload(error_msg)
 
-    return extract_and_persist_column_metadata(table_id, uploaded_file)
+    extract_and_persist_column_metadata(table_id, uploaded_file)
 
 
-def extract_and_persist_column_metadata(table_id: int, uploaded_file: IO):
+def extract_and_persist_column_metadata(table_id: int, uploaded_file: IO) -> None:
+    """
+    Extract columns from CSV and persist the column metadata
+    Args:
+        table_id: The id of the table
+        uploaded_file: The CSV file
+    """
     # A more complicated function needs to be added here
     column_names = uploaded_file.readline().decode("utf-8").split(",")
 
