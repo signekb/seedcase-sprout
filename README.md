@@ -33,7 +33,7 @@ You can run the Django application with docker:
 # Run application
 docker compose up -d
 
-Check "http://localhost:10000"
+Check "http://localhost:8000"
 
 # Terminate application
 docker compose down
