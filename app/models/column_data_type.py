@@ -12,26 +12,36 @@ class ColumnDataType(models.Model):
 
 def update_column_data_types(*_: Any) -> None:
     """
-    Method to be used in a migration when the content in the list called ColumnDataTypes
+    Method to be used in migrations when the content of COLUMN_DATA_TYPES
     is changed in any way.
 
-    Follow the ColumnDataTypes docstring when you want to change the content
-    of ColumnDataType
+    See COLUMN_DATA_TYPES docstring for more info
 
     Args:
-        *_: An argument which is not used but required in
+        *_: An argument not used, but required by the Django Framework
     """
-    ColumnDataType.objects.bulk_create(ColumnDataTypes, ignore_conflicts=True)
+    ColumnDataType.objects.bulk_create(COLUMN_DATA_TYPES, ignore_conflicts=True)
     fields = ['display_name', 'description', 'python_type', 'pandas_type']
-    ColumnDataType.objects.bulk_update(ColumnDataTypes, fields=fields)
+    ColumnDataType.objects.bulk_update(COLUMN_DATA_TYPES, fields=fields)
 
 
 def fake_reverting_method(*_: Any):
+    """
+    This method is used in migrations when COLUMN_DATA_TYPES is changed.
+    Django expects a method for reverting a migration, so that is why we have created
+    this "empty" method.
+
+    Since this method is empty, the reverting of a migration will not have an effect on
+    the table app_columndatatype
+
+    Args:
+        *_: An argument not used, but required by the Django Framework
+    """
     print("Reverting ")
 
 
 """
-When the sprout types are changed, you need to add a new migration.
+When the contents of COLUMN_DATA_TYPES is changed, you need to add a new migration.
 You create a migration with:
 
 python manage.py makemigrations
@@ -41,10 +51,10 @@ line at the end of the file:
 
 migrations.RunPython(update_column_data_types, fake_reverting_method)
 
-This will create or update the ColumnDataTypes defined in Types.
-(See 00001_initial.py to get inspiration)
+This will update the list of ColumnDataType defined in COLUMN_DATA_TYPES.
+(See 00001_initial.py for inspiration)
 """
-ColumnDataTypes = [
+COLUMN_DATA_TYPES = [
     ColumnDataType(id=0, display_name="Decimal",
                    description="Also known as a Float or Double Precision. This field stores decimal numbers. Use this for items like height, blood glucose, or other measurements with high degrees of precision",
                    pandas_type="float64", python_type="float"),
