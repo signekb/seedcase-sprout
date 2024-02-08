@@ -28,7 +28,7 @@ class ValidateNoSpecialCharactersTests(TestCase):
         # Assert
         self.assertEqual(
             context.exception.message,
-            f"Please use only upper or lower case letters (a to z), numbers (0 to 9), -, or _ when specifying {list(form_data.keys())[0]}",
+            f"Please use only upper or lower case letters (a to z), numbers (0 to 9), -, or _ when specifying {field_name}",
         )
         self.assertEqual(
             context.exception.code, "invalid_value_special_characters"
@@ -53,7 +53,7 @@ class ValidateNoSpecialCharactersTests(TestCase):
         # Assert
         self.assertEqual(
             context.exception.message,
-            f"Please use only upper or lower case letters (a to z), numbers (0 to 9), -, or _ when specifying {list(form_data.keys())[0]}",
+            f"Please use only upper or lower case letters (a to z), numbers (0 to 9), -, or _ when specifying {field_name}",
         )
         self.assertEqual(
             context.exception.code, "invalid_value_special_characters"
