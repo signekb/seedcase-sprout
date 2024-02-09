@@ -1,4 +1,4 @@
-from app.models import TableMetadata, ColumnMetadata
+from app.models import ColumnMetadata, TableMetadata
 
 
 def create_table(name: str):

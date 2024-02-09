@@ -18,29 +18,32 @@ stop-docker:
   docker compose down
 
 # Update the Django migration files
-update-migrations:
+update-migrations: install-deps
   poetry run python manage.py makemigrations
+  poetry run python manage.py migrate
 
 # Run Django tests
-run-tests:
+run-tests: install-deps update-migrations
   poetry run python manage.py test
 
 # Check Python code with the linter for any errors that need manual attention
-check-python:
+check-python: install-deps
   poetry run ruff check .
 
 # Reformat Python code to match coding style and general structure
-format-python:
+format-python: install-deps
   poetry run ruff check --fix .
   poetry run ruff format .
 
 # Builds and starts a development web server for the Django app (at http://localhost:8000)
-start-app:
+start-app: install-deps update-migrations
   poetry run python ./manage.py runserver
-  # Not sure if this works for others?
-  # xdg-open http://localhost:8000
 
 # Install Python packagee dependencies
 install-deps:
   # no-root to not install the parent folder as a package
   poetry install --no-root
+
+# Add test data when running locally based on app/fixtures/sample.json
+add-test-data: install-deps update-migrations
+  poetry run python manage.py loaddata sample

@@ -8,48 +8,69 @@ This document describes the user flow of Sprout. The user flow is split into fiv
 
 In this document, we will mention different user roles. Go to the [Users](users.qmd) for definitions of user roles. 
 
-## Initial Table Creation 
+## Table Metadata Creation 
 
-The first step of uploading the data to Sprout is to create a *table* for the data.
+The first step of uploading data to Sprout is to create a table for the data. Users with the role [Data Management Administrators](users.qmd#data-management-administrators) are responsible for setting up these initial structures of the database. 
 
-A **table** in [PostgreSQL](https://www.postgresql.org/) is a named collection of tables, views, sequences, and/or indices. The tables in Sprout will only contain tables. 
+Table metadata includes:
 
-<!--TODO Add link to PostgreSQL decision post, when Design documentation has been rendered to website: (as to why we use PostgreSQL, see the [PostgreSQL decision post](website link))-->
+- Table name
+- Original file name
+- Description (A short description of what data the table contains)
+- Created by (ID of user creating the table)
+- Created at (timestamp of when the table was created)
+- Modified by (ID of user modifying the table; if table hasn't been modified this is NULL)
+- Modified at (timestamp fo when the table was modified; if table hasn't been modified this is NULL)
 
-A table includes:
+Below, we show an example of how the table metadata is stored for a table named `table_1` in a data resource that has not been modified: 
 
-- table names, 
-- column names (*headers*), 
-- descriptions (a sentence describe what the column contains), 
-- data types, 
-- whether the columns can contain NULL values, and 
-- an optional reader-friendly title. 
+| table_id | table | original_file_name | description | created_by | created_at | modified_at | modified_by |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | `table_1` | `table_1.csv` | This table contains user information | 1 | 2024-01-01 08:00:00 | NULL | NULL |
 
-Together, we call these the *table definitions*, or simply *definitions*. In the table below, you can see an example of a table named `data_resource` for a data resource that contains one table `table_1` with user information.
+: Example of table metadata for `table_1`
 
-|table |table | column-name | description | data-type | is-nullable | title (optional)
+A [Data Management Administrator](users.qmd#data-management-administrators) only needs to write the table name and description. The remaining information is extracted by Sprout behind the scenes. 
+
+Whenever a new table metadata is added, Sprout will check whether a table with the exact same name already exists. It will not be possible to create a table with a name that already exists, and the user will be asked to write a different name for the table.
+
+![Diagram of the flow that occurs when table metadata is created.](images/user-flow-table-metadata-creation.png)
+
+After a table's metadata has been created, the next step is to define the columns within the table. Column metadata includes:
+
+- Column name (machine-readable column name, textbox)
+- Title (human-readable column name, textbox, optional)
+- Data type (choose data type from a list available data types, dropdown), 
+- A short description (a sentence describing what the column contains, textbox)
+- Allow missing (whether missing values are allowed in the column, boolean, i.e., yes/no or 1/0)
+- Allow duplication (whether duplicate values are allowed in the column, boolean, i.e., yes/no or 1/0)
+
+Below, we show an example of column metadata for columns describing users in `table_1`:
+
+|table_metadata | column-name | title | description | data_type | allow_missing_value | allow_duplicate_value
 | --- | --- | --- | --- | --- | --- | --- |
-| `data_resource` | `table_1` | `user_id` | Unique ID identifying the user | `int` | 0 | NULL |
-| `data_resource` | `table_1` | `last_name` | User's last name | `varchar` | 0 | NULL |
-| `data_resource` | `table_1` | `first_name` | User's first name | `varchar` | 0 | NULL |
-| `data_resource` | `table_1` | `email` | Unique ID identifying the user | `int` | 0 | NULL |
-| `data_resource` | `table_1` | `address` | first address line of user's address | `varchar` | 1 | address line 1 |
+| `1` | `user_id` | `User ID` | Unique ID identifying the user | `int` | 0 | 0 |
+| `1` | `user_name` | `Username` | User's username | `int` | 0 | 0 |
+| `1` | `last_name` | `Last Name` | User's last name | `varchar` | 0 | 1 |
+| `1` | `first_name` | `First Name` | User's first name | `varchar` | 0 | 1 |
+| `1` | `email` | `Email` | User's email address | `int` | 0 | 0 |
 
-: Example of table named `data resource` with one table `table_1` with user information.
+: Example of column metadata for columns in `table_1`.
 
-Users with the role [Data Management Administrators](users.qmd#data-management-administrators) are responsible for setting up these initial structures of the database. 
+In Sprout, there are four ways to create column metadata: 
 
-In Sprout, there are three ways to create tables: 
-
-- Create Table from file
-- Create Table from Existing Table
-- Create Table Manually
-
-![Diagram of the flow that occurs when a new table is created.](images/user-flow-table-creation.png)
+- Create Column Metadata from File
+- Create Column Metadata from Table Metadata File
+- Create Column Metadata from Existing Table
+- Create Column Metadata Manually
 
 ### Create Table from File
 
-The first option is to create a table from a file. This workflow includes that the [Data Management Administrator](users.qmd#data-management-administrators) selects a file to upload and then clicks "Create Table from File". Then, Sprout will extract the headers and definitions of the columns in the file. 
+The first option is to create a table from a file with data of the wanted structure. In this workflow, a file is selected to extract column metadata from. Sprout will check whether the selected file is a supported file type and extract the metadata from the columns in the file.
+
+### Create Table from Column Metadata File
+
+The second option is to create a table from a file describing the column metadata. This is similar to the workflow described above except that the selected file is a file containing the column metadata instead of raw data.
 
 ### Create Table from Existing Table 
 
@@ -58,6 +79,10 @@ The second option is to create a table from an existing table. This includes cho
 ### Create Table Manually
 
 The third option is to create a table manually. In this scenario, the [Data Management Administrator](users.qmd#data-management-administrators) will add headers and definitions of the table manully. 
+
+![Diagram of the flow that occurs when column metadata is created.](images/user-flow-column-metadata-creation.png)
+
+<!--TODO SKB 19 January 2024: This is where I got to in the update of this post. It will probably change again, so I will stop this update for now and return at a later stage-->
 
 ## Validation Check: Table Completeness
 

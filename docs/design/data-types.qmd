@@ -1,0 +1,50 @@
+---
+title: Data Types Used
+---
+
+When defining a table before uploading the data, the data types must be chosen from a pre-defined list of data types. These are a subset of the all possible data types that are available to most database systems, since most of them are not necessary for research purposes.
+
+The primary data types in most databases are text, numbers, dates (or time or date-time) and some form of yes/no (boolean, logic) option. Below is a table summarizing the data types used.
+
+| Name | Description |
+|---|------|
+| Text  | A text field without a limit to how many characters can be stored. |
+| Whole number   | Also known as an `integer`. This field only allows whole numbers to be stored. Use this when you want to store data that doesn't need a decimal (e.g. number of people in a household). |
+| Decimal number | Also known as a Float or Double Precision. This field stores decimal numbers. Use this for items like height, blood glucose, or other measurements with high degrees of precision. |
+| Date | This field only stores dates, following the [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format of `yyyy-mm-dd` (year, month, day). |
+| Time | Stores time following the [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format of `hh:mm:ss.ms` (hours, minutes, seconds, milliseconds). |
+| Date and Time  |  Also known as DateTime or Timestamp. The field stores the date time following the [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format as `yyyy-mm-dd hh:mm:ss.ms` (year, month, day, hour, minutes, seconds, milliseconds). |
+| True/False  | Also known as Yes/No, Boolean, or Logical. This stores data as either 0/1 or True/False. If you need/want to store actual words, use the Text field. |
+
+<!-- TODO: Keep this hidden for now, decide to add it later. -->
+<!--| JSON | This is a specialised data type which will check that the JSON data is correctly formatted on upload. If you do not wish to have such a check carried out then chose Text as the data type, even if you are uploading JSON data. |-->
+
+## Text
+
+Raw, unprocessed text is a core data type that Seedcase Sprout stores. The precise name varies depending on the database system, and is often referred to as `Char`, `Varchar`, `nVarchar`, or `Text`. In most systems, more than one variation will be in use, dependent on what data is expected.
+
+All variations of `Char` have an option to limit the number of characters that can be stored. This is especially crucial when disk space is at a premium, but that is rarely the case with current technologies. Limiting characters could be used as a primitive form of data validation, for example, for abbreviations of country codes (2 letters) or airports (3 letters).
+
+The main text data type used in Seedcase Sprout is `Varchar` without any limit. This will be renamed to the more natural-language word of simply a "Text" data type.
+
+## Numbers
+
+There are several options when it comes to dealing with storing numbers in a database. The most basic is `Integer`, which stores whole, i.e., non-decimal, numbers (both positive and negative). This data type is typically used where a decimal number doesn't make sense (e.g., when you are counting people, you can't have half a person). Often though, it is important to be able to record a decimal number, which will allow for greater precision. Decimals are often used when storing, for instance, measurements of lab results. 
+
+The choice of number format will also in some instances allow for the database to enforce data quality, by rejecting data at upload if it doesn't conform to type. For example, if height is stored as integers in cm, a data value of 1.69 for height in meters won't be allowed.
+
+We offer two options for number formats, the `integer` type for whole numbers and `double precision` (or `float`) for decimal numbers.
+
+## Date and Time
+
+Date and/or time can be stored in many ways in a database system. The most common are `date`, `time`, and `datetime`. There is also a choice to be made with regards to time zones and whether or not a system should be able to deal with data coming from around the world. At this point, Seedcase Sprout does not handle timezones.
+
+## True/False, Yes/No, Boolean
+
+A standard data type in any system is the option of a boolean/logical value, which can represent a set of either/or options. This could be yes/no or true/false. The values stored in the system will typically be 0 and 1 (or -1 and 0) and the interpretation of these is up to the individual data user.
+
+<!--
+## JSON
+
+JSON is a language for organizing and sharing data between computers. It is easy for both humans and computers to read, making it a popular choice for exchanging information on the internet. Many database systems offers a `JSON` data type which will to some extent check that the text being uploaded is formatted in the correct way. This will offer a user a way of doing data quality control during upload to the database, minimising problems later on.
+-->

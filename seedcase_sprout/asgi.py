@@ -1,5 +1,4 @@
-"""
-ASGI config for seedcase_sprout project.
+"""ASGI config for seedcase_sprout project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
