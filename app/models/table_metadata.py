@@ -12,18 +12,3 @@ class TableMetadata(models.Model):
     modified_at = models.DateTimeField(auto_now=True)
     modified_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True,
                                     on_delete=models.PROTECT, related_name='modifier')
-
-
-class ColumnDataType(models.Model):
-    display_name = models.TextField()
-    description = models.TextField()
-
-
-class ColumnMetadata(models.Model):
-    table_metadata = models.ForeignKey(TableMetadata, on_delete=models.CASCADE)
-    name = models.CharField(max_length=200)
-    title = models.CharField(max_length=200)
-    description = models.TextField()
-    data_type = models.ForeignKey(ColumnDataType, on_delete=models.PROTECT)
-    allow_missing_value = models.BooleanField()
-    allow_duplicate_value = models.BooleanField()
