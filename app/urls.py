@@ -7,4 +7,5 @@ urlpatterns = [
     path("data-import", views.data_import, name="data_import"),
     path("file-upload/<int:table_id>", views.file_upload),
     path("column-review", views.column_review),
+    path("columndata-review", views.columndata_review),
 ]

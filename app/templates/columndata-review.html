@@ -18,31 +18,33 @@
 {% endfor %}
 
   <h4>{{ table_name }}</h4>
-  <p>Please review the information extracted from your file and complete the description fields.</p>
+  <p>Please review the information extracted from your file.</p>
 
   <div class="small-height scroll">
     <table class="border">
       <thead class="fixed">
         <tr>
           <th>id</th>
-          <th>name</th>
-          <th>title</th>
+          <th>display_name</th>
           <th>description</th>
-          <th>table id</th>
         </tr>
       </thead>
       <tbody>
-        {% for column in cols.all %}
+        {% for column in colsdata.all %}
         <tr>
           <td>{{ column.id }}</td>
-          <td>{{ column.name }}</td>
-          <td>{{ column.title }}</td>
+          <td>{{ column.display_name }}</td>
           <td>{{ column.description }}</td>
-          <td>{{ column.table_metadata_id }}</td>
         </tr>
         {% endfor %}
       </tbody>
-      
+      <tfoot class="fixed">
+        <tr>
+          <th>Footer</th>
+          <th>Footer</th>
+          <th>Footer</th>
+        </tr>
+      </tfoot>
     </table>
   </div>
 
