@@ -1,8 +1,8 @@
+from django.forms import modelformset_factory
 from django.shortcuts import render  # , redirect
 
-from app.models import ColumnMetadata, ColumnDataType, TableMetadata
 from app.forms import ColumnDataTypeForm
-from django.forms import modelformset_factory
+from app.models import ColumnDataType, ColumnMetadata
 
 
 def column_review(request):

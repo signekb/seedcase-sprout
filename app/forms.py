@@ -1,6 +1,6 @@
 from django.forms import ModelForm, ValidationError
 
-from app.models import TableMetadata, ColumnDataType
+from app.models import ColumnDataType, TableMetadata
 from app.validators import (
     validate_no_special_characters,
     validate_table_name_does_not_exist,
@@ -35,6 +35,14 @@ class TableMetadataForm(ModelForm):
 
 
 class ColumnDataTypeForm(ModelForm):
-    class Meta:
+    """Form based on the model ColumnDataType.
+
+    The form is used in columndata-review to display all info on data types.
+
+    Args:
+        ModelForm (ModelForm): pulled in from django.forms
+    """
+
+    class Meta:  # noqa: D106
         model = ColumnDataType
         fields = ["display_name", "description"]
