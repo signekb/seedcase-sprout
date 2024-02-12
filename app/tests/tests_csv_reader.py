@@ -11,8 +11,7 @@ from app.csv_reader import read_csv_file
 
 class CsvTests(TestCase):
     def test_csv_with_simple_types(self):
-        """
-        Testing that `read_csv_file()` should derive column "i1" as integer, "f1" as float
+        """Testing that `read_csv_file()` should derive column "i1" as integer, "f1" as float
         and "b1" as a boolean. The values are also verified.
         """
         csv_file = io.StringIO(
@@ -30,8 +29,7 @@ class CsvTests(TestCase):
         self.assert_values(df["b1"], True, False, False)
 
     def test_csv_with_semicolon_and_whitespace(self):
-        """
-        Testing a different csv dialect with semicolon and initial whitespace.
+        """Testing a different csv dialect with semicolon and initial whitespace.
         """
         csv_file = io.StringIO(
             "i1;    f1;     b1;     s1\n"
@@ -49,8 +47,7 @@ class CsvTests(TestCase):
         self.assert_values(df["s1"], "Hi", "Hello", "Man")
 
     def test_csv_with_semicolon_and_qoutes(self):
-        """
-        Testing a different csv dialect with semicolon and initial whitespace.
+        """Testing a different csv dialect with semicolon and initial whitespace.
         """
         csv_file = io.StringIO(
             '"i1";  "f1";   "b1";       "s1"\n'
@@ -65,8 +62,7 @@ class CsvTests(TestCase):
         self.assert_values(df["s1"], "Hi, Man", "Hello?", "What, about")
 
     def test_boolean_ish_values(self):
-        """
-        Testing boolean-ish values are derived as booleans. We also test that empty
+        """Testing boolean-ish values are derived as booleans. We also test that empty
         values in are converted to None
 
         """
@@ -86,8 +82,7 @@ class CsvTests(TestCase):
         self.assert_values(df["b4"], True, True, False)
 
     def test_series_should_remain_if_series_has_some_none_boolean_values(self):
-        """
-        A column should not be converted to booleans if column has values which are not
+        """A column should not be converted to booleans if column has values which are not
         boolean-ish. The columns should remain as Int64 and String columns
         """
         csv_file = io.StringIO(
@@ -104,8 +99,7 @@ class CsvTests(TestCase):
         self.assert_values(df["s2"], "true", "REALLY TRUE!", "false")
 
     def test_datetime(self):
-        """
-        Testing different date formats (d1, d2, d3) and a single time column (t1).
+        """Testing different date formats (d1, d2, d3) and a single time column (t1).
 
         NOTICE: d3 (ex: '27. Oct 1987') is not recognized as date
         """
@@ -143,8 +137,7 @@ class CsvTests(TestCase):
                            datetime.time.fromisoformat("00:00:00"))
 
     def test_wrongly_formatted_csv(self):
-        """
-        Testing a wrongly formatted CSV file with
+        """Testing a wrongly formatted CSV file with
         2 columns but three values in a row.
         A csv.Error is expected
 
@@ -157,15 +150,13 @@ class CsvTests(TestCase):
         self.assertRaises(csv.Error, read_csv_file, csv_file)
 
     def assert_types(self, df: DataFrame, *expected_types: str):
-        """
-        Asserts that a DataFrame have the expected_types. This is a shorthand way
+        """Asserts that a DataFrame have the expected_types. This is a shorthand way
         of testing the types
 
         Args:
             df: The DataFrame with data and types
             *expected_types: a list of types we expect (in order)
         """
-
         self.assertEqual(len(df.columns), len(expected_types), "Missing columns!")
         for column_position in range(0, len(expected_types)):
             column_name = df.columns[column_position]
@@ -175,8 +166,7 @@ class CsvTests(TestCase):
             )
 
     def assert_values(self, s: Series, *expected_values: Any):
-        """
-        A shorthand function asserting that a Series contain the `expected_values`.
+        """A shorthand function asserting that a Series contain the `expected_values`.
 
         Args:
             s: A Series is a column of data
