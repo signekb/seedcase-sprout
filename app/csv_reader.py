@@ -21,6 +21,7 @@ def read_csv_file(csv_file: TextIO, row_number: int = 1000):
     Returns:
         DataFrame: A polars.DataFrame with column types in `dtypes`.
     """
+
     csv_file = _transform_to_suitable_csv_format(csv_file, row_number)
     df = read_csv(csv_file, n_rows=row_number, try_parse_dates=True, separator=';')
 
@@ -65,6 +66,7 @@ def _convert_to_boolean_series_if_possible(df: DataFrame) -> DataFrame:
     Returns:
         DataFrame: A DataFrame with series converted to
     """
+
     boolean_mapping = {"yes": True, "Yes": True, "y": True, "Y": True,
                        "no": False, "No": False, "n": False, "N": False}
 
@@ -73,8 +75,7 @@ def _convert_to_boolean_series_if_possible(df: DataFrame) -> DataFrame:
         if _check_series_values(series, [0, 1]):
             df = df.with_columns(series.cast(Boolean))
         elif _check_series_values(series, list(boolean_mapping.keys())):
-            bool_series = series.map_dict(boolean_mapping).cast(Boolean)
-            df = df.with_columns(bool_series)
+            df = df.with_columns(series.map_dict(boolean_mapping))
 
     return df
 
@@ -95,6 +96,7 @@ def _check_series_values(series: Series, allowed_values: list[Any]) -> bool:
         false: if series contains one or more values not in allowed_values
 
     """
+
     allowed_values_series = Series(allowed_values)
     if series.dtype != allowed_values_series.dtype:
         return False
