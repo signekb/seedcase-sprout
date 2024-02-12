@@ -1,51 +1,71 @@
-<h1>Hello World</h1>
 {% extends 'base.html' %}
 {% load static %}
 
 {% block header_tags %}
-  <link rel="stylesheet" href="{% static 'css/file-drop-zone.css' %}">
-  <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+<link rel="stylesheet" href="{% static 'css/file-drop-zone.css' %}">
+<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
 {% endblock header_tags %}
 
 {% block content %}
 
-{% for column in cols.all %}
+<h4>Data Type fields</h4>
+<p>Available data types and their description </p>
 
-{{ column.description }} 
-{{ column.title }}
+<form action="{% url 'columndata-review' %}" method="get">
 
-{% endfor %}
+  {{ formset.management_form }}
+  <table>
+    <thead>
+      <tr>
+        <th>Display Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for form in formset %}
+      <tr>
+        <td>{{ form.display_name }}</td>
+        <td>{{ form.description }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 
-  <h4>{{ table_name }}</h4>
-  <p>Please review the information extracted from your file.</p>
+</form>
 
-  <div class="small-height scroll">
-    <table class="border">
-      <thead class="fixed">
-        <tr>
-          <th>id</th>
-          <th>display_name</th>
-          <th>description</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for column in colsdata.all %}
-        <tr>
-          <td>{{ column.id }}</td>
-          <td>{{ column.display_name }}</td>
-          <td>{{ column.description }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-      <tfoot class="fixed">
-        <tr>
-          <th>Footer</th>
-          <th>Footer</th>
-          <th>Footer</th>
-        </tr>
-      </tfoot>
-    </table>
-  </div>
+
+
+<!-- 
+<h4>header</h4>
+<p>Please review the information extracted from your file.</p>
+
+<div class="small-height scroll">
+  <table class="border">
+    <thead class="fixed">
+      <tr>
+        <th>id</th>
+        <th>display_name</th>
+        <th>description</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for column in colsdata.all %}
+      <tr>
+        <td>{{ column.id }}</td>
+        <td>{{ column.display_name }}</td>
+        <td>{{ column.description }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+    <tfoot class="fixed">
+      <tr>
+        <th>Footer</th>
+        <th>Footer</th>
+        <th>Footer</th>
+      </tr>
+    </tfoot>
+  </table>
+</div> -->
 
 {% endblock content %}
