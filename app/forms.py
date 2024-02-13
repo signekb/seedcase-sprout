@@ -1,5 +1,4 @@
-"""Module for ModelForms."""
-from django.forms import ModelForm, ValidationError
+"""Module defining the forms."""
 
 from app.models.table_metadata import TableMetadata
 from app.validators import (
@@ -9,10 +8,13 @@ from app.validators import (
 
 
 class TableMetadataForm(ModelForm):
-    """FormModel for creating a TableMetaData."""
+    """ModelForm for creating TableMetaData."""
 
     class Meta:
-        """A class required by Django in a ModelForm."""
+        """A class required by Django in a ModelForm.
+
+        Describes which model to use and which fields to include.
+        """
 
         model = TableMetadata
         fields = ["name", "description"]
