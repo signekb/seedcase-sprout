@@ -1,4 +1,5 @@
-"""File for validating forms."""
+"""Module providing custom validators to be used in forms."""
+
 from django.core.validators import RegexValidator
 from django.forms import ValidationError
 
