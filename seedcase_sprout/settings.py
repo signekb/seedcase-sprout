@@ -135,7 +135,7 @@ Serving static files are handled differently depending on the DEBUG-flag:
   - Before running the application run `python manage.py collectstatic` to copy all
     static assets to STATIC_ROOT
   - Install whitenoise. Whitenoise will serve the static assets from the Django app.
-    The other alternatives seems more complicated:
+    The other alternatives seems more complicated.
 """
 
 STATIC_URL = "static/"
