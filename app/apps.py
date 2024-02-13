@@ -1,10 +1,11 @@
-"""The configuration for the application 'app'."""
+"""Configuration module for "app"."""
+
 from django.apps import AppConfig
 from django.db.models.signals import post_migrate
 
 
 class AppConfig(AppConfig):
-    """The configuration for 'app'."""
+    """The configuration for "app"."""
 
     default_auto_field = "django.db.models.BigAutoField"
     name = "app"
