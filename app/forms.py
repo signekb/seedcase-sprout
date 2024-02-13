@@ -1,5 +1,7 @@
 """Module defining the forms."""
 
+from django.forms import ModelForm
+
 from app.models.table_metadata import TableMetadata
 from app.validators import (
     validate_no_special_characters,
@@ -19,14 +21,17 @@ class TableMetadataForm(ModelForm):
         model = TableMetadata
         fields = ["name", "description"]
 
-    def clean_name(self) -> ValidationError | str:
-        """clean_name Clean and validate field name.
+    def clean_name(self) -> str:
+        """Clean and validate field name.
 
         Adds extra validations for the field "name" on top of the validations
         defined by the model.
 
+        Raises:
+            ValidatorError: If validation fails.
+
         Returns:
-            ValidationError | str: name_value if validation is successful.
+            str: name_value if validation is successful.
         """
         name_value = self.cleaned_data.get("name")
 
