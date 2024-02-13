@@ -60,8 +60,7 @@ def handle_post_request_with_file(
 def render_file_upload_page(
     request: HttpRequest, table_id: int, upload_error: str
 ) -> HttpResponse:
-    """
-    Render file-upload page with an error if there is any
+    """Render file-upload page with an error if there is any
 
     Args:
         request: The http request
@@ -80,8 +79,7 @@ def render_file_upload_page(
 
 
 def validate_csv_and_save_columns(table_id: int, files: Dict[str, IO]) -> None:
-    """
-    Validate the csv and persist column metadata if valid
+    """Validate the csv and persist column metadata if valid
 
     Args:
         table_id: The id of the table
@@ -101,8 +99,8 @@ def validate_csv_and_save_columns(table_id: int, files: Dict[str, IO]) -> None:
 def extract_and_persist_column_metadata(
     table_id: int, uploaded_file: IO
 ) -> None:
-    """
-    Extract columns from CSV and persist the column metadata
+    """Extract columns from CSV and persist the column metadata.
+    
     Args:
         table_id: The id of the table
         uploaded_file: The CSV file

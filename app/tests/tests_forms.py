@@ -22,7 +22,7 @@ class TableMetadataFormTests(TestCase):
         self.assertEqual(
             form.errors["name"],
             [
-                f"Please use only a-z, A-Z, 0-9, -, or _ when specifying {list(form_data.keys())[0]}"
+                f"Please use only upper or lower case letters (a to z), numbers (0 to 9), -, or _ when specifying {list(form_data.keys())[0]}"
             ],
         )
 
@@ -43,7 +43,7 @@ class TableMetadataFormTests(TestCase):
         self.assertEqual(
             form.errors["name"],
             [
-                f"Please use only a-z, A-Z, 0-9, -, or _ when specifying {list(form_data.keys())[0]}"
+                f"Please use only upper or lower case letters (a to z), numbers (0 to 9), -, or _ when specifying {list(form_data.keys())[0]}"
             ],
         )
 
@@ -58,19 +58,13 @@ class TableMetadataFormTests(TestCase):
             "name": "TestTableName",
             "description": "Test description",
         }
-        wrong_form_data = {
-            "name": "Test(TableName",
-            "description": "Test description",
-        }
 
         # Act
         form = TableMetadataForm(data=form_data)
-        wrong_form = TableMetadataForm(data=wrong_form_data)
 
         # Assert
         self.assertTrue(form.is_valid())
         self.assertEqual(form.errors, {})
-        self.assertFalse(wrong_form.is_valid())
 
     def test_table_name_exists_in_db(self):
         """test_table_name_exists_in_db Check if table already exists.

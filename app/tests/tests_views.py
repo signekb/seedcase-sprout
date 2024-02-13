@@ -1,10 +1,9 @@
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import Client, TestCase
-from app.tests.db_test_utils import create_table
-
 from django.urls import reverse
 
 from app.models import TableMetadata
+from app.tests.db_test_utils import create_table
 
 
 class DataImportTests(TestCase):
