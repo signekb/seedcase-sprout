@@ -6,9 +6,7 @@ from django.forms import ValidationError
 from app.models import TableMetadata
 
 
-def validate_no_special_characters(
-    field_name: str, field_value: str
-) -> ValidationError | None:
+def validate_no_special_characters(field_name: str, field_value: str) -> None:
     """Validation check for special characters.
 
     Checks that a field does not include special characters, i.e., characters
@@ -20,8 +18,11 @@ def validate_no_special_characters(
         field_value (str): Field value which will be evaluated with the
         validator.
 
+    Raises:
+        ValidationError: If validation fails.
+
     Returns:
-        ValidationError | None: Returns validation error, if validation fails.
+        None: If validation is successful.
     """
     validator = RegexValidator(
         regex=r"^[-a-zA-Z0-9_]+$",
@@ -41,10 +42,10 @@ def validate_table_name_does_not_exist(name: str) -> None:
         name (Str): The name of the table.
 
     Raises:
-        ValidationError: If a table with the name already exists.
+        ValidationError: If a table with the name already exists in the db.
 
     Returns:
-        ValidationError | None: Returns validation error, if validation fails.
+        None: If validation is successful.
     """
     if TableMetadata.objects.filter(name=name).exists():
         raise ValidationError(
