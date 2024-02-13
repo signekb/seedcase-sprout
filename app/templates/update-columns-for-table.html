@@ -11,19 +11,58 @@
 
 <form method="post" action="">
   {% csrf_token %}
-  {% for form in forms %}
-  {{ form.as_p }}
-  {% endfor %}
+  <table class="stripes">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Data Type</th>
+        <th>Allow Missing</th>
+        <th>Allow Duplicate</th>
+        <th>TableID</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      {% for form in forms %}
+      <tr>
+        <td>{{ form.name }}</td>
+        <td>{{ form.title }}</td>
+        <td style="overflow: hidden;">{{ form.description }}</td>
+        <td>{{ form.data_type }}</td>
+        <td>{{ form.allow_missing_value }}</td>
+        <td>{{ form.allow_duplicate_value }}</td>
+        <td>{{ form.table_metadata }}</td>
+
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
   <button type="submit">Update All</button>
 </form>
 
+<!--
 <h2>Existing Data for {{ table_metadata.name }}</h2>
-{% for column_metadata in columns_metadata %}
-<p>Name: {{ column_metadata.name }}</p>
-<p>Title: {{ column_metadata.title }}</p>
-<p>Description: {{ column_metadata.description }}</p>
-<!-- Add other fields as needed -->
-<hr>
-{% endfor %}
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Title</th>
+      <th>Description</th>
 
-{% endblock content %}
+    </tr>
+  </thead>
+  <tbody>
+    {% for column_metadata in columns_metadata %}
+    <tr>
+      <td>{{ column_metadata.name }}</td>
+      <td>{{ column_metadata.title }}</td>
+      <td>{{ column_metadata.description }}</td>
+
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock content %}-->

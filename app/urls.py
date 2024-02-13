@@ -11,11 +11,6 @@ urlpatterns = [
         "columndata-review", views.columndata_review, name="columndata-review"
     ),
     path(
-        "update-column-metadata/<int:pk>/",
-        views.update_column_metadata,
-        name="update-column-metadata",
-    ),
-    path(
         "update-columns-for-table/<str:table_name>/",
         views.update_columns_for_table,
         name="update-columns-for-table",

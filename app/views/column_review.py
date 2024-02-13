@@ -39,24 +39,6 @@ def columndata_review(request):
     )
 
 
-def update_column_metadata(request, pk):
-    column_metadata = get_object_or_404(ColumnMetadata, pk=pk)
-
-    if request.method == "POST":
-        form = ColumnMetadataForm(request.POST, instance=column_metadata)
-        if form.is_valid():
-            form.save()
-            return redirect("success_page")  # Redirect to a success page
-    else:
-        form = ColumnMetadataForm(instance=column_metadata)
-
-    return render(
-        request,
-        "update-column-metadata.html",
-        {"form": form, "column_metadata": column_metadata},
-    )
-
-
 def update_columns_for_table(request, table_name):
     table_metadata = get_object_or_404(TableMetadata, name=table_name)
     columns_metadata = ColumnMetadata.objects.filter(
@@ -72,6 +54,8 @@ def update_columns_for_table(request, table_name):
             for form in forms:
                 form.save()
             return redirect("home")  # Redirect to a success page
+        # else:
+        #     print([form.errors for form in forms])
     else:
         forms = [
             ColumnMetadataForm(instance=column) for column in columns_metadata
