@@ -17,9 +17,7 @@ class MetadataTests(TestCase):
 
         # Act
         table_exists = TableMetadata.objects.filter(name=table_name).exists()
-        column_exists = ColumnMetadata.objects.filter(
-            name=column_name
-        ).exists()
+        column_exists = ColumnMetadata.objects.filter(name=column_name).exists()
 
         # Assert
         self.assertTrue(table_exists, "Table metadata should be created")
@@ -34,12 +32,8 @@ class MetadataTests(TestCase):
         TableMetadata.objects.first().delete()
 
         # Assert
-        self.assertEqual(
-            0, TableMetadata.objects.count(), "Table should be deleted"
-        )
-        self.assertEqual(
-            0, ColumnMetadata.objects.count(), "Column should be deleted"
-        )
+        self.assertEqual(0, TableMetadata.objects.count(), "Table should be deleted")
+        self.assertEqual(0, ColumnMetadata.objects.count(), "Column should be deleted")
 
     def test_verify_table_is_not_deleted_when_column_is_deleted(self):
         """Table should not be deleted when column is deleted."""

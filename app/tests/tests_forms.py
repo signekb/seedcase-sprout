@@ -80,9 +80,7 @@ class TableMetadataFormTests(TestCase):
         exists in the database (and description is provided)
         """
         # Arrange
-        TableMetadata.objects.create(
-            name="TestTable", description="Test description"
-        )
+        TableMetadata.objects.create(name="TestTable", description="Test description")
         form_data = {"name": "TestTable", "description": "Test description"}
 
         # Act
@@ -92,10 +90,7 @@ class TableMetadataFormTests(TestCase):
         self.assertFalse(form.is_valid())
         self.assertEqual(
             form.errors["name"],
-            [
-                "A table with this name already exists. "
-                "Please provide another name."
-            ],
+            ["A table with this name already exists. " "Please provide another name."],
         )
 
     def test_table_name_does_not_exist_in_db(self):
@@ -143,9 +138,7 @@ class TableMetadataFormTests(TestCase):
 
         # Assert
         self.assertFalse(form.is_valid())
-        self.assertEqual(
-            form.errors["description"], ["This field is required."]
-        )
+        self.assertEqual(form.errors["description"], ["This field is required."])
 
     def test_description_not_empty(self):
         """Check if description isn't empty.

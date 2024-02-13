@@ -38,12 +38,8 @@ class DataImportTests(TestCase):
         response = self.client.post(self.url, self.empty_form)
 
         # Assert
-        self.assertFormError(
-            response, "form", "name", "This field is required."
-        )
-        self.assertFormError(
-            response, "form", "description", "This field is required."
-        )
+        self.assertFormError(response, "form", "name", "This field is required.")
+        self.assertFormError(response, "form", "description", "This field is required.")
 
     def test_redirect_with_valid_form(self):
         """Check for redirect.
@@ -83,9 +79,7 @@ class DataImportTests(TestCase):
         that already exists in the database is submitted.
         """
         # Arrange
-        TableMetadata.objects.create(
-            name="TestTable", description="Test description"
-        )
+        TableMetadata.objects.create(name="TestTable", description="Test description")
 
         # Act
         response = self.client.post(
@@ -129,9 +123,7 @@ class FileUploadTests(TestCase):
         self.assertEqual("file.csv", table.original_file_name)
         self.assertEqual(302, response.status_code, "Redirect is expected")
         self.assertEqual("/edit-table-columns/1", response.url)
-        self.assertEqual(
-            3, table.columnmetadata_set.all().count(), "expects 3 columns"
-        )
+        self.assertEqual(3, table.columnmetadata_set.all().count(), "expects 3 columns")
 
     def test_upload_failed_with_wrong_file_extension(self):
         """Verify error message when file is not ending on .csv."""
@@ -145,9 +137,7 @@ class FileUploadTests(TestCase):
     def test_upload_failed_with_invalid_csv_header(self):
         """Verify error if not able to extract headers from CSV."""
         create_table("Table Name").save()
-        file = SimpleUploadedFile(
-            "file-with-bad-headers.csv", b"no valid headers"
-        )
+        file = SimpleUploadedFile("file-with-bad-headers.csv", b"no valid headers")
 
         response = Client().post("/file-upload/1", {"uploaded_file": file})
 

@@ -39,8 +39,6 @@ class TableMetadataForm(ModelForm):
         validate_table_name_does_not_exist(name=name_value)
 
         # val: table name should not contain special characters
-        validate_no_special_characters(
-            field_name="name", field_value=name_value
-        )
+        validate_no_special_characters(field_name="name", field_value=name_value)
 
         return name_value

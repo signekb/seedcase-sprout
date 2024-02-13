@@ -34,9 +34,7 @@ class ValidateNoSpecialCharactersTests(TestCase):
             f"Please use only upper or lower case letters (a to z), numbers "
             f"(0 to 9), -, or _ when specifying {field_name}",
         )
-        self.assertEqual(
-            context.exception.code, "invalid_value_special_characters"
-        )
+        self.assertEqual(context.exception.code, "invalid_value_special_characters")
 
     def test_field_contains_space(self):
         """Check field for space.
@@ -60,9 +58,7 @@ class ValidateNoSpecialCharactersTests(TestCase):
             f"Please use only upper or lower case letters (a to z), numbers "
             f"(0 to 9), -, or _ when specifying {field_name}",
         )
-        self.assertEqual(
-            context.exception.code, "invalid_value_special_characters"
-        )
+        self.assertEqual(context.exception.code, "invalid_value_special_characters")
 
     def test_field_does_not_contain_special_characters(self):
         """Check for special characters.
@@ -96,9 +92,7 @@ class ValidateTableNameDoesNotExistTests(TestCase):
         ``table_name`` already exists in the database.
         """
         # Arrange
-        TableMetadata.objects.create(
-            name="TestTable", description="Test description"
-        )
+        TableMetadata.objects.create(name="TestTable", description="Test description")
         name = "TestTable"
 
         # Act
@@ -107,12 +101,9 @@ class ValidateTableNameDoesNotExistTests(TestCase):
         # Assert
         self.assertEqual(
             context.exception.message,
-            "A table with this name already exists. "
-            "Please provide another name.",
+            "A table with this name already exists. " "Please provide another name.",
         )
-        self.assertEqual(
-            context.exception.code, "invalid_table_name_already_exists"
-        )
+        self.assertEqual(context.exception.code, "invalid_table_name_already_exists")
 
     def test_table_name_does_not_exist_in_db(self):
         """Check if name doesn't exist.

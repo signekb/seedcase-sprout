@@ -96,17 +96,13 @@ def validate_csv_and_save_columns(table_id: int, files: Dict[str, IO]) -> None:
     uploaded_file = files.get("uploaded_file", None)
 
     if not uploaded_file.name.endswith(".csv"):
-        error_msg = (
-            "Unsupported file format: ." + uploaded_file.name.split(".")[-1]
-        )
+        error_msg = "Unsupported file format: ." + uploaded_file.name.split(".")[-1]
         raise StopUpload(error_msg)
 
     extract_and_persist_column_metadata(table_id, uploaded_file)
 
 
-def extract_and_persist_column_metadata(
-    table_id: int, uploaded_file: IO
-) -> None:
+def extract_and_persist_column_metadata(table_id: int, uploaded_file: IO) -> None:
     """Extract columns from CSV and persist the column metadata.
 
     Args:
@@ -117,9 +113,7 @@ def extract_and_persist_column_metadata(
     column_names = uploaded_file.readline().decode("utf-8").split(",")
 
     if len(column_names) < 2:
-        error_msg = (
-            "Unable to extract column headers. We need at least two columns"
-        )
+        error_msg = "Unable to extract column headers. We need at least two columns"
         raise StopUpload(error_msg)
 
     table_meta = TableMetadata.objects.get(pk=table_id)
