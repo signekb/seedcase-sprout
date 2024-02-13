@@ -28,7 +28,7 @@ class TableMetadataForm(ModelForm):
         defined by the model.
 
         Raises:
-            ValidatorError: If either table name exists in the db or the name
+            ValidatorError: If either table name exists in the database or the name
             includes special characters.
 
         Returns:
@@ -36,10 +36,8 @@ class TableMetadataForm(ModelForm):
         """
         name_value = self.cleaned_data.get("name")
 
-        # val: table name should not already exist in the db
         validate_table_name_does_not_exist(name=name_value)
 
-        # val: table name should not contain special characters
         validate_no_special_characters(field_name="name", field_value=name_value)
 
         return name_value
