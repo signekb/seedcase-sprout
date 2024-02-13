@@ -1,1 +1,1 @@
-"""The main application in sprout."""
+"""The Sprout application."""
