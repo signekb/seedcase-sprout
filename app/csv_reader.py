@@ -1,3 +1,4 @@
+"""File with read_csv_file and related functions."""
 import csv
 import io
 from typing import Any, TextIO
@@ -5,8 +6,11 @@ from typing import Any, TextIO
 from polars import Boolean, DataFrame, Series, read_csv
 
 
-def read_csv_file(csv_file: TextIO, row_number: int = 1000):
-    """Reads a CSV file and returns a polars.DataFrame with column/series types in dtypes.
+def read_csv_file(csv_file: TextIO, row_number: int = 1000) -> DataFrame:
+    """Reads a CSV file and returns a polars.DataFrame with derived types.
+
+    The property ´dtypes´ in the returned DataFrame contains the column/series
+    types.
 
     It uses `polars.csv_read()`, but adds additional functionality:
     - Converts boolean-ish values (Yes, y, 1) to booleans
@@ -21,21 +25,22 @@ def read_csv_file(csv_file: TextIO, row_number: int = 1000):
         DataFrame: A polars.DataFrame with column types in `dtypes`.
     """
     csv_file = _transform_to_suitable_csv_format(csv_file, row_number)
-    df = read_csv(csv_file, n_rows=row_number, try_parse_dates=True, separator=';')
+    df = read_csv(csv_file, n_rows=row_number, try_parse_dates=True,
+                  separator=';')
 
     return _convert_to_boolean_series_if_possible(df)
 
 
-def _transform_to_suitable_csv_format(csv_file: TextIO, row_number: int) -> TextIO:
-    """Preparing the CSV content for polar.read_csv method. The method `polar.read_csv`
-    is not able to parse some CSV dialects.
+def _transform_to_suitable_csv_format(csv_file: TextIO,
+                                      row_number: int) -> TextIO:
+    """Preparing the CSV content for polar.read_csv method.
 
-    This method converts from any CSV dialect/format into a CSV format suitable for
-    polar.read_csv
+    This method converts from any CSV dialect/format into a CSV format suitable
+    for polar.read_csv
 
     Args:
-        csv_file: A CSV file with a dialect that is potentially not suitable for
-                  polars.read_csv
+        csv_file: A CSV file with a dialect that is potentially not suitable
+                  for polars.read_csv
         row_number: The number of rows to transform
 
     Returns:
@@ -52,8 +57,10 @@ def _transform_to_suitable_csv_format(csv_file: TextIO, row_number: int) -> Text
 
 
 def _convert_to_boolean_series_if_possible(df: DataFrame) -> DataFrame:
-    """Converts DataFrame series of boolean_ish values (0,1,"Yes","No") to
-    booleans (True/False)
+    """Converts columns with boolean_ish values to actual booleans.
+
+    E.g. A "String" column with ("Yes", "y", "no", "n") is converted to
+    (True, True, False, False)
 
     Args:
         df: Polars Dataframe with series
@@ -75,10 +82,10 @@ def _convert_to_boolean_series_if_possible(df: DataFrame) -> DataFrame:
 
 
 def _check_series_values(series: Series, allowed_values: list[Any]) -> bool:
-    """Checks if a series only contains the allowed values and null values. This is
-    relevant check before converting to a certain type.
+    """Checks if a series only contains the allowed values and null values.
 
-    E.g. if is all values are either 0 or 1, then we can convert to booleans
+    This is relevant check before converting to a certain type. E.g. if is
+    all values are either 0 or 1, then we can convert to booleans
 
     Args:
         series: A series of values, which should be checked
