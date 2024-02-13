@@ -75,8 +75,8 @@ class DataImportTests(TestCase):
     def test_no_redirect_with_valid_form_table_exists(self):
         """Test that page isn't redirected when a table with the submitted name exists.
 
-        Tests that page isn't redirected when a valid form with a table name that already
-        exists in the database is submitted.
+        Tests that page isn't redirected when a valid form with a table name that
+        already exists in the database is submitted.
         """
         # Arrange
         TableMetadata.objects.create(name="TestTable", description="Test description")

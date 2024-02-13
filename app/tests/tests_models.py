@@ -47,7 +47,8 @@ class MetadataTests(TestCase):
     def test_verify_table_is_not_deleted_when_column_is_deleted(self):
         """Test of column deletion not deleting table.
 
-        Tests that when a column is deleted from a table, the table isn't deleted as well
+        Tests that when a column is deleted from a table, the table isn't deleted as
+        well.
         """
         # Arrange
         create_metadata_table_and_column()
