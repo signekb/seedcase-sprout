@@ -12,7 +12,7 @@ def home(request: HttpRequest) -> HttpResponse:
     """Renders the frontpage based on home.html.
 
     Args:
-        request: The HttpRequest from the client
+        request: The HttpRequest from the user
 
     Returns:
         HttpResponse: The html content based on the home.html template

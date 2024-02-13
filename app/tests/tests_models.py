@@ -1,4 +1,4 @@
-"""Testing the models."""
+"""Tests for models."""
 from django.test import TestCase
 
 from app.models import ColumnMetadata, TableMetadata
@@ -6,10 +6,16 @@ from app.tests.db_test_utils import create_metadata_table_and_column
 
 
 class MetadataTests(TestCase):
-    """Testing TableMetadata and ColumnMetadata and ColumnDataType."""
+    """Tests for metadata models.
+
+    This includes TableMetadata and ColumnMetadata.
+    """
 
     def test_create_metadata_for_a_table_and_columns_and_verify_creation(self):
-        """Testing creation of metadata."""
+        """Test for the creation of metadata.
+
+        Tests that a table and a column exist in the database after creation
+        """
         # Arrange
         table_name = "TableName"
         column_name = "ColumnName"
@@ -24,7 +30,10 @@ class MetadataTests(TestCase):
         self.assertTrue(column_exists, "Column metadata should be created")
 
     def test_key_constraint_should_delete_column_if_table_deleted(self):
-        """Foreign Key constraint should delete column when table deleted."""
+        """Test of foreign Key constraint that should delete column when table deleted.
+
+        Tests that when we delete a table, the column is also deleted.
+        """
         # Arrange
         create_metadata_table_and_column()
 
@@ -36,7 +45,10 @@ class MetadataTests(TestCase):
         self.assertEqual(0, ColumnMetadata.objects.count(), "Column should be deleted")
 
     def test_verify_table_is_not_deleted_when_column_is_deleted(self):
-        """Table should not be deleted when column is deleted."""
+        """Test of column deletion not deleting table.
+
+        Tests that when a column is deleted from a table, the table isn't deleted as well
+        """
         # Arrange
         create_metadata_table_and_column()
 

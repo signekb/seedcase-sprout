@@ -19,7 +19,7 @@ def validate_no_special_characters(field_name: str, field_value: str) -> None:
         validator.
 
     Raises:
-        ValidationError: If validation fails.
+        ValidationError: If field_value includes special characters.
 
     Returns:
         None: If validation is successful.

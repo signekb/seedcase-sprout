@@ -1,10 +1,10 @@
-"""File with TableMetaData."""
+"""Module defining the TableMetaData model."""
 from django.conf import settings
 from django.db import models
 
 
 class TableMetadata(models.Model):
-    """Represents a schema for a data set."""
+    """Model representing the table metadata."""
 
     name = models.CharField(max_length=128)
     original_file_name = models.CharField(max_length=200)

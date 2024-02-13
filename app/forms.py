@@ -1,4 +1,4 @@
-"""Module defining the forms."""
+"""Module defining forms."""
 
 from django.forms import ModelForm
 
@@ -15,7 +15,7 @@ class TableMetadataForm(ModelForm):
     class Meta:
         """A class required by Django in a ModelForm.
 
-        Describes which model to use and which fields to include.
+        Defines which model is used and which fields that are included.
         """
 
         model = TableMetadata
@@ -28,10 +28,11 @@ class TableMetadataForm(ModelForm):
         defined by the model.
 
         Raises:
-            ValidatorError: If validation fails.
+            ValidatorError: If either table name exists in the db or the name
+            includes special characters.
 
         Returns:
-            str: name_value if validation is successful.
+            str: The cleaned value of the "name" field.
         """
         name_value = self.cleaned_data.get("name")
 

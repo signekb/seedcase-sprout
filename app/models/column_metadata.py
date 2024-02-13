@@ -1,4 +1,4 @@
-"""File with ColumnMetadata."""
+"""Module defining the ColumnMetadata model."""
 from django.db import models
 
 from app.models.column_data_type import ColumnDataType
@@ -6,7 +6,7 @@ from app.models.table_metadata import TableMetadata
 
 
 class ColumnMetadata(models.Model):
-    """The metadata for a dataset column."""
+    """Model representing the metadata of columns."""
 
     table_metadata = models.ForeignKey(TableMetadata, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)

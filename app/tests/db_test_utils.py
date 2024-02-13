@@ -1,4 +1,4 @@
-"""File contains some database utility functions used for testing."""
+"""File containing database utility functions used for testing."""
 from app.models import ColumnMetadata, TableMetadata
 
 
@@ -19,11 +19,11 @@ def create_table(name: str) -> TableMetadata:
 
 
 def create_column(name: str, table: TableMetadata) -> ColumnMetadata:
-    """Creates ColumnMetadata based on a column name.
+    """Creates ColumnMetadata based on a column name and a table.
 
     Args:
         name: The name of the column
-        table: The table where the column belongs
+        table: The table the column belongs to
 
     Returns:
         ColumnMetaData: The column created
@@ -42,11 +42,11 @@ def create_column(name: str, table: TableMetadata) -> ColumnMetadata:
 def create_metadata_table_and_column(
     table_name: str = "TestTable", column_name: str = "Column"
 ) -> None:
-    """Create a MetaDataTable and a MetaDataColumn.
+    """Creates TableMetadata and ColumnMetadata based on table name and column name.
 
     Args:
-        table_name: The table name for MetaDataTable
-        column_name: The column name for MetaDataColumn
+        table_name: The table name for TableMetadata
+        column_name: The column name for ColumnMetadata
     """
     table = create_table(table_name)
     table.save()

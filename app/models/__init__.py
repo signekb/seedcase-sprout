@@ -1,4 +1,4 @@
-"""Module for Django models."""
+"""Module for models."""
 
 
 from .column_data_type import ColumnDataType  # noqa: F401
