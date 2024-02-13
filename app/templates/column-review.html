@@ -14,6 +14,7 @@
   <table class="stripes">
     <thead>
       <tr>
+        <th>Row ID</th>
         <th>Name</th>
         <th>Title</th>
         <th>Description</th>
@@ -27,13 +28,14 @@
     <tbody>
       {% for form in forms %}
       <tr>
+        <td>{{ form.instance.id }}</td>
         <td>{{ form.name }}</td>
         <td>{{ form.title }}</td>
         <td style="overflow: hidden;">{{ form.description }}</td>
-        <td>{{ form.data_type }}</td>
+        <td style="overflow: hidden;">{{ form.data_type }}</td>
         <td>{{ form.allow_missing_value }}</td>
         <td>{{ form.allow_duplicate_value }}</td>
-        <td>{{ form.table_metadata }}</td>
+        <td>{{ table_metadata.name }}</td>
 
       </tr>
       {% endfor %}

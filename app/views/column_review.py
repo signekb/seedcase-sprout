@@ -22,7 +22,7 @@ def column_review(request, table_name):
     table_metadata = get_object_or_404(TableMetadata, name=table_name)
     columns_metadata = ColumnMetadata.objects.filter(
         table_metadata=table_metadata
-    )
+    )  # .prefetch_related("data_type") doesn't seem to fetch the display_name from data_type
 
     if request.method == "POST":
         forms = [
