@@ -1,48 +1,49 @@
-<h1>Hello World</h1>
 {% extends 'base.html' %}
 {% load static %}
 
 {% block header_tags %}
-  <link rel="stylesheet" href="{% static 'css/file-drop-zone.css' %}">
-  <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+<link rel="stylesheet" href="{% static 'css/file-drop-zone.css' %}">
+<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
 {% endblock header_tags %}
 
 {% block content %}
 
-  <h4>{{ table_name }}</h4>
-  <p>Please review the information extracted from your file and complete the description fields.</p>
+<h4>Heading should be table name</h4>
+<p>Please review the information extracted from your file and complete the description fields.</p>
 
-  <div class="small-height scroll">
-    <table class="border">
-      <thead class="fixed">
-        <tr>
-          <th style="width: auto;">ID</th>
-          <th style="width: auto;">Name</th>
-          <th style="width: auto;">Title</th>
-          <th style="width: auto;">Description</th>
-          <th style="width: auto;">Allow missing</th>
-          <th style="width: auto;">Allow duplication</th>
-          <th style="width: auto;">Data Type</th>
-          <th style="width: auto;">table id</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for column in cols.all %}
-        <tr>
-          <td class="auto-width">{{ column.id }}</td>
-          <td class="auto-width">{{ column.name }}</td>
-          <td class="auto-width">{{ column.title }}</td>
-          <td class="auto-width">{{ column.description }}</td>
-          <td class="auto-width">{{ column.allow_missing_value }}</td>
-          <td class="auto-width">{{ column.allow_duplicate_value }}</td>
-          <td class="auto-width">{{ column.data_type.display_name }}</td>
-          <td class="auto-width">{{ column.table_metadata.name }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-      
-    </table>
-  </div>
+<form action="{% url 'column-review' %}" method="post">
+  {% csrf_token %}
+
+  {{ formset.management_form }}
+  <table>
+    <thead>
+      <tr>
+        <th>Table Metadata</th>
+        <th>Name</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Data Type</th>
+        <th>Allow Missing</th>
+        <th>Allow Duplicate</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for form in formset %}
+      <tr>
+        <td>{{ form.table_metadata.name }}</td>
+        <td>{{ form.name }}</td>
+        <td>{{ form.title }}</td>
+        <td style="overflow: hidden;">{{ form.description }}</td>
+        <td>{{ form.data_type }}</td>
+        <td>{{ form.allow_missing_value }}</td>
+        <td>{{ form.allow_duplicate_value }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <input type="Submit">
+</form>
 
 {% endblock content %}

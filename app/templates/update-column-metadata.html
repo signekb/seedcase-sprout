@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header_tags %}
+<link rel="stylesheet" href="{% static 'css/file-drop-zone.css' %}">
+<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+{% endblock header_tags %}
+
+{% block content %}
+
+<form method="post" action="">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Update</button>
+</form>
+
+<!-- Display existing data -->
+<p>Name: {{ column_metadata.name }}</p>
+<p>Table Metadata: {{ column_metadata.table_metadata.name }}</p>
+<p>Title: {{ column_metadata.title }}</p>
+<p>Description: {{ column_metadata.description }}</p>
+<!-- Add other fields as needed -->
+
+{% endblock content %}
