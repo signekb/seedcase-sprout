@@ -6,7 +6,7 @@ from app.models.table_metadata import TableMetadata
 
 
 class ColumnMetadata(models.Model):
-    """The metadata for a dataset column"""
+    """The metadata for a dataset column."""
 
     table_metadata = models.ForeignKey(TableMetadata, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
