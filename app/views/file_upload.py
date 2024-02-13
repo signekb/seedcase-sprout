@@ -1,3 +1,4 @@
+"""File with file_upload view."""
 import time
 from typing import IO, Dict
 
@@ -8,20 +9,25 @@ from django.shortcuts import redirect, render
 from app.models import ColumnMetadata, TableMetadata
 
 
-def file_upload(request: HttpRequest, table_id: int):
+def file_upload(
+    request: HttpRequest, table_id: int
+) -> HttpResponse | HttpResponseRedirect:
     """Method is called at url="file-upload/<int:table_id>".
 
-    The table_id comes from the url. The table_id is used fetch the table_metadata from the database.
+    The table_id comes from the url. The table_id is used fetch the
+    table_metadata from the database.
 
     - On GET requests, the file-upload page is rendered.
-    - On POST requests, a csv file is submitted from the user. This file is validated
-    and column metadata is persisted for the table.
+    - On POST requests, The submitted CSV file is validated and column
+      metadata persisted for the table.
 
     Args:
         request: the http request from the user/browser
         table_id: the table_id based
 
     Returns:
+        HttpResponse: For GET requests and POST requests with errors
+        HttpResponseRedirect: For POST request without any error
     """
     if request.method == "POST":
         return handle_post_request_with_file(request, table_id)
@@ -32,18 +38,20 @@ def file_upload(request: HttpRequest, table_id: int):
 def handle_post_request_with_file(
     request: HttpRequest, table_id: int
 ) -> HttpResponse | HttpResponseRedirect:
-    """The post request should contain a CSV file, which is validated in this method.
+    """Validate CSV file in post request.
+
     The method have two scenarios:
-    - If the validation is successful, then we persist the column metadata and redirect
-    to the next page in the flow
-    - If the validation fails, an exception is raised StopUpload. The page file-upload
-    page is re-rendered with the error message
+    - If the validation is successful, then we persist the column metadata
+      and redirect to the next page in the flow
+    - If the validation fails, an exception is raised StopUpload. The page
+      file-upload page is re-rendered with the error message
+
     Args:
         request: http request from the user/browser
         table_id: the id of the table we are using
 
-    Returns: A HttpResponseRedirect when validation is successful or HttpResponse when
-    validation fails
+    Returns: A HttpResponseRedirect when validation is successful or
+    HttpResponse when validation fails
 
     """
     try:
@@ -60,8 +68,7 @@ def handle_post_request_with_file(
 def render_file_upload_page(
     request: HttpRequest, table_id: int, upload_error: str
 ) -> HttpResponse:
-    """
-    Render file-upload page with an error if there is any
+    """Render file-upload page with an error if there is any.
 
     Args:
         request: The http request
@@ -80,12 +87,11 @@ def render_file_upload_page(
 
 
 def validate_csv_and_save_columns(table_id: int, files: Dict[str, IO]) -> None:
-    """
-    Validate the csv and persist column metadata if valid
+    """Validate the csv and persist column metadata if valid.
 
     Args:
         table_id: The id of the table
-        files: A dictionary of files where the csv is in the key "uploaded_file"
+        files: A dictionary with a CSV file in files["uploaded_file"]
     """
     uploaded_file = files.get("uploaded_file", None)
 
@@ -101,8 +107,8 @@ def validate_csv_and_save_columns(table_id: int, files: Dict[str, IO]) -> None:
 def extract_and_persist_column_metadata(
     table_id: int, uploaded_file: IO
 ) -> None:
-    """
-    Extract columns from CSV and persist the column metadata
+    """Extract columns from CSV and persist the column metadata.
+
     Args:
         table_id: The id of the table
         uploaded_file: The CSV file

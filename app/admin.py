@@ -1,3 +1,5 @@
-from django.contrib import admin
+"""You can register models to be available in the admin site.
 
-# Register your models here.
+View how to here:
+https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Admin_site
+"""

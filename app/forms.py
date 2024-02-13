@@ -1,6 +1,7 @@
+"""Module for ModelForms."""
 from django.forms import ModelForm, ValidationError
 
-from app.models import TableMetadata
+from app.models.table_metadata import TableMetadata
 from app.validators import (
     validate_no_special_characters,
     validate_table_name_does_not_exist,
@@ -8,7 +9,11 @@ from app.validators import (
 
 
 class TableMetadataForm(ModelForm):
+    """FormModel for creating a TableMetaData."""
+
     class Meta:
+        """A class required by Django in a ModelForm."""
+
         model = TableMetadata
         fields = ["name", "description"]
 
@@ -23,7 +28,7 @@ class TableMetadataForm(ModelForm):
         """
         name_value = self.cleaned_data.get("name")
 
-        # val: table name should not already exists in the db
+        # val: table name should not already exist in the db
         validate_table_name_does_not_exist(name=name_value)
 
         # val: table name should not contain special characters

@@ -1,3 +1,4 @@
+"""File with ColumnMetadata."""
 from django.db import models
 
 from app.models.column_data_type import ColumnDataType
@@ -5,11 +6,7 @@ from app.models.table_metadata import TableMetadata
 
 
 class ColumnMetadata(models.Model):
-    """Object to create table with types of metadata from columns in imported data.
-
-    Args:
-        models: Values to store for metadata.
-    """
+    """The metadata for a dataset column"""
 
     table_metadata = models.ForeignKey(TableMetadata, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)

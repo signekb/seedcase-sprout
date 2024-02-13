@@ -1,20 +1,22 @@
+"""File for testing views."""
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import Client, TestCase
-from app.tests.db_test_utils import create_table
-
 from django.urls import reverse
 
 from app.models import TableMetadata
+from app.tests.db_test_utils import create_table
 
 
 class DataImportTests(TestCase):
+    """Tests the data import view."""
+
     url = reverse("data_import")
     empty_form = {}
     invalid_form = {"name": "Test/Table", "description": "Test description"}
     valid_form = {"name": "TestTable", "description": "Test description"}
 
     def test_data_import_renders(self):
-        """test_data_import_renders Check that data import renders.
+        """Check that data import renders.
 
         Checks that tbe page is rendered using the expected template, when the
         response method is "GET".
@@ -27,7 +29,7 @@ class DataImportTests(TestCase):
         self.assertTemplateUsed(response, "data-import.html")
 
     def test_fields_are_required(self):
-        """test_fields_are_required Check required fields.
+        """Check required fields.
 
         Checks that the expected errors occur when the form is empty (i.e.,
         "This field is required").
@@ -44,7 +46,7 @@ class DataImportTests(TestCase):
         )
 
     def test_redirect_with_valid_form(self):
-        """test_redirect_with_valid_form Check for redirect.
+        """Check for redirect.
 
         Checks that the page is redirected when a valid form is submitted.
         """
@@ -60,7 +62,7 @@ class DataImportTests(TestCase):
         # (the above will, hopefully, work when file-upload is implemented)
 
     def test_no_redirect_with_invalid_form_special_characters(self):
-        """test_no_redirect_with_invalid_form_special_characters Check for correctly no redirecting.
+        """Check for correctly no redirecting.
 
         Checks that the page isn't redirected when an invalid form with special
         characters in the "name" field is submitted.
@@ -75,7 +77,7 @@ class DataImportTests(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_no_redirect_with_valid_form_table_exists(self):
-        """test_no_redirect_with_valid_form_table_exists Check that page isn't redirected.
+        """Check that page isn't redirected.
 
         Checks that page isn't redirected when a valid form with a table name
         that already exists in the database is submitted.
@@ -96,9 +98,10 @@ class DataImportTests(TestCase):
 
 
 class FileUploadTests(TestCase):
-    def test_render_file_upload_view_and_verify_that_table_metadata_is_loaded(
-        self,
-    ):
+    """Tests for the file-upload view."""
+
+    def test_render_file_upload_view_and_verify_that_table_is_loaded(self):
+        """Verify that view is loaded and table_name is present in view."""
         # Arrange
         table_name = "Table Name"
         create_table(table_name).save()
@@ -111,6 +114,7 @@ class FileUploadTests(TestCase):
         self.assertContains(response, table_name)
 
     def test_upload_of_file_should_create_columns_in_database(self):
+        """Verify that table is created when csv is uploaded."""
         # Arrange
         table_name = "Table Name"
         file_name = "file.csv"
@@ -130,6 +134,7 @@ class FileUploadTests(TestCase):
         )
 
     def test_upload_failed_with_wrong_file_extension(self):
+        """Verify error message when file is not ending on .csv."""
         create_table("Table Name").save()
         file = SimpleUploadedFile("file-with-wrong-ext.svg", b"file content")
 
@@ -138,6 +143,7 @@ class FileUploadTests(TestCase):
         self.assertContains(response, "Unsupported file format: .svg")
 
     def test_upload_failed_with_invalid_csv_header(self):
+        """Verify error if not able to extract headers from CSV."""
         create_table("Table Name").save()
         file = SimpleUploadedFile(
             "file-with-bad-headers.csv", b"no valid headers"
