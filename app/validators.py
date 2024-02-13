@@ -26,8 +26,8 @@ def validate_no_special_characters(field_name: str, field_value: str) -> None:
     """
     validator = RegexValidator(
         regex=r"^[-a-zA-Z0-9_]+$",
-        message=f"Please use only a-z, A-Z, 0-9, -, "
-        f"or _ when specifying {field_name}",
+        message=f"Please use only upper or lower case letters (a to z), "
+        f"numbers (0 to 9), -, or _ when specifying {field_name}",
         code="invalid_value_special_characters",
     )
     return validator(field_value)
