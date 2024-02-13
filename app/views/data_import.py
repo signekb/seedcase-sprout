@@ -14,8 +14,8 @@ def data_import(request: HttpRequest) -> HttpResponse:
     redirected to the ``file-upload`` template.
 
     Args:
-        request (HttpRequest): Contains metadata about the request, including
-                               method ("POST", "GET") and input in the form.
+        request (HttpRequest): Contains metadata about the request, including method
+            ("POST", "GET") and input in the form.
 
     Returns:
         HttpResponse:
