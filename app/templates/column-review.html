@@ -9,41 +9,37 @@
 
 {% block content %}
 
-<h4>Heading should be table name</h4>
-<p>Please review the information extracted from your file and complete the description fields.</p>
-
-<form action="{% url 'column-review' %}" method="post">
+<form method="post" action="">
   {% csrf_token %}
-
-  {{ formset.management_form }}
-  <table>
+  <table class="stripes">
     <thead>
       <tr>
-        <th>Table Metadata</th>
         <th>Name</th>
         <th>Title</th>
         <th>Description</th>
         <th>Data Type</th>
         <th>Allow Missing</th>
         <th>Allow Duplicate</th>
+        <th>TableID</th>
+
       </tr>
     </thead>
     <tbody>
-      {% for form in formset %}
+      {% for form in forms %}
       <tr>
-        <td>{{ form.table_metadata.name }}</td>
         <td>{{ form.name }}</td>
         <td>{{ form.title }}</td>
         <td style="overflow: hidden;">{{ form.description }}</td>
         <td>{{ form.data_type }}</td>
         <td>{{ form.allow_missing_value }}</td>
         <td>{{ form.allow_duplicate_value }}</td>
+        <td>{{ form.table_metadata }}</td>
+
       </tr>
       {% endfor %}
     </tbody>
   </table>
-
-  <input type="Submit">
+  <button type="submit">Update All</button>
 </form>
 
 {% endblock content %}

@@ -6,7 +6,6 @@ from .file_upload import file_upload
 from .column_review import (
     column_review,
     columndata_review,
-    update_columns_for_table,
 )
 from .data_import import data_import
 

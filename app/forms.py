@@ -51,8 +51,8 @@ class ColumnDataTypeForm(ModelForm):
 class ColumnMetadataForm(ModelForm):
     """Based on the model ColumnMetaData.
 
-    The form is used in column-review to display the content of the user
-    generated tables based on data from uploaded csv files.
+    The form is used in column-review to display and edit the content of
+    the user-generated tables based on data from uploaded csv files.
 
 
     Args:
