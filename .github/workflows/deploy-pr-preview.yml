@@ -1,0 +1,54 @@
+# From: https://github.com/superfly/fly-pr-review-apps
+name: Deploy PR Preview App
+
+on:
+  workflow_run:
+    workflows: 
+      - 'Run tests'
+    types: 
+      - completed
+    branches-ignore:
+      - main
+
+env:
+  FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+  FLY_REGION: ams
+  FLY_ORG: seedcase-project
+
+jobs:
+  staging_app:
+    runs-on: ubuntu-latest
+
+    # The `on.EVENT` (e.g. `on.pull_request`) used above usually can be combined with other EVENTS
+    # like `on.push`, `on.issues`, or `on.schedule`. But `on.workflow_run` doesn't work with other 
+    # EVENTS, like `on.pull_request`. So to make it only run on PRs, we need to use this `if` condition,
+    # so that this only runs after the tests have successfully passed and only on pull requests.
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'pull_request' }}
+
+    # Only run one deployment at a time per PR.
+    concurrency:
+      group: pr-${{ github.event.number }}
+
+    # Create a GitHub deployment environment per staging app so it shows up
+    # in the pull request UI.
+    environment:
+      name: pr-${{ github.event.number }}
+      url: ${{ steps.deploy.outputs.url }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy preview of PR
+        id: deploy
+        uses: superfly/fly-pr-review-apps@1.0.0
+        with:
+          name: ${{ github.event.repository.name }}-pr-${{ github.event.number }}
+
+      # This removes left over items in GitHub from the building and deploying.
+      - name: Clean up GitHub environment
+        uses: strumwolf/delete-deployment-environment@v2
+        if: ${{ github.event.action == 'closed' }}
+        with:
+          # ⚠️ The provided token needs permission for admin write:org
+          token: ${{ secrets.GITHUB_TOKEN }}
+          environment: pr-${{ github.event.number }}
