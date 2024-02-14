@@ -1,3 +1,4 @@
+"""Tests for validators."""
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 
@@ -9,11 +10,13 @@ from app.validators import (
 
 
 class ValidateNoSpecialCharactersTests(TestCase):
-    def test_field_contains_special_character(self):
-        """test_field_contains_special_character Checks field for special characters.
+    """Class with tests for validating the special characters validator."""
 
-        Checks that validation fails with the expected message and code if the
-        field contains a special character (here "ø").
+    def test_field_contains_special_character(self):
+        """Test for field with special characters.
+
+        Tests that validation fails with the expected message and code if the field
+        contains a special character (here "ø").
         """
         # Arrange
         field_name = "name"
@@ -28,17 +31,16 @@ class ValidateNoSpecialCharactersTests(TestCase):
         # Assert
         self.assertEqual(
             context.exception.message,
-            f"Please use only upper or lower case letters (a to z), numbers (0 to 9), -, or _ when specifying {field_name}",
+            f"Please use only upper or lower case letters (a to z), numbers "
+            f"(0 to 9), -, or _ when specifying {field_name}",
         )
-        self.assertEqual(
-            context.exception.code, "invalid_value_special_characters"
-        )
+        self.assertEqual(context.exception.code, "invalid_value_special_characters")
 
     def test_field_contains_space(self):
-        """test_field_contains_space Check field for space.
+        """Test for field with space.
 
-        Checks that validation fails with the expected message and code if the
-        field contains spaces.
+        Tests that validation fails with the expected message and code if the field
+        contains spaces.
         """
         # Arrange
         field_name = "name"
@@ -53,16 +55,15 @@ class ValidateNoSpecialCharactersTests(TestCase):
         # Assert
         self.assertEqual(
             context.exception.message,
-            f"Please use only upper or lower case letters (a to z), numbers (0 to 9), -, or _ when specifying {field_name}",
+            f"Please use only upper or lower case letters (a to z), numbers "
+            f"(0 to 9), -, or _ when specifying {field_name}",
         )
-        self.assertEqual(
-            context.exception.code, "invalid_value_special_characters"
-        )
+        self.assertEqual(context.exception.code, "invalid_value_special_characters")
 
     def test_field_does_not_contain_special_characters(self):
-        """test_field_does_not_contain_special_characters Check for special characters.
+        """Test for field not containing special characters.
 
-        Checks that validation doesn't fail if the field doesn't include special
+        Tests that validation doesn't fail if the field doesn't contain special
         characters.
         """
         # Arrange
@@ -82,16 +83,16 @@ class ValidateNoSpecialCharactersTests(TestCase):
 
 
 class ValidateTableNameDoesNotExistTests(TestCase):
-    def test_table_name_exists_in_db(self):
-        """test_table_name_exists_in_db Check if name exists.
+    """Test for table does not exist validator."""
 
-        Checks that validation fails with expected message and code if
-        ``table_name`` already exists in the database.
+    def test_table_name_exists_in_db(self):
+        """Test for a table name that already exists in database.
+
+        Tests that validation fails with expected message and code if table_name already
+        exists in the database.
         """
         # Arrange
-        TableMetadata.objects.create(
-            name="TestTable", description="Test description"
-        )
+        TableMetadata.objects.create(name="TestTable", description="Test description")
         name = "TestTable"
 
         # Act
@@ -102,14 +103,12 @@ class ValidateTableNameDoesNotExistTests(TestCase):
             context.exception.message,
             "A table with this name already exists. Please provide another name.",
         )
-        self.assertEqual(
-            context.exception.code, "invalid_table_name_already_exists"
-        )
+        self.assertEqual(context.exception.code, "invalid_table_name_already_exists")
 
     def test_table_name_does_not_exist_in_db(self):
-        """test_table_name_does_not_exist_in_db Check if name doesn't exist.
+        """Test for a table name that doesn't exist in the database.
 
-        Checks that validation doesn't fail when ``table_name`` doesn't exist in the
+        Tests that validation doesn't fail when ``table_name`` doesn't exist in the
         database.
         """
         # Arrange
