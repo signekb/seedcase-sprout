@@ -1,4 +1,4 @@
-"""File with tests for csv_read_file()."""
+"""File with tests for `csv_read_file()`."""
 import csv
 import datetime
 import io
@@ -11,7 +11,7 @@ from app.csv_reader import read_csv_file
 
 
 class CsvTests(TestCase):
-    """Class with tests for read_csv_file()."""
+    """Class with tests for `read_csv_file()`."""
     def test_csv_with_simple_types(self):
         """Testing that `read_csv_file()` should derive column types.
 
@@ -154,7 +154,7 @@ class CsvTests(TestCase):
         self.assertRaises(csv.Error, read_csv_file, csv_file)
 
     def assert_types(self, df: DataFrame, *expected_types: str):
-        """A method test expected_types in a DataFrame object.
+        """A method test `expected_types` in a DataFrame object.
 
         Args:
             df: The DataFrame with data and types
