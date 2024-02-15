@@ -27,7 +27,7 @@ def read_csv_file(csv_file: TextIO, row_number: int = 500) -> DataFrame:
     csv_file = _transform_to_suitable_csv_format(csv_file, row_number)
     df = read_csv(csv_file, n_rows=row_number, try_parse_dates=True, separator=";")
 
-    return _convert_to_boolean_series_if_possible(df)
+    return df.select([_convert_to_booleans_if_possible(column) for column in df])
 
 
 def _transform_to_suitable_csv_format(csv_file: TextIO, row_number: int) -> TextIO:
@@ -54,37 +54,36 @@ def _transform_to_suitable_csv_format(csv_file: TextIO, row_number: int) -> Text
     return io.StringIO(csv_content)
 
 
-def _convert_to_boolean_series_if_possible(df: DataFrame) -> DataFrame:
-    """Converts columns with boolean_ish values to actual booleans.
+BOOLEAN_MAPPING = {
+    "yes": True,
+    "Yes": True,
+    "y": True,
+    "Y": True,
+    "no": False,
+    "No": False,
+    "n": False,
+    "N": False,
+}
+
+
+def _convert_to_booleans_if_possible(series: Series) -> Series:
+    """Converts series with boolean_ish values to actual booleans if possible.
 
     E.g. A "String" column with ("Yes", "y", "no", "n") is converted to
     (True, True, False, False)
 
     Args:
-        df: Polars Dataframe with series
+        series: Polars Series or a column
 
     Returns:
-        DataFrame: A DataFrame with series converted to boolean.
+        Series: A Series converted to booleans if possible or the original series.
     """
-    boolean_mapping = {
-        "yes": True,
-        "Yes": True,
-        "y": True,
-        "Y": True,
-        "no": False,
-        "No": False,
-        "n": False,
-        "N": False,
-    }
+    if _check_series_values(series, [0, 1]):
+        return series.cast(Boolean)
+    elif _check_series_values(series, list(BOOLEAN_MAPPING.keys())):
+        return series.map_dict(BOOLEAN_MAPPING)
 
-    for column in df.columns:
-        series = df[column]
-        if _check_series_values(series, [0, 1]):
-            df = df.with_columns(series.cast(Boolean))
-        elif _check_series_values(series, list(boolean_mapping.keys())):
-            df = df.with_columns(series.map_dict(boolean_mapping))
-
-    return df
+    return series
 
 
 def _check_series_values(series: Series, allowed_values: list[Any]) -> bool:
