@@ -23,7 +23,7 @@ def columndata_review(request):
     )
 
 
-def column_review(request, table_name):
+def column_review(request, table_id):
     """Takes the data from ColumnMetadata and displays as a table.
 
     The table can be edited and the result written back to the db
@@ -35,7 +35,7 @@ def column_review(request, table_name):
     Returns: Must learn what to write here
         _type_: _description_
     """
-    table_metadata = get_object_or_404(TableMetadata, name=table_name)
+    table_metadata = get_object_or_404(TableMetadata, id=table_id)
     columns_metadata = ColumnMetadata.objects.filter(table_metadata=table_metadata)
 
     if request.method == "POST":
@@ -46,7 +46,9 @@ def column_review(request, table_name):
         if all(form.is_valid() for form in forms):
             for form in forms:
                 form.save()
-            return redirect("home")  # Redirect to a success page
+            return redirect(
+                "/column-review/" + str(table_id)
+            )  # Redirect to a success page
         else:
             print([form.errors for form in forms])
     else:

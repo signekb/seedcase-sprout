@@ -23,7 +23,6 @@
         <th>Data Type</th>
         <th>Allow Missing</th>
         <th>Allow Duplicate</th>
-        <th>TableID</th>
       </tr>
     </thead>
     <tbody>
@@ -36,7 +35,6 @@
         <td style="overflow: hidden;">{{ form.data_type }}</td>
         <td>{{ form.allow_missing_value }}</td>
         <td>{{ form.allow_duplicate_value }}</td>
-        <td>{{ table_metadata.name }}</td>
         <input type="hidden" name="{{ form.prefix }}-id" value="{{ form.instance.id }}">
       </tr>
       {% endfor %}

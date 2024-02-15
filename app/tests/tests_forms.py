@@ -1,8 +1,8 @@
 """Tests for forms."""
-from django.test import TestCase
+from django.test import SimpleTestCase, TestCase
 
-from app.forms import TableMetadataForm
-from app.models import TableMetadata
+from app.forms import ColumnMetadataForm, TableMetadataForm
+from app.models import ColumnDataType, TableMetadata
 
 
 class TableMetadataFormTests(TestCase):
@@ -159,3 +159,60 @@ class TableMetadataFormTests(TestCase):
         # Assert
         self.assertTrue(form.is_valid())
         self.assertEqual(form.errors.get("description"), None)
+
+
+class ColumnMetadataFormTest(TestCase):
+    def setUp(self):
+        # Arrange: Create test instances for models
+        self.table_metadata = TableMetadata.objects.create(name="TestTableKB")
+        self.column_data_type = ColumnDataType.objects.create(
+            display_name="TestStringFormat"
+        )
+
+    def test_form_instance_not_valid(self):
+        # Arrange: Create an instance of the form without providing any data
+        form = ColumnMetadataForm()
+
+        # Act: Check if the form is not valid
+        is_valid = form.is_valid()
+
+        # Assert: Ensure the form is not valid
+        self.assertFalse(is_valid)
+
+    def test_form_validation_valid_data(self):
+        # Arrange: Create valid form data
+        form_data = {
+            "table_metadata": self.table_metadata.id,
+            "name": "TestName",
+            "title": "TestTitle",
+            "description": "This is the Description",
+            "data_type": self.column_data_type.id,
+            "allow_missing_value": True,
+            "allow_duplicate_value": False,
+        }
+
+        # Act: Create an instance of the form with valid data
+        form = ColumnMetadataForm(data=form_data)
+        is_valid = form.is_valid()
+
+        # Assert: Ensure the form is valid
+        self.assertTrue(is_valid)
+
+    def test_form_validation_invalid_data(self):
+        # Arrange: Create invalid form data
+        invalid_form_data = {
+            "table_metadata": self.table_metadata.id,
+            "name": "",
+            "title": "",
+            "description": "Description",
+            "data_type": self.column_data_type.id,
+            "allow_missing_value": True,
+            "allow_duplicate_value": False,
+        }
+
+        # Act: Create an instance of the form with invalid data
+        form = ColumnMetadataForm(data=invalid_form_data)
+        is_valid = form.is_valid()
+
+        # Assert: Ensure the form is not valid
+        self.assertFalse(is_valid)
