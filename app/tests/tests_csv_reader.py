@@ -12,6 +12,7 @@ from app.csv_reader import read_csv_file
 
 class CsvTests(TestCase):
     """Class with tests for `read_csv_file()`."""
+
     def test_csv_with_simple_types(self):
         """Testing that `read_csv_file()` should derive column types.
 
@@ -19,10 +20,7 @@ class CsvTests(TestCase):
         The values are also verified.
         """
         csv_file = io.StringIO(
-            "i1,f1,b1\n"
-            "1,2.3,true\n"
-            "2,2.4,false\n"
-            "3,2.6,false"
+            "i1,f1,b1\n" "1,2.3,true\n" "2,2.4,false\n" "3,2.6,false"
         )
 
         df = read_csv_file(csv_file)
@@ -87,10 +85,7 @@ class CsvTests(TestCase):
         "false") remains a String column
         """
         csv_file = io.StringIO(
-            "s1,    s2\n"
-            "0,     true\n"
-            "1,     REALLY TRUE!\n"
-            "2,     false"
+            "s1,    s2\n" "0,     true\n" "1,     REALLY TRUE!\n" "2,     false"
         )
 
         df = read_csv_file(csv_file)
@@ -117,28 +112,27 @@ class CsvTests(TestCase):
         df = read_csv_file(csv_file)
 
         self.assert_types(
-            df,
-            "Datetime(time_unit='us', time_zone=None)",
-            "Date",
-            "String",
-            "Time"
+            df, "Datetime(time_unit='us', time_zone=None)", "Date", "String", "Time"
         )
-        self.assert_values(df["d1"],
-                           datetime.datetime.fromisoformat("1987-10-27"),
-                           datetime.datetime.fromisoformat("2000-01-28T12"),
-                           datetime.datetime.fromisoformat("2024-07-01T12:00:01"))
-        self.assert_values(df["d2"],
-                           datetime.date.fromisoformat("1987-10-27"),
-                           datetime.date.fromisoformat("2000-01-28"),
-                           datetime.date.fromisoformat("2024-07-01"))
-        self.assert_values(df["d3"],
-                           "27. Oct 1987",
-                           "28. Jan 2000",
-                           "1. Jul 2024")
-        self.assert_values(df["t1"],
-                           datetime.time.fromisoformat("12:00:00"),
-                           datetime.time.fromisoformat("13:00:01"),
-                           datetime.time.fromisoformat("00:00:00"))
+        self.assert_values(
+            df["d1"],
+            datetime.datetime.fromisoformat("1987-10-27"),
+            datetime.datetime.fromisoformat("2000-01-28T12"),
+            datetime.datetime.fromisoformat("2024-07-01T12:00:01"),
+        )
+        self.assert_values(
+            df["d2"],
+            datetime.date.fromisoformat("1987-10-27"),
+            datetime.date.fromisoformat("2000-01-28"),
+            datetime.date.fromisoformat("2024-07-01"),
+        )
+        self.assert_values(df["d3"], "27. Oct 1987", "28. Jan 2000", "1. Jul 2024")
+        self.assert_values(
+            df["t1"],
+            datetime.time.fromisoformat("12:00:00"),
+            datetime.time.fromisoformat("13:00:01"),
+            datetime.time.fromisoformat("00:00:00"),
+        )
 
     def test_wrongly_formatted_csv(self):
         """Testing a wrongly formatted CSV file.
@@ -146,10 +140,7 @@ class CsvTests(TestCase):
         The row has three values but only two two columns - A csv.Error
         is expected
         """
-        csv_file = io.StringIO(
-            "s1,s2\n"
-            "Hello, World, Seedcase"
-        )
+        csv_file = io.StringIO("s1,s2\n" "Hello, World, Seedcase")
 
         self.assertRaises(csv.Error, read_csv_file, csv_file)
 
@@ -160,16 +151,12 @@ class CsvTests(TestCase):
             df: The DataFrame with data and types
             *expected_types: a list of types we expect (in order)
         """
-        self.assertEqual(len(df.columns),
-                         len(expected_types),
-                         "Missing columns!")
+        self.assertEqual(len(df.columns), len(expected_types), "Missing columns!")
         for column_position in range(0, len(expected_types)):
             column_name = df.columns[column_position]
             column_type = str(df.dtypes[column_position])
             self.assertEqual(
-                expected_types[column_position],
-                column_type,
-                "column:" + column_name
+                expected_types[column_position], column_type, "column:" + column_name
             )
 
     def assert_values(self, s: Series, *expected_values: Any):
@@ -182,5 +169,6 @@ class CsvTests(TestCase):
         for value_position in range(0, len(s)):
             value = s[value_position]
             expected_value = expected_values[value_position]
-            self.assertEqual(value, expected_value,
-                             s.name + ", row:" + str(value_position))
+            self.assertEqual(
+                value, expected_value, s.name + ", row:" + str(value_position)
+            )

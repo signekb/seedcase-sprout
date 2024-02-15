@@ -25,14 +25,12 @@ def read_csv_file(csv_file: TextIO, row_number: int = 500) -> DataFrame:
         DataFrame: A `polars.DataFrame` with column types in `dtypes`.
     """
     csv_file = _transform_to_suitable_csv_format(csv_file, row_number)
-    df = read_csv(csv_file, n_rows=row_number, try_parse_dates=True,
-                  separator=';')
+    df = read_csv(csv_file, n_rows=row_number, try_parse_dates=True, separator=";")
 
     return _convert_to_boolean_series_if_possible(df)
 
 
-def _transform_to_suitable_csv_format(csv_file: TextIO,
-                                      row_number: int) -> TextIO:
+def _transform_to_suitable_csv_format(csv_file: TextIO, row_number: int) -> TextIO:
     """Preparing the CSV content for polar.read_csv method.
 
     This function converts from any CSV dialect/format into a CSV format suitable
@@ -50,9 +48,9 @@ def _transform_to_suitable_csv_format(csv_file: TextIO,
     dialect = csv.Sniffer().sniff(csv_file.read(row_number))
     csv_file.seek(0)
 
-    csv_content = ''
+    csv_content = ""
     for line in csv.reader(csv_file, dialect=dialect):
-        csv_content = csv_content + ';'.join(line) + '\n'
+        csv_content = csv_content + ";".join(line) + "\n"
     return io.StringIO(csv_content)
 
 
@@ -68,8 +66,16 @@ def _convert_to_boolean_series_if_possible(df: DataFrame) -> DataFrame:
     Returns:
         DataFrame: A DataFrame with series converted to boolean.
     """
-    boolean_mapping = {"yes": True, "Yes": True, "y": True, "Y": True,
-                       "no": False, "No": False, "n": False, "N": False}
+    boolean_mapping = {
+        "yes": True,
+        "Yes": True,
+        "y": True,
+        "Y": True,
+        "no": False,
+        "No": False,
+        "n": False,
+        "N": False,
+    }
 
     for column in df.columns:
         series = df[column]
