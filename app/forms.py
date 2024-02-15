@@ -1,5 +1,6 @@
 """Module defining forms."""
 from django.forms import ModelForm
+
 from app.models import ColumnDataType, ColumnMetadata, TableMetadata
 from app.models.table_metadata import TableMetadata
 from app.validators import (
@@ -71,7 +72,6 @@ class ColumnMetadataForm(ModelForm):
         model = ColumnMetadata
         fields = (
             "id",
-            "table_metadata",
             "name",
             "title",
             "description",
