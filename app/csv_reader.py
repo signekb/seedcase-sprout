@@ -6,7 +6,7 @@ from typing import Any, TextIO
 from polars import Boolean, DataFrame, Series, read_csv
 
 
-def read_csv_file(csv_file: TextIO, row_number: int = 500) -> DataFrame:
+def read_csv_file(csv_file: TextIO | io.BytesIO, row_number: int = 500) -> DataFrame:
     """Reads a CSV file and returns a polars.DataFrame with derived types.
 
     The property `dtypes` in the returned DataFrame contains the column/series
@@ -25,10 +25,26 @@ def read_csv_file(csv_file: TextIO, row_number: int = 500) -> DataFrame:
     Returns:
         DataFrame: A `polars.DataFrame` with column types in `dtypes`.
     """
+    csv_file = _convert_to_text_wrapper_if_bytes_io(csv_file)
     csv_file = _transform_to_suitable_csv_format(csv_file, row_number)
     df = read_csv(csv_file, n_rows=row_number, try_parse_dates=True, separator=";")
 
     return df.select([_convert_to_booleans_if_possible(column) for column in df])
+
+
+def _convert_to_text_wrapper_if_bytes_io(file: TextIO | io.BytesIO):
+    """Convert to TextIO if BytesIO.
+
+    Args:
+        file: File either containing bytes or text
+    Returns:
+        TextIO: A TextIO file
+    """
+    content = file.read(10)
+    file.seek(0)
+    if isinstance(content, bytes):
+        return io.TextIOWrapper(file)
+    return file
 
 
 def _transform_to_suitable_csv_format(csv_file: TextIO, row_number) -> TextIO:

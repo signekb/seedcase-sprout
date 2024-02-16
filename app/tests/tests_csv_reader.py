@@ -30,6 +30,18 @@ class CsvTests(TestCase):
         self.assert_values(df["f1"], 2.3, 2.4, 2.6)
         self.assert_values(df["b1"], True, False, False)
 
+    def test_csv_file_with_bytes(self):
+        """Testing that `read_csv_file()` should derive column types.
+
+        For this example, "i1" as integer, "f1" as float and "b1" as a boolean.
+        The values are also verified.
+        """
+        csv_file = io.BytesIO(b"i1,f1,b1\n1,2.3,true\n2,2.4,false\n3,2.6,false")
+
+        df = read_csv_file(csv_file)
+
+        self.assert_types(df, "Int64", "Float64", "Boolean")
+
     def test_csv_with_semicolon_and_whitespace(self):
         """Testing a csv dialect with semicolon and initial whitespace."""
         csv_file = io.StringIO(
