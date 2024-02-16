@@ -15,11 +15,12 @@ def read_csv_file(csv_file: TextIO, row_number: int = 500) -> DataFrame:
     It uses `polars.csv_read()`, but adds additional functionality:
     - Converts boolean-ish values (Yes, y, 1) to booleans
     - Finds CSV dialect of file and converts to a csv format suitable for
-      `polars.csv_read()`
+      `polars.csv_read()`, i.e., transform dialect to semicolon remove and
+      whitespaces and quotes
 
     Args:
-        csv_file: The CSV file to read
-        row_number: The number of rows to scan from the file
+        csv_file (TextIO): The CSV file to read
+        row_number (int, optional): The number of rows to scan from the file
 
     Returns:
         DataFrame: A `polars.DataFrame` with column types in `dtypes`.
@@ -30,16 +31,16 @@ def read_csv_file(csv_file: TextIO, row_number: int = 500) -> DataFrame:
     return df.select([_convert_to_booleans_if_possible(column) for column in df])
 
 
-def _transform_to_suitable_csv_format(csv_file: TextIO, row_number: int) -> TextIO:
+def _transform_to_suitable_csv_format(csv_file: TextIO, row_number: int = 500) -> TextIO:
     """Preparing the CSV content for polar.read_csv method.
 
-    This function converts from any CSV dialect/format into a CSV format suitable
-    for `polar.read_csv()`
+    This function converts from any CSV dialect/format into a semicolon separated 
+    format and strips whitespaces and quotes.
 
     Args:
         csv_file: A CSV file with a dialect that is potentially not suitable
                   for `polars.read_csv()`
-        row_number: The number of rows to transform
+        row_number: The number of rows used to infer csv dialect
 
     Returns:
         TextIO: An in-memory CSV file which is suitable for `polars.read_csv()`
@@ -67,13 +68,13 @@ BOOLEAN_MAPPING = {
 
 
 def _convert_to_booleans_if_possible(series: Series) -> Series:
-    """Converts series with boolean_ish values to actual booleans if possible.
+    """Converts series with boolean-ish values to actual booleans if possible.
 
     E.g. A "String" column with ("Yes", "y", "no", "n") is converted to
     (True, True, False, False)
 
     Args:
-        series: Polars Series or a column
+        series (Series): Polars Series or a column
 
     Returns:
         Series: A Series converted to booleans if possible or the original series.
@@ -89,16 +90,16 @@ def _convert_to_booleans_if_possible(series: Series) -> Series:
 def _check_series_values(series: Series, allowed_values: list[Any]) -> bool:
     """Checks if a series only contains the allowed values and null values.
 
-    This is relevant check before converting to a certain type. E.g. if is
+    This is relevant check before converting to a certain type. E.g. if
     all values are either 0 or 1, then we can convert to booleans
 
     Args:
-        series: A series of values, which should be checked
-        allowed_values: The allowed values.
+        series (Series): A series of values, which should be checked
+        allowed_values (list[Any]): The allowed values.
 
     Returns:
-        true: if series only contains values in `allowed_values` or null
-        false: if series contains one or more values not in `allowed_values`
+        bool: True if series only contains values in `allowed_values` or null;
+              False if series contains one or more values not in `allowed_values`
 
     """
     allowed_values_series = Series(allowed_values)
