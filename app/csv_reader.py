@@ -19,8 +19,8 @@ def read_csv_file(csv_file: TextIO, row_number: int = 500) -> DataFrame:
       whitespaces and quotes
 
     Args:
-        csv_file (TextIO): The CSV file to read
-        row_number (int, optional): The number of rows to scan from the file
+        csv_file: The CSV file to read
+        row_number: The number of rows to scan from the file
 
     Returns:
         DataFrame: A `polars.DataFrame` with column types in `dtypes`.
@@ -34,7 +34,7 @@ def read_csv_file(csv_file: TextIO, row_number: int = 500) -> DataFrame:
 def _transform_to_suitable_csv_format(csv_file: TextIO, row_number) -> TextIO:
     """Preparing the CSV content for polar.read_csv method.
 
-    This function converts from any CSV dialect/format into a semicolon separated 
+    This function converts from any CSV dialect/format into a semicolon separated
     format and strips whitespaces and quotes.
 
     Args:
@@ -74,7 +74,7 @@ def _convert_to_booleans_if_possible(series: Series) -> Series:
     (True, True, False, False)
 
     Args:
-        series (Series): Polars Series or a column
+        series: Polars Series or a column
 
     Returns:
         Series: A Series converted to booleans if possible or the original series.
@@ -94,8 +94,8 @@ def _check_series_values(series: Series, allowed_values: list[Any]) -> bool:
     all values are either 0 or 1, then we can convert to booleans
 
     Args:
-        series (Series): A series of values, which should be checked
-        allowed_values (list[Any]): The allowed values.
+        series: A series of values, which should be checked
+        allowed_values: The allowed values.
 
     Returns:
         bool: True if series only contains values in `allowed_values` or null;
