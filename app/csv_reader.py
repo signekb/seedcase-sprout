@@ -31,7 +31,7 @@ def read_csv_file(csv_file: TextIO, row_number: int = 500) -> DataFrame:
     return df.select([_convert_to_booleans_if_possible(column) for column in df])
 
 
-def _transform_to_suitable_csv_format(csv_file: TextIO, row_number: int = 500) -> TextIO:
+def _transform_to_suitable_csv_format(csv_file: TextIO, row_number) -> TextIO:
     """Preparing the CSV content for polar.read_csv method.
 
     This function converts from any CSV dialect/format into a semicolon separated 
