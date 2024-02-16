@@ -1,7 +1,10 @@
 """Tests for models."""
-from django.test import TestCase
+import datetime
 
-from app.models import ColumnMetadata, TableMetadata
+from django.test import TestCase
+from polars import Series
+
+from app.models import ColumnDataType, ColumnMetadata, TableMetadata
 from app.tests.db_test_utils import create_metadata_table_and_column
 
 
@@ -61,3 +64,30 @@ class MetadataTests(TestCase):
         self.assertEqual(1, table_count, "Table should not be deleted")
         column_count = ColumnMetadata.objects.count()
         self.assertEqual(0, column_count, "Column should be deleted")
+
+
+
+class ColumnDataTypeTests(TestCase):
+    """Tests for ColumnDataType."""
+    def test_series_dtypes_should_map_to_correct_column_data_types(self):
+        """Assert correct mapping between series dtype and ColumnDataType."""
+        series_int = Series([1])
+        series_decimal = Series([1.1])
+        series_string = Series(["Hello"])
+        series_bool = Series([True])
+        series_time = Series([datetime.time(1, 2, 3)])
+        series_date = Series([datetime.date(2024, 2, 3)])
+        series_datetime = Series([datetime.datetime(2024, 2, 3)])
+
+        self.assert_type(series_int, "Whole Number")
+        self.assert_type(series_decimal, "Decimal")
+        self.assert_type(series_string, "Text")
+        self.assert_type(series_bool, "Yes/No")
+        self.assert_type(series_time, "Time")
+        self.assert_type(series_date, "Date")
+        self.assert_type(series_datetime, "Date+Time")
+
+    def assert_type(self, series: Series, expected_type):
+        """Assert series dtype is mapping to expected_type."""
+        column_data_type = ColumnDataType.get_from_series_type(series)
+        self.assertEqual(expected_type, column_data_type.display_name)
