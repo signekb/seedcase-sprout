@@ -66,9 +66,9 @@ class MetadataTests(TestCase):
         self.assertEqual(0, column_count, "Column should be deleted")
 
 
-
 class ColumnDataTypeTests(TestCase):
     """Tests for ColumnDataType."""
+
     def test_series_dtypes_should_map_to_correct_column_data_types(self):
         """Assert correct mapping between series dtype and ColumnDataType."""
         series_int = Series([1])
