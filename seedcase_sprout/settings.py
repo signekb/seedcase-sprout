@@ -97,16 +97,17 @@ DATABASES = {"default": dj_database_url.parse(database_url, conn_max_age=600)}
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+        "NAME": "django.contrib.auth.password_validation."
+        "UserAttributeSimilarityValidator",
     },
     {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+        "NAME": "django.contrib.auth.password_validation." "MinimumLengthValidator",
     },
     {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+        "NAME": "django.contrib.auth.password_validation." "CommonPasswordValidator",
     },
     {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+        "NAME": "django.contrib.auth.password_validation." "NumericPasswordValidator",
     },
 ]
 
@@ -122,13 +123,26 @@ USE_I18N = True
 
 USE_TZ = True
 
+"""
+Static files (CSS, JavaScript, Images)
+Serving static files are handled differently depending on the DEBUG-flag:
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.2/howto/static-files/
+- DEBUG=True. The development server automatically serves static assets
+  located in "static" folders. E.g "app/static" and "admin/static"
+
+- DEBUG=False. The static assets are not handled automatically. We need
+  to do three things:
+  - Configure STATIC_ROOT which is the central location for static assets
+  - Before running the application run `python manage.py collectstatic` to copy all
+    static assets to STATIC_ROOT
+  - Install whitenoise. Whitenoise will serve the static assets from the Django app.
+    The other alternatives seems more complicated.
+"""
 
 STATIC_URL = "static/"
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
