@@ -9,6 +9,7 @@ class ColumnMetadata(models.Model):
     """Model representing the metadata of columns."""
 
     table_metadata = models.ForeignKey(TableMetadata, on_delete=models.CASCADE)
+    original_name = models.CharField(max_length=1000)
     name = models.CharField(max_length=200)
     title = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
