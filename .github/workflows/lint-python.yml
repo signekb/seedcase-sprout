@@ -1,4 +1,4 @@
-name: Style and Format Python Code
+name: Lint Python Code
 
 on: [ push, pull_request ]
 

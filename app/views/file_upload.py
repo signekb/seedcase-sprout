@@ -123,6 +123,7 @@ def extract_and_persist_column_metadata(table_id: int, uploaded_file: IO) -> Non
     for name in column_names:
         ColumnMetadata(
             table_metadata_id=table_id,
+            original_name=name,
             name=name,
             title=name,
             description="",

@@ -1,5 +1,5 @@
 # From: https://github.com/superfly/fly-pr-review-apps
-name: Staging App
+name: Deploy PR Preview App
 
 on:
   workflow_run:
@@ -7,8 +7,8 @@ on:
       - 'Run tests'
     types: 
       - completed
-  pull_request:
-    types: [opened, reopened, synchronize, closed]
+    branches-ignore:
+      - main
 
 env:
   FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
@@ -18,6 +18,12 @@ env:
 jobs:
   staging_app:
     runs-on: ubuntu-latest
+
+    # The `on.EVENT` (e.g. `on.pull_request`) used above usually can be combined with other EVENTS
+    # like `on.push`, `on.issues`, or `on.schedule`. But `on.workflow_run` doesn't work with other 
+    # EVENTS, like `on.pull_request`. So to make it only run on PRs, we need to use this `if` condition,
+    # so that this only runs after the tests have successfully passed and only on pull requests.
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'pull_request' }}
 
     # Only run one deployment at a time per PR.
     concurrency:
