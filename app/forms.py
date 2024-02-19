@@ -1,5 +1,5 @@
 """Module defining forms."""
-from django.forms import ModelForm
+from django.forms import ModelForm, CharField
 
 from app.models import ColumnDataType, ColumnMetadata, TableMetadata
 from app.models.table_metadata import TableMetadata
@@ -67,6 +67,7 @@ class ColumnMetadataForm(ModelForm):
     Args:
         ModelForm (ModelForm): pulled in from django.forms
     """
+    description = CharField()
 
     class Meta:  # noqa: D106
         model = ColumnMetadata

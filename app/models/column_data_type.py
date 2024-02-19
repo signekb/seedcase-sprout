@@ -8,6 +8,9 @@ class ColumnDataType(models.Model):
     display_name = models.TextField()
     description = models.TextField()
 
+    def __str__(self):
+        return self.display_name
+
 
 """
 COLUMN_DATA_TYPES contains all the Sprout data types.
@@ -15,7 +18,7 @@ COLUMN_DATA_TYPES contains all the Sprout data types.
 Changing the properties of this content can be risky. See the list below.
 
 - NO RISK: It's safe to alter the `description` of the data types.
-- LITTLE RISK: The `display_name` should rarely be changed. Changes might 
+- LITTLE RISK: The `display_name` should rarely be changed. Changes might
     confuse users and should never change to a different type (Text -> Decimal)
 - FORBIDDEN: `id`. You should never change the id, since this is used as foreign
 """
