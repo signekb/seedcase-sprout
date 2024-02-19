@@ -3,8 +3,8 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import Client, TestCase
 from django.urls import reverse
 
-from app.models import TableMetadata
-from app.tests.db_test_utils import create_table
+from sprout.models import TableMetadata
+from sprout.tests.db_test_utils import create_table
 
 
 class DataImportTests(TestCase):

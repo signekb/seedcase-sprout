@@ -1,5 +1,5 @@
 """File containing database utility functions used for testing."""
-from app.models import ColumnMetadata, TableMetadata
+from sprout.models import ColumnMetadata, TableMetadata
 
 
 def create_table(name: str) -> TableMetadata:

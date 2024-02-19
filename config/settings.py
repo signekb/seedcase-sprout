@@ -43,7 +43,7 @@ if APP_NAME:
 
 # Application definition
 INSTALLED_APPS = [
-    "app",
+    "sprout",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
