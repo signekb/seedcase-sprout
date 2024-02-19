@@ -69,25 +69,58 @@ class MetadataTests(TestCase):
 class ColumnDataTypeTests(TestCase):
     """Tests for ColumnDataType."""
 
-    def test_series_dtypes_should_map_to_correct_column_data_types(self):
-        """Assert correct mapping between series dtype and ColumnDataType."""
+    def test_get_from_series_type_Whole_Number(self):
+        """get_from_series_type should return 'Whole Number' for int series."""
         series_int = Series([1])
+
+        column_data_type = ColumnDataType.get_from_series_type(series_int)
+
+        self.assertEqual("Whole Number", column_data_type.display_name)
+
+    def test_get_from_series_type_Decimal(self):
+        """get_from_series_type should return 'Decimal' for float series."""
         series_decimal = Series([1.1])
-        series_string = Series(["Hello"])
+
+        column_data_type = ColumnDataType.get_from_series_type(series_decimal)
+
+        self.assertEqual("Decimal", column_data_type.display_name)
+
+    def test_get_from_series_type_YesOrNo(self):
+        """get_from_series_type should return 'Yes/No' for boolean series."""
         series_bool = Series([True])
+
+        column_data_type = ColumnDataType.get_from_series_type(series_bool)
+
+        self.assertEqual("Yes/No", column_data_type.display_name)
+
+    def test_get_from_series_type_Text(self):
+        """get_from_series_type should return 'Text' for string series."""
+        series_string = Series(["Hello"])
+
+        column_data_type = ColumnDataType.get_from_series_type(series_string)
+
+        self.assertEqual("Text", column_data_type.display_name)
+
+    def test_get_from_series_type_Time(self):
+        """get_from_series_type should return 'Time' for time series."""
         series_time = Series([datetime.time(1, 2, 3)])
+
+        column_data_type = ColumnDataType.get_from_series_type(series_time)
+
+        self.assertEqual("Time", column_data_type.display_name)
+
+    def test_get_from_series_type_Date(self):
+        """get_from_series_type should return 'Date' for date series."""
         series_date = Series([datetime.date(2024, 2, 3)])
+
+        column_data_type = ColumnDataType.get_from_series_type(series_date)
+
+        self.assertEqual("Date", column_data_type.display_name)
+
+    def test_get_from_series_type_DatePlusTime(self):
+        """get_from_series_type should return 'Date+Time' for datetime series."""
         series_datetime = Series([datetime.datetime(2024, 2, 3)])
 
-        self.assert_type(series_int, "Whole Number")
-        self.assert_type(series_decimal, "Decimal")
-        self.assert_type(series_string, "Text")
-        self.assert_type(series_bool, "Yes/No")
-        self.assert_type(series_time, "Time")
-        self.assert_type(series_date, "Date")
-        self.assert_type(series_datetime, "Date+Time")
+        column_data_type = ColumnDataType.get_from_series_type(series_datetime)
 
-    def assert_type(self, series: Series, expected_type):
-        """Assert series dtype is mapping to expected_type."""
-        column_data_type = ColumnDataType.get_from_series_type(series)
-        self.assertEqual(expected_type, column_data_type.display_name)
+        self.assertEqual("Date+Time", column_data_type.display_name)
