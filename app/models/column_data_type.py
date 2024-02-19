@@ -11,8 +11,8 @@ class ColumnDataType(models.Model):
     polars_types = models.TextField(default="")
 
     @staticmethod
-    def get_from_series_type(series: Series) -> "ColumnDataType":
-        """Finds ColumnDataType from dtype in Polars series.
+    def get_from_series(series: Series) -> "ColumnDataType":
+        """Finds ColumnDataType based on series dtype.
 
         Args:
             series: The polars.Series to find ColumnDataType from
