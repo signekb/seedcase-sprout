@@ -15,7 +15,7 @@ class ColumnDataType(models.Model):
         """Finds ColumnDataType based on series dtype.
 
         Args:
-            series: The polars.Series to find ColumnDataType from
+            series: The polars.Series to find the  ColumnDataType from
         """
         series_polar_type = str(series.dtype.base_type())
 
