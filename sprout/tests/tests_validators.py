@@ -2,8 +2,8 @@
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 
-from app.models import TableMetadata
-from app.validators import (
+from sprout.models import TableMetadata
+from sprout.validators import (
     validate_no_special_characters,
     validate_table_name_does_not_exist,
 )

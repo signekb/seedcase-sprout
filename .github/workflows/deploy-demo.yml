@@ -1,28 +1,26 @@
 name: Deploy Demo App
 
-# Only trigger when pushed/merged to main and after running the tests actions.
 on:
-  workflow_run:
-    workflows: 
-      - 'Run tests'
-    types: 
-      - completed
+  push:
     branches:
       - main
 
 jobs:
+  lint:
+    uses: seedcase-project/.github/.github/workflows/lint-python.yml@main
+
+  django-test:
+    uses: seedcase-project/.github/.github/workflows/test.yml@main
+    needs: lint
+
   deploy:
     name: Deploy app
     runs-on: ubuntu-latest
-
-    # Only run when test workflow passes.
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    needs: django-test
 
     concurrency: deploy-group    # optional: ensure only one action runs at a time
     steps:
-
-      - name: Checkout the repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Deploy to Fly.io
         uses: superfly/flyctl-actions/setup-flyctl@master

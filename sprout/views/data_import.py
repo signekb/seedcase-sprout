@@ -2,7 +2,7 @@
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 
-from app.forms import TableMetadataForm
+from sprout.forms import TableMetadataForm
 
 
 def data_import(request: HttpRequest) -> HttpResponse:

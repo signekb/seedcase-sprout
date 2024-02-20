@@ -91,14 +91,14 @@ class Migration(migrations.Migration):
                     "data_type",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.PROTECT,
-                        to="app.columndatatype",
+                        to="sprout.columndatatype",
                     ),
                 ),
                 (
                     "table_metadata",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        to="app.tablemetadata",
+                        to="sprout.tablemetadata",
                     ),
                 ),
             ],
