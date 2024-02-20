@@ -1,8 +1,8 @@
 """Tests for forms."""
 from django.test import TestCase
 
-from app.forms import TableMetadataForm
-from app.models import TableMetadata
+from sprout.forms import TableMetadataForm
+from sprout.models import TableMetadata
 
 
 class TableMetadataFormTests(TestCase):

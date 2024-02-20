@@ -2,8 +2,8 @@
 
 from django.forms import ModelForm
 
-from app.models.table_metadata import TableMetadata
-from app.validators import (
+from sprout.models.table_metadata import TableMetadata
+from sprout.validators import (
     validate_no_special_characters,
     validate_table_name_does_not_exist,
 )
