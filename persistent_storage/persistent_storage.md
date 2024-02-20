@@ -1,22 +1,26 @@
 # Data folder
-This folder will contain files that should remain between deployments.
-The path is defined in the global variable called `PERSISTENT_STORAGE_PATH`
+
+This folder will contain files that should remain between deployments. The path
+is defined in the global variable called `PERSISTENT_STORAGE_PATH`.
 
 The folder will contain:
+
 - The `raw` folder with unprocessed CSV files
 - The SQLite file if enabled
 
-## fly.io
-We use `Fly Volumes` in fly.io to persist the files between deployments.
+## Fly.io
 
-You can create a volume with this command:
+We use `Fly Volumes` in Fly.io to persist the files between deployments.  You
+can create a volume with this command:
+
 ```bash
 # Create one volume in region=AMS
 fly volume create persistent_storage --region ams --count 1
 ```
 
-This is then referenced in fly.toml
-```
+This is then referenced in `fly.toml`
+
+```toml
 ...
 
 [mounts]
@@ -24,14 +28,15 @@ This is then referenced in fly.toml
   destination="/code/persistent_storage"
 ```
 
-WARNING: This is only possible for an fly app with one machine. Multiple
-machines are not able to share a volume
+WARNING: This is only possible for a Fly app with one machine. Multiple machines
+are not able to share a volume
 
 ## Docker Compose
-In docker, we preserve the files by attaching a volume in the
-docker-compose.yml. See the last lines below:
 
-```bash
+In docker, we preserve the files by attaching a volume in the
+`docker-compose.yml`. See the last lines below:
+
+```yaml
 version: "3"
 services:
   app:
