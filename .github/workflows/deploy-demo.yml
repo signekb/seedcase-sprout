@@ -8,11 +8,11 @@ on:
 jobs:
   lint:
     runs-on: ubuntu-latest
-    uses: seedcase-project/.github/actions/lint-python.yml@main
+    uses: seedcase-project/.github/.github/workflows/lint-python.yml@main
 
   django-test:
     runs-on: ubuntu-latest
-    uses: seedcase-project/.github/actions/test.yml@main
+    uses: seedcase-project/.github/.github/workflows/test.yml@main
     needs: lint
 
   deploy:
@@ -22,8 +22,7 @@ jobs:
 
     concurrency: deploy-group    # optional: ensure only one action runs at a time
     steps:
-
-      - uses: seedcase-project/.github/actions/test.yml@main
+      - uses: actions/checkout@v4
 
       - name: Deploy to Fly.io
         uses: superfly/flyctl-actions/setup-flyctl@master
