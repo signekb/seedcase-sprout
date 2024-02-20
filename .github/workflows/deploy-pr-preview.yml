@@ -14,11 +14,9 @@ env:
 
 jobs:
   lint:
-    runs-on: ubuntu-latest
     uses: seedcase-project/.github/.github/workflows/lint-python.yml@main
 
   django-test:
-    runs-on: ubuntu-latest
     uses: seedcase-project/.github/.github/workflows/test.yml@main
     needs: lint
 
