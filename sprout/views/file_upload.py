@@ -6,7 +6,7 @@ from django.core.files.uploadhandler import StopUpload
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 
-from app.models import ColumnMetadata, TableMetadata
+from sprout.models import ColumnMetadata, TableMetadata
 
 
 def file_upload(

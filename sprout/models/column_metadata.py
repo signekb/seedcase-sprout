@@ -1,8 +1,8 @@
 """Module defining the ColumnMetadata model."""
 from django.db import models
 
-from app.models.column_data_type import ColumnDataType
-from app.models.table_metadata import TableMetadata
+from sprout.models.column_data_type import ColumnDataType
+from sprout.models.table_metadata import TableMetadata
 
 
 class ColumnMetadata(models.Model):

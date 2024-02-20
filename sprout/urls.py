@@ -1,4 +1,4 @@
-"""App URL configuration."""
+"""Sprout URL configuration."""
 
 from django.urls import path
 

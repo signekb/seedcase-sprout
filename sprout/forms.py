@@ -1,9 +1,9 @@
 """Module defining forms."""
-from django.forms import ModelForm, CharField
+from django.forms import CharField, ModelForm
 
-from app.models import ColumnDataType, ColumnMetadata, TableMetadata
-from app.models.table_metadata import TableMetadata
-from app.validators import (
+from sprout.models import ColumnDataType, ColumnMetadata, TableMetadata
+from sprout.models.table_metadata import TableMetadata
+from sprout.validators import (
     validate_no_special_characters,
     validate_table_name_does_not_exist,
 )
@@ -67,6 +67,7 @@ class ColumnMetadataForm(ModelForm):
     Args:
         ModelForm (ModelForm): pulled in from django.forms
     """
+
     description = CharField()
 
     class Meta:  # noqa: D106

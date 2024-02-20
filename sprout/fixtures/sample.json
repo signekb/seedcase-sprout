@@ -1,6 +1,6 @@
 [
   {
-    "model": "app.TableMetaData",
+    "model": "sprout.TableMetaData",
     "pk": 1,
     "fields": {
       "name": "TestTable",
@@ -11,7 +11,7 @@
     }
   },
   {
-    "model": "app.ColumnMetaData",
+    "model": "sprout.ColumnMetaData",
     "pk": 1,
     "fields": {
       "table_metadata_id": 1,

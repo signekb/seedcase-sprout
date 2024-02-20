@@ -1,8 +1,7 @@
-from django.forms import modelformset_factory
-from django.shortcuts import get_object_or_404, redirect, render
-
 from app.forms import ColumnDataTypeForm, ColumnMetadataForm
 from app.models import ColumnDataType, ColumnMetadata, TableMetadata
+from django.forms import modelformset_factory
+from django.shortcuts import get_object_or_404, redirect, render
 
 
 def columndata_review(request):

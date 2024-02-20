@@ -1,13 +1,10 @@
 # From: https://github.com/superfly/fly-pr-review-apps
 name: Deploy PR Preview App
 
-on:
-  workflow_run:
-    workflows: 
-      - 'Run tests'
-    types: 
-      - completed
-    branches-ignore:
+on:  
+  pull_request:  
+    types: [opened, reopened, synchronize, closed]  
+    branches:
       - main
 
 env:
@@ -16,14 +13,16 @@ env:
   FLY_ORG: seedcase-project
 
 jobs:
+  lint:
+    uses: seedcase-project/.github/.github/workflows/lint-python.yml@main
+
+  django-test:
+    uses: seedcase-project/.github/.github/workflows/test.yml@main
+    needs: lint
+
   staging_app:
     runs-on: ubuntu-latest
-
-    # The `on.EVENT` (e.g. `on.pull_request`) used above usually can be combined with other EVENTS
-    # like `on.push`, `on.issues`, or `on.schedule`. But `on.workflow_run` doesn't work with other 
-    # EVENTS, like `on.pull_request`. So to make it only run on PRs, we need to use this `if` condition,
-    # so that this only runs after the tests have successfully passed and only on pull requests.
-    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'pull_request' }}
+    needs: django-test
 
     # Only run one deployment at a time per PR.
     concurrency:
