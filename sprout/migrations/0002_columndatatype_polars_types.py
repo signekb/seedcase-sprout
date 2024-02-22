@@ -8,7 +8,7 @@ class Migration(migrations.Migration):
     """Migration to add polars_types to ColumnDataType."""
 
     dependencies = [
-        ("app", "0001_initial"),
+        ("sprout", "0001_initial"),
     ]
 
     operations = [
