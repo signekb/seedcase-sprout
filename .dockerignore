@@ -9,3 +9,4 @@ fly.toml
 .git/
 *.sqlite3
 staticfiles
+persistent_storage/

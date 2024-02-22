@@ -86,6 +86,9 @@ site
 
 # Local data files
 **/datafile/*
+persistent_storage
+# But keep markdown files
+!persistent_storage/**/*.md
 
 # Python Django
 *.log
