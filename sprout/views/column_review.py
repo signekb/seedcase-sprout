@@ -2,6 +2,7 @@ from sprout.forms import ColumnDataTypeForm, ColumnMetadataForm
 from sprout.models import ColumnDataType, ColumnMetadata, TableMetadata
 from django.forms import modelformset_factory
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 
 
 def columndata_review(request):
@@ -45,9 +46,7 @@ def column_review(request, table_id):
         if all(form.is_valid() for form in forms):
             for form in forms:
                 form.save()
-            return redirect(
-                "/column-review/" + str(table_id)
-            )  # Redirect to a success page
+            return redirect(reverse("column-review", args=[table_id]))
         else:
             print([form.errors for form in forms])
     else:

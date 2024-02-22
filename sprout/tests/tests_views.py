@@ -3,7 +3,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import Client, TestCase
 from django.urls import reverse
 
-from sprout.models import TableMetadata
+from sprout.models import ColumnDataType, ColumnMetadata, TableMetadata
 from sprout.tests.db_test_utils import create_table
 
 
@@ -145,3 +145,77 @@ class FileUploadTests(TestCase):
         response = Client().post("/file-upload/1", {"uploaded_file": file})
 
         self.assertContains(response, "Unable to extract column headers")
+
+
+class ColumnReviewViewTest(TestCase):
+    def setUp(self):
+        # Create a ColumnDataType instance
+        self.column_data_type = ColumnDataType.objects.create(
+            display_name="Decimal",
+            description="Deswcriot of whole number",
+        )
+
+        # Save it to the database
+        self.column_data_type.save()
+
+        # Create a table and a column for testing
+        self.table_metadata = TableMetadata.objects.create(
+            name="Test Table",
+            description="Also known as a float or double precision. This field stores decimal numbers. Use this for items like height, blood glucose, or other measurements with high degrees of precision",
+        )
+        self.column_metadata = ColumnMetadata.objects.create(
+            table_metadata=self.table_metadata,
+            name="Test Column",
+            title="Test Title",
+            description="Test Description",
+            data_type=self.column_data_type,  # Use the created instance
+            allow_missing_value=True,
+            allow_duplicate_value=True,
+        )
+
+    def test_column_review_view_get(self):
+        # Arrange
+        url = reverse("column-review", args=[self.table_metadata.id])
+
+        # Act
+        response = self.client.get(url)
+
+        # Assert
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "column-review.html")
+
+    def test_column_review_view_post_valid_data(self):
+        # Arrange
+        url = reverse("column-review", args=[self.table_metadata.id])
+        data = {
+            f"{self.column_metadata.id}-name": "Updated Column Name",
+            f"{self.column_metadata.id}-title": "Updated Column Title",
+            f"{self.column_metadata.id}-description": "Test Description",
+            f"{self.column_metadata.id}-data_type": 0,
+            f"{self.column_metadata.id}-allow_missing_value": True,
+            f"{self.column_metadata.id}-allow_duplicate_value": False,
+        }
+
+        # Act
+        response = self.client.post(url, data, follow=True)
+
+        # Assert the status code
+        self.assertEqual(response.status_code, 302)
+
+    def test_column_review_view_post_invalid_data(self):
+        # Arrange
+        url = reverse("column-review", args=[self.table_metadata.id])
+        data = {
+            f"{self.column_metadata.id}-name": "",
+            f"{self.column_metadata.id}-title": "",
+            f"{self.column_metadata.id}-description": "",
+            f"{self.column_metadata.id}-data_type": "",
+            f"{self.column_metadata.id}-allow_missing_value": "",
+            f"{self.column_metadata.id}-allow_duplicate_value": "",
+        }
+
+        # Act
+        response = self.client.post(url, data)
+
+        # Assert
+        self.assertEqual(response.status_code, 200)
