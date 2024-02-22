@@ -1,7 +1,7 @@
 """Tests for models."""
 from django.test import TestCase
 
-from sprout.models import ColumnDataType, ColumnMetadata, TableMetadata
+from sprout.models import ColumnMetadata, TableMetadata
 from sprout.tests.db_test_utils import create_metadata_table_and_column
 
 
