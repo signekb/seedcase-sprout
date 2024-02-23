@@ -3,7 +3,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import Client, TestCase
 from django.urls import reverse
 
-from sprout.models import ColumnDataType, ColumnMetadata, TableMetadata
+from sprout.models import ColumnMetadata, TableMetadata
 from sprout.tests.db_test_utils import create_table
 
 
@@ -125,7 +125,7 @@ class FileUploadTests(TestCase):
         table = TableMetadata.objects.get(name=table_name)
         self.assertEqual("file.csv", table.original_file_name)
         self.assertEqual(302, response.status_code, "Redirect is expected")
-        self.assertEqual("/edit-table-columns/1", response.url)
+        self.assertEqual("/column-review/1", response.url)
         self.assertEqual(3, table.columnmetadata_set.all().count(), "expects 3 columns")
 
     def test_upload_failed_with_wrong_file_extension(self):
@@ -149,15 +149,6 @@ class FileUploadTests(TestCase):
 
 class ColumnReviewViewTest(TestCase):
     def setUp(self):
-        # Create a ColumnDataType instance
-        self.column_data_type = ColumnDataType.objects.create(
-            display_name="Decimal",
-            description="Deswcriot of whole number",
-        )
-
-        # Save it to the database
-        self.column_data_type.save()
-
         # Create a table and a column for testing
         self.table_metadata = TableMetadata.objects.create(
             name="Test Table",
@@ -168,7 +159,7 @@ class ColumnReviewViewTest(TestCase):
             name="Test Column",
             title="Test Title",
             description="Test Description",
-            data_type=self.column_data_type,  # Use the created instance
+            data_type_id=0,  # Use the created instance
             allow_missing_value=True,
             allow_duplicate_value=True,
         )
@@ -200,7 +191,7 @@ class ColumnReviewViewTest(TestCase):
         response = self.client.post(url, data, follow=True)
 
         # Assert the status code
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
 
     def test_column_review_view_post_invalid_data(self):
         # Arrange
