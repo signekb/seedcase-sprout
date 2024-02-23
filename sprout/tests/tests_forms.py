@@ -1,5 +1,5 @@
 """Tests for forms."""
-from django.test import SimpleTestCase, TestCase
+from django.test import TestCase
 
 from sprout.forms import ColumnMetadataForm, TableMetadataForm
 from sprout.models import ColumnDataType, TableMetadata
@@ -161,15 +161,19 @@ class TableMetadataFormTests(TestCase):
         self.assertEqual(form.errors.get("description"), None)
 
 
-class ColumnMetadataFormTest(TestCase):  # noqa: D101
-    def setUp(self):  # noqa: D102
+class ColumnMetadataFormTest(TestCase):
+    """Class of tests for the Metadata form"""
+
+    def setUp(self):
+        """Creating the data needed for the tests."""
         # Arrange: Create test instances for models
         self.table_metadata = TableMetadata.objects.create(name="TestTableKB")
         self.column_data_type = ColumnDataType.objects.create(
             display_name="TestStringFormat"
         )
 
-    def test_form_instance_not_valid(self):  # noqa: D102
+    def test_form_instance_not_valid(self):
+        """Test that a form created without data is invalid."""
         # Arrange: Create an instance of the form without providing any data
         form = ColumnMetadataForm()
 
@@ -179,7 +183,8 @@ class ColumnMetadataFormTest(TestCase):  # noqa: D101
         # Assert: Ensure the form is not valid
         self.assertFalse(is_valid)
 
-    def test_form_validation_valid_data(self):  # noqa: D102
+    def test_form_validation_valid_data(self):
+        """Test that the validation works on correct data."""
         # Arrange: Create valid form data
         form_data = {
             "table_metadata": self.table_metadata.id,
@@ -198,7 +203,8 @@ class ColumnMetadataFormTest(TestCase):  # noqa: D101
         # Assert: Ensure the form is valid
         self.assertTrue(is_valid)
 
-    def test_form_validation_invalid_data(self):  # noqa: D102
+    def test_form_validation_invalid_data(self):
+        """Test that the validation works on wrong data and throws an error."""
         # Arrange: Create invalid form data
         invalid_form_data = {
             "table_metadata": self.table_metadata.id,

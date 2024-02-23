@@ -148,11 +148,16 @@ class FileUploadTests(TestCase):
 
 
 class ColumnReviewViewTest(TestCase):
+    """Test for the Column Review page.
+
+    This is where the uploaded metadata for columns are uploaded and edited.
+    """
+
     def setUp(self):
-        # Create a table and a column for testing
+        """Create a table and a column for testing."""
         self.table_metadata = TableMetadata.objects.create(
             name="Test Table",
-            description="Also known as a float or double precision. This field stores decimal numbers. Use this for items like height, blood glucose, or other measurements with high degrees of precision",  # noqa: E501
+            description="Test table description.",
         )
         self.column_metadata = ColumnMetadata.objects.create(
             table_metadata=self.table_metadata,
@@ -165,6 +170,7 @@ class ColumnReviewViewTest(TestCase):
         )
 
     def test_column_review_view_get(self):
+        """Test that the get function works."""
         # Arrange
         url = reverse("column-review", args=[self.table_metadata.id])
 
@@ -176,6 +182,7 @@ class ColumnReviewViewTest(TestCase):
         self.assertTemplateUsed(response, "column-review.html")
 
     def test_column_review_view_post_valid_data(self):
+        """Test that the view works if valid data is entered."""
         # Arrange
         url = reverse("column-review", args=[self.table_metadata.id])
         data = {
@@ -194,6 +201,7 @@ class ColumnReviewViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_column_review_view_post_invalid_data(self):
+        """Test that there is an error thrown when data entered is invalid."""
         # Arrange
         url = reverse("column-review", args=[self.table_metadata.id])
         data = {

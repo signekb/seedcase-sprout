@@ -4,15 +4,20 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
+    """The configuration for migration 0002_alter...
+
+    Description is set to accept null values to make it easier to test the
+    column review pages.
+    """
 
     dependencies = [
-        ('sprout', '0001_initial'),
+        ("sprout", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='columnmetadata',
-            name='description',
+            model_name="columnmetadata",
+            name="description",
             field=models.TextField(blank=True, null=True),
         ),
     ]
