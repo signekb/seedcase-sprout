@@ -8,7 +8,7 @@ class ColumnDataType(models.Model):
     display_name = models.TextField()
     description = models.TextField()
 
-    def __str__(self):
+    def __str__(self):  # noqa: D105
         return self.display_name
 
 

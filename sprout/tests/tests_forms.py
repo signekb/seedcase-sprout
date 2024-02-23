@@ -162,7 +162,7 @@ class TableMetadataFormTests(TestCase):
 
 
 class ColumnMetadataFormTest(TestCase):
-    """Class of tests for the Metadata form"""
+    """Class of tests for the Metadata form."""
 
     def setUp(self):
         """Creating the data needed for the tests."""

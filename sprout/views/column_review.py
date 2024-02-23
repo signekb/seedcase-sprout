@@ -1,4 +1,4 @@
-from django.forms import modelformset_factory
+from django.forms import modelformset_factory  # noqa: D100
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 
