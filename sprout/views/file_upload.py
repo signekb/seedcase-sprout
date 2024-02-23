@@ -1,12 +1,11 @@
 """File with file_upload view."""
-import time
-from typing import IO, Dict
+from typing import IO
 
 from django.core.files.uploadhandler import StopUpload
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 
-from sprout.models import ColumnMetadata, TableMetadata
+from sprout.models import ColumnMetadata, FileMetaData, TableMetadata
 
 
 def file_upload(
@@ -54,13 +53,13 @@ def handle_post_request_with_file(
     HttpResponse when validation fails
 
     """
+    file = request.FILES.get("uploaded_file", None)
     try:
-        validate_csv_and_save_columns(table_id, request.FILES)
+        validate_csv_and_save_columns(table_id, file)
     except StopUpload as upload_error:
         return render_file_upload_page(request, table_id, upload_error.args[0])
 
-    # wait to sec (to show the progress bar)
-    time.sleep(2)
+    FileMetaData.persist_raw_file(file, table_id)
 
     return redirect("/edit-table-columns/" + str(table_id))
 
@@ -86,15 +85,13 @@ def render_file_upload_page(
     return render(request, "file-upload.html", file_upload_data)
 
 
-def validate_csv_and_save_columns(table_id: int, files: Dict[str, IO]) -> None:
+def validate_csv_and_save_columns(table_id: int, uploaded_file: IO) -> None:
     """Validate the csv and persist column metadata if valid.
 
     Args:
         table_id: The id of the table
-        files: A dictionary with a CSV file in files["uploaded_file"]
+        uploaded_file: A file with a CSV file in files["uploaded_file"]
     """
-    uploaded_file = files.get("uploaded_file", None)
-
     if not uploaded_file.name.endswith(".csv"):
         error_msg = "Unsupported file format: ." + uploaded_file.name.split(".")[-1]
         raise StopUpload(error_msg)

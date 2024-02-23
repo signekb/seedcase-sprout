@@ -84,7 +84,7 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 
 # Files are preserved in the "data" folder
-PERSISTENT_STORAGE_PATH = os.path.join(BASE_DIR, "persistent_storage")
+PERSISTENT_STORAGE_PATH = "persistent_storage"
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -142,7 +142,8 @@ Serving static files are handled differently depending on the DEBUG-flag:
 """
 
 STATIC_URL = "static/"
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+if not DEBUG:
+    STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
