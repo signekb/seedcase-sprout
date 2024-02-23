@@ -152,7 +152,7 @@ class ColumnReviewViewTest(TestCase):
         # Create a table and a column for testing
         self.table_metadata = TableMetadata.objects.create(
             name="Test Table",
-            description="Also known as a float or double precision. This field stores decimal numbers. Use this for items like height, blood glucose, or other measurements with high degrees of precision",
+            description="Also known as a float or double precision. This field stores decimal numbers. Use this for items like height, blood glucose, or other measurements with high degrees of precision",  # noqa: E501
         )
         self.column_metadata = ColumnMetadata.objects.create(
             table_metadata=self.table_metadata,

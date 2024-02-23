@@ -161,15 +161,15 @@ class TableMetadataFormTests(TestCase):
         self.assertEqual(form.errors.get("description"), None)
 
 
-class ColumnMetadataFormTest(TestCase):
-    def setUp(self):
+class ColumnMetadataFormTest(TestCase):  # noqa: D101
+    def setUp(self):  # noqa: D102
         # Arrange: Create test instances for models
         self.table_metadata = TableMetadata.objects.create(name="TestTableKB")
         self.column_data_type = ColumnDataType.objects.create(
             display_name="TestStringFormat"
         )
 
-    def test_form_instance_not_valid(self):
+    def test_form_instance_not_valid(self):  # noqa: D102
         # Arrange: Create an instance of the form without providing any data
         form = ColumnMetadataForm()
 
@@ -179,7 +179,7 @@ class ColumnMetadataFormTest(TestCase):
         # Assert: Ensure the form is not valid
         self.assertFalse(is_valid)
 
-    def test_form_validation_valid_data(self):
+    def test_form_validation_valid_data(self):  # noqa: D102
         # Arrange: Create valid form data
         form_data = {
             "table_metadata": self.table_metadata.id,
@@ -198,7 +198,7 @@ class ColumnMetadataFormTest(TestCase):
         # Assert: Ensure the form is valid
         self.assertTrue(is_valid)
 
-    def test_form_validation_invalid_data(self):
+    def test_form_validation_invalid_data(self):  # noqa: D102
         # Arrange: Create invalid form data
         invalid_form_data = {
             "table_metadata": self.table_metadata.id,
