@@ -6,7 +6,7 @@ from django.shortcuts import render
 # https://simpleisbetterthancomplex.com/tutorial/2016/08/02/how-to-split-views-into-multiple-files.html
 from .data_import import data_import
 from .file_upload import file_upload
-from .table_files import table_files, table_file_download
+from .table_files import table_file_download, table_files
 
 
 def home(request: HttpRequest) -> HttpResponse:
