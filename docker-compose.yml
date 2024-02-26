@@ -4,3 +4,7 @@ services:
     build: .
     ports:
       - "8000:8000"
+    volumes:
+      - persistent_storage:/code/persistent_storage
+volumes:
+  persistent_storage:
