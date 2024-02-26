@@ -10,3 +10,5 @@ fly.toml
 *.sqlite3
 staticfiles
 persistent_storage/
+# But keep markdown files
+!persistent_storage/**/*.md
