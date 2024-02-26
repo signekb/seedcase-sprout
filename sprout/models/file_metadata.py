@@ -33,14 +33,12 @@ class FileMetaData(models.Model):
         """
         file_extension = file.name.split(".")[-1]
 
-        raw_folder = f"{PERSISTENT_STORAGE_PATH}/raw/"
+        raw_folder = f"{PERSISTENT_STORAGE_PATH}/raw"
         if not os.path.exists(raw_folder):
             os.makedirs(raw_folder)
 
         # Unique file path in the raw
-        server_file_path = (
-            f"{raw_folder}/{uuid.uuid4().hex}.{file_extension}"
-        )
+        server_file_path = f"{raw_folder}/{uuid.uuid4().hex}.{file_extension}"
 
         file.seek(0)
         # write to server_file_path
