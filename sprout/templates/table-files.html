@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h3>Files for&nbsp;<b>{{ table.name }}</b></h3>
+
+  {% for file in files %}
+    <a href="/table-files/{{ table.id }}/download/{{ file.id }}" class="row wave">
+      <i>download</i>
+      <div>{{ file.original_file_name }}</div>
+      <div style="color: gray">Created at: {{ file.created_at }}</div>
+    </a>
+  {% endfor %}
+{% endblock content %}
