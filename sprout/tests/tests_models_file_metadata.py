@@ -41,7 +41,6 @@ class FileMetaDataTests(TestCase):
         test_table.save()
         file_meta = FileMetaData.persist_raw_file(file, test_table.id)
 
-        TableMetadata.delete()
         # Act
         file_meta.delete()
 
