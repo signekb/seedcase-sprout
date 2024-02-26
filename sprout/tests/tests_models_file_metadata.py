@@ -4,6 +4,7 @@ import os
 
 from django.test import TestCase
 
+from sprout.models import TableMetadata
 from sprout.models.file_metadata import FileMetaData
 from sprout.tests.db_test_utils import create_table
 
@@ -29,4 +30,23 @@ class FileMetaDataTests(TestCase):
         self.assertTrue(file_meta.server_file_path.endswith(".csv"))
         self.assertTrue(os.path.exists(file_meta.server_file_path))
         # We clean up again
-        os.remove(file_meta.server_file_path)
+        file_meta.delete()
+
+    def test_deletion_of_FileMetaData_should_delete_file(self):
+        """Deletion of FileMetaData should delete the file in persistent_storage."""
+        # Arrange
+        file = io.BytesIO(b"A file with some content")
+        file.name = "my-file.csv"
+        test_table = create_table("TestTable")
+        test_table.save()
+        file_meta = FileMetaData.persist_raw_file(file, test_table.id)
+
+        TableMetadata.delete()
+        # Act
+        file_meta.delete()
+
+        # Assert
+        self.assertEqual(FileMetaData.objects.count(), 0)
+        self.assertFalse(os.path.exists(file_meta.server_file_path))
+        # And we change that the table is not deleted
+        self.assertEqual(TableMetadata.objects.count(), 1)

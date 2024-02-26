@@ -1,4 +1,5 @@
 """Model for a persisted file."""
+import os
 import uuid
 from typing import IO
 
@@ -51,3 +52,20 @@ class FileMetaData(models.Model):
 
         file_metadata.save()
         return file_metadata
+
+    def delete(self, *args, **kwargs) -> None:
+        """Overriding the default delete method as the file should be deleted as well.
+
+        We want to delete the actual file, when the metadata for a file is deleted. We
+        can do this by overriding the default delete method and adding som extra
+        behaviour.
+
+        Args:
+            *args: The positional arguments required by Django
+            **kwargs: The keyword arguments required by Django
+        """
+        # The normal delete logic is called:
+        super().delete(*args, **kwargs)
+
+        # And we delete the file
+        os.remove(self.server_file_path)
