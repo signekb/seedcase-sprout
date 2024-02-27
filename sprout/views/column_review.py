@@ -1,27 +1,8 @@
-from django.forms import modelformset_factory  # noqa: D100
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 
-from sprout.forms import ColumnDataTypeForm, ColumnMetadataForm
-from sprout.models import ColumnDataType, ColumnMetadata, TableMetadata
-
-
-def columndata_review(request):
-    """Displays the data type, more of a test than useful.
-
-    This was built as a first try, don't know if we are going to use it
-    but keeping it for now.
-    """
-    ColumnDataTypeFormSet = modelformset_factory(
-        ColumnDataType, form=ColumnDataTypeForm
-    )
-    formset = ColumnDataTypeFormSet(queryset=ColumnDataType.objects.all())
-
-    return render(
-        request,
-        "columndata-review.html",
-        {"formset": formset},
-    )
+from sprout.forms import ColumnMetadataForm
+from sprout.models import ColumnMetadata, TableMetadata
 
 
 def column_review(request, table_id):

@@ -43,20 +43,6 @@ class TableMetadataForm(ModelForm):
         return name_value
 
 
-class ColumnDataTypeForm(ModelForm):
-    """Form based on the model ColumnDataType.
-
-    The form is used in columndata-review to display all info on data types.
-
-    Args:
-        ModelForm (ModelForm): pulled in from django.forms
-    """
-
-    class Meta:  # noqa: D106
-        model = ColumnDataType
-        fields = ["display_name", "description"]
-
-
 class ColumnMetadataForm(ModelForm):
     """Based on the model ColumnMetaData.
 

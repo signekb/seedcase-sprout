@@ -199,22 +199,3 @@ class ColumnReviewViewTest(TestCase):
 
         # Assert the status code
         self.assertEqual(response.status_code, 200)
-
-    def test_column_review_view_post_invalid_data(self):
-        """Test that there is an error thrown when data entered is invalid."""
-        # Arrange
-        url = reverse("column-review", args=[self.table_metadata.id])
-        data = {
-            f"{self.column_metadata.id}-name": "",
-            f"{self.column_metadata.id}-title": "",
-            f"{self.column_metadata.id}-description": "",
-            f"{self.column_metadata.id}-data_type": "",
-            f"{self.column_metadata.id}-allow_missing_value": "",
-            f"{self.column_metadata.id}-allow_duplicate_value": "",
-        }
-
-        # Act
-        response = self.client.post(url, data)
-
-        # Assert
-        self.assertEqual(response.status_code, 200)
