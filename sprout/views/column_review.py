@@ -1,3 +1,5 @@
+"""File with column_review view."""
+
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 
