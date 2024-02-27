@@ -8,6 +8,31 @@
       <i>download</i>
       <div>{{ file.original_file_name }}</div>
       <div style="color: gray">Created at: {{ file.created_at }}</div>
+      <div><b>{{ file.file_size_bytes | filesizeformat  }}</b></div>
     </a>
   {% endfor %}
+
+  <table class="medium-space stripes">
+  <thead>
+    <tr>
+      <th>File</th>
+      <th>Created At</th>
+      <th>Size</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for file in files %}
+    <tr>
+      <td>
+        <a href="/table-files/{{ table.id }}/download/{{ file.id }}" class="row wave">
+        <i>download</i>
+        <div>{{ file.original_file_name }}</div>
+        </a>
+      </td>
+      <td>{{ file.created_at }}</td>
+      <td>{{ file.file_size_bytes | filesizeformat  }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
 {% endblock content %}
