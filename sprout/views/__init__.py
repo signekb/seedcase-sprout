@@ -4,7 +4,6 @@ from django.shortcuts import render
 
 from .column_review import (
     column_review,
-    columndata_review,
 )
 
 # Split views.py into multiple files is based on:
