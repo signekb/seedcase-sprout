@@ -1,23 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h3>Files for&nbsp;<b>{{ table.name }}</b></h3>
-
-  {% for file in files %}
-    <a href="/table-files/{{ table.id }}/download/{{ file.id }}" class="row wave">
-      <i>download</i>
-      <div>{{ file.original_file_name }}</div>
-      <div style="color: gray">Created at: {{ file.created_at }}</div>
-      <div><b>{{ file.file_size_bytes | filesizeformat  }}</b></div>
-    </a>
-  {% endfor %}
-
+  <h2>Files for&nbsp;<b>{{ table.name }}</b></h2>
+  <p>Here you can view and download the files relevant for a certain table.</p>
   <table class="medium-space stripes">
   <thead>
     <tr>
       <th>File</th>
-      <th>Created At</th>
-      <th>Size</th>
+      <th class="min right-align">Creation Time</th>
+      <th class="min right-align">Size</th>
     </tr>
   </thead>
   <tbody>
@@ -29,8 +20,8 @@
         <div>{{ file.original_file_name }}</div>
         </a>
       </td>
-      <td>{{ file.created_at }}</td>
-      <td>{{ file.file_size_bytes | filesizeformat  }}</td>
+      <td class="min right-align">{{ file.created_at }}</td>
+      <td class="min right-align">{{ file.file_size_bytes | filesizeformat  }}</td>
     </tr>
   {% endfor %}
   </tbody>
