@@ -3,6 +3,7 @@ import os
 import uuid
 from typing import IO
 
+from django.conf import settings
 from django.db import models
 
 from config.settings import PERSISTENT_STORAGE_PATH
@@ -19,6 +20,9 @@ class FileMetaData(models.Model):
 
     table_metadata = models.ForeignKey(TableMetadata, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL, null=True, on_delete=models.PROTECT
+    )
     modified_at = models.DateTimeField(auto_now=True)
 
     @staticmethod
@@ -33,13 +37,15 @@ class FileMetaData(models.Model):
             FileMetaData: The relative path on the server
         """
         file_extension = file.name.split(".")[-1]
+        file_name_wo_ext = file.name.split(".")[-2][:150]
+        unique_file_name = f"{file_name_wo_ext}-{uuid.uuid4().hex}.{file_extension}"
 
         raw_folder = f"{PERSISTENT_STORAGE_PATH}/raw"
         if not os.path.exists(raw_folder):
             os.makedirs(raw_folder)
 
-        # Unique file path in the raw
-        server_file_path = f"{raw_folder}/{uuid.uuid4().hex}.{file_extension}"
+        # Unique file path in the raw folder
+        server_file_path = f"{raw_folder}/{unique_file_name}"
 
         file.seek(0)
         # write to server_file_path
