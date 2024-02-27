@@ -15,6 +15,7 @@ class FileMetaData(models.Model):
     original_file_name = models.TextField()
     server_file_path = models.TextField()
     file_extension = models.CharField(max_length=10)
+    file_size_bytes = models.BigIntegerField()
 
     table_metadata = models.ForeignKey(TableMetadata, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -48,6 +49,7 @@ class FileMetaData(models.Model):
         file_metadata = FileMetaData.objects.create(
             original_file_name=file.name,
             server_file_path=server_file_path,
+            file_size_bytes=os.path.getsize(server_file_path),
             file_extension=file_extension,
             table_metadata_id=table_metadata_id,
         )

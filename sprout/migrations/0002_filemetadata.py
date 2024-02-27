@@ -28,6 +28,7 @@ class Migration(migrations.Migration):
                 ("original_file_name", models.TextField()),
                 ("server_file_path", models.TextField()),
                 ("file_extension", models.CharField(max_length=10)),
+                ("file_size_bytes", models.BigIntegerField()),
                 ("created_at", models.DateTimeField(auto_now_add=True)),
                 ("modified_at", models.DateTimeField(auto_now=True)),
                 (
