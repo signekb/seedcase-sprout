@@ -61,7 +61,7 @@ def handle_post_request_with_file(
 
     FileMetadata.persist_raw_file(file, table_id)
 
-    return redirect("/edit-table-columns/" + str(table_id))
+    return redirect("/column-review/" + str(table_id))
 
 
 def render_file_upload_page(

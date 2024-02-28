@@ -1,8 +1,8 @@
 """Module defining forms."""
+from django.forms import CharField, ModelForm
 
-from django.forms import ModelForm
-
-from sprout.models.table_metadata import TableMetadata
+from sprout.models import ColumnMetadata, TableMetadata
+from sprout.models.table_metadata import TableMetadata  # noqa: F811
 from sprout.validators import (
     validate_no_special_characters,
     validate_table_name_does_not_exist,
@@ -41,3 +41,29 @@ class TableMetadataForm(ModelForm):
         validate_no_special_characters(field_name="name", field_value=name_value)
 
         return name_value
+
+
+class ColumnMetadataForm(ModelForm):
+    """Based on the model ColumnMetaData.
+
+    The form is used in column-review to display and edit the content of
+    the user-generated tables based on data from uploaded csv files.
+
+
+    Args:
+        ModelForm (ModelForm): pulled in from django.forms
+    """
+
+    description = CharField()
+
+    class Meta:  # noqa: D106
+        model = ColumnMetadata
+        fields = (
+            "id",
+            "name",
+            "title",
+            "description",
+            "data_type",
+            "allow_missing_value",
+            "allow_duplicate_value",
+        )

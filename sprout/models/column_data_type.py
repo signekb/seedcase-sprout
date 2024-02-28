@@ -25,6 +25,9 @@ class ColumnDataType(models.Model):
 
         raise ValueError("ColumnMetaData not found for :" + series_polar_type)
 
+    def __str__(self):  # noqa: D105
+        return self.display_name
+
 
 """
 COLUMN_DATA_TYPES contains all the Sprout data types.
