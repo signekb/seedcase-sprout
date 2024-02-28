@@ -10,7 +10,7 @@ from sprout.models import ColumnMetadata, TableMetadata
 def column_review(request, table_id):
     """Takes the data from ColumnMetadata and displays as a table.
 
-    The table can be edited and the result written back to the db
+    The table can be edited and the result written back to the database.
 
     Args: Must learn what to write here
         request: _description_
