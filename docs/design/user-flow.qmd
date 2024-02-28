@@ -76,11 +76,11 @@ The second option is to create a table from a file describing the column metadat
 
 ### Create Table from Existing Table 
 
-The second option is to create a table from an existing table. This includes choosing an existing table as a "base table" for the [Data Management Administrator](users.qmd#data-management-administrators) to build a new table from.
+The third option is to create a table from an existing table. This includes choosing an existing table as a "base table" for the [Data Management Administrator](users.qmd#data-management-administrators) to build a new table from.
 
 ### Create Table Manually
 
-The third option is to create a table manually. In this scenario, the [Data Management Administrator](users.qmd#data-management-administrators) will add headers and definitions of the table manully. 
+The fourth option is to create a table manually. In this scenario, the [Data Management Administrator](users.qmd#data-management-administrators) will add headers and definitions of the table manully. 
 
 ![Diagram of the flow that occurs when column metadata is created.](images/user-flow-column-metadata-creation.png)
 
