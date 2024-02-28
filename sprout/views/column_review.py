@@ -15,7 +15,7 @@ def column_review(request, table_id):
     Args: Must learn what to write here
         request: _description_
         table_name: _description_
-        
+
     Returns: Must learn what to write here
         _type_: _description_
     """
@@ -31,8 +31,7 @@ def column_review(request, table_id):
             for form in forms:
                 form.save()
             return redirect(reverse("column-review", args=[table_id]))
-        else:
-            print([form.errors for form in forms])
+
     else:
         forms = [
             ColumnMetadataForm(instance=column, prefix=str(column.id))
