@@ -28,11 +28,9 @@ if (\nSystem shows data upload\nUI with option to create new\ntable or use exist
       :System loads file and
       extracts column metadata*;
     while (\nVALIDATION CHECK: Is file a supported file type?\n) is (No)
-      :System shows error message: 
-      "Woops! Seems like you added
-      an unsupported file type.
-      Please add a .csv file and
-      try again";
+      :System shows error message
+      informing the user of the 
+      supported file types;
       :User selects new file to upload;
     end while (Yes)
     :System extracts column metadata;
