@@ -1,7 +1,8 @@
 """File with tests for `csv_read_file()`."""
 import csv
 import datetime
-import io
+import os
+import tempfile
 from typing import Any
 from unittest import TestCase
 
@@ -13,17 +14,22 @@ from sprout.csv_reader import read_csv_file
 class CsvTests(TestCase):
     """Class with tests for `read_csv_file()`."""
 
+    def setUp(self) -> None:
+        """Test setup."""
+        self.temp_file = None
+
     def test_csv_with_simple_types(self):
         """Testing that `read_csv_file()` should derive column types.
 
         For this example, "i1" as integer, "f1" as float and "b1" as a boolean.
         The values are also verified.
         """
-        csv_file = io.StringIO(
+
+        path = self.create_file(
             "i1,f1,b1\n" "1,2.3,true\n" "2,2.4,false\n" "3,2.6,false"
         )
 
-        df = read_csv_file(csv_file)
+        df = read_csv_file(path)
 
         self.assert_types(df, "Int64", "Float64", "Boolean")
         self.assert_values(df["i1"], 1, 2, 3)
@@ -36,7 +42,7 @@ class CsvTests(TestCase):
         For this example, "i1" as integer, "f1" as float and "b1" as a boolean.
         The values are also verified.
         """
-        csv_file = io.BytesIO(b"i1,f1,b1\n1,2.3,true\n2,2.4,false\n3,2.6,false")
+        csv_file = self.create_file("i1,f1,b1\n1,2.3,true\n2,2.4,false\n3,2.6,false")
 
         df = read_csv_file(csv_file)
 
@@ -44,7 +50,7 @@ class CsvTests(TestCase):
 
     def test_csv_with_semicolon_and_whitespace(self):
         """Testing a csv dialect with semicolon and initial whitespace."""
-        csv_file = io.StringIO(
+        csv_file = self.create_file(
             "i1;    f1;     b1;     s1\n"
             "10;    5.3;    True;   Hi\n"
             "11;    1.0;    False;  Hello\n"
@@ -61,7 +67,7 @@ class CsvTests(TestCase):
 
     def test_csv_with_semicolon_and_quotes(self):
         """Testing dialect with quotes, semicolon and initial whitespace."""
-        csv_file = io.StringIO(
+        csv_file = self.create_file(
             '"i1";  "f1";   "b1";       "s1"\n'
             '"10";  "5.3";  "True";     "Hi, Man"\n'
             '"11";  "1.0";  "False";    "Hello?"\n'
@@ -75,7 +81,7 @@ class CsvTests(TestCase):
 
     def test_boolean_ish_values(self):
         """Column with boolean-ish/empty values should convert to booleans."""
-        csv_file = io.StringIO(
+        csv_file = self.create_file(
             "b1,    b2,     b3,     b4\n"
             "0,     true,   yes,    y\n"
             "1,     false,  no,     y\n"
@@ -96,7 +102,7 @@ class CsvTests(TestCase):
         So (0, 1, 2) remains an Int64 column and ("true", "REALLY TRUE!",
         "false") remains a String column
         """
-        csv_file = io.StringIO(
+        csv_file = self.create_file(
             "s1,    s2\n" "0,     true\n" "1,     REALLY TRUE!\n" "2,     false"
         )
 
@@ -114,7 +120,7 @@ class CsvTests(TestCase):
 
         NOTICE: d3 (ex: '27. Oct 1987') is not recognized as date
         """
-        csv_file = io.StringIO(
+        csv_file = self.create_file(
             "d1,                    d2,         d3,             t1\n"
             "1987-10-27 00:00:00,   1987-10-27, 27. Oct 1987,   12:00:00\n"
             "2000-01-28 12:00:00,   2000-01-28, 28. Jan 2000,   13:00:01\n"
@@ -149,10 +155,9 @@ class CsvTests(TestCase):
     def test_wrongly_formatted_csv(self):
         """Testing a wrongly formatted CSV file.
 
-        The row has three values but only two two columns - A csv.Error
-        is expected
+        The row has three values but only two columns - A csv.Error is expected
         """
-        csv_file = io.StringIO("s1,s2\n" "Hello, World, Seedcase")
+        csv_file = self.create_file("s1,s2\n" "Hello, World, Seedcase")
 
         self.assertRaises(csv.Error, read_csv_file, csv_file)
 
@@ -184,3 +189,17 @@ class CsvTests(TestCase):
             self.assertEqual(
                 value, expected_value, s.name + ", row:" + str(value_position)
             )
+
+    def create_file(self, content: str):
+        """Creates temp file that is cleaned up in tearDown."""
+        self.temp_file = tempfile.NamedTemporaryFile(delete=False)
+
+        self.temp_file.write(content.encode())
+        self.temp_file.close()
+        return self.temp_file.name
+
+    def tearDown(self):
+        """Clean up file."""
+        if self.temp_file:
+            self.temp_file.close()
+            os.remove(self.temp_file.name)

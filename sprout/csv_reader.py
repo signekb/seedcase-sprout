@@ -1,12 +1,13 @@
 """File with read_csv_file and related functions."""
 import csv
-import io
-from typing import Any, TextIO
+import os
+from typing import Any
 
+import polars as pl
 from polars import Boolean, DataFrame, Series, read_csv
 
 
-def read_csv_file(csv_file: TextIO | io.BytesIO, row_number: int = 500) -> DataFrame:
+def read_csv_file(csv_file_path: str, row_number: int = 500) -> DataFrame:
     """Reads a CSV file and returns a polars.DataFrame with derived types.
 
     The property `dtypes` in the returned DataFrame contains the column/series
@@ -15,60 +16,40 @@ def read_csv_file(csv_file: TextIO | io.BytesIO, row_number: int = 500) -> DataF
     It uses `polars.csv_read()`, but adds additional functionality:
     - Converts boolean-ish values (Yes, y, 1) to booleans
     - Finds CSV dialect of file and converts to a csv format suitable for
-      `polars.csv_read()`, i.e., transform dialect to semicolon remove and
-      whitespaces and quotes
+      `polars.csv_read()`, i.e. removes whitespaces and quotes
 
     Args:
-        csv_file: The CSV file to read
+        csv_file_path: The path of the CSV file to read
         row_number: The number of rows to scan from the file
 
     Returns:
         DataFrame: A `polars.DataFrame` with column types in `dtypes`.
     """
-    csv_file = _convert_to_text_wrapper_if_bytes_io(csv_file)
-    csv_file = _transform_to_suitable_csv_format(csv_file, row_number)
-    df = read_csv(csv_file, n_rows=row_number, try_parse_dates=True, separator=";")
+    transformed_csv = create_compatible_csv_file(csv_file_path, row_number)
+    df = read_csv(transformed_csv, n_rows=row_number, try_parse_dates=True)
+    os.remove(transformed_csv)
 
     return df.select([_convert_to_booleans_if_possible(column) for column in df])
 
 
-def _convert_to_text_wrapper_if_bytes_io(file: TextIO | io.BytesIO):
-    """Convert to TextIO if BytesIO.
+def create_compatible_csv_file(csv_file_path: str, row_number: int):
+    """Removes whitespace and quotes and overwrites csv."""
+    # Find dialect
+    with open(csv_file_path, "r") as csv_file:
+        dialect = csv.Sniffer().sniff(csv_file.read(10000))
 
-    Args:
-        file: File either containing bytes or text
-    Returns:
-        TextIO: A TextIO file
-    """
-    content = file.read(10)
-    file.seek(0)
-    if isinstance(content, bytes):
-        return io.TextIOWrapper(file)
-    return file
-
-
-def _transform_to_suitable_csv_format(csv_file: TextIO, row_number) -> TextIO:
-    """Preparing the CSV content for polar.read_csv method.
-
-    This function converts from any CSV dialect/format into a semicolon separated
-    format and strips whitespaces and quotes.
-
-    Args:
-        csv_file: A CSV file with a dialect that is potentially not suitable
-                  for `polars.read_csv()`
-        row_number: The number of rows used to infer csv dialect
-
-    Returns:
-        TextIO: An in-memory CSV file which is suitable for `polars.read_csv()`
-    """
-    # Read part of csv_file to detect dialect and return to beginning of file
-    dialect = csv.Sniffer().sniff(csv_file.read(row_number))
-    csv_file.seek(0)
-
-    csv_content = ""
-    for line in csv.reader(csv_file, dialect=dialect):
-        csv_content = csv_content + ";".join(line) + "\n"
-    return io.StringIO(csv_content)
+    df = pl.read_csv(
+        csv_file_path,
+        infer_schema_length=0,
+        separator=dialect.delimiter,
+        n_rows=row_number,
+    )
+    df = df.select(pl.all().str.strip_chars())
+    df = df.select(pl.all().name.map(lambda n: n.strip().strip('"')))
+    df = df.select(pl.all().str.strip_chars('"'))
+    cleaned_path = csv_file_path + "cleaned"
+    df.write_csv(cleaned_path)
+    return cleaned_path
 
 
 BOOLEAN_MAPPING = {
@@ -80,6 +61,7 @@ BOOLEAN_MAPPING = {
     "No": False,
     "n": False,
     "N": False,
+    "": None,
 }
 
 
