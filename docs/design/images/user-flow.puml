@@ -78,6 +78,7 @@ if (\nSystem shows data upload\nUI with option to create new\ntable or use exist
     and clicks "Submit";
 'column metadata creation end
   #palegreen:Initial table has been created;
+'validation table completeness start
    while (\nVALIDATION CHECK: Table Completeness\nSystem checks that table has all the required metadata\n) is (Validation failed)
     :System shows UI with table where
     missing fields are highlighted
