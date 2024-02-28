@@ -7,7 +7,7 @@ import polars as pl
 from polars import Boolean, DataFrame, Series, read_csv
 
 
-def read_csv_file(csv_file_path: str, row_number: int = 500) -> DataFrame:
+def read_csv_file(csv_file_path: str, row_count: int = 500) -> DataFrame:
     """Reads a CSV file and returns a polars.DataFrame with derived types.
 
     The property `dtypes` in the returned DataFrame contains the column/series
@@ -20,34 +20,42 @@ def read_csv_file(csv_file_path: str, row_number: int = 500) -> DataFrame:
 
     Args:
         csv_file_path: The path of the CSV file to read
-        row_number: The number of rows to scan from the file
+        row_count: The number of rows to scan from the file
 
     Returns:
         DataFrame: A `polars.DataFrame` with column types in `dtypes`.
     """
-    transformed_csv = create_compatible_csv_file(csv_file_path, row_number)
-    df = read_csv(transformed_csv, n_rows=row_number, try_parse_dates=True)
+    transformed_csv = _transform_to_suitable_csv_format(csv_file_path, row_count)
+    df = read_csv(transformed_csv, n_rows=row_count, try_parse_dates=True)
     os.remove(transformed_csv)
 
     return df.select([_convert_to_booleans_if_possible(column) for column in df])
 
 
-def create_compatible_csv_file(csv_file_path: str, row_number: int):
-    """Removes whitespace and quotes and overwrites csv."""
+def _transform_to_suitable_csv_format(csv_path: str, row_count: int) -> os.PathLike:
+    """Removes whitespace and quotes and overwrites csv.
+
+    Args:
+        csv_path: path of the CSV file to transform
+        row_count: The number of rows to transform
+
+    Returns:
+        PathLike: path of the transformed CSV file
+    """
     # Find dialect
-    with open(csv_file_path, "r") as csv_file:
+    with open(csv_path, "r") as csv_file:
         dialect = csv.Sniffer().sniff(csv_file.read(10000))
 
-    df = pl.read_csv(
-        csv_file_path,
-        infer_schema_length=0,
-        separator=dialect.delimiter,
-        n_rows=row_number,
-    )
+    # Read csv without inferring types
+    df = pl.read_csv(csv_path,
+                     infer_schema_length=0,
+                     separator=dialect.delimiter,
+                     n_rows=row_count)
+
     df = df.select(pl.all().str.strip_chars())
     df = df.select(pl.all().name.map(lambda n: n.strip().strip('"')))
     df = df.select(pl.all().str.strip_chars('"'))
-    cleaned_path = csv_file_path + "cleaned"
+    cleaned_path = csv_path + "cleaned"
     df.write_csv(cleaned_path)
     return cleaned_path
 
