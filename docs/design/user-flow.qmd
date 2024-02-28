@@ -8,6 +8,8 @@ This document describes the user flow of Sprout. The user flow is split into fiv
 
 In this document, we will mention different user roles. Go to the [Users](users.qmd) post for definitions of user roles. 
 
+<!-- TODO: Add more of an overall introduction to what the user flow of sprout entails before going into each part -->
+
 ## Table Metadata Creation 
 
 The first step of uploading data to Sprout is to create a table for the data. Users with the role [Data Management Administrators](users.qmd#data-management-administrators) are responsible for setting up these initial structures of the database. 
