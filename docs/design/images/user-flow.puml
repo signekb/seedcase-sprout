@@ -74,7 +74,7 @@ if (\nSystem shows data upload\nUI with option to create new\ntable or use exist
     - Allow missing (boolean) 
     - Allow duplication (boolean)
     - Option to "Add Column";
-    :Use completes/edits table
+    :User completes/edits table
     and clicks "Submit";
 'column metadata creation end
   #palegreen:Initial table has been created;
