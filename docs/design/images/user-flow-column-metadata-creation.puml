@@ -16,15 +16,13 @@ title User Flow: Column Metadata Creation
       clicks "Extract Data Structure";
       :System loads file and
       extracts column metadata*;
-    while (\nVALIDATION CHECK: Is file a CSV?\n) is (No)
-      :System shows error message: 
-      "The file is not a CSV. Please
-      choose a CSV to extract table
-      metadata from";
+    while (\nVALIDATION CHECK: Is file a supported file type?\n) is (No)
+      :System shows error message
+      informing the user of the 
+      supported file types;
       :User selects new file to upload;
     end while (Yes)
-    :System extracts column
-    metadata from File with Data;
+    :System extracts column metadata;
     case (Create Column Metadata from \nFile with Column Metadata)
       :User selects "Create Column Metadata
       from File with Metadata";
@@ -33,7 +31,7 @@ title User Flow: Column Metadata Creation
       :User selects file with
       metadata and clicks 
       "Extract Data Structure";
-      :System extracts column metadata from file;
+      :System extracts column metadata;
     case (Create Table from\nExisting Table)
       :User selects
       "Create New Table
@@ -50,7 +48,9 @@ title User Flow: Column Metadata Creation
       :User adds table metadata;
       :User clicks "Submit";
     endswitch
-'validation table completeness start
+    :System takes original column name,
+    converts it to snake case, and adds
+    this as the column name;
     :System shows UI where user can 
     add/edit the following fields:
     - Column name (textbox)
@@ -60,7 +60,7 @@ title User Flow: Column Metadata Creation
     - Allow missing (boolean) 
     - Allow duplication (boolean)
     - Option to "Add Column";
-    :Use completes/edits table
+    :User completes/edits table
     and clicks "Submit";
 'column metadata creation end
 'copied from user-flow.puml end
