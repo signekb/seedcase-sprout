@@ -5,7 +5,7 @@ from django.core.files.uploadhandler import StopUpload
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 
-from sprout.models import ColumnMetadata, FileMetaData, TableMetadata
+from sprout.models import ColumnMetadata, FileMetadata, TableMetadata
 
 
 def file_upload(
@@ -59,9 +59,9 @@ def handle_post_request_with_file(
     except StopUpload as upload_error:
         return render_file_upload_page(request, table_id, upload_error.args[0])
 
-    FileMetaData.persist_raw_file(file, table_id)
+    FileMetadata.persist_raw_file(file, table_id)
 
-    return redirect("/edit-table-columns/" + str(table_id))
+    return redirect("/column-review/" + str(table_id))
 
 
 def render_file_upload_page(

@@ -5,7 +5,7 @@ import os
 from django.test import TestCase
 
 from sprout.models import TableMetadata
-from sprout.models.file_metadata import FileMetaData
+from sprout.models.file_metadata import FileMetadata
 from sprout.tests.db_test_utils import create_table
 
 
@@ -21,7 +21,7 @@ class FileMetaDataTests(TestCase):
         test_table.save()
 
         # Act
-        file_meta = FileMetaData.persist_raw_file(file, test_table.id)
+        file_meta = FileMetadata.persist_raw_file(file, test_table.id)
 
         # Assert
         self.assertEqual(file.name, file_meta.original_file_name)
@@ -39,13 +39,13 @@ class FileMetaDataTests(TestCase):
         file.name = "my-file.csv"
         test_table = create_table("TestTable")
         test_table.save()
-        file_meta = FileMetaData.persist_raw_file(file, test_table.id)
+        file_meta = FileMetadata.persist_raw_file(file, test_table.id)
 
         # Act
         file_meta.delete()
 
         # Assert
-        self.assertEqual(FileMetaData.objects.count(), 0)
+        self.assertEqual(FileMetadata.objects.count(), 0)
         self.assertFalse(os.path.exists(file_meta.server_file_path))
         # And we change that the table is not deleted
         self.assertEqual(TableMetadata.objects.count(), 1)

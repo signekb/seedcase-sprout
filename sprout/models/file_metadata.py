@@ -10,7 +10,7 @@ from config.settings import PERSISTENT_STORAGE_PATH
 from sprout.models.table_metadata import TableMetadata
 
 
-class FileMetaData(models.Model):
+class FileMetadata(models.Model):
     """Model for a persisted file."""
 
     original_file_name = models.TextField()
@@ -26,7 +26,7 @@ class FileMetaData(models.Model):
     modified_at = models.DateTimeField(auto_now=True)
 
     @staticmethod
-    def persist_raw_file(file: IO, table_metadata_id: int) -> "FileMetaData":
+    def persist_raw_file(file: IO, table_metadata_id: int) -> "FileMetadata":
         """Persists a file and stores metadata in database.
 
         Args:
@@ -34,7 +34,7 @@ class FileMetaData(models.Model):
             table_metadata_id: The id of the table
 
         Returns:
-            FileMetaData: The relative path on the server
+            FileMetadata: The relative path on the server
         """
         file_extension = file.name.split(".")[-1]
         file_name_wo_ext = file.name.split(".")[-2][:150]
@@ -52,7 +52,7 @@ class FileMetaData(models.Model):
         with open(server_file_path, "wb") as target:
             target.write(file.read())
 
-        file_metadata = FileMetaData.objects.create(
+        file_metadata = FileMetadata.objects.create(
             original_file_name=file.name,
             server_file_path=server_file_path,
             file_size_bytes=os.path.getsize(server_file_path),

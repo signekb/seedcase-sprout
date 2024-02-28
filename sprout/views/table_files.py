@@ -2,8 +2,7 @@
 from django.http import FileResponse, HttpRequest, HttpResponse
 from django.shortcuts import render
 
-from sprout.models import TableMetadata
-from sprout.models.file_metadata import FileMetaData
+from sprout.models import FileMetadata, TableMetadata
 
 
 def table_files(request: HttpRequest, table_id: int) -> HttpResponse:
@@ -17,7 +16,7 @@ def table_files(request: HttpRequest, table_id: int) -> HttpResponse:
         HttpResponse: Render of files for a table
     """
     table_metadata = TableMetadata.objects.get(pk=table_id)
-    files = FileMetaData.objects.filter(table_metadata_id=table_id).all()
+    files = FileMetadata.objects.filter(table_metadata_id=table_id).all()
     context = {"files": files, "table": table_metadata}
     return render(request, "table-files.html", context)
 
@@ -35,7 +34,7 @@ def table_file_download(
     Returns:
         FileResponse: A file download response
     """
-    file_metadata = FileMetaData.objects.get(id=file_id, table_metadata_id=table_id)
+    file_metadata = FileMetadata.objects.get(id=file_id, table_metadata_id=table_id)
     print(file_metadata.server_file_path)
 
     return FileResponse(open(file_metadata.server_file_path, "rb"), as_attachment=True)
