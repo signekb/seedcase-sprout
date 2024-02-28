@@ -13,9 +13,9 @@ def column_review(request, table_id):
     The table can be edited and the result written back to the db
 
     Args: Must learn what to write here
-        request (_type_): _description_
-        table_name (_type_): _description_
-
+        request: _description_
+        table_name: _description_
+        
     Returns: Must learn what to write here
         _type_: _description_
     """
