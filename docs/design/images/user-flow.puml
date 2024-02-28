@@ -35,8 +35,7 @@ if (\nSystem shows data upload\nUI with option to create new\ntable or use exist
       try again";
       :User selects new file to upload;
     end while (Yes)
-    :System extracts column
-    metadata;
+    :System extracts column metadata;
     case (Create Column Metadata from \nFile with Column Metadata)
       :User selects "Create Column Metadata
       from File with Metadata";
