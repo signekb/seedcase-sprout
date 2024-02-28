@@ -62,7 +62,9 @@ if (\nSystem shows data upload\nUI with option to create new\ntable or use exist
       :User adds table metadata;
       :User clicks "Submit";
     endswitch
-'validation table completeness start
+    :System takes original column name,
+    converts it to snake case, and adds
+    this as the column name;
     :System shows UI where user can 
     add/edit the following fields:
     - Column name (textbox)
