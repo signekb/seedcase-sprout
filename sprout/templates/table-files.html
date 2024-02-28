@@ -3,27 +3,30 @@
 {% block content %}
   <h2>Files for&nbsp;<b>{{ table.name }}</b></h2>
   <p>Here you can view and download the files relevant for a certain table.</p>
+
+
+  <!-- HTML table with files --->
   <table class="medium-space stripes">
-  <thead>
-    <tr>
-      <th>File</th>
-      <th class="min right-align">Creation Time</th>
-      <th class="min right-align">Size</th>
-    </tr>
-  </thead>
-  <tbody>
-  {% for file in files %}
-    <tr>
-      <td>
-        <a href="/table-files/{{ table.id }}/download/{{ file.id }}" class="row wave">
-        <i>download</i>
-        <div>{{ file.original_file_name }}</div>
-        </a>
-      </td>
-      <td class="min right-align">{{ file.created_at }}</td>
-      <td class="min right-align">{{ file.file_size_bytes | filesizeformat  }}</td>
-    </tr>
-  {% endfor %}
-  </tbody>
-</table>
+    <thead>
+      <tr>
+        <th>File</th>
+        <th class="min right-align">Creation Time</th>
+        <th class="min right-align">Size</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for file in files %}
+      <tr>
+        <td>
+          <a href="{% url 'table_file_download' table_id=table.id file_id=file.id %}" class="row wave">
+          <i>download</i>
+          <div>{{ file.original_file_name }}</div>
+          </a>
+        </td>
+        <td class="min right-align">{{ file.created_at }}</td>
+        <td class="min right-align">{{ file.file_size_bytes | filesizeformat  }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
 {% endblock content %}

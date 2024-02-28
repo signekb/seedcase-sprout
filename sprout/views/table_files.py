@@ -7,7 +7,7 @@ from sprout.models.file_metadata import FileMetaData
 
 
 def table_files(request: HttpRequest, table_id: int) -> HttpResponse:
-    """Overview of files for a certain table.
+    """Renders an overview of uploaded files for a certain table.
 
     Args:
         request: The request from the client
@@ -25,7 +25,7 @@ def table_files(request: HttpRequest, table_id: int) -> HttpResponse:
 def table_file_download(
     request: HttpRequest, table_id: int, file_id: int
 ) -> FileResponse:
-    """Download of file based on a file_id.
+    """A download link based on table_id and file_id.
 
     Args:
         request: The request from the client
