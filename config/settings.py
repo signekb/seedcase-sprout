@@ -88,7 +88,7 @@ PERSISTENT_STORAGE_PATH = "persistent_storage"
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-sqlite_url = f"sqlite:///{PERSISTENT_STORAGE_PATH}/db.sqlite3"
+sqlite_url = f"sqlite:///db.sqlite3"
 database_url = os.environ.get("DATABASE_URL", sqlite_url)
 
 DATABASES = {"default": dj_database_url.parse(database_url, conn_max_age=600)}
