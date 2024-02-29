@@ -84,7 +84,7 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 
 # Files are preserved in the "data" folder
-PERSISTENT_STORAGE_PATH = os.path.join(BASE_DIR, "persistent_storage")
+PERSISTENT_STORAGE_PATH = "persistent_storage"
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
