@@ -15,8 +15,8 @@ def read_csv_file(csv_file_path: str, row_count: int = 500) -> DataFrame:
 
     It uses `polars.csv_read()`, but adds additional functionality:
     - Converts boolean-ish values (Yes, y, 1) to booleans
-    - Finds CSV dialect of file and converts to a csv format suitable for
-      `polars.csv_read()`, i.e. removes whitespaces and quotes
+    - A preparation step removes whitespace and quotes, which is not handled by
+      natively by `polars.csv_read()`
 
     Args:
         csv_file_path: The path of the CSV file to read
@@ -32,15 +32,30 @@ def read_csv_file(csv_file_path: str, row_count: int = 500) -> DataFrame:
     return df.select([_convert_to_booleans_if_possible(column) for column in df])
 
 
-def _transform_to_suitable_csv_format(csv_path: str, row_count: int) -> os.PathLike:
-    """Removes whitespace and quotes and overwrites csv.
+def _transform_to_suitable_csv_format(csv_path: str, row_count: int) -> str:
+    """Removes whitespace and quotes from headers and values in a CSV file.
+
+    This function is designed to preprocess CSV files for compatibility with
+    `polars.read_csv()`, which may not correctly handle whitespace and quotes
+    in column names and values. For instance, it will transform input like:
+
+        "name",     "city",     "age"
+        "Phil",     "Aarhus",   "1"
+
+    into a cleaner format without leading/trailing whitespace and quotes:
+
+        name,city,age
+        Phil,Aarhus,1
+
+    This ensures that column names and values are correctly identified and typed by
+    `polars.read_csv()`.
 
     Args:
-        csv_path: path of the CSV file to transform
-        row_count: The number of rows to transform
+        csv_path: The path of the CSV file to transform.
+        row_count: The number of rows to process in the CSV file.
 
     Returns:
-        PathLike: path of the transformed CSV file
+        PathLike: The path to the transformed CSV file.
     """
     # Find dialect
     with open(csv_path, "r") as csv_file:
