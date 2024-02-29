@@ -68,11 +68,11 @@ In Sprout, there are four ways to create column metadata:
 
 ### Create Table from File with Data
 
-The first option is to create a table from a file with data of the wanted structure. In this workflow, a file is selected to extract column metadata from. Sprout will check whether the selected file is a supported file type and extract the metadata from the columns in the file.
+The first option is to create a table from a file with data of the wanted structure. In this workflow, a file is selected to extract column metadata from. Sprout will check whether the selected file is a supported file type and extract the metadata from the columns in the file. From the original column names that are in the file, Sprout will create column names in [snake case](https://en.wikipedia.org/wiki/Snake_case).
 
 ### Create Table from Column Metadata File
 
-The second option is to create a table from a file describing the column metadata. This is similar to the workflow described above except that the selected file is a file containing the column metadata instead of raw data.
+The second option is to create a table from a file describing the column metadata. This is similar to the workflow described above except that the selected file is a file containing the column metadata instead of raw data. Identical to the first option, Sprout will create column names in snake case based on the original column names.
 
 ### Create Table from Existing Table 
 
