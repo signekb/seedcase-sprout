@@ -44,6 +44,10 @@ if (\nSystem shows data upload\nUI with option to create new\ntable or use exist
       metadata and clicks 
       "Extract Data Structure";
     end fork
+      :System extracts column metadata from file;
+      :System takes original column name,
+      converts it to snake case, and adds
+      this as the column name;
       :User selects
       "Create New Table
       from Existing Table";
@@ -59,9 +63,6 @@ if (\nSystem shows data upload\nUI with option to create new\ntable or use exist
       :User adds table metadata;
       :User clicks "Submit";
     endswitch
-    :System takes original column name,
-    converts it to snake case, and adds
-    this as the column name;
     :System shows UI where user can 
     add/edit the following fields:
     - Column name (textbox)
