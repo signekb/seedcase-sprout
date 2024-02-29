@@ -16,6 +16,7 @@ if (\nSystem shows data upload\nUI with option to create new\ntable or use exist
   end while (No)
 'table metadata creation end
 'column metadata creation start
+  switch (System shows create Column Metadata UI)
     case (Create Column Metadata from File)
     fork
       -> Create Column Metadata\nfrom File with **Data**;
@@ -48,6 +49,7 @@ if (\nSystem shows data upload\nUI with option to create new\ntable or use exist
       :System takes original column name,
       converts it to snake case, and adds
       this as the column name;
+    case (Create Column Metadata from\nExisting Table)
       :User selects
       "Create New Table
       from Existing Table";
