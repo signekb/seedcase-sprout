@@ -5,8 +5,10 @@ title User Flow: Column Metadata Creation
 :...;
 'copied from user-flow.puml start
 'column metadata creation start
-  switch (System shows create table UI)
-    case (Create Column Metadata\nfrom File with Data)
+  switch (System shows create Column Metadata UI)
+    case (Create Column Metadata from File)
+    fork
+      -> Create Column Metadata\nfrom File with **Data**;
       :User selects
       "Create Column Metadata
       from Data File";
@@ -22,8 +24,8 @@ title User Flow: Column Metadata Creation
       supported file types;
       :User selects new file to upload;
     end while (Yes)
-    :System extracts column metadata;
-    case (Create Column Metadata from \nFile with Column Metadata)
+    fork again
+      -> Create Column Metadata from\nFile with **Column Metadata**;
       :User selects "Create Column Metadata
       from File with Metadata";
       :System shows UI with
@@ -31,8 +33,12 @@ title User Flow: Column Metadata Creation
       :User selects file with
       metadata and clicks 
       "Extract Data Structure";
-      :System extracts column metadata;
-    case (Create Table from\nExisting Table)
+    end fork
+      :System extracts column metadata from file;
+      :System takes original column name,
+      converts it to snake case, and adds
+      this as the column name;
+    case (Create Column Metadata from\nExisting Table)
       :User selects
       "Create New Table
       from Existing Table";
@@ -48,9 +54,6 @@ title User Flow: Column Metadata Creation
       :User adds table metadata;
       :User clicks "Submit";
     endswitch
-    :System takes original column name,
-    converts it to snake case, and adds
-    this as the column name;
     :System shows UI where user can 
     add/edit the following fields:
     - Column name (textbox)
