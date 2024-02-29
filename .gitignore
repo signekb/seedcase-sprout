@@ -93,5 +93,6 @@ local_settings.py
 db.sqlite3
 db.sqlite3-journal
 
-# Disable migrations until we have actual users
+# The easiest way to disable migrations is to not include it in git. We will add this
+# later when we have actual users
 sprout/migrations
