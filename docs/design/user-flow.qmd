@@ -66,7 +66,7 @@ In Sprout, there are four ways to create column metadata:
 - Create Column Metadata from Existing Table
 - Create Column Metadata Manually
 
-### Create Table from File
+### Create Table from File with Data
 
 The first option is to create a table from a file with data of the wanted structure. In this workflow, a file is selected to extract column metadata from. Sprout will check whether the selected file is a supported file type and extract the metadata from the columns in the file.
 
