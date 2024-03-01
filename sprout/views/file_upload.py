@@ -122,7 +122,7 @@ def extract_and_persist_column_metadata(table_id: int, uploaded_file: IO) -> Non
         ColumnMetadata(
             table_metadata_id=table_id,
             original_name=name,
-            name=name,
+            name=_convert_to_snake_case(name),
             title=name,
             description="",
             data_type_id=1,
