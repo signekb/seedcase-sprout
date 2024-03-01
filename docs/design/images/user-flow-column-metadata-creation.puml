@@ -59,7 +59,6 @@ title User Flow: Column Metadata Creation
     - Short description (textbox)
     - Allow missing (boolean) 
     - Allow duplication (boolean)
-    - Option to "Add Column";
     :Use completes/edits table
     and clicks "Submit";
 'column metadata creation end
