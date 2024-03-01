@@ -199,7 +199,7 @@ class ColumnReviewViewTest(TestCase):
             name="Test Column",
             title="Test Title",
             description="Test Description",
-            data_type_id=0, 
+            data_type_id=0,
             allow_missing_value=True,
             allow_duplicate_value=True,
         )
