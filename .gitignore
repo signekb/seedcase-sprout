@@ -69,7 +69,7 @@ junit/
 # MacO
 .DS_Store
 
-# R and RStudio 
+# R and RStudio
 .Rbuildignore
 .Rhistory
 .RData
@@ -92,3 +92,7 @@ site
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
+
+# The easiest way to disable migrations is to not include it in git. We will add this
+# later when we have actual users
+sprout/migrations
