@@ -16,8 +16,10 @@ if (\nSystem shows data upload\nUI with option to create new\ntable or use exist
   end while (No)
 'table metadata creation end
 'column metadata creation start
-  switch (System shows create table UI)
-    case (Create Column Metadata\nfrom File with Data)
+  switch (System shows create Column Metadata UI)
+    case (Create Column Metadata from File)
+    fork
+      -> Create Column Metadata\nfrom File with **Data**;
       :User selects
       "Create Column Metadata
       from Data File";
@@ -28,16 +30,13 @@ if (\nSystem shows data upload\nUI with option to create new\ntable or use exist
       :System loads file and
       extracts column metadata*;
     while (\nVALIDATION CHECK: Is file a supported file type?\n) is (No)
-      :System shows error message: 
-      "Woops! Seems like you added
-      an unsupported file type.
-      Please add a .csv file and
-      try again";
+      :System shows error message
+      informing the user of the 
+      supported file types;
       :User selects new file to upload;
     end while (Yes)
-    :System extracts column
-    metadata;
-    case (Create Column Metadata from \nFile with Column Metadata)
+    fork again
+      -> Create Column Metadata from\nFile with **Column Metadata**;
       :User selects "Create Column Metadata
       from File with Metadata";
       :System shows UI with
@@ -45,8 +44,12 @@ if (\nSystem shows data upload\nUI with option to create new\ntable or use exist
       :User selects file with
       metadata and clicks 
       "Extract Data Structure";
-      :System extracts column metadata;
-    case (Create Table from\nExisting Table)
+    end fork
+      :System extracts column metadata from file;
+      :System takes original column name,
+      converts it to snake case, and adds
+      this as the column name;
+    case (Create Column Metadata from\nExisting Table)
       :User selects
       "Create New Table
       from Existing Table";
@@ -62,7 +65,6 @@ if (\nSystem shows data upload\nUI with option to create new\ntable or use exist
       :User adds table metadata;
       :User clicks "Submit";
     endswitch
-'validation table completeness start
     :System shows UI where user can 
     add/edit the following fields:
     - Column name (textbox)
@@ -71,9 +73,12 @@ if (\nSystem shows data upload\nUI with option to create new\ntable or use exist
     - Short description (textbox)
     - Allow missing (boolean) 
     - Allow duplication (boolean)
-    :Use completes/edits table
+    - Option to "Add Column";
+    :User completes/edits table
     and clicks "Submit";
 'column metadata creation end
+  #palegreen:Initial table has been created;
+'validation table completeness start
    while (\nVALIDATION CHECK: Table Completeness\nSystem checks that table has all the required metadata\n) is (Validation failed)
     :System shows UI with table where
     missing fields are highlighted
