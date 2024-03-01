@@ -1,0 +1,35 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header_tags %}
+  <link rel="stylesheet" href="{% static 'css/file-drop-zone.css' %}">
+  <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+  <!-- Include htmx library -->
+  <script src="https://unpkg.com/htmx.org@1.7.0/dist/htmx.js"></script>
+{% endblock header_tags %}
+
+{% block content %}
+<div>
+    <h1>CSV File Upload</h1>
+    
+    <!-- File upload form -->
+    <form hx-post="{% url 'upload_csv' %}" enctype="multipart/form-data" hx-target="#upload-result">
+        {% csrf_token %}
+        
+        <!-- File input -->
+        <label for="csvFile">Choose CSV File:</label>
+        <input type="file" name="csvFile" accept=".csv" required>
+        
+        <!-- Upload button -->
+        <button type="submit" hx-indicator="true">Upload</button>
+    </form>
+    
+    <!-- Result container -->
+    <div id="upload-result" hx-target=".output">
+        <!-- Result will be displayed here -->
+    </div>
+</div>
+
+{% endblock content %}
