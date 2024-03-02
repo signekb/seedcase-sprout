@@ -73,7 +73,6 @@ if (\nSystem shows data upload\nUI with option to create new\ntable or use exist
     - Short description (textbox)
     - Allow missing (boolean) 
     - Allow duplication (boolean)
-    - Option to "Add Column";
     :User completes/edits table
     and clicks "Submit";
 'column metadata creation end
@@ -82,7 +81,6 @@ if (\nSystem shows data upload\nUI with option to create new\ntable or use exist
    while (\nVALIDATION CHECK: Table Completeness\nSystem checks that table has all the required metadata\n) is (Validation failed)
     :System shows UI with table where
     missing fields are highlighted
-    - Option to "Add Column";
     :User completes/edits table;
     if (System asks user if they want to save only or submit) then (Save only)
       :User clicks "Save Draft";
@@ -96,7 +94,6 @@ if (\nSystem shows data upload\nUI with option to create new\ntable or use exist
   while (User decides whether table is correct or needs editing) is (Incorrect table)
     :User clicks "Edit Table";
     :System shows UI with table
-    - Option to "Add Column";
     :User edits table;
     :User clicks "Continue";
     goto l
