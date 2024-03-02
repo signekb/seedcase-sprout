@@ -11,6 +11,9 @@ extend-select = [
   # Add isort to list.
   "I"
 ]
+# Ignore missing docstring at the top of files
+ignore = ["D100"]
+
 # Ignore Django migration files
 exclude = ["**/migrations/*.py"]
 
