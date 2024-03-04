@@ -41,14 +41,14 @@
     {% if form.name.errors %}
     <div style="margin-bottom:50px;" class="field label invalid border">
       {{form.name}}
-      <label>Name</label>
+      <label>Table Name</label>
       <span class="error"> {{form.name.errors|striptags}} </span>
     </div>
     <!-- else: validation is successful -->
     {% else %}
     <div class="field label border">
       {{form.name}}
-      <label>Name</label>
+      <label>Table Name</label>
       <span class="helper">Name of the table you want to create</span>
     </div>
     {% endif %}
