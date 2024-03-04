@@ -1,4 +1,5 @@
 """File with file_upload view."""
+
 from django.core.files.uploadhandler import StopUpload
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render

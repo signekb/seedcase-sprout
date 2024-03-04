@@ -1,6 +1,7 @@
 """Module defining the ColumnMetadata model."""
 import polars
 from django.db import models
+from re import sub
 
 from sprout.models.column_data_type import ColumnDataType
 from sprout.models.table_metadata import TableMetadata
@@ -32,10 +33,37 @@ class ColumnMetadata(models.Model):
         return ColumnMetadata(
             table_metadata_id=table_id,
             original_name=series.name,
-            name=series.name,
+            name=_convert_to_snake_case(series.name),
             title=series.name,
             description="",
             data_type=ColumnDataType.get_from_series(series),
             allow_missing_value=True,
             allow_duplicate_value=True,
         )
+
+
+def _convert_to_snake_case(string: str) -> str:
+    """This function takes a string and converts it to snake case.
+
+    Args:
+        string: A string to be converted to snake case
+
+    Returns:
+        A string that has been converted to snake case
+    """
+    # Remove trailing white spaces
+    altered_string = string.strip()
+
+    # Remove non-alphanumeric characters
+    altered_string = sub("[^a-zA-Z0-9\s_-]+", "", altered_string)
+
+    # Replace spaces and hyphens with underscores
+    altered_string = sub(r"[\s-]+", "_", altered_string)
+
+    # Convert camelCase to snake_case
+    altered_string = sub(r"([a-z0-9])([A-Z])", r"\1_\2", altered_string)
+
+    # Handle consecutive uppercase letters followed by lowercase letters (i.e., CAPS)
+    altered_string = sub(r"([A-Z])([A-Z][a-z])", r"\1_\2", altered_string)
+
+    return altered_string.lower()

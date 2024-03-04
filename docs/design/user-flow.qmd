@@ -6,7 +6,9 @@ title: User Flow
 
 This document describes the user flow of Sprout. The user flow is split into five diagrams that go through the flow in more detail. At the end of the document, you can see the user flow of Sprout in its entirety.
 
-In this document, we will mention different user roles. Go to the [Users](users.qmd) for definitions of user roles. 
+In this document, we will mention different user roles. Go to the [Users](users.qmd) post for definitions of user roles. 
+
+<!-- TODO: Add more of an overall introduction to what the user flow of sprout entails before going into each part -->
 
 ## Table Metadata Creation 
 
@@ -64,21 +66,21 @@ In Sprout, there are four ways to create column metadata:
 - Create Column Metadata from Existing Table
 - Create Column Metadata Manually
 
-### Create Table from File
+### Create Table from File with Data
 
-The first option is to create a table from a file with data of the wanted structure. In this workflow, a file is selected to extract column metadata from. Sprout will check whether the selected file is a supported file type and extract the metadata from the columns in the file.
+The first option is to create a table from a file with data of the wanted structure. In this workflow, a file is selected to extract column metadata from. Sprout will check whether the selected file is a supported file type and extract the metadata from the columns in the file. From the original column names that are in the file, Sprout will create column names in [snake case](https://en.wikipedia.org/wiki/Snake_case).
 
 ### Create Table from Column Metadata File
 
-The second option is to create a table from a file describing the column metadata. This is similar to the workflow described above except that the selected file is a file containing the column metadata instead of raw data.
+The second option is to create a table from a file describing the column metadata. This is similar to the workflow described above except that the selected file is a file containing the column metadata instead of raw data. Identical to the first option, Sprout will create column names in snake case based on the original column names.
 
 ### Create Table from Existing Table 
 
-The second option is to create a table from an existing table. This includes choosing an existing table as a "base table" for the [Data Management Administrator](users.qmd#data-management-administrators) to build a new table from.
+The third option is to create a table from an existing table. This includes choosing an existing table as a "base table" for the [Data Management Administrator](users.qmd#data-management-administrators) to build a new table from.
 
 ### Create Table Manually
 
-The third option is to create a table manually. In this scenario, the [Data Management Administrator](users.qmd#data-management-administrators) will add headers and definitions of the table manully. 
+The fourth option is to create a table manually. In this scenario, the [Data Management Administrator](users.qmd#data-management-administrators) will add headers and definitions of the table manully. 
 
 ![Diagram of the flow that occurs when column metadata is created.](images/user-flow-column-metadata-creation.png)
 
