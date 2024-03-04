@@ -2,7 +2,6 @@
 from django.forms import CharField, ModelForm
 
 from sprout.models import ColumnMetadata, TableMetadata
-from sprout.models.table_metadata import TableMetadata  # noqa: F811
 from sprout.validators import (
     validate_no_special_characters,
     validate_table_name_does_not_exist,

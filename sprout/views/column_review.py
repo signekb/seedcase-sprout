@@ -10,11 +10,11 @@ from sprout.models import ColumnMetadata, TableMetadata
 def column_review(request, table_id):
     """Takes the data from ColumnMetadata and displays as a table.
 
-    The table can be edited and the result written back to the db
+    The table can be edited and the result written back to the database.
 
     Args: Must learn what to write here
-        request (_type_): _description_
-        table_name (_type_): _description_
+        request: _description_
+        table_name: _description_
 
     Returns: Must learn what to write here
         _type_: _description_
@@ -31,8 +31,7 @@ def column_review(request, table_id):
             for form in forms:
                 form.save()
             return redirect(reverse("column-review", args=[table_id]))
-        else:
-            print([form.errors for form in forms])
+
     else:
         forms = [
             ColumnMetadataForm(instance=column, prefix=str(column.id))

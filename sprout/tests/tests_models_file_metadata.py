@@ -47,5 +47,5 @@ class FileMetaDataTests(TestCase):
         # Assert
         self.assertEqual(FileMetadata.objects.count(), 0)
         self.assertFalse(os.path.exists(file_meta.server_file_path))
-        # And we change that the table is not deleted
+        # And we check that the table has not been deleted
         self.assertEqual(TableMetadata.objects.count(), 1)
