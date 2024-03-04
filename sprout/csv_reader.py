@@ -62,10 +62,9 @@ def _transform_to_suitable_csv_format(csv_path: str, row_count: int) -> str:
         dialect = csv.Sniffer().sniff(csv_file.read(10000))
 
     # Read csv without inferring types
-    df = pl.read_csv(csv_path,
-                     infer_schema_length=0,
-                     separator=dialect.delimiter,
-                     n_rows=row_count)
+    df = pl.read_csv(
+        csv_path, infer_schema_length=0, separator=dialect.delimiter, n_rows=row_count
+    )
 
     df = df.select(pl.all().str.strip_chars())
     df = df.select(pl.all().name.map(lambda n: n.strip().strip('"')))

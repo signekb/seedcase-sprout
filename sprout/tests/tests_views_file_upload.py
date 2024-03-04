@@ -1,9 +1,4 @@
 """Tests for the file upload view."""
-from django.core.files.uploadedfile import SimpleUploadedFile
-from django.test import Client, TestCase
-
-from sprout.models import TableMetadata
-"""Tests for file_upload."""
 import io
 
 from django.test import TestCase

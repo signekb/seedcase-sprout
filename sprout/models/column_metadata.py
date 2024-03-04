@@ -1,7 +1,8 @@
 """Module defining the ColumnMetadata model."""
+from re import sub
+
 import polars
 from django.db import models
-from re import sub
 
 from sprout.models.column_data_type import ColumnDataType
 from sprout.models.table_metadata import TableMetadata
