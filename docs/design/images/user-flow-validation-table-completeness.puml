@@ -6,21 +6,9 @@ title User Flow: Validation Check of Table Completeness
 #palegreen:Initial table has been created;
 'copied from user-flow.puml start
 'validation table completeness start
-    :System shows UI where user can 
-    add/edit the following fields:
-    - Column name (textbox)
-    - Title (textbox, optional)
-    - Data type (dropdown)
-    - Short description (textbox)
-    - Allow missing (boolean) 
-    - Allow duplication (boolean)
-    - Option to "Add Column";
-    :Use completes/edits table
-    and clicks "Submit";
    while (\nVALIDATION CHECK: Table Completeness\nSystem checks that table has all the required metadata\n) is (Validation failed)
     :System shows UI with table where
     missing fields are highlighted
-    - Option to "Add Column";
     :User completes/edits table;
     if (System asks user if they want to save only or submit) then (Save only)
       :User clicks "Save Draft";
@@ -34,7 +22,6 @@ title User Flow: Validation Check of Table Completeness
   while (User decides whether table is correct or needs editing) is (Incorrect table)
     :User clicks "Edit Table";
     :System shows UI with table
-    - Option to "Add Column";
     :User edits table;
     :User clicks "Continue";
     goto l
