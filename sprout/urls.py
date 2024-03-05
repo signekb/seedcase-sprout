@@ -13,4 +13,9 @@ urlpatterns = [
         views.column_review,
         name="column-review",
     ),
+    path(
+        "column-review-list/<int:table_id>/",
+        views.column_review_list,
+        name="column-review-list",
+    ),
 ]
