@@ -24,6 +24,15 @@ class CsvValidatorTests(TestCase):
             "Value '2.2' is not 'Int64'. Column: 'i1', row: '2'", str(errors[0])
         )
 
+    def test_should_fail_if_column_is_missing_in_csv(self):
+        """Validation should fail as float is found in int column."""
+        file = self.create_file("s1,i1\nA,1\nB,2")
+
+        errors = validate_csv(file, {"s1": pl.String, "i1": pl.Int64, "i2": pl.Int64})
+
+        self.assertEqual(1, len(errors))
+        self.assertEqual("Column 'i2' with type 'Int64' is missing", str(errors[0]))
+
     def test_empty_int_value_is_okay(self):
         """Validation should not fail when a value is missing."""
         file = self.create_file("s,ints\nC,3\nD,")
