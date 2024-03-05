@@ -34,7 +34,7 @@
 <!-- Create table dialog -->
 <dialog class="dialog {% if form.name.errors %}active{% endif %}" id="create-table-dialog">
   <h5 class="center-align">Create new table</h5>
-  <form method="post" autocomplete="off" >
+  <form method="post">
     {% csrf_token %}
     <!-- name field -->
     <!-- if validation fails -->
