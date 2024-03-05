@@ -1,4 +1,5 @@
 """Tests for forms."""
+
 from django.test import TestCase
 
 from sprout.forms import ColumnMetadataForm
@@ -31,7 +32,7 @@ class ColumnMetadataFormTest(TestCase):
         """Test that the validation works on correct data."""
         # Arrange: Create valid form data
         form_data = {
-            "table_metadata": self.table_metadata.id,
+            "original_name": "OriginalName",
             "name": "TestName",
             "title": "TestTitle",
             "description": "This is the Description",
@@ -51,7 +52,7 @@ class ColumnMetadataFormTest(TestCase):
         """Test that the validation works on wrong data and throws an error."""
         # Arrange: Create invalid form data
         invalid_form_data = {
-            "table_metadata": self.table_metadata.id,
+            "Original_name": "",
             "name": "",
             "title": "",
             "description": "Description",
