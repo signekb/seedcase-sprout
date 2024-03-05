@@ -1,4 +1,5 @@
 """Module defining forms."""
+
 from django.forms import CharField, ModelForm
 
 from sprout.models import ColumnMetadata, TableMetadata
@@ -59,6 +60,7 @@ class ColumnMetadataForm(ModelForm):
         model = ColumnMetadata
         fields = (
             "id",
+            "original_name",
             "name",
             "title",
             "description",
@@ -66,3 +68,8 @@ class ColumnMetadataForm(ModelForm):
             "allow_missing_value",
             "allow_duplicate_value",
         )
+
+    def __init__(self, *args, **kwargs):
+        """Uses the Field.disabled to prevent editing of original_name."""
+        super().__init__(*args, **kwargs)
+        self.fields["original_name"].disabled = True
