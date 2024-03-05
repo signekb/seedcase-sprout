@@ -32,7 +32,7 @@ class ColumnMetadataFormTest(TestCase):
         """Test that the validation works on correct data."""
         # Arrange: Create valid form data
         form_data = {
-            "original_name": "OriginalName",
+            "original_name": "TestName",
             "name": "TestName",
             "title": "TestTitle",
             "description": "This is the Description",
@@ -52,7 +52,7 @@ class ColumnMetadataFormTest(TestCase):
         """Test that the validation works on wrong data and throws an error."""
         # Arrange: Create invalid form data
         invalid_form_data = {
-            "Original_name": "",
+            "original_name": "",
             "name": "",
             "title": "",
             "description": "Description",
