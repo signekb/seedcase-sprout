@@ -22,7 +22,7 @@ class TableMetadataForm(ModelForm):
 
         # Adding 'autocomplete: new-password' to disable suggestions on input field
         widgets = {
-            'name': Textarea(attrs={"autocomplete": "new-password"}),
+            "name": Textarea(attrs={"autocomplete": "new-password"}),
         }
 
     def clean_name(self) -> str:
