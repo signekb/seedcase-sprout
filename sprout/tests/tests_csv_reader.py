@@ -8,7 +8,7 @@ from unittest import TestCase
 
 from polars import DataFrame, Series
 
-from sprout.csv_reader import read_csv_file
+from sprout.csv.csv_reader import read_csv_file
 
 
 class CsvTests(TestCase):

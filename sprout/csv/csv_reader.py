@@ -15,12 +15,12 @@ def read_csv_file(csv_file_path: str, row_count: int | None = 500) -> DataFrame:
 
     It uses `polars.csv_read()`, but adds additional functionality:
     - Converts boolean-ish values (Yes, y, 1) to booleans
-    - A preparation step removes whitespace and quotes, which is not handled by
+    - A preparation step removes whitespace and quotes, which is not handled
       natively by `polars.csv_read()`
 
     Args:
         csv_file_path: The path of the CSV file to read
-        row_count: The number of rows to scan from the file
+        row_count: The number of rows to scan from the file. 'None' means all
 
     Returns:
         DataFrame: A `polars.DataFrame` with column types in `dtypes`.
@@ -54,7 +54,7 @@ def _transform_to_suitable_csv_format(csv_path: str, row_count: int | None) -> s
 
     Args:
         csv_path: The path of the CSV file to transform.
-        row_count: The number of rows to process in the CSV file.
+        row_count: The number of rows to process in the CSV file. 'None' means all
 
     Returns:
         PathLike: The path to the transformed CSV file.
