@@ -1,4 +1,5 @@
 """File with file_upload view."""
+from re import sub
 from typing import IO
 
 from django.core.files.uploadhandler import StopUpload
@@ -121,10 +122,37 @@ def extract_and_persist_column_metadata(table_id: int, uploaded_file: IO) -> Non
         ColumnMetadata(
             table_metadata_id=table_id,
             original_name=name,
-            name=name,
+            name=_convert_to_snake_case(name),
             title=name,
             description="",
             data_type_id=1,
             allow_missing_value=True,
             allow_duplicate_value=True,
         ).save()
+
+
+def _convert_to_snake_case(string: str) -> str:
+    """This function takes a string and converts it to snake case.
+
+    Args:
+        string: A string to be converted to snake case
+
+    Returns:
+        A string that has been converted to snake case
+    """
+    # Remove trailing white spaces
+    altered_string = string.strip()
+
+    # Remove non-alphanumeric characters
+    altered_string = sub("[^a-zA-Z0-9\s_-]+", "", altered_string)
+
+    # Replace spaces and hyphens with underscores
+    altered_string = sub(r"[\s-]+", "_", altered_string)
+
+    # Convert camelCase to snake_case
+    altered_string = sub(r"([a-z0-9])([A-Z])", r"\1_\2", altered_string)
+
+    # Handle consecutive uppercase letters followed by lowercase letters (i.e., CAPS)
+    altered_string = sub(r"([A-Z])([A-Z][a-z])", r"\1_\2", altered_string)
+
+    return altered_string.lower()
