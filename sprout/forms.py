@@ -21,6 +21,7 @@ class TableMetadataForm(ModelForm):
         fields = ["name", "description"]
 
         # Adding 'autocomplete: new-password' to disable suggestions on input field
+        # TODO: Look into other solutions for this? (later)
         widgets = {
             "name": Textarea(attrs={"autocomplete": "new-password"}),
         }
