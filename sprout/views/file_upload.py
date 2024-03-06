@@ -111,7 +111,7 @@ def extract_and_persist_column_metadata(table_id: int, file: FileMetadata) -> No
     df = read_csv_file(file.server_file_path)
 
     if len(df) == 0:
-        raise StopUpload("Unable to extract column types. No rows where found")
+        raise StopUpload("Unable to extract column types. No rows were found.")
 
     # Save table
     table = TableMetadata.objects.get(pk=table_id)
