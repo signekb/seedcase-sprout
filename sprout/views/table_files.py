@@ -35,6 +35,5 @@ def table_file_download(
         FileResponse: A file download response
     """
     file_metadata = FileMetadata.objects.get(id=file_id, table_metadata_id=table_id)
-    print(file_metadata.server_file_path)
 
     return FileResponse(open(file_metadata.server_file_path, "rb"), as_attachment=True)
