@@ -1,11 +1,10 @@
 """File with file_upload view."""
-from re import sub
-from typing import IO
 
 from django.core.files.uploadhandler import StopUpload
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 
+from sprout.csv_reader import read_csv_file
 from sprout.models import ColumnMetadata, FileMetadata, TableMetadata
 
 
@@ -55,12 +54,14 @@ def handle_post_request_with_file(
 
     """
     file = request.FILES.get("uploaded_file", None)
-    try:
-        validate_csv_and_save_columns(table_id, file)
-    except StopUpload as upload_error:
-        return render_file_upload_page(request, table_id, upload_error.args[0])
 
-    FileMetadata.persist_raw_file(file, table_id)
+    # To limit memory-usage we persist the file
+    file_meta = FileMetadata.persist_raw_file(file, table_id)
+    try:
+        validate_csv_and_save_columns(table_id, file_meta)
+    except StopUpload as upload_error:
+        file_meta.delete()
+        return render_file_upload_page(request, table_id, upload_error.args[0])
 
     return redirect("/column-review/" + str(table_id))
 
@@ -86,73 +87,37 @@ def render_file_upload_page(
     return render(request, "file-upload.html", file_upload_data)
 
 
-def validate_csv_and_save_columns(table_id: int, uploaded_file: IO) -> None:
+def validate_csv_and_save_columns(table_id: int, file: FileMetadata) -> None:
     """Validate the csv and persist column metadata if valid.
 
     Args:
         table_id: The id of the table
-        uploaded_file: A file with a CSV file in files["uploaded_file"]
+        file: A file with a CSV file in files["uploaded_file"]
     """
-    if not uploaded_file.name.endswith(".csv"):
-        error_msg = "Unsupported file format: ." + uploaded_file.name.split(".")[-1]
+    if file.file_extension != "csv":
+        error_msg = "Unsupported file format: ." + file.file_extension
         raise StopUpload(error_msg)
 
-    extract_and_persist_column_metadata(table_id, uploaded_file)
+    extract_and_persist_column_metadata(table_id, file)
 
 
-def extract_and_persist_column_metadata(table_id: int, uploaded_file: IO) -> None:
+def extract_and_persist_column_metadata(table_id: int, file: FileMetadata) -> None:
     """Extract columns from CSV and persist the column metadata.
 
     Args:
         table_id: The id of the table
-        uploaded_file: The CSV file
+        file: The CSV file
     """
-    # A more complicated function needs to be added here
-    column_names = uploaded_file.readline().decode("utf-8").split(",")
+    df = read_csv_file(file.server_file_path)
 
-    if len(column_names) < 2:
-        error_msg = "Unable to extract column headers. We need at least two columns"
-        raise StopUpload(error_msg)
+    if len(df) == 0:
+        raise StopUpload("Unable to extract column types. No rows were found.")
 
-    table_meta = TableMetadata.objects.get(pk=table_id)
-    table_meta.original_file_name = uploaded_file.name
-    table_meta.save()
+    # Save table
+    table = TableMetadata.objects.get(pk=table_id)
+    table.original_file_name = file.original_file_name
+    table.save()
 
-    for name in column_names:
-        ColumnMetadata(
-            table_metadata_id=table_id,
-            original_name=name,
-            name=_convert_to_snake_case(name),
-            title=name,
-            description="",
-            data_type_id=1,
-            allow_missing_value=True,
-            allow_duplicate_value=True,
-        ).save()
-
-
-def _convert_to_snake_case(string: str) -> str:
-    """This function takes a string and converts it to snake case.
-
-    Args:
-        string: A string to be converted to snake case
-
-    Returns:
-        A string that has been converted to snake case
-    """
-    # Remove trailing white spaces
-    altered_string = string.strip()
-
-    # Remove non-alphanumeric characters
-    altered_string = sub("[^a-zA-Z0-9\s_-]+", "", altered_string)
-
-    # Replace spaces and hyphens with underscores
-    altered_string = sub(r"[\s-]+", "_", altered_string)
-
-    # Convert camelCase to snake_case
-    altered_string = sub(r"([a-z0-9])([A-Z])", r"\1_\2", altered_string)
-
-    # Handle consecutive uppercase letters followed by lowercase letters (i.e., CAPS)
-    altered_string = sub(r"([A-Z])([A-Z][a-z])", r"\1_\2", altered_string)
-
-    return altered_string.lower()
+    # Save columns
+    columns = [ColumnMetadata.create(table_id, series) for series in df]
+    ColumnMetadata.objects.bulk_create(columns)
