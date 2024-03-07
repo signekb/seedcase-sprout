@@ -73,3 +73,8 @@ class ColumnMetadataForm(ModelForm):
         """Uses the Field.disabled to prevent editing of original_name."""
         super().__init__(*args, **kwargs)
         self.fields["original_name"].disabled = True
+        # Disabling the original_name creates some problems in our tests as the field
+        # is registered as missing. Solving this issue is discussed here:
+        # https://stackoverflow.com/questions/4662848
+        if kwargs.get("data"):
+            self.initial = kwargs.get("data")
