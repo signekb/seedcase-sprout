@@ -1,6 +1,6 @@
 """File with file_upload view."""
+import csv
 
-from django.core.files.uploadhandler import StopUpload
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 
@@ -59,9 +59,9 @@ def handle_post_request_with_file(
     file_meta = FileMetadata.persist_raw_file(file, table_id)
     try:
         validate_csv_and_save_columns(table_id, file_meta)
-    except StopUpload as upload_error:
+    except csv.Error as csv_error:
         file_meta.delete()
-        return render_file_upload_page(request, table_id, upload_error.args[0])
+        return render_file_upload_page(request, table_id, csv_error.args[0])
 
     return redirect("/column-review/" + str(table_id))
 
@@ -95,8 +95,7 @@ def validate_csv_and_save_columns(table_id: int, file: FileMetadata) -> None:
         file: A file with a CSV file in files["uploaded_file"]
     """
     if file.file_extension != "csv":
-        error_msg = "Unsupported file format: ." + file.file_extension
-        raise StopUpload(error_msg)
+        raise csv.Error("Unsupported file format: ." + file.file_extension)
 
     extract_and_persist_column_metadata(table_id, file)
 
@@ -109,9 +108,6 @@ def extract_and_persist_column_metadata(table_id: int, file: FileMetadata) -> No
         file: The CSV file
     """
     df = read_csv_file(file.server_file_path)
-
-    if len(df) == 0:
-        raise StopUpload("Invalid CSV file. Found no rows!")
 
     # Save table
     table = TableMetadata.objects.get(pk=table_id)

@@ -62,31 +62,7 @@ class FileUploadTests(TestCase):
 
         response = self.client.post("/file-upload/1", {"uploaded_file": file})
 
-        self.assertContains(response, "Invalid CSV file. Found no rows!")
-
-    def test_invalid_csv_headers_not_matching_values_in_row(self):
-        """Test invalid csv with more values than headers."""
-        create_table("Table Name").save()
-        file = self.create_file("invalid.csv", "name,age\nPhil,36,1")
-
-        response = self.client.post("/file-upload/1", {"uploaded_file": file})
-
-        self.assertContains(response, "Invalid CSV. Unable to parse the CSV!")
-
-    def test_invalid_csv_with_a_lot_text(self):
-        """Test invalid csv with more values than headers."""
-        create_table("Table Name").save()
-        file = self.create_file(
-            "invalid.csv",
-            "What if this is just a "
-            "random text file. How is that handled "
-            "by the csv dialect parser.\n "
-            "I hope it will raise an error somehow.",
-        )
-
-        response = self.client.post("/file-upload/1", {"uploaded_file": file})
-
-        self.assertContains(response, "Invalid CSV. Use comma, semicolon, space or tab")
+        self.assertContains(response, "Invalid CSV. No rows found!")
 
     @staticmethod
     def create_file(name: str, content: str) -> io.BytesIO:

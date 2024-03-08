@@ -4,7 +4,6 @@ import os
 from typing import Any
 
 import polars as pl
-from django.core.files.uploadhandler import StopUpload
 from polars import DataFrame, Series, read_csv
 
 
@@ -64,11 +63,11 @@ def _transform_to_suitable_csv_format(csv_path: str, row_count: int | None) -> s
     with open(csv_path, "r") as csv_file:
         try:
             dialect = csv.Sniffer().sniff(csv_file.read(10000))
-        except csv.Error as _:
-            raise StopUpload("Invalid CSV. Unable to parse the CSV!")
+        except csv.Error as e:
+            raise csv.Error("Invalid CSV. " + e.args[0])
 
     if dialect.delimiter not in (",", ";", " ", "\t"):
-        raise StopUpload(
+        raise csv.Error(
             f"Invalid CSV. Use comma, semicolon, space or tab as "
             f"delimiter. Found delimiter: '{dialect.delimiter}'"
         )
@@ -77,6 +76,9 @@ def _transform_to_suitable_csv_format(csv_path: str, row_count: int | None) -> s
     df = pl.read_csv(
         csv_path, infer_schema_length=0, separator=dialect.delimiter, n_rows=row_count
     )
+
+    if len(df) == 0:
+        raise csv.Error("Invalid CSV. No rows found!")
 
     df = df.select(pl.all().str.strip_chars())
     df = df.select(pl.all().name.map(lambda n: n.strip().strip('"')))

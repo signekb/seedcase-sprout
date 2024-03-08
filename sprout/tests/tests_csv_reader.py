@@ -1,11 +1,11 @@
 """File with tests for `csv_read_file()`."""
+import csv
 import datetime
 import os
 import tempfile
 from typing import Any
 from unittest import TestCase
 
-from django.core.files.uploadhandler import StopUpload
 from polars import DataFrame, Series
 
 from sprout.csv.csv_reader import read_csv_file
@@ -166,7 +166,30 @@ class CsvTests(TestCase):
         """
         csv_file = self.create_file("s1,s2\n" "Hello, World, Seedcase")
 
-        self.assertRaises(StopUpload, read_csv_file, csv_file)
+        self.assertRaises(csv.Error, read_csv_file, csv_file)
+
+    def test_invalid_csv_headers_not_matching_values_in_row(self):
+        """Test invalid csv with more values than headers."""
+        csv_file = self.create_file("name,age\nPhil,36,1")
+
+        self.assertRaises(csv.Error, read_csv_file, csv_file)
+
+    def test_invalid_csv_with_a_lot_text(self):
+        """Test invalid csv with some random text."""
+        file = self.create_file(
+            "What if this is just a "
+            "random text file. How is that handled "
+            "by the csv dialect parser.\n "
+            "I hope it will raise an error somehow.",
+        )
+
+        try:
+            read_csv_file(file)
+            self.assertTrue(False)
+        except csv.Error as csv_error:
+            self.assertIn(
+                "Invalid CSV. Use comma, semicolon, space or tab", csv_error.args[0]
+            )
 
     def assert_types(self, df: DataFrame, *expected_types: str):
         """A method test `expected_types` in a DataFrame object.
