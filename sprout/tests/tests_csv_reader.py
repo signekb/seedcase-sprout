@@ -1,11 +1,11 @@
 """File with tests for `csv_read_file()`."""
-import csv
 import datetime
 import os
 import tempfile
 from typing import Any
 from unittest import TestCase
 
+from django.core.files.uploadhandler import StopUpload
 from polars import DataFrame, Series
 
 from sprout.csv.csv_reader import read_csv_file
@@ -47,6 +47,13 @@ class CsvTests(TestCase):
         df = read_csv_file(csv_file)
 
         self.assert_types(df, "Int64", "Float64", "Boolean")
+
+    def test_csv_with_tab_as_delimiter(self):
+        csv_file = self.create_file("s1\ts2\ts3\n" "A\tB\tC")
+
+        df = read_csv_file(csv_file)
+
+        self.assert_types(df, "String", "String", "String")
 
     def test_csv_with_semicolon_and_whitespace(self):
         """Testing a csv dialect with semicolon and initial whitespace."""
@@ -159,7 +166,7 @@ class CsvTests(TestCase):
         """
         csv_file = self.create_file("s1,s2\n" "Hello, World, Seedcase")
 
-        self.assertRaises(csv.Error, read_csv_file, csv_file)
+        self.assertRaises(StopUpload, read_csv_file, csv_file)
 
     def assert_types(self, df: DataFrame, *expected_types: str):
         """A method test `expected_types` in a DataFrame object.
