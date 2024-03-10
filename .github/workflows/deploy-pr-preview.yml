@@ -45,7 +45,7 @@ jobs:
 
       # This removes left over items in GitHub from the building and deploying.
       - name: Clean up GitHub environment
-        uses: strumwolf/delete-deployment-environment@v2
+        uses: strumwolf/delete-deployment-environment@v3
         if: ${{ github.event.action == 'closed' }}
         with:
           # ⚠️ The provided token needs permission for admin write:org
