@@ -1,4 +1,5 @@
 """Module with all views."""
+
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 
@@ -9,7 +10,7 @@ from .column_review import (
 # Split views.py into multiple files is based on:
 # https://simpleisbetterthancomplex.com/tutorial/2016/08/02/how-to-split-views-into-multiple-files.html
 from .data_import import data_import
-from .file_upload import file_upload
+from .metadata_create import metadata_create
 from .table_files import table_file_download, table_files
 
 

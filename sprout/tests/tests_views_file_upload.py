@@ -1,4 +1,5 @@
 """Tests for the file upload view."""
+
 import io
 
 from django.test import TestCase
@@ -10,7 +11,7 @@ from sprout.tests.db_test_utils import create_table
 class FileUploadTests(TestCase):
     """Tests for the file upload view."""
 
-    def test_render_file_upload_view_and_verify_that_table_name_is_loaded(self):
+    def test_render_metadata_create_view_and_verify_that_table_name_is_loaded(self):
         """Test for the view being loaded and table_name is present in view.
 
         Tests that the status code is 200 and that the html contains table_name
