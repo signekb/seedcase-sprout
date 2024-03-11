@@ -62,7 +62,7 @@ class FileUploadTests(TestCase):
 
         response = self.client.post("/file-upload/1", {"uploaded_file": file})
 
-        self.assertContains(response, "Unable to extract column types. No rows ")
+        self.assertContains(response, "Invalid CSV. No rows found!")
 
     @staticmethod
     def create_file(name: str, content: str) -> io.BytesIO:
