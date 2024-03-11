@@ -146,6 +146,10 @@ Serving static files are handled differently depending on the DEBUG-flag:
 STATIC_URL = "static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
+# Create staticfiles if missing to avoid warning in tests
+if not os.path.exists(STATIC_ROOT):
+    os.mkdir(STATIC_ROOT)
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
