@@ -1,4 +1,4 @@
-"""Tests for the file upload view."""
+"""Tests for the metadata create view."""
 
 import io
 
