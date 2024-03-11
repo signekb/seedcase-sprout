@@ -61,12 +61,24 @@ def _transform_to_suitable_csv_format(csv_path: str, row_count: int | None) -> s
     """
     # Find dialect
     with open(csv_path, "r") as csv_file:
-        dialect = csv.Sniffer().sniff(csv_file.read(10000))
+        try:
+            dialect = csv.Sniffer().sniff(csv_file.read(10000))
+        except csv.Error as e:
+            raise csv.Error("Invalid CSV. " + e.args[0])
+
+    if dialect.delimiter not in (",", ";", " ", "\t"):
+        raise csv.Error(
+            f"Invalid CSV. Use comma, semicolon, space or tab as "
+            f"delimiter. Found delimiter: '{dialect.delimiter}'"
+        )
 
     # Read csv without inferring types
     df = pl.read_csv(
         csv_path, infer_schema_length=0, separator=dialect.delimiter, n_rows=row_count
     )
+
+    if len(df) == 0:
+        raise csv.Error("Invalid CSV. No rows found!")
 
     df = df.select(pl.all().str.strip_chars())
     df = df.select(pl.all().name.map(lambda n: n.strip().strip('"')))
