@@ -1,6 +1,6 @@
 """Module defining forms."""
 
-from django.forms import CharField, ModelForm
+from django.forms import CharField, ModelForm, Textarea
 
 from sprout.models import ColumnMetadata, TableMetadata
 from sprout.validators import (
@@ -20,6 +20,12 @@ class TableMetadataForm(ModelForm):
 
         model = TableMetadata
         fields = ["name", "description"]
+
+        # Adding 'autocomplete: new-password' to disable suggestions on input field
+        # TODO: Look into other solutions for this? (later)
+        widgets = {
+            "name": Textarea(attrs={"autocomplete": "new-password"}),
+        }
 
     def clean_name(self) -> str:
         """Clean and validate field name.

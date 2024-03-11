@@ -13,6 +13,7 @@ from .column_review_list import (
 )
 from .data_import import data_import
 from .file_upload import file_upload
+from .table_files import table_file_download, table_files
 
 
 def home(request: HttpRequest) -> HttpResponse:
