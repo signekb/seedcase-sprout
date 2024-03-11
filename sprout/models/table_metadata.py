@@ -39,5 +39,3 @@ class TableMetadata(models.Model):
             self.modified_at = datetime.datetime.now(datetime.UTC)
 
         super().save(*args, **kwargs)
-
-
