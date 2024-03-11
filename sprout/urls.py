@@ -17,6 +17,7 @@ urlpatterns = [
         "column-review-list/<int:table_id>/",
         views.column_review_list,
         name="column-review-list",
+    ),
     path("table-files/<int:table_id>", views.table_files, name="table_files"),
     path(
         "table-files/<int:table_id>/download/<int:file_id>",
