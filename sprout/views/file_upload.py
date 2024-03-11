@@ -4,7 +4,7 @@ from django.core.files.uploadhandler import StopUpload
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 
-from sprout.csv_reader import read_csv_file
+from sprout.csv.csv_reader import read_csv_file
 from sprout.models import ColumnMetadata, FileMetadata, TableMetadata
 
 
