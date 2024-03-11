@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h2>{{ table_metadata.name }} - Column Review</h2>
+
+<form method="post" action="">
+  {% csrf_token %}
+  <table class="stripes">
+    <thead>
+      <tr>
+        <th>Row ID</th>
+        <th>Name</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Data Type</th>
+        <th>Allow Missing</th>
+        <th>Allow Duplicate</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for form in forms %}
+      <tr>
+        <td>{{ form.instance.id }}</td>
+        <td>{{ form.name }}</td>
+        <td>{{ form.title }}</td>
+        <td style="overflow: hidden;">{{ form.description }}</td>
+        <td style="overflow: hidden;">{{ form.data_type }}</td>
+        <td>{{ form.allow_missing_value }}</td>
+        <td>{{ form.allow_duplicate_value }}</td>
+        <input type="hidden" name="{{ form.prefix }}-id" value="{{ form.instance.id }}">
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <button type="submit">Update All</button>
+</form>
+
+</tbody>
+</table>
+</form>
+
+{% endblock content %}

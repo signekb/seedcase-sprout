@@ -5,8 +5,10 @@ title User Flow: Column Metadata Creation
 :...;
 'copied from user-flow.puml start
 'column metadata creation start
-  switch (System shows create table UI)
-    case (Create Column Metadata\nfrom File with Data)
+  switch (System shows create Column Metadata UI)
+    case (Create Column Metadata from File)
+    fork
+      -> Create Column Metadata\nfrom File with **Data**;
       :User selects
       "Create Column Metadata
       from Data File";
@@ -16,16 +18,14 @@ title User Flow: Column Metadata Creation
       clicks "Extract Data Structure";
       :System loads file and
       extracts column metadata*;
-    while (\nVALIDATION CHECK: Is file a CSV?\n) is (No)
-      :System shows error message: 
-      "The file is not a CSV. Please
-      choose a CSV to extract table
-      metadata from";
+    while (\nVALIDATION CHECK: Is file a supported file type?\n) is (No)
+      :System shows error message
+      informing the user of the 
+      supported file types;
       :User selects new file to upload;
     end while (Yes)
-    :System extracts column
-    metadata from File with Data;
-    case (Create Column Metadata from \nFile with Column Metadata)
+    fork again
+      -> Create Column Metadata from\nFile with **Column Metadata**;
       :User selects "Create Column Metadata
       from File with Metadata";
       :System shows UI with
@@ -33,8 +33,12 @@ title User Flow: Column Metadata Creation
       :User selects file with
       metadata and clicks 
       "Extract Data Structure";
+    end fork
       :System extracts column metadata from file;
-    case (Create Table from\nExisting Table)
+      :System takes original column name,
+      converts it to snake case, and adds
+      this as the column name;
+    case (Create Column Metadata from\nExisting Table)
       :User selects
       "Create New Table
       from Existing Table";
@@ -50,7 +54,6 @@ title User Flow: Column Metadata Creation
       :User adds table metadata;
       :User clicks "Submit";
     endswitch
-'validation table completeness start
     :System shows UI where user can 
     add/edit the following fields:
     - Column name (textbox)
@@ -58,9 +61,8 @@ title User Flow: Column Metadata Creation
     - Data type (dropdown)
     - Short description (textbox)
     - Allow missing (boolean) 
-    - Allow duplication (boolean)
-    - Option to "Add Column";
-    :Use completes/edits table
+    - Allow duplication (boolean);
+    :User completes/edits table
     and clicks "Submit";
 'column metadata creation end
 'copied from user-flow.puml end
