@@ -44,7 +44,7 @@ def handle_post_request_with_file(
     - If the validation is successful, then we persist the column metadata
       and redirect to the next page in the flow
     - If the validation fails, an exception is raised StopUpload. The page
-      file-upload page is re-rendered with the error message
+      metadata-create page is re-rendered with the error message
 
     Args:
         request: http request from the user/browser
@@ -78,7 +78,7 @@ def render_metadata_create_page(
         upload_error: The error message if there is any
 
     Returns:
-        HttpResponse: A html page based on the file-upload.html template
+        HttpResponse: A html page based on the metadata-create.html template
     """
     table_metadata = TableMetadata.objects.get(pk=table_id)
     metadata_create_data = {
