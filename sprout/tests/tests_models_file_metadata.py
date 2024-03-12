@@ -1,4 +1,5 @@
 """File for testing FileMetadata."""
+
 import io
 import os
 
@@ -21,7 +22,7 @@ class FileMetaDataTests(TestCase):
         test_table.save()
 
         # Act
-        file_meta = FileMetadata.persist_raw_file(file, test_table.id)
+        file_meta = FileMetadata.create_file_metadata(file, test_table.id)
 
         # Assert
         self.assertEqual(file.name, file_meta.original_file_name)
@@ -39,7 +40,7 @@ class FileMetaDataTests(TestCase):
         file.name = "my-file.csv"
         test_table = create_table("TestTable")
         test_table.save()
-        file_meta = FileMetadata.persist_raw_file(file, test_table.id)
+        file_meta = FileMetadata.create_file_metadata(file, test_table.id)
 
         # Act
         file_meta.delete()

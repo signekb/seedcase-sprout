@@ -57,7 +57,7 @@ def handle_post_request_with_file(
     file = request.FILES.get("uploaded_file", None)
 
     # To limit memory-usage we persist the file
-    file_meta = FileMetadata.persist_raw_file(file, table_id)
+    file_meta = FileMetadata.create_file_metadata(file, table_id)
     try:
         validate_csv_and_save_columns(table_id, file_meta)
     except csv.Error as csv_error:

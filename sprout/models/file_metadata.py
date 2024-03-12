@@ -1,4 +1,5 @@
 """Model for a persisted file."""
+
 import os
 import uuid
 from typing import IO
@@ -6,8 +7,8 @@ from typing import IO
 from django.conf import settings
 from django.db import models
 
-from config.settings import PERSISTENT_STORAGE_PATH
 from sprout.models.table_metadata import TableMetadata
+from sprout.uploaders import upload_raw_file
 
 
 class FileMetadata(models.Model):
@@ -26,7 +27,7 @@ class FileMetadata(models.Model):
     modified_at = models.DateTimeField(auto_now=True)
 
     @staticmethod
-    def persist_raw_file(file: IO, table_metadata_id: int) -> "FileMetadata":
+    def create_file_metadata(file: IO, table_metadata_id: int) -> "FileMetadata":
         """Persists a file and stores metadata in database.
 
         Args:
@@ -40,17 +41,7 @@ class FileMetadata(models.Model):
         file_name_wo_ext = file.name.split(".")[-2][:150]
         unique_file_name = f"{file_name_wo_ext}-{uuid.uuid4().hex}.{file_extension}"
 
-        raw_folder = f"{PERSISTENT_STORAGE_PATH}/raw"
-        if not os.path.exists(raw_folder):
-            os.makedirs(raw_folder)
-
-        # Unique file path in the raw folder
-        server_file_path = f"{raw_folder}/{unique_file_name}"
-
-        file.seek(0)
-        # write to server_file_path
-        with open(server_file_path, "wb") as target:
-            target.write(file.read())
+        server_file_path = upload_raw_file(file, unique_file_name)
 
         file_metadata = FileMetadata.objects.create(
             original_file_name=file.name,
