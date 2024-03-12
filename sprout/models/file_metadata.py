@@ -27,7 +27,7 @@ class FileMetadata(models.Model):
     modified_at = models.DateTimeField(auto_now=True)
 
     @staticmethod
-    def persist_raw_file(file: IO, table_metadata_id: int) -> "FileMetadata":
+    def create_file_metadata(file: IO, table_metadata_id: int) -> "FileMetadata":
         """Persists a file and stores metadata in database.
 
         Args:
