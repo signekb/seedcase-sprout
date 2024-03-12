@@ -1,4 +1,5 @@
-"""Tests for the file upload view."""
+"""Tests for the metadata create view."""
+
 import io
 
 from django.test import TestCase
@@ -10,7 +11,7 @@ from sprout.tests.db_test_utils import create_table
 class FileUploadTests(TestCase):
     """Tests for the file upload view."""
 
-    def test_render_file_upload_view_and_verify_that_table_name_is_loaded(self):
+    def test_render_metadata_create_view_and_verify_that_table_name_is_loaded(self):
         """Test for the view being loaded and table_name is present in view.
 
         Tests that the status code is 200 and that the html contains table_name
@@ -20,7 +21,7 @@ class FileUploadTests(TestCase):
         create_table(table_name).save()
 
         # Act
-        response = self.client.get("/file-upload/1")
+        response = self.client.get("/metadata/create/1")
 
         # Assert.
         self.assertEqual(response.status_code, 200)
@@ -35,7 +36,7 @@ class FileUploadTests(TestCase):
         file = self.create_file(file_name, "name,city,age\nPhil,Aarhus,36")
 
         # Act
-        response = self.client.post("/file-upload/1", {"uploaded_file": file})
+        response = self.client.post("/metadata/create/1", {"uploaded_file": file})
 
         # Assert
         table = TableMetadata.objects.get(name=table_name)
@@ -51,7 +52,7 @@ class FileUploadTests(TestCase):
         create_table("Table Name").save()
         file = self.create_file("file-with-wrong-ext.svg", "file content")
 
-        response = self.client.post("/file-upload/1", {"uploaded_file": file})
+        response = self.client.post("/metadata/create/1", {"uploaded_file": file})
 
         self.assertContains(response, "Unsupported file format: .svg")
 
@@ -60,7 +61,7 @@ class FileUploadTests(TestCase):
         create_table("Table Name").save()
         file = self.create_file("file-with-bad-headers.csv", "name, age")
 
-        response = self.client.post("/file-upload/1", {"uploaded_file": file})
+        response = self.client.post("/metadata/create/1", {"uploaded_file": file})
 
         self.assertContains(response, "Invalid CSV. No rows found!")
 
