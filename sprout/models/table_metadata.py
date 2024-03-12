@@ -1,4 +1,6 @@
 """Module defining the TableMetaData model."""
+import datetime
+
 from django.conf import settings
 from django.db import models
 
@@ -16,10 +18,24 @@ class TableMetadata(models.Model):
         on_delete=models.PROTECT,
         related_name="creator",
     )
-    modified_at = models.DateTimeField(auto_now=True)
+    modified_at = models.DateTimeField(null=True)
     modified_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         null=True,
         on_delete=models.PROTECT,
         related_name="modifier",
     )
+
+    def save(self, *args, **kwargs) -> None:
+        """Overriding the default save-method.
+
+        The modified_at should only change when modified and not when created.
+
+        Args:
+            *args: non-keyworded arguments required by Django
+            **kwargs: keyworded arguments required by Django
+        """
+        if self.id:
+            self.modified_at = datetime.datetime.now(datetime.UTC)
+
+        super().save(*args, **kwargs)

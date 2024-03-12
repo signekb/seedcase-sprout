@@ -3,16 +3,16 @@
 
 {% block content %}
 
-<h2>{{ table_metadata.name }} - Column Review</h2>
+<h2>Headers and Definitions extracted for {{ table_metadata.name }}</h2>
 
 <form method="post" action="">
   {% csrf_token %}
-  <table class="stripes">
+  <table>
     <thead>
       <tr>
-        <th>Row ID</th>
-        <th>Name</th>
-        <th>Title</th>
+        <th>Extracted Name</th>
+        <th>Column Name</th>
+        <th>Display Title</th>
         <th>Description</th>
         <th>Data Type</th>
         <th>Allow Missing</th>
@@ -22,7 +22,7 @@
     <tbody>
       {% for form in forms %}
       <tr>
-        <td>{{ form.instance.id }}</td>
+        <td>{{ form.original_name }}</td>
         <td>{{ form.name }}</td>
         <td>{{ form.title }}</td>
         <td style="overflow: hidden;">{{ form.description }}</td>
