@@ -1,4 +1,5 @@
 """Tests for the data import view."""
+
 from django.test import TestCase
 from django.urls import reverse
 
@@ -52,8 +53,7 @@ class DataImportTests(TestCase):
 
         # Assert
         self.assertEqual(response.status_code, 302)
-        # self.assertRedirects(response, "/file-upload/1")
-        # (the above will, hopefully, work when file-upload is implemented)
+        self.assertRedirects(response, "/metadata/create/1")
 
     def test_no_redirect_with_invalid_form_special_characters(self):
         """Test that no redirection when the "name" field contains special characters.
