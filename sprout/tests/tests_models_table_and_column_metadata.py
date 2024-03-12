@@ -2,7 +2,7 @@
 from django.test import TestCase
 
 from sprout.models import ColumnMetadata, TableMetadata
-from sprout.tests.db_test_utils import create_metadata_table_and_column
+from sprout.tests.db_test_utils import create_metadata_table_and_column, create_table
 
 
 class TableAndColumnMetadataTests(TestCase):
@@ -61,3 +61,18 @@ class TableAndColumnMetadataTests(TestCase):
         self.assertEqual(1, table_count, "Table should not be deleted")
         column_count = ColumnMetadata.objects.count()
         self.assertEqual(0, column_count, "Column should be deleted")
+
+    def test_modified_at_should_be_null_on_creation(self):
+        # Arrange
+        table_name = "TestTable"
+        table = create_table(table_name)
+        table.save()
+        initial_modified_at = table.modified_at
+
+        # Act
+        table.original_file_name = "A change"
+        table.save()
+
+        # Assert
+        self.assertIsNone(initial_modified_at, "modified_at should be null")
+        self.assertIsNotNone(table.modified_at, "modified_at should NOT be null")
