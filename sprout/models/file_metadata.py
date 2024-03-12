@@ -7,7 +7,6 @@ from typing import IO
 from django.conf import settings
 from django.db import models
 
-from config.settings import PERSISTENT_STORAGE_PATH
 from sprout.models.table_metadata import TableMetadata
 from sprout.uploaders import upload_raw_file
 
