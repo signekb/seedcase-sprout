@@ -1,4 +1,5 @@
 """Tests for table_files."""
+
 import io
 
 from django.test import TestCase
@@ -18,7 +19,7 @@ class TableFilesTests(TestCase):
         table.save()
         file = io.BytesIO(b"File content")
         file.name = "file.csv"
-        file_meta = FileMetadata.persist_raw_file(file, table.id)
+        file_meta = FileMetadata.create_file_metadata(file, table.id)
         url = reverse("table_files", kwargs={"table_id": table.id})
 
         # Act
