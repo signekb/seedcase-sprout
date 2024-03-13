@@ -82,5 +82,8 @@ class ColumnMetadataForm(ModelForm):
         # Disabling the original_name creates some problems in our tests as the field
         # is registered as missing. Solving this issue is discussed here:
         # https://stackoverflow.com/questions/4662848
+        self.fields["data_type"].empty_label = None
+        # .empty_label removes the argument None from data_type, this could also be done
+        # in the settings.py file if we would like to make it global.
         if kwargs.get("data"):
             self.initial = kwargs.get("data")

@@ -39,7 +39,7 @@ format-python: install-deps
 start-app: install-deps update-migrations
   poetry run python ./manage.py runserver
 
-# Install Python packagee dependencies
+# Install Python package dependencies
 install-deps:
   # no-root to not install the parent folder as a package
   poetry install --no-root

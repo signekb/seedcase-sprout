@@ -1,4 +1,5 @@
 """File with data_import view."""
+
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 
@@ -11,7 +12,7 @@ def data_import(request: HttpRequest) -> HttpResponse:
     Initially renders a blank form using the ``data-import`` template, if
     ``request.method != "POST"``.  If ``request.method == "POST"``, the form is
     validated.  If validation is successful, the form is saved and the page is
-    redirected to the ``file-upload`` template.
+    redirected to the ``metadata-create`` template.
 
     Args:
         request (HttpRequest): Contains metadata about the request, including method
@@ -33,7 +34,7 @@ def data_import(request: HttpRequest) -> HttpResponse:
         if form.is_valid():
             table_metadata = form.save()
 
-            return redirect(to=f"file-upload/{table_metadata.id}")
+            return redirect(to=f"metadata/create/{table_metadata.id}")
 
     # if GET (or any other method), create a blank form
     else:

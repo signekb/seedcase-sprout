@@ -12,7 +12,7 @@ from .column_review_list import (
     column_review_list,
 )
 from .data_import import data_import
-from .file_upload import file_upload
+from .metadata_create import metadata_create
 from .table_files import table_file_download, table_files
 
 
