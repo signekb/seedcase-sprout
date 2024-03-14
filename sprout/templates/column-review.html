@@ -3,20 +3,21 @@
 
 {% block content %}
 
-<h2>Headers and Definitions extracted for {{ table_metadata.name }}</h2>
-
+<h2>Headers and Definitions extracted for {{ table_metadata.name }}
+  <button class="circle small fill" data-ui="#help-ext_name"><i>question_mark</i></button>
+</h2>
 <form method="post" action="">
   {% csrf_token %}
   <table>
     <thead>
       <tr>
-        <th>Extracted Name</th>
+        <th>Extracted Name
+
+        </th>
         <th>Column Name</th>
         <th>Display Title</th>
         <th>Description</th>
         <th>Data Type</th>
-        <th>Allow Missing</th>
-        <th>Allow Duplicate</th>
       </tr>
     </thead>
     <tbody>
@@ -25,10 +26,8 @@
         <td>{{ form.original_name }}</td>
         <td>{{ form.name }}</td>
         <td>{{ form.title }}</td>
-        <td style="overflow: hidden;">{{ form.description }}</td>
-        <td style="overflow: hidden;">{{ form.data_type }}</td>
-        <td>{{ form.allow_missing_value }}</td>
-        <td>{{ form.allow_duplicate_value }}</td>
+        <td style="overflow:hidden;">{{ form.description }}</td>
+        <td>{{ form.data_type }}</td>
         <input type="hidden" name="{{ form.prefix }}-id" value="{{ form.instance.id }}">
       </tr>
       {% endfor %}
@@ -37,8 +36,32 @@
   <button type="submit">Update All</button>
 </form>
 
-</tbody>
-</table>
-</form>
+
+<!-- Help dialog -->
+<dialog class="dialog" id="help-ext_name">
+  <div>
+    <h5 class="center-align">Fields</h5>
+    <big>Extracted Name</big> <br>is the column name taken from the first file uploaded, this can't be changed.
+    <p>
+      <big>Column Name</big><br>is the name that you would like the variable to have going forward, this can be the
+      same as the extracted name.
+    <p>
+      <big>Display Title</big><br>can be use when you want to show the data in a more 'human readable' way. An example
+      could be the variable b60, which you could call Blood taken after 60 minutes.
+    <p>
+      <big>Description</big><br>you can give extra details about the variable here, including things like when a
+      sample is taken, etc.
+    <p>
+      <big>Data Type</big><br>this is the data type of the variable, this will need to be defined in order for data to
+      be saved, what you see in the list initially is the best guess from Seedcase Sprout based on the data you
+      uploaded.
+    <p>
+      See our <a href="https://design.seedcase-project.org/"><span style="color:blue">documentation</span></a> for more
+      information.
+  </div>
+  <nav class="right-align no-space">
+    <a class="transparent link" data-ui="#help-ext_name">Close</a>
+  </nav>
+</dialog>
 
 {% endblock content %}
