@@ -1,5 +1,5 @@
 from django.http import HttpRequest
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 
 from sprout.csv.csv_reader import read_csv_file
