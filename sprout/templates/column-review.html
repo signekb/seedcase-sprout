@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load tabindex %}
 
 {% block content %}
 
@@ -25,7 +26,7 @@
         <td>{{ form.instance.original_name }}</td>
         <td>{{ form.name }}</td>
         <td>{{ form.title }}</td>
-        <td style="overflow: hidden;">{{ form.description }}</td>
+        <td style="overflow: hidden;">{{ form.description|tabindex:forloop.counter }}</td>
         <td style="overflow: hidden;">{{ form.data_type }}</td>
         <td>{{ form.allow_missing_value }}</td>
         <td>{{ form.allow_duplicate_value }}</td>

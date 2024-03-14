@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load tabindex %}
 
 {% block content %}
   <h2 style="margin-bottom: 20px">Headers for {{ table_metadata.name }}</h2>
@@ -33,7 +34,7 @@
             </div>
 
             <div class="field label small border" style="margin-bottom: 20px">
-              {{ column.form.description }}
+              {{ column.form.description|tabindex:forloop.counter }}
               <label>Description</label>
             </div>
 
