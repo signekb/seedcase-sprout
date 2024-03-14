@@ -9,7 +9,7 @@
   {% csrf_token %}
   {% for form in forms %}
 
-  <h5>Extracted field name: {{ form.original_name }}</h5>
+  <h5>Extracted field name: {{ form.instance.original_name }}</h5>
   <article class="border">
     <p>Column name: {{ form.name }}</p>
     <p>Display name: {{ form.title }}</p>

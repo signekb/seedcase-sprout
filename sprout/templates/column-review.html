@@ -22,7 +22,7 @@
     <tbody>
       {% for form in forms %}
       <tr>
-        <td>{{ form.original_name }}</td>
+        <td>{{ form.instance.original_name }}</td>
         <td>{{ form.name }}</td>
         <td>{{ form.title }}</td>
         <td style="overflow: hidden;">{{ form.description }}</td>
