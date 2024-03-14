@@ -9,12 +9,12 @@ urlpatterns = [
     path("data-import", views.data_import, name="data_import"),
     path("metadata/create/<int:table_id>", views.metadata_create),
     path(
-        "column-review/<int:table_id>/",
+        "column-review/<int:table_id>",
         views.column_review,
         name="column-review",
     ),
     path(
-        "column-review-list/<int:table_id>/",
+        "column-review-list/<int:table_id>",
         views.column_review_list,
         name="column-review-list",
     ),
