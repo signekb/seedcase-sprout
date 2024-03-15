@@ -1,44 +1,38 @@
-{% extends 'base.html' %}
+{% extends 'includes/base.html' %}
 {% load static %}
 
 {% block content %}
+  <h2>Headers and Definitions extracted for {{ table_metadata.name }}</h2>
 
-<h2>Headers and Definitions extracted for {{ table_metadata.name }}</h2>
-
-<form method="post" action="">
-  {% csrf_token %}
-  <table>
-    <thead>
-      <tr>
-        <th>Extracted Name</th>
-        <th>Column Name</th>
-        <th>Display Title</th>
-        <th>Description</th>
-        <th>Data Type</th>
-        <th>Allow Missing</th>
-        <th>Allow Duplicate</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for form in forms %}
-      <tr>
-        <td>{{ form.original_name }}</td>
-        <td>{{ form.name }}</td>
-        <td>{{ form.title }}</td>
-        <td style="overflow: hidden;">{{ form.description }}</td>
-        <td style="overflow: hidden;">{{ form.data_type }}</td>
-        <td>{{ form.allow_missing_value }}</td>
-        <td>{{ form.allow_duplicate_value }}</td>
-        <input type="hidden" name="{{ form.prefix }}-id" value="{{ form.instance.id }}">
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-  <button type="submit">Update All</button>
-</form>
-
-</tbody>
-</table>
-</form>
-
-{% endblock content %}
+  <form method="post" action="">
+    {% csrf_token %}
+    <table>
+      <thead>
+        <tr>
+          <th>Extracted Name</th>
+          <th>Column Name</th>
+          <th>Display Title</th>
+          <th>Description</th>
+          <th>Data Type</th>
+          <th>Allow Missing</th>
+          <th>Allow Duplicate</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for form in forms %}
+          <tr>
+            <td>{{ form.original_name }}</td>
+            <td>{{ form.name }}</td>
+            <td>{{ form.title }}</td>
+            <td style="overflow: hidden;">{{ form.description }}</td>
+            <td style="overflow: hidden;">{{ form.data_type }}</td>
+            <td>{{ form.allow_missing_value }}</td>
+            <td>{{ form.allow_duplicate_value }}</td>
+            <input type="hidden" name="{{ form.prefix }}-id" value="{{ form.instance.id }}" />
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <button type="submit">Update All</button>
+  </form>
+{% endblock %}

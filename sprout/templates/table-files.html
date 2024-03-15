@@ -1,11 +1,10 @@
-{% extends 'base.html' %}
+{% extends 'includes/base.html' %}
 
 {% block content %}
   <h2>Files for&nbsp;<b>{{ table.name }}</b></h2>
   <p>Here you can view and download the files relevant for this table.</p>
 
-
-  <!-- HTML table with files --->
+  <!-- HTML table with files -->
   <table class="medium-space stripes">
     <thead>
       <tr>
@@ -15,18 +14,18 @@
       </tr>
     </thead>
     <tbody>
-    {% for file in files %}
-      <tr>
-        <td>
-          <a href="{% url 'table_file_download' table_id=table.id file_id=file.id %}" class="row wave">
-          <i>download</i>
-          <div>{{ file.original_file_name }}</div>
-          </a>
-        </td>
-        <td class="min right-align">{{ file.created_at }}</td>
-        <td class="min right-align">{{ file.file_size_bytes | filesizeformat  }}</td>
-      </tr>
-    {% endfor %}
+      {% for file in files %}
+        <tr>
+          <td>
+            <a href="{% url 'table_file_download' table_id = table.id file_id = file.id %}" class="row wave">
+              <i>download</i>
+              <div>{{ file.original_file_name }}</div>
+            </a>
+          </td>
+          <td class="min right-align">{{ file.created_at }}</td>
+          <td class="min right-align">{{ file.file_size_bytes|filesizeformat }}</td>
+        </tr>
+      {% endfor %}
     </tbody>
   </table>
-{% endblock content %}
+{% endblock %}

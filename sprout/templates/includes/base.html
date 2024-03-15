@@ -1,29 +1,30 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Seedcase Sprout: Data Import</title>
-  <link rel="icon" type="image/x-icon" href="{% static 'images/seedcase.png' %}">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Seedcase Sprout: Data Import</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'images/seedcase.png' %}" />
 
-  <!-- beercss framework is added -->
-  <link href="https://cdn.jsdelivr.net/npm/beercss@3.4.11/dist/cdn/beer.min.css" rel="stylesheet" />
-  <script type="module" src="https://cdn.jsdelivr.net/npm/beercss@3.4.11/dist/cdn/beer.min.js"></script>
+    <!-- beercss framework is added -->
+    <link href="https://cdn.jsdelivr.net/npm/beercss@3.4.11/dist/cdn/beer.min.css" rel="stylesheet" />
+    <script type="module" src="https://cdn.jsdelivr.net/npm/beercss@3.4.11/dist/cdn/beer.min.js"></script>
 
-  <!-- font called 'Inter' is added -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+    <!-- font called 'Inter' is added -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
 
-  <!-- Global css -->
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
-  <link rel="stylesheet" href="{% static 'css/file-drop-zone.css' %}">
-</head>
-<body >
-  {% include 'navigation-bar.html' %}
-  <main class="responsive height-90-pct">
-    {% block content %}
-    {% endblock content %}
-  </main>
-</body>
+    <!-- Global css -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/file-drop-zone.css' %}" />
+  </head>
+  <body>
+    {% include 'navigation-bar.html' %}
+    <main class="responsive height-90-pct">
+      {% block content %}
+
+      {% endblock %}
+    </main>
+  </body>
 </html>
