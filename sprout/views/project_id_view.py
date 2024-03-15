@@ -6,7 +6,7 @@ from django.shortcuts import redirect, render
 from sprout.forms import TableMetadataForm
 
 
-def project_id_view(request: HttpRequest) -> HttpResponse:
+def projects_id_view(request: HttpRequest) -> HttpResponse:
     """Landing page for the project.
 
     Initially renders a blank form using the template, if
@@ -42,6 +42,6 @@ def project_id_view(request: HttpRequest) -> HttpResponse:
 
     return render(
         request=request,
-        template_name="project-id-view.html",
+        template_name="projects-id-view.html",
         context={"form": form},
     )

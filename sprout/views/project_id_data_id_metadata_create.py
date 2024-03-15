@@ -7,7 +7,7 @@ from sprout.csv.csv_reader import read_csv_file
 from sprout.models import ColumnMetadata, FileMetadata, TableMetadata
 
 
-def project_id_data_id_metadata_create(
+def projects_id_data_id_metadata_create(
     request: HttpRequest, table_id: int
 ) -> HttpResponse | HttpResponseRedirect:
     """Renders page for creating metadata for data.
@@ -30,7 +30,7 @@ def project_id_data_id_metadata_create(
     if request.method == "POST":
         return handle_post_request_with_file(request, table_id)
 
-    return render_project_id_data_id_metadata_create_page(request, table_id, "")
+    return render_projects_id_data_id_metadata_create_page(request, table_id, "")
 
 
 def handle_post_request_with_file(
@@ -60,14 +60,14 @@ def handle_post_request_with_file(
         validate_csv_and_save_columns(table_id, file_meta)
     except csv.Error as csv_error:
         file_meta.delete()
-        return render_project_id_data_id_metadata_create_page(
+        return render_projects_id_data_id_metadata_create_page(
             request, table_id, csv_error.args[0]
         )
 
     return redirect("/data/" + str(table_id) + "/metadata/edit/table")
 
 
-def render_project_id_data_id_metadata_create_page(
+def render_projects_id_data_id_metadata_create_page(
     request: HttpRequest, table_id: int, upload_error: str
 ) -> HttpResponse:
     """Render page with an error if there is any.
@@ -85,7 +85,7 @@ def render_project_id_data_id_metadata_create_page(
         "table_name": table_metadata.name,
         "upload_error": upload_error,
     }
-    return render(request, "project-id-data-id-metadata-create.html", data_metadata)
+    return render(request, "projects-id-data-id-metadata-create.html", data_metadata)
 
 
 def validate_csv_and_save_columns(table_id: int, file: FileMetadata) -> None:

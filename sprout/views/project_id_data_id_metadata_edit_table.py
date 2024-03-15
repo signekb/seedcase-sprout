@@ -5,7 +5,7 @@ from sprout.forms import ColumnMetadataForm
 from sprout.models import ColumnMetadata, TableMetadata
 
 
-def project_id_data_id_metadata_edit_table(request, table_id):
+def projects_id_data_id_metadata_edit_table(request, table_id):
     """Takes the data from ColumnMetadata and displays as a table.
 
     The table can be edited and the result written back to the database.
@@ -29,7 +29,7 @@ def project_id_data_id_metadata_edit_table(request, table_id):
             for form in forms:
                 form.save()
             return redirect(
-                reverse("project-id-data-id-metadata-edit-table", args=[table_id])
+                reverse("projects-id-data-id-metadata-edit-table", args=[table_id])
             )
 
     else:
@@ -40,7 +40,7 @@ def project_id_data_id_metadata_edit_table(request, table_id):
 
     return render(
         request,
-        "project-id-data-id-metadata-edit-table.html",
+        "projects-id-data-id-metadata-edit-table.html",
         {
             "forms": forms,
             "table_metadata": table_metadata,

@@ -25,11 +25,11 @@ class DataIDMetadataEditTableViewTest(TestCase):
             allow_duplicate_value=True,
         )
 
-    def test_project_id_data_id_metadata_edit_table_view_get(self):
+    def test_projects_id_data_id_metadata_edit_table_view_get(self):
         """Test that the get function works."""
         # Arrange
         url = reverse(
-            "project-id-data-id-metadata-edit-grid", args=[self.table_metadata.id]
+            "projects-id-data-id-metadata-edit-grid", args=[self.table_metadata.id]
         )
 
         # Act
@@ -37,13 +37,13 @@ class DataIDMetadataEditTableViewTest(TestCase):
 
         # Assert
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "project-id-data-id-metadata-edit-grid.html")
+        self.assertTemplateUsed(response, "projects-id-data-id-metadata-edit-grid.html")
 
-    def test_project_id_data_id_metadata_edit_table_view_post_valid_data(self):
+    def test_projects_id_data_id_metadata_edit_table_view_post_valid_data(self):
         """Test that the view works if valid data is entered."""
         # Arrange
         url = reverse(
-            "project-id-data-id-metadata-edit-grid", args=[self.table_metadata.id]
+            "projects-id-data-id-metadata-edit-grid", args=[self.table_metadata.id]
         )
         data = {
             f"{self.column_metadata.id}-name": "Updated Column Name",

@@ -9,19 +9,19 @@ from sprout.models import TableMetadata
 class ProjectIDViewTests(TestCase):
     """Tests for the project landing page view."""
 
-    url = reverse("project-id-view")
+    url = reverse("projects-id-view")
     empty_form = {}
     invalid_form = {"name": "Test/Table", "description": "Test description"}
     valid_form = {"name": "TestTable", "description": "Test description"}
 
-    def test_project_id_view_renders(self):
+    def test_projects_id_view_renders(self):
         """Test that the page renders."""
         # Arrange/Act
         response = self.client.get(self.url)
 
         # Assert
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "project-id-view.html")
+        self.assertTemplateUsed(response, "projects-id-view.html")
 
     def test_fields_are_required(self):
         """Test for when the required fields, name and description, are empty.
