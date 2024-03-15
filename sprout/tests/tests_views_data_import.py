@@ -25,7 +25,7 @@ class DataImportTests(TestCase):
 
         # Assert
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "data-import.html")
+        self.assertTemplateUsed(response, "project-id-view.html")
 
     def test_fields_are_required(self):
         """Test for when the required fields, name and description, are empty.
