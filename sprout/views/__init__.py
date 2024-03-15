@@ -17,12 +17,12 @@ from .table_files import table_file_download, table_files
 
 
 def home(request: HttpRequest) -> HttpResponse:
-    """Renders the frontpage based on home.html.
+    """Renders the Sprout landing page.
 
     Args:
         request: The HttpRequest from the user
 
     Returns:
-        HttpResponse: The html content based on the home.html template
+        HttpResponse: HTML content for the landing page.
     """
-    return render(request, "home.html")
+    return render(request, "index.html")
