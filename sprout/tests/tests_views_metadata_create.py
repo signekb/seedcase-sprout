@@ -21,7 +21,7 @@ class FileUploadTests(TestCase):
         create_table(table_name).save()
 
         # Act
-        response = self.client.get("/metadata/create/1")
+        response = self.client.get("data/1/metadata/create")
 
         # Assert.
         self.assertEqual(response.status_code, 200)
@@ -36,7 +36,7 @@ class FileUploadTests(TestCase):
         file = self.create_file(file_name, "name,city,age\nPhil,Aarhus,36")
 
         # Act
-        response = self.client.post("/metadata/create/1", {"uploaded_file": file})
+        response = self.client.post("data/1/metadata/create", {"uploaded_file": file})
 
         # Assert
         table = TableMetadata.objects.get(name=table_name)
@@ -52,7 +52,7 @@ class FileUploadTests(TestCase):
         create_table("Table Name").save()
         file = self.create_file("file-with-wrong-ext.svg", "file content")
 
-        response = self.client.post("/metadata/create/1", {"uploaded_file": file})
+        response = self.client.post("data/1/metadata/create", {"uploaded_file": file})
 
         self.assertContains(response, "Unsupported file format: .svg")
 
@@ -61,7 +61,7 @@ class FileUploadTests(TestCase):
         create_table("Table Name").save()
         file = self.create_file("file-with-bad-headers.csv", "name, age")
 
-        response = self.client.post("/metadata/create/1", {"uploaded_file": file})
+        response = self.client.post("data/1/metadata/create", {"uploaded_file": file})
 
         self.assertContains(response, "Invalid CSV. No rows found!")
 

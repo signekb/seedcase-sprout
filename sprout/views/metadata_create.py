@@ -12,13 +12,13 @@ from sprout.models import ColumnMetadata, FileMetadata, TableMetadata
 def metadata_create(
     request: HttpRequest, table_id: int
 ) -> HttpResponse | HttpResponseRedirect:
-    """Method is called at url="metadata/create/<int:table_id>".
+    """Method is called at url="data/<int:table_id>/metadata/create".
 
     The table_id comes from the url. The table_id is used fetch the
     table_metadata from the database.
 
-    - On GET requests, the metadata/create page is rendered.
-    - On POST requests, The submitted CSV file is validated and column
+    - On GET requests, the page is rendered.
+    - On POST requests, the submitted CSV file is validated and column
       metadata persisted for the table.
 
     Args:
