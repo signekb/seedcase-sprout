@@ -12,7 +12,7 @@ def project_id_view(request: HttpRequest) -> HttpResponse:
     Initially renders a blank form using the template, if
     ``request.method != "POST"``.  If ``request.method == "POST"``, the form is
     validated.  If validation is successful, the form is saved and the page is
-    redirected to the ``metadata-create`` template.
+    redirected to the correct template.
 
     Args:
         request (HttpRequest): Contains metadata about the request, including method
@@ -34,7 +34,7 @@ def project_id_view(request: HttpRequest) -> HttpResponse:
         if form.is_valid():
             table_metadata = form.save()
 
-            return redirect(to=f"metadata/create/{table_metadata.id}")
+            return redirect(to=f"data/{table_metadata.id}/metadata/create")
 
     # if GET (or any other method), create a blank form
     else:

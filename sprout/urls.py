@@ -7,7 +7,7 @@ from . import views
 urlpatterns = [
     path("", views.home, name="home"),
     path("view", views.project_id_view, name="project-id-view"),
-    path("metadata/create/<int:table_id>", views.metadata_create),
+    path("data/<int:table_id>/metadata/create", views.metadata_create),
     path(
         "data/<int:table_id>/metadata/edit/table",
         views.column_review,

@@ -44,7 +44,7 @@ def handle_post_request_with_file(
     - If the validation is successful, then we persist the column metadata
       and redirect to the next page in the flow
     - If the validation fails, an exception is raised StopUpload. The page
-      metadata-create page is re-rendered with the error message
+      is re-rendered with the error message
 
     Args:
         request: http request from the user/browser
@@ -70,7 +70,7 @@ def handle_post_request_with_file(
 def render_metadata_create_page(
     request: HttpRequest, table_id: int, upload_error: str
 ) -> HttpResponse:
-    """Render metadata/create page with an error if there is any.
+    """Render page with an error if there is any.
 
     Args:
         request: The http request
@@ -78,14 +78,16 @@ def render_metadata_create_page(
         upload_error: The error message if there is any
 
     Returns:
-        HttpResponse: A html page based on the metadata-create.html template
+        HttpResponse: A html page based on the template
     """
     table_metadata = TableMetadata.objects.get(pk=table_id)
     metadata_create_data = {
         "table_name": table_metadata.name,
         "upload_error": upload_error,
     }
-    return render(request, "metadata-create.html", metadata_create_data)
+    return render(
+        request, "project-id-data-id-metadata-create.html", metadata_create_data
+    )
 
 
 def validate_csv_and_save_columns(table_id: int, file: FileMetadata) -> None:
