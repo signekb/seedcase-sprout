@@ -9,9 +9,9 @@ urlpatterns = [
     path("view", views.project_id_view, name="project-id-view"),
     path("metadata/create/<int:table_id>", views.metadata_create),
     path(
-        "column-review/<int:table_id>",
+        "data/<int:table_id>/metadata/edit/table",
         views.column_review,
-        name="column-review",
+        name="project-id-data-id-metadata-edit-table",
     ),
     path(
         "data/<int:table_id>/metadata/edit/grid",

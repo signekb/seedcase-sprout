@@ -64,7 +64,7 @@ def handle_post_request_with_file(
         file_meta.delete()
         return render_metadata_create_page(request, table_id, csv_error.args[0])
 
-    return redirect("/column-review/" + str(table_id))
+    return redirect("/data/" + str(table_id) + "/metadata/edit/table")
 
 
 def render_metadata_create_page(

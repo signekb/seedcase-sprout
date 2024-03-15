@@ -30,7 +30,9 @@ def column_review(request, table_id):
         if all(form.is_valid() for form in forms):
             for form in forms:
                 form.save()
-            return redirect(reverse("column-review", args=[table_id]))
+            return redirect(
+                reverse("project-id-data-id-metadata-edit-table", args=[table_id])
+            )
 
     else:
         forms = [
@@ -40,7 +42,7 @@ def column_review(request, table_id):
 
     return render(
         request,
-        "column-review.html",
+        "project-id-data-id-metadata-edit-table.html",
         {
             "forms": forms,
             "table_metadata": table_metadata,

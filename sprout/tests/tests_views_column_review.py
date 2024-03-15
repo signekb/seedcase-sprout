@@ -1,4 +1,5 @@
 """Tests for views."""
+
 from django.test import TestCase
 from django.urls import reverse
 
@@ -30,19 +31,23 @@ class ColumnReviewViewTest(TestCase):
     def test_column_review_view_get(self):
         """Test that the get function works."""
         # Arrange
-        url = reverse("column-review", args=[self.table_metadata.id])
+        url = reverse(
+            "project-id-data-id-metadata-edit-grid", args=[self.table_metadata.id]
+        )
 
         # Act
         response = self.client.get(url)
 
         # Assert
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "column-review.html")
+        self.assertTemplateUsed(response, "project-id-data-id-metadata-edit-grid.html")
 
     def test_column_review_view_post_valid_data(self):
         """Test that the view works if valid data is entered."""
         # Arrange
-        url = reverse("column-review", args=[self.table_metadata.id])
+        url = reverse(
+            "project-id-data-id-metadata-edit-grid", args=[self.table_metadata.id]
+        )
         data = {
             f"{self.column_metadata.id}-name": "Updated Column Name",
             f"{self.column_metadata.id}-title": "Updated Column Title",

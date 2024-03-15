@@ -42,7 +42,7 @@ class FileUploadTests(TestCase):
         table = TableMetadata.objects.get(name=table_name)
         self.assertEqual("file.csv", table.original_file_name)
         self.assertEqual(302, response.status_code, "Redirect is expected")
-        self.assertEqual("/column-review/1", response.url)
+        self.assertEqual("/data/1/metadata/edit/table", response.url)
         self.assertEqual(3, table.columnmetadata_set.all().count(), "expects 3 columns")
         # Clean up
         FileMetadata.objects.first().delete()

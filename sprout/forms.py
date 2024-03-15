@@ -52,7 +52,7 @@ class TableMetadataForm(ModelForm):
 class ColumnMetadataForm(ModelForm):
     """Based on the model ColumnMetaData.
 
-    The form is used in column-review to display and edit the content of
+    The form is used to display and edit the content of
     the user-generated tables based on data from uploaded csv files.
 
 
