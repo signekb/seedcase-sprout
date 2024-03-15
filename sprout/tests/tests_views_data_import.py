@@ -6,20 +6,16 @@ from django.urls import reverse
 from sprout.models import TableMetadata
 
 
-class DataImportTests(TestCase):
-    """Tests for the data import view."""
+class ProjectIDViewTests(TestCase):
+    """Tests for the project landing page view."""
 
-    url = reverse("data_import")
+    url = reverse("project-id-view")
     empty_form = {}
     invalid_form = {"name": "Test/Table", "description": "Test description"}
     valid_form = {"name": "TestTable", "description": "Test description"}
 
-    def test_data_import_renders(self):
-        """Test that data import renders.
-
-        Tests that the page is rendered using the expected template, when the response
-        method is "GET".
-        """
+    def test_project_id_view_renders(self):
+        """Test that the page renders."""
         # Arrange/Act
         response = self.client.get(self.url)
 

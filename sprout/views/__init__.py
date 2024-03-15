@@ -11,7 +11,7 @@ from .column_review import (
 from .column_review_list import (
     column_review_list,
 )
-from .data_import import data_import
+from .project_id_view import project_id_view
 from .metadata_create import metadata_create
 from .table_files import table_file_download, table_files
 

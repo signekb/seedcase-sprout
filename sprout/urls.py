@@ -6,7 +6,7 @@ from . import views
 
 urlpatterns = [
     path("", views.home, name="home"),
-    path("view", views.data_import, name="project-id-view"),
+    path("view", views.project_id_view, name="project-id-view"),
     path("metadata/create/<int:table_id>", views.metadata_create),
     path(
         "column-review/<int:table_id>",
