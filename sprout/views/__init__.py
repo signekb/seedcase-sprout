@@ -3,16 +3,17 @@
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 
-# Split views.py into multiple files is based on:
-# https://simpleisbetterthancomplex.com/tutorial/2016/08/02/how-to-split-views-into-multiple-files.html
-from .column_review import (
-    column_review,
-)
+from .metadata_create import metadata_create
 from .project_id_data_id_metadata_edit_grid import (
     project_id_data_id_metadata_edit_grid,
 )
+
+# Split views.py into multiple files is based on:
+# https://simpleisbetterthancomplex.com/tutorial/2016/08/02/how-to-split-views-into-multiple-files.html
+from .project_id_data_id_metadata_edit_table import (
+    project_id_data_id_metadata_edit_table,
+)
 from .project_id_view import project_id_view
-from .metadata_create import metadata_create
 from .table_files import table_file_download, table_files
 
 

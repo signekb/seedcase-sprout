@@ -6,11 +6,8 @@ from django.urls import reverse
 from sprout.models import ColumnMetadata, TableMetadata
 
 
-class ColumnReviewViewTest(TestCase):
-    """Test for the Column Review page.
-
-    This is where the uploaded metadata for columns are uploaded and edited.
-    """
+class DataIDMetadataEditTableViewTest(TestCase):
+    """Test for the Data Metadata Edit (as table) page."""
 
     def setUp(self):
         """Create a table and a column for testing."""
@@ -28,7 +25,7 @@ class ColumnReviewViewTest(TestCase):
             allow_duplicate_value=True,
         )
 
-    def test_column_review_view_get(self):
+    def test_project_id_data_id_metadata_edit_table_view_get(self):
         """Test that the get function works."""
         # Arrange
         url = reverse(
@@ -42,7 +39,7 @@ class ColumnReviewViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "project-id-data-id-metadata-edit-grid.html")
 
-    def test_column_review_view_post_valid_data(self):
+    def test_project_id_data_id_metadata_edit_table_view_post_valid_data(self):
         """Test that the view works if valid data is entered."""
         # Arrange
         url = reverse(

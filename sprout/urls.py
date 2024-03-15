@@ -10,7 +10,7 @@ urlpatterns = [
     path("data/<int:table_id>/metadata/create", views.metadata_create),
     path(
         "data/<int:table_id>/metadata/edit/table",
-        views.column_review,
+        views.project_id_data_id_metadata_edit_table,
         name="project-id-data-id-metadata-edit-table",
     ),
     path(
