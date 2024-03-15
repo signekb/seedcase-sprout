@@ -17,24 +17,24 @@
             <p
               style="text-align: center; font-size: 1.25rem; font-weight: bold; margin-bottom: 20px">{{ column.title }}</p>
             <div class="field label small border" style="margin-bottom: 40px">
-              {{ column.form.title }}
+              {{ column.form.title|tabindex:1 }}
               <label>Title</label>
               <span class="helper">From: '{{ column.original_name }}'</span>
             </div>
 
             <div hidden>
-              {{ column.form.name }}
+              {{ column.form.name|tabindex:2 }}
             </div>
 
 
             <div class="field label suffix border" style="margin-bottom: 20px">
-              {{ column.form.data_type }}
+              {{ column.form.data_type|tabindex:3 }}
               <label>Type</label>
               <i>arrow_drop_down</i>
             </div>
 
             <div class="field label small border" style="margin-bottom: 20px">
-              {{ column.form.description|tabindex:forloop.counter }}
+              {{ column.form.description|tabindex:4 }}
               <label>Description</label>
             </div>
 
@@ -54,7 +54,7 @@
       {% endfor %}
     </div>
     <div class="row" style="justify-content: center">
-      <button type="submit">Update All</button>
+      <button type="submit" tabindex=10>Update All</button>
     </div>
   </form>
 {% endblock content %}
