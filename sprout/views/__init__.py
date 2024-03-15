@@ -8,8 +8,8 @@ from django.shortcuts import render
 from .column_review import (
     column_review,
 )
-from .column_review_list import (
-    column_review_list,
+from .project_id_data_id_metadata_edit_grid import (
+    project_id_data_id_metadata_edit_grid,
 )
 from .project_id_view import project_id_view
 from .metadata_create import metadata_create

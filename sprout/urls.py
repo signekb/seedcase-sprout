@@ -15,7 +15,7 @@ urlpatterns = [
     ),
     path(
         "data/<int:table_id>/metadata/edit/grid",
-        views.column_review_list,
+        views.project_id_data_metadata_edit_grid,
         name="project-id-data-id-metadata-edit-grid",
     ),
     path("table-files/<int:table_id>", views.table_files, name="table_files"),

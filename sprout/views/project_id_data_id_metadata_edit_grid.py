@@ -1,5 +1,3 @@
-"""File with column_review_list view."""
-
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 
@@ -7,7 +5,7 @@ from sprout.forms import ColumnMetadataForm
 from sprout.models import ColumnMetadata, TableMetadata
 
 
-def column_review_list(request, table_id):
+def project_id_data_id_metadata_edit_grid(request, table_id):
     """Takes the data from ColumnMetadata and displays as a table.
 
     The table can be edited and the result written back to the database.
