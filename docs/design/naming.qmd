@@ -69,7 +69,6 @@ projects <id> data <id> view
 
 # Create, edit, or upload data of a specific data 
 # object in a specific project
-projects <id> data <id> create
 projects <id> data <id> edit
 projects <id> data <id> upload
 
@@ -103,4 +102,8 @@ projects <id> metadata edit
 # These could be equivalent
 projects <id> data <id> view
 projects <id> data <id> metadata view
+
+# These could be equivalent
+projects <id> data <id> create
+projects <id> data <id> metadata create
 ```
