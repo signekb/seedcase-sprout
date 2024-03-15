@@ -14,9 +14,9 @@ urlpatterns = [
         name="column-review",
     ),
     path(
-        "column-review-list/<int:table_id>",
+        "data/<int:table_id>/metadata/edit/grid",
         views.column_review_list,
-        name="column-review-list",
+        name="project-id-data-id-metadata-edit-grid",
     ),
     path("table-files/<int:table_id>", views.table_files, name="table_files"),
     path(
