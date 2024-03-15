@@ -3,7 +3,7 @@
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 
-from .metadata_create import metadata_create
+from .project_id_data_id_metadata_create import project_id_data_id_metadata_create
 from .project_id_data_id_metadata_edit_grid import (
     project_id_data_id_metadata_edit_grid,
 )
