@@ -4,7 +4,7 @@ title: Data Types Used
 
 When defining a table before uploading the data, the data types must be chosen from a pre-defined list of data types. These are a subset of the all possible data types that are available to most database systems, since most of them are not necessary for research purposes.
 
-The primary data types in most databases are text, numbers, dates (or time or date-time) and some form of yes/no (boolean, logic) option. Below is a table summarizing the data types used.
+The primary data types in most databases are text, numbers, dates (or time or date-time) and some form of true/false (boolean, logic) option. Below is a table summarizing the data types used.
 
 | Name | Description |
 |---|------|
@@ -39,9 +39,9 @@ We offer two options for number formats, the `integer` type for whole numbers an
 
 Date and/or time can be stored in many ways in a database system. The most common are `date`, `time`, and `datetime`. There is also a choice to be made with regards to time zones and whether or not a system should be able to deal with data coming from around the world. At this point, Seedcase Sprout does not handle timezones.
 
-## True/False, Yes/No, Boolean
+## Logical (Boolean): True/False
 
-A standard data type in any system is the option of a boolean/logical value, which can represent a set of either/or options. This could be yes/no or true/false. The values stored in the system will typically be 0 and 1 (or -1 and 0) and the interpretation of these is up to the individual data user.
+A standard data type in any system is the option of a boolean/logical value, which can represent a set of either/or options. This will be true/false. The values stored in the system will typically be 0 and 1 (or -1 and 0) and the interpretation of these is up to the individual data user.
 
 <!--
 ## JSON

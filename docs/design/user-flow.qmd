@@ -44,8 +44,8 @@ After a table's metadata has been created, the next step is to define the column
 - Title (human-readable column name, textbox, optional)
 - Data type (choose data type from a list available data types, dropdown), 
 - A short description (a sentence describing what the column contains, textbox)
-- Allow missing (whether missing values are allowed in the column, boolean, i.e., yes/no or 1/0)
-- Allow duplication (whether duplicate values are allowed in the column, boolean, i.e., yes/no or 1/0)
+- Allow missing (whether missing values are allowed in the column, boolean, i.e., true/false or 1/0)
+- Allow duplication (whether duplicate values are allowed in the column, boolean, i.e., true/false or 1/0)
 
 Below, we show an example of column metadata for columns describing users in `table_1`:
 
