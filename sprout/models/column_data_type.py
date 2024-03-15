@@ -1,4 +1,5 @@
 """Module defining the ColumnDataType model and COLUMN_DATA_TYPES."""
+
 from django.db import models
 from polars import Series
 
@@ -64,10 +65,11 @@ COLUMN_DATA_TYPES = [
     ),
     ColumnDataType(
         id=3,
-        display_name="Yes/No",
+        display_name="True/False",
         polars_types="Boolean",
-        description="Also known as boolean, or logical. This stores data as either 0/1 "
-        "or True/False. If you need/want to store actual words, use the Text field",
+        description="Also known as boolean or logical. This stores data as either a 0 "
+        "or 1, True or False, or Yes or No. If you need or want to store actual words, "
+        "use the Text field.",
     ),
     ColumnDataType(
         id=4,
