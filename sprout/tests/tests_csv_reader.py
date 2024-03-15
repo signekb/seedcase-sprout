@@ -86,6 +86,19 @@ class CsvTests(TestCase):
         self.assert_types(df, "Int64", "Float64", "Boolean", "String")
         self.assert_values(df["s1"], "Hi, Man", "Hello?", "What, about")
 
+    def test_csv_with_quotes_and_aligned(self):
+        # Testing leading whitespace except for quoted strings with comma
+        csv_content = """
+        "Index", "Item",                    "Cost",     "Tax",  "Total"
+        6,"Banana Boat Sunscreen, 8 oz",    6.68,       0.50,   7.18
+        9,"Bertoli Alfredo Sauce",          2.12,       0.16,   2.28"""
+        csv_file = self.create_file(csv_content)
+
+        df = read_csv_file(csv_file)
+
+        self.assert_types(df, "Int64", "String", "Float64", "Float64", "Float64")
+        self.assertEqual(2, len(df))
+
     def test_boolean_ish_values(self):
         """Column with boolean-ish/empty values should convert to booleans."""
         csv_file = self.create_file(
