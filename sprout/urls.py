@@ -7,7 +7,11 @@ from . import views
 urlpatterns = [
     path("", views.home, name="home"),
     path("data-import", views.data_import, name="data_import"),
-    path("upload", views.upload_csv, name="upload_csv"),
+    path(
+        "data/<int:table_id>/upload",
+        views.project_id_data_id_upload,
+        name="project-id-data-id-upload",
+    ),
     path("metadata/create/<int:table_id>", views.metadata_create),
     path(
         "column-review/<int:table_id>",
