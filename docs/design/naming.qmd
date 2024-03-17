@@ -11,7 +11,7 @@ How we name things, both internally and user-facing, will be:
 - Simple: Keep the vocabulary simple and easy to understand
 - Composable: Can be combined with other names to imply intent
 - Predictable: Easy to guess and reason on, without needing to look up documentation
-- Reusable: Can be used acrros multiple contexts
+- Reusable: Can be used across multiple contexts
 - Consistent: Remains the same across different contexts
 - Align with existing conventions: Follow widely-established standards and conventions
 
@@ -23,7 +23,7 @@ the "core" language of working with data (CRUD: Create Read Update Delete) as
 well as with HTTP verbs (GET, POST, PUT, PATCH, and DELETE).
 
 - Types of objects Sprout interacts with: projects, data, and metadata.
-- Types of actions Sprout takes on those objects: create, view (or list), edit, delete (?), and upload.
+- Types of actions Sprout takes on those objects: create, view (or list), edit (or update), delete (?), and upload.
 - Types of identifiers for sub-items of objects (as numbers or text): data, metadata, and project identifiers.
 
 To name things, we'll combine them first with the object name, followed by the
@@ -71,7 +71,6 @@ projects <id> data <id> view
 # object in a specific project
 projects <id> data <id> edit
 projects <id> data <id> upload
-
 ```
 
 Where `<id>` is a placeholder for a number or text for the identifier of it's
