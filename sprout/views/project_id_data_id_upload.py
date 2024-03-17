@@ -34,4 +34,4 @@ def project_id_data_id_upload(request: HttpRequest, table_id: int) -> HttpRespon
 
     # TODO: Provide context for response instead of redirect?
     # And button in template to move to other page?
-    return render(request, "upload.html", context)
+    return render(request, "project-id-data-id-upload.html", context)
