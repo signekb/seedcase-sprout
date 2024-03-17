@@ -65,8 +65,6 @@ class ColumnMetadataForm(ModelForm):
     class Meta:  # noqa: D106
         model = ColumnMetadata
         fields = (
-            "id",
-            "original_name",
             "name",
             "title",
             "description",
@@ -76,11 +74,9 @@ class ColumnMetadataForm(ModelForm):
         )
 
     def __init__(self, *args, **kwargs):
-        """Uses the Field.disabled to prevent editing of original_name."""
+        """Overriding the __init__ method."""
         super().__init__(*args, **kwargs)
-        self.fields["original_name"].disabled = True
-        # Disabling the original_name creates some problems in our tests as the field
-        # is registered as missing. Solving this issue is discussed here:
-        # https://stackoverflow.com/questions/4662848
-        if kwargs.get("data"):
-            self.initial = kwargs.get("data")
+
+        self.fields["data_type"].empty_label = None
+        # .empty_label removes the argument None from data_type, this could also be done
+        # in the settings.py file if we would like to make it global.

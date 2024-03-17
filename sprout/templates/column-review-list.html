@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load tabindex %}
+
+{% block content %}
+
+<h2>Headers and Definitions extracted for {{ table_metadata.name }}</h2>
+
+<form method="post" action="">
+  {% csrf_token %}
+  {% for form in forms %}
+
+  <h5>Extracted field name: {{ form.instance.original_name }}</h5>
+  <article class="border">
+    <p>Column name: {{ form.name|tabindex:1 }}</p>
+    <p>Display name: {{ form.title|tabindex:2 }}</p>
+    <p>Description: {{ form.description|tabindex:3 }}</p>
+    <p>Data Type: {{ form.data_type|tabindex:4 }}</p>
+    <input type="hidden" name="{{ form.prefix }}-id" value="{{ form.instance.id }}">
+  </article>
+
+  {% endfor %}
+  <button type="submit">Update All</button>
+  {% endblock content %}
