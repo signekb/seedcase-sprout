@@ -3,43 +3,90 @@
 {% load tabindex %}
 
 {% block content %}
+  <h2 style="margin-bottom: 20px">Headers for {{ table_metadata.name }}</h2>
+  <form method="post" action="">
+    {% csrf_token %}
+    <table hidden>
+      <thead>
+        <tr>
+          <th>Extracted Name</th>
+          <th>Column Name</th>
+          <th>Display Title</th>
+          <th>Description</th>
+          <th>Data Type</th>
+          <th>Allow Missing</th>
+          <th>Allow Duplicate</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for form in forms %}
+          <tr>
+            <td>{{ form.instance.original_name }}</td>
+            <td>{{ form.name|tabindex:1 }}</td>
+            <td>{{ form.title|tabindex:2 }}</td>
+            <td style="overflow: hidden;">{{ form.description|tabindex:3 }}</td>
+            <td style="overflow: hidden;">{{ form.data_type|tabindex:4 }}</td>
+            <td>{{ form.allow_missing_value|tabindex:5 }}</td>
+            <td>{{ form.allow_duplicate_value|tabindex:6 }}</td>
+            <input type="hidden" name="{{ form.prefix }}-id" value="{{ form.instance.id }}" />
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
 
-<h2>Headers and Definitions extracted for {{ table_metadata.name }}</h2>
-
-<form method="post" action="">
-  {% csrf_token %}
-  <table>
-    <thead>
-      <tr>
-        <th>Extracted Name</th>
-        <th>Column Name</th>
-        <th>Display Title</th>
-        <th>Description</th>
-        <th>Data Type</th>
-        <th>Allow Missing</th>
-        <th>Allow Duplicate</th>
-      </tr>
-    </thead>
-    <tbody>
+    <!-- List View -->
+    <div hidden>
       {% for form in forms %}
-      <tr>
-        <td>{{ form.instance.original_name }}</td>
-        <td>{{ form.name|tabindex:1 }}</td>
-        <td>{{ form.title|tabindex:2 }}</td>
-        <td style="overflow: hidden;">{{ form.description|tabindex:3 }}</td>
-        <td style="overflow: hidden;">{{ form.data_type|tabindex:4 }}</td>
-        <td>{{ form.allow_missing_value|tabindex:5 }}</td>
-        <td>{{ form.allow_duplicate_value|tabindex:6 }}</td>
-        <input type="hidden" name="{{ form.prefix }}-id" value="{{ form.instance.id }}">
-      </tr>
+        <h5>Extracted field name: {{ form.instance.original_name }}</h5>
+        <article class="border">
+          <p>Column name: {{ form.name|tabindex:1 }}</p>
+          <p>Display name: {{ form.title|tabindex:2 }}</p>
+          <p>Description: {{ form.description|tabindex:3 }}</p>
+          <p>Data Type: {{ form.data_type|tabindex:4 }}</p>
+          <input type="hidden" name="{{ form.prefix }}-id" value="{{ form.instance.id }}" />
+        </article>
       {% endfor %}
-    </tbody>
-  </table>
-  <button type="submit">Update All</button>
-</form>
+    </div>
 
-</tbody>
-</table>
-</form>
+    <!-- The cards in a row and wrapped to next line -->
+    <div class="row wrap">
+      {% for column in columns %}
+        <!--  -->
+        <article class="row" style="border: 1px solid gray; padding: 5px; border-radius: 12px; width: 23%; ">
+          <div style="padding: 5px; min-width: 0; flex: 1;">
+            <p style="text-align: center; font-size: 1.25rem; font-weight: bold; margin-bottom: 20px">{{ column.title }}</p>
+            <div class="field label small border" style="margin-bottom: 40px">
+              {{ column.form.title|tabindex:1 }}
+              <label>Title</label>
+              <span class="helper">From: '{{ column.original_name }}'</span>
+            </div>
 
-{% endblock content %}
+            <div hidden>{{ column.form.name|tabindex:2 }}</div>
+
+            <div class="field label suffix border" style="margin-bottom: 20px">
+              {{ column.form.data_type|tabindex:3 }}
+              <label>Type</label>
+              <i>arrow_drop_down</i>
+            </div>
+
+            <div class="field label small border" style="margin-bottom: 20px">
+              {{ column.form.description|tabindex:4 }}
+              <label>Description</label>
+            </div>
+
+            <div style="min-width: 0">
+              <p style="color: grey; font-size: 0.75rem; font-weight: bold; margin-bottom: 5px">Data preview:</p>
+              {% for cell in column.data %}
+                <p style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ cell }}</p>
+              {% endfor %}
+            </div>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+
+    <div class="row" style="justify-content: center">
+      <button type="submit" tabindex="10">Update All</button>
+    </div>
+  </form>
+{% endblock %}
