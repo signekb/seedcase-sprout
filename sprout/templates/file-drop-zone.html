@@ -9,11 +9,11 @@
 
     <!-- Empty drop zone. Visible when a file is NOT added -->
     <div class="center-align" id="drag_zone_empty">
-      <h5 class="center-align bold">DRAG YOUR .CSV FILE HERE</h5>
+      <h5 class="center-align bold">Drag your <code>.csv</code> file here</h5>
       <div class="medium-space"></div>
       <i class="extra">attach_file</i>
       <div class="medium-space"></div>
-      <h5 class="center-align bold">OR CLICK TO OPEN YOUR FILE EXPLORER</h5>
+      <h5 class="center-align bold">Or click to open your file explorer</h5>
     </div>
 
     <!-- Drop zone with file name and size. Visible when file is added -->
@@ -33,13 +33,9 @@
     </div>
   </div>
 
-  <input hidden
-         type="file"
-         id="uploaded_file"
-         name="uploaded_file"
-         onchange="selectedFiles(event.target.files)"
-         accept="text/csv"/>
-  <p class="grey-text">Supported formats: .csv</p>
+  <p class="grey-text">
+    Supported formats: <code>.csv</code>
+  </p>
 
   <div class="row center-align">
     <button disabled id="submit_button" type="submit" value="OK" onclick="showDialog()">Upload</button>
