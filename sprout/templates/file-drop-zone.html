@@ -4,9 +4,7 @@
   {% csrf_token %}
 
   <!-- Drop zone for uploading a file -->
-  <div class="file-upload-box row center-align" id="drag_zone"
-       onclick="document.getElementById('uploaded_file').click()">
-
+  <div class="file-upload-box row center-align" id="drag_zone" onclick="document.getElementById('uploaded_file').click()">
     <!-- Empty drop zone. Visible when a file is NOT added -->
     <div class="center-align" id="drag_zone_empty">
       <h5 class="center-align bold">Drag your <code>.csv</code> file here</h5>
@@ -17,22 +15,21 @@
     </div>
 
     <!-- Drop zone with file name and size. Visible when file is added -->
-    <div hidden id="drag_zone_with_file" class="file-upload-info-box"
-         onclick="event.stopPropagation()">
-      <article class="center-align ">
+    <div hidden id="drag_zone_with_file" class="file-upload-info-box" onclick="event.stopPropagation()">
+      <article class="center-align">
         <div class="row">
           <i class="large-space extra">attach_file</i>
           <div class="max">
             <p class="bold" id="drag_zone_file_name">File name</p>
             <p id="drag_zone_file_size" class="bold grey-text">Size</p>
           </div>
-          <i class="large-space extra pointer"
-             onclick="selectedFiles(new DataTransfer().files)">close</i>
+          <i class="large-space extra pointer" onclick="selectedFiles(new DataTransfer().files)">close</i>
         </div>
       </article>
     </div>
   </div>
 
+  <input hidden type="file" id="uploaded_file" name="uploaded_file" onchange="selectedFiles(event.target.files)" accept="text/csv" />
   <p class="grey-text">
     Supported formats: <code>.csv</code>
   </p>
@@ -50,49 +47,62 @@
 
 <script>
   function query(id) {
-    return document.querySelector("#" + id);
+    return document.querySelector('#' + id)
   }
-
-  const highlightClass = "file-upload-box-highlight"
-  const dragZone = query("drag_zone")
-
-
+  
+  const highlightClass = 'file-upload-box-highlight'
+  const dragZone = query('drag_zone')
+  
   function selectedFiles(files) {
-    const isFilesListEmpty = files.length === 0;
-
-    query("uploaded_file").files = files;
-    query("submit_button").disabled = isFilesListEmpty;
-    query("drag_zone_empty").hidden = !isFilesListEmpty;
-    query("drag_zone_with_file").hidden = isFilesListEmpty;
-    query("drag_zone_file_name").innerText = isFilesListEmpty ? "" : files[0].name;
-    query("drag_zone_file_size").innerText = isFilesListEmpty ? "" : parseInt(files[0].size / 1000000.0 + "") + " MB";
+    const isFilesListEmpty = files.length === 0
+  
+    query('uploaded_file').files = files
+    query('submit_button').disabled = isFilesListEmpty
+    query('drag_zone_empty').hidden = !isFilesListEmpty
+    query('drag_zone_with_file').hidden = isFilesListEmpty
+    query('drag_zone_file_name').innerText = isFilesListEmpty ? '' : files[0].name
+    query('drag_zone_file_size').innerText = isFilesListEmpty ? '' : parseInt(files[0].size / 1000000.0 + '') + ' MB'
   }
-
-
-  dragZone.addEventListener('drop', e => {
-    selectedFiles(e.dataTransfer?.files)
-    e.preventDefault()
-    dragZone.classList.remove(highlightClass)
-  }, false)
-
-  dragZone.addEventListener('dragleave', e => {
-    e.preventDefault()
-    dragZone.classList.remove(highlightClass)
-  }, false)
-
-  dragZone.addEventListener('dragenter', e => {
-    e.preventDefault()
-    dragZone.classList.add(highlightClass)
-  }, false)
-
-  dragZone.addEventListener('dragover', e => {
-    e.preventDefault()
-    dragZone.classList.add(highlightClass)
-  }, false)
-
-
-  function showDialog() { 
-    const dialog = document.getElementById("progress-dialog")
-    dialog.show(); 
-} 
+  
+  dragZone.addEventListener(
+    'drop',
+    (e) => {
+      selectedFiles(e.dataTransfer?.files)
+      e.preventDefault()
+      dragZone.classList.remove(highlightClass)
+    },
+    false
+  )
+  
+  dragZone.addEventListener(
+    'dragleave',
+    (e) => {
+      e.preventDefault()
+      dragZone.classList.remove(highlightClass)
+    },
+    false
+  )
+  
+  dragZone.addEventListener(
+    'dragenter',
+    (e) => {
+      e.preventDefault()
+      dragZone.classList.add(highlightClass)
+    },
+    false
+  )
+  
+  dragZone.addEventListener(
+    'dragover',
+    (e) => {
+      e.preventDefault()
+      dragZone.classList.add(highlightClass)
+    },
+    false
+  )
+  
+  function showDialog() {
+    const dialog = document.getElementById('progress-dialog')
+    dialog.show()
+  }
 </script>
