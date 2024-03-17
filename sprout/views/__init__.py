@@ -13,6 +13,7 @@ from .column_review_list import (
 )
 from .data_import import data_import
 from .metadata_create import metadata_create
+from .metadata_review import metadata_review
 from .table_files import table_file_download, table_files
 
 
