@@ -18,7 +18,6 @@ urlpatterns = [
         views.project_id_data,
         name="project_id_data",
     ),
-    ),
     path(
         "column-review-list/<int:table_id>",
         views.column_review_list,
