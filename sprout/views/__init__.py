@@ -9,6 +9,9 @@ from .column_review import (
 # Split views.py into multiple files is based on:
 # https://simpleisbetterthancomplex.com/tutorial/2016/08/02/how-to-split-views-into-multiple-files.html
 from .data_import import data_import
+from .existing_tables import (
+    view_existing_tables,
+)
 from .file_upload import file_upload
 
 
