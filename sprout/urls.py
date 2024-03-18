@@ -14,9 +14,10 @@ urlpatterns = [
         name="column-review",
     ),
     path(
-        "view-existing-tables",
-        views.view_existing_tables,
-        name="view_existing_tables",
+        "project-id-data",
+        views.project_id_data,
+        name="project_id_data",
+    ),
     ),
     path(
         "column-review-list/<int:table_id>",
