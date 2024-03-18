@@ -1,5 +1,6 @@
 """Module defining forms."""
-from django.forms import CharField, ModelForm
+
+from django.forms import CharField, ModelForm, Textarea
 
 from sprout.models import ColumnMetadata, TableMetadata
 from sprout.validators import (
@@ -19,6 +20,12 @@ class TableMetadataForm(ModelForm):
 
         model = TableMetadata
         fields = ["name", "description"]
+
+        # Adding 'autocomplete: new-password' to disable suggestions on input field
+        # TODO: Look into other solutions for this? (later)
+        widgets = {
+            "name": Textarea(attrs={"autocomplete": "new-password"}),
+        }
 
     def clean_name(self) -> str:
         """Clean and validate field name.
@@ -58,7 +65,6 @@ class ColumnMetadataForm(ModelForm):
     class Meta:  # noqa: D106
         model = ColumnMetadata
         fields = (
-            "id",
             "name",
             "title",
             "description",
@@ -66,3 +72,11 @@ class ColumnMetadataForm(ModelForm):
             "allow_missing_value",
             "allow_duplicate_value",
         )
+
+    def __init__(self, *args, **kwargs):
+        """Overriding the __init__ method."""
+        super().__init__(*args, **kwargs)
+
+        self.fields["data_type"].empty_label = None
+        # .empty_label removes the argument None from data_type, this could also be done
+        # in the settings.py file if we would like to make it global.
