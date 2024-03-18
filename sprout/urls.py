@@ -13,4 +13,9 @@ urlpatterns = [
         views.column_review,
         name="column-review",
     ),
+    path(
+        "view-existing-tables",
+        views.view_existing_tables,
+        name="view_existing_tables",
+    ),
 ]
