@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load tabindex %}
 
 {% block content %}
   <h2>
@@ -21,11 +22,11 @@
       <tbody>
         {% for form in forms %}
           <tr>
-            <td>{{ form.original_name }}</td>
-            <td>{{ form.name }}</td>
-            <td>{{ form.title }}</td>
-            <td style="overflow:hidden;">{{ form.description }}</td>
-            <td>{{ form.data_type }}</td>
+            <td>{{ form.instance.original_name }}</td>
+            <td>{{ form.name|tabindex:1 }}</td>
+            <td>{{ form.title|tabindex:2 }}</td>
+            <td style="overflow: hidden;">{{ form.description|tabindex:3 }}</td>
+            <td style="overflow: hidden;">{{ form.data_type|tabindex:4 }}</td>
             <input type="hidden" name="{{ form.prefix }}-id" value="{{ form.instance.id }}" />
           </tr>
         {% endfor %}
@@ -33,7 +34,6 @@
     </table>
     <button type="submit">Update All</button>
   </form>
-
   <!-- Help dialog -->
   <dialog class="dialog" id="help-ext_name">
     <h5 class="center-align">Fields</h5>

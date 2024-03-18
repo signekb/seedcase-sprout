@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load tabindex %}
 
 {% block content %}
 
@@ -9,12 +10,12 @@
   {% csrf_token %}
   {% for form in forms %}
 
-  <h5>Extracted field name: {{ form.original_name }}</h5>
+  <h5>Extracted field name: {{ form.instance.original_name }}</h5>
   <article class="border">
-    <p>Column name: {{ form.name }}</p>
-    <p>Display name: {{ form.title }}</p>
-    <p>Description: {{ form.description }}</p>
-    <p>Data Type: {{ form.data_type }}</p>
+    <p>Column name: {{ form.name|tabindex:1 }}</p>
+    <p>Display name: {{ form.title|tabindex:2 }}</p>
+    <p>Description: {{ form.description|tabindex:3 }}</p>
+    <p>Data Type: {{ form.data_type|tabindex:4 }}</p>
     <input type="hidden" name="{{ form.prefix }}-id" value="{{ form.instance.id }}">
   </article>
 
