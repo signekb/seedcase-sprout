@@ -3,7 +3,7 @@
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 
-from sprout.models import ColumnMetadata, TableMetadata
+from sprout.models import TableMetadata
 
 
 def view_existing_tables(
