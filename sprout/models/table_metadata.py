@@ -1,5 +1,6 @@
 """Module defining the TableMetaData model."""
-import datetime
+
+from datetime import datetime, timezone
 
 from django.conf import settings
 from django.db import models
@@ -36,6 +37,6 @@ class TableMetadata(models.Model):
             **kwargs: keyworded arguments required by Django
         """
         if self.id:
-            self.modified_at = datetime.datetime.now(datetime.UTC)
+            self.modified_at = datetime.now(timezone.utc)
 
         super().save(*args, **kwargs)
