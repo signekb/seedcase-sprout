@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+  .expandable {
+    cursor: pointer;
+    text-align: left;
+  }
+
+  .selectable:hover {
+    background-color: #ededed;
+    cursor: pointer;
+  }
+
+  .selected,
+  .selected:hover {
+    background-color: #DCDFFF;
+  }
+
+</style>
+
+
+<form id="selectedElementsForm" method="post">
+  {% csrf_token %}
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Data Rows</th>
+        <th>Date Created</th>
+        <th>Last Upload</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for table in existing_tables %}
+      <tr class="selectable{% if request.GET.selected_table_id|add:'0' == table.id %} selected{% endif %}"
+        id="{{table.id}}">
+        <td><a href="{% url 'view_existing_tables' %}?selected_table_id={{table.id}}">{{table.name}}</a></td>
+        <td>{{table.description}}</td>
+        <td>Cell</td>
+        <td>{{table.created_at}}</td>
+        <td>Cell</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <nav class="right-align">
+    <button type="submit" name="button_create"><i>add</i>Create Metadata</button>
+    <button type="submit" name="button_edit"><i>edit</i>Edit Metadata</button>
+    <button type="submit" name="button_upload"><i>upload</i>Upload Data</button>
+  </nav>
+
+</form>
+
+
+{% endblock content %}
