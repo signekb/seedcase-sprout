@@ -15,7 +15,6 @@ from .data_import import data_import
 from .existing_tables import (
     view_existing_tables,
 )
-from .file_upload import file_upload
 from .metadata_create import metadata_create
 from .metadata_review import metadata_review
 from .table_files import table_file_download, table_files
