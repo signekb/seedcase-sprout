@@ -1,5 +1,5 @@
 ---
-title: "Naming of things"
+title: "Naming of Things"
 ---
 
 {{< include ../_wip.qmd >}}
@@ -18,28 +18,28 @@ How we name things, both internally and user-facing, will be:
 ## Composing names
 
 We'll compose names based on the objects we and our users interact with as well
-as the actions taken on those objects. These objects and actions are inspired from 
-the "core" language of working with data (CRUD: Create Read Update Delete) as
-well as with HTTP verbs (GET, POST, PUT, PATCH, and DELETE).
+as the actions taken on those objects. These objects and actions are inspired by 
+the "core" language of working with data called *CRUD* (Create Read Update Delete) as
+well as by the vocabulary of the HTTP verbs (GET, POST, PUT, PATCH, and DELETE):
 
 - Types of objects Sprout interacts with: projects, data, and metadata.
-- Types of actions Sprout takes on those objects: create, view (or list), edit (or update), delete (?), and upload.
-- Types of identifiers for sub-items of objects (as numbers or text): data, metadata, and project identifiers.
+- Types of actions Sprout takes on those objects: create, view (or list), edit (or update), delete, and upload.
+- Types of identifiers for specific items of objects (as numbers or text): data, metadata, and project identifiers.
 
-To name things, we'll combine them first with the object name, followed by the
+To name things, we'll combine the above with the object name first, followed by the
 action, with a natural heirarchy and "ownership" to the objects. Based on these
-principles, we can derive a naming scheme. In the scheme, a space separates the
-objects and actions, with names occurring first acting as a "parent" to later
-names. The space will be replaced by a symbol based on its context:
+principles, we can derive a naming scheme. In the scheme, objects and actions 
+are ordered, with names occurring first acting as a "parent" to later
+names. The names are separated by a symbol based on its context:
 
 - `_` for Python function names.
-- `-` for file paths names.
-- `/` for URLs and web API endpoint names (a `/` always begins each URL to act as a root).
+- `-` for file path names.
+- `/` for URLs and web API endpoint names (a `/` always begins each URL to act as a root, but never ends a URL).
 - ` ` for command line interface names.
 
 ## Scheme
 
-Based the above principles, we have defined the following naming scheme:
+Based on the above principles, we have defined the following naming scheme (here shown with `space` as separator):
 
 ```
 # View all projects
@@ -48,7 +48,7 @@ projects view
 # View landing page of a specific project
 projects <id> view
 
-# View, create, or edit metadata about a specific project 
+# View, create, or edit metadata for a specific project 
 projects <id> metadata view
 projects <id> metadata create
 projects <id> metadata edit
@@ -67,13 +67,13 @@ projects <id> data <id> metadata upload
 # a specific project
 projects <id> data <id> view
 
-# Create, edit, or upload data of a specific data 
+# Create data for, edit data of, or upload data to a specific data 
 # object in a specific project
 projects <id> data <id> edit
 projects <id> data <id> upload
 ```
 
-Where `<id>` is a placeholder for a number or text for the identifier of it's
+Where `<id>` is a placeholder for a number for the identifier of it's
 parent object. `view` could be the default action when an object is given
 without an action.  For instance, these could be equivalent:
 
