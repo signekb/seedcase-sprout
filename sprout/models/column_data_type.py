@@ -67,9 +67,9 @@ COLUMN_DATA_TYPES = [
         id=3,
         display_name="True/False",
         polars_types="Boolean",
-        description="Also known as boolean or logical. Sprout stores this data type as True "
-        "or False. If you need or want to store actual words, "
-        "use the Text field.",
+        description="Also known as boolean or logical. Sprout stores this data type as "
+        "True or False. If you need or want to store actual "
+        "words, use the Text field.",
     ),
     ColumnDataType(
         id=4,
