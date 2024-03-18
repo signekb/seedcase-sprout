@@ -62,8 +62,10 @@
           </div>
         </div>
       </a>
+      {% empty %}
+      <p>Sorry, there is currently no existing data to show.</p>
+      {% endfor %}
     </div>
-    {% endfor %}
   </div>
 
   <nav class="right-align">
