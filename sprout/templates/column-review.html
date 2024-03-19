@@ -4,9 +4,10 @@
 
 {% block content %}
   <h2 style="margin-bottom: 20px">Headers for {{ table_metadata.name }}</h2>
+  <button onclick="toggle(this)">Show Table View</button>
   <form method="post" action="">
     {% csrf_token %}
-    <table hidden>
+    <table id="metadata_view_table" hidden>
       <thead>
         <tr>
           <th>Extracted Name</th>
@@ -49,44 +50,65 @@
     </div>
 
     <!-- The cards in a row and wrapped to next line -->
-    <div class="row wrap">
-      {% for column in columns %}
-        <!--  -->
-        <article class="row" style="border: 1px solid gray; padding: 5px; border-radius: 12px; width: 23%; ">
-          <div style="padding: 5px; min-width: 0; flex: 1;">
-            <p style="text-align: center; font-size: 1.25rem; font-weight: bold; margin-bottom: 20px">{{ column.title }}</p>
-            <div class="field label small border" style="margin-bottom: 40px">
-              {{ column.form.title|tabindex:1 }}
-              <label>Title</label>
-              <span class="helper">From: '{{ column.original_name }}'</span>
-            </div>
+    <div id="metadata_view_grid">
+      <div class="row wrap">
+        {% for column in columns %}
+          <!--  -->
+          <article class="row" style="border: 1px solid gray; padding: 5px; border-radius: 12px; width: 23%; ">
+            <div style="padding: 5px; min-width: 0; flex: 1;">
+              <p style="text-align: center; font-size: 1.25rem; font-weight: bold; margin-bottom: 20px">{{ column.title }}</p>
+              <div class="field label small border" style="margin-bottom: 40px">
+                {{ column.form.title|tabindex:1 }}
+                <label>Title</label>
+                <span class="helper">From: '{{ column.original_name }}'</span>
+              </div>
 
-            <div hidden>{{ column.form.name|tabindex:2 }}</div>
+              <div hidden>{{ column.form.name|tabindex:2 }}</div>
 
-            <div class="field label suffix border" style="margin-bottom: 20px">
-              {{ column.form.data_type|tabindex:3 }}
-              <label>Type</label>
-              <i>arrow_drop_down</i>
-            </div>
+              <div class="field label suffix border" style="margin-bottom: 20px">
+                {{ column.form.data_type|tabindex:3 }}
+                <label>Type</label>
+                <i>arrow_drop_down</i>
+              </div>
 
-            <div class="field label small border" style="margin-bottom: 20px">
-              {{ column.form.description|tabindex:4 }}
-              <label>Description</label>
-            </div>
+              <div class="field label small border" style="margin-bottom: 20px">
+                {{ column.form.description|tabindex:4 }}
+                <label>Description</label>
+              </div>
 
-            <div style="min-width: 0">
-              <p style="color: grey; font-size: 0.75rem; font-weight: bold; margin-bottom: 5px">Data preview:</p>
-              {% for cell in column.data %}
-                <p style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ cell }}</p>
-              {% endfor %}
+              <div style="min-width: 0">
+                <p style="color: grey; font-size: 0.75rem; font-weight: bold; margin-bottom: 5px">Data preview:</p>
+                {% for cell in column.data %}
+                  <p style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ cell }}</p>
+                {% endfor %}
+              </div>
             </div>
-          </div>
-        </article>
-      {% endfor %}
+          </article>
+        {% endfor %}
+      </div>
     </div>
 
     <div class="row" style="justify-content: center">
       <button type="submit" tabindex="10">Update All</button>
     </div>
   </form>
+
+  <script>
+    let toggle = (button) => {
+      let element_table = document.getElementById('metadata_view_table')
+      let element_grid = document.getElementById('metadata_view_grid')
+      let hidden_table = element_table.getAttribute('hidden')
+      let hidden_grid = element_grid.getAttribute('hidden')
+    
+      if (hidden_table) {
+        element_table.removeAttribute('hidden')
+        element_grid.setAttribute('hidden', 'hidden')
+        button.innerText = 'Show Grid View'
+      } else {
+        element_grid.removeAttribute('hidden')
+        element_table.setAttribute('hidden', 'hidden')
+        button.innerText = 'Show Table View'
+      }
+    }
+  </script>
 {% endblock %}
