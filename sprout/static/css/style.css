@@ -11,3 +11,11 @@
   width: 400px;
   height: 400px;
 }
+
+dt {
+  font-weight: bold;
+}
+
+dd {
+  margin: 0;
+}

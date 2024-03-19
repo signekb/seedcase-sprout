@@ -1,4 +1,5 @@
 """Testing column datatypes."""
+
 import datetime
 
 import polars
@@ -27,12 +28,12 @@ class ColumnDataTypeTests(TestCase):
         self.assertEqual("Whole Number", data_type.display_name)
 
     def test_get_from_series_YesOrNo(self):
-        """Series with booleans should return type: Yes/No"""
+        """Series with booleans should return type: True/False"""
         series = polars.Series("series", [True])
 
         data_type = ColumnDataType.get_from_series(series)
 
-        self.assertEqual("Yes/No", data_type.display_name)
+        self.assertEqual("True/False", data_type.display_name)
 
     def test_get_from_series_Time(self):
         """Series with time should return type: Time"""

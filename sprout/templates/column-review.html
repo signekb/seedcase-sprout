@@ -3,7 +3,10 @@
 {% load tabindex %}
 
 {% block content %}
-  <h2 style="margin-bottom: 20px">Headers for {{ table_metadata.name }}</h2>
+  <h2 style="margin-bottom: 20px">
+    Headers for {{ table_metadata.name }}
+    <button class="circle small fill" data-ui="#help-ext_name"><i>question_mark</i></button>
+  </h2>
   <button onclick="toggle(this)">Show Table View</button>
 
   <!-- TABLE VIEW -->
@@ -17,8 +20,6 @@
           <th>Display Title</th>
           <th>Description</th>
           <th>Data Type</th>
-          <th>Allow Missing</th>
-          <th>Allow Duplicate</th>
         </tr>
       </thead>
       <tbody>
@@ -29,8 +30,6 @@
             <td>{{ form.title|tabindex:2 }}</td>
             <td style="overflow: hidden;">{{ form.description|tabindex:3 }}</td>
             <td style="overflow: hidden;">{{ form.data_type|tabindex:4 }}</td>
-            <td>{{ form.allow_missing_value|tabindex:5 }}</td>
-            <td>{{ form.allow_duplicate_value|tabindex:6 }}</td>
             <input type="hidden" name="{{ form.prefix }}-id" value="{{ form.instance.id }}" />
           </tr>
         {% endfor %}
@@ -103,6 +102,29 @@
       <button type="submit" tabindex="10">Update All</button>
     </div>
   </form>
+
+  <!-- Help dialog -->
+  <dialog class="dialog" id="help-ext_name">
+    <h5 class="center-align">Fields</h5>
+    <dl>
+      <dt>Extracted Name</dt>
+      <dd>Is the column name taken from the first file uploaded, this can't be changed.</dd>
+      <dt>Column Name</dt>
+      <dd>Is the name that you would like the variable to have going forward, this can be the same as the extracted name.</dd>
+      <dt>Display Title</dt>
+      <dd>Can be use when you want to show the data in a more 'human readable' way. An example could be the variable b60, which you could call Blood taken after 60 minutes.</dd>
+      <dt>Description</dt>
+      <dd>You can give extra details about the variable here, including things like when a sample is taken, etc.</dd>
+      <dt>Data Type</dt>
+      <dd>This is the data type of the variable, this will need to be defined in order for data to be saved, what you see in the list initially is the best guess from Seedcase Sprout based on the data you uploaded.</dd>
+    </dl>
+    <p>
+      See our <a href="https://design.seedcase-project.org/"><span style="color:blue">documentation</span></a> for more information.
+    </p>
+    <nav class="right-align no-space">
+      <a class="transparent link" data-ui="#help-ext_name">Close</a>
+    </nav>
+  </dialog>
 
   <script>
     let toggle = (button) => {
