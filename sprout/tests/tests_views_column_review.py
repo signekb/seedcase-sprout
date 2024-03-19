@@ -34,8 +34,9 @@ class ColumnReviewViewTest(TestCase):
 
         file = io.BytesIO(b"TestColumn,Letter\n1,A\n2,B\n3,C")
         file.name = "file-name.csv"
-        self.file_metadata = FileMetadata.create_file_metadata(file,
-                                                               self.table_metadata.id)
+        self.file_metadata = FileMetadata.create_file_metadata(
+            file, self.table_metadata.id
+        )
 
     def test_column_review_view_get(self):
         """Test that the get function works."""
