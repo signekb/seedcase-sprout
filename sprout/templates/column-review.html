@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load tabindex %}
+{% load widget_tweaks %}
 
 {% block content %}
   <h2 style="margin-bottom: 20px">
@@ -26,10 +26,10 @@
         {% for form in forms %}
           <tr>
             <td>{{ form.instance.original_name }}</td>
-            <td>{{ form.name|tabindex:1 }}</td>
-            <td>{{ form.title|tabindex:2 }}</td>
-            <td style="overflow: hidden;">{{ form.description|tabindex:3 }}</td>
-            <td style="overflow: hidden;">{{ form.data_type|tabindex:4 }}</td>
+            <td>{{ form.name|attr:"tabindex:1" }}</td>
+            <td>{{ form.title|attr:"tabindex:2" }}</td>
+            <td style="overflow: hidden;">{{ form.description|attr:"tabindex:3" }}</td>
+            <td style="overflow: hidden;">{{ form.data_type|attr:"tabindex:4" }}</td>
             <input type="hidden" name="{{ form.prefix }}-id" value="{{ form.instance.id }}" />
           </tr>
         {% endfor %}
@@ -46,10 +46,10 @@
     <div>
       {% for form in forms %}
         <article class="border">
-          <p>Column name: {{ form.name|tabindex:1 }}</p>
-          <p>Display name: {{ form.title|tabindex:2 }}</p>
-          <p>Description: {{ form.description|tabindex:3 }}</p>
-          <p>Data Type: {{ form.data_type|tabindex:4 }}</p>
+          <p>Column name: {{ form.name|attr:"tabindex:1" }}</p>
+          <p>Display name: {{ form.title|attr:"tabindex:2" }}</p>
+          <p>Description: {{ form.description|attr:"tabindex:3" }}</p>
+          <p>Data Type: {{ form.data_type|attr:"tabindex:4" }}</p>
           <input type="hidden" name="{{ form.prefix }}-id" value="{{ form.instance.id }}" />
         </article>
       {% endfor %}
@@ -69,22 +69,22 @@
           <div style="padding: 5px; min-width: 0; flex: 1;">
             <p style="text-align: center; font-size: 1.25rem; font-weight: bold; margin-bottom: 20px">{{ column.title }}</p>
             <div class="field label small border" style="margin-bottom: 40px">
-              {{ column.form.title|tabindex:1 }}
+              {{ column.form.title|attr:"tabindex:1" }}
               <label>Title</label>
               <span class="helper">From: '{{ column.original_name }}'</span>
             </div>
 
-            <div hidden>{{ column.form.name|tabindex:2 }}</div>
+            <div hidden>{{ column.form.name|attr:"tabindex:2" }}</div>
 
             <div class="field label suffix border" style="margin-bottom: 20px">
-              {{ column.form.data_type|tabindex:3 }}
+              {{ column.form.data_type|attr:"tabindex:3" }}
               <label>Type</label>
               <i>arrow_drop_down</i>
             </div>
 
             <div class="field label small border" style="margin-bottom: 20px">
-              {{ column.form.description|tabindex:4 }}
-              <label>Description</label>
+              {{ column.form.description|attr:"tabindex:4"|attr:"class:active" }}
+              <label class="active">Description</label>
             </div>
 
             <div style="min-width: 0">

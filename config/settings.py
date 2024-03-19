@@ -43,6 +43,7 @@ if APP_NAME:
 
 # Application definition
 INSTALLED_APPS = [
+    "widget_tweaks",
     "sprout",
     "django.contrib.admin",
     "django.contrib.auth",
