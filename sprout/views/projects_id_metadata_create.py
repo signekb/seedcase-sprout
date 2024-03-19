@@ -7,12 +7,12 @@ from sprout.csv.csv_reader import read_csv_file
 from sprout.models import ColumnMetadata, FileMetadata, TableMetadata
 
 
-def projects_id_data_id_metadata_create(
+def projects_id_metadata_create(
     request: HttpRequest, table_id: int
 ) -> HttpResponse | HttpResponseRedirect:
     """Renders page for creating metadata for data.
 
-    The table_id comes from the url. The table_id is used fetch the
+    The ``table_id`` comes from the URL. The ``table_id`` is used fetch the
     table_metadata from the database.
 
     - On GET requests, the page is rendered.
@@ -20,8 +20,8 @@ def projects_id_data_id_metadata_create(
       metadata persisted for the table.
 
     Args:
-        request: the http request from the user/browser
-        table_id: the table_id based
+        request: The HTTP request from the server.
+        table_id: The ``table_id`` from the TableMetadata.
 
     Returns:
         HttpResponse: For GET requests and POST requests with errors
@@ -30,7 +30,7 @@ def projects_id_data_id_metadata_create(
     if request.method == "POST":
         return handle_post_request_with_file(request, table_id)
 
-    return render_projects_id_data_id_metadata_create_page(request, table_id, "")
+    return render_projects_id_metadata_create(request, table_id, "")
 
 
 def handle_post_request_with_file(
@@ -60,14 +60,12 @@ def handle_post_request_with_file(
         validate_csv_and_save_columns(table_id, file_meta)
     except csv.Error as csv_error:
         file_meta.delete()
-        return render_projects_id_data_id_metadata_create_page(
-            request, table_id, csv_error.args[0]
-        )
+        return render_projects_id_metadata_create(request, table_id, csv_error.args[0])
 
-    return redirect("/data/" + str(table_id) + "/metadata/edit/table")
+    return redirect("/metadata/" + str(table_id) + "/update")
 
 
-def render_projects_id_data_id_metadata_create_page(
+def render_projects_id_metadata_create(
     request: HttpRequest, table_id: int, upload_error: str
 ) -> HttpResponse:
     """Render page with an error if there is any.
@@ -85,7 +83,7 @@ def render_projects_id_data_id_metadata_create_page(
         "table_name": table_metadata.name,
         "upload_error": upload_error,
     }
-    return render(request, "projects-id-data-id-metadata-create.html", data_metadata)
+    return render(request, "projects-id-metadata-create.html", data_metadata)
 
 
 def validate_csv_and_save_columns(table_id: int, file: FileMetadata) -> None:

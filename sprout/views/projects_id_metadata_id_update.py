@@ -1,3 +1,4 @@
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 
@@ -6,17 +7,18 @@ from sprout.forms import ColumnMetadataForm
 from sprout.models import ColumnMetadata, FileMetadata, TableMetadata
 
 
-def projects_id_data_id_metadata_edit_table(request, table_id):
-    """Takes the data from ColumnMetadata and displays as a table.
+def projects_id_metadata_id_update(request: HttpRequest, table_id: int) -> HttpResponse:
+    """Takes the data from ColumnMetadata and displays the metadata to update.
 
-    The table can be edited and the result written back to the database.
+    The metadata can be edited and the result written back to the column metadata
+    database.
 
-    Args: Must learn what to write here
-        request: _description_
-        table_name: _description_
+    Args:
+        request: The HTTP request sent from the server (by the user).
+        table_id: The ``table_id`` from TableMetadata.
 
-    Returns: Must learn what to write here
-        _type_: _description_
+    Returns:
+        HttpResponse: A response given back to the server.
     """
     table_metadata = get_object_or_404(TableMetadata, id=table_id)
     columns_metadata = ColumnMetadata.objects.select_related("data_type").filter(
@@ -47,9 +49,7 @@ def projects_id_data_id_metadata_edit_table(request, table_id):
         if all(form.is_valid() for form in forms):
             for form in forms:
                 form.save()
-            return redirect(
-                reverse("projects-id-data-id-metadata-edit-table", args=[table_id])
-            )
+            return redirect(reverse("projects-id-metadata-id-update", args=[table_id]))
 
     else:
         forms = [
@@ -59,7 +59,7 @@ def projects_id_data_id_metadata_edit_table(request, table_id):
 
     return render(
         request,
-        "projects-id-data-id-metadata-edit-table.html",
+        "projects-id-metadata-id-update.html",
         {
             "forms": forms,
             "table_metadata": table_metadata,

@@ -8,17 +8,14 @@ urlpatterns = [
     path("", views.home, name="home"),
     path("view", views.projects_id_view, name="projects-id-view"),
     path(
-        "data/<int:table_id>/metadata/create", views.projects_id_data_id_metadata_create
+        "metadata/create",
+        views.projects_id_metadata_create,
+        name="projects-id-metadata-create",
     ),
     path(
-        "data/<int:table_id>/metadata/edit/table",
-        views.projects_id_data_id_metadata_edit_table,
-        name="projects-id-data-id-metadata-edit-table",
-    ),
-    path(
-        "data/<int:table_id>/metadata/edit/grid",
-        views.projects_id_data_id_metadata_edit_grid,
-        name="projects-id-data-id-metadata-edit-grid",
+        "metadata/<int:table_id>/update",
+        views.projects_id_metadata_id_update,
+        name="projects-id-metadata-id-update",
     ),
     path("table-files/<int:table_id>", views.table_files, name="table_files"),
     path(

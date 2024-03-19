@@ -8,10 +8,10 @@ from sprout.models import FileMetadata, TableMetadata
 from sprout.tests.db_test_utils import create_table
 
 
-class FileUploadTests(TestCase):
+class MetadataCreateTests(TestCase):
     """Tests for the file upload view."""
 
-    def test_render_projects_id_data_id_metadata_create_view_and_verify_loaded_table_names(
+    def test_render_projects_id_metadata_create_view_and_verify_loaded_table_names(
         self,
     ):
         """Test for the view being loaded and table_name is present in view.
@@ -23,7 +23,7 @@ class FileUploadTests(TestCase):
         create_table(table_name).save()
 
         # Act
-        response = self.client.get("data/1/metadata/edit/table")
+        response = self.client.get("metadata/1/update")
 
         # Assert.
         self.assertEqual(response.status_code, 200)
@@ -32,21 +32,19 @@ class FileUploadTests(TestCase):
     def test_upload_of_file_should_create_columns_in_database(self):
         """Test for a table being created when csv is uploaded."""
         # Arrange
-        table_name = "Table Name"
-        file_name = "file.csv"
+        table_name = "Table"
+        file_name = table_name + ".csv"
         create_table(table_name).save()
         file = self.create_file(file_name, "name,city,age\nPhil,Aarhus,36")
 
         # Act
-        response = self.client.post(
-            "data/1/metadata/edit/table", {"uploaded_file": file}
-        )
+        response = self.client.post("metadata/1/update", {"uploaded_file": file})
 
         # Assert
         table = TableMetadata.objects.get(name=table_name)
-        self.assertEqual("file.csv", table.original_file_name)
+        self.assertEqual("Table.csv", table.original_file_name)
         self.assertEqual(302, response.status_code, "Redirect is expected")
-        self.assertEqual("/data/1/metadata/edit/table", response.url)
+        self.assertEqual("/metadata/1/update", response.url)
         self.assertEqual(3, table.columnmetadata_set.all().count(), "expects 3 columns")
         # Clean up
         FileMetadata.objects.first().delete()
@@ -56,9 +54,7 @@ class FileUploadTests(TestCase):
         create_table("Table Name").save()
         file = self.create_file("file-with-wrong-ext.svg", "file content")
 
-        response = self.client.post(
-            "data/1/metadata/edit/table", {"uploaded_file": file}
-        )
+        response = self.client.post("metadata/1/update", {"uploaded_file": file})
 
         self.assertContains(response, "Unsupported file format: .svg")
 
@@ -67,9 +63,7 @@ class FileUploadTests(TestCase):
         create_table("Table Name").save()
         file = self.create_file("file-with-bad-headers.csv", "name, age")
 
-        response = self.client.post(
-            "data/1/metadata/edit/table", {"uploaded_file": file}
-        )
+        response = self.client.post("metadata/1/update", {"uploaded_file": file})
 
         self.assertContains(response, "Invalid CSV. No rows found!")
 

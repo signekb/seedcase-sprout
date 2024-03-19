@@ -1,5 +1,3 @@
-"""Tests for views."""
-
 import io
 import os
 
@@ -9,7 +7,7 @@ from django.urls import reverse
 from sprout.models import ColumnMetadata, FileMetadata, TableMetadata
 
 
-class DataIDMetadataEditTableViewTest(TestCase):
+class MetadataIDUpdateViewTest(TestCase):
     """Test for the Data Metadata Edit (as table) page."""
 
     def setUp(self):
@@ -28,34 +26,28 @@ class DataIDMetadataEditTableViewTest(TestCase):
             allow_missing_value=True,
             allow_duplicate_value=True,
         )
-
-    def test_projects_id_data_id_metadata_edit_table_view_get(self):
         file = io.BytesIO(b"TestColumn,Letter\n1,A\n2,B\n3,C")
         file.name = "file-name.csv"
         self.file_metadata = FileMetadata.create_file_metadata(
             file, self.table_metadata.id
         )
 
-    def test_column_review_view_get(self):
+    def test_projects_id_metadata_id_update_view_get(self):
         """Test that the get function works."""
         # Arrange
-        url = reverse(
-            "projects-id-data-id-metadata-edit-grid", args=[self.table_metadata.id]
-        )
+        url = reverse("projects-id-metadata-id-update", args=[self.table_metadata.id])
 
         # Act
         response = self.client.get(url)
 
         # Assert
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "projects-id-data-id-metadata-edit-grid.html")
+        self.assertTemplateUsed(response, "projects-id-metadata-id-update.html")
 
-    def test_projects_id_data_id_metadata_edit_table_view_post_valid_data(self):
+    def test_projects_id_metadata_id_update_view_post_valid_data(self):
         """Test that the view works if valid data is entered."""
         # Arrange
-        url = reverse(
-            "projects-id-data-id-metadata-edit-grid", args=[self.table_metadata.id]
-        )
+        url = reverse("projects-id-metadata-id-update", args=[self.table_metadata.id])
         data = {
             f"{self.column_metadata.id}-name": "Updated Column Name",
             f"{self.column_metadata.id}-title": "Updated Column Title",
