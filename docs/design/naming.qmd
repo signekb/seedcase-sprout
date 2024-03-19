@@ -17,6 +17,11 @@ How we name things, both internally and user-facing, will be:
 
 ## User-facing content
 
+The below naming scheme *only* applies to file paths, functions, URLS,
+API endpoints, and command line interfaces that are exposed to or
+associated with user-facing content. It does *not* apply to internal
+content; see section below on naming for developer-facing content.
+
 ### Composing names
 
 We'll compose names based on the objects we and our users interact with as well
@@ -87,3 +92,52 @@ projects <id> metadata <id> delete
 projects <id> metadata <id> data update
 projects <id> metadata <id> data delete
 ```
+
+## Developer-facing (internal) content
+
+### Python functions
+
+Following the same naming schemes for CRUD, HTTP verbs, and common REST
+API endpoints, these are some guidelines on the general words to use for
+actions and objects:
+
+-   Actions: get/list, update/edit, delete/remove, create,
+    convert/transform/modify, extract, validate/check/verify/is, read,
+    write, as/to
+-   Objects: array (analogous to non-nested Lists, Sets, and Series (in
+    Pandas/Polars) in Python), lists (analogous to nested Lists, Tuples,
+    and Dictionaries in Python or Tables in SQL), files, classes
+
+Some general guidelines when naming things in Python:
+
+-   Functions:
+    -   Use `snake_case()`.
+    -   Prefer a single action verb for functions: `action()`.
+    -   Use the arguments to specify the object: `action(object=)`.
+    -   If necessary, include the object in the name following the
+        pattern `action_object()`.
+    -   If the object is in the name, prefer the plural form of the
+        object if the function could return multiple items of an object.
+    -   If the object is in the name, prefer a single object name rather
+        than multiple.
+-   Methods (includes everything from the functions):
+    -   Prefer action verbs only: `ClassName.action()`.
+-   Classes:
+    -   Use `PascalCase`.
+    -   Use objects as the class name: `Object`.
+    -   Prefer the plural form of the object name: `Objects`.
+    -   Prefer a single object name (`Objects`) rather than multiple
+        (`TwoObjects`).
+-   Variables (of any type):
+    -   Use `snake_case`.
+    -   Prefer a plural form for objects if they *could* contain more
+        than one item.
+    -   Use singular form *only* if the object *must* only contain one
+        item.
+    -   If an action name is necessary, prefix action verb in the past
+        tense: `actioned_object`.
+-   Arguments (includes everything from the variables above):
+    -   Prefer single object names rather than actions: `object`.
+    -   Prefer the plural form: `objects`.
+    -   Use singular form *only* if the function or method input *must*
+        only contain one item.
