@@ -1,0 +1,81 @@
+---
+title: "Naming of Things"
+---
+
+{{< include ../_wip.qmd >}}
+
+## Philosophy and ideals
+
+How we name things, both internally and user-facing, will be:
+
+- Simple: Keep the vocabulary simple and easy to understand
+- Composable: Can be combined with other names to imply intent
+- Predictable: Easy to guess and reason on, without needing to look up documentation
+- Reusable: Can be used across multiple contexts
+- Consistent: Remains the same across different contexts
+- Align with existing conventions: Follow widely-established standards and conventions
+
+## Composing names
+
+We'll compose names based on the objects we and our users interact with as well
+as the actions taken on those objects. These objects and actions are inspired by and align with
+the "core" language of working with data called *CRUD* (Create Read Update Delete), common naming schemes used in REST API applications or services (such as Github), as
+well as by the vocabulary of the HTTP verbs (GET, POST, PUT, PATCH, and DELETE):
+
+- Types of objects Sprout interacts with: projects, data, and metadata.
+- Types of actions Sprout takes on those objects: create, view, edit, delete, and upload.
+- Types of identifiers for specific items of objects (as numbers): data, metadata, and project identifiers.
+
+To name things, we'll combine the above with the object name first, followed by the
+action, with a natural heirarchy of "offspring" to the objects. Based on these
+principles, we can derive a naming scheme. In the scheme, objects and actions 
+are ordered, with names occurring first acting as a "parent" to later
+names. The names are separated by a symbol based on its context:
+
+- `_` for Python function names.
+- `-` for file path names.
+- `/` for URLs and web API endpoint names (a `/` always begins each URL to act as a root, but never ends a URL).
+- ` ` for command line interface names.
+
+Additional "rules" to the naming include:
+
+- When a naming scheme ends without an action, the default action is `view`.
+- When there are naming schemes that have a duplicate final result, the shorter name is preferred.
+
+## Scheme
+
+Based on the above principles, we have defined the following naming scheme (here shown with `space` as separator):
+
+```
+# View all projects
+projects
+
+# View landing page (the metadata) of a specific project
+projects <id> 
+
+# View, create, or edit the metadata of a specific project 
+projects create
+projects <id> edit
+
+# View all data objects of a specific project
+projects <id> data
+
+# Create a new data object in a specific project
+projects <id> data create
+# This line below is equivalent to the one above
+# projects <id> data <id> metadata create
+
+# View landing page (the metadata) of a specific data object in 
+# a specific project
+projects <id> data <id>
+
+# Edit or upload metadata of a specific data object in a 
+# specific project
+projects <id> data <id> metadata edit
+projects <id> data <id> metadata upload
+
+# Edit data of or upload data to a specific data 
+# object in a specific project
+projects <id> data <id> edit
+projects <id> data <id> upload
+```
