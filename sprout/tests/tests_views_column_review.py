@@ -32,6 +32,10 @@ class ColumnReviewViewTest(TestCase):
             allow_duplicate_value=True,
         )
 
+        file = io.BytesIO(b"TestColumn,Letter\n1,A\n2,B\n3,C")
+        file.name = "file-name.csv"
+        self.file_metadata = FileMetadata.create_file_metadata(file, self.table_metadata.id)
+
     def test_column_review_view_get(self):
         """Test that the get function works."""
         # Arrange
@@ -48,9 +52,7 @@ class ColumnReviewViewTest(TestCase):
         """Test of column-review page. Preview data is extracted from file, so it
         needs to be created too."""
         # Arrange
-        file = io.BytesIO(b"TestColumn,Letter\n1,A\n2,B\n3,C")
-        file.name = "file-name.csv"
-        file_metadata = FileMetadata.create_file_metadata(file, self.table_metadata.id)
+
         url = reverse("column-review", args=[self.table_metadata.id])
         data = {
             f"{self.column_metadata.id}-name": "Updated Column Name",
@@ -66,4 +68,6 @@ class ColumnReviewViewTest(TestCase):
 
         # Assert the status code
         self.assertEqual(response.status_code, 200)
-        os.remove(file_metadata.server_file_path)
+
+    def tearDown(self):
+        os.remove(self.file_metadata.server_file_path)
