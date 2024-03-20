@@ -22,7 +22,7 @@ def project_id_data(
         HTTP response that either renders the project-id-data page or redirects
         to create new metadata, edit metadata, or upload new data.
     """
-    metadata = TableMetadata.objects.all()
+    existing_metadata = TableMetadata.objects.all()
     selected_metadata_id = request.GET.get("selected_metadata_id")
     msg_edit_upload_wo_selected_row = None
 
@@ -49,7 +49,7 @@ def project_id_data(
         request,
         "project-id-data.html",
         {
-            "existing_metadata": metadata,
+            "existing_metadata": existing_metadata,
             "selected_metadata_id": selected_metadata_id,
             "msg_edit_upload_wo_selected_row": msg_edit_upload_wo_selected_row,
         },
