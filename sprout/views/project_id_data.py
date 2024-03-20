@@ -3,7 +3,7 @@
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 
-from sprout.models import TableMetadata
+from sprout.models import ColumnMetadata, TableMetadata
 
 
 def project_id_data(
@@ -24,6 +24,7 @@ def project_id_data(
     """
     metadata = TableMetadata.objects.all()
     selected_metadata_id = request.GET.get("selected_metadata_id")
+    columns = ColumnMetadata.objects.filter(table_metadata_id=selected_metadata_id)
 
     if request.method == "POST":
         # TODO: Add correct redirect for each button
@@ -40,6 +41,7 @@ def project_id_data(
         {
             "existing_metadata": metadata,
             "selected_metadata_id": selected_metadata_id,
+            "columns": columns,
         },
     )
 
