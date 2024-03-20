@@ -1,4 +1,5 @@
 """Tests for views."""
+
 import io
 import os
 
@@ -31,6 +32,12 @@ class ColumnReviewViewTest(TestCase):
             allow_duplicate_value=True,
         )
 
+        file = io.BytesIO(b"TestColumn,Letter\n1,A\n2,B\n3,C")
+        file.name = "file-name.csv"
+        self.file_metadata = FileMetadata.create_file_metadata(
+            file, self.table_metadata.id
+        )
+
     def test_column_review_view_get(self):
         """Test that the get function works."""
         # Arrange
@@ -44,8 +51,10 @@ class ColumnReviewViewTest(TestCase):
         self.assertTemplateUsed(response, "column-review.html")
 
     def test_column_review_view_post_valid_data(self):
-        """Test that the view works if valid data is entered."""
+        """Test of column-review page. Preview data is extracted from file, so it
+        needs to be created too."""
         # Arrange
+
         url = reverse("column-review", args=[self.table_metadata.id])
         data = {
             f"{self.column_metadata.id}-name": "Updated Column Name",
@@ -62,26 +71,5 @@ class ColumnReviewViewTest(TestCase):
         # Assert the status code
         self.assertEqual(response.status_code, 200)
 
-    def test_metadata_review_view_post_valid_data(self):
-        """Test of metadata-review page. Preview data is extracted from file, so it
-        needs to be created too."""
-        # Arrange
-        file = io.BytesIO(b"TestColumn,Letter\n1,A\n2,B\n3,C")
-        file.name = "file-name.csv"
-        file_metadata = FileMetadata.create_file_metadata(file, self.table_metadata.id)
-        url = reverse("metadata-review", args=[self.table_metadata.id])
-        data = {
-            f"{self.column_metadata.id}-name": "Updated Column Name",
-            f"{self.column_metadata.id}-title": "Updated Column Title",
-            f"{self.column_metadata.id}-description": "Test Description",
-            f"{self.column_metadata.id}-data_type": 0,
-            f"{self.column_metadata.id}-allow_missing_value": True,
-            f"{self.column_metadata.id}-allow_duplicate_value": False,
-        }
-
-        # Act
-        response = self.client.post(url, data, follow=True)
-
-        # Assert the status code
-        self.assertEqual(response.status_code, 200)
-        os.remove(file_metadata.server_file_path)
+    def tearDown(self):
+        os.remove(self.file_metadata.server_file_path)

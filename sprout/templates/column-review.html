@@ -1,45 +1,145 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load tabindex %}
+{% load widget_tweaks %}
 
 {% block content %}
+  <h2 style="margin-bottom: 20px">
+    Headers for {{ table_metadata.name }}
+    <button class="circle small fill" data-ui="#help-ext_name"><i>question_mark</i></button>
+  </h2>
+  <button onclick="toggle(this)">Show Table View</button>
 
-<h2>Headers and Definitions extracted for {{ table_metadata.name }}</h2>
+  <!-- TABLE VIEW -->
+  <form id="metadata_view_table" hidden method="post" action="">
+    {% csrf_token %}
+    <table>
+      <thead>
+        <tr>
+          <th>Extracted Name</th>
+          <th>Column Name</th>
+          <th>Display Title</th>
+          <th>Description</th>
+          <th>Data Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for form in forms %}
+          <tr>
+            <td>{{ form.instance.original_name }}</td>
+            <td>{{ form.name|attr:"tabindex:1" }}</td>
+            <td>{{ form.title|attr:"tabindex:2" }}</td>
+            <td style="overflow: hidden;">{{ form.description|attr:"tabindex:3" }}</td>
+            <td style="overflow: hidden;">{{ form.data_type|attr:"tabindex:4" }}</td>
+            <input type="hidden" name="{{ form.prefix }}-id" value="{{ form.instance.id }}" />
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <div class="row" style="justify-content: center">
+      <button type="submit" tabindex="10">Update All</button>
+    </div>
+  </form>
 
-<form method="post" action="">
-  {% csrf_token %}
-  <table>
-    <thead>
-      <tr>
-        <th>Extracted Name</th>
-        <th>Column Name</th>
-        <th>Display Title</th>
-        <th>Description</th>
-        <th>Data Type</th>
-        <th>Allow Missing</th>
-        <th>Allow Duplicate</th>
-      </tr>
-    </thead>
-    <tbody>
+  <!-- List View -->
+  <form hidden method="post" action="">
+    {% csrf_token %}
+    <div>
       {% for form in forms %}
-      <tr>
-        <td>{{ form.instance.original_name }}</td>
-        <td>{{ form.name|tabindex:1 }}</td>
-        <td>{{ form.title|tabindex:2 }}</td>
-        <td style="overflow: hidden;">{{ form.description|tabindex:3 }}</td>
-        <td style="overflow: hidden;">{{ form.data_type|tabindex:4 }}</td>
-        <td>{{ form.allow_missing_value|tabindex:5 }}</td>
-        <td>{{ form.allow_duplicate_value|tabindex:6 }}</td>
-        <input type="hidden" name="{{ form.prefix }}-id" value="{{ form.instance.id }}">
-      </tr>
+        <article class="border">
+          <p>Column name: {{ form.name|attr:"tabindex:1" }}</p>
+          <p>Display name: {{ form.title|attr:"tabindex:2" }}</p>
+          <p>Description: {{ form.description|attr:"tabindex:3" }}</p>
+          <p>Data Type: {{ form.data_type|attr:"tabindex:4" }}</p>
+          <input type="hidden" name="{{ form.prefix }}-id" value="{{ form.instance.id }}" />
+        </article>
       {% endfor %}
-    </tbody>
-  </table>
-  <button type="submit">Update All</button>
-</form>
+    </div>
+    <div class="row" style="justify-content: center">
+      <button type="submit" tabindex="10">Update All</button>
+    </div>
+  </form>
 
-</tbody>
-</table>
-</form>
+  <!-- GRID VIEW -->
+  <form id="metadata_view_grid" method="post" action="">
+    {% csrf_token %}
+    <div class="row wrap">
+      {% for column in columns %}
+        <!--  -->
+        <article class="row" style="border: 1px solid gray; padding: 5px; border-radius: 12px; width: 23%; ">
+          <div style="padding: 5px; min-width: 0; flex: 1;">
+            <p style="text-align: center; font-size: 1.25rem; font-weight: bold; margin-bottom: 20px">{{ column.title }}</p>
+            <div class="field label small border" style="margin-bottom: 40px">
+              {{ column.form.title|attr:"tabindex:1" }}
+              <label>Title</label>
+              <span class="helper">From: '{{ column.original_name }}'</span>
+            </div>
 
-{% endblock content %}
+            <div hidden>{{ column.form.name|attr:"tabindex:2" }}</div>
+
+            <div class="field label suffix border" style="margin-bottom: 20px">
+              {{ column.form.data_type|attr:"tabindex:3" }}
+              <label>Type</label>
+              <i>arrow_drop_down</i>
+            </div>
+
+            <div class="field label small border" style="margin-bottom: 20px">
+              {{ column.form.description|attr:"tabindex:4"|attr:"class:active" }}
+              <label class="active">Description</label>
+            </div>
+
+            <div style="min-width: 0">
+              <p style="color: grey; font-size: 0.75rem; font-weight: bold; margin-bottom: 5px">Data preview:</p>
+              {% for cell in column.data %}
+                <p style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ cell }}</p>
+              {% endfor %}
+            </div>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+
+    <div class="row" style="justify-content: center">
+      <button type="submit" tabindex="10">Update All</button>
+    </div>
+  </form>
+
+  <!-- Help dialog -->
+  <dialog class="dialog" id="help-ext_name">
+    <h5 class="center-align">Fields</h5>
+    <dl>
+      <dt>Extracted Name</dt>
+      <dd>Is the column name taken from the first file uploaded, this can't be changed.</dd>
+      <dt>Column Name</dt>
+      <dd>Is the name that you would like the variable to have going forward, this can be the same as the extracted name.</dd>
+      <dt>Display Title</dt>
+      <dd>Can be use when you want to show the data in a more 'human readable' way. An example could be the variable b60, which you could call Blood taken after 60 minutes.</dd>
+      <dt>Description</dt>
+      <dd>You can give extra details about the variable here, including things like when a sample is taken, etc.</dd>
+      <dt>Data Type</dt>
+      <dd>This is the data type of the variable, this will need to be defined in order for data to be saved, what you see in the list initially is the best guess from Seedcase Sprout based on the data you uploaded.</dd>
+    </dl>
+    <p>
+      See our <a href="https://design.seedcase-project.org/"><span style="color:blue">documentation</span></a> for more information.
+    </p>
+    <nav class="right-align no-space">
+      <a class="transparent link" data-ui="#help-ext_name">Close</a>
+    </nav>
+  </dialog>
+
+  <script>
+    let toggle = (button) => {
+      let element_table = document.getElementById('metadata_view_table')
+      let element_grid = document.getElementById('metadata_view_grid')
+
+      if (element_table.hidden) {
+        element_table.hidden = false;
+        element_grid.hidden = true;
+        button.innerText = 'Show Grid View'
+      } else {
+        element_grid.hidden = false;
+        element_table.hidden = true;
+        button.innerText = 'Show Table View'
+      }
+    }
+  </script>
+{% endblock %}
