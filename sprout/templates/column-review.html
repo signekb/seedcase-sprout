@@ -20,6 +20,7 @@
           <th>Display Title</th>
           <th>Description</th>
           <th>Data Type</th>
+          <th>Excluded</th>
         </tr>
       </thead>
       <tbody>
@@ -30,6 +31,7 @@
             <td>{{ form.title|attr:"tabindex:2" }}</td>
             <td style="overflow: hidden;">{{ form.description|attr:"tabindex:3" }}</td>
             <td style="overflow: hidden;">{{ form.data_type|attr:"tabindex:4" }}</td>
+            <td style="overflow: hidden;">{{ form.excluded|attr:"tabindex:5" }}</td>
             <input type="hidden" name="{{ form.prefix }}-id" value="{{ form.instance.id }}" />
           </tr>
         {% endfor %}
@@ -50,6 +52,7 @@
           <p>Display name: {{ form.title|attr:"tabindex:2" }}</p>
           <p>Description: {{ form.description|attr:"tabindex:3" }}</p>
           <p>Data Type: {{ form.data_type|attr:"tabindex:4" }}</p>
+          <p>Excluded: {{ form.excluded|attr:"tabindex:5" }}</p>
           <input type="hidden" name="{{ form.prefix }}-id" value="{{ form.instance.id }}" />
         </article>
       {% endfor %}
@@ -64,10 +67,31 @@
     {% csrf_token %}
     <div class="row wrap">
       {% for column in columns %}
-        <!--  -->
-        <article class="row" style="border: 1px solid gray; padding: 5px; border-radius: 12px; width: 23%; ">
-          <div style="padding: 5px; min-width: 0; flex: 1;">
-            <p style="text-align: center; font-size: 1.25rem; font-weight: bold; margin-bottom: 20px">{{ column.title }}</p>
+        <!-- CARD -->
+        <article class="row" style="border: 1px solid gray; border-radius: 12px; width: 23%; ">
+          <!-- OVERLAY (when marked as excluded)-->
+          <div hidden id="overlay_{{ column.id }}" style="position: absolute; width: 100%; height: 100%">
+            <div style="position: relative; width: 100%; height: 100%; left: -16px; z-index: 10; background: rgba(0, 0, 0, 0.75)">
+              <div class="middle">
+                <div style="text-align: center; color: antiquewhite; font-weight: bold; font-size: 1.5rem">Excluded!</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CARD CONTENT -->
+          <div style="min-width: 0; flex: 1;">
+            <div class="row" style="margin-bottom: 20px">
+              <p class="max" style="font-size: 1.25rem; font-weight: bold;">{{ column.title }}</p>
+              <label class="checkbox icon" style="z-index: 11">
+                {{ column.form.excluded|attr:"tabindex:5"|attr:"onclick:toggleExcluded(event)"}}
+                <span>
+                  <i>delete</i>
+                  <i style="color: antiquewhite">undo</i>
+                </span>
+                <div id="tooltip_{{ column.id }}" class="tooltip">Exclude</div>
+              </label>
+            </div>
+
             <div class="field label small border" style="margin-bottom: 40px">
               {{ column.form.title|attr:"tabindex:1" }}
               <label>Title</label>
@@ -140,6 +164,20 @@
         element_table.hidden = true;
         button.innerText = 'Show Table View'
       }
+    }
+
+    let toggleExcluded = (event) => {
+      const columnId = event.target.id.replace('id_','').replace('-excluded','');
+
+      const overlay = document.getElementById('overlay_' + columnId);
+      overlay.hidden = !overlay.hidden;
+
+      const tooltip = document.getElementById('tooltip_' + columnId);
+      tooltip.innerText = overlay.hidden ? "Exclude" : "Undo exclude"
+
+      // description is not required if column is excluded
+      document.getElementsByName(columnId + "-description")
+        .forEach(d => d.required = overlay.hidden)
     }
   </script>
 {% endblock %}

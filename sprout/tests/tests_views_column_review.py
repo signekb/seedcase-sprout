@@ -71,5 +71,22 @@ class ColumnReviewViewTest(TestCase):
         # Assert the status code
         self.assertEqual(response.status_code, 200)
 
+    def test_excluded_should_delete_column(self):
+        """An excluded column should be removed even if form is not valid."""
+        # Arrange
+        url = reverse("column-review", args=[self.table_metadata.id])
+        data = {
+            f"{self.column_metadata.id}-excluded": True,
+        }
+
+        # Act
+        response = self.client.post(url, data, follow=True)
+
+        # Assert the status code
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(
+            ColumnMetadata.objects.filter(id=self.column_metadata.id).exists()
+        )
+
     def tearDown(self):
         os.remove(self.file_metadata.server_file_path)

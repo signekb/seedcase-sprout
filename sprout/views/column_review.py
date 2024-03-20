@@ -30,21 +30,27 @@ def column_review(request, table_id):
     forms = [create_form(request, c) for c in columns_metadata]
     columns = [
         {
+            "id": c.id,
             "original_name": c.original_name,
             "title": c.title,
             "name": c.name,
             "description": c.description,
             "data_type": c.data_type.display_name,
             "data": df[c.original_name].to_list(),
-            "tab-index": idx,
             "form": forms[idx],
         }
         for idx, c in enumerate(columns_metadata)
     ]
 
-    if request.method == "POST" and all(f.is_valid() for f in forms):
+    if request.method == "POST":
         for form in forms:
-            form.save()
+            if form.is_valid():
+                form.save()
+
+            # Delete excluded columns
+            if form.cleaned_data["excluded"]:
+                form.instance.delete()
+
         return redirect(reverse("column-review", args=[table_id]))
 
     return render(
