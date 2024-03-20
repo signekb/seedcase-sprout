@@ -25,7 +25,7 @@ class AppConfig(AppConfig):
         post_migrate.connect(update_column_data_types, sender=self)
 
         # Adding test data after migrate when DEBUG=TRUE and not running unit tests
-        is_running_unit_tests = 'test' not in sys.argv
+        is_running_unit_tests = "test" not in sys.argv
         if DEBUG and is_running_unit_tests:
             post_migrate.connect(load_test_data, sender=self)
 
@@ -37,4 +37,4 @@ def load_test_data(**kwargs):
     'python manage.py dumpdata | file_name.json'
     """
     print("TEST DATA IS LOADED")
-    call_command('loaddata', 'patients')
+    call_command("loaddata", "patients")
