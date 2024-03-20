@@ -28,7 +28,7 @@ def project_id_data(
     if request.method == "POST":
         # TODO: Add correct redirect for each button
         if "button_create" in request.POST:
-            return redirect("/column-review/" + str(selected_metadata_id))
+            return redirect("/data-import")
         elif "button_edit" in request.POST:
             return redirect("/column-review/" + str(selected_metadata_id))
         elif "button_upload" in request.POST:
