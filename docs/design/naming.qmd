@@ -104,17 +104,16 @@ projects <id> metadata <id> data delete
 
 ## Developer-facing (internal) content
 
-### Python functions
+### Python
 
 Following the same naming schemes for CRUD, HTTP verbs, and common REST
 API endpoints, these are some guidelines on the general words to use for
 actions and objects:
 
--   Actions: get/list, update/edit, delete/remove, create,
-    convert/transform/modify, extract, validate/check/verify/is, read,
-    write, as/to
--   Objects: array (analogous to non-nested Lists, Sets, and Series (in
-    Pandas/Polars) in Python), lists (analogous to nested Lists, Tuples,
+-   Actions: list, edit, delete, create, extract, verify, read,
+    write, to
+-   Objects: array (analogous to non-nested Lists and Sets in base Python and Series in
+    Pandas or Polars), lists (analogous to nested Lists, Tuples,
     and Dictionaries in Python or Tables in SQL), files, classes
 
 Some general guidelines when naming things in Python:
@@ -127,10 +126,11 @@ Some general guidelines when naming things in Python:
         pattern `action_object()`.
     -   If the object is in the name, prefer the plural form of the
         object if the function could return multiple items of an object.
-    -   If the object is in the name, prefer a single object name rather
-        than multiple.
+    -   If the object is in the name, prefer a single generic object name rather
+        than multiple specific names: `read_csv()` rather than `read_csv_file()` or `upload_file()` rather than `upload_csv_file()` (uploading isn't depending on file extension, while reading is)
 -   Methods (includes everything from the functions):
     -   Prefer action verbs only: `ClassName.action()`.
+    -   Avoid using object names, unless it makes the action clearer.
 -   Classes:
     -   Use `PascalCase`.
     -   Use objects as the class name: `Object`.
@@ -145,7 +145,7 @@ Some general guidelines when naming things in Python:
         item.
     -   If an action name is necessary, prefix action verb in the past
         tense: `actioned_object`.
--   Arguments (includes everything from the variables above):
+-   Arguments (includes everything from variables above):
     -   Prefer single object names rather than actions: `object`.
     -   Prefer the plural form: `objects`.
     -   Use singular form *only* if the function or method input *must*
