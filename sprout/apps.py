@@ -1,7 +1,10 @@
 """Configuration module for "sprout"."""
 
 from django.apps import AppConfig
+from django.core.management import call_command
 from django.db.models.signals import post_migrate
+
+from config.settings import DEBUG
 
 
 class AppConfig(AppConfig):
@@ -19,3 +22,17 @@ class AppConfig(AppConfig):
         # We use a Django signal called post_migrate as the columns should
         # update after the migrations have been applied.
         post_migrate.connect(update_column_data_types, sender=self)
+
+        # Adding test data after migrate when DEBUG=TRUE
+        if DEBUG:
+            post_migrate.connect(load_test_data, sender=self)
+
+
+def load_test_data(**kwargs):
+    """Loads test data in 'patients.json'.
+
+    You can create new test data with:
+    'python manage.py dumpdata | file_name.json'
+    """
+    print("TEST DATA IS LOADED")
+    call_command('loaddata', 'patients')
