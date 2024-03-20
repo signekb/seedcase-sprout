@@ -47,22 +47,26 @@
     </div>
     <div class="table-body">
       {% for metadata in existing_metadata %}
-      <a style="display:block" href="{% url 'project_id_data' %}?selected_metadata_id={{metadata.id}}">
-        <div>
-          <div
-            class="table-row selectable{% if request.GET.selected_metadata_id|add:'0' == metadata.id %} selected{% endif %}"
-            id="{{metadata.id}}">
-            <div class="table-cell">{{metadata.name}}</div>
-            <div class="table-cell">{{ metadata.description }}</div>
-            <div class="table-cell">Cell</div>
-            <div class="table-cell">{{ metadata.created_at }}</div>
-            <div class="table-cell">Cell</div>
+      {% if request.GET.selected_metadata_id %}
+      <a style="display:block" href="{% url 'project_id_data' %}">
+        {% else %}
+        <a style="display:block" href="{% url 'project_id_data' %}?selected_metadata_id={{metadata.id}}">
+          {% endif %}
+          <div>
+            <div
+              class="table-row selectable{% if request.GET.selected_metadata_id|add:'0' == metadata.id %} selected{% endif %}"
+              id="{{metadata.id}}">
+              <div class="table-cell">{{metadata.name}}</div>
+              <div class="table-cell">{{ metadata.description }}</div>
+              <div class="table-cell">Cell</div>
+              <div class="table-cell">{{ metadata.created_at }}</div>
+              <div class="table-cell">Cell</div>
+            </div>
           </div>
-        </div>
-      </a>
-      {% empty %}
-      <p>No existing data to show.</p>
-      {% endfor %}
+        </a>
+        {% empty %}
+        <p>No existing data to show.</p>
+        {% endfor %}
     </div>
   </div>
 
