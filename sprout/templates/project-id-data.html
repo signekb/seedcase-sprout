@@ -47,7 +47,7 @@
     </div>
     <div class="table-body">
       {% for metadata in existing_metadata %}
-      {% if request.GET.selected_metadata_id %}
+      {% if request.GET.selected_metadata_id|add:'0' == metadata.id %}
       <a style="display:block" href="{% url 'project_id_data' %}">
         {% else %}
         <a style="display:block" href="{% url 'project_id_data' %}?selected_metadata_id={{metadata.id}}">
