@@ -15,15 +15,19 @@ How we name things, both internally and user-facing, will be:
 - Consistent: Remains the same across different contexts
 - Align with existing conventions: Follow widely-established standards and conventions
 
-## Composing names
+## User-facing content
+
+### Composing names
 
 We'll compose names based on the objects we and our users interact with as well
-as the actions taken on those objects. These objects and actions are inspired by and align with
-the "core" language of working with data called *CRUD* (Create Read Update Delete), common naming schemes used in REST API applications or services (such as Github), as
-well as by the vocabulary of the HTTP verbs (GET, POST, PUT, PATCH, and DELETE):
+as the actions taken on those objects. These objects and actions are inspired by
+and align with the "core" language of working with data called *CRUD* (Create
+Read Update Delete), common naming schemes used in REST API applications or
+services (such as GitHub), as well as by the vocabulary of the HTTP verbs (GET,
+POST, PUT, PATCH, and DELETE):
 
 - Types of objects Sprout interacts with: projects, data, and metadata.
-- Types of actions Sprout takes on those objects: create, view, edit, delete, and upload.
+- Types of actions Sprout takes on those objects: create, view, update, and delete
 - Types of identifiers for specific items of objects (as numbers): data, metadata, and project identifiers.
 
 To name things, we'll combine the above with the object name first, followed by the
@@ -40,42 +44,46 @@ names. The names are separated by a symbol based on its context:
 Additional "rules" to the naming include:
 
 - When a naming scheme ends without an action, the default action is `view`.
-- When there are naming schemes that have a duplicate final result, the shorter name is preferred.
+- Data objects do not have any `view` action, since we want to limit access to looking at raw data.
 
-## Scheme
+### Scheme
 
-Based on the above principles, we have defined the following naming scheme (here shown with `space` as separator):
+Based on the above principles, we have defined the following naming scheme (here
+shown with `space` as separator):
 
 ```
 # View all projects
 projects
 
-# View landing page (the metadata) of a specific project
+# Create a new project
+projects create
+
+# View landing page of a specific project
 projects <id> 
 
-# View, create, or edit the metadata of a specific project 
-projects create
-projects <id> edit
+# Update or delete a specific project 
+projects <id> update
+projects <id> delete
 
-# View all data objects of a specific project
-projects <id> data
+# View all metadata objects of a specific project
+projects <id> metadata
 
-# Create a new data object in a specific project
-projects <id> data create
-# This line below is equivalent to the one above
-# projects <id> data <id> metadata create
-
-# View landing page (the metadata) of a specific data object in 
-# a specific project
-projects <id> data <id>
-
-# Edit or upload metadata of a specific data object in a 
+# Create a new metadata object with associated data in a 
 # specific project
-projects <id> data <id> metadata edit
-projects <id> data <id> metadata upload
+projects <id> metadata create
+# This creates an associated data object at:
+# projects <id> metadata <id> data
 
-# Edit data of or upload data to a specific data 
-# object in a specific project
-projects <id> data <id> edit
-projects <id> data <id> upload
+# View the landing page of a specific metadata object in 
+# a specific project
+projects <id> metadata <id>
+
+# Update or delete metadata of a specific project
+projects <id> metadata <id> update
+projects <id> metadata <id> delete
+
+# Update or delete data of a specific metadata object to 
+# a specific project
+projects <id> metadata <id> data update
+projects <id> metadata <id> data delete
 ```
