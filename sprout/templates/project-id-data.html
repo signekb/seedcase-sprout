@@ -47,6 +47,7 @@
     </div>
     <div class="table-body">
       {% for metadata in existing_metadata %}
+      <!-- if statement that changes url depending on selection and deselection of rows -->
       {% if request.GET.selected_metadata_id|add:'0' == metadata.id %}
       <a style="display:block" href="{% url 'project_id_data' %}">
         {% else %}
@@ -71,6 +72,7 @@
     </div>
   </div>
 
+  <!-- three buttons will submit this form: create, edit, or upload -->
   <nav class="right-align">
     <button type="submit" name="button_create"><i>add</i>Create Metadata</button>
     <button type="submit" name="button_edit"><i>edit</i>Edit Metadata</button>
@@ -78,7 +80,7 @@
   </nav>
 </form>
 
-
+<!-- dialog if button_edit or button_upload has been clicked without a selected row -->
 {% if msg_edit_upload_wo_selected_row %}
 <div class="overlay blur active" data-ui="#dialog"></div>
 <dialog class="active" id="dialog">
