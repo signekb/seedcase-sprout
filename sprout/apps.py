@@ -1,4 +1,5 @@
 """Configuration module for "sprout"."""
+import sys
 
 from django.apps import AppConfig
 from django.core.management import call_command
@@ -23,8 +24,9 @@ class AppConfig(AppConfig):
         # update after the migrations have been applied.
         post_migrate.connect(update_column_data_types, sender=self)
 
-        # Adding test data after migrate when DEBUG=TRUE
-        if DEBUG:
+        # Adding test data after migrate when DEBUG=TRUE and not running unit tests
+        is_running_unit_tests = 'test' not in sys.argv
+        if DEBUG and is_running_unit_tests:
             post_migrate.connect(load_test_data, sender=self)
 
 
