@@ -5,7 +5,7 @@
     "fields": {
       "name": "Patients",
       "original_file_name": "patients.csv",
-      "description": "A table with patient information",
+      "description": "A table with patient information. This is created automatically when DEBUG=TRUE",
       "created_at": "2024-03-20T12:51:09.614Z",
       "created_by": null,
       "modified_at": "2024-03-20T12:51:15.056Z",
