@@ -79,14 +79,14 @@
 </form>
 
 
-{% if msg_edit_or_upload_wo_selected_metadata_id %}
+{% if msg_edit_upload_wo_selected_row %}
 <div class="overlay blur active" data-ui="#dialog"></div>
 <dialog class="active" id="dialog">
   <div class="center-align">
     <i class="fill">error</i>
   </div>
   <h5 class="center-align">Woops!</h5>
-  <div>{{ msg_edit_or_upload_wo_selected_metadata_id }}</div>
+  <div>{{ msg_edit_upload_wo_selected_row }}</div>
   <nav class="right-align no-space">
     <button class="transparent link" data-ui="#dialog">OK</button>
   </nav>

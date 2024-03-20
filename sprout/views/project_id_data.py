@@ -24,7 +24,7 @@ def project_id_data(
     """
     metadata = TableMetadata.objects.all()
     selected_metadata_id = request.GET.get("selected_metadata_id")
-    msg_edit_or_upload_wo_selected_metadata_id = None
+    msg_edit_upload_wo_selected_row = None
 
     if request.method == "POST":
         # TODO: Add correct redirect for each button
@@ -32,14 +32,14 @@ def project_id_data(
             return redirect("/data-import")
         elif "button_edit" in request.POST:
             if selected_metadata_id is None:
-                msg_edit_or_upload_wo_selected_metadata_id = (
+                msg_edit_upload_wo_selected_row = (
                     "To edit metadata or upload data, you must select a table"
                 )
             else:
                 return redirect("/column-review/" + str(selected_metadata_id))
         elif "button_upload" in request.POST:
             if selected_metadata_id is None:
-                msg_edit_or_upload_wo_selected_metadata_id = (
+                msg_edit_upload_wo_selected_row = (
                     "To edit metadata or upload data, you must select a table"
                 )
             else:
@@ -51,6 +51,6 @@ def project_id_data(
         {
             "existing_metadata": metadata,
             "selected_metadata_id": selected_metadata_id,
-            "msg_edit_or_upload_wo_selected_metadata_id": msg_edit_or_upload_wo_selected_metadata_id,
+            "msg_edit_upload_wo_selected_row": msg_edit_upload_wo_selected_row,
         },
     )
