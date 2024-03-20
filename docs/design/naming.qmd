@@ -127,7 +127,9 @@ Some general guidelines when naming things in Python:
     -   If the object is in the name, prefer the plural form of the
         object if the function could return multiple items of an object.
     -   If the object is in the name, prefer a single generic object name rather
-        than multiple specific names: `read_csv()` rather than `read_csv_file()` or `upload_file()` rather than `upload_csv_file()` (uploading isn't depending on file extension, while reading is)
+        than multiple specific names: `read_csv()` rather than `read_csv_file()` or 
+        `upload_file()` rather than `upload_csv_file()` (uploading isn't depending 
+        on file extension, while reading is)
 -   Methods (includes everything from the functions):
     -   Prefer action verbs only: `ClassName.action()`.
     -   Avoid using object names, unless it makes the action clearer.
