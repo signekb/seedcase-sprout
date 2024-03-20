@@ -92,14 +92,15 @@
               </thead>
               <tbody class="tbody">
                 {% for column in columns %}
-                <tr>
+                {% if forloop.counter < 11 %} <tr>
                   <td>{{ column.original_name }}</td>
                   <td>{{ column.name }}</td>
                   <td>{{ column.title }}</td>
                   <td>{{ column.data_type }}</td>
                   <td>{{ column.description }} </td>
-                </tr>
-                {% endfor %}
+                  </tr>
+                  {% endif %}
+                  {% endfor %}
               </tbody>
             </table>
           </div>
