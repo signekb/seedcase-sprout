@@ -93,12 +93,16 @@ class ProjectIdDataTests(TestCase):
         redirect to different views.
         """
         # Arrange
-        url = reverse("project_id_data")
+        url = reverse("project_id_data") + "?selected_metadata_id=1"
+        create_table("Table1").save()
 
         # Act
-        response = self.client.post(
+        response = self.client.get(
             url, data={"button_upload": "True", "selected_metadata_id": 1}, follow=True
         )
 
         # Assert
-        self.assertRedirects(response, reverse("column-review", args=[1]))
+        self.assertRedirects(
+            response, "/column-review/1", status_code=302, target_status_code=200
+        )
+        # self.assertRedirects(response, reverse("column-review", args=[1]))
