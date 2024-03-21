@@ -9,7 +9,7 @@ from sprout.models import ColumnMetadata, FileMetadata, TableMetadata
 from sprout.tests.db_test_utils import create_table
 
 
-class ProjectIdDataTests(TestCase):
+class ProjectIdMetaDataTests(TestCase):
     """Tests for the file upload view."""
 
     def setUp(self):
@@ -32,25 +32,25 @@ class ProjectIdDataTests(TestCase):
         file = io.BytesIO(b"TestColumn,Letter\n1,A\n2,B\n3,C")
         file.name = "file-name.csv"
         self.file_metadata = FileMetadata.create_file_metadata(
-            file, self.table_metadata.id
+            file, self.table_metadata.pk
         )
 
     def test_view_renders(self):
         """Test that the get function renders."""
         # Arrange
-        url = reverse("project_id_data")
+        url = reverse("project-id-metadata-view")
 
         # Act
         response = self.client.get(url)
 
         # Assert
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "project-id-data.html")
+        self.assertTemplateUsed(response, "project-id-metadata-view.html")
 
     def test_view_shows_all_tables(self):
         """Test that the view shows all tables in TableMetadata."""
         # Arrange
-        url = reverse("project_id_data")
+        url = reverse("project-id-metadata-view")
         create_table("Table1").save()
         create_table("Table2").save()
         tables = TableMetadata.objects.all()
@@ -68,7 +68,7 @@ class ProjectIdDataTests(TestCase):
         when button_create is clicked."""
 
         # Arrange
-        url = reverse("project_id_data")
+        url = reverse("project-id-metadata-view")
 
         # Act
         response = self.client.post(url, data={"button_create": "True"})
@@ -81,7 +81,7 @@ class ProjectIdDataTests(TestCase):
         """Test that the post function does not redirect to column_review
         when button_edit is clicked without selected row and that msg is not None."""
         # Arrange
-        url = reverse("project_id_data")
+        url = reverse("project-id-metadata-view")
 
         # Act
         response_edit = self.client.post(url, data={"button_edit": "True"})
@@ -89,11 +89,11 @@ class ProjectIdDataTests(TestCase):
 
         # Assert
         self.assertEqual(response_edit.status_code, 200)
-        self.assertTemplateUsed(response_edit, "project-id-data.html")
+        self.assertTemplateUsed(response_edit, "project-id-metadata-view.html")
         self.assertIsNotNone(response_edit.context["msg_edit_upload_wo_selected_row"])
 
         self.assertEqual(response_upload.status_code, 200)
-        self.assertTemplateUsed(response_upload, "project-id-data.html")
+        self.assertTemplateUsed(response_upload, "project-id-metadata-view.html")
         self.assertIsNotNone(response_upload.context["msg_edit_upload_wo_selected_row"])
 
     def test_view_redirects_with_button_edit_and_selected_row(self):
@@ -102,7 +102,11 @@ class ProjectIdDataTests(TestCase):
         """
         # Arrange
         table_id = self.table_metadata.pk
-        url = reverse("project_id_data") + "?selected_metadata_id=" + str(table_id)
+        url = (
+            reverse("project-id-metadata-view")
+            + "?selected_metadata_id="
+            + str(table_id)
+        )
 
         # Act
         response = self.client.post(url, data={"button_edit": "True"}, follow=True)
@@ -118,7 +122,11 @@ class ProjectIdDataTests(TestCase):
         """
         # Arrange
         table_id = self.table_metadata.pk
-        url = reverse("project_id_data") + "?selected_metadata_id=" + str(table_id)
+        url = (
+            reverse("project-id-metadata-view")
+            + "?selected_metadata_id="
+            + str(table_id)
+        )
 
         # Act
         response = self.client.post(url, data={"button_upload": "True"}, follow=True)
