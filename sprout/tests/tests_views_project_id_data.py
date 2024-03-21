@@ -1,15 +1,17 @@
 """Tests for the project id data view."""
+
 import io
 
 from django.test import TestCase
 from django.urls import reverse
 
-from sprout.models import TableMetadata, ColumnMetadata, FileMetadata
+from sprout.models import ColumnMetadata, FileMetadata, TableMetadata
 from sprout.tests.db_test_utils import create_table
 
 
 class ProjectIdDataTests(TestCase):
     """Tests for the file upload view."""
+
     def setUp(self):
         """Create a table and a column for testing."""
         self.table_metadata = TableMetadata.objects.create(
@@ -99,12 +101,11 @@ class ProjectIdDataTests(TestCase):
         when the 'button_edit' is clicked with a selected row.
         """
         # Arrange
-        url = reverse("project_id_data")
+        table_id = self.table_metadata.pk
+        url = reverse("project_id_data") + "?selected_metadata_id=" + str(table_id)
 
         # Act
-        response = self.client.post(
-            url, data={"button_edit": "True", "selected_metadata_id": 1}, follow=True
-        )
+        response = self.client.post(url, data={"button_edit": "True"}, follow=True)
         # Assert
         self.assertEqual(response.status_code, 200)
         self.assertRedirects(response, reverse("column-review", args=[1]))
@@ -116,16 +117,13 @@ class ProjectIdDataTests(TestCase):
         redirect to different views.
         """
         # Arrange
-        table_id = self.table_metadata.id
+        table_id = self.table_metadata.pk
         url = reverse("project_id_data") + "?selected_metadata_id=" + str(table_id)
 
         # Act
-        response = self.client.post(
-            url, data={"button_upload": "True"}, follow=True
-        )
+        response = self.client.post(url, data={"button_upload": "True"}, follow=True)
 
         # Assert
         self.assertRedirects(
             response, "/column-review/1", status_code=302, target_status_code=200
         )
-        # self.assertRedirects(response, reverse("column-review", args=[1]))
