@@ -1,14 +1,37 @@
 """Tests for the project id data view."""
+import io
 
 from django.test import TestCase
 from django.urls import reverse
 
-from sprout.models import TableMetadata
+from sprout.models import TableMetadata, ColumnMetadata, FileMetadata
 from sprout.tests.db_test_utils import create_table
 
 
 class ProjectIdDataTests(TestCase):
     """Tests for the file upload view."""
+    def setUp(self):
+        """Create a table and a column for testing."""
+        self.table_metadata = TableMetadata.objects.create(
+            name="Test Table",
+            description="Test table description.",
+        )
+        self.column_metadata = ColumnMetadata.objects.create(
+            table_metadata=self.table_metadata,
+            name="Test Column",
+            original_name="TestColumn",
+            title="Test Title",
+            description="Test Description",
+            data_type_id=0,
+            allow_missing_value=True,
+            allow_duplicate_value=True,
+        )
+
+        file = io.BytesIO(b"TestColumn,Letter\n1,A\n2,B\n3,C")
+        file.name = "file-name.csv"
+        self.file_metadata = FileMetadata.create_file_metadata(
+            file, self.table_metadata.id
+        )
 
     def test_view_renders(self):
         """Test that the get function renders."""
@@ -93,12 +116,12 @@ class ProjectIdDataTests(TestCase):
         redirect to different views.
         """
         # Arrange
-        url = reverse("project_id_data") + "?selected_metadata_id=1"
-        create_table("Table1").save()
+        table_id = self.table_metadata.id
+        url = reverse("project_id_data") + "?selected_metadata_id=" + str(table_id)
 
         # Act
-        response = self.client.get(
-            url, data={"button_upload": "True", "selected_metadata_id": 1}, follow=True
+        response = self.client.post(
+            url, data={"button_upload": "True"}, follow=True
         )
 
         # Assert
