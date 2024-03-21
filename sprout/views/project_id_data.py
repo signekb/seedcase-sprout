@@ -11,8 +11,7 @@ def project_id_data(
 ) -> HttpResponse:
     """View the existing data in a project.
 
-    Either create new metadata based on existing data,
-    edit metadata of existing data, or upload new data.
+    Either create new metadata, edit metadata of existing data, or upload new data.
 
     Args:
         request: The HTTP request object that contains metadata about the request.
