@@ -9,7 +9,7 @@ from sprout.models import TableMetadata
 class DataImportTests(TestCase):
     """Tests for the data import view."""
 
-    url = reverse("data_import")
+    url = reverse("data-import")
     empty_form = {}
     invalid_form = {"name": "Test/Table", "description": "Test description"}
     valid_form = {"name": "TestTable", "description": "Test description"}
