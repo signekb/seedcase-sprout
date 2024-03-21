@@ -49,9 +49,9 @@
       {% for metadata in existing_metadata %}
       <!-- if statement that changes url depending on selection and deselection of rows -->
       {% if request.GET.selected_metadata_id|add:'0' == metadata.id %}
-      <a style="display:block" href="{% url 'project_id_data' %}">
+      <a style="display:block" href="{% url 'project-id-metadata-view' %}">
         {% else %}
-        <a style="display:block" href="{% url 'project_id_data' %}?selected_metadata_id={{metadata.id}}">
+        <a style="display:block" href="{% url 'project-id-metadata-view' %}?selected_metadata_id={{metadata.id}}">
           {% endif %}
           <div>
             <div

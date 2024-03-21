@@ -6,17 +6,17 @@ from django.shortcuts import redirect, render
 from sprout.models import TableMetadata
 
 
-def project_id_data(request: HttpRequest) -> HttpResponse:
-    """View the existing data in a project.
+def project_id_metadata_view(request: HttpRequest) -> HttpResponse:
+    """View the existing metadata in a project.
 
-    Either create new metadata, edit metadata of existing data, or upload new data.
+    Either create new metadata, edit existing metadata, or upload new data.
 
     Args:
         request: The HTTP request object that contains metadata about the request.
 
     Returns:
-        HTTP response that either renders the project-id-data page or redirects
-        to create new metadata, edit metadata, or upload new data.
+        HTTP response that either renders the project-id-metadata page or redirects
+        to create new metadata, edit existing metadata, or upload new data.
     """
     existing_metadata = TableMetadata.objects.all()
     selected_metadata_id = request.GET.get("selected_metadata_id")
@@ -40,7 +40,7 @@ def project_id_data(request: HttpRequest) -> HttpResponse:
 
     return render(
         request,
-        "project-id-data.html",
+        "project-id-metadata-view.html",
         {
             "existing_metadata": existing_metadata,
             "selected_metadata_id": selected_metadata_id,
