@@ -1,4 +1,4 @@
-"""Tests for the metadata create view."""
+"""Tests for the project id data view."""
 
 from django.test import TestCase
 from django.urls import reverse
