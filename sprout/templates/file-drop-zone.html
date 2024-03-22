@@ -5,7 +5,7 @@
 
   <!-- Drop zone for uploading a file -->
   <div class="file-upload-box row center-align" id="drag_zone"
-       onclick="document.getElementById('uploaded_file').click()">
+       onclick="openFileBrowserDialog()">
 
     <!-- Empty drop zone. Visible when a file is NOT added -->
     <div class="center-align" id="drag_zone_empty">
@@ -106,4 +106,11 @@
   // is reloaded, when user clicks the 'back button' in the browser
   window.addEventListener('unload', function(){});
   window.addEventListener('beforeunload', function(){});
+
+  function openFileBrowserDialog(){
+    const file_input = query('uploaded_file');
+    // input cleared to ensure onchange is fired when file name is selected twice
+    file_input.value = null;
+    file_input.click();
+  }
 </script>

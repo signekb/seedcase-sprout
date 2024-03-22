@@ -56,6 +56,9 @@ def handle_post_request_with_file(
     """
     file = request.FILES.get("uploaded_file", None)
 
+    # Delete exiting files, if user resubmits file
+    FileMetadata.objects.filter(table_metadata_id=table_id).delete()
+
     # To limit memory-usage we persist the file
     file_meta = FileMetadata.create_file_metadata(file, table_id)
     try:
@@ -114,6 +117,9 @@ def extract_and_persist_column_metadata(table_id: int, file: FileMetadata) -> No
     table = TableMetadata.objects.get(pk=table_id)
     table.original_file_name = file.original_file_name
     table.save()
+
+    # Delete columns if user resubmits csv file
+    ColumnMetadata.objects.filter(table_metadata_id=table.id).delete()
 
     # Save columns
     columns = [ColumnMetadata.create(table_id, series) for series in df]
