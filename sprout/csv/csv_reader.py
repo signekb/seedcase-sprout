@@ -1,4 +1,5 @@
 """File with read_csv_file and related functions."""
+
 import csv
 import os
 from typing import Any
@@ -7,6 +8,7 @@ import polars as pl
 from polars import DataFrame, Series, read_csv
 
 
+# TODO: Refactor this to be more generic for use in other contexts
 def read_csv_file(csv_file_path: str, row_count: int | None = 500) -> DataFrame:
     """Reads a CSV file and returns a polars.DataFrame with derived types.
 
