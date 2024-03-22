@@ -20,7 +20,7 @@ class TableFilesTests(TestCase):
         file = io.BytesIO(b"File content")
         file.name = "file.csv"
         file_meta = FileMetadata.create_file_metadata(file, table.id)
-        url = reverse("table_files", kwargs={"table_id": table.id})
+        url = reverse("table-files", kwargs={"table_id": table.id})
 
         # Act
         response = self.client.post(url)
