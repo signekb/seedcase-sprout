@@ -4,7 +4,7 @@ import io
 
 from django.test import TestCase
 
-from sprout.models import FileMetadata, TableMetadata
+from sprout.models import ColumnMetadata, FileMetadata, TableMetadata
 from sprout.tests.db_test_utils import create_table
 
 
@@ -64,6 +64,24 @@ class FileUploadTests(TestCase):
         response = self.client.post("/metadata/create/1", {"uploaded_file": file})
 
         self.assertContains(response, "Invalid CSV. No rows found!")
+
+    def test_resubmit_of_file_should(self):
+        """Resubmitting a file table should delete the previous file and columns."""
+        # Arrange
+        table = create_table("Table Name")
+        table.save()
+        file1 = self.create_file("file.csv", "name,city,age\nPhil,Aarhus,36")
+        file2 = self.create_file("file.csv", "name,city,age\nPhil,Aarhus,36")
+
+        # Act
+        self.client.post("/metadata/create/1", {"uploaded_file": file1})
+        self.client.post("/metadata/create/1", {"uploaded_file": file2})
+
+        # Assert
+        self.assertEqual(3, ColumnMetadata.objects.count())
+        self.assertEqual(1, FileMetadata.objects.count())
+        # Clean up
+        FileMetadata.objects.first().delete()
 
     @staticmethod
     def create_file(name: str, content: str) -> io.BytesIO:

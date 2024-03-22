@@ -56,8 +56,9 @@ def handle_post_request_with_file(
     """
     file = request.FILES.get("uploaded_file", None)
 
-    # Delete exiting files, if user resubmits file
-    FileMetadata.objects.filter(table_metadata_id=table_id).delete()
+    # Delete exiting files, if user resubmits a file
+    for previous_file in FileMetadata.objects.filter(table_metadata_id=table_id):
+        previous_file.delete()
 
     # To limit memory-usage we persist the file
     file_meta = FileMetadata.create_file_metadata(file, table_id)
