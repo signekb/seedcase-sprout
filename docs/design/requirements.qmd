@@ -4,14 +4,18 @@ title: "Requirements"
 
 {{< include ../_wip.qmd >}}
 
-
 ## Technical requirements
 
-- Run on Windows, MacOS, and Linux (likely on servers): Our potential users work on any of these systems, so we need to design for that
-- Use open source software dependencies: We will use an open license, so we need to use components that are open as well
-- Integrate GDPR, privacy, and security compliance: Our target users work with health data, so this is vital to consider
-- Deployable to servers and locally: Could be used locally but mainly used on a server environment
-- Storage and computing may be at different locations: Where data are stored vs analyzed will likely be different
+-   Run on Windows, MacOS, and Linux (likely on servers): Our potential
+    users work on any of these systems, so we need to design for that
+-   Use open source software dependencies: We will use an open license,
+    so we need to use components that are open as well
+-   Integrate GDPR, privacy, and security compliance: Our target users
+    work with health data, so this is vital to consider
+-   Deployable to servers and locally: Could be used locally but mainly
+    used on a server environment
+-   Storage and computing may be at different locations: Where data are
+    stored vs analyzed will likely be different
 
 ### Core functionality
 
