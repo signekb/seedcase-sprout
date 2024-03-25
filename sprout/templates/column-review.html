@@ -131,9 +131,9 @@
       const targetInputs = target.getElementsByTagName("input")
 
       for (let sourceInput of source.getElementsByTagName("input")){
-        const target = targetInputs.namedItem(sourceInput.id)
-        if (target) {
-          target.value = input.value
+        const targetInput = targetInputs.namedItem(sourceInput.id)
+        if (targetInput) {
+          targetInput.value = input.value
         }
       }
     }
