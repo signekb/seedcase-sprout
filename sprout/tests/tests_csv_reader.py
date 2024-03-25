@@ -106,7 +106,6 @@ class CsvTests(TestCase):
 
         df = read_csv_file(csv_file)
 
-        print(df)
         self.assert_types(df, "Int64", "Float64")
         self.assertEqual(4, len(df))
 
