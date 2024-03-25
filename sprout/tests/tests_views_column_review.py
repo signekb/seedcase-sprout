@@ -57,7 +57,7 @@ class ColumnReviewViewTest(TestCase):
 
         url = reverse("column-review", args=[self.table_metadata.id])
         data = {
-            f"{self.column_metadata.id}-machine_readable_name": "Updated Machine-Readable Name",
+            f"{self.column_metadata.id}-machine_read_name": "Updated Machine-Read Name",
             f"{self.column_metadata.id}-display_name": "Updated Column Display Name",
             f"{self.column_metadata.id}-description": "Test Description",
             f"{self.column_metadata.id}-data_type": 0,
