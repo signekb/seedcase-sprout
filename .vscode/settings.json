@@ -23,5 +23,6 @@
   "conventional-branch.format": "{Type}/{Branch}",
   "[python]": {
     "editor.defaultFormatter": "charliermarsh.ruff"
-  }
+  },
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv"
 }
