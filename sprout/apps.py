@@ -16,8 +16,7 @@ class AppConfig(AppConfig):
 
     def ready(self) -> None:
         """This is executed when the app starts up."""
-        # We do a lazy import, otherwise the app will fail with
-        # AppRegistryNotReady
+        # We do a lazy import, otherwise the app will fail with AppRegistryNotReady
         from sprout.models.column_data_type import update_column_data_types
 
         # We use a Django signal called post_migrate as the columns should
@@ -25,8 +24,8 @@ class AppConfig(AppConfig):
         post_migrate.connect(update_column_data_types, sender=self)
 
         # Adding test data after migrate when DEBUG=TRUE and not running unit tests
-        is_running_unit_tests = "test" not in sys.argv
-        if DEBUG and is_running_unit_tests:
+        is_not_running_unit_tests = "test" not in sys.argv
+        if DEBUG and is_not_running_unit_tests:
             post_migrate.connect(load_test_data, sender=self)
 
 
