@@ -75,7 +75,7 @@ class ProjectIdMetaDataTests(TestCase):
 
         # Assert
         self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, reverse("data_import"))
+        self.assertRedirects(response, reverse("data-import"))
 
     def test_view_does_not_redirect_with_buttons_edit_upload_wo_selected_row(self):
         """Test that the post function does not redirect to column_review
