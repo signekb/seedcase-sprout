@@ -99,6 +99,17 @@ class CsvTests(TestCase):
         self.assert_types(df, "Int64", "String", "Float64", "Float64", "Float64")
         self.assertEqual(2, len(df))
 
+    def test_csv_with_semicolon_seperator_and_comma_decimals(self):
+        """Testing with ; as separator and comma in decimals."""
+        csv_content = """index;value\n1;1,2\n2;2,3\n3;0,332\n4;"""
+        csv_file = self.create_file(csv_content)
+
+        df = read_csv_file(csv_file)
+
+        print(df)
+        self.assert_types(df, "Int64", "Float64")
+        self.assertEqual(4, len(df))
+
     def test_boolean_ish_values(self):
         """Column with boolean-ish/empty values should convert to booleans."""
         csv_file = self.create_file(
