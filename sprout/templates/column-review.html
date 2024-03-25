@@ -65,7 +65,7 @@
     <div class="row wrap">
       {% for column in columns %}
         <!--  -->
-        <article class="row" style="border: 1px solid gray; padding: 5px; border-radius: 12px; width: 23%; ">
+        <article class="row" style="border: 1px solid gray; padding: 5px; border-radius: 12px; width: 23%; align-items: start ">
           <div style="padding: 5px; min-width: 0; flex: 1;">
             <p style="text-align: center; font-size: 1.25rem; font-weight: bold; margin-bottom: 20px">{{ column.title }}</p>
             <div class="field label small border" style="margin-bottom: 40px">
@@ -88,7 +88,7 @@
             </div>
 
             <div style="min-width: 0">
-              <p style="color: grey; font-size: 0.75rem; font-weight: bold; margin-bottom: 5px">Data preview:</p>
+              <p style="color: grey; font-size: 0.75rem; font-weight: bold; margin-bottom: 5px">Preview (<5 unique values):</p>
               {% for cell in column.data %}
                 <p style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ cell }}</p>
               {% endfor %}
