@@ -127,6 +127,17 @@
   </dialog>
 
   <script>
+    let moveInputValues = (source, target) => {
+      const targetInputs = target.getElementsByTagName("input")
+
+      for (let sourceInput of source.getElementsByTagName("input")){
+        const target = targetInputs.namedItem(sourceInput.id)
+        if (target) {
+          target.value = input.value
+        }
+      }
+    }
+
     let toggle = (button) => {
       let element_table = document.getElementById('metadata_view_table')
       let element_grid = document.getElementById('metadata_view_grid')
@@ -135,10 +146,12 @@
         element_table.hidden = false;
         element_grid.hidden = true;
         button.innerText = 'Show Grid View'
+        moveInputValues(element_grid, element_table)
       } else {
         element_grid.hidden = false;
         element_table.hidden = true;
         button.innerText = 'Show Table View'
+        moveInputValues(element_table, element_grid)
       }
     }
   </script>
