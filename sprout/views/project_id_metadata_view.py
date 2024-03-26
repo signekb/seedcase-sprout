@@ -3,7 +3,7 @@
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 
-from sprout.models import TableMetadata
+from sprout.models import ColumnMetadata, TableMetadata
 
 
 def project_id_metadata_view(request: HttpRequest) -> HttpResponse:
@@ -20,6 +20,9 @@ def project_id_metadata_view(request: HttpRequest) -> HttpResponse:
     """
     existing_metadata = TableMetadata.objects.all()
     selected_metadata_id = request.GET.get("selected_metadata_id")
+    selected_metadata_columns = ColumnMetadata.objects.filter(
+        table_metadata_id=selected_metadata_id
+    )
     msg_edit_upload_wo_selected_row = None
 
     if request.method == "POST":
@@ -44,6 +47,7 @@ def project_id_metadata_view(request: HttpRequest) -> HttpResponse:
         {
             "existing_metadata": existing_metadata,
             "selected_metadata_id": selected_metadata_id,
+            "selected_metadata_columns": selected_metadata_columns,
             "msg_edit_upload_wo_selected_row": msg_edit_upload_wo_selected_row,
         },
     )

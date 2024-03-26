@@ -33,6 +33,23 @@
   .selected:hover {
     background-color: #DCDFFF;
   }
+
+  .column-metadata-margin {
+    margin: 5px;
+  }
+
+  .column-metadata {
+    font-size: smaller;
+  }
+
+  .column-metadata th {
+    background-color: #ededed;
+    border: none;
+  }
+
+  .column-metadata tbody {
+    background-color: white;
+  }
 </style>
 
 <form id="selectedElementsForm" method="post">
@@ -62,7 +79,37 @@
               <div class="table-cell">Cell</div>
               <div class="table-cell">{{ metadata.created_at }}</div>
               <div class="table-cell">Cell</div>
+              <div style="width:3%">
+                <i>arrow_drop_down</i>
+              </div>
             </div>
+            {% if request.GET.selected_metadata_id|add:'0' == metadata.id %}
+            <div class="column-metadata-margin" id="column-metadata-{{metadata.id}}">
+              <table class="column-metadata">
+                <thead class="th">
+                  <tr>
+                    <th>Original Column Name</th>
+                    <th>Variable Name</th>
+                    <th>Display Name</th>
+                    <th>Data Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody class="tbody">
+                  {% for column in selected_metadata_columns %}
+                  {% if forloop.counter < 11 %} <tr>
+                    <td>{{ column.original_name }}</td>
+                    <td>{{ column.name }}</td>
+                    <td>{{ column.title }}</td>
+                    <td>{{ column.data_type }}</td>
+                    <td>{{ column.description }} </td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            {% endif %}
           </div>
         </a>
       </a>
