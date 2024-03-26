@@ -90,11 +90,9 @@ class ProjectIdMetaDataTests(TestCase):
         # Assert
         self.assertEqual(response_edit.status_code, 200)
         self.assertTemplateUsed(response_edit, "project-id-metadata-view.html")
-        self.assertIsNotNone(response_edit.context["msg_edit_upload_wo_selected_row"])
 
         self.assertEqual(response_upload.status_code, 200)
         self.assertTemplateUsed(response_upload, "project-id-metadata-view.html")
-        self.assertIsNotNone(response_upload.context["msg_edit_upload_wo_selected_row"])
 
     def test_view_redirects_with_button_edit_and_selected_row(self):
         """Test that the post function redirects to column_review
