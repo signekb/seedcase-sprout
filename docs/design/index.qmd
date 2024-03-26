@@ -4,18 +4,19 @@ title: "Design of Sprout"
 
 {{< include ../_wip.qmd >}}
 
-This documentation contains the design specific to Sprout, 
+This documentation contains the design specific to Sprout,
 
 ## Purpose
 
 The core purpose of writing this architecture documentation is to be
-able to describe to ourselves and others what Seedcase Sprout is aiming to
-accomplish and how it will do that.
+able to describe to ourselves and others what Seedcase Sprout is aiming
+to accomplish and how it will do that.
 
 ## Technical decisions
 
-![[C4 Context diagram](https://c4model.com/#SystemContextDiagram) showing users and external systems that connect to
-the Data Resource managed by Seedcase.](/design/images/context.png)
+![[C4 Context diagram](https://c4model.com/#SystemContextDiagram)
+showing users and external systems that connect to the Data Resource
+managed by Seedcase.](/design/images/context.png)
 
 ## Definition of terms
 
@@ -38,4 +39,3 @@ Primary **goal** of Sprout are:
     organizationally and store it in a secure, centralized location in a
     standardized and efficient format to form a Data Resource. Metadata
     are similarly stored and linked to the data.
-

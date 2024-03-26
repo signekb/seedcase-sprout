@@ -32,9 +32,9 @@ class ColumnMetadataFormTest(TestCase):
         """Test that the validation works on correct data."""
         # Arrange: Create valid form data
         form_data = {
-            "original_name": "TestName",
-            "name": "TestName",
-            "title": "TestTitle",
+            "extracted_name": "TestName",
+            "machine_readable_name": "test_name",
+            "display_name": "TestDisplayName",
             "description": "This is the Description",
             "data_type": self.column_data_type.id,
             "allow_missing_value": True,
@@ -52,9 +52,9 @@ class ColumnMetadataFormTest(TestCase):
         """Test that the validation works on wrong data and throws an error."""
         # Arrange: Create invalid form data
         invalid_form_data = {
-            "original_name": "",
-            "name": "",
-            "title": "",
+            "extracted_name": "",
+            "machine_readable_name": "",
+            "display_name": "",
             "description": "Description",
             "data_type": self.column_data_type.id,
             "allow_missing_value": True,

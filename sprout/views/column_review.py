@@ -30,12 +30,12 @@ def column_review(request, table_id):
     forms = [create_form(request, c) for c in columns_metadata]
     columns = [
         {
-            "original_name": c.original_name,
-            "title": c.title,
-            "name": c.name,
+            "extracted_name": c.extracted_name,
+            "machine_readable_name": c.machine_readable_name,
+            "display_name": c.display_name,
             "description": c.description,
             "data_type": c.data_type.display_name,
-            "data": data_sample[c.original_name],
+            "data": data_sample[c.extracted_name],
             "tab-index": idx,
             "form": forms[idx],
         }

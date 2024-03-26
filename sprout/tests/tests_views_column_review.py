@@ -24,9 +24,9 @@ class ColumnReviewViewTest(TestCase):
         )
         self.column_metadata = ColumnMetadata.objects.create(
             table_metadata=self.table_metadata,
-            name="Test Column",
-            original_name="TestColumn",
-            title="Test Title",
+            extracted_name="TestColumn",
+            machine_readable_name="test_column",
+            display_name="Test Display Name",
             description="Test Description",
             data_type_id=0,
             allow_missing_value=True,
@@ -58,8 +58,8 @@ class ColumnReviewViewTest(TestCase):
 
         url = reverse("column-review", args=[self.table_metadata.id])
         data = {
-            f"{self.column_metadata.id}-name": "Updated Column Name",
-            f"{self.column_metadata.id}-title": "Updated Column Title",
+            f"{self.column_metadata.id}-machine_read_name": "Updated Machine-Read Name",
+            f"{self.column_metadata.id}-display_name": "Updated Column Display Name",
             f"{self.column_metadata.id}-description": "Test Description",
             f"{self.column_metadata.id}-data_type": 0,
             f"{self.column_metadata.id}-allow_missing_value": True,
