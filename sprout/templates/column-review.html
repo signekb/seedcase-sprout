@@ -61,9 +61,9 @@
           <!-- CARD CONTENT -->
           <div style="min-width: 0; flex: 1; padding-top: 20px">
             <div class="row" style="margin-bottom: 20px">
-              <p class="max" style="font-size: 1.25rem; font-weight: bold;">{{ column.display_name }}</p>
+              <h3 class="max card-header">{{ column.display_name }}</h3>
               <label class="checkbox icon" style="z-index: 11">
-                {{ column.form.excluded|attr:"tabindex:5"|attr:"onclick:toggleExcluded(event)"}}
+                {{ column.form.excluded|attr:'tabindex:5'|attr:'onclick:toggleExcluded(event)' }}
                 <span>
                   <i>delete</i>
                   <i style="color: antiquewhite">undo</i>
