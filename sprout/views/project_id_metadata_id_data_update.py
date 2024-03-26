@@ -10,14 +10,14 @@ from sprout.models import ColumnMetadata, FileMetadata, TableMetadata
 def project_id_metadata_id_data_update(
     request: HttpRequest, table_id: int
 ) -> HttpResponse:
-    """Updates data in (or adds data to) a database table for a specific metadata object.
+    """Modifies or adds data in a database table for a specific metadata object.
 
     Args:
-        request: _description_
-        table_id: _description_
+        request: Takes the HTTP request from the server.
+        table_id: The database Table ID.
 
     Returns:
-        _description_
+        Outputs an HTTP response object.
     """
     table_metadata = get_object_or_404(TableMetadata, id=table_id)
     context = {
