@@ -8,7 +8,7 @@ urlpatterns = [
     path("", views.home, name="home"),
     path("view", views.projects_id_view, name="projects-id-view"),
     path(
-        "metadata/create/<int:table_id>",
+        "metadata/<int:table_id>/create",
         views.projects_id_metadata_create,
         name="projects-id-metadata-create",
     ),

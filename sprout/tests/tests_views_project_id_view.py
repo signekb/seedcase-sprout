@@ -49,7 +49,7 @@ class ProjectIDViewTests(TestCase):
 
         # Assert
         self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, "metadata/1/update")
+        self.assertRedirects(response, "/metadata/1/create")
 
     def test_no_redirect_with_invalid_form_special_characters(self):
         """Test that no redirection when the "name" field contains special characters.

@@ -32,10 +32,8 @@ def projects_id_view(request: HttpRequest) -> HttpResponse:
 
         # if input passes validation, save form and redirect to file upload
         if form.is_valid():
-            # TODO: This seems to need the Table ID...
-            # table_metadata = form.save()
-            # return redirect(to=f"metadata/{table_metadata.id}/create")
-            return redirect(to="metadata/create")
+            table_metadata = form.save()
+            return redirect(to=f"metadata/{table_metadata.id}/create")
 
     # if GET (or any other method), create a blank form
     else:

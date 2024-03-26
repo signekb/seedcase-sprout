@@ -25,7 +25,7 @@ class MetadataCreateTests(TestCase):
         create_table(table_name).save()
 
         # Act
-        response = self.client.get("metadata/1/update")
+        response = self.client.get("/metadata/1/create")
 
         # Assert.
         self.assertEqual(response.status_code, 200)
@@ -40,7 +40,7 @@ class MetadataCreateTests(TestCase):
         file = self.create_file(file_name, "name,city,age\nPhil,Aarhus,36")
 
         # Act
-        response = self.client.post("metadata/1/update", {"uploaded_file": file})
+        response = self.client.post("/metadata/1/create", {"uploaded_file": file})
 
         # Assert
         table = TableMetadata.objects.get(name=table_name)
@@ -56,7 +56,7 @@ class MetadataCreateTests(TestCase):
         create_table("Table Name").save()
         file = self.create_file("file-with-wrong-ext.svg", "file content")
 
-        response = self.client.post("metadata/1/update", {"uploaded_file": file})
+        response = self.client.post("/metadata/1/create", {"uploaded_file": file})
 
         self.assertContains(response, "Unsupported file format: .svg")
 
@@ -65,7 +65,7 @@ class MetadataCreateTests(TestCase):
         create_table("Table Name").save()
         file = self.create_file("file-with-bad-headers.csv", "name, age")
 
-        response = self.client.post("metadata/1/update", {"uploaded_file": file})
+        response = self.client.post("/metadata/1/create", {"uploaded_file": file})
 
         self.assertContains(response, "Invalid CSV. No rows found!")
 
@@ -77,7 +77,7 @@ class MetadataCreateTests(TestCase):
         table.save()
         file1 = self.create_file("file.csv", "first_name,year\nHans,2000")
         file2 = self.create_file("file.csv", expected_file_content)
-        url = reverse("metadata-create", kwargs={"table_id": table.id})
+        url = reverse("project-id-metadata-create", kwargs={"table_id": table.id})
 
         # Act
         self.client.post(url, {"uploaded_file": file1})

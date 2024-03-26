@@ -5,11 +5,11 @@ from django.test import TestCase
 from django.urls import reverse
 
 from sprout.models import ColumnMetadata, FileMetadata, TableMetadata
-from sprout.views.projects_id_metadata_create import create_sample_of_unique_values
+from sprout.views.projects_id_metadata_id_update import create_sample_of_unique_values
 
 
 class MetadataIDUpdateViewTest(TestCase):
-    """Test for the Data Metadata Edit (as table) page."""
+    """Test for the Data Metadata update (as table) page."""
 
     def setUp(self):
         """Create a table and a column for testing."""
@@ -77,7 +77,7 @@ class MetadataIDUpdateViewTest(TestCase):
     def test_excluded_should_delete_column(self):
         """An excluded column should be removed even if form is not valid."""
         # Arrange
-        url = reverse("column-review", args=[self.table_metadata.id])
+        url = reverse("project-id-metadata-id-update", args=[self.table_metadata.id])
         data = {
             f"{self.column_metadata.id}-excluded": True,
         }
