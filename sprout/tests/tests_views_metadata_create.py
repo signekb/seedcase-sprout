@@ -88,7 +88,7 @@ class FileUploadTests(TestCase):
         self.assertEqual(3, columns.count())
 
         expected_columns = ["name", "city", "age"]
-        actual_columns = list(map(lambda c: c.name, columns))
+        actual_columns = list(map(lambda c: c.extracted_name, columns))
         self.assertEqual(actual_columns, expected_columns)
 
         actual_file_content = Path(files.first().server_file_path).read_text()
