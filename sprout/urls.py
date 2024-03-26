@@ -9,8 +9,8 @@ urlpatterns = [
     path("data-import", views.data_import, name="data_import"),
     path(
         "data/<int:table_id>/upload",
-        views.project_id_data_id_upload,
-        name="project-id-data-id-upload",
+        views.project_id_metadata_id_data_update,
+        name="project-id-metadata-id-data-update",
     ),
     path(
         "metadata/create/<int:table_id>", views.metadata_create, name="metadata-create"
