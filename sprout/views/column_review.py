@@ -1,4 +1,5 @@
 """File with column_review view."""
+from typing import Dict, List
 
 from django.http import HttpRequest
 from django.shortcuts import get_object_or_404, redirect, render
@@ -25,8 +26,7 @@ def column_review(request, table_id):
     columns_metadata = ColumnMetadata.objects.select_related("data_type").filter(
         table_metadata=table_metadata
     )
-    file = FileMetadata.objects.get(table_metadata=table_metadata)
-    df = read_csv_file(file.server_file_path, 5)
+    data_sample = create_sample_of_unique_values(table_metadata.id)
     forms = [create_form(request, c) for c in columns_metadata]
     columns = [
         {
@@ -35,7 +35,7 @@ def column_review(request, table_id):
             "display_name": c.display_name,
             "description": c.description,
             "data_type": c.data_type.display_name,
-            "data": df[c.extracted_name].to_list(),
+            "data": data_sample[c.extracted_name],
             "tab-index": idx,
             "form": forms[idx],
         }
@@ -72,3 +72,23 @@ def create_form(request: HttpRequest, column: ColumnMetadata) -> ColumnMetadataF
         return ColumnMetadataForm(request.POST, instance=column, prefix=str(column.id))
     else:
         return ColumnMetadataForm(instance=column, prefix=str(column.id))
+
+
+def create_sample_of_unique_values(table_metadata_id: int) -> Dict[str, List]:
+    """Create sample of unique values based on the uploaded file for a table.
+
+    The unique values are based on the first 500 rows.
+
+    Args:
+        table_metadata_id: The id of the table
+
+    Returns:
+        Dict[str, List]: Dictionary of unique sample values grouped by column name.
+    """
+    file = FileMetadata.objects.get(table_metadata_id=table_metadata_id)
+    df = read_csv_file(file.server_file_path, 500)
+
+    # Find unique values, and limit to max 5 different
+    return dict(
+        [(s.name, s.unique(maintain_order=True).limit(5).to_list()) for s in df]
+    )

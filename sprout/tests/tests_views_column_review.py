@@ -7,6 +7,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from sprout.models import ColumnMetadata, FileMetadata, TableMetadata
+from sprout.views.column_review import create_sample_of_unique_values
 
 
 class ColumnReviewViewTest(TestCase):
@@ -32,7 +33,7 @@ class ColumnReviewViewTest(TestCase):
             allow_duplicate_value=True,
         )
 
-        file = io.BytesIO(b"TestColumn,Letter\n1,A\n2,B\n3,C")
+        file = io.BytesIO(b"TestColumn,Letter\n1,A\n2,B\n3,C\n4,C\n5,C\n6,C")
         file.name = "file-name.csv"
         self.file_metadata = FileMetadata.create_file_metadata(
             file, self.table_metadata.id
@@ -70,6 +71,15 @@ class ColumnReviewViewTest(TestCase):
 
         # Assert the status code
         self.assertEqual(response.status_code, 200)
+
+    def test_create_sample_of_unique_values(self):
+        """Test if correct sample values are created."""
+        table_metadata_id = self.table_metadata.id
+
+        sample = create_sample_of_unique_values(table_metadata_id)
+
+        self.assertEqual([1, 2, 3, 4, 5], sample["TestColumn"])
+        self.assertEqual(["A", "B", "C"], sample["Letter"])
 
     def tearDown(self):
         os.remove(self.file_metadata.server_file_path)
