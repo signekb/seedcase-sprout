@@ -1,4 +1,5 @@
 """Tests for models."""
+
 from django.test import TestCase
 
 from sprout.models import ColumnMetadata, TableMetadata
@@ -23,7 +24,9 @@ class TableAndColumnMetadataTests(TestCase):
 
         # Act
         table_exists = TableMetadata.objects.filter(name=table_name).exists()
-        column_exists = ColumnMetadata.objects.filter(name=column_name).exists()
+        column_exists = ColumnMetadata.objects.filter(
+            machine_readable_name=column_name
+        ).exists()
 
         # Assert
         self.assertTrue(table_exists, "Table metadata should be created")

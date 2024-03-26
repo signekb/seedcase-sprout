@@ -44,6 +44,6 @@ install-deps:
   # no-root to not install the parent folder as a package
   poetry install --no-root
 
-# Add test data when running locally based on app/fixtures/sample.json
+# Add test data when running locally based on app/fixtures/patients.json
 add-test-data: install-deps update-migrations
-  poetry run python manage.py loaddata sample
+  poetry run python manage.py loaddata patients

@@ -1,4 +1,5 @@
 """File containing database utility functions used for testing."""
+
 from sprout.models import ColumnMetadata, TableMetadata
 
 
@@ -30,8 +31,8 @@ def create_column(name: str, table: TableMetadata) -> ColumnMetadata:
     """
     return ColumnMetadata(
         table_metadata=table,
-        name=name,
-        title=name + "Title",
+        machine_readable_name=name,
+        display_name=name + "display name",
         description=name + " description",
         data_type_id=1,
         allow_missing_value=True,

@@ -105,4 +105,51 @@
     const dialog = document.getElementById('progress-dialog')
     dialog.show()
   }
+  
+  dragZone.addEventListener(
+    'drop',
+    (e) => {
+      selectedFiles(e.dataTransfer?.files)
+      e.preventDefault()
+      dragZone.classList.remove(highlightClass)
+    },
+    false
+  )
+  
+  dragZone.addEventListener(
+    'dragleave',
+    (e) => {
+      e.preventDefault()
+      dragZone.classList.remove(highlightClass)
+    },
+    false
+  )
+  
+  dragZone.addEventListener(
+    'dragenter',
+    (e) => {
+      e.preventDefault()
+      dragZone.classList.add(highlightClass)
+    },
+    false
+  )
+  
+  dragZone.addEventListener(
+    'dragover',
+    (e) => {
+      e.preventDefault()
+      dragZone.classList.add(highlightClass)
+    },
+    false
+  )
+  
+  function showDialog() {
+    const dialog = document.getElementById('progress-dialog')
+    dialog.show()
+  }
+  
+  // This will disable the bfcache (back-forward cache) in firefox to ensure the page
+  // is reloaded, when user clicks the 'back button' in the browser
+  window.addEventListener('unload', function () {})
+  window.addEventListener('beforeunload', function () {})
 </script>
