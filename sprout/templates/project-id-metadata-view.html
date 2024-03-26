@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+  .table {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .table-header,
+  .table-row {
+    display: flex;
+    padding: 5px;
+  }
+
+  .table-header {
+    background-color: #D9D9D9;
+    margin-bottom: 10px;
+  }
+
+  .table-cell {
+    flex: 1;
+    padding: 8px;
+  }
+
+  .selectable:hover {
+    background-color: #ededed;
+    cursor: pointer;
+  }
+
+  .selected,
+  .selected:hover {
+    background-color: #DCDFFF;
+  }
+</style>
+
+<form id="selectedElementsForm" method="post">
+  {% csrf_token %}
+  <div class="table">
+    <div class="table-header">
+      <div class="table-cell">Name</div>
+      <div class="table-cell">Description</div>
+      <div class="table-cell">Data Rows</div>
+      <div class="table-cell">Date Created</div>
+      <div class="table-cell">Last Upload</div>
+    </div>
+    <div class="table-body">
+      {% for metadata in existing_metadata %}
+      <!-- if statement that changes url depending on selection and deselection of rows -->
+      {% if request.GET.selected_metadata_id|add:'0' == metadata.id %}
+      <a style="display:block" href="{% url 'project-id-metadata-view' %}">
+        {% else %}
+        <a style="display:block" href="{% url 'project-id-metadata-view' %}?selected_metadata_id={{metadata.id}}">
+          {% endif %}
+          <div>
+            <div
+              class="table-row selectable{% if request.GET.selected_metadata_id|add:'0' == metadata.id %} selected{% endif %}"
+              id="{{metadata.id}}">
+              <div class="table-cell">{{metadata.name}}</div>
+              <div class="table-cell">{{ metadata.description }}</div>
+              <div class="table-cell">Cell</div>
+              <div class="table-cell">{{ metadata.created_at }}</div>
+              <div class="table-cell">Cell</div>
+            </div>
+          </div>
+        </a>
+      </a>
+      {% empty %}
+      <p>No existing data to show.</p>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- three buttons will submit this form: create, edit, or upload -->
+  <nav class="right-align">
+    <button type="submit" name="button_create"><i>add</i>Create Metadata</button>
+    <button type="submit" name="button_edit"><i>edit</i>Edit Metadata</button>
+    <button type="submit" name="button_upload"><i>upload</i>Upload Data</button>
+  </nav>
+</form>
+
+<!-- dialog if button_edit or button_upload has been clicked without a selected row -->
+{% if msg_edit_upload_wo_selected_row %}
+<div class="overlay blur active" data-ui="#dialog"></div>
+<dialog class="active" id="dialog">
+  <div class="center-align">
+    <i class="fill">error</i>
+  </div>
+  <h5 class="center-align">Woops!</h5>
+  <div>{{ msg_edit_upload_wo_selected_row }}</div>
+  <nav class="right-align no-space">
+    <button class="transparent link" data-ui="#dialog">OK</button>
+  </nav>
+</dialog>
+{% endif %}
+
+{% endblock content %}

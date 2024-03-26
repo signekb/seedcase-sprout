@@ -1,4 +1,5 @@
 """Tests for forms."""
+
 from django.test import TestCase
 
 from sprout.forms import TableMetadataForm
@@ -25,9 +26,9 @@ class TableMetadataFormTests(TestCase):
         self.assertEqual(
             form.errors["name"],
             [
-                f"Please use only upper or lower case letters (a to z), "
-                f"numbers (0 to 9), -, or _ when "
-                f"specifying {list(form_data.keys())[0]}"
+                f"Please don't use spaces and only use upper or lower case letters "
+                f"(a to z), numbers (0 to 9), -, or _ when specifying "
+                f"{list(form_data.keys())[0]}",
             ],
         )
 
@@ -48,9 +49,9 @@ class TableMetadataFormTests(TestCase):
         self.assertEqual(
             form.errors["name"],
             [
-                f"Please use only upper or lower case letters (a to z), "
-                f"numbers (0 to 9), -, or _ when "
-                f"specifying {list(form_data.keys())[0]}"
+                f"Please don't use spaces and only use upper or lower case letters "
+                f"(a to z), numbers (0 to 9), -, or _ when specifying "
+                f"{list(form_data.keys())[0]}",
             ],
         )
 

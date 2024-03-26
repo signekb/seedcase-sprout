@@ -17,6 +17,7 @@ maintainers = [
 readme = "README.md"
 homepage = "https://sprout.seedcase-project.org"
 repository = "https://github.com/seedcase-project/seedcase-sprout"
+license = "MIT"
 
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/seedcase-project/seedcase-sprout/issues"
@@ -29,6 +30,7 @@ whitenoise = "^6.6.0"
 gunicorn = "^21.2.0"
 dj-database-url = "^2.1.0"
 polars = "^0.20.7"
+django-widget-tweaks = "^1.5.0"
 
 [build-system]
 requires = ["poetry-core"]

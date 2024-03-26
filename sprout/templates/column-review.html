@@ -1,13 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load tabindex %}
+{% load widget_tweaks %}
 
 {% block content %}
-  <h2>
-    Headers and Definitions extracted for {{ table_metadata.name }}
+  <h2 style="margin-bottom: 20px">
+    Headers for {{ table_metadata.name }}
     <button class="circle small fill" data-ui="#help-ext_name"><i>question_mark</i></button>
   </h2>
-  <form method="post" action="">
+  <button onclick="toggle(this)">Show Table View</button>
+
+  <!-- TABLE VIEW -->
+  <form id="metadata_view_table" hidden method="post" action="">
     {% csrf_token %}
     <table>
       <thead>
@@ -23,17 +26,83 @@
         {% for form in forms %}
           <tr>
             <td>{{ form.instance.original_name }}</td>
-            <td>{{ form.name|tabindex:1 }}</td>
-            <td>{{ form.title|tabindex:2 }}</td>
-            <td style="overflow: hidden;">{{ form.description|tabindex:3 }}</td>
-            <td style="overflow: hidden;">{{ form.data_type|tabindex:4 }}</td>
+            <td>{{ form.name|attr:"tabindex:1" }}</td>
+            <td>{{ form.title|attr:"tabindex:2" }}</td>
+            <td style="overflow: hidden;">{{ form.description|attr:"tabindex:3" }}</td>
+            <td style="overflow: hidden;">{{ form.data_type|attr:"tabindex:4" }}</td>
             <input type="hidden" name="{{ form.prefix }}-id" value="{{ form.instance.id }}" />
           </tr>
         {% endfor %}
       </tbody>
     </table>
-    <button type="submit">Update All</button>
+    <div class="row" style="justify-content: center">
+      <button type="submit" tabindex="10">Update All</button>
+    </div>
   </form>
+
+  <!-- List View -->
+  <form hidden method="post" action="">
+    {% csrf_token %}
+    <div>
+      {% for form in forms %}
+        <article class="border">
+          <p>Column name: {{ form.name|attr:"tabindex:1" }}</p>
+          <p>Display name: {{ form.title|attr:"tabindex:2" }}</p>
+          <p>Description: {{ form.description|attr:"tabindex:3" }}</p>
+          <p>Data Type: {{ form.data_type|attr:"tabindex:4" }}</p>
+          <input type="hidden" name="{{ form.prefix }}-id" value="{{ form.instance.id }}" />
+        </article>
+      {% endfor %}
+    </div>
+    <div class="row" style="justify-content: center">
+      <button type="submit" tabindex="10">Update All</button>
+    </div>
+  </form>
+
+  <!-- GRID VIEW -->
+  <form id="metadata_view_grid" method="post" action="">
+    {% csrf_token %}
+    <div class="row wrap">
+      {% for column in columns %}
+        <!--  -->
+        <article class="row" style="border: 1px solid gray; padding: 5px; border-radius: 12px; width: 23%; ">
+          <div style="padding: 5px; min-width: 0; flex: 1;">
+            <p style="text-align: center; font-size: 1.25rem; font-weight: bold; margin-bottom: 20px">{{ column.title }}</p>
+            <div class="field label small border" style="margin-bottom: 40px">
+              {{ column.form.title|attr:"tabindex:1" }}
+              <label>Title</label>
+              <span class="helper">From: '{{ column.original_name }}'</span>
+            </div>
+
+            <div hidden>{{ column.form.name|attr:"tabindex:2" }}</div>
+
+            <div class="field label suffix border" style="margin-bottom: 20px">
+              {{ column.form.data_type|attr:"tabindex:3" }}
+              <label>Type</label>
+              <i>arrow_drop_down</i>
+            </div>
+
+            <div class="field label small border" style="margin-bottom: 20px">
+              {{ column.form.description|attr:"tabindex:4"|attr:"class:active" }}
+              <label class="active">Description</label>
+            </div>
+
+            <div style="min-width: 0">
+              <p style="color: grey; font-size: 0.75rem; font-weight: bold; margin-bottom: 5px">Data preview:</p>
+              {% for cell in column.data %}
+                <p style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ cell }}</p>
+              {% endfor %}
+            </div>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+
+    <div class="row" style="justify-content: center">
+      <button type="submit" tabindex="10">Update All</button>
+    </div>
+  </form>
+
   <!-- Help dialog -->
   <dialog class="dialog" id="help-ext_name">
     <h5 class="center-align">Fields</h5>
@@ -56,4 +125,21 @@
       <a class="transparent link" data-ui="#help-ext_name">Close</a>
     </nav>
   </dialog>
+
+  <script>
+    let toggle = (button) => {
+      let element_table = document.getElementById('metadata_view_table')
+      let element_grid = document.getElementById('metadata_view_grid')
+
+      if (element_table.hidden) {
+        element_table.hidden = false;
+        element_grid.hidden = true;
+        button.innerText = 'Show Grid View'
+      } else {
+        element_grid.hidden = false;
+        element_table.hidden = true;
+        button.innerText = 'Show Table View'
+      }
+    }
+  </script>
 {% endblock %}
