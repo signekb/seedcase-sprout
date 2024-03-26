@@ -97,8 +97,13 @@
   }, false)
 
 
-  function showDialog() { 
+  function showDialog() {
     const dialog = document.getElementById("progress-dialog")
-    dialog.show(); 
-} 
+    dialog.show();
+  }
+
+  // This will disable the bfcache (back-forward cache) in firefox to ensure the page
+  // is reloaded, when user clicks the 'back button' in the browser
+  window.addEventListener('unload', function(){});
+  window.addEventListener('beforeunload', function(){});
 </script>
