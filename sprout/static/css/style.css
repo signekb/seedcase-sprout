@@ -19,3 +19,13 @@ dt {
 dd {
   margin: 0;
 }
+
+.card-header {
+  font-size: 1.25rem;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+  width: 85%;
+}
