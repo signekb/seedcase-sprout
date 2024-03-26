@@ -79,7 +79,7 @@ class ProjectIdMetaDataTests(TestCase):
 
     def test_view_does_not_redirect_with_buttons_edit_upload_wo_selected_row(self):
         """Test that the post function does not redirect to column_review
-        when button_edit is clicked without selected row and that msg is not None."""
+        when button_edit is clicked without selected row."""
         # Arrange
         url = reverse("project-id-metadata-view")
 
