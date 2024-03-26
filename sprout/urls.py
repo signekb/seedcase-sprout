@@ -8,7 +8,7 @@ urlpatterns = [
     path("", views.home, name="home"),
     path("data-import", views.data_import, name="data_import"),
     path(
-        "data/<int:table_id>/upload",
+        "metadata/<int:table_id>/data/update",
         views.project_id_metadata_id_data_update,
         name="project-id-metadata-id-data-update",
     ),
