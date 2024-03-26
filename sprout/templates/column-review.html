@@ -133,7 +133,7 @@
       for (let sourceInput of source.getElementsByTagName("input")){
         const targetInput = targetInputs.namedItem(sourceInput.id)
         if (targetInput) {
-          targetInput.value = input.value
+          targetInput.value = sourceInput.value
         }
       }
     }
