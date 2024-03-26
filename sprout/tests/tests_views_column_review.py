@@ -33,7 +33,7 @@ class ColumnReviewViewTest(TestCase):
             allow_duplicate_value=True,
         )
 
-        file = io.BytesIO(b"TestColumn,Letter\n1,A\n2,B\n3,C\n4,C")
+        file = io.BytesIO(b"TestColumn,Letter\n1,A\n2,B\n3,C\n4,C\n5,C\n6,C")
         file.name = "file-name.csv"
         self.file_metadata = FileMetadata.create_file_metadata(
             file, self.table_metadata.id
@@ -78,7 +78,7 @@ class ColumnReviewViewTest(TestCase):
 
         sample = create_sample_of_unique_values(table_metadata_id)
 
-        self.assertEqual([1, 2, 3, 4], sample["TestColumn"])
+        self.assertEqual([1, 2, 3, 4, 5], sample["TestColumn"])
         self.assertEqual(["A", "B", "C"], sample["Letter"])
 
     def tearDown(self):
