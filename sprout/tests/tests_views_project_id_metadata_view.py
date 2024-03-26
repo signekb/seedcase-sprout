@@ -20,9 +20,9 @@ class ProjectIdMetaDataTests(TestCase):
         )
         self.column_metadata = ColumnMetadata.objects.create(
             table_metadata=self.table_metadata,
-            name="Test Column",
-            original_name="TestColumn",
-            title="Test Title",
+            extracted_name="TestColumn",
+            machine_readable_name="test_column",
+            display_name="Test Column",
             description="Test Description",
             data_type_id=0,
             allow_missing_value=True,
