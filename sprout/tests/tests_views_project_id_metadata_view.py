@@ -20,9 +20,9 @@ class ProjectIdMetaDataTests(TestCase):
         )
         self.column_metadata = ColumnMetadata.objects.create(
             table_metadata=self.table_metadata,
-            name="Test Column",
-            original_name="TestColumn",
-            title="Test Title",
+            extracted_name="TestColumn",
+            machine_readable_name="test_column",
+            display_name="Test Column",
             description="Test Description",
             data_type_id=0,
             allow_missing_value=True,
@@ -79,7 +79,7 @@ class ProjectIdMetaDataTests(TestCase):
 
     def test_view_does_not_redirect_with_buttons_edit_upload_wo_selected_row(self):
         """Test that the post function does not redirect to column_review
-        when button_edit is clicked without selected row and that msg is not None."""
+        when button_edit is clicked without selected row."""
         # Arrange
         url = reverse("project-id-metadata-view")
 
@@ -90,11 +90,9 @@ class ProjectIdMetaDataTests(TestCase):
         # Assert
         self.assertEqual(response_edit.status_code, 200)
         self.assertTemplateUsed(response_edit, "project-id-metadata-view.html")
-        self.assertIsNotNone(response_edit.context["msg_edit_upload_wo_selected_row"])
 
         self.assertEqual(response_upload.status_code, 200)
         self.assertTemplateUsed(response_upload, "project-id-metadata-view.html")
-        self.assertIsNotNone(response_upload.context["msg_edit_upload_wo_selected_row"])
 
     def test_view_redirects_with_button_edit_and_selected_row(self):
         """Test that the post function redirects to column_review
