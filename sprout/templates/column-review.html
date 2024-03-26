@@ -31,7 +31,7 @@
             <td>{{ form.display_name|attr:'tabindex:2' }}</td>
             <td style="overflow: hidden;">{{ form.description|attr:'tabindex:3' }}</td>
             <td style="overflow: hidden;">{{ form.data_type|attr:'tabindex:4' }}</td>
-            <td style="overflow: hidden;">{{ form.excluded|attr:"tabindex:5" }}</td>
+            <td style="overflow: hidden;">{{ form.excluded|attr:'tabindex:5' }}</td>
             <input type="hidden" name="{{ form.prefix }}-id" value="{{ form.instance.id }}" />
           </tr>
         {% endfor %}
@@ -49,7 +49,7 @@
       {% for column in columns %}
         <!-- CARD -->
         <article class="row" style="border: 1px solid gray; border-radius: 12px; width: 23%; align-items: start; padding-top: 0">
-          <!-- OVERLAY (when marked as excluded)-->
+          <!-- OVERLAY (when marked as excluded) -->
           <div hidden id="overlay_{{ column.id }}" style="position: absolute; width: 100%; height: 100%">
             <div style="position: relative; width: 100%; height: 100%; left: -16px; z-index: 10; background: rgba(0, 0, 0, 0.75)">
               <div class="middle">
@@ -133,7 +133,7 @@
     let toggle = (button) => {
       let element_table = document.getElementById('metadata_view_table')
       let element_grid = document.getElementById('metadata_view_grid')
-
+    
       if (element_table.hidden) {
         element_table.hidden = false
         element_grid.hidden = true
@@ -144,19 +144,18 @@
         button.innerText = 'Show Table View'
       }
     }
-
+    
     let toggleExcluded = (event) => {
-      const columnId = event.target.id.replace('id_','').replace('-excluded','');
-
-      const overlay = document.getElementById('overlay_' + columnId);
-      overlay.hidden = !overlay.hidden;
-
-      const tooltip = document.getElementById('tooltip_' + columnId);
-      tooltip.innerText = overlay.hidden ? "Exclude" : "Undo exclude"
-
+      const columnId = event.target.id.replace('id_', '').replace('-excluded', '')
+    
+      const overlay = document.getElementById('overlay_' + columnId)
+      overlay.hidden = !overlay.hidden
+    
+      const tooltip = document.getElementById('tooltip_' + columnId)
+      tooltip.innerText = overlay.hidden ? 'Exclude' : 'Undo exclude'
+    
       // description is not required if column is excluded
-      document.getElementsByName(columnId + "-description")
-        .forEach(d => d.required = overlay.hidden)
+      document.getElementsByName(columnId + '-description').forEach((d) => (d.required = overlay.hidden))
     }
   </script>
 {% endblock %}
