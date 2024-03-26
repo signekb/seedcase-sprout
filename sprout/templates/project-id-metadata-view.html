@@ -122,24 +122,12 @@
   <!-- three buttons will submit this form: create, edit, or upload -->
   <nav class="right-align">
     <button type="submit" name="button_create"><i>add</i>Create Metadata</button>
-    <button type="submit" name="button_edit"><i>edit</i>Edit Metadata</button>
-    <button type="submit" name="button_upload"><i>upload</i>Upload Data</button>
+    <button {% if not request.GET.selected_metadata_id %}disabled{% endif %} type="submit"
+      name="button_edit"><i>edit</i>Edit Metadata</button>
+    <button {% if not request.GET.selected_metadata_id %}disabled{% endif %} type="submit"
+      name="button_upload"><i>upload</i>Upload Data</button>
   </nav>
 </form>
 
-<!-- dialog if button_edit or button_upload has been clicked without a selected row -->
-{% if msg_edit_upload_wo_selected_row %}
-<div class="overlay blur active" data-ui="#dialog"></div>
-<dialog class="active" id="dialog">
-  <div class="center-align">
-    <i class="fill">error</i>
-  </div>
-  <h5 class="center-align">Woops!</h5>
-  <div>{{ msg_edit_upload_wo_selected_row }}</div>
-  <nav class="right-align no-space">
-    <button class="transparent link" data-ui="#dialog">OK</button>
-  </nav>
-</dialog>
-{% endif %}
 
 {% endblock content %}

@@ -65,8 +65,8 @@ class ColumnMetadataForm(ModelForm):
     class Meta:  # noqa: D106
         model = ColumnMetadata
         fields = (
-            "name",
-            "title",
+            "machine_readable_name",
+            "display_name",
             "description",
             "data_type",
             "allow_missing_value",
