@@ -2,8 +2,11 @@
 title: "Dynamic runtime behaviour"
 ---
 
-This section describes the behaviour and interactions that individual components of Sprout have with each other over time. For instance, what is the sequence of chronological steps that happens when a user inputs data until the final output of a structured database. "Runtime" in this case refers
-to how the software works "in action".
+This section describes the behaviour and interactions that individual
+components of Sprout have with each other over time. For instance, what
+is the sequence of chronological steps that happens when a user inputs
+data until the final output of a structured database. "Runtime" in this
+case refers to how the software works "in action".
 
 ## Login and Authentication
 
@@ -11,49 +14,53 @@ Almost all users will need to log into the Sprout-managed Data
 Resources. The steps for logging in and having their permission levels
 checked follows the sequence described in the figure below.
 
-![Login and authentication sequence of steps for a registered user.](images/runtime-login-sequence.png)
+![Login and authentication sequence of steps for a registered
+user.](images/runtime-login-sequence.png)
 
 <!-- TODO: Make a link to authentication app instead of describing here? Or in design repo, since this is necessary for all components. -->
 
 ## Data Input
 
-The overall aim of this section is to describe the general path/sequence of steps that
-data takes through a Data Resource, from raw input into the final
-output. Specifically, these items are described as:
+The overall aim of this section is to describe the general path/sequence
+of steps that data takes through a Data Resource, from raw input into
+the final output. Specifically, these items are described as:
 
 -   *Input*: Because we currently focus on health research, the type of
     input data and metadata would be what is typically generated from
-    health studies. This could be in the form of e.g., CSV, Excel sheets, or image files.
--   *Output*: The final output is the input data stored
-    together as a single database, or at least multiple databases and
-    files explicitly linked in such a way that it conceptually
-    represents a single database.
+    health studies. This could be in the form of e.g., CSV, Excel
+    sheets, or image files.
+-   *Output*: The final output is the input data stored together as a
+    single database, or at least multiple databases and files explicitly
+    linked in such a way that it conceptually represents a single
+    database.
 
 ### Expected Type of Input Data
 
-Given our focus on health data as well as the team's expertise in research using health data,
-we make some assumptions about the type of data that will be input into
-Sprout. Health data tends to consist of specific types of data:
+Given our focus on health data as well as the team's expertise in
+research using health data, we make some assumptions about the type of
+data that will be input into Sprout. Health data tends to consist of
+specific types of data:
 
 -   **Clinical**: This data is typically collected during patient visits
     to doctors. Depending on the country or administrative region, there
     will likely already be well-established data processing and storage
-    pipelines in place. 
+    pipelines in place.
 -   **Register**: This type of data is highly dependent on the country
     or region. Generally, this data is collected for national or
     regional administrative purposes, such as, recording employment
     status, income, address, medication purchases, and diagnoses. Like
     the routine clinical data, the pipelines in place for processing and
-    storage of this data are usually very extensive and well established. 
+    storage of this data are usually very extensive and well
+    established.
 -   **Biological sample data**: This type of data is generated from
     biological samples, like blood, saliva, semen, hair, or urine. Data
     generated from sample analytic techniques often produce large
     volumes of data per person. Samples may be generated in larger
     established laboratories or in smaller research groups, depending on
-    what analytic technology is used and how new it is. The
-    structure and format of the generated data also tends to be highly
-    variable and depends heavily on the technology used, sometimes
-    requiring specialized software to process and output.
+    what analytic technology is used and how new it is. The structure
+    and format of the generated data also tends to be highly variable
+    and depends heavily on the technology used, sometimes requiring
+    specialized software to process and output.
 -   **Survey or questionnaire**: This type of data is often done based
     on a given study's aims and research questions. There are hundreds
     of different questionnaires that can have highly specific purposes
@@ -61,15 +68,17 @@ Sprout. Health data tends to consist of specific types of data:
     of data collected based on the survey, and on the format of the
     data.
 
-These types of input data are formatted in a wide variety of files, including as text (`.txt`) files, comma-separated value (`.csv`) files, Excel (`.xls` or `.xlsx`) files, as well as other proprietry formats.
+These types of input data are formatted in a wide variety of files,
+including as text (`.txt`) files, comma-separated value (`.csv`) files,
+Excel (`.xls` or `.xlsx`) files, as well as other proprietry formats.
 
 ### Expected Flow of Input Data
 
 The above described data tends to fit into, mostly, two categories for
 data input.
 
--   *Routine or continuous collection*, where ingested data into
-    Sprout would occur as soon as the data was collected from one
+-   *Routine or continuous collection*, where ingested data into Sprout
+    would occur as soon as the data was collected from one
     "observational unit"[^1] or very shortly afterwards. Clinical data
     as well as survey or questionnaire data may likely fall under this
     category.
@@ -78,8 +87,8 @@ data input.
     sample data would fall under this category, since laboratories
     usually run several samples at once and input data after internal
     quality control checks and machine-specific data processing. While
-    register-based and clinical data does get collected continuously, direct access
-    to it is only given on an batch and infrequent basis.
+    register-based and clinical data does get collected continuously,
+    direct access to it is only given on an batch and infrequent basis.
     Survey data may also come in batches, depending on the questionnaire
     and software used for its collection.
 
@@ -94,19 +103,19 @@ direct call to the API so the data continues on to the backend and
 eventual data storage.
 
 Sources of data that don't have well-established data input processes,
-such as data from hospitals or medical laboratories, would need to use the
-Sprout data batch-input Web Portal. This Portal only accepts data
-that is in a pre-defined format (as determined and created by the Data Management 
-Administrators) that includes documentation, and potentially automation
-scripts on how to pre-process the data prior to uploading it.
+such as data from hospitals or medical laboratories, would need to use
+the Sprout data batch-input Web Portal. This Portal only accepts data
+that is in a pre-defined format (as determined and created by the Data
+Management Administrators) that includes documentation, and potentially
+automation scripts on how to pre-process the data prior to uploading it.
 
 These uploaded files might be a variety of file types, like `.csv`,
 `.xls`, or `.txt`). Only users with the correct permission levels are
 allowed to upload data. It will be the Data Access Administrator who
-will be doing the initial upload, as that will entail setting up table schemas
-and allocating space in the raw data file storage. The second way of
-getting data into the Data Resource is by manually entering it by an
-authorized Data Contributor.
+will be doing the initial upload, as that will entail setting up table
+schemas and allocating space in the raw data file storage. The second
+way of getting data into the Data Resource is by manually entering it by
+an authorized Data Contributor.
 
 Once the data is submitted through the Portal, it is sent in an
 encrypted, legally-compliant format to a server and stored in the way
@@ -114,62 +123,78 @@ defined by the API and data model.
 
 ### Upload Data to Sprout
 
-An approved user, i.e., a Data Access Administrator or a Data Contributor, will open the login screen in the Web Portal. They
-will enter their credentials which will be transmitted to the API layer.
-The API Security layer will check with the list of users and permissions
-in the database and confirm that the specific user has permission to
-enter data into a specific table (or set of tables) in the database.
+An approved user, i.e., a Data Access Administrator or a Data
+Contributor, will open the login screen in the Web Portal. They will
+enter their credentials which will be transmitted to the API layer. The
+API Security layer will check with the list of users and permissions in
+the database and confirm that the specific user has permission to enter
+data into a specific table (or set of tables) in the database.
 
 Once this check is complete the frontend will receive permission from
-the API Security layer to display the data entry/upload options for this kind of user role.
+the API Security layer to display the data entry/upload options for this
+kind of user role.
 
-Before any of the actions described below can be done, it is expected that appropriate table schemas or entry forms have been created by one or more administrators of the system. This process is described elsewhere.
+Before any of the actions described below can be done, it is expected
+that appropriate table schemas or entry forms have been created by one
+or more administrators of the system. This process is described
+elsewhere.
 
 <!--TODO change elsewhere above to the actual location of where we describe table schema and data entry form creation-->
 
-#### Batch Upload of Data 
+#### Batch Upload of Data
 
 <!-- TODO: Add user flow diagrams? -->
 
-The user has selected an existing table schema to use, and has uploaded the file to the holding area. This prompts the system to check that the data in the file match the schema in the database on headers and data type. If this validation is successful then the system will inform the user about how many rows of data it found and has validated. If the user is in agreement, then the system will write the data into the relevant table and display a confirmation back to the user. Should the user disagree with the number of rows then they can cancel the upload and investigate issues within the file, which is an action that happens outside of Sprout.
+The user has selected an existing table schema to use, and has uploaded
+the file to the holding area. This prompts the system to check that the
+data in the file match the schema in the database on headers and data
+type. If this validation is successful then the system will inform the
+user about how many rows of data it found and has validated. If the user
+is in agreement, then the system will write the data into the relevant
+table and display a confirmation back to the user. Should the user
+disagree with the number of rows then they can cancel the upload and
+investigate issues within the file, which is an action that happens
+outside of Sprout.
 
-![Logged in user chooses to use the batch upload function with an existing table schema.](images/user-flow-data-upload.png){#fig-batch-data-entry}
+![Logged in user chooses to use the batch upload function with an
+existing table
+schema.](images/user-flow-data-upload.png){#fig-batch-data-entry}
 
 <!--TODO Ensure that the link above will still work once SKB has finished updating the diagrams-->
 
 #### Manual Data Entry: Done in One Session
 
-The user completes all fields in the form and clicks "Save and Submit". This sends
-the data to the API layer where it is confirmed as valid, parcelled up
-and submitted to the database. The database will then write the data
-into a new record in the table (or tables). Once done the database will
-confirm successful entry of data to the API which will in turn send the
-confirmation back to the user via the frontend.
+The user completes all fields in the form and clicks "Save and Submit".
+This sends the data to the API layer where it is confirmed as valid,
+parcelled up and submitted to the database. The database will then write
+the data into a new record in the table (or tables). Once done the
+database will confirm successful entry of data to the API which will in
+turn send the confirmation back to the user via the frontend.
 
 ![Logged in user manually writes a new row to the Data
 Resource.](images/runtime-manual-data-entry.png){#fig-manual-data-entry}
 
 #### Manual Data Entry: Done in Multiple Sessions
 
-When a user can't finish inputting data in one session, they can save the "state" of inputted data to return to it later.
-Much of the initial
+When a user can't finish inputting data in one session, they can save
+the "state" of inputted data to return to it later. Much of the initial
 workflow is the same as above, until the user is interrupted and selects
-"Save" instead of "Save and Submit". This will send the data to the API with
-a flag showing that fields may be incomplete, thus preventing the API
-from rejecting the data due to NULL values. The API will submit the data
-to the database along with the incomplete flag.
+"Save" instead of "Save and Submit". This will send the data to the API
+with a flag showing that fields may be incomplete, thus preventing the
+API from rejecting the data due to NULL values. The API will submit the
+data to the database along with the incomplete flag.
 
-When the Data Contributor goes back to the data entry at a later time, they will be
-presented with the option of completing any incomplete records as well
-as entering new data. If they click on "Complete Records" they are shown
-the records that they have started but not submitted. Once they select a
-partially completed record the frontend will request the currently
-completed items from the database via the API layer before displaying
-the entry form with the completed fields.
+When the Data Contributor goes back to the data entry at a later time,
+they will be presented with the option of completing any incomplete
+records as well as entering new data. If they click on "Complete
+Records" they are shown the records that they have started but not
+submitted. Once they select a partially completed record the frontend
+will request the currently completed items from the database via the API
+layer before displaying the entry form with the completed fields.
 
 Once the user has completed more data they can either click on "Save" or
-"Save and Submit". The first option will put them back to the top of this
-workflow, the second will send the data back to the API layer for
+"Save and Submit". The first option will put them back to the top of
+this workflow, the second will send the data back to the API layer for
 validation. Once the data is validated it will be submitted to the
 database. The database will then write the data into a new record in the
 table (or tables) and update the flag to show the record is complete.

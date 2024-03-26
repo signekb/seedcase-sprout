@@ -17,7 +17,7 @@
       {% for file in files %}
         <tr>
           <td>
-            <a href="{% url 'table_file_download' table_id = table.id file_id = file.id %}" class="row wave">
+            <a href="{% url 'table-file-download' table_id = table.id file_id = file.id %}" class="row wave">
               <i>download</i>
               <div>{{ file.original_file_name }}</div>
             </a>
