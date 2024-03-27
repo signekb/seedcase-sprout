@@ -4,40 +4,30 @@
 
 <form method="post">
   {% csrf_token %}
-  <div class="table">
-    <div class="table-header">
-      <div class="table-cell">Name</div>
-      <div class="table-cell">Description</div>
-      <div class="table-cell">Data Rows</div>
-      <div class="table-cell">Date Created</div>
-      <div class="table-cell">Last Upload</div>
-    </div>
-    <div class="table-body">
-      {% for metadata in existing_metadata %}
-      <!-- if statement that changes url depending on selection and deselection of rows -->
-      {% if request.GET.selected_metadata_id|add:'0' == metadata.id %}
-      <a style="display:block" href="{% url 'project-id-metadata-view' %}">
-        {% else %}
-        <a style="display:block" href="{% url 'project-id-metadata-view' %}?selected_metadata_id={{metadata.id}}">
-          {% endif %}
-          <div>
-            <div
-              class="table-row selectable{% if request.GET.selected_metadata_id|add:'0' == metadata.id %} selected{% endif %}"
-              id="{{metadata.id}}">
-              <div class="table-cell">{{metadata.name}}</div>
-              <div class="table-cell">{{ metadata.description }}</div>
-              <div class="table-cell">Cell</div>
-              <div class="table-cell">{{ metadata.created_at }}</div>
-              <div class="table-cell">Cell</div>
-            </div>
-          </div>
-        </a>
-      </a>
-      {% empty %}
-      <p>No existing data to show.</p>
-      {% endfor %}
-    </div>
-  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Data Rows</th>
+        <th>Date Created</th>
+        <th>Last Upload</th>
+      </tr>
+    </thead>
+    {% for metadata in existing_metadata %}
+    <tbody>
+      <tr class="selectable" id="{{metadata.id}}">
+        <td>{{metadata.name}}</td>
+        <td>{{metadata.description}}</td>
+        <td>Cell</td>
+        <td>{{metadata.created_at}}</td>
+        <td>Cell</td>
+      </tr>
+    </tbody>
+    {% empty %}
+    <p>No existing data to show.</p>
+    {% endfor %}
+  </table>
 
   <!-- three buttons will submit this form: create, edit, or upload -->
   <nav class="right-align">
@@ -49,5 +39,23 @@
   </nav>
 </form>
 
+<script>
+  var selectable_rows = document.querySelectorAll('.selectable');
+  selectable_rows.forEach(function (row) {
+    row.addEventListener('click', function () {
+      // Deselect all other rows
+      selectable_rows.forEach(function (otherRow) {
+        if (otherRow !== row) {
+          otherRow.classList.remove('selected');
+        }
+      });
+
+      // Toggle the selected class for the clicked row
+      row.classList.toggle('selected');
+
+      // Save the ID of the selected row
+      const selected_row_id = row.getAttribute("id");
+
+</script>
 
 {% endblock content %}
