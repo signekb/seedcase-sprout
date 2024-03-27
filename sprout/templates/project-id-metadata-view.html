@@ -31,16 +31,21 @@
 
   <!-- three buttons will submit this form: create, edit, or upload -->
   <nav class="right-align">
-    <button type="submit" name="button_create"><i>add</i>Create Metadata</button>
-    <button {% if not request.GET.selected_metadata_id %}disabled{% endif %} type="submit"
-      name="button_edit"><i>edit</i>Edit Metadata</button>
-    <button {% if not request.GET.selected_metadata_id %}disabled{% endif %} type="submit"
-      name="button_upload"><i>upload</i>Upload Data</button>
+    <button href="{% url 'data-import' %}" type="submit" name="button_create"><i>add</i>
+      Create new metadata
+    </button>
+    <button disabled type="submit" id="edit-link" name="button_edit"><i>edit</i><a href="#">Edit Metadata</a></button>
+    <button disabled type="submit" id="upload-link" name="button_upload"><i>upload</i><a href="#">Upload
+        Data</a></button>
+
   </nav>
 </form>
 
 <script>
   var selectable_rows = document.querySelectorAll('.selectable');
+  var edit_url = "{% url 'column-review' table_id=0 %}";
+  var upload_url = "{% url 'column-review' table_id=0 %}";
+
   selectable_rows.forEach(function (row) {
     row.addEventListener('click', function () {
       // Deselect all other rows
@@ -55,6 +60,31 @@
 
       // Save the ID of the selected row
       const selected_row_id = row.getAttribute("id");
+
+      // Update the href and disabled state of the edit and upload buttons based on row selection
+      if (row.classList.contains('selected')) {
+        document.querySelector("#edit-link a").href = edit_url.replace('0', selected_row_id);
+        document.querySelector("#upload-link a").href = upload_url.replace('0', selected_row_id);
+      } else {
+        document.querySelector("#edit-link a").href = "#";
+        document.querySelector("#upload-link a").href = "#";
+      }
+
+      document.querySelector("#edit-link").disabled = !row.classList.contains('selected');
+      document.querySelector("#upload-link").disabled = !row.classList.contains('selected');
+    });
+  });
+
+  // prevent default behavior of edit and upload buttons
+  document.querySelector("#edit-link").addEventListener('click', function (event) {
+    event.preventDefault();
+    window.location.href = document.querySelector("#edit-link a").href;
+  });
+
+  document.querySelector("#upload-link").addEventListener('click', function (event) {
+    event.preventDefault();
+    window.location.href = document.querySelector("#upload-link a").href;
+  });
 
 </script>
 
