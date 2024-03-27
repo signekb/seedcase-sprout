@@ -31,12 +31,9 @@
 
   <!-- three buttons will submit this form: create, edit, or upload -->
   <nav class="right-align">
-    <button href="{% url 'data-import' %}" type="submit" name="button_create"><i>add</i>
-      Create new metadata
-    </button>
-    <button disabled type="submit" id="edit-link" name="button_edit"><i>edit</i><a href="#">Edit Metadata</a></button>
-    <button disabled type="submit" id="upload-link" name="button_upload"><i>upload</i><a href="#">Upload
-        Data</a></button>
+    <a href="{% url 'data-import' %}" class="button" name="button_create"><i>add</i>Create new metadata</a>
+    <a href="#" class="button" id="edit-link" name="button_edit" disabled><i>edit</i>Edit Metadata</a>
+    <a href="#" class="button" id="upload-link" name="button_upload" disabled><i>upload</i>Upload Data</a>
 
   </nav>
 </form>
@@ -63,27 +60,28 @@
 
       // Update the href and disabled state of the edit and upload buttons based on row selection
       if (row.classList.contains('selected')) {
-        document.querySelector("#edit-link a").href = edit_url.replace('0', selected_row_id);
-        document.querySelector("#upload-link a").href = upload_url.replace('0', selected_row_id);
+        document.querySelector("#edit-link").href = edit_url.replace('0', selected_row_id);
+        document.getElementById("edit-link").removeAttribute("disabled");
+        document.querySelector("#upload-link").href = upload_url.replace('0', selected_row_id);
+        document.getElementById("upload-link").removeAttribute("disabled");
       } else {
-        document.querySelector("#edit-link a").href = "#";
-        document.querySelector("#upload-link a").href = "#";
+        document.querySelector("#edit-link").href = "#";
+        document.getElementById("edit-link").setAttribute("disabled", "");
+        document.querySelector("#upload-link").href = "#";
+        document.getElementById("upload-link").setAttribute("disabled", "");
       }
-
-      document.querySelector("#edit-link").disabled = !row.classList.contains('selected');
-      document.querySelector("#upload-link").disabled = !row.classList.contains('selected');
     });
   });
 
   // prevent default behavior of edit and upload buttons
   document.querySelector("#edit-link").addEventListener('click', function (event) {
     event.preventDefault();
-    window.location.href = document.querySelector("#edit-link a").href;
+    window.location.href = document.querySelector("#edit-link").href;
   });
 
   document.querySelector("#upload-link").addEventListener('click', function (event) {
     event.preventDefault();
-    window.location.href = document.querySelector("#upload-link a").href;
+    window.location.href = document.querySelector("#upload-link").href;
   });
 
 </script>
