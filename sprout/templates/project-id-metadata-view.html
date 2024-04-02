@@ -2,6 +2,7 @@
 
 {% block content %}
 
+<!-- View all metadata -->
 <table>
   <thead>
     <tr>
@@ -54,12 +55,11 @@
   {% endfor %}
 </table>
 
-<!-- three buttons will submit this form: create, edit, or upload -->
+<!-- Three buttons create new metadata, edit existing metadata, or upload data to metadata-->
 <nav class="right-align">
   <a href="{% url 'data-import' %}" class="button"><i>add</i>Create new metadata</a>
   <a href="#" class="button" id="edit-link" disabled><i>edit</i>Edit metadata</a>
   <a href="#" class="button" id="upload-link" disabled><i>upload</i>Upload data</a>
-
 </nav>
 
 <script>
@@ -68,17 +68,17 @@
 
   function rowSelected(row) {
     // Deselect all other rows
-    document.querySelectorAll('.selectable').forEach(function (otherRow) {
-      otherRow.classList.remove('selected');
+    document.querySelectorAll(".selectable").forEach(function (otherRow) {
+      otherRow.classList.remove("selected");
     });
 
     // Add selected class
-    row.classList.add('selected');
+    row.classList.add("selected");
 
     // Update the href and disabled state of the edit and upload buttons based on row selection
-    document.querySelector("#edit-link").href = edit_url.replace('0', row.id);
+    document.querySelector("#edit-link").href = edit_url.replace("0", row.id);
     document.querySelector("#edit-link").removeAttribute("disabled");
-    document.querySelector("#upload-link").href = upload_url.replace('0', row.id);
+    document.querySelector("#upload-link").href = upload_url.replace("0", row.id);
     document.querySelector("#upload-link").removeAttribute("disabled");
 
     // Get all metadata columns
