@@ -2,132 +2,58 @@
 
 {% block content %}
 
-<style>
-  .table {
-    display: flex;
-    flex-direction: column;
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Data Rows</th>
+      <th>Date Created</th>
+      <th>Last Upload</th>
+    </tr>
+  </thead>
+  {% for metadata in existing_metadata %}
+  <tbody>
+    <tr class="selectable" id="{{metadata.id}}" onclick="rowSelected(event.target.parentElement)">
+      <td>{{metadata.name}}</td>
+      <td>{{metadata.description}}</td>
+      <td>Cell</td>
+      <td>{{metadata.created_at}}</td>
+      <td>Cell</td>
+    </tr>
+  </tbody>
+  {% empty %}
+  <p>No existing data to show.</p>
+  {% endfor %}
+</table>
+
+<!-- three buttons will submit this form: create, edit, or upload -->
+<nav class="right-align">
+  <a href="{% url 'data-import' %}" class="button"><i>add</i>Create new metadata</a>
+  <a href="#" class="button" id="edit-link" disabled><i>edit</i>Edit metadata</a>
+  <a href="#" class="button" id="upload-link" disabled><i>upload</i>Upload data</a>
+
+</nav>
+
+<script>
+  let edit_url = "{% url 'column-review' table_id=0 %}";
+  let upload_url = "{% url 'column-review' table_id=0 %}";
+
+  function rowSelected(row) {
+    // Deselect all other rows
+    document.querySelectorAll('.selectable').forEach(function (otherRow) {
+      otherRow.classList.remove('selected');
+    });
+
+    // Add selected class
+    row.classList.add('selected');
+
+    // Update the href and disabled state of the edit and upload buttons based on row selection
+    document.querySelector("#edit-link").href = edit_url.replace('0', row.id);
+    document.querySelector("#edit-link").removeAttribute("disabled");
+    document.querySelector("#upload-link").href = upload_url.replace('0', row.id);
+    document.querySelector("#upload-link").removeAttribute("disabled");
   }
-
-  .table-header,
-  .table-row {
-    display: flex;
-    padding: 5px;
-  }
-
-  .table-header {
-    background-color: #D9D9D9;
-    margin-bottom: 10px;
-  }
-
-  .table-cell {
-    flex: 1;
-    padding: 8px;
-  }
-
-  .selectable:hover {
-    background-color: #ededed;
-    cursor: pointer;
-  }
-
-  .selected,
-  .selected:hover {
-    background-color: #DCDFFF;
-  }
-
-  .column-metadata-margin {
-    margin: 5px;
-  }
-
-  .column-metadata {
-    font-size: smaller;
-  }
-
-  .column-metadata th {
-    background-color: #ededed;
-    border: none;
-  }
-
-  .column-metadata tbody {
-    background-color: white;
-  }
-</style>
-
-<form id="selectedElementsForm" method="post">
-  {% csrf_token %}
-  <div class="table">
-    <div class="table-header">
-      <div class="table-cell">Name</div>
-      <div class="table-cell">Description</div>
-      <div class="table-cell">Data Rows</div>
-      <div class="table-cell">Date Created</div>
-      <div class="table-cell">Last Upload</div>
-    </div>
-    <div class="table-body">
-      {% for metadata in existing_metadata %}
-      <!-- if statement that changes url depending on selection and deselection of rows -->
-      {% if request.GET.selected_metadata_id|add:'0' == metadata.id %}
-      <a style="display:block" href="{% url 'project-id-metadata-view' %}">
-        {% else %}
-        <a style="display:block" href="{% url 'project-id-metadata-view' %}?selected_metadata_id={{metadata.id}}">
-          {% endif %}
-          <div>
-            <div
-              class="table-row selectable{% if request.GET.selected_metadata_id|add:'0' == metadata.id %} selected{% endif %}"
-              id="{{metadata.id}}">
-              <div class="table-cell">{{metadata.name}}</div>
-              <div class="table-cell">{{ metadata.description }}</div>
-              <div class="table-cell">Cell</div>
-              <div class="table-cell">{{ metadata.created_at }}</div>
-              <div class="table-cell">Cell</div>
-              <div style="width:3%">
-                <i>arrow_drop_down</i>
-              </div>
-            </div>
-            {% if request.GET.selected_metadata_id|add:'0' == metadata.id %}
-            <div class="column-metadata-margin" id="column-metadata-{{metadata.id}}">
-              <table class="column-metadata">
-                <thead class="th">
-                  <tr>
-                    <th>Original Column Name</th>
-                    <th>Variable Name</th>
-                    <th>Display Name</th>
-                    <th>Data Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody class="tbody">
-                  {% for column in selected_metadata_columns %}
-                  {% if forloop.counter < 11 %} <tr>
-                    <td>{{ column.original_name }}</td>
-                    <td>{{ column.name }}</td>
-                    <td>{{ column.title }}</td>
-                    <td>{{ column.data_type }}</td>
-                    <td>{{ column.description }} </td>
-                    </tr>
-                    {% endif %}
-                    {% endfor %}
-                </tbody>
-              </table>
-            </div>
-            {% endif %}
-          </div>
-        </a>
-      </a>
-      {% empty %}
-      <p>No existing data to show.</p>
-      {% endfor %}
-    </div>
-  </div>
-
-  <!-- three buttons will submit this form: create, edit, or upload -->
-  <nav class="right-align">
-    <button type="submit" name="button_create"><i>add</i>Create Metadata</button>
-    <button {% if not request.GET.selected_metadata_id %}disabled{% endif %} type="submit"
-      name="button_edit"><i>edit</i>Edit Metadata</button>
-    <button {% if not request.GET.selected_metadata_id %}disabled{% endif %} type="submit"
-      name="button_upload"><i>upload</i>Upload Data</button>
-  </nav>
-</form>
-
+</script>
 
 {% endblock content %}

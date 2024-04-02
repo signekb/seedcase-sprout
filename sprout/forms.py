@@ -1,6 +1,6 @@
 """Module defining forms."""
 
-from django.forms import CharField, ModelForm, Textarea
+from django.forms import BooleanField, CharField, ModelForm, Textarea
 
 from sprout.models import ColumnMetadata, TableMetadata
 from sprout.validators import (
@@ -61,6 +61,7 @@ class ColumnMetadataForm(ModelForm):
     """
 
     description = CharField()
+    excluded = BooleanField(initial=False, required=False)
 
     class Meta:  # noqa: D106
         model = ColumnMetadata
