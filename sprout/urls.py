@@ -15,6 +15,11 @@ urlpatterns = [
         views.column_review,
         name="column-review",
     ),
+    path(
+        "project-id-metadata-view",
+        views.project_id_metadata_view,
+        name="project-id-metadata-view",
+    ),
     path("table-files/<int:table_id>", views.table_files, name="table-files"),
     path(
         "table-files/<int:table_id>/download/<int:file_id>",
