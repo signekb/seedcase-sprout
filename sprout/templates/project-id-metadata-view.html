@@ -2,87 +2,58 @@
 
 {% block content %}
 
-<form method="post">
-  {% csrf_token %}
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Data Rows</th>
-        <th>Date Created</th>
-        <th>Last Upload</th>
-      </tr>
-    </thead>
-    {% for metadata in existing_metadata %}
-    <tbody>
-      <tr class="selectable" id="{{metadata.id}}">
-        <td>{{metadata.name}}</td>
-        <td>{{metadata.description}}</td>
-        <td>Cell</td>
-        <td>{{metadata.created_at}}</td>
-        <td>Cell</td>
-      </tr>
-    </tbody>
-    {% empty %}
-    <p>No existing data to show.</p>
-    {% endfor %}
-  </table>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Data Rows</th>
+      <th>Date Created</th>
+      <th>Last Upload</th>
+    </tr>
+  </thead>
+  {% for metadata in existing_metadata %}
+  <tbody>
+    <tr class="selectable" id="{{metadata.id}}" onclick="rowSelected(event.target.parentElement)">
+      <td>{{metadata.name}}</td>
+      <td>{{metadata.description}}</td>
+      <td>Cell</td>
+      <td>{{metadata.created_at}}</td>
+      <td>Cell</td>
+    </tr>
+  </tbody>
+  {% empty %}
+  <p>No existing data to show.</p>
+  {% endfor %}
+</table>
 
-  <!-- three buttons will submit this form: create, edit, or upload -->
-  <nav class="right-align">
-    <a href="{% url 'data-import' %}" class="button" name="button_create"><i>add</i>Create new metadata</a>
-    <a href="#" class="button" id="edit-link" name="button_edit" disabled><i>edit</i>Edit metadata</a>
-    <a href="#" class="button" id="upload-link" name="button_upload" disabled><i>upload</i>Upload data</a>
+<!-- three buttons will submit this form: create, edit, or upload -->
+<nav class="right-align">
+  <a href="{% url 'data-import' %}" class="button"><i>add</i>Create new metadata</a>
+  <a href="#" class="button" id="edit-link" disabled><i>edit</i>Edit metadata</a>
+  <a href="#" class="button" id="upload-link" disabled><i>upload</i>Upload data</a>
 
-  </nav>
-</form>
+</nav>
 
 <script>
-  var selectable_rows = document.querySelectorAll('.selectable');
-  var edit_url = "{% url 'column-review' table_id=0 %}";
-  var upload_url = "{% url 'column-review' table_id=0 %}";
+  let edit_url = "{% url 'column-review' table_id=0 %}";
+  let upload_url = "{% url 'column-review' table_id=0 %}";
 
-  selectable_rows.forEach(function (row) {
-    row.addEventListener('click', function () {
-      // Deselect all other rows
-      selectable_rows.forEach(function (otherRow) {
-        if (otherRow !== row) {
-          otherRow.classList.remove('selected');
-        }
-      });
-
-      // Toggle the selected class for the clicked row
-      row.classList.toggle('selected');
-
-      // Save the ID of the selected row
-      const selected_row_id = row.getAttribute("id");
-
-      // Update the href and disabled state of the edit and upload buttons based on row selection
-      if (row.classList.contains('selected')) {
-        document.querySelector("#edit-link").href = edit_url.replace('0', selected_row_id);
-        document.getElementById("edit-link").removeAttribute("disabled");
-        document.querySelector("#upload-link").href = upload_url.replace('0', selected_row_id);
-        document.getElementById("upload-link").removeAttribute("disabled");
-      } else {
-        document.querySelector("#edit-link").href = "#";
-        document.getElementById("edit-link").setAttribute("disabled", "");
-        document.querySelector("#upload-link").href = "#";
-        document.getElementById("upload-link").setAttribute("disabled", "");
-      }
+  function rowSelected(row){
+    // Deselect all other rows
+    document.querySelectorAll('.selectable').forEach(function (otherRow) {
+      otherRow.classList.remove('selected');
     });
-  });
 
-  // prevent default behavior of edit and upload buttons
-  document.querySelector("#edit-link").addEventListener('click', function (event) {
-    event.preventDefault();
-    window.location.href = document.querySelector("#edit-link").href;
-  });
+    // Add selected class
+    row.classList.add('selected');
 
-  document.querySelector("#upload-link").addEventListener('click', function (event) {
-    event.preventDefault();
-    window.location.href = document.querySelector("#upload-link").href;
-  });
+    // Update the href and disabled state of the edit and upload buttons based on row selection
+    document.getElementById("edit-link").href = edit_url.replace('0', row.id);
+    document.getElementById("edit-link").removeAttribute("disabled");
+    document.getElementById("upload-link").href = upload_url.replace('0', row.id);
+    document.getElementById("upload-link").removeAttribute("disabled");
+  }
 
 </script>
 
