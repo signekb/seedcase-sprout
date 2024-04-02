@@ -39,7 +39,7 @@
   let edit_url = "{% url 'column-review' table_id=0 %}";
   let upload_url = "{% url 'column-review' table_id=0 %}";
 
-  function rowSelected(row){
+  function rowSelected(row) {
     // Deselect all other rows
     document.querySelectorAll('.selectable').forEach(function (otherRow) {
       otherRow.classList.remove('selected');
@@ -54,7 +54,6 @@
     document.querySelector("#upload-link").href = upload_url.replace('0', row.id);
     document.querySelector("#upload-link").removeAttribute("disabled");
   }
-
 </script>
 
 {% endblock content %}
