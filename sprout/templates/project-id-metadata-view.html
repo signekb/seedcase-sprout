@@ -22,7 +22,7 @@
       <td>Cell</td>
     </tr>
     <!-- View metadata of all columns in the selected metadata -->
-    <td colspan="6" class="metadata_columns_table" id="{{metadata.id}}">
+    <td colspan="6" class="metadata_columns_table hide" id="{{metadata.id}}">
       <table>
         <thead>
           <tr>
@@ -80,6 +80,20 @@
     document.querySelector("#edit-link").removeAttribute("disabled");
     document.querySelector("#upload-link").href = upload_url.replace('0', row.id);
     document.querySelector("#upload-link").removeAttribute("disabled");
+
+    // Get all metadata columns
+    let metadata_columns = document.getElementsByClassName("metadata_columns_table");
+
+    // Loop through all the metadata columns and show the ones that matches the selected row
+    for (let col_no = 0; col_no < metadata_columns.length; col_no++) {
+      // If the metadata column's id matches the selected row's id, remove the 'hide' class
+      if (metadata_columns[col_no].id === row.id) {
+        metadata_columns[col_no].classList.remove("hide");
+      } else {
+        // Otherwise, add the "hide" class
+        metadata_columns[col_no].classList.add("hide");
+      }
+    }
   }
 </script>
 
