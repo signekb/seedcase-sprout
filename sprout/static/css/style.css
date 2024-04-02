@@ -41,7 +41,11 @@ dd {
 .selectable {
   cursor: pointer
 }
-.table tr th {
-  background-color: #D9D9D9 !important;
-  border-bottom: none !important;
+
+thead tr {
+    background-color: #D9D9D9;
+  }
+
+thead tr th {
+  border-bottom: none;
 }
