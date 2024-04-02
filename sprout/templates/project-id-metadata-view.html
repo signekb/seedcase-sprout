@@ -27,9 +27,12 @@
   {% endfor %}
 </table>
 
+<!-- Create metadata dialog -->
+{% include 'includes/metadata-create-dialog.html' %}
+
 <!-- three buttons will submit this form: create, edit, or upload -->
 <nav class="right-align">
-  <a href="{% url 'data-import' %}" class="button"><i>add</i>Create new metadata</a>
+  <a class="button" data-ui="#create-metadata-dialog"><i>add</i>Create new metadata</a>
   <a href="#" class="button" id="edit-link" disabled><i>edit</i>Edit metadata</a>
   <a href="#" class="button" id="upload-link" disabled><i>upload</i>Upload data</a>
 
