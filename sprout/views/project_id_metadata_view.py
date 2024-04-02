@@ -19,11 +19,13 @@ def project_id_metadata_view(request: HttpRequest) -> HttpResponse:
         to create new metadata, edit existing metadata, or upload new data.
     """
     existing_metadata = TableMetadata.objects.all()
+    existing_metadata_columns = ColumnMetadata.objects.all()
 
     return render(
         request,
         "project-id-metadata-view.html",
         {
             "existing_metadata": existing_metadata,
+            "existing_metadata_columns": existing_metadata_columns,
         },
     )
