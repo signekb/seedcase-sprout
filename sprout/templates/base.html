@@ -18,6 +18,9 @@
   <!-- Global css -->
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <link rel="stylesheet" href="{% static 'css/file-drop-zone.css' %}">
+
+  {% block headers %}
+  {% endblock headers %}
 </head>
 <body >
   {% include 'navigation-bar.html' %}
