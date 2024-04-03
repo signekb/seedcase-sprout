@@ -29,4 +29,4 @@ def accounts_register(request: HttpRequest) -> HttpResponseRedirect | HttpRespon
             CustomUser.objects.create_user(username, email, password)
             return redirect(reverse("login"))
 
-    return render(request, "register.html", {"form": form})
+    return render(request, "registration/register.html", {"form": form})
