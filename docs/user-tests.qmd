@@ -1,0 +1,120 @@
+---
+title: "User testing"
+---
+
+::: callout-warning
+🚧 This section is still in active development and is subject to changes
+🚧
+:::
+
+<!-- TODO: Where should this file be located? Maybe the `team` repo because it provides context for internal user testing? -->
+
+## Introduction
+
+For our user tests, we want to create some context for the user to test
+the features within Sprout. We have create a simple case with three
+simple test data files.
+
+In the sections below, we will briefly [introduce
+Sprout](#a-short-introduction-to-sprout), describe the
+[context](#context) we would like the user to test Sprout based on, and
+list the actions that we would like the [user to try to
+do](#what-we-would-like-you-to-do).
+
+These sections are intented for a user to read before the user test.
+
+## A short introduction to Sprout {#a-short-introduction-to-sprout}
+
+Sprout is a component of the Seedcase software ecosystem aiming to:
+
+> to take data created or collected for research studies and "grow" it
+> in a structured way using modern best practices for storing data.
+
+In Sprout, there are two steps to structuring and storing your data:
+
+1.  Create metadata
+
+2.  Add data to the metadata
+
+**Metadata** refers to data that provides information *about* other
+data. It describes various attributes of data, such as the *name* of the
+metadata and a *description* of what it contains, as well as describes
+*which variables* are in the data, *what data types* they are, and a
+*description* of what they are (which could include relevant information
+such as the unit of the variable).
+
+**Data** refers to the actual actual values or content that is being
+described, analysed, or manipulated. It can be in various forms, such as
+text, numbers, or even images or audio (however, currently, Sprout only
+supports tabular data).
+
+So in order to grow your data in a structured way, you begin by
+describing your data through metadata, and then you can start to add, or
+grow, your data in a structured way! Nice!
+
+## Context {#context}
+
+You're a researcher collecting data on a diabetes patients and their
+exercise. You want to save and structure your data to ease the process
+of 1) adding more data to your dataset, when more has been collected,
+and 2) analysing the data later on.
+
+You have collected the data across two time periods (in 2023 and 2024),
+resulting in two distinct cohorts. Each cohort represents the same group
+of individuals who tracked their exercise in March 2023 and 2024,
+respectively.
+
+You have two types of files with data: One describing the patients
+`patients` which includes their age, sex, height, weight, and diabetes
+type, and one describing their exercise patterns `exercise` which
+includes when they exercised, what kind of exercise, and for how long.
+
+You have two of each file type, one for each time period:
+`patients.csv`, `exercise_2023.csv`, and `exercise_2024.csv`.
+
+| id  | age | sex | height | weight | diabetes_type |
+|-----|-----|-----|--------|--------|---------------|
+| 01  | 54  | F   | 167.5  |  70.3  | Type 1        |
+| 02  | 66  | M   | 175    |  80.5  | Type 2        |
+
+: Showing the `patients.csv` and the first two rows within that file.
+
+| id  | exercise type | duration | date       |
+|-----|---------------|----------|------------|
+| 01  | run           | 10       | 01-03-2024 |
+| 02  | wall          | 25       | 175        |
+
+: Showing the `exercise_2024.csv` and the first two rows within that
+file.
+
+Since you want to grow your data in a structured way, you decide to try
+out Sprout for handling your data.
+
+## What we would like you to do {#what-we-would-like-you-to-do}
+
+Now, that you have gotten a short introduction to the context and
+Sprout, we would like you to try to do the three steps described below.
+
+As you do it, we would like you to tell us your thought processes about
+what you're doing and why it makes/doesn't make sense to do. We will try
+to refrain from explaining and helping you too much along the way.
+
+::: callout-note
+An important aspect of user testing for you as the user is that **there
+are no right or wrong answers.**
+
+If something is unclear to you, it is a great oppurtunity for us to
+learn how to make it clearer going forward - this is exactly why user
+tests are so helpful for us!
+:::
+
+The three steps we would like you to try to do is:
+
+1.  Create the metadata for the `patients.csv`
+2.  Create the metadata for `exercise_2023.csv` and call it `exercise`
+3.  Add the data from `exercise_2024.csv` to the `exercise` metadata
+
+Just take one at the time and please remember to say your thought
+processes out loud.
+
+Thank you so much for your help and your time! :-)
