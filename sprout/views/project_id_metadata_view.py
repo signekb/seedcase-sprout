@@ -5,7 +5,6 @@ from django.shortcuts import redirect, render
 
 from sprout.forms import TableMetadataForm
 from sprout.models import ColumnMetadata, TableMetadata
-from sprout.models import TableMetadata
 
 
 def project_id_metadata_view(request: HttpRequest) -> HttpResponse:
