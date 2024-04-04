@@ -85,13 +85,13 @@
     let metadata_columns = document.getElementsByClassName("metadata_columns_table");
 
     // Loop through all the metadata columns and show the ones that matches the selected row
-    for (let column_number = 0; column_number < metadata_columns.length; column_number++) {
+    for (const metadata_column of metadata_columns){
       // If the metadata column's id matches the selected row's id, remove the 'hide' class
-      if (metadata_columns[column_number].id === row.id) {
-        metadata_columns[column_number].classList.remove("hide");
+      if(metadata_column.id === row.id) {
+        metadata_column.classList.remove("hide")
       } else {
         // Otherwise, add the "hide" class
-        metadata_columns[column_number].classList.add("hide");
+        metadata_column.classList.add("hide")
       }
     }
   }
