@@ -1,4 +1,5 @@
 """File with column_review view."""
+
 from typing import Dict, List
 
 from django.http import HttpRequest, HttpResponse
@@ -13,7 +14,7 @@ from sprout.models import ColumnMetadata, FileMetadata, TableMetadata
 def projects_id_metadata_id_update(request: HttpRequest, table_id: int) -> HttpResponse:
     """Takes the data from ColumnMetadata and displays the metadata to update.
 
-    The metadata can be edited and the result written back to the column metadata
+    The metadata can be updated and the result written back to the column metadata
     database.
 
     Args:
