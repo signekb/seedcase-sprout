@@ -77,7 +77,7 @@ class MetadataCreateTests(TestCase):
         table.save()
         file1 = self.create_file("file.csv", "first_name,year\nHans,2000")
         file2 = self.create_file("file.csv", expected_file_content)
-        url = reverse("project-id-metadata-create", kwargs={"table_id": table.id})
+        url = reverse("projects-id-metadata-create", kwargs={"table_id": table.id})
 
         # Act
         self.client.post(url, {"uploaded_file": file1})

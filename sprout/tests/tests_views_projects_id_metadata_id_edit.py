@@ -77,7 +77,7 @@ class MetadataIDUpdateViewTest(TestCase):
     def test_excluded_should_delete_column(self):
         """An excluded column should be removed even if form is not valid."""
         # Arrange
-        url = reverse("project-id-metadata-id-update", args=[self.table_metadata.id])
+        url = reverse("projects-id-metadata-id-update", args=[self.table_metadata.id])
         data = {
             f"{self.column_metadata.id}-excluded": True,
         }
