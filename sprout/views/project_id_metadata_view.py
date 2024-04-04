@@ -30,7 +30,7 @@ def project_id_metadata_view(request: HttpRequest) -> HttpResponse:
         if form.is_valid():
             table_metadata = form.save()
 
-            return redirect(to=f"metadata/create/{table_metadata.id}")
+            return redirect(to=f"metadata/{table_metadata.id}/create")
 
     # if GET (or any other method), create a blank form
     else:

@@ -89,7 +89,7 @@ class ProjectIdMetaDataTests(TestCase):
         # Assert
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(
-            response, "/metadata/create/2"
+            response, "/metadata/2/create"
         )  # id is 2 because of the table created in the setUp method
 
     def test_no_redirect_with_invalid_form_special_characters(self):
