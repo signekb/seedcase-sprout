@@ -23,7 +23,7 @@
       <td>Cell</td>
     </tr>
     <!-- View metadata of all columns in the selected metadata -->
-    <td colspan="6" class="metadata_columns_table hide" id="{{ metadata.id }}">
+    <td colspan="6" class="metadata_columns_table" hidden id="{{ metadata.id }}">
       <table>
         <thead>
           <tr>
@@ -89,12 +89,12 @@
 
     // Loop through all the metadata columns and show the ones that matches the selected row
     for (const metadata_column of metadata_columns){
-      // If the metadata column's id matches the selected row's id, remove the 'hide' class
+      // If the metadata column's id matches the selected row's id, then show element
       if(metadata_column.id === row.id) {
-        metadata_column.classList.remove("hide")
+        metadata_column.hidden = false
       } else {
-        // Otherwise, add the "hide" class
-        metadata_column.classList.add("hide")
+        // Otherwise, hide alle other elements
+        metadata_column.hidden = true;
       }
     }
   }
