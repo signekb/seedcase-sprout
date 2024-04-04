@@ -29,3 +29,23 @@ dd {
   display: inline-block;
   width: 85%;
 }
+
+.selectable:hover {
+  background-color: #ededed;
+  cursor: pointer;
+}
+.selected,
+.selected:hover {
+  background-color: #DCDFFF;
+}
+.selectable {
+  cursor: pointer
+}
+
+thead tr {
+    background-color: #D9D9D9;
+  }
+
+thead tr th {
+  border-bottom: none;
+}
