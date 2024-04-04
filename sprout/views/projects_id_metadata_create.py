@@ -83,11 +83,11 @@ def render_projects_id_metadata_create(
         HttpResponse: A html page based on the template
     """
     table_metadata = TableMetadata.objects.get(pk=table_id)
-    data_metadata = {
+    context = {
         "table_name": table_metadata.name,
         "upload_error": upload_error,
     }
-    return render(request, "projects-id-metadata-create.html", data_metadata)
+    return render(request, "projects-id-metadata-create.html", context)
 
 
 def validate_csv_and_save_columns(table_id: int, file: FileMetadata) -> None:
