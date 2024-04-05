@@ -11,9 +11,7 @@ title: "User testing"
 
 ## Introduction
 
-For our user tests, we want to create some context for the user to test
-the features within Sprout. We have create a simple case with three
-simple test data files.
+To our user tests, we aim to provide context for users to effectively evaluate Sprout's features. For this purpose, we've crafted a basic case that includes three simple test data files.
 
 In the sections below, we will briefly [introduce
 Sprout](#a-short-introduction-to-sprout), describe the
