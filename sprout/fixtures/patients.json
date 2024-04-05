@@ -125,7 +125,7 @@
     }
   },
   {
-    "model": "sprout.filemetadata",
+    "model": "sprout.Files",
     "pk": 1,
     "fields": {
       "original_file_name": "patients.csv",

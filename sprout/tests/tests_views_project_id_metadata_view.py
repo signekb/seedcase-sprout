@@ -5,7 +5,7 @@ import io
 from django.test import TestCase
 from django.urls import reverse
 
-from sprout.models import Columns, FileMetadata, TableMetadata
+from sprout.models import Columns, Files, TableMetadata
 from sprout.tests.db_test_utils import create_table
 
 
@@ -31,9 +31,7 @@ class ProjectIdMetaDataTests(TestCase):
 
         file = io.BytesIO(b"TestColumn,Letter\n1,A\n2,B\n3,C")
         file.name = "file-name.csv"
-        self.file_metadata = FileMetadata.create_file_metadata(
-            file, self.table_metadata.pk
-        )
+        self.files = Files.create_model(file, self.table_metadata.pk)
 
         self.url = reverse("project-id-metadata-view")
         self.empty_form = {}

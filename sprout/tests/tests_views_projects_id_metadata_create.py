@@ -6,7 +6,7 @@ from pathlib import Path
 from django.test import TestCase
 from django.urls import reverse
 
-from sprout.models import Columns, FileMetadata, TableMetadata
+from sprout.models import Columns, Files, TableMetadata
 from sprout.tests.db_test_utils import create_table
 
 
@@ -49,7 +49,7 @@ class MetadataCreateTests(TestCase):
         self.assertEqual("/metadata/1/update", response.url)
         self.assertEqual(3, table.Columns_set.all().count(), "expects 3 columns")
         # Clean up
-        FileMetadata.objects.first().delete()
+        Files.objects.first().delete()
 
     def test_upload_failed_with_wrong_file_extension(self):
         """Test for error message when file is not ending on .csv."""
@@ -84,7 +84,7 @@ class MetadataCreateTests(TestCase):
         self.client.post(url, {"uploaded_file": file2})
 
         # Assert
-        files = FileMetadata.objects.all()
+        files = Files.objects.all()
         columns = Columns.objects.all()
         self.assertEqual(1, files.count())
         self.assertEqual(3, columns.count())
@@ -97,7 +97,7 @@ class MetadataCreateTests(TestCase):
         self.assertEqual(expected_file_content, actual_file_content)
 
         # Clean up
-        FileMetadata.objects.first().delete()
+        Files.objects.first().delete()
 
     @staticmethod
     def create_file(name: str, content: str) -> io.BytesIO:

@@ -4,7 +4,7 @@ from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 
 from sprout.csv.csv_reader import read_csv_file
-from sprout.models import Columns, FileMetadata, TableMetadata
+from sprout.models import Columns, Files, TableMetadata
 
 
 def projects_id_metadata_create(
@@ -55,11 +55,11 @@ def handle_post_request_with_file(
     file = request.FILES.get("uploaded_file", None)
 
     # Delete exiting files, if user resubmits a file
-    for previous_file in FileMetadata.objects.filter(table_metadata_id=table_id):
+    for previous_file in Files.objects.filter(table_metadata_id=table_id):
         previous_file.delete()
 
     # To limit memory-usage we persist the file
-    file_meta = FileMetadata.create_file_metadata(file, table_id)
+    file_meta = Files.create_model(file, table_id)
     try:
         validate_csv_and_save_columns(table_id, file_meta)
     except csv.Error as csv_error:
@@ -90,7 +90,7 @@ def render_projects_id_metadata_create(
     return render(request, "projects-id-metadata-create.html", context)
 
 
-def validate_csv_and_save_columns(table_id: int, file: FileMetadata) -> None:
+def validate_csv_and_save_columns(table_id: int, file: Files) -> None:
     """Validate the csv and persist column metadata if valid.
 
     Args:
@@ -103,7 +103,7 @@ def validate_csv_and_save_columns(table_id: int, file: FileMetadata) -> None:
     extract_and_persist_columns(table_id, file)
 
 
-def extract_and_persist_columns(table_id: int, file: FileMetadata) -> None:
+def extract_and_persist_columns(table_id: int, file: Files) -> None:
     """Extract columns from CSV and persist the column metadata.
 
     Args:

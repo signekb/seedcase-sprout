@@ -3,5 +3,5 @@
 
 from .columns import Columns
 from .data_types import DataTypes
-from .file_metadata import FileMetadata
+from .files import Files
 from .table_metadata import TableMetadata

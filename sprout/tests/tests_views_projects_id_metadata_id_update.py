@@ -4,7 +4,7 @@ import os
 from django.test import TestCase
 from django.urls import reverse
 
-from sprout.models import Columns, FileMetadata, TableMetadata
+from sprout.models import Columns, Files, TableMetadata
 from sprout.views.projects_id_metadata_id_update import create_sample_of_unique_values
 
 
@@ -30,9 +30,7 @@ class MetadataIDUpdateViewTest(TestCase):
 
         file = io.BytesIO(b"TestColumn,Letter\n1,A\n2,B\n3,C\n4,C\n5,C\n6,C")
         file.name = "file-name.csv"
-        self.file_metadata = FileMetadata.create_file_metadata(
-            file, self.table_metadata.id
-        )
+        self.files = Files.create_model(file, self.table_metadata.id)
 
     def test_projects_id_metadata_id_update_view_get(self):
         """Test that the get function works."""
@@ -90,4 +88,4 @@ class MetadataIDUpdateViewTest(TestCase):
         self.assertFalse(Columns.objects.filter(id=self.columns.id).exists())
 
     def tearDown(self):
-        os.remove(self.file_metadata.server_file_path)
+        os.remove(self.files.server_file_path)

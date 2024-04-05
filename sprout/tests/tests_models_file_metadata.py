@@ -1,4 +1,4 @@
-"""File for testing FileMetadata."""
+"""File for testing Files."""
 
 import io
 import os
@@ -6,11 +6,11 @@ import os
 from django.test import TestCase
 
 from sprout.models import TableMetadata
-from sprout.models.file_metadata import FileMetadata
+from sprout.models.files import Files
 from sprout.tests.db_test_utils import create_table
 
 
-class FileMetaDataTests(TestCase):
+class FilesTests(TestCase):
     """File with test cases."""
 
     def test_persist_file(self):
@@ -22,7 +22,7 @@ class FileMetaDataTests(TestCase):
         test_table.save()
 
         # Act
-        file_meta = FileMetadata.create_file_metadata(file, test_table.id)
+        file_meta = Files.create_model(file, test_table.id)
 
         # Assert
         self.assertEqual(file.name, file_meta.original_file_name)
@@ -33,20 +33,20 @@ class FileMetaDataTests(TestCase):
         # We clean up again
         file_meta.delete()
 
-    def test_deletion_of_FileMetaData_should_delete_file(self):
-        """Deletion of FileMetaData should delete the file in persistent_storage."""
+    def test_deletion_of_Files_should_delete_file(self):
+        """Deletion of Files should delete the file in persistent_storage."""
         # Arrange
         file = io.BytesIO(b"A file with some content")
         file.name = "my-file.csv"
         test_table = create_table("TestTable")
         test_table.save()
-        file_meta = FileMetadata.create_file_metadata(file, test_table.id)
+        file_meta = Files.create_model(file, test_table.id)
 
         # Act
         file_meta.delete()
 
         # Assert
-        self.assertEqual(FileMetadata.objects.count(), 0)
+        self.assertEqual(Files.objects.count(), 0)
         self.assertFalse(os.path.exists(file_meta.server_file_path))
         # And we check that the table has not been deleted
         self.assertEqual(TableMetadata.objects.count(), 1)

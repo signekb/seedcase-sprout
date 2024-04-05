@@ -8,7 +8,7 @@ from django.urls import reverse
 
 from sprout.csv.csv_reader import read_csv_file
 from sprout.forms import ColumnsForm
-from sprout.models import Columns, FileMetadata, TableMetadata
+from sprout.models import Columns, Files, TableMetadata
 
 
 def projects_id_metadata_id_update(request: HttpRequest, table_id: int) -> HttpResponse:
@@ -93,7 +93,7 @@ def create_sample_of_unique_values(table_metadata_id: int) -> Dict[str, List]:
     Returns:
         Dict[str, List]: Dictionary of unique sample values grouped by column name.
     """
-    file = FileMetadata.objects.get(table_metadata_id=table_metadata_id)
+    file = Files.objects.get(table_metadata_id=table_metadata_id)
     df = read_csv_file(file.server_file_path, 500)
 
     # Find unique values, and limit to max 5 different
