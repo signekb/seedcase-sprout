@@ -11,7 +11,9 @@ title: "User testing"
 
 ## Introduction
 
-To our user tests, we aim to provide context for users to effectively evaluate Sprout's features. For this purpose, we've crafted a basic case that includes three simple test data files.
+To our user tests, we aim to provide context for users to effectively
+evaluate Sprout's features. For this purpose, we've crafted a basic case
+that includes three simple test data files.
 
 In the sections below, we will briefly [introduce
 Sprout](#a-short-introduction-to-sprout), describe the
@@ -23,12 +25,15 @@ These sections are intented for a user to read before the user test.
 
 ## A short introduction to Sprout {#a-short-introduction-to-sprout}
 
-Sprout is a component of the Seedcase software ecosystem which is a framework for an open and scalable infrastructure for health data. The Seedcase ecosystem aims to enable researchers to build, manage, and share health data using modern best software practices. 
+Sprout is a component of the Seedcase software ecosystem which is a
+framework for an open and scalable infrastructure for health data. The
+Seedcase ecosystem aims to enable researchers to build, manage, and
+share health data using modern best software practices.
 
 Sprout is the component for building or "growing" data and aims to:
 
-> take data created or collected for research studies and "grow" it
-> in a structured way using modern best practices for storing data.
+> take data created or collected for research studies and "grow" it in a
+> structured way using modern best practices for storing data.
 
 <!-- Should we scrap the rest of this section to allow the user to exploring this by themselves? This might facilitate the testing of how intuitve the flow and structure of Sprout is in a more "natural manner" where users might not have these definitions at hand/have read the documentation for this -->
 
