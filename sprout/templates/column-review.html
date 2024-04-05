@@ -16,7 +16,6 @@
       <thead>
         <tr>
           <th>Extracted Name</th>
-          <th>Machine-Readable Name</th>
           <th>Display Name</th>
           <th>Description</th>
           <th>Data Type</th>
@@ -27,7 +26,6 @@
         {% for form in forms %}
           <tr>
             <td>{{ form.instance.extracted_name }}</td>
-            <td>{{ form.machine_readable_name|attr:'tabindex:1' }}</td>
             <td>{{ form.display_name|attr:'tabindex:2' }}</td>
             <td style="overflow: hidden;">{{ form.description|attr:'tabindex:3' }}</td>
             <td style="overflow: hidden;">{{ form.data_type|attr:'tabindex:4' }}</td>
