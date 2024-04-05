@@ -62,6 +62,8 @@ class FileMetadata(models.Model):
         can do this by overriding the default delete method and adding som extra
         behaviour.
 
+        NOTICE: This is NOT called on a QuerySet: FileMetadata.objects.delete()
+
         Args:
             *args: The positional arguments required by Django
             **kwargs: The keyword arguments required by Django

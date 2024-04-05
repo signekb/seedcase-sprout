@@ -9,6 +9,9 @@ from .column_review import column_review
 from .data_import import data_import
 from .project_id_data_id_upload import project_id_data_id_upload
 from .metadata_create import metadata_create
+from .project_id_metadata_view import (
+    project_id_metadata_view,
+)
 from .table_files import table_file_download, table_files
 
 

@@ -16,20 +16,22 @@
       <thead>
         <tr>
           <th>Extracted Name</th>
-          <th>Column Name</th>
-          <th>Display Title</th>
+          <th>Machine-Readable Name</th>
+          <th>Display Name</th>
           <th>Description</th>
           <th>Data Type</th>
+          <th>Excluded</th>
         </tr>
       </thead>
       <tbody>
         {% for form in forms %}
           <tr>
-            <td>{{ form.instance.original_name }}</td>
-            <td>{{ form.name|attr:"tabindex:1" }}</td>
-            <td>{{ form.title|attr:"tabindex:2" }}</td>
-            <td style="overflow: hidden;">{{ form.description|attr:"tabindex:3" }}</td>
-            <td style="overflow: hidden;">{{ form.data_type|attr:"tabindex:4" }}</td>
+            <td>{{ form.instance.extracted_name }}</td>
+            <td>{{ form.machine_readable_name|attr:'tabindex:1' }}</td>
+            <td>{{ form.display_name|attr:'tabindex:2' }}</td>
+            <td style="overflow: hidden;">{{ form.description|attr:'tabindex:3' }}</td>
+            <td style="overflow: hidden;">{{ form.data_type|attr:'tabindex:4' }}</td>
+            <td style="overflow: hidden;">{{ form.excluded|attr:'tabindex:5'|attr:'onclick:toggleExcluded(event)' }}</td>
             <input type="hidden" name="{{ form.prefix }}-id" value="{{ form.instance.id }}" />
           </tr>
         {% endfor %}
@@ -40,55 +42,56 @@
     </div>
   </form>
 
-  <!-- List View -->
-  <form hidden method="post" action="">
-    {% csrf_token %}
-    <div>
-      {% for form in forms %}
-        <article class="border">
-          <p>Column name: {{ form.name|attr:"tabindex:1" }}</p>
-          <p>Display name: {{ form.title|attr:"tabindex:2" }}</p>
-          <p>Description: {{ form.description|attr:"tabindex:3" }}</p>
-          <p>Data Type: {{ form.data_type|attr:"tabindex:4" }}</p>
-          <input type="hidden" name="{{ form.prefix }}-id" value="{{ form.instance.id }}" />
-        </article>
-      {% endfor %}
-    </div>
-    <div class="row" style="justify-content: center">
-      <button type="submit" tabindex="10">Update All</button>
-    </div>
-  </form>
-
   <!-- GRID VIEW -->
   <form id="metadata_view_grid" method="post" action="">
     {% csrf_token %}
     <div class="row wrap">
       {% for column in columns %}
-        <!--  -->
-        <article class="row" style="border: 1px solid gray; padding: 5px; border-radius: 12px; width: 23%; ">
-          <div style="padding: 5px; min-width: 0; flex: 1;">
-            <p style="text-align: center; font-size: 1.25rem; font-weight: bold; margin-bottom: 20px">{{ column.title }}</p>
+        <!-- CARD -->
+        <article class="row" style="border: 1px solid gray; border-radius: 12px; width: 23%; align-items: start; padding-top: 0">
+          <!-- OVERLAY (when marked as excluded) -->
+          <div hidden id="overlay_{{ column.id }}" style="position: absolute; width: 100%; height: 100%">
+            <div style="position: relative; width: 100%; height: 100%; left: -16px; z-index: 10; background: rgba(0, 0, 0, 0.75)">
+              <div class="middle">
+                <div style="text-align: center; color: antiquewhite; font-weight: bold; font-size: 1.5rem">Excluded!</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CARD CONTENT -->
+          <div style="min-width: 0; flex: 1; padding-top: 20px">
+            <div class="row" style="margin-bottom: 20px">
+              <h3 class="max card-header">{{ column.display_name }}</h3>
+              <label class="checkbox icon" style="z-index: 11">
+                {{ column.form.excluded|attr:'tabindex:5'|attr:'onclick:toggleExcluded(event)' }}
+                <span>
+                  <i>delete</i>
+                  <i style="color: antiquewhite">undo</i>
+                </span>
+                <div id="tooltip_{{ column.id }}" class="tooltip">Exclude</div>
+              </label>
+            </div>
             <div class="field label small border" style="margin-bottom: 40px">
-              {{ column.form.title|attr:"tabindex:1" }}
-              <label>Title</label>
-              <span class="helper">From: '{{ column.original_name }}'</span>
+              {{ column.form.display_name|attr:'tabindex:1' }}
+              <label>Display Name</label>
+              <span class="helper">From: '{{ column.extracted_name }}'</span>
             </div>
 
-            <div hidden>{{ column.form.name|attr:"tabindex:2" }}</div>
+            <div hidden>{{ column.form.machine_readable_name|attr:'tabindex:2' }}</div>
 
             <div class="field label suffix border" style="margin-bottom: 20px">
-              {{ column.form.data_type|attr:"tabindex:3" }}
+              {{ column.form.data_type|attr:'tabindex:3' }}
               <label>Type</label>
               <i>arrow_drop_down</i>
             </div>
 
             <div class="field label small border" style="margin-bottom: 20px">
-              {{ column.form.description|attr:"tabindex:4"|attr:"class:active" }}
+              {{ column.form.description|attr:'tabindex:4'|attr:'class:active' }}
               <label class="active">Description</label>
             </div>
 
             <div style="min-width: 0">
-              <p style="color: grey; font-size: 0.75rem; font-weight: bold; margin-bottom: 5px">Data preview:</p>
+              <p style="color: grey; font-size: 0.75rem; font-weight: bold; margin-bottom: 5px">Preview (showing up to 5 unique values):</p>
               {% for cell in column.data %}
                 <p style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ cell }}</p>
               {% endfor %}
@@ -108,13 +111,13 @@
     <h5 class="center-align">Fields</h5>
     <dl>
       <dt>Extracted Name</dt>
-      <dd>Is the column name taken from the first file uploaded, this can't be changed.</dd>
-      <dt>Column Name</dt>
-      <dd>Is the name that you would like the variable to have going forward, this can be the same as the extracted name.</dd>
-      <dt>Display Title</dt>
-      <dd>Can be use when you want to show the data in a more 'human readable' way. An example could be the variable b60, which you could call Blood taken after 60 minutes.</dd>
+      <dd>The column name extracted from the first file uploaded. This can't be changed.</dd>
+      <dt>Machine-Readable Name</dt>
+      <dd>The name that you would like the column/variable to have going forward. This name can't include spaces or special characters.</dd>
+      <dt>Display Name</dt>
+      <dd>The name that can be used when you want to show the data in a more 'human readable' way. An example could be the variable b60, which you could give the more descriptive display name Blood taken after 60 minutes.</dd>
       <dt>Description</dt>
-      <dd>You can give extra details about the variable here, including things like when a sample is taken, etc.</dd>
+      <dd>A short description of the column/variable, including things like when a sample is taken, the unit, etc.</dd>
       <dt>Data Type</dt>
       <dd>This is the data type of the variable, this will need to be defined in order for data to be saved, what you see in the list initially is the best guess from Seedcase Sprout based on the data you uploaded.</dd>
     </dl>
@@ -127,19 +130,44 @@
   </dialog>
 
   <script>
+    let moveInputValues = (source, target) => {
+      for (let sourceInput of source.querySelectorAll('input[id],select[id]')){
+        const targetInput = target.querySelector("#"+sourceInput.id)
+        if (targetInput) {
+          targetInput.value = sourceInput.value
+          targetInput.checked = sourceInput.checked
+        }
+      }
+    }
+
     let toggle = (button) => {
       let element_table = document.getElementById('metadata_view_table')
       let element_grid = document.getElementById('metadata_view_grid')
 
       if (element_table.hidden) {
-        element_table.hidden = false;
-        element_grid.hidden = true;
+        element_table.hidden = false
+        element_grid.hidden = true
         button.innerText = 'Show Grid View'
+        moveInputValues(element_grid, element_table)
       } else {
-        element_grid.hidden = false;
-        element_table.hidden = true;
+        element_grid.hidden = false
+        element_table.hidden = true
         button.innerText = 'Show Table View'
+        moveInputValues(element_table, element_grid)
       }
+    }
+
+    let toggleExcluded = (event) => {
+      const columnId = event.target.id.replace('id_', '').replace('-excluded', '')
+
+      const overlay = document.getElementById('overlay_' + columnId)
+      overlay.hidden = !overlay.hidden
+
+      const tooltip = document.getElementById('tooltip_' + columnId)
+      tooltip.innerText = overlay.hidden ? 'Exclude' : 'Undo exclude'
+
+      // description is not required if column is excluded
+      document.getElementsByName(columnId + '-description').forEach((d) => (d.required = overlay.hidden))
     }
   </script>
 {% endblock %}
