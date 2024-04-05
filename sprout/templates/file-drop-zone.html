@@ -29,14 +29,14 @@
     </div>
   </div>
 
-  <!-- 
+  <!--  
   File input field. We want it to look like a 'file dropzone', but input
   fields are hard to style. Instead, a div with id=drag_zone is styled and the file
   input is hidden. When the div is clicked it, we programmatically click the input field
   which opens a file explorer on the client computer.
 
   The 'onchange' event handler is fired when a file is selected in the file explorer.
-    -->
+     -->
   <input hidden type="file" id="uploaded_file" name="uploaded_file" onchange="selectedFiles(event.target.files)" accept="text/csv" />
   <p class="grey-text">Supported formats: .csv</p>
 
