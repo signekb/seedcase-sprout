@@ -47,7 +47,7 @@ class MetadataCreateTests(TestCase):
         self.assertEqual("Table.csv", table.original_file_name)
         self.assertEqual(302, response.status_code, "Redirect is expected")
         self.assertEqual("/metadata/1/update", response.url)
-        self.assertEqual(3, table.Columns_set.all().count(), "expects 3 columns")
+        self.assertEqual(3, table.columns_set.all().count(), "expects 3 columns")
         # Clean up
         Files.objects.first().delete()
 
