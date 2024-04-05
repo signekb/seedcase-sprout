@@ -5,7 +5,7 @@ from re import sub
 import polars
 from django.db import models
 
-from sprout.models.column_data_type import ColumnDataType
+from sprout.models.data_types import DataTypes
 from sprout.models.table_metadata import TableMetadata
 
 
@@ -17,7 +17,7 @@ class ColumnMetadata(models.Model):
     machine_readable_name = models.CharField(max_length=200)
     display_name = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
-    data_type = models.ForeignKey(ColumnDataType, on_delete=models.PROTECT)
+    data_type = models.ForeignKey(DataTypes, on_delete=models.PROTECT)
     allow_missing_value = models.BooleanField()
     allow_duplicate_value = models.BooleanField()
 
@@ -38,7 +38,7 @@ class ColumnMetadata(models.Model):
             machine_readable_name=_convert_to_snake_case(series.name),
             display_name=series.name,
             description="",
-            data_type=ColumnDataType.get_from_series(series),
+            data_type=DataTypes.get_from_series(series),
             allow_missing_value=True,
             allow_duplicate_value=True,
         )

@@ -3,7 +3,7 @@
 from django.test import TestCase
 
 from sprout.forms import ColumnMetadataForm
-from sprout.models import ColumnDataType, TableMetadata
+from sprout.models import DataTypes, TableMetadata
 
 
 class ColumnMetadataFormTest(TestCase):
@@ -13,7 +13,7 @@ class ColumnMetadataFormTest(TestCase):
         """Creating the data needed for the tests."""
         # Arrange: Create test instances for models
         self.table_metadata = TableMetadata.objects.create(name="TestTableKB")
-        self.column_data_type = ColumnDataType.objects.create(
+        self.column_data_type = DataTypes.objects.create(
             display_name="TestStringFormat"
         )
 
