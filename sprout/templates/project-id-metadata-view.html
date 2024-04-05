@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 
+
+
 {% block content %}
+
+{% load dict_tags %}
 
 <!-- View all metadata -->
 <table>
@@ -35,9 +39,11 @@
           </tr>
         </thead>
         <tbody>
-          {% for column in existing_metadata_columns %}
-          {% if column.table_metadata.id == metadata.id %}
+          {% for column in existing_metadata_columns|get_item:metadata.id %}
+          {% if forloop.counter <= 5 %}
           <tr>
+            <td> column </td>
+            <td>{{ forloop.counter }} </td>
             <td>{{ column.extracted_name }}</td>
             <td>{{ column.machine_readable_name }}</td>
             <td>{{ column.display_name }}</td>
