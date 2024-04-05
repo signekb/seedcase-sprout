@@ -20,7 +20,7 @@ class DataTypes(models.Model):
         """
         series_polar_type = str(series.dtype.base_type())
 
-        for data_type in data_types:
+        for data_type in DATA_TYPES:
             if series_polar_type in data_type.polars_types.split(","):
                 return data_type
 
