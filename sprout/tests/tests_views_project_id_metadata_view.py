@@ -35,7 +35,7 @@ class ProjectIdMetaDataTests(TestCase):
             file, self.table_metadata.pk
         )
 
-        self.url = reverse("project-id-metadata-view")
+        self.url = reverse("metadata")
         self.empty_form = {}
         self.invalid_form = {"name": "Test/Table", "description": "Test description"}
         self.valid_form = {"name": "TestTable", "description": "Test description"}
