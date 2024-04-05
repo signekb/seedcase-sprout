@@ -23,9 +23,11 @@ These sections are intented for a user to read before the user test.
 
 ## A short introduction to Sprout {#a-short-introduction-to-sprout}
 
-Sprout is a component of the Seedcase software ecosystem aiming to:
+Sprout is a component of the Seedcase software ecosystem which is a framework for an open and scalable infrastructure for health data. The Seedcase ecosystem aims to enable researchers to build, manage, and share health data using modern best software practices. 
 
-> to take data created or collected for research studies and "grow" it
+Sprout is the component for building or "growing" data and aims to:
+
+> take data created or collected for research studies and "grow" it
 > in a structured way using modern best practices for storing data.
 
 In Sprout, there are two steps to structuring and storing your data:
