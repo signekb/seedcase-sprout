@@ -2,14 +2,14 @@
 
 from django.test import TestCase
 
-from sprout.models import Columns, TableMetadata
+from sprout.models import Columns, Tables
 from sprout.tests.db_test_utils import create_metadata_table_and_column, create_table
 
 
 class TableAndColumnsTests(TestCase):
     """Tests for metadata models.
 
-    This includes TableMetadata and Columns.
+    This includes Tables and Columns.
     """
 
     def test_create_metadata_for_a_table_and_columns_and_verify_creation(self):
@@ -23,7 +23,7 @@ class TableAndColumnsTests(TestCase):
         create_metadata_table_and_column(table_name, column_name)
 
         # Act
-        table_exists = TableMetadata.objects.filter(name=table_name).exists()
+        table_exists = Tables.objects.filter(name=table_name).exists()
         column_exists = Columns.objects.filter(
             machine_readable_name=column_name
         ).exists()
@@ -41,10 +41,10 @@ class TableAndColumnsTests(TestCase):
         create_metadata_table_and_column()
 
         # Act
-        TableMetadata.objects.first().delete()
+        Tables.objects.first().delete()
 
         # Assert
-        self.assertEqual(0, TableMetadata.objects.count(), "Table should be deleted")
+        self.assertEqual(0, Tables.objects.count(), "Table should be deleted")
         self.assertEqual(0, Columns.objects.count(), "Column should be deleted")
 
     def test_verify_table_is_not_deleted_when_column_is_deleted(self):
@@ -60,7 +60,7 @@ class TableAndColumnsTests(TestCase):
         Columns.objects.first().delete()
 
         # Assert
-        table_count = TableMetadata.objects.count()
+        table_count = Tables.objects.count()
         self.assertEqual(1, table_count, "Table should not be deleted")
         column_count = Columns.objects.count()
         self.assertEqual(0, column_count, "Column should be deleted")

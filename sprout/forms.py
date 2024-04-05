@@ -2,15 +2,15 @@
 
 from django.forms import BooleanField, CharField, ModelForm, Textarea
 
-from sprout.models import Columns, TableMetadata
+from sprout.models import Columns, Tables
 from sprout.validators import (
     validate_no_special_characters,
     validate_table_name_does_not_exist,
 )
 
 
-class TableMetadataForm(ModelForm):
-    """ModelForm for creating TableMetaData."""
+class TablesForm(ModelForm):
+    """ModelForm for creating Tables."""
 
     class Meta:
         """A class required by Django in a ModelForm.
@@ -18,7 +18,7 @@ class TableMetadataForm(ModelForm):
         Defines which model is used and which fields that are included.
         """
 
-        model = TableMetadata
+        model = Tables
         fields = ["name", "description"]
 
         # Adding 'autocomplete: new-password' to disable suggestions on input field

@@ -7,7 +7,7 @@ from typing import IO
 from django.conf import settings
 from django.db import models
 
-from sprout.models.table_metadata import TableMetadata
+from sprout.models.tables import Tables
 from sprout.uploaders import upload_raw_file
 
 
@@ -19,7 +19,7 @@ class Files(models.Model):
     file_extension = models.CharField(max_length=10)
     file_size_bytes = models.BigIntegerField()
 
-    table_metadata = models.ForeignKey(TableMetadata, on_delete=models.CASCADE)
+    tables = models.ForeignKey(Tables, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL, null=True, on_delete=models.PROTECT
@@ -27,12 +27,12 @@ class Files(models.Model):
     modified_at = models.DateTimeField(auto_now=True)
 
     @staticmethod
-    def create_model(file: IO, table_metadata_id: int) -> "Files":
+    def create_model(file: IO, tables_id: int) -> "Files":
         """Persists a file and stores metadata in database.
 
         Args:
             file: The file to persist
-            table_metadata_id: The id of the table
+            tables_id: The id of the table
 
         Returns:
             Files: The relative path on the server
@@ -48,7 +48,7 @@ class Files(models.Model):
             server_file_path=server_file_path,
             file_size_bytes=os.path.getsize(server_file_path),
             file_extension=file_extension,
-            table_metadata_id=table_metadata_id,
+            tables_id=tables_id,
         )
 
         files.save()

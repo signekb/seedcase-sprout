@@ -5,7 +5,7 @@ import io
 from django.test import TestCase
 from django.urls import reverse
 
-from sprout.models import Columns, Files, TableMetadata
+from sprout.models import Columns, Files, Tables
 from sprout.tests.db_test_utils import create_table
 
 
@@ -14,12 +14,12 @@ class ProjectIdMetaDataTests(TestCase):
 
     def setUp(self):
         """Create a table and a column for testing."""
-        self.table_metadata = TableMetadata.objects.create(
+        self.tables = Tables.objects.create(
             name="Test Table",
             description="Test table description.",
         )
         self.columns = Columns.objects.create(
-            table_metadata=self.table_metadata,
+            tables=self.tables,
             extracted_name="TestColumn",
             machine_readable_name="test_column",
             display_name="Test Column",
@@ -31,7 +31,7 @@ class ProjectIdMetaDataTests(TestCase):
 
         file = io.BytesIO(b"TestColumn,Letter\n1,A\n2,B\n3,C")
         file.name = "file-name.csv"
-        self.files = Files.create_model(file, self.table_metadata.pk)
+        self.files = Files.create_model(file, self.tables.pk)
 
         self.url = reverse("project-id-metadata-view")
         self.empty_form = {}
@@ -48,11 +48,11 @@ class ProjectIdMetaDataTests(TestCase):
         self.assertTemplateUsed(response, "project-id-metadata-view.html")
 
     def test_view_shows_all_tables(self):
-        """Test that the view shows all tables in TableMetadata."""
+        """Test that the view shows all tables in Tables."""
         # Arrange
         create_table("Table1").save()
         create_table("Table2").save()
-        tables = TableMetadata.objects.all()
+        tables = Tables.objects.all()
 
         # Act
         response = self.client.get(self.url)
@@ -109,7 +109,7 @@ class ProjectIdMetaDataTests(TestCase):
         already exists in the database is submitted.
         """
         # Arrange
-        TableMetadata.objects.create(name="TestTable", description="Test description")
+        Tables.objects.create(name="TestTable", description="Test description")
         # Act
         response = self.client.post(
             self.url,

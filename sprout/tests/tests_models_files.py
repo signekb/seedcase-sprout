@@ -5,7 +5,7 @@ import os
 
 from django.test import TestCase
 
-from sprout.models import TableMetadata
+from sprout.models import Tables
 from sprout.models.files import Files
 from sprout.tests.db_test_utils import create_table
 
@@ -49,4 +49,4 @@ class FilesTests(TestCase):
         self.assertEqual(Files.objects.count(), 0)
         self.assertFalse(os.path.exists(file_meta.server_file_path))
         # And we check that the table has not been deleted
-        self.assertEqual(TableMetadata.objects.count(), 1)
+        self.assertEqual(Tables.objects.count(), 1)

@@ -3,8 +3,8 @@
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 
-from sprout.forms import TableMetadataForm
-from sprout.models import TableMetadata
+from sprout.forms import TablesForm
+from sprout.models import Tables
 
 
 def project_id_metadata_view(request: HttpRequest) -> HttpResponse:
@@ -19,22 +19,22 @@ def project_id_metadata_view(request: HttpRequest) -> HttpResponse:
         HTTP response that either renders the project-id-metadata page or redirects
         to create new metadata, update existing metadata, or upload new data.
     """
-    existing_metadata = TableMetadata.objects.all()
+    existing_metadata = Tables.objects.all()
 
     # if POST, process the data in form (only happens when creating new metadata)
     if request.method == "POST":
         # create a form instance and populate it with data from the request
-        form = TableMetadataForm(data=request.POST)
+        form = TablesForm(data=request.POST)
 
         # if input passes validation, save form and redirect to file upload
         if form.is_valid():
-            table_metadata = form.save()
+            tables = form.save()
 
-            return redirect(to=f"metadata/{table_metadata.id}/create")
+            return redirect(to=f"metadata/{tables.id}/create")
 
     # if GET (or any other method), create a blank form
     else:
-        form = TableMetadataForm(data=None)
+        form = TablesForm(data=None)
 
     return render(
         request=request,

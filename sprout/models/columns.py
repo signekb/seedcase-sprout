@@ -6,13 +6,13 @@ import polars
 from django.db import models
 
 from sprout.models.data_types import DataTypes
-from sprout.models.table_metadata import TableMetadata
+from sprout.models.tables import Tables
 
 
 class Columns(models.Model):
     """Model representing the metadata of columns."""
 
-    table_metadata = models.ForeignKey(TableMetadata, on_delete=models.CASCADE)
+    tables = models.ForeignKey(Tables, on_delete=models.CASCADE)
     extracted_name = models.CharField(max_length=1000)
     machine_readable_name = models.CharField(max_length=200)
     display_name = models.CharField(max_length=200)
@@ -33,7 +33,7 @@ class Columns(models.Model):
             Columns: Columns instance based on series
         """
         return Columns(
-            table_metadata_id=table_id,
+            tables_id=table_id,
             extracted_name=series.name,
             machine_readable_name=_convert_to_snake_case(series.name),
             display_name=series.name,
