@@ -31,7 +31,7 @@ class DataTypes(models.Model):
 
 
 """
-data_types contains all the Sprout data types.
+DATA_TYPES contains all the Sprout data types.
 
 Changing the properties of this content can be risky. See the list below.
 
@@ -40,7 +40,7 @@ Changing the properties of this content can be risky. See the list below.
   confuse users and should never change to a different type (Text -> Decimal)
 - FORBIDDEN: `id`. You should never change the id, since this is used as foreign
 """
-data_types = [
+DATA_TYPES = [
     DataTypes(
         id=0,
         display_name="Decimal",
@@ -110,6 +110,6 @@ def update_data_types(**kwargs) -> None:
         **kwargs: A required argument by the Django, but it is not used
     """
     print("DataTypes updated")
-    DataTypes.objects.bulk_create(data_types, ignore_conflicts=True)
+    DataTypes.objects.bulk_create(DATA_TYPES, ignore_conflicts=True)
     fields = ["display_name", "description", "polars_types"]
-    DataTypes.objects.bulk_update(data_types, fields=fields)
+    DataTypes.objects.bulk_update(DATA_TYPES, fields=fields)
