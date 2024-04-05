@@ -5,7 +5,7 @@ import io
 from django.test import TestCase
 from django.urls import reverse
 
-from sprout.models import ColumnMetadata, FileMetadata, TableMetadata
+from sprout.models import Columns, FileMetadata, TableMetadata
 from sprout.tests.db_test_utils import create_table
 
 
@@ -18,7 +18,7 @@ class ProjectIdMetaDataTests(TestCase):
             name="Test Table",
             description="Test table description.",
         )
-        self.column_metadata = ColumnMetadata.objects.create(
+        self.columns = Columns.objects.create(
             table_metadata=self.table_metadata,
             extracted_name="TestColumn",
             machine_readable_name="test_column",

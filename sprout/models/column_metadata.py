@@ -1,4 +1,4 @@
-"""Module defining the ColumnMetadata model."""
+"""Module defining the Columns model."""
 
 from re import sub
 
@@ -9,7 +9,7 @@ from sprout.models.data_types import DataTypes
 from sprout.models.table_metadata import TableMetadata
 
 
-class ColumnMetadata(models.Model):
+class Columns(models.Model):
     """Model representing the metadata of columns."""
 
     table_metadata = models.ForeignKey(TableMetadata, on_delete=models.CASCADE)
@@ -22,17 +22,17 @@ class ColumnMetadata(models.Model):
     allow_duplicate_value = models.BooleanField()
 
     @staticmethod
-    def create(table_id: int, series: polars.Series) -> "ColumnMetadata":
-        """Create ColumnMetadata from polars.Series.
+    def create(table_id: int, series: polars.Series) -> "Columns":
+        """Create Columns from polars.Series.
 
         Args:
             table_id: id of the table
             series: A polars series
 
         Returns:
-            ColumnMetadata: ColumnMetadata instance based on series
+            Columns: Columns instance based on series
         """
-        return ColumnMetadata(
+        return Columns(
             table_metadata_id=table_id,
             extracted_name=series.name,
             machine_readable_name=_convert_to_snake_case(series.name),

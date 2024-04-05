@@ -13,7 +13,7 @@
     }
   },
   {
-    "model": "sprout.columnmetadata",
+    "model": "sprout.Columns",
     "pk": 1,
     "fields": {
       "table_metadata": 1,
@@ -27,7 +27,7 @@
     }
   },
   {
-    "model": "sprout.columnmetadata",
+    "model": "sprout.Columns",
     "pk": 2,
     "fields": {
       "table_metadata": 1,
@@ -41,7 +41,7 @@
     }
   },
   {
-    "model": "sprout.columnmetadata",
+    "model": "sprout.Columns",
     "pk": 3,
     "fields": {
       "table_metadata": 1,
@@ -55,7 +55,7 @@
     }
   },
   {
-    "model": "sprout.columnmetadata",
+    "model": "sprout.Columns",
     "pk": 4,
     "fields": {
       "table_metadata": 1,
@@ -69,7 +69,7 @@
     }
   },
   {
-    "model": "sprout.columnmetadata",
+    "model": "sprout.Columns",
     "pk": 5,
     "fields": {
       "table_metadata": 1,
@@ -83,7 +83,7 @@
     }
   },
   {
-    "model": "sprout.columnmetadata",
+    "model": "sprout.Columns",
     "pk": 6,
     "fields": {
       "table_metadata": 1,
@@ -97,7 +97,7 @@
     }
   },
   {
-    "model": "sprout.columnmetadata",
+    "model": "sprout.Columns",
     "pk": 7,
     "fields": {
       "table_metadata": 1,
@@ -111,7 +111,7 @@
     }
   },
   {
-    "model": "sprout.columnmetadata",
+    "model": "sprout.Columns",
     "pk": 8,
     "fields": {
       "table_metadata": 1,

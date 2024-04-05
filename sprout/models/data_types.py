@@ -24,7 +24,7 @@ class DataTypes(models.Model):
             if series_polar_type in data_type.polars_types.split(","):
                 return data_type
 
-        raise ValueError("ColumnMetaData not found for :" + series_polar_type)
+        raise ValueError("Columns not found for :" + series_polar_type)
 
     def __str__(self):  # noqa: D105
         return self.display_name

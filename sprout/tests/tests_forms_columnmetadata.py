@@ -2,11 +2,11 @@
 
 from django.test import TestCase
 
-from sprout.forms import ColumnMetadataForm
+from sprout.forms import ColumnsForm
 from sprout.models import DataTypes, TableMetadata
 
 
-class ColumnMetadataFormTest(TestCase):
+class ColumnsFormTest(TestCase):
     """Class of tests for the Metadata form."""
 
     def setUp(self):
@@ -20,7 +20,7 @@ class ColumnMetadataFormTest(TestCase):
     def test_form_invalid_when_no_data(self):
         """Test that a form created without data is invalid."""
         # Arrange: Create an instance of the form without providing any data
-        form = ColumnMetadataForm()
+        form = ColumnsForm()
 
         # Act: Check if the form is not valid
         is_valid = form.is_valid()
@@ -42,7 +42,7 @@ class ColumnMetadataFormTest(TestCase):
         }
 
         # Act: Create an instance of the form with valid data
-        form = ColumnMetadataForm(data=form_data)
+        form = ColumnsForm(data=form_data)
         is_valid = form.is_valid()
 
         # Assert: Ensure the form is valid
@@ -62,7 +62,7 @@ class ColumnMetadataFormTest(TestCase):
         }
 
         # Act: Create an instance of the form with invalid data
-        form = ColumnMetadataForm(data=invalid_form_data)
+        form = ColumnsForm(data=invalid_form_data)
         is_valid = form.is_valid()
 
         # Assert: Ensure the form is not valid

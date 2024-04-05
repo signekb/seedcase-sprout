@@ -4,7 +4,7 @@ import os
 from django.test import TestCase
 from django.urls import reverse
 
-from sprout.models import ColumnMetadata, FileMetadata, TableMetadata
+from sprout.models import Columns, FileMetadata, TableMetadata
 from sprout.views.projects_id_metadata_id_update import create_sample_of_unique_values
 
 
@@ -17,7 +17,7 @@ class MetadataIDUpdateViewTest(TestCase):
             name="Test Table",
             description="Test table description.",
         )
-        self.column_metadata = ColumnMetadata.objects.create(
+        self.columns = Columns.objects.create(
             table_metadata=self.table_metadata,
             extracted_name="TestColumn",
             machine_readable_name="test_column",
@@ -51,12 +51,12 @@ class MetadataIDUpdateViewTest(TestCase):
         # Arrange
         url = reverse("projects-id-metadata-id-update", args=[self.table_metadata.id])
         data = {
-            f"{self.column_metadata.id}-machine_read_name": "Updated Machine-Read Name",
-            f"{self.column_metadata.id}-display_name": "Updated Column Display Name",
-            f"{self.column_metadata.id}-description": "Test Description",
-            f"{self.column_metadata.id}-data_type": 0,
-            f"{self.column_metadata.id}-allow_missing_value": True,
-            f"{self.column_metadata.id}-allow_duplicate_value": False,
+            f"{self.columns.id}-machine_read_name": "Updated Machine-Read Name",
+            f"{self.columns.id}-display_name": "Updated Column Display Name",
+            f"{self.columns.id}-description": "Test Description",
+            f"{self.columns.id}-data_type": 0,
+            f"{self.columns.id}-allow_missing_value": True,
+            f"{self.columns.id}-allow_duplicate_value": False,
         }
 
         # Act
@@ -79,7 +79,7 @@ class MetadataIDUpdateViewTest(TestCase):
         # Arrange
         url = reverse("projects-id-metadata-id-update", args=[self.table_metadata.id])
         data = {
-            f"{self.column_metadata.id}-excluded": True,
+            f"{self.columns.id}-excluded": True,
         }
 
         # Act
@@ -87,9 +87,7 @@ class MetadataIDUpdateViewTest(TestCase):
 
         # Assert the status code
         self.assertEqual(response.status_code, 200)
-        self.assertFalse(
-            ColumnMetadata.objects.filter(id=self.column_metadata.id).exists()
-        )
+        self.assertFalse(Columns.objects.filter(id=self.columns.id).exists())
 
     def tearDown(self):
         os.remove(self.file_metadata.server_file_path)

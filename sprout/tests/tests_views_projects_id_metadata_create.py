@@ -6,7 +6,7 @@ from pathlib import Path
 from django.test import TestCase
 from django.urls import reverse
 
-from sprout.models import ColumnMetadata, FileMetadata, TableMetadata
+from sprout.models import Columns, FileMetadata, TableMetadata
 from sprout.tests.db_test_utils import create_table
 
 
@@ -47,7 +47,7 @@ class MetadataCreateTests(TestCase):
         self.assertEqual("Table.csv", table.original_file_name)
         self.assertEqual(302, response.status_code, "Redirect is expected")
         self.assertEqual("/metadata/1/update", response.url)
-        self.assertEqual(3, table.columnmetadata_set.all().count(), "expects 3 columns")
+        self.assertEqual(3, table.Columns_set.all().count(), "expects 3 columns")
         # Clean up
         FileMetadata.objects.first().delete()
 
@@ -85,7 +85,7 @@ class MetadataCreateTests(TestCase):
 
         # Assert
         files = FileMetadata.objects.all()
-        columns = ColumnMetadata.objects.all()
+        columns = Columns.objects.all()
         self.assertEqual(1, files.count())
         self.assertEqual(3, columns.count())
 

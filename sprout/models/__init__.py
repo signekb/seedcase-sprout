@@ -1,7 +1,7 @@
 """Module for models."""
 
 
-from .column_metadata import ColumnMetadata
+from .columns import Columns
 from .data_types import DataTypes
 from .file_metadata import FileMetadata
 from .table_metadata import TableMetadata

@@ -4,7 +4,7 @@ from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 
 from sprout.csv.csv_reader import read_csv_file
-from sprout.models import ColumnMetadata, FileMetadata, TableMetadata
+from sprout.models import Columns, FileMetadata, TableMetadata
 
 
 def projects_id_metadata_create(
@@ -100,10 +100,10 @@ def validate_csv_and_save_columns(table_id: int, file: FileMetadata) -> None:
     if file.file_extension != "csv":
         raise csv.Error("Unsupported file format: ." + file.file_extension)
 
-    extract_and_persist_column_metadata(table_id, file)
+    extract_and_persist_columns(table_id, file)
 
 
-def extract_and_persist_column_metadata(table_id: int, file: FileMetadata) -> None:
+def extract_and_persist_columns(table_id: int, file: FileMetadata) -> None:
     """Extract columns from CSV and persist the column metadata.
 
     Args:
@@ -118,8 +118,8 @@ def extract_and_persist_column_metadata(table_id: int, file: FileMetadata) -> No
     table.save()
 
     # Delete columns if user resubmits csv file
-    ColumnMetadata.objects.filter(table_metadata_id=table.id).delete()
+    Columns.objects.filter(table_metadata_id=table.id).delete()
 
     # Save columns
-    columns = [ColumnMetadata.create(table_id, series) for series in df]
-    ColumnMetadata.objects.bulk_create(columns)
+    columns = [Columns.create(table_id, series) for series in df]
+    Columns.objects.bulk_create(columns)
