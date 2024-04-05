@@ -30,6 +30,8 @@ Sprout is the component for building or "growing" data and aims to:
 > take data created or collected for research studies and "grow" it
 > in a structured way using modern best practices for storing data.
 
+<!-- Should we scrap the rest of this section to allow the user to exploring this by themselves? This might facilitate the testing of how intuitve the flow and structure of Sprout is in a more "natural manner" where users might not have these definitions at hand/have read the documentation for this -->
+
 In Sprout, there are two steps to structuring and storing your data:
 
 1.  Create metadata
