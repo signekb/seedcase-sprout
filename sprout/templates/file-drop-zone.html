@@ -3,8 +3,8 @@
 <form method="post" enctype="multipart/form-data">
   {% csrf_token %}
 
-  <!-- Drop zone for uploading a file -->
-  <div class="file-upload-box row center-align" id="drag_zone" onclick="document.getElementById('uploaded_file').click()">
+  <!-- Drop zone for uploading a file. Clicks are forwarded to the file input -->
+  <div class="file-upload-box row center-align" id="drag_zone" onclick="openFileBrowserDialog()">
     <!-- Empty drop zone. Visible when a file is NOT added -->
     <div class="center-align" id="drag_zone_empty">
       <h5 class="center-align bold">Drag your <code>.csv</code> file here</h5>
@@ -29,10 +29,16 @@
     </div>
   </div>
 
+  <!-- 
+  File input field. We want it to look like a 'file dropzone', but input
+  fields are hard to style. Instead, a div with id=drag_zone is styled and the file
+  input is hidden. When the div is clicked it, we programmatically click the input field
+  which opens a file explorer on the client computer.
+
+  The 'onchange' event handler is fired when a file is selected in the file explorer.
+    -->
   <input hidden type="file" id="uploaded_file" name="uploaded_file" onchange="selectedFiles(event.target.files)" accept="text/csv" />
-  <p class="grey-text">
-    Supported formats: <code>.csv</code>
-  </p>
+  <p class="grey-text">Supported formats: .csv</p>
 
   <div class="row center-align">
     <button disabled id="submit_button" type="submit" value="OK" onclick="showDialog()">Upload</button>
@@ -152,4 +158,15 @@
   // is reloaded, when user clicks the 'back button' in the browser
   window.addEventListener('unload', function () {})
   window.addEventListener('beforeunload', function () {})
+  
+  // openFileBrowserDialog(). This method opens a file explorer on the client computer
+  // by faking a click on the file input field with the id 'uploaded_file'.
+  function openFileBrowserDialog() {
+    // The file input field is queried.
+    const file_input = query('uploaded_file')
+    // input cleared to ensure onchange is fired when file name is selected twice
+    file_input.value = null
+    // Fake click on the file input, which causes a file explorer to open
+    file_input.click()
+  }
 </script>

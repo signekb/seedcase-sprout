@@ -86,6 +86,7 @@ def _transform_to_suitable_csv_format(csv_path: str, row_count: int | None) -> s
     df = df.select(pl.all().name.map(lambda n: n.strip().strip('"')))
     df = df.select(pl.all().str.strip_chars('"'))
 
+    df = df.select([_convert_decimal_with_comma_to_dot(column) for column in df])
     df = df.select([_convert_to_booleans_if_possible(column) for column in df])
 
     cleaned_path = csv_path + "cleaned"
@@ -106,6 +107,17 @@ BOOLEAN_MAPPING = {
     "0": False,
     "": None,
 }
+
+
+def _convert_decimal_with_comma_to_dot(series: pl.Series) -> pl.Series:
+    # Replace decimal with ',' with '.'
+    decimal_comma_regex = r"(\d+),(\d+)"
+    empty_count = series.is_null().sum()
+    match_count = series.str.count_matches(decimal_comma_regex).sum()
+    if empty_count + match_count == len(series):
+        return series.str.replace_all(decimal_comma_regex, "${1}.${2}")
+
+    return series
 
 
 def _convert_to_booleans_if_possible(series: Series) -> Series:
