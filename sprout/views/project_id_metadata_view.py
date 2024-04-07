@@ -4,7 +4,7 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 
 from sprout.forms import TableMetadataForm
-from sprout.models import TableMetadata
+from sprout.models import ColumnMetadata, TableMetadata
 
 
 def project_id_metadata_view(request: HttpRequest) -> HttpResponse:
@@ -20,6 +20,7 @@ def project_id_metadata_view(request: HttpRequest) -> HttpResponse:
         to create new metadata, edit existing metadata, or upload new data.
     """
     existing_metadata = TableMetadata.objects.all()
+    existing_metadata_columns = ColumnMetadata.objects.all()
 
     # if POST, process the data in form (only happens when creating new metadata)
     if request.method == "POST":
@@ -41,6 +42,7 @@ def project_id_metadata_view(request: HttpRequest) -> HttpResponse:
         template_name="project-id-metadata-view.html",
         context={
             "existing_metadata": existing_metadata,
+            "existing_metadata_columns": existing_metadata_columns,
             "form": form,
         },
     )
