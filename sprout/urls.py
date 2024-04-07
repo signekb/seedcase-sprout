@@ -13,7 +13,9 @@ urlpatterns = [
         name="project-id-metadata-id-data-update",
     ),
     path(
-        "metadata/create/<int:table_id>", views.metadata_create, name="metadata-create"
+        "metadata/create/<int:table_id>",
+        views.metadata_create,
+        name="metadata-create",
     ),
     path(
         "column-review/<int:table_id>",
@@ -25,7 +27,11 @@ urlpatterns = [
         views.project_id_metadata_view,
         name="project-id-metadata-view",
     ),
-    path("table-files/<int:table_id>", views.table_files, name="table-files"),
+    path(
+        "table-files/<int:table_id>",
+        views.table_files,
+        name="table-files",
+    ),
     path(
         "table-files/<int:table_id>/download/<int:file_id>",
         views.table_file_download,
