@@ -31,19 +31,16 @@
       <table>
         <thead>
           <tr>
-            <th>Original Column Name</th>
-            <th>Variable Name</th>
-            <th>Display Name</th>
-            <th>Data Type</th>
+            <th>Extracted column name</th>
+            <th>Machine-readable name</th>
+            <th>Display name</th>
+            <th>Data type</th>
             <th>Description</th>
           </tr>
         </thead>
         <tbody>
-          {% for column in existing_metadata_columns|get_item:metadata.id %}
-          {% if forloop.counter <= 5 %}
-          <tr>
-            <td> column </td>
-            <td>{{ forloop.counter }} </td>
+          {% for column in existing_metadata_columns|get_dict_item:metadata.id %}
+            <tr {% if forloop.counter > 5 %}hidden{% endif %}>
             <td>{{ column.extracted_name }}</td>
             <td>{{ column.machine_readable_name }}</td>
             <td>{{ column.display_name }}</td>
