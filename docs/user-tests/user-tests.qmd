@@ -35,30 +35,6 @@ Sprout is the component for building or "growing" data and aims to:
 > take data created or collected for research studies and "grow" it in a
 > structured way using modern best practices for storing data.
 
-<!-- Should we scrap the rest of this section to allow the user to exploring this by themselves? This might facilitate the testing of how intuitve the flow and structure of Sprout is in a more "natural manner" where users might not have these definitions at hand/have read the documentation for this -->
-
-In Sprout, there are two steps to structuring and storing your data:
-
-1.  Create metadata
-
-2.  Add data to the metadata
-
-**Metadata** refers to data that provides information *about* other
-data. It describes various attributes of data, such as the *name* of the
-metadata and a *description* of what it contains, as well as describes
-*which variables* are in the data, *what data types* they are, and a
-*description* of what they are (which could include relevant information
-such as the unit of the variable).
-
-**Data** refers to the actual actual values or content that is being
-described, analysed, or manipulated. It can be in various forms, such as
-text, numbers, or even images or audio (however, currently, Sprout only
-supports tabular data).
-
-So in order to grow your data in a structured way, you begin by
-describing your data through metadata, and then you can start to add, or
-grow, your data in a structured way! Nice!
-
 ## Context {#context}
 
 You're a researcher collecting data on diabetes patients and their
