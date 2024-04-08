@@ -62,11 +62,11 @@ class MetadataCreateTests(TestCase):
         self.client.post("/metadata/1/create", {"uploaded_file": file})
 
         # Assert
-        column = ColumnMetadata.objects.filter(extracted_name="DISPLAY_NAME").first()
+        column = Columns.objects.filter(extracted_name="DISPLAY_NAME").first()
         self.assertEqual("Display Name", column.display_name)
         self.assertEqual("display_name", column.machine_readable_name)
         # Clean up
-        FileMetadata.objects.first().delete()
+        Files.objects.first().delete()
 
     def test_upload_failed_with_wrong_file_extension(self):
         """Test for error message when file is not ending on .csv."""

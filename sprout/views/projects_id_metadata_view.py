@@ -35,7 +35,7 @@ def projects_id_metadata_view(request: HttpRequest) -> HttpResponse:
             return redirect(
                 to=reverse(
                     "projects-id-metadata-create",
-                    kwargs={"table_id": table_metadata.id},
+                    kwargs={"table_id": tables.id},
                 )
             )
 

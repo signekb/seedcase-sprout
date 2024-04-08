@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from sprout.models.column_metadata import _convert_to_human_readable
+from sprout.models.columns import _convert_to_human_readable
 
 
 class ConvertToHumanReadable(TestCase):
