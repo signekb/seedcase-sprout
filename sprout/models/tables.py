@@ -1,4 +1,4 @@
-"""Module defining the TableMetaData model."""
+"""Module defining the Tables model."""
 
 from datetime import datetime, timezone
 
@@ -6,7 +6,7 @@ from django.conf import settings
 from django.db import models
 
 
-class TableMetadata(models.Model):
+class Tables(models.Model):
     """Model representing the table metadata."""
 
     name = models.CharField(max_length=128)

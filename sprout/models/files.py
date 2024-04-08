@@ -7,11 +7,11 @@ from typing import IO
 from django.conf import settings
 from django.db import models
 
-from sprout.models.table_metadata import TableMetadata
+from sprout.models.tables import Tables
 from sprout.uploaders import write_to_raw
 
 
-class FileMetadata(models.Model):
+class Files(models.Model):
     """Model for a persisted file."""
 
     original_file_name = models.TextField()
@@ -19,7 +19,7 @@ class FileMetadata(models.Model):
     file_extension = models.CharField(max_length=10)
     file_size_bytes = models.BigIntegerField()
 
-    table_metadata = models.ForeignKey(TableMetadata, on_delete=models.CASCADE)
+    tables = models.ForeignKey(Tables, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL, null=True, on_delete=models.PROTECT
@@ -27,15 +27,15 @@ class FileMetadata(models.Model):
     modified_at = models.DateTimeField(auto_now=True)
 
     @staticmethod
-    def create_file_metadata(file: IO, table_metadata_id: int) -> "FileMetadata":
+    def create_model(file: IO, tables_id: int) -> "Files":
         """Persists a file and stores metadata in database.
 
         Args:
             file: The file to persist
-            table_metadata_id: The id of the table
+            tables_id: The id of the table
 
         Returns:
-            FileMetadata: The relative path on the server
+            Files: The relative path on the server
         """
         file_extension = file.name.split(".")[-1]
         file_name_wo_ext = file.name.split(".")[-2][:150]
@@ -43,17 +43,15 @@ class FileMetadata(models.Model):
 
         server_file_path = write_to_raw(file, unique_file_name)
 
-        file_metadata = FileMetadata.objects.create(
+        files = Files.objects.create(
             original_file_name=file.name,
             server_file_path=server_file_path,
             file_size_bytes=os.path.getsize(server_file_path),
             file_extension=file_extension,
-            table_metadata_id=table_metadata_id,
+            tables_id=tables_id,
         )
 
-        # Not needed since create saves it
-        # file_metadata.save()
-        return file_metadata
+        return files
 
     def delete(self, *args, **kwargs) -> None:
         """Overriding the default delete method as the file should be deleted as well.
@@ -62,7 +60,7 @@ class FileMetadata(models.Model):
         can do this by overriding the default delete method and adding som extra
         behaviour.
 
-        NOTICE: This is NOT called on a QuerySet: FileMetadata.objects.delete()
+        NOTICE: This is NOT called on a QuerySet: Files.objects.delete()
 
         Args:
             *args: The positional arguments required by Django

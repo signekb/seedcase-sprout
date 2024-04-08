@@ -1,10 +1,10 @@
-"""Module defining the ColumnDataType model and COLUMN_DATA_TYPES."""
+"""Module defining the DataTypes model and data_types."""
 
 from django.db import models
 from polars import Series
 
 
-class ColumnDataType(models.Model):
+class DataTypes(models.Model):
     """Model representing the data types of columns."""
 
     display_name = models.TextField()
@@ -12,26 +12,26 @@ class ColumnDataType(models.Model):
     polars_types = models.TextField(default="")
 
     @staticmethod
-    def get_from_series(series: Series) -> "ColumnDataType":
-        """Finds ColumnDataType based on series dtype.
+    def get_from_series(series: Series) -> "DataTypes":
+        """Finds DataTypes based on series dtype.
 
         Args:
-            series: The polars.Series to find the  ColumnDataType from
+            series: The polars.Series to find the  DataTypes from
         """
         series_polar_type = str(series.dtype.base_type())
 
-        for data_type in COLUMN_DATA_TYPES:
+        for data_type in DATA_TYPES:
             if series_polar_type in data_type.polars_types.split(","):
                 return data_type
 
-        raise ValueError("ColumnMetaData not found for :" + series_polar_type)
+        raise ValueError("Columns not found for :" + series_polar_type)
 
     def __str__(self):  # noqa: D105
         return self.display_name
 
 
 """
-COLUMN_DATA_TYPES contains all the Sprout data types.
+DATA_TYPES contains all the Sprout data types.
 
 Changing the properties of this content can be risky. See the list below.
 
@@ -40,8 +40,8 @@ Changing the properties of this content can be risky. See the list below.
   confuse users and should never change to a different type (Text -> Decimal)
 - FORBIDDEN: `id`. You should never change the id, since this is used as foreign
 """
-COLUMN_DATA_TYPES = [
-    ColumnDataType(
+DATA_TYPES = [
+    DataTypes(
         id=0,
         display_name="Decimal",
         polars_types="Decimal,Float32,Float64",
@@ -49,7 +49,7 @@ COLUMN_DATA_TYPES = [
         "decimal numbers. Use this for items like height, blood glucose, or other "
         "measurements with high degrees of precision",
     ),
-    ColumnDataType(
+    DataTypes(
         id=1,
         display_name="Whole Number",
         polars_types="Int8,Int16,Int32,Int64,UInt8,UInt16,UInt32,UInt64",
@@ -57,13 +57,13 @@ COLUMN_DATA_TYPES = [
         "be stored. Use this when you want to store data that doesn't need a decimal "
         "(e.g. number of people in a household)",
     ),
-    ColumnDataType(
+    DataTypes(
         id=2,
         display_name="Text",
         polars_types="String",
         description="A text field without a limit to how many characters can be stored",
     ),
-    ColumnDataType(
+    DataTypes(
         id=3,
         display_name="True/False",
         polars_types="Boolean",
@@ -71,7 +71,7 @@ COLUMN_DATA_TYPES = [
         "True or False. If you need or want to store actual "
         "words, use the Text field.",
     ),
-    ColumnDataType(
+    DataTypes(
         id=4,
         display_name="Time",
         polars_types="Time",
@@ -79,7 +79,7 @@ COLUMN_DATA_TYPES = [
         "/iso-8601-date-and-time-format.html) format of `hh:mm:ss.ms` (hours, minutes, "
         "seconds, milliseconds)",
     ),
-    ColumnDataType(
+    DataTypes(
         id=5,
         display_name="Date+Time",
         polars_types="Datetime",
@@ -89,7 +89,7 @@ COLUMN_DATA_TYPES = [
         "`yyyy-mm-dd hh:mm:ss.ms` (year, month, day, hour, minutes, seconds, "
         "milliseconds)",
     ),
-    ColumnDataType(
+    DataTypes(
         id=6,
         display_name="Date",
         polars_types="Date",
@@ -100,8 +100,8 @@ COLUMN_DATA_TYPES = [
 ]
 
 
-def update_column_data_types(**kwargs) -> None:
-    """Creates or updates all ColumnDataType based on COLUMN_DATA_TYPES.
+def update_data_types(**kwargs) -> None:
+    """Creates or updates all DataTypes based on data_types.
 
     This is executed on app startup just after the migrations are completed.
     This method is used in AppConfig.ready()
@@ -109,7 +109,7 @@ def update_column_data_types(**kwargs) -> None:
     Args:
         **kwargs: A required argument by the Django, but it is not used
     """
-    print("ColumnDataType updated")
-    ColumnDataType.objects.bulk_create(COLUMN_DATA_TYPES, ignore_conflicts=True)
+    print("DataTypes updated")
+    DataTypes.objects.bulk_create(DATA_TYPES, ignore_conflicts=True)
     fields = ["display_name", "description", "polars_types"]
-    ColumnDataType.objects.bulk_update(COLUMN_DATA_TYPES, fields=fields)
+    DataTypes.objects.bulk_update(DATA_TYPES, fields=fields)
