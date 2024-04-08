@@ -3,7 +3,6 @@ from django.core.files.uploadedfile import UploadedFile
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, render
 
-from sprout.csv.csv_reader import read_csv_file
 from sprout.models import ColumnMetadata, FileMetadata, TableMetadata
 
 
@@ -28,8 +27,8 @@ def projects_id_metadata_id_data_update(
         new_uploaded_file = get_uploaded_file(request)
         file_metadata = FileMetadata.create_file_metadata(new_uploaded_file, table_id)
         new_server_file = file_metadata.server_file_path
-        schema = get_schema(id=table_id)
-        data_update = read_csv_file(new_server_file, row_count=None)
+        # schema = get_schema(id=table_id)
+        # data_update = read_csv_file(new_server_file, row_count=None)
 
         # TODO: Implement these below later
         # Inform if there are columns that exist in the uploaded data,
