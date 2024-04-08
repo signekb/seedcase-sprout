@@ -7,7 +7,7 @@ from sprout.models import DataTypes, Tables
 
 
 class ColumnsFormTest(TestCase):
-    """Class of tests for the Metadata form."""
+    """Class of tests for the form for the Columns metadata."""
 
     def setUp(self):
         """Creating the data needed for the tests."""
