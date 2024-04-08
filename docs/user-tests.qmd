@@ -16,14 +16,14 @@ evaluate Sprout's features. For this purpose, we've crafted a basic case
 that includes three simple test data files.
 
 In the sections below, we will briefly [introduce
-Sprout](#a-short-introduction-to-sprout), describe the
+Sprout](#introduction), describe the
 [context](#context) we would like the user to test Sprout based on, and
 list the actions that we would like the [user to try to
-do](#what-we-would-like-you-to-do).
+do](#user-actions).
 
 These sections are intented for a user to read before the user test.
 
-## A short introduction to Sprout {#a-short-introduction-to-sprout}
+## A short introduction to Sprout {#introduction}
 
 Sprout is a component of the Seedcase software ecosystem which is a
 framework for an open and scalable infrastructure for health data. The
@@ -97,7 +97,7 @@ file.
 Since you want to grow your data in a structured way, you decide to try
 out Sprout for handling your data.
 
-## What we would like you to do {#what-we-would-like-you-to-do}
+## What we would like you to do {#user-actions}
 
 Now, that you have gotten a short introduction to the context and
 Sprout, we would like you to try to do the three steps described below.
