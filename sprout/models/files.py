@@ -8,7 +8,7 @@ from django.conf import settings
 from django.db import models
 
 from sprout.models.tables import Tables
-from sprout.uploaders import upload_raw_file
+from sprout.uploaders import write_to_raw
 
 
 class Files(models.Model):
@@ -41,7 +41,7 @@ class Files(models.Model):
         file_name_wo_ext = file.name.split(".")[-2][:150]
         unique_file_name = f"{file_name_wo_ext}-{uuid.uuid4().hex}.{file_extension}"
 
-        server_file_path = upload_raw_file(file, unique_file_name)
+        server_file_path = write_to_raw(file, unique_file_name)
 
         files = Files.objects.create(
             original_file_name=file.name,
@@ -51,7 +51,6 @@ class Files(models.Model):
             tables_id=tables_id,
         )
 
-        files.save()
         return files
 
     def delete(self, *args, **kwargs) -> None:

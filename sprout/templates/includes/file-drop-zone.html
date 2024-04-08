@@ -7,11 +7,11 @@
   <div class="file-upload-box row center-align" id="drag_zone" onclick="openFileBrowserDialog()">
     <!-- Empty drop zone. Visible when a file is NOT added -->
     <div class="center-align" id="drag_zone_empty">
-      <h5 class="center-align bold">DRAG YOUR .CSV FILE HERE</h5>
+      <h5 class="center-align bold">Drag your <code>.csv</code> file here</h5>
       <div class="medium-space"></div>
       <i class="extra">attach_file</i>
       <div class="medium-space"></div>
-      <h5 class="center-align bold">OR CLICK TO OPEN YOUR FILE EXPLORER</h5>
+      <h5 class="center-align bold">Or click to open your file explorer</h5>
     </div>
 
     <!-- Drop zone with file name and size. Visible when file is added -->
@@ -29,19 +29,19 @@
     </div>
   </div>
 
-  <!--  
+  <!--   
   File input field. We want it to look like a 'file dropzone', but input
   fields are hard to style. Instead, a div with id=drag_zone is styled and the file
   input is hidden. When the div is clicked it, we programmatically click the input field
   which opens a file explorer on the client computer.
 
   The 'onchange' event handler is fired when a file is selected in the file explorer.
-     -->
+      -->
   <input hidden type="file" id="uploaded_file" name="uploaded_file" onchange="selectedFiles(event.target.files)" accept="text/csv" />
   <p class="grey-text">Supported formats: .csv</p>
 
   <div class="row center-align">
-    <button disabled id="submit_button" type="submit" value="OK" onclick="showDialog()">EXTRACT DATA STRUCTURE</button>
+    <button disabled id="submit_button" type="submit" value="OK" onclick="showDialog()">Upload</button>
   </div>
 </form>
 

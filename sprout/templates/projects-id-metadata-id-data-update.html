@@ -1,0 +1,27 @@
+{% extends 'includes/base.html' %}
+{% load static %}
+
+{% block header_tags %}
+  <!-- Include htmx library -->
+  {% comment %} <script src="https://unpkg.com/htmx.org@1.7.0/dist/htmx.js"></script> {% endcomment %}
+{% endblock %}
+
+{% block content %}
+  <div>
+    <h1 class="center-align">Upload File for {{ table_name }}</h1>
+
+    <!-- The file drop zone is included -->
+    {% include 'includes/file-drop-zone.html' %}
+
+    {% if upload_success %}
+      <div class="snackbar active">
+        <div class="max">
+          <i>task_alt</i>
+          <span>Successfully uploaded <code class="file-ext">{{ file_metadata.original_file_name }}</code> and added {{ number_rows }} to {{ table_name }}</span>
+        </div>
+        <!-- TODO: Should this be here or as a button below the drop zone? -->
+        <a href="/metadata" class="inverse-link">Return to data view</a>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}
