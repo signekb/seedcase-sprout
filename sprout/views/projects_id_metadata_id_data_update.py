@@ -7,7 +7,7 @@ from sprout.csv.csv_reader import read_csv_file
 from sprout.models import ColumnMetadata, FileMetadata, TableMetadata
 
 
-def project_id_metadata_id_data_update(
+def projects_id_metadata_id_data_update(
     request: HttpRequest, table_id: int
 ) -> HttpResponse:
     """Modifies or adds data in a database table for a specific metadata object.
@@ -61,7 +61,7 @@ def project_id_metadata_id_data_update(
 
     # TODO: Provide context for response instead of redirect?
     # And button in template to move to other page?
-    return render(request, "project-id-metadata-id-data-update.html", context)
+    return render(request, "projects-id-metadata-id-data-update.html", context)
 
 
 class Paths:
