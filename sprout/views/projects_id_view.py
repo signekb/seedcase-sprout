@@ -6,13 +6,13 @@ from django.shortcuts import redirect, render
 from sprout.forms import TableMetadataForm
 
 
-def data_import(request: HttpRequest) -> HttpResponse:
-    """data_import Import data from form.
+def projects_id_view(request: HttpRequest) -> HttpResponse:
+    """Landing page for the project.
 
-    Initially renders a blank form using the ``data-import`` template, if
+    Initially renders a blank form using the template, if
     ``request.method != "POST"``.  If ``request.method == "POST"``, the form is
     validated.  If validation is successful, the form is saved and the page is
-    redirected to the ``metadata-create`` template.
+    redirected to the correct template.
 
     Args:
         request (HttpRequest): Contains metadata about the request, including method
@@ -33,8 +33,7 @@ def data_import(request: HttpRequest) -> HttpResponse:
         # if input passes validation, save form and redirect to file upload
         if form.is_valid():
             table_metadata = form.save()
-
-            return redirect(to=f"metadata/create/{table_metadata.id}")
+            return redirect(to=f"metadata/{table_metadata.id}/create")
 
     # if GET (or any other method), create a blank form
     else:
@@ -42,6 +41,6 @@ def data_import(request: HttpRequest) -> HttpResponse:
 
     return render(
         request=request,
-        template_name="data-import.html",
+        template_name="projects-id-view.html",
         context={"form": form},
     )

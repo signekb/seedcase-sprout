@@ -10,10 +10,12 @@ from sprout.models import ColumnMetadata, FileMetadata, TableMetadata
 from sprout.tests.db_test_utils import create_table
 
 
-class FileUploadTests(TestCase):
+class MetadataCreateTests(TestCase):
     """Tests for the file upload view."""
 
-    def test_render_metadata_create_view_and_verify_that_table_name_is_loaded(self):
+    def test_render_projects_id_metadata_create_view_and_verify_loaded_table_names(
+        self,
+    ):
         """Test for the view being loaded and table_name is present in view.
 
         Tests that the status code is 200 and that the html contains table_name
@@ -23,7 +25,7 @@ class FileUploadTests(TestCase):
         create_table(table_name).save()
 
         # Act
-        response = self.client.get("/metadata/create/1")
+        response = self.client.get("/metadata/1/create")
 
         # Assert.
         self.assertEqual(response.status_code, 200)
@@ -32,20 +34,37 @@ class FileUploadTests(TestCase):
     def test_upload_of_file_should_create_columns_in_database(self):
         """Test for a table being created when csv is uploaded."""
         # Arrange
-        table_name = "Table Name"
-        file_name = "file.csv"
+        table_name = "Table"
+        file_name = table_name + ".csv"
         create_table(table_name).save()
         file = self.create_file(file_name, "name,city,age\nPhil,Aarhus,36")
 
         # Act
-        response = self.client.post("/metadata/create/1", {"uploaded_file": file})
+        response = self.client.post("/metadata/1/create", {"uploaded_file": file})
 
         # Assert
         table = TableMetadata.objects.get(name=table_name)
-        self.assertEqual("file.csv", table.original_file_name)
+        self.assertEqual("Table.csv", table.original_file_name)
         self.assertEqual(302, response.status_code, "Redirect is expected")
-        self.assertEqual("/column-review/1", response.url)
+        self.assertEqual("/metadata/1/update", response.url)
         self.assertEqual(3, table.columnmetadata_set.all().count(), "expects 3 columns")
+        # Clean up
+        FileMetadata.objects.first().delete()
+
+    def test_extracted_column_names_formats(self):
+        """Test for a table being created when csv is uploaded."""
+        # Arrange
+        create_table("Table Name").save()
+
+        file = self.create_file("file.csv", "DISPLAY_NAME,AGE\nPhil,36")
+
+        # Act
+        self.client.post("/metadata/1/create", {"uploaded_file": file})
+
+        # Assert
+        column = ColumnMetadata.objects.filter(extracted_name="DISPLAY_NAME").first()
+        self.assertEqual("Display Name", column.display_name)
+        self.assertEqual("display_name", column.machine_readable_name)
         # Clean up
         FileMetadata.objects.first().delete()
 
@@ -54,7 +73,7 @@ class FileUploadTests(TestCase):
         create_table("Table Name").save()
         file = self.create_file("file-with-wrong-ext.svg", "file content")
 
-        response = self.client.post("/metadata/create/1", {"uploaded_file": file})
+        response = self.client.post("/metadata/1/create", {"uploaded_file": file})
 
         self.assertContains(response, "Unsupported file format: .svg")
 
@@ -63,7 +82,7 @@ class FileUploadTests(TestCase):
         create_table("Table Name").save()
         file = self.create_file("file-with-bad-headers.csv", "name, age")
 
-        response = self.client.post("/metadata/create/1", {"uploaded_file": file})
+        response = self.client.post("/metadata/1/create", {"uploaded_file": file})
 
         self.assertContains(response, "Invalid CSV. No rows found!")
 
@@ -75,7 +94,7 @@ class FileUploadTests(TestCase):
         table.save()
         file1 = self.create_file("file.csv", "first_name,year\nHans,2000")
         file2 = self.create_file("file.csv", expected_file_content)
-        url = reverse("metadata-create", kwargs={"table_id": table.id})
+        url = reverse("projects-id-metadata-create", kwargs={"table_id": table.id})
 
         # Act
         self.client.post(url, {"uploaded_file": file1})

@@ -1,7 +1,8 @@
 """File with column_review view."""
+
 from typing import Dict, List
 
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 
@@ -10,17 +11,18 @@ from sprout.forms import ColumnMetadataForm
 from sprout.models import ColumnMetadata, FileMetadata, TableMetadata
 
 
-def column_review(request, table_id):
-    """Takes the data from ColumnMetadata and displays as a table.
+def projects_id_metadata_id_update(request: HttpRequest, table_id: int) -> HttpResponse:
+    """Takes the data from ColumnMetadata and displays the metadata to update.
 
-    The table can be edited and the result written back to the database.
+    The metadata can be updated and the result written back to the column metadata
+    database.
 
-    Args: Must learn what to write here
-        request: _description_
-        table_name: _description_
+    Args:
+        request: The HTTP request sent from the server (by the user).
+        table_id: The ``table_id`` from TableMetadata.
 
-    Returns: Must learn what to write here
-        _type_: _description_
+    Returns:
+        HttpResponse: A response given back to the server.
     """
     table_metadata = get_object_or_404(TableMetadata, id=table_id)
     columns_metadata = ColumnMetadata.objects.select_related("data_type").filter(
@@ -51,11 +53,11 @@ def column_review(request, table_id):
             if form.cleaned_data["excluded"]:
                 form.instance.delete()
 
-        return redirect(reverse("column-review", args=[table_id]))
+        return redirect(reverse("projects-id-metadata-id-update", args=[table_id]))
 
     return render(
         request,
-        "column-review.html",
+        "projects-id-metadata-id-update.html",
         {
             "forms": forms,
             "table_metadata": table_metadata,

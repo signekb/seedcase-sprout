@@ -35,7 +35,7 @@ class ProjectIdMetaDataTests(TestCase):
             file, self.table_metadata.pk
         )
 
-        self.url = reverse("project-id-metadata-view")
+        self.url = reverse("projects-id-metadata-view")
         self.empty_form = {}
         self.invalid_form = {"name": "Test/Table", "description": "Test description"}
         self.valid_form = {"name": "TestTable", "description": "Test description"}
@@ -47,7 +47,7 @@ class ProjectIdMetaDataTests(TestCase):
 
         # Assert
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "project-id-metadata-view.html")
+        self.assertTemplateUsed(response, "projects-id-metadata-view.html")
 
     def test_view_shows_all_tables(self):
         """Test that the view shows all tables in TableMetadata."""
@@ -89,7 +89,7 @@ class ProjectIdMetaDataTests(TestCase):
         # Assert
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(
-            response, "/metadata/create/2"
+            response, "/metadata/2/create"
         )  # id is 2 because of the table created in the setUp method
 
     def test_no_redirect_with_invalid_form_special_characters(self):
