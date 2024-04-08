@@ -51,6 +51,9 @@
           {% endfor %}
         </tbody>
       </table>
+      {% if existing_metadata_columns|get_dict_item:metadata.id|length > 5 %}
+        <button style="text-align:right" onclick="showMore(event.target)">Show more columns</button>
+      {% endif %}
     </td>
   </tbody>
   {% empty %}
@@ -101,6 +104,27 @@
       }
     }
   }
+
+  function showMore(button) {
+    // Get the parent element of the button
+    let parent = button.parentElement;
+
+    // Get all the rows in the parent element
+    let rows = parent.querySelectorAll("tr[hidden]");
+
+    // Loop through all the rows and show the ones that are hidden
+    for (let i = 0; i < rows.length; i++) {
+      if(i < 5) {
+        rows[i].hidden = false;
+      }
+    }
+
+    // If all rows are shown, hide the button
+    if(rows.length < 6) {
+      button.style.display = "none";
+    }
+  }
+
 </script>
 
 {% endblock content %}
