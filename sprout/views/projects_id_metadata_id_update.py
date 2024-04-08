@@ -1,32 +1,32 @@
 """File with column_review view."""
+
 from typing import Dict, List
 
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 
 from sprout.csv.csv_reader import read_csv_file
-from sprout.forms import ColumnMetadataForm
-from sprout.models import ColumnMetadata, FileMetadata, TableMetadata
+from sprout.forms import ColumnsForm
+from sprout.models import Columns, Files, Tables
 
 
-def column_review(request, table_id):
-    """Takes the data from ColumnMetadata and displays as a table.
+def projects_id_metadata_id_update(request: HttpRequest, table_id: int) -> HttpResponse:
+    """Takes the data from Columns and displays the metadata to update.
 
-    The table can be edited and the result written back to the database.
+    The metadata can be updated and the result written back to the column metadata
+    database.
 
-    Args: Must learn what to write here
-        request: _description_
-        table_name: _description_
+    Args:
+        request: The HTTP request sent from the server (by the user).
+        table_id: The ``table_id`` from Tables.
 
-    Returns: Must learn what to write here
-        _type_: _description_
+    Returns:
+        HttpResponse: A response given back to the server.
     """
-    table_metadata = get_object_or_404(TableMetadata, id=table_id)
-    columns_metadata = ColumnMetadata.objects.select_related("data_type").filter(
-        table_metadata=table_metadata
-    )
-    data_sample = create_sample_of_unique_values(table_metadata.id)
+    tables = get_object_or_404(Tables, id=table_id)
+    columns_metadata = Columns.objects.select_related("data_type").filter(tables=tables)
+    data_sample = create_sample_of_unique_values(tables.id)
     forms = [create_form(request, c) for c in columns_metadata]
     columns = [
         {
@@ -51,47 +51,47 @@ def column_review(request, table_id):
             if form.cleaned_data["excluded"]:
                 form.instance.delete()
 
-        return redirect(reverse("data-import"))
+        return redirect(reverse("projects-id-view"))
 
     return render(
         request,
-        "column-review.html",
+        "projects-id-metadata-id-update.html",
         {
             "forms": forms,
-            "table_metadata": table_metadata,
+            "tables": tables,
             "columns": columns,
         },
     )
 
 
-def create_form(request: HttpRequest, column: ColumnMetadata) -> ColumnMetadataForm:
-    """Create form based on request can ColumnMetadata.
+def create_form(request: HttpRequest, column: Columns) -> ColumnsForm:
+    """Create form based on request can Columns.
 
     Args:
         request: The HttpRequest sent.
-        column: Django model data from ColumnMetaData.
+        column: Django model data from Columns.
 
     Returns:
-        Outputs the ColumnMetadataForm Django model object.
+        Outputs the ColumnsForm Django model object.
     """
     if request.method == "POST":
-        return ColumnMetadataForm(request.POST, instance=column, prefix=str(column.id))
+        return ColumnsForm(request.POST, instance=column, prefix=str(column.id))
     else:
-        return ColumnMetadataForm(instance=column, prefix=str(column.id))
+        return ColumnsForm(instance=column, prefix=str(column.id))
 
 
-def create_sample_of_unique_values(table_metadata_id: int) -> Dict[str, List]:
+def create_sample_of_unique_values(tables_id: int) -> Dict[str, List]:
     """Create sample of unique values based on the uploaded file for a table.
 
     The unique values are based on the first 500 rows.
 
     Args:
-        table_metadata_id: The id of the table
+        tables_id: The id of the table
 
     Returns:
         Dict[str, List]: Dictionary of unique sample values grouped by column name.
     """
-    file = FileMetadata.objects.get(table_metadata_id=table_metadata_id)
+    file = Files.objects.get(tables_id=tables_id)
     df = read_csv_file(file.server_file_path, 500)
 
     # Find unique values, and limit to max 5 different

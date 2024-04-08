@@ -6,19 +6,21 @@ from . import views
 
 urlpatterns = [
     path("", views.home, name="home"),
-    path("data-import", views.data_import, name="data-import"),
+    path("view", views.projects_id_view, name="projects-id-view"),
     path(
-        "metadata/create/<int:table_id>", views.metadata_create, name="metadata-create"
+        "metadata/<int:table_id>/create",
+        views.projects_id_metadata_create,
+        name="projects-id-metadata-create",
     ),
     path(
-        "column-review/<int:table_id>",
-        views.column_review,
-        name="column-review",
+        "metadata/<int:table_id>/update",
+        views.projects_id_metadata_id_update,
+        name="projects-id-metadata-id-update",
     ),
     path(
         "metadata",
-        views.project_id_metadata_view,
-        name="project-id-metadata-view",
+        views.projects_id_metadata_view,
+        name="projects-id-metadata-view",
     ),
     path("table-files/<int:table_id>", views.table_files, name="table-files"),
     path(

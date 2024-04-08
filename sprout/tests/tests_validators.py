@@ -3,7 +3,7 @@
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 
-from sprout.models import TableMetadata
+from sprout.models import Tables
 from sprout.validators import (
     validate_no_special_characters,
     validate_table_name_does_not_exist,
@@ -93,7 +93,7 @@ class ValidateTableNameDoesNotExistTests(TestCase):
         exists in the database.
         """
         # Arrange
-        TableMetadata.objects.create(name="TestTable", description="Test description")
+        Tables.objects.create(name="TestTable", description="Test description")
         name = "TestTable"
 
         # Act

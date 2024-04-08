@@ -1,44 +1,44 @@
-"""Module defining the ColumnMetadata model."""
+"""Module defining the Columns model."""
 
 from re import sub
 
 import polars
 from django.db import models
 
-from sprout.models.column_data_type import ColumnDataType
-from sprout.models.table_metadata import TableMetadata
+from sprout.models.data_types import DataTypes
+from sprout.models.tables import Tables
 
 
-class ColumnMetadata(models.Model):
+class Columns(models.Model):
     """Model representing the metadata of columns."""
 
-    table_metadata = models.ForeignKey(TableMetadata, on_delete=models.CASCADE)
+    tables = models.ForeignKey(Tables, on_delete=models.CASCADE)
     extracted_name = models.CharField(max_length=1000)
     machine_readable_name = models.CharField(max_length=200)
     display_name = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
-    data_type = models.ForeignKey(ColumnDataType, on_delete=models.PROTECT)
+    data_type = models.ForeignKey(DataTypes, on_delete=models.PROTECT)
     allow_missing_value = models.BooleanField()
     allow_duplicate_value = models.BooleanField()
 
     @staticmethod
-    def create(table_id: int, series: polars.Series) -> "ColumnMetadata":
-        """Create ColumnMetadata from polars.Series.
+    def create(table_id: int, series: polars.Series) -> "Columns":
+        """Create Columns from polars.Series.
 
         Args:
             table_id: id of the table
             series: A polars series
 
         Returns:
-            ColumnMetadata: ColumnMetadata instance based on series
+            Columns: Columns instance based on series
         """
-        return ColumnMetadata(
-            table_metadata_id=table_id,
+        return Columns(
+            tables_id=table_id,
             extracted_name=series.name,
             machine_readable_name=_convert_to_snake_case(series.name),
             display_name=_convert_to_human_readable(series.name),
             description="",
-            data_type=ColumnDataType.get_from_series(series),
+            data_type=DataTypes.get_from_series(series),
             allow_missing_value=True,
             allow_duplicate_value=True,
         )
