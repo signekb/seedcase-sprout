@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'includes/base.html' %}
 {% load static %}
 
 {% block header_tags %}
@@ -11,7 +11,7 @@
     <h1 class="center-align">Upload File for {{ table_name }}</h1>
 
     <!-- The file drop zone is included -->
-    {% include 'file-drop-zone.html' %}
+    {% include 'includes/file-drop-zone.html' %}
 
     {% if upload_success %}
       <div class="snackbar active">
