@@ -7,7 +7,7 @@ from sprout.forms import TableMetadataForm
 from sprout.models import ColumnMetadata, TableMetadata
 
 
-def project_id_metadata_view(request: HttpRequest) -> HttpResponse:
+def projects_id_metadata_view(request: HttpRequest) -> HttpResponse:
     """View the existing metadata in a project.
 
     Either create new metadata, update existing metadata, or upload new data.
