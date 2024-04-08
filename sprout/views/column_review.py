@@ -51,7 +51,7 @@ def column_review(request, table_id):
             if form.cleaned_data["excluded"]:
                 form.instance.delete()
 
-        return redirect(reverse("column-review", args=[table_id]))
+        return redirect(reverse("data-import"))
 
     return render(
         request,
