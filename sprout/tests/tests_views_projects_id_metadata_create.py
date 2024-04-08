@@ -59,7 +59,7 @@ class MetadataCreateTests(TestCase):
         file = self.create_file("file.csv", "DISPLAY_NAME,AGE\nPhil,36")
 
         # Act
-        self.client.post("/metadata/create/1", {"uploaded_file": file})
+        self.client.post("/metadata/1/create", {"uploaded_file": file})
 
         # Assert
         column = ColumnMetadata.objects.filter(extracted_name="DISPLAY_NAME").first()
