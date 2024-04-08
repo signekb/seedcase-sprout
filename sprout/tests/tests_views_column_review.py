@@ -70,7 +70,7 @@ class ColumnReviewViewTest(TestCase):
         response = self.client.post(url, data, follow=True)
 
         # Assert the status code
-        self.assertEqual(response.status_code, 200)
+        self.assertRedirects(response, reverse("data-import"))
 
     def test_create_sample_of_unique_values(self):
         """Test if correct sample values are created."""
