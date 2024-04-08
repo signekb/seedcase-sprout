@@ -28,7 +28,7 @@ These sections are intented for a user to read before the user test.
 Sprout is a component of the Seedcase software ecosystem which is a
 framework for an open and scalable infrastructure for health data. The
 Seedcase ecosystem aims to enable researchers to build, manage, and
-share health data using modern best software practices.
+share health data using modern best practices in data engineering.
 
 Sprout is the component for building or "growing" data and aims to:
 
@@ -61,15 +61,14 @@ grow, your data in a structured way! Nice!
 
 ## Context {#context}
 
-You're a researcher collecting data on a diabetes patients and their
+You're a researcher collecting data on diabetes patients and their
 physical activity. You want to save and structure your data to ease the process
 of 1) adding more data to your dataset, when more has been collected,
 and 2) analysing the data later on.
 
 You have collected the data across two time periods (in 2023 and 2024),
-resulting in two distinct cohorts. Each cohort represents the same group
-of individuals who tracked their exercise in March 2023 and 2024,
-respectively.
+resulting a longitudinal study of the same individuals,
+who tracked their exercise in March of 2023 and 2024.
 
 You have two types of files with data: One describing the patients
 `patients` which includes their age, sex, height, weight, and diabetes
@@ -86,10 +85,10 @@ You have two of each file type, one for each time period:
 
 : Showing the `patients.csv` and the first two rows within that file.
 
-| id  | exercise type | duration | date       |
+| id  | physical_activity | duration | date       |
 |-----|---------------|----------|------------|
 | 01  | run           | 10       | 01-03-2024 |
-| 02  | wall          | 25       | 175        |
+| 02  | walk          | 25       | 175        |
 
 : Showing the `physical_activity_2024.csv` and the first two rows within that
 file.
