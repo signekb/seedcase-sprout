@@ -51,7 +51,7 @@ def projects_id_metadata_id_update(request: HttpRequest, table_id: int) -> HttpR
             if form.cleaned_data["excluded"]:
                 form.instance.delete()
 
-        return redirect(reverse("projects-id-metadata-id-update", args=[table_id]))
+        return redirect(reverse("projects-id-view"))
 
     return render(
         request,
