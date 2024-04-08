@@ -35,7 +35,7 @@
             </thead>
             <tbody>
               {% for column in existing_metadata_columns %}
-                {% if column.table_metadata.id == metadata.id %}
+                {% if column.tables.id == metadata.id %}
                   <tr>
                     <td>{{ column.extracted_name }}</td>
                     <td>{{ column.machine_readable_name }}</td>
@@ -69,7 +69,7 @@
 
   <script>
     let edit_url = "{% url 'projects-id-metadata-id-update' table_id=0 %}"
-    let upload_url = "{% url 'projects-id-metadata-id-update' table_id=0 %}"
+    let upload_url = "{% url 'projects-id-metadata-id-data-update' table_id=0 %}"
     function rowSelected(row) {
       // Deselect all other rows
       document.querySelectorAll('.selectable').forEach(function (otherRow) {
