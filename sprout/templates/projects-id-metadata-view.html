@@ -1,83 +1,59 @@
 {% extends 'includes/base.html' %}
 
 {% block content %}
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Data Rows</th>
-        <th>Date Created</th>
-        <th>Last Upload</th>
-      </tr>
-    </thead>
-    {% for metadata in existing_metadata %}
-      <tbody>
-        <tr class="selectable" id="{{ metadata.id }}" onclick="rowSelected(event.target.parentElement)">
-          <td>{{ metadata.name }}</td>
-          <td>{{ metadata.description }}</td>
-          <td>Cell</td>
-          <td>{{ metadata.created_at }}</td>
-          <td>Cell</td>
-        </tr>
-      </tbody>
-      {% empty %}
-      <p>No existing data to show.</p>
-    {% endfor %}
-  </table>
 
-  <!-- View all metadata -->
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Data Rows</th>
-        <th>Date Created</th>
-        <th>Last Upload</th>
-      </tr>
-    </thead>
-    {% for metadata in existing_metadata %}
-      <tbody>
-        <tr class="selectable" id="{{ metadata.id }}" onclick="rowSelected(event.target.parentElement)">
-          <td>{{ metadata.name }}</td>
-          <td>{{ metadata.description }}</td>
-          <td>Cell</td>
-          <td>{{ metadata.created_at }}</td>
-          <td>Cell</td>
-        </tr>
-        <!-- View metadata of all columns in the selected metadata -->
-        <td colspan="6" class="metadata_columns_table" hidden id="{{ metadata.id }}">
-          <table>
-            <thead>
-              <tr>
-                <th>Original Column Name</th>
-                <th>Variable Name</th>
-                <th>Display Name</th>
-                <th>Data Type</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for column in existing_metadata_columns %}
-                {% if column.table_metadata.id == metadata.id %}
-                  <tr>
-                    <td>{{ column.extracted_name }}</td>
-                    <td>{{ column.machine_readable_name }}</td>
-                    <td>{{ column.display_name }}</td>
-                    <td>{{ column.data_type }}</td>
-                    <td>{{ column.description }}</td>
-                  </tr>
-                {% endif %}
-              {% endfor %}
-            </tbody>
-          </table>
-        </td>
-      </tbody>
-      {% empty %}
-      <p>No existing data to show.</p>
-    {% endfor %}
-  </table>
+<!-- View all metadata -->
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Data Rows</th>
+      <th>Date Created</th>
+      <th>Last Upload</th>
+    </tr>
+  </thead>
+  {% for metadata in existing_metadata %}
+  <tbody>
+    <tr class="selectable" id="{{ metadata.id }}" onclick="rowSelected(event.target.parentElement)">
+      <td>{{ metadata.name }}</td>
+      <td>{{ metadata.description }}</td>
+      <td>Cell</td>
+      <td>{{ metadata.created_at }}</td>
+      <td>Cell</td>
+    </tr>
+    <!-- View metadata of all columns in the selected metadata -->
+    <td colspan="6" class="metadata_columns_table" hidden id="{{ metadata.id }}">
+      <table>
+        <thead>
+          <tr>
+            <th>Original Column Name</th>
+            <th>Variable Name</th>
+            <th>Display Name</th>
+            <th>Data Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for column in existing_metadata_columns %}
+          {% if column.table_metadata.id == metadata.id %}
+          <tr>
+            <td>{{ column.extracted_name }}</td>
+            <td>{{ column.machine_readable_name }}</td>
+            <td>{{ column.display_name }}</td>
+            <td>{{ column.data_type }}</td>
+            <td>{{ column.description }} </td>
+          </tr>
+          {% endif %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </td>
+  </tbody>
+  {% empty %}
+  <p>No existing data to show.</p>
+  {% endfor %}
+</table>
 
   <!-- three buttons will submit this form: create, edit, or upload -->
   <nav class="right-align">
@@ -89,28 +65,25 @@
   <!-- Create metadata dialog -->
   {% include 'includes/metadata-create-dialog.html' %}
 
-  <script>
-    let edit_url = "{% url 'projects-id-metadata-id-update' table_id=0 %}"
-    let upload_url = "{% url 'projects-id-metadata-id-update' table_id=0 %}"
-    
-    function rowSelected(row) {
-      // Deselect all other rows
-      document.querySelectorAll('.selectable').forEach(function (otherRow) {
-        otherRow.classList.remove('selected')
-      })
-    
-      // Add selected class
-      row.classList.add('selected')
-    
-      // Update the href and disabled state of the edit and upload buttons based on row selection
-      document.querySelector('#edit-link').href = edit_url.replace('0', row.id)
-      document.querySelector('#edit-link').removeAttribute('disabled')
-      document.querySelector('#upload-link').href = upload_url.replace('0', row.id)
-      document.querySelector('#upload-link').removeAttribute('disabled')
-    }
+<script>
+  let edit_url = "{% url 'projects-id-metadata-id-update' table_id=0 %}";
+  let upload_url = "{% url 'projects-id-metadata-id-update' table_id=0 %}";
+  function rowSelected(row) {
+    // Deselect all other rows
+    document.querySelectorAll('.selectable').forEach(function (otherRow) {
+      otherRow.classList.remove('selected');
+    });
+    // Add selected class
+    row.classList.add('selected');
 
+    // Update the href and disabled state of the edit and upload buttons based on row selection
+    document.querySelector('#edit-link').href = edit_url.replace('0', row.id);
+    document.querySelector('#edit-link').removeAttribute('disabled');
+    document.querySelector('#upload-link').href = upload_url.replace('0', row.id);
+    document.querySelector('#upload-link').removeAttribute('disabled');
+    
     // Get all metadata columns
-    let metadata_columns = document.getElementsByClassName("metadata_columns_table");
+    let metadata_columns = document.getElementsByClassName('metadata_columns_table');
 
     // Loop through all the metadata columns and show the ones that matches the selected row
     for (const metadata_column of metadata_columns){
@@ -124,4 +97,5 @@
     }
   }
 </script>
+
 {% endblock %}
