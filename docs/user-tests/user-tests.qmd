@@ -92,11 +92,12 @@ tests are so helpful for us!
 
 The three steps we would like you to try to do is:
 
-1.  Create the metadata for the `patients.csv`
-2.  Create the metadata for `physical_activity_2023.csv` and call it `physical_activity`
+1. Download the data files from the [data repository](https://github.com/seedcase-project/data/tree/main/patients)
+1.  Using Sprout, create the metadata for the `patients.csv`
+2.  Then create the metadata for `physical_activity_2023.csv` and call it `physical_activity`
 3.  Add the data from `physical_activity_2024.csv` to the `physical_activity` metadata
 
 Just take one at the time and please remember to say your thought
 processes out loud.
 
-Thank you so much for your help and your time! :-)
+Thank you so much for your help and your time! :relaxed:
