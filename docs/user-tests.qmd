@@ -85,10 +85,10 @@ You have two of each file type, one for each time period:
 
 : Showing the `patients.csv` and the first two rows within that file.
 
-| id  | physical_activity | duration | date       |
+| id  | physical_activity | duration | date   |
 |-----|---------------|----------|------------|
 | 01  | run           | 10       | 01-03-2024 |
-| 02  | walk          | 25       | 175        |
+| 02  | walk          | 25       | 02-04-2024 |
 
 : Showing the `physical_activity_2024.csv` and the first two rows within that
 file.
