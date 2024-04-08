@@ -25,7 +25,7 @@ def projects_id_metadata_id_data_update(
     }
     if request.method == "POST":
         new_uploaded_file = get_uploaded_file(request)
-        files = Files.create_file_metadata(new_uploaded_file, table_id)
+        files = Files.create_model(new_uploaded_file, table_id)
         new_server_file = files.server_file_path
         # schema = get_schema(id=table_id)
         # data_update = read_csv_file(new_server_file, row_count=None)
