@@ -16,7 +16,6 @@
       <thead>
         <tr>
           <th>Extracted Name</th>
-          <th>Machine-Readable Name</th>
           <th>Display Name</th>
           <th>Description</th>
           <th>Data Type</th>
@@ -27,11 +26,10 @@
         {% for form in forms %}
           <tr>
             <td>{{ form.instance.extracted_name }}</td>
-            <td>{{ form.machine_readable_name|attr:'tabindex:1' }}</td>
             <td>{{ form.display_name|attr:'tabindex:2' }}</td>
             <td style="overflow: hidden;">{{ form.description|attr:'tabindex:3' }}</td>
             <td style="overflow: hidden;">{{ form.data_type|attr:'tabindex:4' }}</td>
-            <td style="overflow: hidden;">{{ form.excluded|attr:'tabindex:5' }}</td>
+            <td style="overflow: hidden;">{{ form.excluded|attr:'tabindex:5'|attr:'onclick:toggleExcluded(event)' }}</td>
             <input type="hidden" name="{{ form.prefix }}-id" value="{{ form.instance.id }}" />
           </tr>
         {% endfor %}
@@ -61,7 +59,7 @@
           <!-- CARD CONTENT -->
           <div style="min-width: 0; flex: 1; padding-top: 20px">
             <div class="row" style="margin-bottom: 20px">
-              <h3 class="max card-header">{{ column.display_name }}</h3>
+              <h3 class="max card-header">{{ column.extracted_name }}</h3>
               <label class="checkbox icon" style="z-index: 11">
                 {{ column.form.excluded|attr:'tabindex:5'|attr:'onclick:toggleExcluded(event)' }}
                 <span>
@@ -71,10 +69,9 @@
                 <div id="tooltip_{{ column.id }}" class="tooltip">Exclude</div>
               </label>
             </div>
-            <div class="field label small border" style="margin-bottom: 40px">
+            <div class="field label small border" style="margin-bottom: 20px">
               {{ column.form.display_name|attr:'tabindex:1' }}
-              <label>Display Name</label>
-              <span class="helper">From: '{{ column.extracted_name }}'</span>
+              <label>Display name</label>
             </div>
 
             <div hidden>{{ column.form.machine_readable_name|attr:'tabindex:2' }}</div>
@@ -130,30 +127,42 @@
   </dialog>
 
   <script>
+    let moveInputValues = (source, target) => {
+      for (let sourceInput of source.querySelectorAll('input[id],select[id]')){
+        const targetInput = target.querySelector("#"+sourceInput.id)
+        if (targetInput) {
+          targetInput.value = sourceInput.value
+          targetInput.checked = sourceInput.checked
+        }
+      }
+    }
+
     let toggle = (button) => {
       let element_table = document.getElementById('metadata_view_table')
       let element_grid = document.getElementById('metadata_view_grid')
-    
+
       if (element_table.hidden) {
         element_table.hidden = false
         element_grid.hidden = true
         button.innerText = 'Show Grid View'
+        moveInputValues(element_grid, element_table)
       } else {
         element_grid.hidden = false
         element_table.hidden = true
         button.innerText = 'Show Table View'
+        moveInputValues(element_table, element_grid)
       }
     }
-    
+
     let toggleExcluded = (event) => {
       const columnId = event.target.id.replace('id_', '').replace('-excluded', '')
-    
+
       const overlay = document.getElementById('overlay_' + columnId)
       overlay.hidden = !overlay.hidden
-    
+
       const tooltip = document.getElementById('tooltip_' + columnId)
       tooltip.innerText = overlay.hidden ? 'Exclude' : 'Undo exclude'
-    
+
       // description is not required if column is excluded
       document.getElementsByName(columnId + '-description').forEach((d) => (d.required = overlay.hidden))
     }

@@ -16,7 +16,7 @@ urlpatterns = [
         name="column-review",
     ),
     path(
-        "project-id-metadata-view",
+        "metadata",
         views.project_id_metadata_view,
         name="project-id-metadata-view",
     ),
