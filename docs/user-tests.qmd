@@ -62,7 +62,7 @@ grow, your data in a structured way! Nice!
 ## Context {#context}
 
 You're a researcher collecting data on a diabetes patients and their
-exercise. You want to save and structure your data to ease the process
+physical activity. You want to save and structure your data to ease the process
 of 1) adding more data to your dataset, when more has been collected,
 and 2) analysing the data later on.
 
@@ -73,11 +73,11 @@ respectively.
 
 You have two types of files with data: One describing the patients
 `patients` which includes their age, sex, height, weight, and diabetes
-type, and one describing their exercise patterns `exercise` which
-includes when they exercised, what kind of exercise, and for how long.
+type, and one describing their physical activity patterns `physical_activity` which
+includes when they did activities, what kind, and for how long.
 
 You have two of each file type, one for each time period:
-`patients.csv`, `exercise_2023.csv`, and `exercise_2024.csv`.
+`patients.csv`, `physical_activity_2023.csv`, and `physical_activity_2024.csv`.
 
 | id  | age | sex | height | weight | diabetes_type |
 |-----|-----|-----|--------|--------|---------------|
@@ -91,7 +91,7 @@ You have two of each file type, one for each time period:
 | 01  | run           | 10       | 01-03-2024 |
 | 02  | wall          | 25       | 175        |
 
-: Showing the `exercise_2024.csv` and the first two rows within that
+: Showing the `physical_activity_2024.csv` and the first two rows within that
 file.
 
 Since you want to grow your data in a structured way, you decide to try
@@ -118,8 +118,8 @@ tests are so helpful for us!
 The three steps we would like you to try to do is:
 
 1.  Create the metadata for the `patients.csv`
-2.  Create the metadata for `exercise_2023.csv` and call it `exercise`
-3.  Add the data from `exercise_2024.csv` to the `exercise` metadata
+2.  Create the metadata for `physical_activity_2023.csv` and call it `physical_activity`
+3.  Add the data from `physical_activity_2024.csv` to the `physical_activity` metadata
 
 Just take one at the time and please remember to say your thought
 processes out loud.
