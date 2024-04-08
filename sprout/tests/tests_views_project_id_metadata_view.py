@@ -33,7 +33,7 @@ class ProjectIdMetaDataTests(TestCase):
         file.name = "file-name.csv"
         self.files = Files.create_model(file, self.tables.pk)
 
-        self.url = reverse("project-id-metadata-view")
+        self.url = reverse("projects-id-metadata-view")
         self.empty_form = {}
         self.invalid_form = {"name": "Test/Table", "description": "Test description"}
         self.valid_form = {"name": "TestTable", "description": "Test description"}
@@ -45,7 +45,7 @@ class ProjectIdMetaDataTests(TestCase):
 
         # Assert
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "project-id-metadata-view.html")
+        self.assertTemplateUsed(response, "projects-id-metadata-view.html")
 
     def test_view_shows_all_tables(self):
         """Test that the view shows all tables in Tables."""

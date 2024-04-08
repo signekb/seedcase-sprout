@@ -35,7 +35,8 @@ dd {
   cursor: pointer;
 }
 .selected,
-.selected:hover {
+.selected:hover,
+.metadata_columns_table {
   background-color: #DCDFFF;
 }
 .selectable {
@@ -48,4 +49,12 @@ thead tr {
 
 thead tr th {
   border-bottom: none;
+}
+
+.metadata_columns_table {
+  padding: 10px;
+}
+
+.metadata_columns_table thead tr {
+  background-color: #ededed;
 }
