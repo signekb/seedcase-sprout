@@ -18,7 +18,7 @@ urlpatterns = [
         name="projects-id-metadata-id-update",
     ),
     path(
-        "project-id-metadata-view",
+        "metadata",
         views.project_id_metadata_view,
         name="project-id-metadata-view",
     ),
