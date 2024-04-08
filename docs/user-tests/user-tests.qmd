@@ -80,15 +80,15 @@ You have two of each file type, one for each time period:
 
 | id  | age | sex | height | weight | diabetes_type |
 |-----|-----|-----|--------|--------|---------------|
-| 01  | 54  | F   | 167.5  |  70.3  | Type 1        |
-| 02  | 66  | M   | 175    |  80.5  | Type 2        |
+| 1  | 54  | F   | 167.5  |  70.3  | Type 1         |
+| 2  | 66  | M   | 175    |  80.5  | Type 2         |
 
 : Showing the `patients.csv` and the first two rows within that file.
 
-| id  | physical_activity | duration | date   |
-|-----|---------------|----------|------------|
-| 01  | run           | 10       | 01-03-2024 |
-| 02  | walk          | 25       | 02-04-2024 |
+| id  | physical_activity | duration | date  |
+|-----|---------------|----------|-----------|
+| 1  | run           | 10       | 01-03-2024 |
+| 2  | walk          | 25       | 02-04-2024 |
 
 : Showing the `physical_activity_2024.csv` and the first two rows within that
 file.
