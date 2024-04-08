@@ -2,6 +2,7 @@
 
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
+from django.urls import reverse
 
 from sprout.forms import TablesForm
 
@@ -33,7 +34,12 @@ def projects_id_view(request: HttpRequest) -> HttpResponse:
         # if input passes validation, save form and redirect to file upload
         if form.is_valid():
             tables = form.save()
-            return redirect(to=f"metadata/{tables.id}/create")
+            return redirect(
+                to=reverse(
+                    "projects-id-metadata-create",
+                    kwargs={"table_id": tables.id},
+                )
+            )
 
     # if GET (or any other method), create a blank form
     else:

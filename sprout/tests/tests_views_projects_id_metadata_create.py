@@ -59,7 +59,11 @@ class MetadataCreateTests(TestCase):
         file = self.create_file("file.csv", "DISPLAY_NAME,AGE\nPhil,36")
 
         # Act
-        self.client.post("/metadata/1/create", {"uploaded_file": file})
+        url = reverse(
+            "projects-id-metadata-create",
+            kwargs={"table_id": 1},
+        )
+        self.client.post(url, {"uploaded_file": file})
 
         # Assert
         column = Columns.objects.filter(extracted_name="DISPLAY_NAME").first()

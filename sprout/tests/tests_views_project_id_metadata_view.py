@@ -84,10 +84,12 @@ class ProjectIdMetaDataTests(TestCase):
             self.url,
             data=self.valid_form,
         )
+
+        url = reverse("projects-id-metadata-create", kwargs={"table_id": 2})
         # Assert
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(
-            response, "/metadata/2/create"
+            response, url
         )  # id is 2 because of the table created in the setUp method
 
     def test_no_redirect_with_invalid_form_special_characters(self):
