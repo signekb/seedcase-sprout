@@ -1,5 +1,3 @@
-"""Tests for views."""
-
 import io
 import os
 
@@ -7,14 +5,11 @@ from django.test import TestCase
 from django.urls import reverse
 
 from sprout.models import ColumnMetadata, FileMetadata, TableMetadata
-from sprout.views.column_review import create_sample_of_unique_values
+from sprout.views.projects_id_metadata_id_update import create_sample_of_unique_values
 
 
-class ColumnReviewViewTest(TestCase):
-    """Test for the Column Review page.
-
-    This is where the uploaded metadata for columns are uploaded and edited.
-    """
+class MetadataIDUpdateViewTest(TestCase):
+    """Test for the Data Metadata update (as table) page."""
 
     def setUp(self):
         """Create a table and a column for testing."""
@@ -39,24 +34,22 @@ class ColumnReviewViewTest(TestCase):
             file, self.table_metadata.id
         )
 
-    def test_column_review_view_get(self):
+    def test_projects_id_metadata_id_update_view_get(self):
         """Test that the get function works."""
         # Arrange
-        url = reverse("column-review", args=[self.table_metadata.id])
+        url = reverse("projects-id-metadata-id-update", args=[self.table_metadata.id])
 
         # Act
         response = self.client.get(url)
 
         # Assert
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "column-review.html")
+        self.assertTemplateUsed(response, "projects-id-metadata-id-update.html")
 
-    def test_column_review_view_post_valid_data(self):
-        """Test of column-review page. Preview data is extracted from file, so it
-        needs to be created too."""
+    def test_projects_id_metadata_id_update_view_post_valid_data(self):
+        """Test that the view works if valid data is entered."""
         # Arrange
-
-        url = reverse("column-review", args=[self.table_metadata.id])
+        url = reverse("projects-id-metadata-id-update", args=[self.table_metadata.id])
         data = {
             f"{self.column_metadata.id}-machine_read_name": "Updated Machine-Read Name",
             f"{self.column_metadata.id}-display_name": "Updated Column Display Name",
@@ -84,7 +77,7 @@ class ColumnReviewViewTest(TestCase):
     def test_excluded_should_delete_column(self):
         """An excluded column should be removed even if form is not valid."""
         # Arrange
-        url = reverse("column-review", args=[self.table_metadata.id])
+        url = reverse("projects-id-metadata-id-update", args=[self.table_metadata.id])
         data = {
             f"{self.column_metadata.id}-excluded": True,
         }
