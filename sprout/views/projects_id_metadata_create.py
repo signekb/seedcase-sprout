@@ -4,7 +4,7 @@ from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 
 from sprout.csv.csv_reader import read_csv_file
-from sprout.models import ColumnMetadata, FileMetadata, TableMetadata
+from sprout.models import Columns, Files, Tables
 
 
 def projects_id_metadata_create(
@@ -13,7 +13,7 @@ def projects_id_metadata_create(
     """Renders page for creating metadata for data.
 
     The ``table_id`` comes from the URL. The ``table_id`` is used fetch the
-    table_metadata from the database.
+    tables from the database.
 
     - On GET requests, the page is rendered.
     - On POST requests, the submitted CSV file is validated and column
@@ -21,7 +21,7 @@ def projects_id_metadata_create(
 
     Args:
         request: The HTTP request from the server.
-        table_id: The ``table_id`` from the TableMetadata.
+        table_id: The ``table_id`` from the Tables.
 
     Returns:
         HttpResponse: For GET requests and POST requests with errors
@@ -55,11 +55,11 @@ def handle_post_request_with_file(
     file = request.FILES.get("uploaded_file", None)
 
     # Delete exiting files, if user resubmits a file
-    for previous_file in FileMetadata.objects.filter(table_metadata_id=table_id):
+    for previous_file in Files.objects.filter(tables_id=table_id):
         previous_file.delete()
 
     # To limit memory-usage we persist the file
-    file_meta = FileMetadata.create_file_metadata(file, table_id)
+    file_meta = Files.create_model(file, table_id)
     try:
         validate_csv_and_save_columns(table_id, file_meta)
     except csv.Error as csv_error:
@@ -82,15 +82,15 @@ def render_projects_id_metadata_create(
     Returns:
         HttpResponse: A html page based on the template
     """
-    table_metadata = TableMetadata.objects.get(pk=table_id)
+    tables = Tables.objects.get(pk=table_id)
     context = {
-        "table_name": table_metadata.name,
+        "table_name": tables.name,
         "upload_error": upload_error,
     }
     return render(request, "projects-id-metadata-create.html", context)
 
 
-def validate_csv_and_save_columns(table_id: int, file: FileMetadata) -> None:
+def validate_csv_and_save_columns(table_id: int, file: Files) -> None:
     """Validate the csv and persist column metadata if valid.
 
     Args:
@@ -100,10 +100,10 @@ def validate_csv_and_save_columns(table_id: int, file: FileMetadata) -> None:
     if file.file_extension != "csv":
         raise csv.Error("Unsupported file format: ." + file.file_extension)
 
-    extract_and_persist_column_metadata(table_id, file)
+    extract_and_persist_columns(table_id, file)
 
 
-def extract_and_persist_column_metadata(table_id: int, file: FileMetadata) -> None:
+def extract_and_persist_columns(table_id: int, file: Files) -> None:
     """Extract columns from CSV and persist the column metadata.
 
     Args:
@@ -113,13 +113,13 @@ def extract_and_persist_column_metadata(table_id: int, file: FileMetadata) -> No
     df = read_csv_file(file.server_file_path)
 
     # Save table
-    table = TableMetadata.objects.get(pk=table_id)
+    table = Tables.objects.get(pk=table_id)
     table.original_file_name = file.original_file_name
     table.save()
 
     # Delete columns if user resubmits csv file
-    ColumnMetadata.objects.filter(table_metadata_id=table.id).delete()
+    Columns.objects.filter(tables_id=table.id).delete()
 
     # Save columns
-    columns = [ColumnMetadata.create(table_id, series) for series in df]
-    ColumnMetadata.objects.bulk_create(columns)
+    columns = [Columns.create(table_id, series) for series in df]
+    Columns.objects.bulk_create(columns)

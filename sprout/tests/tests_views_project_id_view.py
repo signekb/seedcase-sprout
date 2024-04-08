@@ -3,7 +3,7 @@
 from django.test import TestCase
 from django.urls import reverse
 
-from sprout.models import TableMetadata
+from sprout.models import Tables
 
 
 class ProjectIDViewTests(TestCase):
@@ -73,7 +73,7 @@ class ProjectIDViewTests(TestCase):
         already exists in the database is submitted.
         """
         # Arrange
-        TableMetadata.objects.create(name="TestTable", description="Test description")
+        Tables.objects.create(name="TestTable", description="Test description")
 
         # Act
         response = self.client.post(

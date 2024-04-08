@@ -6,7 +6,7 @@ from pathlib import Path
 from django.test import TestCase
 from django.urls import reverse
 
-from sprout.models import ColumnMetadata, FileMetadata, TableMetadata
+from sprout.models import Columns, Files, Tables
 from sprout.tests.db_test_utils import create_table
 
 
@@ -43,13 +43,13 @@ class MetadataCreateTests(TestCase):
         response = self.client.post("/metadata/1/create", {"uploaded_file": file})
 
         # Assert
-        table = TableMetadata.objects.get(name=table_name)
+        table = Tables.objects.get(name=table_name)
         self.assertEqual("Table.csv", table.original_file_name)
         self.assertEqual(302, response.status_code, "Redirect is expected")
         self.assertEqual("/metadata/1/update", response.url)
-        self.assertEqual(3, table.columnmetadata_set.all().count(), "expects 3 columns")
+        self.assertEqual(3, table.columns_set.all().count(), "expects 3 columns")
         # Clean up
-        FileMetadata.objects.first().delete()
+        Files.objects.first().delete()
 
     def test_extracted_column_names_formats(self):
         """Test for a table being created when csv is uploaded."""
@@ -59,14 +59,18 @@ class MetadataCreateTests(TestCase):
         file = self.create_file("file.csv", "DISPLAY_NAME,AGE\nPhil,36")
 
         # Act
-        self.client.post("/metadata/1/create", {"uploaded_file": file})
+        url = reverse(
+            "projects-id-metadata-create",
+            kwargs={"table_id": 1},
+        )
+        self.client.post(url, {"uploaded_file": file})
 
         # Assert
-        column = ColumnMetadata.objects.filter(extracted_name="DISPLAY_NAME").first()
+        column = Columns.objects.filter(extracted_name="DISPLAY_NAME").first()
         self.assertEqual("Display Name", column.display_name)
         self.assertEqual("display_name", column.machine_readable_name)
         # Clean up
-        FileMetadata.objects.first().delete()
+        Files.objects.first().delete()
 
     def test_upload_failed_with_wrong_file_extension(self):
         """Test for error message when file is not ending on .csv."""
@@ -101,8 +105,8 @@ class MetadataCreateTests(TestCase):
         self.client.post(url, {"uploaded_file": file2})
 
         # Assert
-        files = FileMetadata.objects.all()
-        columns = ColumnMetadata.objects.all()
+        files = Files.objects.all()
+        columns = Columns.objects.all()
         self.assertEqual(1, files.count())
         self.assertEqual(3, columns.count())
 
@@ -114,7 +118,7 @@ class MetadataCreateTests(TestCase):
         self.assertEqual(expected_file_content, actual_file_content)
 
         # Clean up
-        FileMetadata.objects.first().delete()
+        Files.objects.first().delete()
 
     @staticmethod
     def create_file(name: str, content: str) -> io.BytesIO:

@@ -2,12 +2,12 @@
 
 from django.test import TestCase
 
-from sprout.forms import TableMetadataForm
-from sprout.models import TableMetadata
+from sprout.forms import TablesForm
+from sprout.models import Tables
 
 
-class TableMetadataFormTests(TestCase):
-    """Class with tests for TableMetadataForm."""
+class TablesFormTests(TestCase):
+    """Class with tests for TablesForm."""
 
     def test_table_name_contains_special_character(self):
         """Test for the inclusion of special characters in name.
@@ -19,7 +19,7 @@ class TableMetadataFormTests(TestCase):
         form_data = {"name": "Table/Name", "description": "Test description"}
 
         # Act
-        form = TableMetadataForm(data=form_data)
+        form = TablesForm(data=form_data)
 
         # Assert
         self.assertFalse(form.is_valid())
@@ -42,7 +42,7 @@ class TableMetadataFormTests(TestCase):
         form_data = {"name": "Table Name", "description": "Test description"}
 
         # Act
-        form = TableMetadataForm(data=form_data)
+        form = TablesForm(data=form_data)
 
         # Assert
         self.assertFalse(form.is_valid())
@@ -68,7 +68,7 @@ class TableMetadataFormTests(TestCase):
         }
 
         # Act
-        form = TableMetadataForm(data=form_data)
+        form = TablesForm(data=form_data)
 
         # Assert
         self.assertTrue(form.is_valid())
@@ -81,11 +81,11 @@ class TableMetadataFormTests(TestCase):
         the database (and description is provided)
         """
         # Arrange
-        TableMetadata.objects.create(name="TestTable", description="Test description")
+        Tables.objects.create(name="TestTable", description="Test description")
         form_data = {"name": "TestTable", "description": "Test description"}
 
         # Act
-        form = TableMetadataForm(data=form_data)
+        form = TablesForm(data=form_data)
 
         # Assert
         self.assertFalse(form.is_valid())
@@ -107,7 +107,7 @@ class TableMetadataFormTests(TestCase):
         }
 
         # Act
-        form = TableMetadataForm(data=form_data)
+        form = TablesForm(data=form_data)
 
         # Assert
         self.assertTrue(form.is_valid())
@@ -123,7 +123,7 @@ class TableMetadataFormTests(TestCase):
         form_data = {"name": ""}
 
         # Act
-        form = TableMetadataForm(data=form_data)
+        form = TablesForm(data=form_data)
 
         # Assert
         self.assertFalse(form.is_valid())
@@ -139,7 +139,7 @@ class TableMetadataFormTests(TestCase):
         form_data = {"name": "TestTable", "description": ""}
 
         # Act
-        form = TableMetadataForm(data=form_data)
+        form = TablesForm(data=form_data)
 
         # Assert
         self.assertFalse(form.is_valid())
@@ -155,7 +155,7 @@ class TableMetadataFormTests(TestCase):
         form_data = {"name": "TestTable", "description": "Test description"}
 
         # Act
-        form = TableMetadataForm(data=form_data)
+        form = TablesForm(data=form_data)
 
         # Assert
         self.assertTrue(form.is_valid())

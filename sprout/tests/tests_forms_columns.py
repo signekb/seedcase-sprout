@@ -2,25 +2,25 @@
 
 from django.test import TestCase
 
-from sprout.forms import ColumnMetadataForm
-from sprout.models import ColumnDataType, TableMetadata
+from sprout.forms import ColumnsForm
+from sprout.models import DataTypes, Tables
 
 
-class ColumnMetadataFormTest(TestCase):
-    """Class of tests for the Metadata form."""
+class ColumnsFormTest(TestCase):
+    """Class of tests for the form for the Columns metadata."""
 
     def setUp(self):
         """Creating the data needed for the tests."""
         # Arrange: Create test instances for models
-        self.table_metadata = TableMetadata.objects.create(name="TestTableKB")
-        self.column_data_type = ColumnDataType.objects.create(
+        self.tables = Tables.objects.create(name="TestTableKB")
+        self.column_data_type = DataTypes.objects.create(
             display_name="TestStringFormat"
         )
 
     def test_form_invalid_when_no_data(self):
         """Test that a form created without data is invalid."""
         # Arrange: Create an instance of the form without providing any data
-        form = ColumnMetadataForm()
+        form = ColumnsForm()
 
         # Act: Check if the form is not valid
         is_valid = form.is_valid()
@@ -42,7 +42,7 @@ class ColumnMetadataFormTest(TestCase):
         }
 
         # Act: Create an instance of the form with valid data
-        form = ColumnMetadataForm(data=form_data)
+        form = ColumnsForm(data=form_data)
         is_valid = form.is_valid()
 
         # Assert: Ensure the form is valid
@@ -62,7 +62,7 @@ class ColumnMetadataFormTest(TestCase):
         }
 
         # Act: Create an instance of the form with invalid data
-        form = ColumnMetadataForm(data=invalid_form_data)
+        form = ColumnsForm(data=invalid_form_data)
         is_valid = form.is_valid()
 
         # Assert: Ensure the form is not valid

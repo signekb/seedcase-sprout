@@ -3,7 +3,7 @@
 from django.core.validators import RegexValidator
 from django.forms import ValidationError
 
-from sprout.models import TableMetadata
+from sprout.models import Tables
 
 
 def validate_no_special_characters(field_name: str, field_value: str) -> None:
@@ -47,7 +47,7 @@ def validate_table_name_does_not_exist(name: str) -> None:
     Returns:
         None: If validation is successful.
     """
-    if TableMetadata.objects.filter(name=name).exists():
+    if Tables.objects.filter(name=name).exists():
         raise ValidationError(
             message="A table with this name already exists. "
             "Please provide another name.",

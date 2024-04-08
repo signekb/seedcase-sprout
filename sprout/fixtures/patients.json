@@ -1,6 +1,6 @@
 [
   {
-    "model": "sprout.tablemetadata",
+    "model": "sprout.Tables",
     "pk": 1,
     "fields": {
       "name": "Patients",
@@ -13,10 +13,10 @@
     }
   },
   {
-    "model": "sprout.columnmetadata",
+    "model": "sprout.Columns",
     "pk": 1,
     "fields": {
-      "table_metadata": 1,
+      "tables": 1,
       "extracted_name": "Id",
       "machine_readable_name": "id",
       "display_name": "Id",
@@ -27,10 +27,10 @@
     }
   },
   {
-    "model": "sprout.columnmetadata",
+    "model": "sprout.Columns",
     "pk": 2,
     "fields": {
-      "table_metadata": 1,
+      "tables": 1,
       "extracted_name": "BIRTHDATE",
       "machine_readable_name": "birthdate",
       "display_name": "BIRTHDATE",
@@ -41,10 +41,10 @@
     }
   },
   {
-    "model": "sprout.columnmetadata",
+    "model": "sprout.Columns",
     "pk": 3,
     "fields": {
-      "table_metadata": 1,
+      "tables": 1,
       "extracted_name": "DEATHDATE",
       "machine_readable_name": "deathdate",
       "display_name": "DEATHDATE",
@@ -55,10 +55,10 @@
     }
   },
   {
-    "model": "sprout.columnmetadata",
+    "model": "sprout.Columns",
     "pk": 4,
     "fields": {
-      "table_metadata": 1,
+      "tables": 1,
       "extracted_name": "MARITAL",
       "machine_readable_name": "marital",
       "display_name": "MARITAL",
@@ -69,10 +69,10 @@
     }
   },
   {
-    "model": "sprout.columnmetadata",
+    "model": "sprout.Columns",
     "pk": 5,
     "fields": {
-      "table_metadata": 1,
+      "tables": 1,
       "extracted_name": "ETHNICITY",
       "machine_readable_name": "ethnicity",
       "display_name": "ETHNICITY",
@@ -83,10 +83,10 @@
     }
   },
   {
-    "model": "sprout.columnmetadata",
+    "model": "sprout.Columns",
     "pk": 6,
     "fields": {
-      "table_metadata": 1,
+      "tables": 1,
       "extracted_name": "GENDER",
       "machine_readable_name": "gender",
       "display_name": "GENDER",
@@ -97,10 +97,10 @@
     }
   },
   {
-    "model": "sprout.columnmetadata",
+    "model": "sprout.Columns",
     "pk": 7,
     "fields": {
-      "table_metadata": 1,
+      "tables": 1,
       "extracted_name": "HEALTHCARE_EXPENSES",
       "machine_readable_name": "healthcare_expenses",
       "display_name": "HEALTHCARE_EXPENSES",
@@ -111,10 +111,10 @@
     }
   },
   {
-    "model": "sprout.columnmetadata",
+    "model": "sprout.Columns",
     "pk": 8,
     "fields": {
-      "table_metadata": 1,
+      "tables": 1,
       "extracted_name": "INCOME",
       "machine_readable_name": "income",
       "display_name": "INCOME",
@@ -125,14 +125,14 @@
     }
   },
   {
-    "model": "sprout.filemetadata",
+    "model": "sprout.Files",
     "pk": 1,
     "fields": {
       "original_file_name": "patients.csv",
       "server_file_path": "sprout/fixtures/patients.csv",
       "file_extension": "csv",
       "file_size_bytes": 96042,
-      "table_metadata": 1,
+      "tables": 1,
       "created_at": "2024-03-20T12:51:15.028Z",
       "created_by": null,
       "modified_at": "2024-03-20T12:51:15.036Z"

@@ -2,8 +2,9 @@
 
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
+from django.urls import reverse
 
-from sprout.forms import TableMetadataForm
+from sprout.forms import TablesForm
 
 
 def projects_id_view(request: HttpRequest) -> HttpResponse:
@@ -28,16 +29,21 @@ def projects_id_view(request: HttpRequest) -> HttpResponse:
     # if this is a POST request, process the form data
     if request.method == "POST":
         # create a form instance and populate it with data from the request
-        form = TableMetadataForm(data=request.POST)
+        form = TablesForm(data=request.POST)
 
         # if input passes validation, save form and redirect to file upload
         if form.is_valid():
-            table_metadata = form.save()
-            return redirect(to=f"metadata/{table_metadata.id}/create")
+            tables = form.save()
+            return redirect(
+                to=reverse(
+                    "projects-id-metadata-create",
+                    kwargs={"table_id": tables.id},
+                )
+            )
 
     # if GET (or any other method), create a blank form
     else:
-        form = TableMetadataForm(data=None)
+        form = TablesForm(data=None)
 
     return render(
         request=request,
