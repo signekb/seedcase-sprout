@@ -86,7 +86,7 @@
       document.querySelector('#upload-link').removeAttribute('disabled')
     
       // Get all metadata columns
-      let metadata_columns = document.getElementsByClassName('metadata_columns_table')
+      let metadata_columns = document.querySelectorAll('.metadata_columns_table')
     
       // Loop through all the metadata columns and show the ones that matches the selected row
       for (const metadata_column of metadata_columns) {
