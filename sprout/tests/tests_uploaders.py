@@ -4,7 +4,7 @@ import os
 from django.test import TestCase
 
 from config.settings import PERSISTENT_STORAGE_PATH
-from sprout.uploaders import upload_raw_file
+from sprout.uploaders import write_to_raw
 
 
 class TestUploadRawDataFile(TestCase):
@@ -14,8 +14,8 @@ class TestUploadRawDataFile(TestCase):
         self.expected_file = "fake.test.csv"
         self.expected_path = f"{PERSISTENT_STORAGE_PATH}/raw/{self.expected_file}"
 
-    def test_upload_raw_file(self):
-        result_path = upload_raw_file(self.file, self.expected_file)
+    def test_write_to_raw(self):
+        result_path = write_to_raw(self.file, self.expected_file)
         self.assertEqual(result_path, self.expected_path)
         self.assertTrue(os.path.isfile(self.expected_path))
 
