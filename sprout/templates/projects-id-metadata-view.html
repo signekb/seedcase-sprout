@@ -98,6 +98,18 @@
           metadata_column.hidden = true
         }
       }
+      // for tags with "shown" class, remove the class and add hidden attribute
+      let shown = document.querySelectorAll('.shown');
+      for (let i = 0; i < shown.length; i++) {
+        shown[i].classList.remove("shown");
+        shown[i].hidden = true;
+      }
+
+      // show hidden buttons
+      let buttons = document.querySelectorAll('button');
+      for (let i = 0; i < buttons.length; i++) {
+        buttons[i].style.display = "block";
+      }
     }
 
   function showMore(button) {
@@ -111,6 +123,8 @@
     for (let i = 0; i < rows.length; i++) {
       if(i < 5) {
         rows[i].hidden = false;
+        // add class "shown" to the row
+        rows[i].classList.add("shown");
       }
     }
 
