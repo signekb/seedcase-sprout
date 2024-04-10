@@ -92,3 +92,12 @@ class TableAndColumnsTests(TestCase):
         )
         self.assertIsNotNone(table.modified_at, "modified_at should NOT be null")
 
+    def test_data_rows_should_be_zero_on_creation(self):
+        # Arrange
+        table_name = "TestTable"
+        table = create_table(table_name)
+        table.save()
+
+        # Assert
+        self.assertEqual(0, table.data_rows, "data_rows should be zero")
+
