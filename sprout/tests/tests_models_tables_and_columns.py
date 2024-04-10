@@ -101,3 +101,26 @@ class TableAndColumnsTests(TestCase):
         # Assert
         self.assertEqual(0, table.data_rows, "data_rows should be zero")
 
+    def test_last_data_upload_should_be_null_on_creation(self):
+        # Arrange
+        table_name = "TestTable"
+        table = create_table(table_name)
+        table.save()
+
+        # Assert
+        self.assertIsNone(table.last_data_upload, "last_data_upload should be null")
+
+    def test_last_data_upload_should_be_updated_on_data_rows_change(self):
+        # Arrange
+        table_name = "TestTable"
+        table = create_table(table_name)
+        table.save()
+
+        # Act
+        table.data_rows = 10
+        table.save()
+
+        # Assert
+        self.assertIsNotNone(
+            table.last_data_upload, "last_data_upload should be updated"
+        )
