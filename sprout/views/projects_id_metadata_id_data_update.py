@@ -53,10 +53,8 @@ def projects_id_metadata_id_data_update(
         # )
         # TODO: verify that database has been written to.
 
-        # update tables model
+        # update tables model with new data rows
         table.data_rows = table.data_rows + count_rows(new_server_file)
-        table.modified_at = datetime.now(timezone.utc)
-        # TODO: table.modified_by = request.user when users are implemented
         table.save()
 
         context = {
