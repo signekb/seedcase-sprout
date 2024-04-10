@@ -18,10 +18,10 @@ def projects_id_metadata_id_data_update(
     Returns:
         Outputs an HTTP response object.
     """
-    tables = get_object_or_404(Tables, id=table_id)
+    table = get_object_or_404(Tables, id=table_id)
     context = {
         "upload_success": False,
-        "table_name": tables.name,
+        "table_name": table.name,
     }
     if request.method == "POST":
         new_uploaded_file = get_uploaded_file(request)
@@ -52,7 +52,7 @@ def projects_id_metadata_id_data_update(
         # TODO: verify that database has been written to.
 
         context = {
-            "table_name": tables.name,
+            "table_name": table.name,
             "upload_success": True,
             "file_metadata": files,
             "number_rows": count_rows(new_server_file),
