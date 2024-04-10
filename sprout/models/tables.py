@@ -26,6 +26,7 @@ class Tables(models.Model):
         on_delete=models.PROTECT,
         related_name="modifier",
     )
+    data_rows = models.IntegerField(default=0)
 
     def save(self, *args, **kwargs) -> None:
         """Overriding the default save-method.

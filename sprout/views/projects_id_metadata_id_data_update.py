@@ -51,11 +51,15 @@ def projects_id_metadata_id_data_update(
         # )
         # TODO: verify that database has been written to.
 
+        # update tables model
+        table.data_rows = table.data_rows + count_rows(new_server_file)
+        table.save()
+
         context = {
             "table_name": table.name,
             "upload_success": True,
             "file_metadata": files,
-            "number_rows": count_rows(new_server_file),
+            "number_rows": table.data_rows,
         }
 
     # TODO: Provide context for response instead of redirect?
