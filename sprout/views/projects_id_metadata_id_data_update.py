@@ -1,3 +1,5 @@
+from datetime import datetime, timezone
+
 import polars as pl
 from django.core.files.uploadedfile import UploadedFile
 from django.http import HttpRequest, HttpResponse
@@ -53,6 +55,8 @@ def projects_id_metadata_id_data_update(
 
         # update tables model
         table.data_rows = table.data_rows + count_rows(new_server_file)
+        table.modified_at = datetime.now(timezone.utc)
+        # TODO: table.modified_by = request.user when users are implemented
         table.save()
 
         context = {
