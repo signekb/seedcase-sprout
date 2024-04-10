@@ -27,17 +27,3 @@ class Tables(models.Model):
         related_name="modifier",
     )
     data_rows = models.IntegerField(default=0)
-
-    def save(self, *args, **kwargs) -> None:
-        """Overriding the default save-method.
-
-        The modified_at should only change when modified and not when created.
-
-        Args:
-            *args: non-keyworded arguments required by Django
-            **kwargs: keyworded arguments required by Django
-        """
-        if self.id:
-            self.modified_at = datetime.now(timezone.utc)
-
-        super().save(*args, **kwargs)
