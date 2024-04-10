@@ -30,10 +30,12 @@ class Tables(models.Model):
 
     def save(self, *args, **kwargs) -> None:
         """Overriding the default save-method.
-        The modified_at should only change when modified and not when created.
+
+        modified_at should only change when modified and not when created.
+        
         Args:
-            *args: non-keyworded arguments required by Django
-            **kwargs: keyworded arguments required by Django
+            *args: non-keyword arguments required by Django
+            **kwargs: keyword arguments required by Django.
         """
         if self.id:
             self.modified_at = datetime.now(timezone.utc)
