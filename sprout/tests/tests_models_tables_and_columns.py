@@ -72,10 +72,23 @@ class TableAndColumnsTests(TestCase):
         table.save()
         initial_modified_at = table.modified_at
 
+        # Assert
+        self.assertIsNone(initial_modified_at, "modified_at should be null")
+
+    def test_modified_at_should_be_updated_on_save(self):
+        # Arrange
+        table_name = "TestTable"
+        table = create_table(table_name)
+        table.save()
+        initial_modified_at = table.modified_at
+
         # Act
-        table.original_file_name = "A change"
+        table.name = "A change"
         table.save()
 
         # Assert
-        self.assertIsNone(initial_modified_at, "modified_at should be null")
+        self.assertNotEqual(
+            initial_modified_at, table.modified_at, "modified_at should be updated"
+        )
         self.assertIsNotNone(table.modified_at, "modified_at should NOT be null")
+
