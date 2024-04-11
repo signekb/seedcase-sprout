@@ -80,6 +80,7 @@
       // Deselect all other rows
       document.querySelectorAll('.selectable').forEach(function (otherRow) {
         otherRow.classList.remove('selected')
+        otherRow.querySelector('#expand_icon').textContent = 'expand_less';
       })
 
       // Add selected class
@@ -116,7 +117,17 @@
       for (let i = 0; i < buttons.length; i++) {
         buttons[i].style.display = "block";
       }
+    
+      // change icon to expand more
+      let expand_icon = row.querySelector('#expand_icon');
+      expand_icon.textContent = "expand_more";
     }
+
+  function iconSelected(event) {
+    event.stopPropagation();
+    rowSelected(event.target.parentElement.parentElement)
+
+  }
 
   function showMore(button) {
     // Get the parent element of the button
