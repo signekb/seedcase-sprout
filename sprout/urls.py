@@ -5,7 +5,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path("", views.home, name="home"),
+    path("", views.projects_id_metadata_view, name="projects-id-metadata-view"),
     path(
         "metadata/<int:table_id>/data/update",
         views.projects_id_metadata_id_data_update,
@@ -21,11 +21,6 @@ urlpatterns = [
         "metadata/<int:table_id>/update",
         views.projects_id_metadata_id_update,
         name="projects-id-metadata-id-update",
-    ),
-    path(
-        "metadata",
-        views.projects_id_metadata_view,
-        name="projects-id-metadata-view",
     ),
     path(
         "table-files/<int:table_id>",
