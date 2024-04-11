@@ -13,6 +13,7 @@
         <th>Data Rows</th>
         <th>Date Created</th>
         <th>Last Upload</th>
+        <th style="width: 5%"></th>
       </tr>
     </thead>
     {% for metadata in existing_metadata %}
@@ -23,6 +24,9 @@
           <td>Cell</td>
           <td>{{ metadata.created_at }}</td>
           <td>Cell</td>
+          <td style="text-align: right">
+            <i id="expand_icon" onclick="iconSelected(event)">expand_less</i>
+          </td>
         </tr>
         <!-- View metadata of all columns in the selected metadata -->
         <td colspan="6" class="metadata_columns_table" hidden id="{{ metadata.id }}">
