@@ -1,6 +1,9 @@
 {% extends 'includes/base.html' %}
 
 {% block content %}
+
+{% load dict_tags %}
+
   <!-- View all metadata -->
   <table>
     <thead>
@@ -26,36 +29,34 @@
           <table>
             <thead>
               <tr>
-                <th>Original Column Name</th>
-                <th>Variable Name</th>
-                <th>Display Name</th>
-                <th>Data Type</th>
+                <th>Extracted column name</th>
+                <th>Machine-readable name</th>
+                <th>Display name</th>
+                <th>Data type</th>
                 <th>Description</th>
               </tr>
             </thead>
             <tbody>
-              {% for column in existing_metadata_columns %}
-                {% if column.tables.id == metadata.id %}
-                  <tr>
+              {% for column in existing_metadata_columns|get_dict_item:metadata.id %}
+                <tr {% if forloop.counter > 5 %}hidden{% endif %}>
                     <td>{{ column.extracted_name }}</td>
                     <td>{{ column.machine_readable_name }}</td>
                     <td>{{ column.display_name }}</td>
                     <td>{{ column.data_type }}</td>
                     <td>{{ column.description }}</td>
                   </tr>
-                {% endif %}
               {% endfor %}
             </tbody>
           </table>
+          {% if existing_metadata_columns|get_dict_item:metadata.id|length > 5 %}
+            <button style="text-align:right" onclick="showMore(event.target)">Show more columns</button>
+          {% endif %}
         </td>
       </tbody>
       {% empty %}
       <p>No existing data to show.</p>
     {% endfor %}
   </table>
-
-  <!-- Create metadata dialog -->
-  {% include 'includes/metadata-create-dialog.html' %}
 
   <!-- Three buttons create new metadata, edit existing metadata, or upload data to metadata -->
   <nav class="right-align">
@@ -70,11 +71,13 @@
   <script>
     let edit_url = "{% url 'projects-id-metadata-id-update' table_id=0 %}"
     let upload_url = "{% url 'projects-id-metadata-id-data-update' table_id=0 %}"
+
     function rowSelected(row) {
       // Deselect all other rows
       document.querySelectorAll('.selectable').forEach(function (otherRow) {
         otherRow.classList.remove('selected')
       })
+
       // Add selected class
       row.classList.add('selected')
     
@@ -85,7 +88,7 @@
       document.querySelector('#upload-link').removeAttribute('disabled')
     
       // Get all metadata columns
-      let metadata_columns = document.getElementsByClassName('metadata_columns_table')
+      let metadata_columns = document.querySelectorAll('.metadata_columns_table')
     
       // Loop through all the metadata columns and show the ones that matches the selected row
       for (const metadata_column of metadata_columns) {
@@ -97,6 +100,40 @@
           metadata_column.hidden = true
         }
       }
+      // for tags with "shown" class, remove the class and add hidden attribute
+      let shown = document.querySelectorAll('.shown');
+      for (let i = 0; i < shown.length; i++) {
+        shown[i].classList.remove("shown");
+        shown[i].hidden = true;
+      }
+
+      // show hidden buttons
+      let buttons = document.querySelectorAll('button');
+      for (let i = 0; i < buttons.length; i++) {
+        buttons[i].style.display = "block";
+      }
     }
+
+  function showMore(button) {
+    // Get the parent element of the button
+    let parent = button.parentElement;
+
+    // Get all the rows in the parent element
+    let rows = parent.querySelectorAll("tr[hidden]");
+
+    // Loop through all the rows and show the ones that are hidden
+    for (let i = 0; i < rows.length; i++) {
+      if(i < 5) {
+        rows[i].hidden = false;
+        // add class "shown" to the row
+        rows[i].classList.add("shown");
+      }
+    }
+
+    // If all rows are shown, hide the button
+    if(rows.length < 6) {
+      button.style.display = "none";
+    }
+  }
   </script>
 {% endblock %}

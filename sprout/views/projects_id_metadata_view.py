@@ -21,7 +21,14 @@ def projects_id_metadata_view(request: HttpRequest) -> HttpResponse:
         to create new metadata, update existing metadata, or upload new data.
     """
     existing_metadata = Tables.objects.all()
-    existing_metadata_columns = Columns.objects.all()
+
+    # create a dictionary of existing metadata columns to filter in the template
+    dict_existing_metadata_columns = {}
+
+    for column in Columns.objects.all():
+        if column.tables.pk not in dict_existing_metadata_columns:
+            dict_existing_metadata_columns[column.tables.pk] = []
+        dict_existing_metadata_columns[column.tables.pk].append(column)
 
     # if POST, process the data in form (only happens when creating new metadata)
     if request.method == "POST":
@@ -48,7 +55,7 @@ def projects_id_metadata_view(request: HttpRequest) -> HttpResponse:
         template_name="projects-id-metadata-view.html",
         context={
             "existing_metadata": existing_metadata,
-            "existing_metadata_columns": existing_metadata_columns,
+            "existing_metadata_columns": dict_existing_metadata_columns,
             "form": form,
         },
     )
