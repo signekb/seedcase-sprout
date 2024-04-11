@@ -57,7 +57,7 @@ def _convert_to_snake_case(string: str) -> str:
     altered_string = string.strip()
 
     # Remove non-alphanumeric characters
-    altered_string = sub("[^a-zA-Z0-9\s_-]+", "", altered_string)
+    altered_string = sub(r"[^a-zA-Z0-9\s_-]+", "", altered_string)
 
     # Replace spaces and hyphens with underscores
     altered_string = sub(r"[\s-]+", "_", altered_string)
@@ -92,7 +92,7 @@ def _convert_to_human_readable(string: str) -> str:
     string = sub("_", " ", string)
 
     # Add space to CamelCase names
-    string = sub("([a-z])([A-Z])", r"\g<1> \g<2>", string)
+    string = sub(r"([a-z])([A-Z])", r"\g<1> \g<2>", string)
 
     # Capitalize first letter in words
     return string.title()
