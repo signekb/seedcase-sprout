@@ -1,4 +1,9 @@
-/* global css styles can be added here */
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&display=swap');
+
+:root {
+  --font: "Rajdhani";
+}
+
 .height-90-pct {
   min-block-size: 90vh !important;
 }
