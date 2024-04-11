@@ -7,8 +7,8 @@
       <tr>
         <th>Name</th>
         <th>Description</th>
-        <th>Data Rows</th>
         <th>Date Created</th>
+        <th>Data Rows</th>
         <th>Last Upload</th>
       </tr>
     </thead>
@@ -17,9 +17,9 @@
         <tr class="selectable" id="{{ metadata.id }}" onclick="rowSelected(event.target.parentElement)">
           <td>{{ metadata.name }}</td>
           <td>{{ metadata.description }}</td>
-          <td>Cell</td>
           <td>{{ metadata.created_at }}</td>
-          <td>Cell</td>
+          <td>{{ metadata.data_rows }}</td>
+          <td>{{ metadata.last_data_upload }}</td>
         </tr>
         <!-- View metadata of all columns in the selected metadata -->
         <td colspan="6" class="metadata_columns_table" hidden id="{{ metadata.id }}">
