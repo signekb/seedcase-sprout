@@ -47,3 +47,9 @@ install-deps:
 # Add test data when running locally based on json files found in `fixtures/`
 add-test-data: install-deps update-migrations
   poetry run python manage.py loaddata */fixtures/*.json
+
+# Reset local Sprout (remove __pycache__ folders, db, and migrations)
+reset-local: 
+  find . -type d -name "__pycache__" -exec rm -rf {} +
+  find */migrations -type f ! -name '__init__.py' -exec rm {} \;
+  rm db.sqlite3
