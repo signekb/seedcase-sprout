@@ -19,7 +19,7 @@ stop-docker:
 
 # Update the Django migration files
 update-migrations: install-deps
-  poetry run python manage.py makemigrations
+  yes | poetry run python manage.py makemigrations
   poetry run python manage.py migrate
 
 # Run Django tests
@@ -48,8 +48,9 @@ install-deps:
 add-test-data: install-deps update-migrations
   poetry run python manage.py loaddata */fixtures/*.json
 
-# Reset local Sprout (remove __pycache__ folders, db, and migrations)
+# Reset local Sprout (remove __pycache__ folders, db, migrations, and persistent storage raw files)
 reset-local: 
   find . -type d -name "__pycache__" -exec rm -rf {} +
   find */migrations -type f ! -name '__init__.py' -exec rm {} \;
   rm db.sqlite3
+  rm persistent_storage/raw/*.csv

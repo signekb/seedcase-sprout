@@ -19,7 +19,8 @@
 		"charliermarsh.ruff",
 		"pshaddel.conventional-branch",
 		"yy0931.vscode-sqlite3-editor",
-		"junstyle.vscode-django-support"
+		"junstyle.vscode-django-support",
+		"monosans.djlint"
 	],
 	// List of extensions recommended by VS Code that should not be recommended for users of this workspace.
 	"unwantedRecommendations": []
