@@ -6,5 +6,13 @@ services:
       - "8000:8000"
     volumes:
       - persistent_storage:/code/persistent_storage
+  database:
+    container_name: postgres_db
+    image: 'postgres'
+    ports:
+      - '5432:5432'
+    env_file:
+      - './database.env'
+
 volumes:
   persistent_storage:
