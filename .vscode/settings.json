@@ -27,6 +27,9 @@
   "[python]": {
     "editor.defaultFormatter": "charliermarsh.ruff"
   },
+  "[html][django-html]": {
+    "editor.defaultFormatter": "monosans.djlint"
+  },
   "python.defaultInterpreterPath": "${workspaceFolder}/.venv",
   "python.languageServer": "Pylance"
 }
