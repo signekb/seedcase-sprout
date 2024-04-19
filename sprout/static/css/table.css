@@ -46,6 +46,9 @@ tr {
   border: solid var(--tertiary);
 }
 
+.metadata_columns_table tbody {
+  background-color: var(--surface-variant);
+}
 
 .metadata_columns_table thead tr {
   background-color: #ededed;
