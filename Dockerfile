@@ -19,10 +19,10 @@ RUN poetry install --only main --no-root --no-interaction
 COPY . /code
 
 # Create Django migrations (You may remove this when migrations are included in git)
-RUN poetry run python manage.py makemigrations --no-input
+# RUN poetry run python manage.py makemigrations --no-input
 
 # Move static assets to STATIC_ROOT
-RUN poetry run python manage.py collectstatic --no-input
+# RUN poetry run python manage.py collectstatic --no-input
 
 EXPOSE 8000
 

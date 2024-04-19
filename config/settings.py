@@ -114,11 +114,11 @@ database_url = os.environ.get("DATABASE_URL", sqlite_url)
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "Sprout",
-        "USER": "postgres",
+        "NAME": "SproutData",
+        "USER": "primary",
         "PASSWORD": "Create20221014",
         "HOST": "localhost",
-        "PORT": "5423",
+        "PORT": "5432",
     }
 }
 # if using the postgres db you may have to do a pip3 install psycopg2-binary
