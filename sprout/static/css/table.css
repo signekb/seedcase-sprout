@@ -1,0 +1,46 @@
+.table-content {
+  margin: 25px 0;
+  padding: 10px;
+  background-color: var(--surface-variant);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+  border-radius: 7px !important;
+  border-collapse: separate;
+  border-spacing: 0 5px;
+}
+
+.table-content thead {
+  color: #8b8b8b;
+}
+
+.table-content tbody {
+  background-color: var(--surface);
+  border-radius: 0px;
+}
+
+.selectable:hover {
+  background-color: #ededed;
+  cursor: pointer;
+}
+
+.selected,
+.selected:hover,
+.metadata_columns_table {
+  background-color: var(--secondary);
+  border-spacing: 0;
+}
+
+.selectable {
+  cursor: pointer;
+}
+
+thead tr th {
+  border-bottom: none;
+}
+
+.metadata_columns_table {
+  padding: 10px;
+}
+
+.metadata_columns_table thead tr {
+  background-color: #ededed;
+}
