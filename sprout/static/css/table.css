@@ -41,6 +41,12 @@ thead tr th {
   padding: 10px;
 }
 
+.metadata_columns_table table,
+tr {
+  border: solid var(--tertiary);
+}
+
+
 .metadata_columns_table thead tr {
   background-color: #ededed;
 }
