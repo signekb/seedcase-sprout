@@ -2,7 +2,7 @@
 
 {% block content %}
   <!-- View all metadata -->
-  <table>
+  <table class="table-content">
     <thead>
       <tr>
         <th>Name</th>
@@ -59,13 +59,10 @@
 
   <!-- Three buttons create new metadata, edit existing metadata, or upload data to metadata -->
   <nav class="right-align">
-    <a class="button" data-ui="#create-metadata-dialog"><i>add</i>Create new metadata</a>
+    <a href="{% url 'projects-id-metadata-create' %}" class="button"><i>add</i>Create new metadata</a>
     <a href="#" class="button" id="edit-link" disabled><i>edit</i>Edit metadata</a>
     <a href="#" class="button" id="upload-link" disabled><i>upload</i>Upload data</a>
   </nav>
-
-  <!-- Create metadata dialog -->
-  {% include 'includes/metadata-create-dialog.html' %}
 
   <script>
     let edit_url = "{% url 'projects-id-metadata-id-update' table_id=0 %}"
