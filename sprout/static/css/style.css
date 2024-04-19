@@ -2,6 +2,18 @@
 
 :root {
   --font: "Rajdhani";
+  --primary: #9BDEAF;
+  --on-primary: #196440;
+  --secondary: #C6F0D3;
+  --on-surface-variant: #196440;
+  --secondary-container: var(--primary);
+  --on-secondary: var(--on-primary);
+  --surface: #F2F2F2;
+  --surface-variant: white;
+  --surface-container-low: var(--primary);
+  --on-surface: var(--on-primary);
+  --background-color: var(--on-primary);
+  --element-color: var(--on-primary);
 }
 
 .height-90-pct {
