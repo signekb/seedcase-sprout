@@ -8,7 +8,7 @@
   border-spacing: 0 5px;
 }
 
-.table-content thead {
+.table-content>thead {
   color: #8b8b8b;
 }
 
