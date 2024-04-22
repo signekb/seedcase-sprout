@@ -1,0 +1,77 @@
+@startuml component-backend
+!theme C4_green from <C4/themes>
+!include  https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+' C4 Component diagram for the various management components
+LAYOUT_LEFT_RIGHT()
+
+Container(ui, "Web interface")
+ContainerDb(storage, "Databases and storage")
+
+Container_Boundary(management, "All management containers") {
+  Container_Boundary(projects, "Project management") {
+    Component(project_view, "View details of project")
+    Component(project_create, "Create a new project", $descr="Create a new project to storage and organize data")
+    Component(project_update, "Update details of a project")
+    Component(project_delete, "Delete a project", $descr="Delete everything in a project, including data")
+
+    Component(project_user_view, "View users in a project")
+    Component(project_user_add, "Add user to project")
+    Component(project_user_delete, "Remove user from a project")
+    Component(project_user_set_role, "Set role for a user in a project")
+  }
+
+  Container_Boundary(metadata, "(Meta)data management") {
+    Component(metadata_create, "Create space for new (meta)data", $descr="Create space in storage for both metadata and associated data")
+    Component(metadata_update, "Update metadata details")
+    Component(metadata_delete, "Delete metadata and connected data", $descr="Delete a specific metadata space and connected data")
+    Component(metadata_view, "View details of a (meta)data space")
+
+    Component(data_update, "Add or update data", $descr="Add or updata data to existing data in the database")
+    Component(data_delete, "Delete data", $descr="Delete data within a database")
+    Component(data_check, "Checks to validate and verify data", $descr="Run validation and verification checks and report problems")
+  }
+
+  Container_Boundary(users, "User Management") {
+    Component(user_create, "Create a new user")
+    Component(user_update, "Update user details")
+    Component(user_delete, "Delete user details")
+    Component(user_view, "View details of a user")
+  }
+}
+
+BiRel(ui, metadata, "")
+BiRel(ui, projects, "")
+BiRel(ui, users, "")
+
+Rel(projects, metadata, "")
+BiRel(metadata, storage, "")
+BiRel(projects, storage, "")
+BiRel(users, storage, "")
+
+Rel(project_view, project_update, "")
+Rel(project_view, project_delete, "")
+BiRel(project_view, project_create, "")
+Rel(project_view, project_user_view, "")
+
+Rel(project_user_view, project_user_add, "")
+Rel(project_user_view, project_user_delete, "")
+Rel(project_user_view, project_user_set_role, "")
+
+BiRel(metadata_view, metadata_create, "")
+Rel(metadata_view, metadata_update, "")
+Rel(metadata_view, metadata_delete, "")
+
+Rel(metadata_view, data_update, "")
+Rel(metadata_view, data_delete, "")
+
+Rel(data_update, data_check, "")
+Rel(metadata_create, data_check, "")
+
+Rel(metadata_delete, data_delete, "")
+
+BiRel(user_view, user_create, "")
+Rel(user_view, user_update, "")
+Rel(user_view, user_delete, "")
+
+@enduml

@@ -1,41 +1,47 @@
 @startuml component-ui
+!theme C4_green from <C4/themes>
 !include  https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
 
 ' C4 Component diagram for the user interface
 
-Container(bee, "Backend Environment")
-Container(management, "User and Data Management Layer (API)")
-Container(auth, "Authentication") {
-  Component(user_info, "Information on users", $descr="Metadata on registered users of the Data Resource")
-}
+Container(management, "Downstream management")
+Container(auth, "Authentication")
 
 Container_Boundary(ui, "Web Interface") {
-  Container_Boundary(web, "Public web interface") {
-    Component(page_landing, "Landing page", $descr="Welcome and overview page that directs users to other pages")
-    Component(page_login, "Login page", $descr="To give authorized users access to specific pages in the Data Resource")
-  }
-  Container_Boundary(web_admin, "Internal web interface") {
-    ' Admin
-    Component(page_data_admin, "Data admin page", $descr="Management of data within the Data Resource, such as adding a new table")
-    Component(page_data_qc, "Data quality control details page", $descr="Reports on basic quality and validation of data")
+  Component(page_login, "Login page", $descr="To give authorized users access to specific pages of a project")
 
-    ' Data entry
-    Component(page_data_upload, "Data entry and upload page", $descr="Adding new or updating existing data in the Data Resource")
-  }
+  Component(page_project_create, "Create new project page", $descr="Create a new project to store data")
+  Component(page_projects_list, "List of all projects", $descr="Show all existing projects")
+
+  ' Admin
+
+  Component(page_metadata_list, "List all data tables", $descr="Show all tables that contain data in the project")
+  Component(page_metadata_create, "Data creation page", $descr="Create space for data to be stored, including adding metadata")
+  Component(page_metadata_update, "Update metadata page", $descr="Make edits to existing metadata in the project")
+
+  Component(page_data_update, "Add data to existing data", $descr="Adding new or updating existing data in a project")
+
+  Component(page_user_admin, "User admin page", $descr="Management of users with the project")
+
+  Component(page_data_qc, "Data quality control details page", $descr="Reports on basic quality and validation of data")
 }
 
-' Logged in users
-BiRel(page_login, user_info, "Retrieve user permissions")
+Rel(page_project_create, auth, "Assign  user  as  owner")
 
-Rel(page_login, page_data_upload, "Access with data entry permissions")
-Rel(page_login, page_data_admin, "Access with admin permissions")
-Rel(page_login, page_data_qc, "Access with admin permissions")
+BiRel(page_login, auth, "Retrieve  user  permissions")
+Rel(page_login, page_project_create, "Anyone")
+Rel(page_login, page_projects_list, "Any  project  user")
+
+Rel(page_projects_list, page_metadata_list, "Any  project  user")
+Rel(page_projects_list, page_metadata_create, "Owner  and  admin")
+Rel(page_projects_list, page_user_admin, "Any  project  user")
+Rel(page_user_admin, auth, "Add  or  update  roles")
+
+Rel(page_metadata_list, page_metadata_update, "Owner  and  admin")
+Rel(page_metadata_list, page_data_qc, "Owner  and  admin")
+Rel(page_metadata_list, page_data_update, "Any  project  user")
 
 ' Accessing backend
-BiRel(web_admin, management, "Send and receive details")
-BiRel(bee, management, "Store and retrieve data/metadata")
-
-Lay_D(ui, management)
-Lay_R(management, bee)
+BiRel(ui, management, "Send  and  receive  details")
 
 @enduml

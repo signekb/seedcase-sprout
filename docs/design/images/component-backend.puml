@@ -1,39 +1,34 @@
 @startuml component-backend
+!theme C4_green from <C4/themes>
 !include  https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
 
 ' C4 Component diagram for backend database and file storage.
 
-Container(management, "User and Data Management Layer (API)")
-Container(auth, "Authentication") {
-  Component(user_info, "Information on users", $descr="Metadata on registered users of the Data Resource")
-}
+Container(management, "Management containers")
 
-Container_Boundary(bee, "Backend Environment") {
-  Container_Boundary(rdb_metadata, "Relational Database for Metadata") {
-    Component(changelog, "Changelog in Tables", $descr="Changes made to the data")
-    ' TODO: Not sure what to do about these.
-    ' Component(data_dictionary, "Resource data dictionary", "the data dictionary unique to the data Resource")
-    ' Component(cdm_data, "Common Data Models", "pre-loaded data dictionaries from common data models")
+Container_Boundary(bee, "(Meta)data storage") {
+  Container_Boundary(rdb_metadata, "Relational database for metadata") {
+    Component(changelog, "Changelog of data", $descr="Listing changes made to the (meta)data")
+    Component(metadata, "Metadata on data", $descr="Details like data types, column names, and data collection or generation procedure")
   }
-  Container_Boundary(rdb_data, "Relational Database for Data") {
-    Component(dt, "Data in Tables", $descr="Data from Data Resource entered into database")
-    ' TODO: Not sure what to do about these.
-    ' Component(data_dictionary, "Resource data dictionary", "the data dictionary unique to the data Resource")
-    ' Component(cdm_data, "Common Data Models", "pre-loaded data dictionaries from common data models")
-    ' Component(schema, "Schema Metadata", "Schema data pre-loaded?")
-  }
-  Container_Boundary(fs, "File storage") {
-    Component(raw_file, "File storage", $descr="For uploaded raw data files")
+  Component(users, "Database for user details", $descr="Details about user, roles, and connected projects")
+  Component(projects, "Database for project details", $descr="Details about projects, list  uploaded for project entered into database")
+  Container_Boundary(data_storage, "Storage for project data") {
+    Component(data, "Relational database for data", $descr="Data uploaded for project entered into database")
+    Component(raw_file, "File storage", $descr="To keep a copy of the raw data that is saved to the database")
   }
 }
 
-Rel(management, raw_file, "Write data")
+Lay_Right(rdb_metadata, users)
+Lay_Right(data_storage, projects)
+Lay_Down(rdb_metadata, data_storage)
 
-Rel(management, dt, "Write and read")
-BiRel(management, changelog, "Write and read table with changes made")
+Rel(management, data_storage, "Write")
 
-Rel(raw_file, dt, "Process and insert")
+Rel(management, projects, "Read  and  write")
+Rel(management, users, "Read  and  write")
 
-BiRel(user_info, management, "Fetch permissions")
+Rel(management, metadata, "Read  and  write")
+BiRel(management, changelog, "Auto-generated")
 
 @enduml

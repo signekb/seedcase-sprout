@@ -1,13 +1,17 @@
 @startuml context
+!theme C4_green from <C4/themes>
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
 
 ' C4 Context diagram
 
-Person(user_data_input, "Data input")
-Person(user_admin, "Admin", "Data controllers or data managers")
+Person(user_contributor, "Data contributor", "Adds data and resolves problems with data before upload")
+Person(user_admin, "Project admin", "Manage users, assess problems with data, and preparing for new data")
+Person(user_owner, "Project owner", "Creator and owner of a project within Sprout")
 
-System(ui, "Data Resource structured by Seedcase Sprout")
+System(ui, "Seedcase Sprout", "Structure data in a modern way")
 
-Rel(user_data_input, ui, "Uploads data")
-Rel(user_admin, ui, "Manages issues and data inputs")
+Rel(user_contributor, ui, "Adds data, edits metadata")
+Rel(user_admin, ui, "Manages users and data inputs")
+Rel(user_owner, ui, "Creates project, assigns roles, sets up structure")
+
 @enduml
