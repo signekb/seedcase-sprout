@@ -45,6 +45,7 @@ thead tr th {
   background-color: var(--primary-container);
 }
 
+.metadata_columns_table table {
   border: 2px solid var(--outline-variant);
 }
 
@@ -52,6 +53,6 @@ thead tr th {
   background-color: var(--surface-variant);
 }
 
-.metadata_columns_table thead tr {
+.metadata_columns_table tbody tr td {
   border-top: 2px solid var(--tertiary-outline);
 }
