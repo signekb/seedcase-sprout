@@ -4,7 +4,6 @@
   background-color: var(--surface-variant);
   box-shadow: var(--shadow);
   border-radius: 7px !important;
-  border-collapse: separate;
   border-spacing: 0 5px;
 }
 
