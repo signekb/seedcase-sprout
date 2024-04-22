@@ -50,3 +50,8 @@ dd {
   display: inline-block;
   width: 85%;
 }
+
+button,
+.button {
+  border: 1px solid var(--outline);
+}
