@@ -2,14 +2,14 @@
   margin: 25px 0;
   padding: 10px;
   background-color: var(--surface-variant);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow);
   border-radius: 7px !important;
   border-collapse: separate;
   border-spacing: 0 5px;
 }
 
 .table-content>thead {
-  color: #8b8b8b;
+  color: var(--secondary);
 }
 
 .table-content tbody {
@@ -25,8 +25,8 @@
 .selected,
 .selected:hover,
 .metadata_columns_table {
-  background-color: var(--secondary);
-  border-spacing: 0;
+  background-color: var(--primary);
+  border: 2px solid var(--outline);
 }
 
 .selectable {
@@ -41,9 +41,7 @@ thead tr th {
   padding: 10px;
 }
 
-.metadata_columns_table table,
-tr {
-  border: solid var(--tertiary);
+  border: 2px solid var(--outline-variant);
 }
 
 .metadata_columns_table tbody {
@@ -51,5 +49,5 @@ tr {
 }
 
 .metadata_columns_table thead tr {
-  background-color: #ededed;
+  border-top: 2px solid var(--tertiary-outline);
 }
