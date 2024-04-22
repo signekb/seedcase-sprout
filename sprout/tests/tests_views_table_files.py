@@ -5,7 +5,7 @@ import io
 from django.test import TestCase
 from django.urls import reverse
 
-from sprout.models import FileMetadata
+from sprout.models import Files
 from sprout.tests.db_test_utils import create_table
 
 
@@ -19,7 +19,7 @@ class TableFilesTests(TestCase):
         table.save()
         file = io.BytesIO(b"File content")
         file.name = "file.csv"
-        file_meta = FileMetadata.create_file_metadata(file, table.id)
+        file_meta = Files.create_model(file, table.id)
         url = reverse("table-files", kwargs={"table_id": table.id})
 
         # Act

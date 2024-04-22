@@ -2,14 +2,14 @@
 
 from django.test import TestCase
 
-from sprout.models import ColumnMetadata, TableMetadata
+from sprout.models import Columns, Tables
 from sprout.tests.db_test_utils import create_metadata_table_and_column, create_table
 
 
-class TableAndColumnMetadataTests(TestCase):
+class TableAndColumnsTests(TestCase):
     """Tests for metadata models.
 
-    This includes TableMetadata and ColumnMetadata.
+    This includes Tables and Columns.
     """
 
     def test_create_metadata_for_a_table_and_columns_and_verify_creation(self):
@@ -23,8 +23,8 @@ class TableAndColumnMetadataTests(TestCase):
         create_metadata_table_and_column(table_name, column_name)
 
         # Act
-        table_exists = TableMetadata.objects.filter(name=table_name).exists()
-        column_exists = ColumnMetadata.objects.filter(
+        table_exists = Tables.objects.filter(name=table_name).exists()
+        column_exists = Columns.objects.filter(
             machine_readable_name=column_name
         ).exists()
 
@@ -41,11 +41,11 @@ class TableAndColumnMetadataTests(TestCase):
         create_metadata_table_and_column()
 
         # Act
-        TableMetadata.objects.first().delete()
+        Tables.objects.first().delete()
 
         # Assert
-        self.assertEqual(0, TableMetadata.objects.count(), "Table should be deleted")
-        self.assertEqual(0, ColumnMetadata.objects.count(), "Column should be deleted")
+        self.assertEqual(0, Tables.objects.count(), "Table should be deleted")
+        self.assertEqual(0, Columns.objects.count(), "Column should be deleted")
 
     def test_verify_table_is_not_deleted_when_column_is_deleted(self):
         """Test of column deletion not deleting table.
@@ -57,12 +57,12 @@ class TableAndColumnMetadataTests(TestCase):
         create_metadata_table_and_column()
 
         # Act
-        ColumnMetadata.objects.first().delete()
+        Columns.objects.first().delete()
 
         # Assert
-        table_count = TableMetadata.objects.count()
+        table_count = Tables.objects.count()
         self.assertEqual(1, table_count, "Table should not be deleted")
-        column_count = ColumnMetadata.objects.count()
+        column_count = Columns.objects.count()
         self.assertEqual(0, column_count, "Column should be deleted")
 
     def test_modified_at_should_be_null_on_creation(self):
@@ -72,10 +72,55 @@ class TableAndColumnMetadataTests(TestCase):
         table.save()
         initial_modified_at = table.modified_at
 
+        # Assert
+        self.assertIsNone(initial_modified_at, "modified_at should be null")
+
+    def test_modified_at_should_be_updated_on_save(self):
+        # Arrange
+        table_name = "TestTable"
+        table = create_table(table_name)
+        table.save()
+        initial_modified_at = table.modified_at
+
         # Act
-        table.original_file_name = "A change"
+        table.name = "A change"
         table.save()
 
         # Assert
-        self.assertIsNone(initial_modified_at, "modified_at should be null")
+        self.assertNotEqual(
+            initial_modified_at, table.modified_at, "modified_at should be updated"
+        )
         self.assertIsNotNone(table.modified_at, "modified_at should NOT be null")
+
+    def test_data_rows_should_be_zero_on_creation(self):
+        # Arrange
+        table_name = "TestTable"
+        table = create_table(table_name)
+        table.save()
+
+        # Assert
+        self.assertEqual(0, table.data_rows, "data_rows should be zero")
+
+    def test_last_data_upload_should_be_null_on_creation(self):
+        # Arrange
+        table_name = "TestTable"
+        table = create_table(table_name)
+        table.save()
+
+        # Assert
+        self.assertIsNone(table.last_data_upload, "last_data_upload should be null")
+
+    def test_last_data_upload_should_be_updated_on_data_rows_change(self):
+        # Arrange
+        table_name = "TestTable"
+        table = create_table(table_name)
+        table.save()
+
+        # Act
+        table.data_rows = 10
+        table.save()
+
+        # Assert
+        self.assertIsNotNone(
+            table.last_data_upload, "last_data_upload should be updated"
+        )

@@ -1,0 +1,34 @@
+{% extends 'includes/base.html' %}
+{% load static %}
+
+{% block header_tags %}
+  <link rel="stylesheet" href="{% static 'css/file-drop-zone.css' %}" />
+  <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+{% endblock %}
+
+{% block content %}
+  <h4>{{ table_name }}</h4>
+  <p>To create the structure for your new table, please upload a .csv data file to be used as a template</p>
+
+  <!-- The file drop zone is included -->
+  {% include 'includes/file-drop-zone.html' %}
+
+  <!-- Dialog is only showing if upload_error is not empty -->
+  {% if upload_error %}
+    <div class="overlay blur active" data-ui="#dialog"></div>
+    <dialog class="active" id="dialog">
+      <div class="center-align">
+        <i class="fill">error</i>
+      </div>
+
+      <h5 class="center-align">Woops!</h5>
+      <div>
+        Something went wrong: <br /><br /><b>{{ upload_error }}</b><br /><br /> Please add a csv file and try again
+      </div>
+      <nav class="right-align no-space">
+        <button class="transparent link" data-ui="#dialog">OK</button>
+      </nav>
+    </dialog>
+  {% endif %}
+{% endblock %}

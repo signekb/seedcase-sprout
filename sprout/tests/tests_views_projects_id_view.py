@@ -3,29 +3,25 @@
 from django.test import TestCase
 from django.urls import reverse
 
-from sprout.models import TableMetadata
+from sprout.models import Tables
 
 
-class DataImportTests(TestCase):
-    """Tests for the data import view."""
+class ProjectIDViewTests(TestCase):
+    """Tests for the project landing page view."""
 
-    url = reverse("data-import")
+    url = reverse("projects-id-view")
     empty_form = {}
     invalid_form = {"name": "Test/Table", "description": "Test description"}
     valid_form = {"name": "TestTable", "description": "Test description"}
 
-    def test_data_import_renders(self):
-        """Test that data import renders.
-
-        Tests that the page is rendered using the expected template, when the response
-        method is "GET".
-        """
+    def test_projects_id_view_renders(self):
+        """Test that the page renders."""
         # Arrange/Act
         response = self.client.get(self.url)
 
         # Assert
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "data-import.html")
+        self.assertTemplateUsed(response, "projects-id-view.html")
 
     def test_fields_are_required(self):
         """Test for when the required fields, name and description, are empty.
@@ -53,7 +49,7 @@ class DataImportTests(TestCase):
 
         # Assert
         self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, "/metadata/create/1")
+        self.assertRedirects(response, "/metadata/1/create")
 
     def test_no_redirect_with_invalid_form_special_characters(self):
         """Test that no redirection when the "name" field contains special characters.
@@ -77,7 +73,7 @@ class DataImportTests(TestCase):
         already exists in the database is submitted.
         """
         # Arrange
-        TableMetadata.objects.create(name="TestTable", description="Test description")
+        Tables.objects.create(name="TestTable", description="Test description")
 
         # Act
         response = self.client.post(
