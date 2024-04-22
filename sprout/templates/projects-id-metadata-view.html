@@ -12,8 +12,8 @@
         <th>Last Upload</th>
       </tr>
     </thead>
+    <tbody>
     {% for metadata in existing_metadata %}
-      <tbody>
         <tr class="selectable" id="{{ metadata.id }}" onclick="rowSelected(event.target.parentElement)">
           <td>{{ metadata.name }}</td>
           <td>{{ metadata.description }}</td>
@@ -52,8 +52,8 @@
       {% empty %}
       <p>No existing metadata to show.</p>
     {% endfor %}
+    </tbody>
   </table>
-
   <!-- Create metadata dialog -->
   {% include 'includes/metadata-create-dialog.html' %}
 
