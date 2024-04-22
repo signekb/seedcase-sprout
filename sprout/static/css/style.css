@@ -14,7 +14,10 @@
   --on-surface: var(--on-primary);
   --background-color: var(--on-primary);
   --element-color: var(--on-primary);
-  --outline: var(--tertiary);
+  --outline: #48DC76;
+  --outline-variant: #9BDEAF;
+  --tertiary-outline: #C6F0D3;
+  --shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
 }
 
 .height-90-pct {
