@@ -65,7 +65,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-LOGIN_REDIRECT_URL = "home"
+LOGIN_REDIRECT_URL = "/"
 AUTH_USER_MODEL = "accounts.CustomUser"
 
 # The EMAIL_BACKEND is responsible for sending password-reset emails.

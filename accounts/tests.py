@@ -6,6 +6,7 @@ from accounts.models import CustomUser
 
 class AuthenticationTests(TestCase):
     """Testing authentication flows."""
+
     valid_mail = "philter@philter.com"
     username = "PhilterMachine"
 
@@ -68,6 +69,4 @@ class AuthenticationTests(TestCase):
         response = self.client.post(reverse("login"), login_form)
 
         # Assert
-        self.assertRedirects(
-            response, reverse("home"), status_code=302, target_status_code=200
-        )
+        self.assertRedirects(response, "/", status_code=302, target_status_code=200)
