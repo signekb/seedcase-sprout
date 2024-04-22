@@ -2,11 +2,11 @@
 
 :root {
   --font: "Rajdhani";
-  --primary: #9BDEAF;
+  --primary: #C6F0D3;
   --on-primary: #196440;
-  --secondary: #C6F0D3;
+  --primary-container: #F2FFF6;
+  --secondary: #8b8b8b;
   --secondary-container: var(--primary);
-  --on-secondary: var(--on-primary);
   --tertiary: #9BDEAF;
   --surface: #F2F2F2;
   --surface-variant: white;
