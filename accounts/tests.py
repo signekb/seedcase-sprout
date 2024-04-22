@@ -6,14 +6,16 @@ from accounts.models import CustomUser
 
 class AuthenticationTests(TestCase):
     """Testing authentication flows."""
+    valid_mail = "philter@philter.com"
+    username = "PhilterMachine"
 
     def test_valid_account_registration(self):
         """Register account with valid credentials."""
         # Arrange
         url = reverse("register")
         form_data = {
-            "username": "PhilterMachine",
-            "email": "philter@philter.com",
+            "username": self.username,
+            "email": self.valid_mail,
             "password1": "as123dsSf",
             "password2": "as123dsSf",
         }
@@ -23,8 +25,8 @@ class AuthenticationTests(TestCase):
 
         # Assert
         user = CustomUser.objects.first()
-        self.assertEqual(form_data["username"], user.username)
-        self.assertEqual(form_data["email"], user.email)
+        self.assertEqual(self.username, user.username)
+        self.assertEqual(self.valid_mail, user.email)
         self.assertRedirects(
             response, reverse("login"), status_code=302, target_status_code=200
         )
@@ -34,8 +36,8 @@ class AuthenticationTests(TestCase):
         # Arrange
         url = reverse("register")
         form_data = {
-            "username": "PhilterMachine",
-            "email": "philter@philter.com",
+            "username": self.username,
+            "email": self.valid_mail,
             "password1": "123456",
             "password2": "123456",
         }
@@ -48,19 +50,18 @@ class AuthenticationTests(TestCase):
         self.assertContains(response, "This password is too common")
         self.assertContains(response, "This password is entirely numeric")
 
-    def test_create_user_and_login(self):
+    def test_create_account_and_login(self):
         """Register and login with account."""
         # Arrange
         password = "as123dsSf"
-        email = "philter@philter.com"
 
         register_form = {
-            "username": "PhilterMachine",
-            "email": email,
+            "username": self.username,
+            "email": self.valid_mail,
             "password1": password,
             "password2": password,
         }
-        login_form = {"username": email, "password": password}
+        login_form = {"username": self.valid_mail, "password": password}
 
         # Act
         self.client.post(reverse("register"), register_form)
