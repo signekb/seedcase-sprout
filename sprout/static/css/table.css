@@ -1,3 +1,9 @@
+/* removing beercss' default borders for tables */
+table.border>tbody>tr:not(:last-child)>td,
+thead>tr>th {
+  border: none;
+}
+
 .table-content {
   margin: 25px 0;
   padding: 10px;
@@ -38,10 +44,6 @@ td:last-child:not(.metadata_columns_table td) {
 
 .selectable {
   cursor: pointer;
-}
-
-thead tr th {
-  border-bottom: none;
 }
 
 .metadata_columns_table {
