@@ -22,11 +22,11 @@ thead>tr>th {
   border-radius: 0px;
 }
 
-td:first-child:not(.metadata_columns_table) {
+td:first-child:not(.secondary-table td) {
   border-radius: 7px 0 0 7px;
 }
 
-td:last-child:not(.metadata_columns_table) {
+td:last-child:not(.secondary-table td) {
   border-radius: 0 7px 7px 0;
 }
 
@@ -37,7 +37,7 @@ td:last-child:not(.metadata_columns_table) {
 
 .selected,
 .selected:hover,
-.metadata_columns_table {
+.secondary-table {
   background-color: var(--primary);
   border: 2px solid var(--outline);
 }
@@ -46,22 +46,18 @@ td:last-child:not(.metadata_columns_table) {
   cursor: pointer;
 }
 
-.metadata_columns_table {
-  padding: 10px;
-}
-
-.metadata_columns_table thead tr {
+.secondary-table thead tr {
   background-color: var(--primary-container);
 }
 
-.metadata_columns_table table {
+.secondary-table table {
   border: 2px solid var(--outline-variant);
 }
 
-.metadata_columns_table tbody {
+.secondary-table tbody {
   background-color: var(--surface-variant);
 }
 
-.metadata_columns_table tbody tr td {
+.secondary-table tbody tr td {
   border-top: 2px solid var(--tertiary-outline);
 }
