@@ -55,3 +55,9 @@ button,
 .button {
   border: 1px solid var(--outline);
 }
+
+.app-bar-image {
+  border-radius: 10px;
+  background-repeat: auto;
+  background-position-y: center;
+}
