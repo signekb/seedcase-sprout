@@ -2,32 +2,32 @@
 
 {% block content %}
 
-{% load dict_tags %}
-
   <!-- View all metadata -->
   <table>
     <thead>
       <tr>
         <th>Name</th>
         <th>Description</th>
-        <th>Data Rows</th>
         <th>Date Created</th>
+        <th>Data Rows</th>
         <th>Last Upload</th>
         <th style="width: 5%"></th>
       </tr>
     </thead>
+    <tbody>
     {% for metadata in existing_metadata %}
-      <tbody>
         <tr class="selectable" id="{{ metadata.id }}" onclick="rowSelected(event.target.parentElement)">
           <td>{{ metadata.name }}</td>
           <td>{{ metadata.description }}</td>
-          <td>Cell</td>
           <td>{{ metadata.created_at }}</td>
-          <td>Cell</td>
+          <td>{{ metadata.data_rows }}</td>
+          <td>{{ metadata.last_data_upload }}</td>
           <td style="text-align: right">
             <i id="expand_icon" onclick="iconSelected(event)">expand_less</i>
           </td>
+
         </tr>
+        <tr>
         <!-- View metadata of all columns in the selected metadata -->
         <td colspan="6" class="metadata_columns_table" hidden id="{{ metadata.id }}">
           <table>
@@ -41,7 +41,7 @@
               </tr>
             </thead>
             <tbody>
-              {% for column in existing_metadata_columns|get_dict_item:metadata.id %}
+              {% for column in metadata.columns_set.all %}
                 <tr {% if forloop.counter > 5 %}hidden{% endif %}>
                     <td>{{ column.extracted_name }}</td>
                     <td>{{ column.machine_readable_name }}</td>
@@ -52,14 +52,15 @@
               {% endfor %}
             </tbody>
           </table>
-          {% if existing_metadata_columns|get_dict_item:metadata.id|length > 5 %}
+          {% if metadata.columns_set.all|length > 5 %}
             <button style="text-align:right" onclick="showMore(event.target)">Show more columns</button>
           {% endif %}
         </td>
-      </tbody>
+        </tr>
       {% empty %}
-      <p>No existing data to show.</p>
+      <p>No existing metadata to show.</p>
     {% endfor %}
+    </tbody>
   </table>
 
   <!-- Three buttons create new metadata, edit existing metadata, or upload data to metadata -->
@@ -85,16 +86,16 @@
 
       // Add selected class
       row.classList.add('selected')
-    
+
       // Update the href and disabled state of the edit and upload buttons based on row selection
       document.querySelector('#edit-link').href = edit_url.replace('0', row.id)
       document.querySelector('#edit-link').removeAttribute('disabled')
       document.querySelector('#upload-link').href = upload_url.replace('0', row.id)
       document.querySelector('#upload-link').removeAttribute('disabled')
-    
+
       // Get all metadata columns
       let metadata_columns = document.querySelectorAll('.metadata_columns_table')
-    
+
       // Loop through all the metadata columns and show the ones that matches the selected row
       for (const metadata_column of metadata_columns) {
         // If the metadata column's id matches the selected row's id, then show element
