@@ -11,6 +11,7 @@
         <th>Date Created</th>
         <th>Data Rows</th>
         <th>Last Upload</th>
+        <th style="width: 5%"></th>
       </tr>
     </thead>
     <tbody>
@@ -21,6 +22,10 @@
           <td>{{ metadata.created_at }}</td>
           <td>{{ metadata.data_rows }}</td>
           <td>{{ metadata.last_data_upload }}</td>
+          <td style="text-align: right">
+            <i id="expand_icon" onclick="iconSelected(event)">expand_less</i>
+          </td>
+
         </tr>
         <tr>
         <!-- View metadata of all columns in the selected metadata -->
@@ -76,6 +81,7 @@
       // Deselect all other rows
       document.querySelectorAll('.selectable').forEach(function (otherRow) {
         otherRow.classList.remove('selected')
+        otherRow.querySelector('#expand_icon').textContent = 'expand_less';
       })
 
       // Add selected class
@@ -112,7 +118,17 @@
       for (let i = 0; i < buttons.length; i++) {
         buttons[i].style.display = "block";
       }
+    
+      // change icon to expand more
+      let expand_icon = row.querySelector('#expand_icon');
+      expand_icon.textContent = "expand_more";
     }
+
+  function iconSelected(event) {
+    event.stopPropagation();
+    rowSelected(event.target.parentElement.parentElement)
+
+  }
 
   function showMore(button) {
     // Get the parent element of the button
