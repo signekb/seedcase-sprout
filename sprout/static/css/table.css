@@ -22,11 +22,11 @@ thead>tr>th {
   border-radius: 0px;
 }
 
-td:first-child:not(.metadata_columns_table td) {
+td:first-child:not(.metadata_columns_table) {
   border-radius: 7px 0 0 7px;
 }
 
-td:last-child:not(.metadata_columns_table td) {
+td:last-child:not(.metadata_columns_table) {
   border-radius: 0 7px 7px 0;
 }
 
