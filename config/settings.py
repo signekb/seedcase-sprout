@@ -13,7 +13,7 @@ import os
 from pathlib import Path
 
 # this import should be commented out if moving to postgres db
-# import dj_database_url
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -111,8 +111,8 @@ sqlite_url = "sqlite:///db.sqlite3"
 database_url = os.environ.get("DATABASE_URL", sqlite_url)
 
 # The commented out db is the one we are running while using sqlite3
-# DATABASES = {"default": dj_database_url.parse(database_url, conn_max_age=600)}
-DATABASES = {
+DATABASES = {"default": dj_database_url.parse(database_url, conn_max_age=600)}
+""" DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "SproutData",
@@ -121,7 +121,7 @@ DATABASES = {
         "HOST": "localhost",
         "PORT": "5432",
     }
-}
+} """
 # if using the postgres db you may have to do a pip3 install psycopg2-binary
 # for now also install a postgres db in Docker
 # with above env settings when setting it up
