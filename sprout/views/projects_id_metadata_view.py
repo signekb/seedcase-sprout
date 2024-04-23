@@ -5,7 +5,7 @@ from django.shortcuts import redirect, render
 from django.urls import reverse
 
 from sprout.forms import TablesForm
-from sprout.models import Columns, Tables
+from sprout.models import Tables
 
 
 def projects_id_metadata_view(request: HttpRequest) -> HttpResponse:
@@ -20,8 +20,9 @@ def projects_id_metadata_view(request: HttpRequest) -> HttpResponse:
         HTTP response that either renders the projects-id-metadata page or redirects
         to create new metadata, update existing metadata, or upload new data.
     """
-    existing_metadata = Tables.objects.all()
-    existing_metadata_columns = Columns.objects.all()
+    # Columns for each table are prefetched and can be accessed in the Django template
+    # using 'table.columns_set.all'
+    existing_metadata = Tables.objects.prefetch_related("columns_set").all()
 
     # if POST, process the data in form (only happens when creating new metadata)
     if request.method == "POST":
@@ -48,7 +49,6 @@ def projects_id_metadata_view(request: HttpRequest) -> HttpResponse:
         template_name="projects-id-metadata-view.html",
         context={
             "existing_metadata": existing_metadata,
-            "existing_metadata_columns": existing_metadata_columns,
             "form": form,
         },
     )
