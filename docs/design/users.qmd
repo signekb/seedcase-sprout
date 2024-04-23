@@ -3,10 +3,17 @@ title: Target users
 ---
 
 {{< include ../_wip.qmd >}}
+## Data and Action types
+We have chosen to use the CRUD framework when documenting interactions between users and data.  There are two types of data in Seedcase Sprout, Research data and data about Research data (metadata). 
 
+The research data is the data that a user of Seedcase Sprout wish to store, this can be a variety of formats, although Sprout - in its current iteration - will handle only tabular data.  The metadata (data about data), it the data the a user creates in preparation for storing research data. It is expected that almost all users of Seedcase Sprout will have access to create research data, but only some will have the option to create, update, and/or delete metadata and research data. 
+
+We believe that it is important to build a system which offers the greatest amount of flexibility for the users, which also means that it will be possible for a high level user (referred to below as Users Access Administrators) to be able to customize access for their own users. We do at the same time acknowledge that not all teams will want to set their own user groups up, which is why we aim to offer a set of 'ready-made' user groups as described below.
+
+## User types
 Sprout is built for the target users described below.
 
-## Data Contributors
+### Data Contributors
 
 Data contributors will be uploading or inputting collected data into the
 database. We assume that these users are from authorized research or
@@ -33,7 +40,7 @@ users knowledge (e.g. date values), and may incorrectly save data in the
 wrong data type. This type of data entry errors need human attention to
 fix before they can correctly be put into Sprout.
 
-## User Access Administrators
+### User Access Administrators
 
 User Access Administrators are responsible for managing and controlling
 user accesses, i.e., who can contribute data and whether those data
@@ -48,7 +55,7 @@ These users will:
     database.
 -   Manage collection centers' access and authorization.
 
-## Data Management Administrators
+### Data Management Administrators
 
 Data Management Administrators are responsible for the database itself
 and the quality of the data that gets entered into Sprout. They may or
