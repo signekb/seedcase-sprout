@@ -61,7 +61,7 @@ class MetadataIDUpdateViewTest(TestCase):
         response = self.client.post(url, data, follow=True)
 
         # Assert the status code
-        self.assertRedirects(response, reverse("projects-id-view"))
+        self.assertRedirects(response, reverse("projects-id-metadata-view"))
 
     def test_create_sample_of_unique_values(self):
         """Test if correct sample values are created."""
