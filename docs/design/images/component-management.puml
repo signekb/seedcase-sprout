@@ -7,7 +7,7 @@
 LAYOUT_LEFT_RIGHT()
 
 Container(ui, "Web interface")
-ContainerDb(storage, "Databases and storage")
+ContainerDb(storage, "Data and metadata storage")
 
 Container_Boundary(management, "All management containers") {
   Container_Boundary(projects, "Project management") {

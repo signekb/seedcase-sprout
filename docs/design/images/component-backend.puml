@@ -12,7 +12,7 @@ Container_Boundary(bee, "Data and metadata storage") {
     Component(metadata, "Metadata on data", $descr="Information about the data, like data types, column names, column descriptions, and description of data collection or generation procedure")
   }
   Component(users, "Database for user details", $descr="Details about user, roles, and connected projects")
-  Component(projects, "Database for project details", $descr="Details about projects, list  uploaded for project entered into database")
+  Component(projects, "Database for project details", $descr="Details about projects, like a summary list of data and users within the project")
   Container_Boundary(data_storage, "Storage for project data") {
     Component(data, "Relational database for data", $descr="Data uploaded for project entered into database")
     Component(raw_file, "File storage", $descr="A copy of the raw data that is saved to the database")
@@ -25,10 +25,10 @@ Lay_Down(rdb_metadata, data_storage)
 
 Rel(management, data_storage, "Write")
 
-Rel(management, projects, "Read  and  write")
-Rel(management, users, "Read  and  write")
+BiRel(management, projects, "Read  and  write")
+BiRel(management, users, "Read  and  write")
 
-Rel(management, metadata, "Read  and  write")
+BiRel(management, metadata, "Read  and  write")
 BiRel(management, changelog, "Auto-generated")
 
 @enduml

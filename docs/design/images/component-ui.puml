@@ -15,7 +15,7 @@ Container_Boundary(ui, "Web interface") {
 
   ' Admin
 
-  Component(page_metadata_list, "List all data tables", $descr="Show all tables that contain data in the project")
+  Component(page_metadata_list, "List all data tables", $descr="Show all tables with data in the project")
   Component(page_metadata_create, "Data creation page", $descr="Create space for data to be stored, including adding metadata")
   Component(page_metadata_update, "Update metadata page", $descr="Make edits to existing metadata in the project")
 
