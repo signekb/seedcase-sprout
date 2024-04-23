@@ -12,7 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 
-import dj_database_url
+# this import should be commented out if moving to postgres db
+# import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -122,7 +123,8 @@ DATABASES = {
     }
 }
 # if using the postgres db you may have to do a pip3 install psycopg2-binary
-# for now also install a postgres db in Docker with above env settings when setting it up
+# for now also install a postgres db in Docker
+# with above env settings when setting it up
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
