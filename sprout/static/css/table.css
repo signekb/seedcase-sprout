@@ -4,7 +4,7 @@ thead>tr>th {
   border: none;
 }
 
-.table-content {
+.primary-table {
   margin: 25px 0;
   padding: 10px;
   background-color: var(--surface-variant);
@@ -13,11 +13,11 @@ thead>tr>th {
   border-spacing: 0 5px;
 }
 
-.table-content>thead {
+.primary-table>thead {
   color: var(--secondary);
 }
 
-.table-content tbody {
+.primary-table tbody {
   background-color: var(--surface);
   border-radius: 0px;
 }
