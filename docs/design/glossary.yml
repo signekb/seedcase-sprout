@@ -1,0 +1,16 @@
+data: |
+  Data can mean any piece of information that some person or people want to use to 
+  answer questions. What is considered data (and metadata) is highly dependent on
+  people and what they intend to do with information that is collected.
+  In the context of Seedcase Sprout, 
+  data is any information collected for the purposes of doing analyses on them
+  to answer questions. An example might be data collected from people participating
+  in a study on health and disease.
+metadata: |
+  Metadata is any information that describes, documents, or explains it's connected data. 
+  What is considered metadata (and data) is dependent on people and what they intend to
+  do with the information. Usually metadata is used to help understand and better analyze
+  data. In the context of Seedcase Sprout, metadata is any information that helps understand
+  the data better. For example, it would be the column name, the data type, how the data was 
+  collected, and what the units are.
+  
