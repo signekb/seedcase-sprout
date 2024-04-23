@@ -6,16 +6,16 @@
 
 Container(management, "Management containers")
 
-Container_Boundary(bee, "(Meta)data storage") {
+Container_Boundary(bee, "Data and metadata storage") {
   Container_Boundary(rdb_metadata, "Relational database for metadata") {
-    Component(changelog, "Changelog of data", $descr="Listing changes made to the (meta)data")
-    Component(metadata, "Metadata on data", $descr="Details like data types, column names, and data collection or generation procedure")
+    Component(changelog, "Changelog of data and metadata", $descr="Listing changes made to the data and metadata")
+    Component(metadata, "Metadata on data", $descr="Information about the data, like data types, column names, column descriptions, and description of data collection or generation procedure")
   }
   Component(users, "Database for user details", $descr="Details about user, roles, and connected projects")
   Component(projects, "Database for project details", $descr="Details about projects, list  uploaded for project entered into database")
   Container_Boundary(data_storage, "Storage for project data") {
     Component(data, "Relational database for data", $descr="Data uploaded for project entered into database")
-    Component(raw_file, "File storage", $descr="To keep a copy of the raw data that is saved to the database")
+    Component(raw_file, "File storage", $descr="A copy of the raw data that is saved to the database")
   }
 }
 

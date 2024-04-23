@@ -3,22 +3,22 @@
 ' Container diagram showing overview of Seedcase
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
-Person(user_contributor, "Data Contributor")
+Person(user_contributor, "Data contributor")
 Person(user_admin, "Project admin")
 Person(user_owner, "Project owner")
 
 System_Boundary(seedcase, "Seedcase Sprout") {
-  Container(ui, "Web Interface", "HTML, CSS, JavaScript")
-  Container(projects, "Project Management", "Python, Django, SQLite",  $descr="Create projects, manage existing ones")
-  Container(data, "Data Management", "Python, Django", $descr="Run checks, process data, send to database")
+  Container(ui, "Web interface", "HTML, CSS, JavaScript")
+  Container(projects, "Project management", "Python, Django, SQLite",  $descr="Create projects, manage existing ones")
+  Container(data, "Data management", "Python, Django", $descr="Run checks, process data, send to database")
   ' Authentication inside or outside?
-  Container(login, "User Login", "Python, Django")
-  Container(users, "User Management", "Python, Django, SQLite", $descr="Assign roles, add or remove users")
+  Container(login, "User login", "Python, Django")
+  Container(users, "User management", "Python, Django, SQLite", $descr="Assign roles, add or remove users")
   
   ' Backend database setup
-  ContainerDb(database_data, "Relational Database for Data", "Postgres/SQLite")
-  ContainerDb(database_metadata, "Relational Database for Metadata", "SQLite")
-  ContainerDb(file_storage, "File Storage for Raw Data", "Filesystem")
+  ContainerDb(database_data, "Relational database for data", "Postgres/SQLite")
+  ContainerDb(database_metadata, "Relational database for metadata", "SQLite")
+  ContainerDb(file_storage, "File storage for raw data", "Filesystem")
 }
 ' Authentication inside or outside?
 ' System_Ext(id_authentication, "User Authentication")

@@ -5,8 +5,8 @@
 ' C4 Context diagram
 
 Person(user_contributor, "Data contributor", "Adds data and resolves problems with data before upload")
-Person(user_admin, "Project admin", "Manage users, assess problems with data, and preparing for new data")
-Person(user_owner, "Project owner", "Creator and owner of a project within Sprout")
+Person(user_admin, "Project admin", "Manages users, assesses problems with data, and prepares for new data")
+Person(user_owner, "Project owner", "Creates and owns a project within Sprout")
 
 System(ui, "Seedcase Sprout", "Structure data in a modern way")
 

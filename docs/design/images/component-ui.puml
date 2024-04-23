@@ -7,7 +7,7 @@
 Container(management, "Downstream management")
 Container(auth, "Authentication")
 
-Container_Boundary(ui, "Web Interface") {
+Container_Boundary(ui, "Web interface") {
   Component(page_login, "Login page", $descr="To give authorized users access to specific pages of a project")
 
   Component(page_project_create, "Create new project page", $descr="Create a new project to store data")
@@ -19,9 +19,9 @@ Container_Boundary(ui, "Web Interface") {
   Component(page_metadata_create, "Data creation page", $descr="Create space for data to be stored, including adding metadata")
   Component(page_metadata_update, "Update metadata page", $descr="Make edits to existing metadata in the project")
 
-  Component(page_data_update, "Add data to existing data", $descr="Adding new or updating existing data in a project")
+  Component(page_data_update, "Add data to existing data", $descr="Add new or update existing data in the project")
 
-  Component(page_user_admin, "User admin page", $descr="Management of users with the project")
+  Component(page_user_admin, "User admin page", $descr="Manage users within the project")
 
   Component(page_data_qc, "Data quality control details page", $descr="Reports on basic quality and validation of data")
 }

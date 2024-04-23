@@ -13,7 +13,7 @@ Container_Boundary(management, "All management containers") {
   Container_Boundary(projects, "Project management") {
     Component(project_view, "View details of project")
     Component(project_create, "Create a new project", $descr="Create a new project to storage and organize data")
-    Component(project_update, "Update details of a project")
+    Component(project_update, "Update project")
     Component(project_delete, "Delete a project", $descr="Delete everything in a project, including data")
 
     Component(project_user_view, "View users in a project")
@@ -23,20 +23,20 @@ Container_Boundary(management, "All management containers") {
   }
 
   Container_Boundary(metadata, "(Meta)data management") {
-    Component(metadata_create, "Create space for new (meta)data", $descr="Create space in storage for both metadata and associated data")
-    Component(metadata_update, "Update metadata details")
-    Component(metadata_delete, "Delete metadata and connected data", $descr="Delete a specific metadata space and connected data")
-    Component(metadata_view, "View details of a (meta)data space")
+    Component(metadata_create, "Create new data and metadata", $descr="Create space in storage for both metadata and associated data")
+    Component(metadata_update, "Update metadata")
+    Component(metadata_delete, "Delete metadata and connected data", $descr="Delete specific metadata and connected data")
+    Component(metadata_view, "View metadata and data")
 
     Component(data_update, "Add or update data", $descr="Add or updata data to existing data in the database")
-    Component(data_delete, "Delete data", $descr="Delete data within a database")
+    Component(data_delete, "Delete data", $descr="Delete data within the database")
     Component(data_check, "Checks to validate and verify data", $descr="Run validation and verification checks and report problems")
   }
 
-  Container_Boundary(users, "User Management") {
+  Container_Boundary(users, "User management") {
     Component(user_create, "Create a new user")
-    Component(user_update, "Update user details")
-    Component(user_delete, "Delete user details")
+    Component(user_update, "Update user")
+    Component(user_delete, "Delete user")
     Component(user_view, "View details of a user")
   }
 }
