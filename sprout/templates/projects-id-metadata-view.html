@@ -12,8 +12,8 @@
         <th>Last Upload</th>
       </tr>
     </thead>
+    <tbody>
     {% for metadata in existing_metadata %}
-      <tbody>
         <tr class="selectable" id="{{ metadata.id }}" onclick="rowSelected(event.target.parentElement)">
           <td>{{ metadata.name }}</td>
           <td>{{ metadata.description }}</td>
@@ -21,6 +21,7 @@
           <td>{{ metadata.data_rows }}</td>
           <td>{{ metadata.last_data_upload }}</td>
         </tr>
+        <tr>
         <!-- View metadata of all columns in the selected metadata -->
         <td colspan="6" class="metadata_columns_table" hidden id="{{ metadata.id }}">
           <table>
@@ -48,12 +49,12 @@
             </tbody>
           </table>
         </td>
-      </tbody>
+        </tr>
       {% empty %}
       <p>No existing metadata to show.</p>
     {% endfor %}
+    </tbody>
   </table>
-
   <!-- Create metadata dialog -->
   {% include 'includes/metadata-create-dialog.html' %}
 
