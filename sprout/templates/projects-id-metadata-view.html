@@ -33,15 +33,13 @@
               <div class="expanded-table-cell">Description</div>
             </div>
             <div class="expanded-table-body">
-              {% for column in existing_metadata_columns %}
-                  {% if column.tables.id == metadata.id %}
-                    <div class="expanded-table-row">
-                      <div class="expanded-table-cell">{{ column.extracted_name }}</div>
-                      <div class="expanded-table-cell">{{ column.display_name }}</div>
-                      <div class="expanded-table-cell">{{ column.data_type }}</div>
-                      <div class="expanded-table-cell">{{ column.description }}</div>
-                    </div>
-                  {% endif %}
+              {% for column in metadata.columns_set.all %}
+                <div class="expanded-table-row">
+                  <div class="expanded-table-cell">{{ column.extracted_name }}</div>
+                  <div class="expanded-table-cell">{{ column.display_name }}</div>
+                  <div class="expanded-table-cell">{{ column.data_type }}</div>
+                  <div class="expanded-table-cell">{{ column.description }}</div>
+                </div>
                 {% endfor %}
             </div>
           </div>
