@@ -51,8 +51,8 @@ dd {
   width: 85%;
 }
 
-button,
-.button {
+button:not(.transparent),
+.button:not(.transparent) {
   border: 1px solid var(--outline);
 }
 
