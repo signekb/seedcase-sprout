@@ -1,67 +1,67 @@
-/* removing beercss' default borders for tables */
-table.border>tbody>tr:not(:last-child)>td,
-thead>tr>th {
-  border: none;
-}
-
 .table-content {
   margin: 25px 0;
   padding: 10px;
   background-color: var(--surface-variant);
   box-shadow: var(--shadow);
-  border-radius: 7px !important;
+  border-radius: 10px !important;
   border-spacing: 0 5px;
 }
-
-.table-content>thead {
+.table-header {
+  display: flex;
+  flex-direction: row;
   color: var(--secondary);
+  background-color: white;
 }
-
-.table-content tbody {
-  background-color: var(--surface);
-  border-radius: 0px;
-}
-
-td:first-child:not(.metadata_columns_table) {
-  border-radius: 7px 0 0 7px;
-}
-
-td:last-child:not(.metadata_columns_table) {
-  border-radius: 0 7px 7px 0;
-}
-
-.selectable:hover {
-  background-color: #ededed;
+.table-row {
+  display: flex;
+  flex-direction: row;
+  background-color: rgb(242, 242, 242);
+  border-radius: 7px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+  align-items: center;
   cursor: pointer;
 }
-
-.selected,
-.selected:hover,
-.metadata_columns_table {
-  background-color: var(--primary);
-  border: 2px solid var(--outline);
-}
-
-.selectable {
-  cursor: pointer;
-}
-
-.metadata_columns_table {
+.table-cell {
+  width: 20%;
   padding: 10px;
 }
+.expanded-content {
+  width: 100%;
+  padding: 0 7px 7px 7px;
+}
+.selected,
+.selected:hover {
+  background-color: var(--primary);
+}
 
-.metadata_columns_table thead tr {
+.expanded-table {
+  background-color: white;
+  border-radius: 5px;
+}
+
+.expanded-table-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: 1px solid var(--tertiary-outline);
+  border-radius: 0;
+}
+
+.expanded-table-cell {
+  width: 25%;
+  padding: 8px;
+}
+
+.expanded-table-head {
   background-color: var(--primary-container);
-}
-
-.metadata_columns_table table {
-  border: 2px solid var(--outline-variant);
-}
-
-.metadata_columns_table tbody {
-  background-color: var(--surface-variant);
+  border-bottom: 1px solid var(--primary);
+  display: flex;
+  border-radius: 5px 5px 0 0;
+  font-weight: bold;
 }
 
 .metadata_columns_table tbody tr td {
-  border-top: 2px solid var(--tertiary-outline);
+  background-color: white;
+  border-bottom: 1px solid var(--tertiary-outline);
 }
