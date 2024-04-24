@@ -62,3 +62,7 @@ button:not(.transparent),
   background-repeat: auto;
   background-position-y: center;
 }
+
+img {
+  padding: 10px;
+}
