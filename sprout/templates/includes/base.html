@@ -18,10 +18,17 @@
   <body>
     <header class="fill app-bar-image" style="background-image: url('{% static 'images/background.png' %}')">
       <nav>
+        <button class="transparent circle large">
+          <i>menu</i>
+        </button>
         <h5 class="max center-align">
           <a href="{% url 'projects-id-metadata-view' %}">
             <img class="responsive" alt="logo" src="{% static 'images/logo.svg' %}" />
           </a>
+        </h5>
+        <button class="transparent circle large">
+          <i>account_circle</i>
+        </button>
       </nav>
     </header>
     <main class="responsive height-90-pct">
