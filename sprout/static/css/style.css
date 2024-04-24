@@ -11,6 +11,7 @@
   --surface: #F2F2F2;
   --surface-variant: white;
   --surface-container-low: var(--primary);
+  --surface-container-high: var(--primary-container);
   --on-surface: var(--on-primary);
   --on-surface-variant: var(--outline);
   --background-color: var(--on-primary);
