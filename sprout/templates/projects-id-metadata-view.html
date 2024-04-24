@@ -75,6 +75,8 @@
   <script>
     let edit_url = "{% url 'projects-id-metadata-id-update' table_id=0 %}"
     let upload_url = "{% url 'projects-id-metadata-id-data-update' table_id=0 %}"
+
+    // This function selects a row in the parent table
     function selectRow(selectedRowId) {
       deselectAllRows()
 
@@ -96,6 +98,7 @@
       selectedRow.querySelector('#expand_icon').textContent = "expand_more";
     }
 
+    // showMore will display more rows in the nested table
     function showMore(button) {
       // Get the parent element of the button
       let parent = button.parentElement.parentElement;
@@ -114,6 +117,7 @@
       }
     }
 
+    // deselectAllRows will deselect all rows and hence resetting everything
     function deselectAllRows() {
       document.querySelectorAll('.table-row').forEach(otherRow => {
         // Remove selected class
