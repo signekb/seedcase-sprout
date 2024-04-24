@@ -1,0 +1,54 @@
+---
+title: "C4 Models"
+---
+
+This section contains the [C4 Models](https://c4model.com/) for Sprout.
+The C4 Model is an established visualization approach to describe the
+architecture of a software system. It breaks the system down into four
+levels of abstraction: Context, Containers, Components, and Code. The
+last level is rarely used nor recommended for most software architecture
+since it is used to visualize a high degree of detail that most projects
+don't need. Below is the diagrams for the Context, Containers, and
+Components (which has three diagrams).
+
+::: panel-tabset
+## Context
+
+The Context model is mainly used to show the users and any external
+systems that interact with Sprout.
+
+![C4 Context diagram showing very basic overview of Sprout and its
+intended users.](images/context.png)
+
+## Container
+
+The Container model is used to show larger parts of a system, what they
+are responsible for and how they interact with each other. It also shows
+technology choices for each Container.
+
+![C4 Container diagram showing larger functional parts of Sprout and
+their connections.](images/container.png)
+
+## Component
+
+The Component model offers a more detailed view of the system into what
+the smaller parts are that make up an individual Container and that
+allow it to fulfill its responsibilities. There are three diagrams for
+the Components: the user interface, the server or internal management,
+and the databases and storage.
+
+### User interface
+
+![C4 Component diagram showing the parts that make up the user interface
+Containers.](images/component-ui.png)
+
+### Management
+
+![C4 Component diagram showing the parts that make up the management
+Containers.](images/component-management.png)
+
+### Databases
+
+![C4 Component diagram showing the parts that make up the database and
+storage Containers.](images/component-backend.png)
+:::
