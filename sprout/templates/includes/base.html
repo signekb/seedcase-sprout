@@ -6,14 +6,15 @@
     <title>Seedcase Sprout: Data Import</title>
     <link rel="icon" type="image/x-icon" href="{% static 'images/logo.png' %}" />
     <!-- beercss framework is added -->
-    <link href="https://cdn.jsdelivr.net/npm/beercss@3.4.11/dist/cdn/beer.min.css" rel="stylesheet" />
-    <script type="module" src="https://cdn.jsdelivr.net/npm/beercss@3.4.11/dist/cdn/beer.min.js"></script>
-
+    <link href="https://cdn.jsdelivr.net/npm/beercss@3.4.11/dist/cdn/beer.min.css"
+          rel="stylesheet" />
+    <script type="module"
+            src="https://cdn.jsdelivr.net/npm/beercss@3.4.11/dist/cdn/beer.min.js"></script>
     <!-- Global css -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
     <link rel="stylesheet" href="{% static 'css/file-drop-zone.css' %}" />
     <link rel="stylesheet" href="{% static 'css/table.css' %}" />
-
+    <link rel="stylesheet" href="{% static 'css/card.css' %}" />
   </head>
   <body>
     <header class="fill app-bar-image"
@@ -33,9 +34,7 @@
       </nav>
     </header>
     <main class="responsive height-90-pct">
-      {% block content %}
-
-      {% endblock %}
+      {% block content %}{% endblock %}
     </main>
   </body>
 </html>
