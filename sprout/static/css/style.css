@@ -12,6 +12,7 @@
   --surface-variant: white;
   --surface-container-low: var(--primary);
   --on-surface: var(--on-primary);
+  --on-surface-variant: var(--outline);
   --background-color: var(--on-primary);
   --element-color: var(--on-primary);
   --outline: #48DC76;
