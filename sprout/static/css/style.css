@@ -12,6 +12,7 @@
   --surface-variant: white;
   --surface-container-low: var(--primary);
   --on-surface: var(--on-primary);
+  --on-surface-variant: var(--outline);
   --background-color: var(--on-primary);
   --element-color: var(--on-primary);
   --outline: #48DC76;
@@ -51,13 +52,17 @@ dd {
   width: 85%;
 }
 
-button,
-.button {
+button:not(.transparent),
+.button:not(.transparent) {
   border: 1px solid var(--outline);
 }
 
 .app-bar-image {
-  border-radius: 10px;
   background-repeat: auto;
   background-position-y: center;
+  background-size: cover;
+}
+
+nav img {
+  padding: 10px;
 }
