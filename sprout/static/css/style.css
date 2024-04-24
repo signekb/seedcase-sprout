@@ -58,7 +58,6 @@ button:not(.transparent),
 }
 
 .app-bar-image {
-  border-radius: 10px;
   background-repeat: auto;
   background-position-y: center;
 }
