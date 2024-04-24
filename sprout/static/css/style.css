@@ -60,6 +60,7 @@ button:not(.transparent),
 .app-bar-image {
   background-repeat: auto;
   background-position-y: center;
+  background-size: cover;
 }
 
 nav img {
