@@ -7,18 +7,16 @@ thead>tr>th {
 .primary-table {
   margin: 25px 0;
   padding: 10px;
-  background-color: var(--surface-variant);
-  box-shadow: var(--shadow);
+  background-color: var(--surface-container-lowest);
+  color: var(--on-surface-container-lowest);
+  box-shadow: var(--elevate1);
   border-radius: 7px !important;
   border-spacing: 0 5px;
 }
 
-.primary-table>thead {
-  color: var(--secondary);
-}
-
 .primary-table tbody {
   background-color: var(--surface);
+  color: var(--on-surface);
   border-radius: 0px;
 }
 
@@ -31,14 +29,13 @@ td:last-child:not(.secondary-table td) {
 }
 
 .selectable:hover {
-  background-color: #ededed;
+  /* background-color: #ededed; */
   cursor: pointer;
 }
 
 .selected,
-.selected:hover,
-.secondary-table {
-  background-color: var(--primary);
+.selected:hover {
+  background-color: var(--secondary);
   border: 2px solid var(--outline);
 }
 
@@ -46,18 +43,22 @@ td:last-child:not(.secondary-table td) {
   cursor: pointer;
 }
 
-.secondary-table thead tr {
-  background-color: var(--primary-container);
+.metadata_columns_table {
+  background-color: var(--surface-container-lowest);
 }
 
-.secondary-table table {
-  border: 2px solid var(--outline-variant);
+.secondary-table thead tr {
+  background-color: var(--surface-bright);
+}
+
+.secondary-table {
+  border: 2px solid var(--outline-second-variant);
 }
 
 .secondary-table tbody {
-  background-color: var(--surface-variant);
+  background-color: var(--surface-container-lowest);
 }
 
 .secondary-table tbody tr td {
-  border-top: 2px solid var(--tertiary-outline);
+  border-top: 2px solid var(--outline-third-variant);
 }

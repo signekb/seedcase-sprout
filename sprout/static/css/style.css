@@ -2,23 +2,25 @@
 
 :root {
   --font: "Rajdhani";
-  --primary: #C6F0D3;
-  --on-primary: #196440;
-  --primary-container: #F2FFF6;
-  --secondary: #8b8b8b;
-  --secondary-container: var(--primary);
-  --tertiary: #9BDEAF;
+  /* brand colour #003224 - the one below is a slightly lighter version of the brand colour */
+  --primary: #196440;
+  /* brand colour */
+  --on-primary: #48DC76;
+  --secondary: #C6F0D3;
+  --on-secondary: var(--primary);
   --surface: #F2F2F2;
-  --surface-variant: white;
-  --surface-container-low: var(--primary);
-  --on-surface: var(--on-primary);
-  --on-surface-variant: var(--outline);
-  --background-color: var(--on-primary);
-  --element-color: var(--on-primary);
-  --outline: #48DC76;
-  --outline-variant: #9BDEAF;
-  --tertiary-outline: #C6F0D3;
-  --shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+  --on-surface: var(--primary);
+  --on-surface-variant: var(--on-primary);
+  --surface-bright: #F2FFF6;
+  --surface-container-lowest: white;
+  --on-surface-container-lowest: #6E6E6E;
+  --surface-container-low: var(--surface-container-lowest);
+  --outline-variant: #48DC76;
+  --elevate1: 0 5px 10px rgba(0, 0, 0, 0.15);
+
+  /* custom variables*/
+  --outline-second-variant: #9BDEAF;
+  --outline-third-variant: #C6F0D3;
 }
 
 .height-90-pct {
@@ -54,7 +56,9 @@ dd {
 
 button:not(.transparent),
 .button:not(.transparent) {
-  border: 1px solid var(--outline);
+  border: 1px solid var(--outline-variant);
+  color: var(--on-secondary);
+  background-color: var(--secondary);
 }
 
 .app-bar-image {
