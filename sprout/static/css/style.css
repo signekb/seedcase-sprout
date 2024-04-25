@@ -15,6 +15,7 @@
   --surface-container-lowest: white;
   --on-surface-container-lowest: #6E6E6E;
   --surface-container-low: var(--surface-container-lowest);
+  --surface-container-high: var(--primary-container);
   --outline-variant: #48DC76;
   --elevate1: 0 5px 10px rgba(0, 0, 0, 0.15);
 
@@ -69,4 +70,6 @@ button:not(.transparent),
 
 nav img {
   padding: 10px;
+  max-height: 65px;
+  width: auto;
 }
