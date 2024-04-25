@@ -40,20 +40,20 @@ note that it is possible for an individual to have more than one role,
 if they are to do everything we would expect them to have the role of
 Super User/Data Owner.
 
-| Action | Type of information | DMA | DC  | UAA | PA  |
-|--------|---------------------|-----|-----|-----|-----|
-| Create | Research Data       | X   | X   |     | X   |
-|        | Metadata            | X   |     |     | X   |
-|        | User Date           |     |     | X   | X   |
-| Read   | Research Data       | X   | ?   |     | X   |
-|        | Metadata            | ?   |     |     | X   |
-|        | User Data           | X   |     | X   | X   |
-| Update | Research Data       | X   |     |     | X   |
-|        | Metadata            | X   |     |     | X   |
-|        | User Date           |     |     | X   | X   |
-| Delete | Research Data       | ?   |     |     | X   |
-|        | Metadata            | ?   |     |     | X   |
-|        | User Data           |     |     | X   | X   |
+| Action | Type of information | DMA | DC  | PO | 
+|--------|---------------------|-----|-----|-----|
+| Create | Research Data       | X   | X   | X   |
+|        | Metadata            | X   |     | X   | 
+|        | User Data           |     |     | X   | 
+| Read   | Research Data       | X   | ?   | X   | 
+|        | Metadata            | ?   |     | X   | 
+|        | User Data           | X   |     | X   | 
+| Update | Research Data       | X   |     | X   | 
+|        | Metadata            | X   |     | X   | 
+|        | User Data           |     |     | X   | 
+| Delete | Research Data       | ?   |     | X   | 
+|        | Metadata            | ?   |     | X   | 
+|        | User Data           |     |     | X   | 
 
 <!--TODO Talk about the ? items-->
 
@@ -92,34 +92,9 @@ These users will be able to:
 -   Log in and upload standardised and routine data through a web portal
     into pre-defined table structures set up by the DMA or SU.
 
-### User Access Administrators (UAA)
+### Project Owner (PO)
 
-User Access Administrators are responsible for managing and controlling
-user accesses, i.e., who can contribute data and whether those data
-contributors have access to structure the database itself.
-
-These users will:
-
--   Approve and authorize who can upload to the database.
--   Approve and authorize who can make changes to the structure of the
-    database.
-
-### Data Management Administrators (DMA)
-
-Data Management Administrators are responsible for the database itself
-and the quality of the data that gets entered into Sprout. They may or
-may not be the same user as the User Access Administrators.
-
-These users will:
-
--   Initially structure the core database tables (by uploading
-    metadata).
--   Manage or handle potential issues with the data itself that are
-    detected from validation checks.
-
-### Project Admin (PA)
-
-The Project Admin is the person who can do everything in the system.
+The Project Owner is the person who can do everything in the system.
 Often this will be the same person that has set up the instance of
 Seedcase Sprout, and as can be seen in the table above they have access
 to all four action types for all three types of information. This will
