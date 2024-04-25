@@ -117,7 +117,6 @@ DATABASES = {
         "USER": "primary",
         "PASSWORD": "Create20221014",
         "HOST": "localhost",
-        "PORT": "5432",
     }
 }
 # if using the postgres db you may have to do a pip3 install psycopg2-binary
