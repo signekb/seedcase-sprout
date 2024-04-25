@@ -109,7 +109,7 @@ PERSISTENT_STORAGE_PATH = "persistent_storage"
 sqlite_url = "sqlite:///db.sqlite3"
 database_url = os.environ.get("DATABASE_URL", sqlite_url)
 
-DATABASES = {"default": dj_database_url.parse(database_url, conn_max_age=600)}
+# DATABASES = {"default": dj_database_url.parse(database_url, conn_max_age=600)}
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
