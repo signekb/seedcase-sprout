@@ -66,6 +66,7 @@ button:not(.transparent),
   background-repeat: auto;
   background-position-y: center;
   background-size: cover;
+  background-image: url('/static/images/background_mirrored.png');
 }
 
 nav img {
