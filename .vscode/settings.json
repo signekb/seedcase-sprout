@@ -31,5 +31,6 @@
     "editor.defaultFormatter": "monosans.djlint"
   },
   "python.defaultInterpreterPath": "${workspaceFolder}/.venv",
-  "python.languageServer": "Pylance"
+  "python.languageServer": "Pylance",
+  "files.insertFinalNewline": true
 }
