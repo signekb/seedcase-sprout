@@ -1,18 +1,77 @@
 {% extends 'includes/base.html' %}
 {% load static %}
 
-{% block header_tags %}
-  <link rel="stylesheet" href="{% static 'css/file-drop-zone.css' %}" />
-  <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
-  <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
-{% endblock %}
-
 {% block content %}
-  <h4>{{ table_name }}</h4>
-  <p>To create the structure for your new table, please upload a .csv data file to be used as a template</p>
+  <style>
+    .margin-bottom {
+      margin-bottom: 10px;
+    }
+    .step-header {
+      display: flex;
+      background-color: var(--primary);
+      color: var(--on-primary);
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 10px;
+      padding: 5px 10px;
+    }
+  </style>
+  <h4>CREATE NEW METADATA</h4>
+  <p>To create metadata (i.e., a space for your data), please go through the following steps</p>
 
+  <!-- STEP 1 -->
+  <div class="margin-bottom">
+    <div>
+      <div class="step-header">
+        <div>1. Name and description</div>
+        <i>expand_more</i>
+      </div>
+    </div>
+    {% if not request.GET.step %}
+      {% include 'includes/metadata-create-name-and-description.html' %}
+    {% endif %}
+
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="margin-bottom">
+    <div >
+      <div class="step-header">
+        <div>2. File to base columns on</div>
+        <i>expand_more</i>
+      </div>
+    </div>
+    {% if request.GET.step == '2' %}
+      {% include 'includes/file-drop-zone.html' %}
+    {% endif %}
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="margin-bottom">
+    <div>
+      <div class="step-header">
+        <div>3. Columns</div>
+        <i>expand_more</i>
+      </div>
+    </div>
+    {% if request.GET.step == '3' %}
+      {% include 'projects-id-metadata-id-update.html' %}
+    {% endif %}
+  </div>
+
+  <div class="margin-bottom">
+    <div >
+      <div class="step-header">
+        <div>4. Review and submit</div>
+        <i>expand_more</i>
+      </div>
+    </div>
+    {% if request.GET.step == '4' %}
+      <div>STEP 4</div>
+    {% endif %}
+  </div>
   <!-- The file drop zone is included -->
-  {% include 'includes/file-drop-zone.html' %}
+
 
   <!-- Dialog is only showing if upload_error is not empty -->
   {% if upload_error %}
