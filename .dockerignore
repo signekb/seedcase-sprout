@@ -10,3 +10,4 @@ fly.toml
 *.sqlite3
 staticfiles
 persistent_storage/
+.venv
