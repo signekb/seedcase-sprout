@@ -116,8 +116,6 @@ DATABASES = {
         "NAME": "SproutData",
         "USER": "primary",
         "PASSWORD": "Create20221014",
-        "HOST": "127.0.0.1",
-        "PORT": "5432",
     }
 }
 # if using the postgres db you may have to do a pip3 install psycopg2-binary
