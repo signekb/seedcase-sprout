@@ -87,9 +87,9 @@
     "pk": 6,
     "fields": {
       "tables": 1,
-      "extracted_name": "GENDER",
-      "machine_readable_name": "gender",
-      "display_name": "GENDER",
+      "extracted_name": "SEX",
+      "machine_readable_name": "sex",
+      "display_name": "SEX",
       "description": "Patient's sex. F=female, M=male. Doesn't include missing values.",
       "data_type": 2,
       "allow_missing_value": true,
