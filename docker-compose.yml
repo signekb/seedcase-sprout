@@ -6,9 +6,9 @@ services:
     volumes:
       - persistent_storage:/code/persistent_storage
     environment:
-      - DATABASE_URL=postgres://primary:Create20221014@database:5432/SproutData
-  database:
-    container_name: seedcase_sprout
+      - DATABASE_URL='postgres://postgres:@postgres:5432/SproutData'
+  postgres:
+    container_name: postgres
     image: 'postgres'
     restart: always
     ports:
