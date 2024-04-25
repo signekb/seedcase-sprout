@@ -7,10 +7,9 @@ from sprout.views.projects_id_metadata_create_4 import projects_id_metadata_crea
 
 
 def projects_id_metadata_create(
-    request: HttpRequest
+    request: HttpRequest,
 ) -> HttpResponse | HttpResponseRedirect:
     """Renders page for creating metadata for data."""
-
     table_id = int(request.GET["table_id"]) if "table_id" in request.GET else None
 
     # Step 2

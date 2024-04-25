@@ -4,24 +4,15 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
 from sprout.models import Columns, Tables
-from sprout.views.projects_id_metadata_create_4 import create_form
 from sprout.views.projects_id_metadata_create_helper import create_stepper_url
-from sprout.views.projects_id_metadata_id_update import create_sample_of_unique_values
+from sprout.views.projects_id_metadata_id_update import (
+    create_form,
+    create_sample_of_unique_values,
+)
 
 
 def projects_id_metadata_create_3(request: HttpRequest, table_id: int) -> HttpResponse:
-    """Takes the data from Columns and displays the metadata to update.
-
-    The metadata can be updated and the result written back to the column metadata
-    database.
-
-    Args:
-        request: The HTTP request sent from the server (by the user).
-        table_id: The ``table_id`` from Tables.
-
-    Returns:
-        HttpResponse: A response given back to the server.
-    """
+    """Takes the data from Columns and displays the metadata to update."""
     tables = get_object_or_404(Tables, id=table_id)
     columns_metadata = Columns.objects.select_related("data_type").filter(tables=tables)
     data_sample = create_sample_of_unique_values(tables.id)
