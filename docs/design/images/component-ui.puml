@@ -7,7 +7,7 @@
 Container(management, "Downstream management")
 Container(auth, "Authentication")
 
-Container_Boundary(ui, "Web interface") {
+Container_Boundary(ui, "User interface") {
   Component(page_login, "Login page", $descr="To give authorized users access to specific pages of a project")
 
   Component(page_project_create, "Create new project page", $descr="Create a new project to store data")

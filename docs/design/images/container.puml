@@ -8,7 +8,7 @@ Person(user_admin, "Project admin")
 Person(user_owner, "Project owner")
 
 System_Boundary(seedcase, "Seedcase Sprout") {
-  Container(ui, "Web interface", "HTML, CSS, JavaScript")
+  Container(ui, "User interface", "HTML, CSS, JavaScript")
   Container(projects, "Project management", "Python, Django, SQLite",  $descr="Create projects, manage existing ones")
   Container(data, "Data management", "Python, Django", $descr="Run checks, process data, send to database")
   ' Authentication inside or outside?

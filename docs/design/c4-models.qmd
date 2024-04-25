@@ -9,22 +9,22 @@ levels of abstraction: Context, Containers, Components, and Code. The
 last level is rarely used nor recommended for most software architecture
 since it is used to visualize a high degree of detail that most projects
 don't need. Below is the diagrams for the Context, Containers, and
-Components (which has three diagrams).
+Components (which includes three diagrams).
 
 ::: panel-tabset
 ## Context
 
-The Context model is mainly used to show the users and any external
-systems that interact with Sprout.
+The Context model shows the users and any external
+systems that interact with Sprout. This includes the three user roles *data contributor*, *project admin* and *project owner* described in the [users](users.qmd) post.
 
 ![C4 Context diagram showing very basic overview of Sprout and its
 intended users.](images/context.png)
 
 ## Container
 
-The Container model is used to show larger parts of a system, what they
-are responsible for and how they interact with each other. It also shows
-technology choices for each Container.
+The Container model shows the larger parts of the system, what they
+are responsible for, and how they interact with each other. It also shows
+the technology choices for each Container.
 
 ![C4 Container diagram showing larger functional parts of Sprout and
 their connections.](images/container.png)
@@ -34,10 +34,12 @@ their connections.](images/container.png)
 The Component model offers a more detailed view of the system into what
 the smaller parts are that make up an individual Container and that
 allow it to fulfill its responsibilities. There are three diagrams for
-the Components: the user interface, the server or internal management,
+the Components: the user interface, the (internal) management,
 and the databases and storage.
 
 ### User interface
+
+This diagram shows the pages of the user interface in the user interface container. In addition, it shows which user roles that can access them. Outside the container is the authentication container and the downstream management container. The authentication container is needed to authenticate users and their access. 
 
 ![C4 Component diagram showing the parts that make up the user interface
 Containers.](images/component-ui.png)
@@ -47,7 +49,7 @@ Containers.](images/component-ui.png)
 ![C4 Component diagram showing the parts that make up the management
 Containers.](images/component-management.png)
 
-### Databases
+### Databases and storage
 
 ![C4 Component diagram showing the parts that make up the database and
 storage Containers.](images/component-backend.png)

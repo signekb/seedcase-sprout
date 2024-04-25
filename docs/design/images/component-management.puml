@@ -6,7 +6,7 @@
 ' C4 Component diagram for the various management components
 LAYOUT_LEFT_RIGHT()
 
-Container(ui, "Web interface")
+Container(ui, "User interface")
 ContainerDb(storage, "Data and metadata storage")
 
 Container_Boundary(management, "All management containers") {
