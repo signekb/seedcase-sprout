@@ -3,39 +3,35 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Seedcase Sprout: Data Import</title>
+    <title>Seedcase Sprout</title>
     <link rel="icon" type="image/x-icon" href="{% static 'images/logo.png' %}" />
     <!-- beercss framework is added -->
-    <link href="https://cdn.jsdelivr.net/npm/beercss@3.4.11/dist/cdn/beer.min.css" rel="stylesheet" />
-    <script type="module" src="https://cdn.jsdelivr.net/npm/beercss@3.4.11/dist/cdn/beer.min.js"></script>
-
+    <link href="https://cdn.jsdelivr.net/npm/beercss@3.4.11/dist/cdn/beer.min.css"
+          rel="stylesheet" />
+    <script type="module"
+            src="https://cdn.jsdelivr.net/npm/beercss@3.4.11/dist/cdn/beer.min.js"></script>
     <!-- Global css -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
     <link rel="stylesheet" href="{% static 'css/file-drop-zone.css' %}" />
     <link rel="stylesheet" href="{% static 'css/table.css' %}" />
-
+    <link rel="stylesheet" href="{% static 'css/card.css' %}" />
   </head>
   <body>
-    <header class="fill app-bar-image"
-            style="background-image: url('{% static 'images/background_mirrored.png' %}')">
-      <nav>
+    <header class="fill app-bar-image">
+      <nav class="center-align">
         <button class="transparent circle large">
           <i>menu</i>
         </button>
-        <h5 class="max center-align">
-          <a href="{% url 'projects-id-metadata-view' %}">
-            <img class="responsive" alt="logo" src="{% static 'images/logo.svg' %}" />
-          </a>
-        </h5>
+        <a href="{% url 'projects-id-metadata-view' %}" class="max">
+          <img alt="logo" src="{% static 'images/logo.svg' %}" />
+        </a>
         <button class="transparent circle large">
           <i>account_circle</i>
         </button>
       </nav>
     </header>
     <main class="responsive height-90-pct">
-      {% block content %}
-
-      {% endblock %}
+      {% block content %}{% endblock %}
     </main>
   </body>
 </html>

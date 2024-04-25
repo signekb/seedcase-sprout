@@ -5,7 +5,9 @@
 {% block content %}
   <h2 style="margin-bottom: 20px">
     Headers for {{ tables.name }}
-    <button class="circle small fill" data-ui="#help-ext_name"><i>question_mark</i></button>
+    <button class="circle small" data-ui="#help-ext_name">
+      <i>question_mark</i>
+    </button>
   </h2>
   <p>This is what we learnt about your data</p>
   <p>Please look through the extracted information about your data and fill in the missing fields</p>
@@ -48,7 +50,7 @@
     <div class="row wrap">
       {% for column in columns %}
         <!-- CARD -->
-        <article class="row" style="border: 1px solid gray; border-radius: 12px; width: 23%; align-items: start; padding-top: 0">
+        <article class="row card">
           <!-- OVERLAY (when marked as excluded) -->
           <div hidden id="overlay_{{ column.id }}" style="position: absolute; width: 100%; height: 100%">
             <div style="position: relative; width: 100%; height: 100%; left: -16px; z-index: 10; background: rgba(0, 0, 0, 0.75)">

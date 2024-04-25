@@ -1,21 +1,21 @@
 .table-content {
   margin: 25px 0;
   padding: 10px;
-  background-color: var(--surface-variant);
-  box-shadow: var(--shadow);
+  background-color: var(--surface-container-lowest);
+  color: var(--on-surface-container-lowest);
+  box-shadow: var(--elevate1);
   border-radius: 10px !important;
   border-spacing: 0 5px;
 }
 .table-header {
   display: flex;
   flex-direction: row;
-  color: var(--secondary);
-  background-color: white;
 }
 .table-row {
   display: flex;
   flex-direction: row;
-  background-color: rgb(242, 242, 242);
+  background-color: var(--surface);
+  color: var(--on-surface);
   border-radius: 7px;
   margin-top: 10px;
   flex-wrap: wrap;
@@ -37,11 +37,11 @@
 }
 .selected,
 .selected:hover {
-  background-color: var(--primary);
+  background-color: var(--secondary);
 }
 
 .expanded-table {
-  background-color: white;
+  background-color: var(--surface-container-lowest);
   border-radius: 5px;
 }
 
@@ -49,7 +49,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  border-bottom: 1px solid var(--tertiary-outline);
+  border-bottom: 1px solid var(--outline-third-variant);
   border-radius: 0;
 }
 
@@ -59,17 +59,13 @@
 }
 
 .expanded-table-head {
-  background-color: var(--primary-container);
-  border-bottom: 1px solid var(--primary);
+  background-color: var(--surface-bright);
+  border-bottom: 2px solid var(--outline-second-variant);
   display: flex;
   border-radius: 5px 5px 0 0;
   font-weight: bold;
 }
 
-.metadata_columns_table tbody tr td {
-  background-color: white;
-  border-bottom: 1px solid var(--tertiary-outline);
-}
 .more-button-container {
   display: flex;
   justify-content: end;
