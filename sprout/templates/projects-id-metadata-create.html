@@ -24,7 +24,12 @@
     <div>
       <div class="step-header">
         <div>1. Name and description</div>
-        <i>expand_more</i>
+        {% if not request.GET.step or request.GET.step == '1' %}
+          <i>expand_more</i>
+        {% else %}
+          <i>expand_less</i>
+        {% endif  %}
+
       </div>
     </div>
     {% if not request.GET.step %}
@@ -38,7 +43,11 @@
     <div >
       <div class="step-header">
         <div>2. File to base columns on</div>
-        <i>expand_more</i>
+        {% if request.GET.step == '2' %}
+          <i>expand_more</i>
+        {% else %}
+          <i>expand_less</i>
+        {% endif  %}
       </div>
     </div>
     {% if request.GET.step == '2' %}
@@ -51,7 +60,11 @@
     <div>
       <div class="step-header">
         <div>3. Columns</div>
-        <i>expand_more</i>
+        {% if request.GET.step == '3' %}
+          <i>expand_more</i>
+        {% else %}
+          <i>expand_less</i>
+        {% endif  %}
       </div>
     </div>
     {% if request.GET.step == '3' %}
@@ -63,11 +76,15 @@
     <div >
       <div class="step-header">
         <div>4. Review and submit</div>
-        <i>expand_more</i>
+        {% if request.GET.step == '4' %}
+          <i>expand_more</i>
+        {% else %}
+          <i>expand_less</i>
+        {% endif  %}
       </div>
     </div>
     {% if request.GET.step == '4' %}
-      <div>STEP 4</div>
+      <div>Metadata was created! Yay!</div>
     {% endif %}
   </div>
   <!-- The file drop zone is included -->
