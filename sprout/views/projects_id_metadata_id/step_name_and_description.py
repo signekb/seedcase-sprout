@@ -6,20 +6,20 @@ from sprout.views.projects_id_metadata_id.helpers import create_stepper_url
 
 
 def step_name_and_description(
-    request: HttpRequest, table_id: int
+    request: HttpRequest, table_id: int | None
 ) -> HttpResponse | HttpResponseRedirect:
     """Renders page for creating name and description for metadata."""
-    form_step_1 = TablesForm(data=None)
+    form = TablesForm(data=None)
 
     if request.method == "POST":
-        form_step_1 = TablesForm(data=request.POST)
-        if form_step_1.is_valid():
-            form_step_1.instance.id = table_id
-            table = form_step_1.save()
+        form = TablesForm(data=request.POST)
+        if form.is_valid():
+            form.instance.id = table_id
+            table = form.save()
 
             return redirect(create_stepper_url(2, table.id))
 
     context = {
-        "form_step_1": form_step_1,
+        "form": form,
     }
     return render(request, "projects_id_metadata_id/create.html", context)
