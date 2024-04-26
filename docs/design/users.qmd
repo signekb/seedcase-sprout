@@ -6,44 +6,46 @@ title: Target users
 
 ## Data and action types
 
-We use the CRUD framework when documenting interactions
-between users and data. There are three types of data in Seedcase Sprout,
-Research data, data about Research data (metadata), and data about Users.
+We use the CRUD framework when documenting interactions between users
+and data. There are three types of data in Seedcase Sprout, Research
+data, data about Research data (metadata), and data about Users.
 
 The research data is the data that a user of Seedcase Sprout wish to
 store, this can be a variety of formats, although Sprout - in its
-current iteration - will handle only tabular data. The metadata is the data the a user creates in preparation for storing
-research data. It is expected that almost all users of Seedcase Sprout
-will have access to create research data, but only some will have the
-option to create, update, and/or delete metadata and research data.
+current iteration - will handle only tabular data. The metadata is the
+data the a user creates in preparation for storing research data. It is
+expected that almost all users of Seedcase Sprout will have access to
+create research data, but only some will have the option to create,
+update, and/or delete metadata and research data.
 
 We believe that it is important to build a system which offers the
 greatest amount of flexibility for the users, which also means that it
-will be possible for a high level user to be able to customize access for their own
-users. We do at the same time acknowledge that not all teams will want
-to set their own user groups up, which is why we aim to offer a set of
-'ready-made' user groups as described below.
-
+will be possible for a high level user to be able to customize access
+for their own users. We do at the same time acknowledge that not all
+teams will want to set their own user groups up, which is why we aim to
+offer a set of 'ready-made' user groups as described below.
 
 ## User types
 
 Sprout is built for the target users described below. It is important to
-note that it is possible for an individual to have more than one role. If they are to do everything we would expect them to have the role of Project Owner.
+note that it is possible for an individual to have more than one role.
+If they are to do everything we would expect them to have the role of
+Project Owner.
 
-| Action | Type of data | DC | DMA  | PO | 
-|--------|---------------------|-----|-----|-----|
-| Create | Research Data       | X   | X   | X   |
-|        | Metadata            |     | X   | X   | 
-|        | User Data           |     |     | X   | 
-| Read   | Research Data       | ?   | X   | X   | 
-|        | Metadata            |     | ?   | X   | 
-|        | User Data           |     | X   | X   | 
-| Update | Research Data       |     | X   | X   | 
-|        | Metadata            |     | X   | X   | 
-|        | User Data           |     |     | X   | 
-| Delete | Research Data       |     | ?   | X   | 
-|        | Metadata            |     | ?   | X   | 
-|        | User Data           |     |     | X   | 
+| Action | Type of data  | DC  | DMA | PO  |
+|--------|---------------|-----|-----|-----|
+| Create | Research Data | X   | X   | X   |
+|        | Metadata      |     | X   | X   |
+|        | User Data     |     |     | X   |
+| Read   | Research Data | ?   | X   | X   |
+|        | Metadata      |     | ?   | X   |
+|        | User Data     |     | X   | X   |
+| Update | Research Data |     | X   | X   |
+|        | Metadata      |     | X   | X   |
+|        | User Data     |     |     | X   |
+| Delete | Research Data |     | ?   | X   |
+|        | Metadata      |     | ?   | X   |
+|        | User Data     |     |     | X   |
 
 <!--TODO Talk about the ? items-->
 
@@ -60,8 +62,8 @@ These users will:
 -   Log in and set up metadata structures.
 -   Complete metadata (in particular the description of individual data
     fields).
--   Be on call for potential data issues that the Data contributors (described below)
-    can't resolve.
+-   Be on call for potential data issues that the Data contributors
+    (described below) can't resolve.
 
 ### Data contributors (DC)
 
@@ -72,22 +74,23 @@ personnel. They are the people responsible for inputting data into the
 database managed by Sprout.
 
 These users will upload data in a format determined by the metadata
-defined by the Data management administrator(s). These
-users will also have access to forms where data can be entered
-directly (eg. during a clinic consultation), or upload other types of
-data (eg. scans or images) when these features are added to Sprout.
+defined by the Data management administrator(s). These users will also
+have access to forms where data can be entered directly (eg. during a
+clinic consultation), or upload other types of data (eg. scans or
+images) when these features are added to Sprout.
 
 These users will be able to:
 
 -   Log in and upload standardised and routine data through a web portal
-    into pre-defined metadata (i.e., table structures) set up by the Data management administrator(s) or Project owner(s).
+    into pre-defined metadata (i.e., table structures) set up by the
+    Data management administrator(s) or Project owner(s).
 
 ### Project owner (PO)
 
-The Project owner has access to everything in Sprout and can do all four actions to all types of data in Sprout. 
-Often this will be the same person that has set up the instance of
-Seedcase Sprout. This will
-also be the person who in later versions of the Seedcase ecosystem will
-have access to the backend of Seedcase and be able to grant access
-directly to the database, should the team/organisation have a database
+The Project owner has access to everything in Sprout and can do all four
+actions to all types of data in Sprout. Often this will be the same
+person that has set up the instance of Seedcase Sprout. This will also
+be the person who in later versions of the Seedcase ecosystem will have
+access to the backend of Seedcase and be able to grant access directly
+to the database, should the team/organisation have a database
 administrator.
