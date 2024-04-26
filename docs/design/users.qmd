@@ -4,62 +4,52 @@ title: Target users
 
 {{< include ../_wip.qmd >}}
 
-## Data and Action types
+## Data and action types
 
-We have chosen to use the CRUD framework when documenting interactions
-between users and data. There are two types of data in Seedcase Sprout,
-Research data and data about Research data (metadata).
+We use the CRUD framework when documenting interactions
+between users and data. There are three types of data in Seedcase Sprout,
+Research data, data about Research data (metadata), and data about Users.
 
 The research data is the data that a user of Seedcase Sprout wish to
 store, this can be a variety of formats, although Sprout - in its
-current iteration - will handle only tabular data. The metadata (data
-about data), it the data the a user creates in preparation for storing
+current iteration - will handle only tabular data. The metadata is the data the a user creates in preparation for storing
 research data. It is expected that almost all users of Seedcase Sprout
 will have access to create research data, but only some will have the
 option to create, update, and/or delete metadata and research data.
 
 We believe that it is important to build a system which offers the
 greatest amount of flexibility for the users, which also means that it
-will be possible for a high level user (referred to below as Users
-Access Administrators) to be able to customize access for their own
+will be possible for a high level user to be able to customize access for their own
 users. We do at the same time acknowledge that not all teams will want
 to set their own user groups up, which is why we aim to offer a set of
 'ready-made' user groups as described below.
 
-Some data will need to be manually processed and cleaned by the users
-before being inputted. Sprout will not clean the data itself, but it
-will highlight which items violate the pre-defined data types (where for
-instance TBC has been entered instead of a date). This type of data
-entry errors need human attention to fix before they can correctly be
-put into Sprout.
 
 ## User types
 
 Sprout is built for the target users described below. It is important to
-note that it is possible for an individual to have more than one role,
-if they are to do everything we would expect them to have the role of
-Super User/Data Owner.
+note that it is possible for an individual to have more than one role. If they are to do everything we would expect them to have the role of Project Owner.
 
-| Action | Type of information | DMA | DC  | PO | 
+| Action | Type of data | DC | DMA  | PO | 
 |--------|---------------------|-----|-----|-----|
 | Create | Research Data       | X   | X   | X   |
-|        | Metadata            | X   |     | X   | 
+|        | Metadata            |     | X   | X   | 
 |        | User Data           |     |     | X   | 
-| Read   | Research Data       | X   | ?   | X   | 
-|        | Metadata            | ?   |     | X   | 
-|        | User Data           | X   |     | X   | 
-| Update | Research Data       | X   |     | X   | 
-|        | Metadata            | X   |     | X   | 
+| Read   | Research Data       | ?   | X   | X   | 
+|        | Metadata            |     | ?   | X   | 
+|        | User Data           |     | X   | X   | 
+| Update | Research Data       |     | X   | X   | 
+|        | Metadata            |     | X   | X   | 
 |        | User Data           |     |     | X   | 
-| Delete | Research Data       | ?   |     | X   | 
-|        | Metadata            | ?   |     | X   | 
+| Delete | Research Data       |     | ?   | X   | 
+|        | Metadata            |     | ?   | X   | 
 |        | User Data           |     |     | X   | 
 
 <!--TODO Talk about the ? items-->
 
-### Data Management Administrators (DMA)
+### Data management administrators (DMA)
 
-Data Management Administrators are responsible for the database itself
+Data management administrators are responsible for the database itself
 and the quality of the data that gets entered into Sprout. We assume
 that they will be people familiar with the research data. They are the
 people primarily responsible for dealing with creating and updating
@@ -67,13 +57,13 @@ metadata.
 
 These users will:
 
--   Log in and set up table structures.
+-   Log in and set up metadata structures.
 -   Complete metadata (in particular the description of individual data
     fields).
--   Be on call for potential data issues that the people uploading data
+-   Be on call for potential data issues that the Data contributors (described below)
     can't resolve.
 
-### Data Contributors (DC)
+### Data contributors (DC)
 
 Data contributors will be uploading or inputting collected data into
 Sprout. We assume that these users are from authorized research or data
