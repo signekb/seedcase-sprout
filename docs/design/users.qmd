@@ -69,20 +69,20 @@ Data contributors will be uploading or inputting collected data into
 Sprout. We assume that these users are from authorized research or data
 collection centers and are researchers, technicians, or other research
 personnel. They are the people responsible for inputting data into the
-database of a specific Data Resource managed by Sprout.
+database managed by Sprout.
 
 These users will upload data in a format determined by the metadata
-defined by the Data Management Admin. In time it is expected that these
-users will also have potential access to forms where data can be entered
+defined by the Data management administrator(s). These
+users will also have access to forms where data can be entered
 directly (eg. during a clinic consultation), or upload other types of
-data (eg. scans or images).
+data (eg. scans or images) when these features are added to Sprout.
 
 These users will be able to:
 
 -   Log in and upload standardised and routine data through a web portal
-    into pre-defined table structures set up by the DMA or SU.
+    into pre-defined metadata (i.e., table structures) set up by the Data management administrator(s) or Project owner(s).
 
-### Project Owner (PO)
+### Project owner (PO)
 
 The Project Owner is the person who can do everything in the system.
 Often this will be the same person that has set up the instance of
