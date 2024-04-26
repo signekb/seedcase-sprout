@@ -110,16 +110,6 @@ sqlite_url = "sqlite:///db.sqlite3"
 database_url = os.environ.get("DATABASE_URL", sqlite_url)
 
 DATABASES = {"default": dj_database_url.parse(database_url, conn_max_age=600)}
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "SproutData",
-        "USER": "primary",
-        "PASSWORD": "Create20221014",
-        "HOST": "localhost",
-        "PORT": "5432",
-    }
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

@@ -25,7 +25,6 @@ RUN poetry run python manage.py makemigrations --no-input
 RUN poetry run python manage.py collectstatic --no-input
 
 EXPOSE 8000
-EXPOSE 5432
 
 # The entrypoint executes two things:
 # - "python manage.py migrate". The migrations are applied to the database
