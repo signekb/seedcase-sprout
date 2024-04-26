@@ -8,9 +8,23 @@
     <i>question_mark</i>
   </button>
 </h2>
-<p>This is what we learnt about your data</p>
-<p>Please look through the extracted information about your data and fill in the missing fields</p>
-<button onclick="toggle(this)">Show Table View</button>
+
+
+<div class="row ">
+  <div>
+    <p>This is what we learnt about your data</p>
+    <p>Please look through the extracted information about your data and fill in the missing fields</p>
+  </div>
+  <div class="max"></div>
+  <nav class="no-space">
+    <button class="border left-round fill" onclick="toggle(this)">
+      <span>Card view</span>
+    </button>
+    <button class="border right-round" onclick="toggle(this)">
+      <span>Table view</span>
+    </button>
+  </nav>
+</div>
 
 <!-- TABLE VIEW -->
 <form id="metadata_view_table" hidden method="post" action="">
@@ -38,7 +52,7 @@
       {% endfor %}
     </tbody>
   </table>
-  <div class="row" style="justify-content: center">
+  <div class="row right-align" >
     <button type="submit" tabindex="10">Continue</button>
   </div>
 </form>
@@ -101,7 +115,7 @@
     {% endfor %}
   </div>
 
-  <div class="row" style="justify-content: center">
+  <div class="row right-align">
     <button type="submit" tabindex="10">Continue</button>
   </div>
 </form>
@@ -144,15 +158,18 @@
     let element_table = document.getElementById('metadata_view_table')
     let element_grid = document.getElementById('metadata_view_grid')
 
-    if (element_table.hidden) {
+    document.querySelector("button.fill").classList.remove("fill")
+
+    button.classList.add("fill")
+    if (button.innerText.includes("Table")) {
       element_table.hidden = false
       element_grid.hidden = true
-      button.innerText = 'Show Grid View'
+
       moveInputValues(element_grid, element_table)
     } else {
       element_grid.hidden = false
       element_table.hidden = true
-      button.innerText = 'Show Table View'
+
       moveInputValues(element_table, element_grid)
     }
   }

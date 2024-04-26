@@ -8,13 +8,25 @@
     }
     .step-header {
       display: flex;
-      background-color: var(--primary);
-      color: var(--on-primary);
+      color: black;
+      font-weight: bold;
+      background-color: var(--outline-second-variant);
       justify-content: space-between;
       align-items: center;
       border-radius: 10px;
       padding: 5px 10px;
     }
+
+    div.selected-step {
+      background-color: var(--primary);
+    }
+
+    {# The expand icons is displayed or hidden based on selected-step class #}
+    div i.more { display: none; }
+    div.selected-step i.more { display: block; }
+    div i.less { display: block; }
+    div.selected-step i.less { display: none; }
+
   </style>
   <h4>CREATE NEW METADATA</h4>
   <p>To create metadata (i.e., a space for your data), please go through the following steps</p>
@@ -22,16 +34,13 @@
   <!-- STEP 1 -->
   <div class="margin-bottom">
     <div>
-      <div class="step-header">
+      <div class="step-header {% if not request.GET.step or request.GET.step == '1' %}selected-step{% endif  %}">
         <div>1. Name and description</div>
-        {% if not request.GET.step or request.GET.step == '1' %}
-          <i>expand_more</i>
-        {% else %}
-          <i>expand_less</i>
-        {% endif  %}
+        <i class="more">expand_more</i>
+        <i class="less">expand_less</i>
       </div>
     </div>
-    {% if not request.GET.step %}
+    {% if not request.GET.step or request.GET.step == '1' %}
       {% include 'projects_id_metadata_id/step-name-and-description.html' %}
     {% endif %}
 
@@ -40,13 +49,10 @@
   <!-- STEP 2 -->
   <div class="margin-bottom">
     <div >
-      <div class="step-header">
+      <div class="step-header {% if request.GET.step == '2' %}selected-step{% endif  %}">
         <div>2. File to base columns on</div>
-        {% if request.GET.step == '2' %}
-          <i>expand_more</i>
-        {% else %}
-          <i>expand_less</i>
-        {% endif  %}
+        <i class="more">expand_more</i>
+        <i class="less">expand_less</i>
       </div>
     </div>
     {% if request.GET.step == '2' %}
@@ -57,13 +63,10 @@
   <!-- STEP 3 -->
   <div class="margin-bottom">
     <div>
-      <div class="step-header">
+      <div class="step-header {% if request.GET.step == '3' %}selected-step{% endif  %}">
         <div>3. Columns</div>
-        {% if request.GET.step == '3' %}
-          <i>expand_more</i>
-        {% else %}
-          <i>expand_less</i>
-        {% endif  %}
+        <i class="more">expand_more</i>
+        <i class="less">expand_less</i>
       </div>
     </div>
     {% if request.GET.step == '3' %}
@@ -73,13 +76,10 @@
 
   <div class="margin-bottom">
     <div >
-      <div class="step-header">
+      <div class="step-header {% if request.GET.step == '4' %}selected-step{% endif  %}">
         <div>4. Review and submit</div>
-        {% if request.GET.step == '4' %}
-          <i>expand_more</i>
-        {% else %}
-          <i>expand_less</i>
-        {% endif  %}
+        <i class="more">expand_more</i>
+        <i class="less">expand_less</i>
       </div>
     </div>
     {% if request.GET.step == '4' %}
@@ -106,4 +106,6 @@
       </nav>
     </dialog>
   {% endif %}
+
 {% endblock %}
+

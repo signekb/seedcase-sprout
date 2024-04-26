@@ -29,7 +29,7 @@
     </div>
   </div>
 
-  <!--   
+  <!--
   File input field. We want it to look like a 'file dropzone', but input
   fields are hard to style. Instead, a div with id=drag_zone is styled and the file
   input is hidden. When the div is clicked it, we programmatically click the input field
@@ -40,7 +40,7 @@
   <input hidden type="file" id="uploaded_file" name="uploaded_file" onchange="selectedFiles(event.target.files)" accept="text/csv" />
   <p class="grey-text">Supported formats: .csv</p>
 
-  <div class="row center-align">
+  <div class="row right-align">
     <button disabled id="submit_button" type="submit" value="OK" onclick="showDialog()">Upload</button>
   </div>
 </form>
@@ -55,13 +55,13 @@
   function query(id) {
     return document.querySelector('#' + id)
   }
-  
+
   const highlightClass = 'file-upload-box-highlight'
   const dragZone = query('drag_zone')
-  
+
   function selectedFiles(files) {
     const isFilesListEmpty = files.length === 0
-  
+
     query('uploaded_file').files = files
     query('submit_button').disabled = isFilesListEmpty
     query('drag_zone_empty').hidden = !isFilesListEmpty
@@ -69,7 +69,7 @@
     query('drag_zone_file_name').innerText = isFilesListEmpty ? '' : files[0].name
     query('drag_zone_file_size').innerText = isFilesListEmpty ? '' : parseInt(files[0].size / 1000000.0 + '') + ' MB'
   }
-  
+
   dragZone.addEventListener(
     'drop',
     (e) => {
@@ -79,7 +79,7 @@
     },
     false
   )
-  
+
   dragZone.addEventListener(
     'dragleave',
     (e) => {
@@ -88,7 +88,7 @@
     },
     false
   )
-  
+
   dragZone.addEventListener(
     'dragenter',
     (e) => {
@@ -97,7 +97,7 @@
     },
     false
   )
-  
+
   dragZone.addEventListener(
     'dragover',
     (e) => {
@@ -106,17 +106,17 @@
     },
     false
   )
-  
+
   function showDialog() {
     const dialog = document.getElementById('progress-dialog')
     dialog.show()
   }
-  
+
   // This will disable the bfcache (back-forward cache) in firefox to ensure the page
   // is reloaded, when user clicks the 'back button' in the browser
   window.addEventListener('unload', function () {})
   window.addEventListener('beforeunload', function () {})
-  
+
   // openFileBrowserDialog(). This method opens a file explorer on the client computer
   // by faking a click on the file input field with the id 'uploaded_file'.
   function openFileBrowserDialog() {
