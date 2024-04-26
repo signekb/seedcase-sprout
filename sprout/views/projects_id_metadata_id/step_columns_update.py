@@ -1,14 +1,13 @@
 """File with column_review view."""
+from typing import Dict, List
 
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
-from sprout.models import Columns, Tables
+from sprout.csv.csv_reader import read_csv_file
+from sprout.forms import ColumnsForm
+from sprout.models import Columns, Tables, Files
 from sprout.views.projects_id_metadata_id.helpers import create_stepper_url
-from sprout.views.projects_id_metadata_id_update import (
-    create_form,
-    create_sample_of_unique_values,
-)
 
 
 def step_columns_update(request: HttpRequest, table_id: int) -> HttpResponse:
@@ -50,4 +49,39 @@ def step_columns_update(request: HttpRequest, table_id: int) -> HttpResponse:
             "tables": tables,
             "columns": columns,
         },
+    )
+
+def create_form(request: HttpRequest, column: Columns) -> ColumnsForm:
+    """Create form based on request can Columns.
+
+    Args:
+        request: The HttpRequest sent.
+        column: Django model data from Columns.
+
+    Returns:
+        Outputs the ColumnsForm Django model object.
+    """
+    if request.method == "POST":
+        return ColumnsForm(request.POST, instance=column, prefix=str(column.id))
+    else:
+        return ColumnsForm(instance=column, prefix=str(column.id))
+
+
+def create_sample_of_unique_values(tables_id: int) -> Dict[str, List]:
+    """Create sample of unique values based on the uploaded file for a table.
+
+    The unique values are based on the first 500 rows.
+
+    Args:
+        tables_id: The id of the table
+
+    Returns:
+        Dict[str, List]: Dictionary of unique sample values grouped by column name.
+    """
+    file = Files.objects.get(tables_id=tables_id)
+    df = read_csv_file(file.server_file_path, 500)
+
+    # Find unique values, and limit to max 5 different
+    return dict(
+        [(s.name, s.unique(maintain_order=True).limit(5).to_list()) for s in df]
     )
