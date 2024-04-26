@@ -84,11 +84,10 @@ These users will be able to:
 
 ### Project owner (PO)
 
-The Project Owner is the person who can do everything in the system.
+The Project owner has access to everything in Sprout and can do all four actions to all types of data in Sprout. 
 Often this will be the same person that has set up the instance of
-Seedcase Sprout, and as can be seen in the table above they have access
-to all four action types for all three types of information. This will
-also be the person who in later versions of Seedcase will potentially
+Seedcase Sprout. This will
+also be the person who in later versions of the Seedcase ecosystem will
 have access to the backend of Seedcase and be able to grant access
 directly to the database, should the team/organisation have a database
 administrator.
