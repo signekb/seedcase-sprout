@@ -2,10 +2,10 @@ from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 
 from sprout.forms import TablesForm
-from sprout.views.projects_id_metadata_create_helper import create_stepper_url
+from sprout.views.projects_id_metadata_id.helpers import create_stepper_url
 
 
-def projects_id_metadata_create_1(
+def step_name_and_description(
     request: HttpRequest, table_id: int
 ) -> HttpResponse | HttpResponseRedirect:
     """Renders page for creating name and description for metadata."""
@@ -22,4 +22,4 @@ def projects_id_metadata_create_1(
     context = {
         "form_step_1": form_step_1,
     }
-    return render(request, "projects-id-metadata-create.html", context)
+    return render(request, "projects_id_metadata_id/create.html", context)

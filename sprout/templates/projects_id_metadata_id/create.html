@@ -29,11 +29,10 @@
         {% else %}
           <i>expand_less</i>
         {% endif  %}
-
       </div>
     </div>
     {% if not request.GET.step %}
-      {% include 'includes/metadata-create-name-and-description.html' %}
+      {% include 'projects_id_metadata_id/step-name-and-description.html' %}
     {% endif %}
 
   </div>
@@ -68,7 +67,7 @@
       </div>
     </div>
     {% if request.GET.step == '3' %}
-      {% include 'projects-id-metadata-id-update.html' %}
+      {% include 'projects_id_metadata_id/step-columns-update.html' %}
     {% endif %}
   </div>
 

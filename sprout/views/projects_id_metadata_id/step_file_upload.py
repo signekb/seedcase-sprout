@@ -5,10 +5,10 @@ from django.shortcuts import redirect, render
 
 from sprout.csv.csv_reader import read_csv_file
 from sprout.models import Columns, Files, Tables
-from sprout.views.projects_id_metadata_create_helper import create_stepper_url
+from sprout.views.projects_id_metadata_id.helpers import create_stepper_url
 
 
-def projects_id_metadata_create_2(
+def step_file_upload(
     request: HttpRequest, table_id: int
 ) -> HttpResponse | HttpResponseRedirect:
     """Renders page for creating metadata step 2 - upload data."""
@@ -72,7 +72,7 @@ def render_projects_id_metadata_create(
         "table_name": tables.name,
         "upload_error": upload_error,
     }
-    return render(request, "projects-id-metadata-create.html", context)
+    return render(request, "projects_id_metadata_id/create.html", context)
 
 
 def validate_csv_and_save_columns(table_id: int, file: Files) -> None:

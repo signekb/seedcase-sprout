@@ -4,14 +4,14 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
 from sprout.models import Columns, Tables
-from sprout.views.projects_id_metadata_create_helper import create_stepper_url
+from sprout.views.projects_id_metadata_id.helpers import create_stepper_url
 from sprout.views.projects_id_metadata_id_update import (
     create_form,
     create_sample_of_unique_values,
 )
 
 
-def projects_id_metadata_create_3(request: HttpRequest, table_id: int) -> HttpResponse:
+def step_columns_update(request: HttpRequest, table_id: int) -> HttpResponse:
     """Takes the data from Columns and displays the metadata to update."""
     tables = get_object_or_404(Tables, id=table_id)
     columns_metadata = Columns.objects.select_related("data_type").filter(tables=tables)
@@ -44,7 +44,7 @@ def projects_id_metadata_create_3(request: HttpRequest, table_id: int) -> HttpRe
 
     return render(
         request,
-        "projects-id-metadata-create.html",
+        "projects_id_metadata_id/create.html",
         {
             "forms": forms,
             "tables": tables,
