@@ -2,6 +2,26 @@
 
 :root {
   --font: "Rajdhani";
+  /* brand colour #003224 - the one below is a slightly lighter version of the brand colour */
+  --primary: #196440;
+  /* brand colour */
+  --on-primary: #48DC76;
+  --secondary: #C6F0D3;
+  --on-secondary: var(--primary);
+  --surface: #F2F2F2;
+  --on-surface: var(--primary);
+  --on-surface-variant: var(--on-primary);
+  --surface-bright: #F2FFF6;
+  --surface-container-lowest: white;
+  --on-surface-container-lowest: #6E6E6E;
+  --surface-container-low: var(--surface-container-lowest);
+  --surface-container-high: var(--primary-container);
+  --outline-variant: #48DC76;
+  --elevate1: 0 5px 10px rgba(0, 0, 0, 0.15);
+
+  /* custom variables*/
+  --outline-second-variant: #9BDEAF;
+  --outline-third-variant: #C6F0D3;
 }
 
 .height-90-pct {
@@ -35,31 +55,22 @@ dd {
   width: 85%;
 }
 
-.selectable:hover {
-  background-color: #ededed;
-  cursor: pointer;
-}
-.selected,
-.selected:hover,
-.metadata_columns_table {
-  background-color: #DCDFFF;
-}
-.selectable {
-  cursor: pointer
+button:not(.transparent),
+.button:not(.transparent) {
+  border: 1px solid var(--outline-variant);
+  color: var(--on-secondary);
+  background-color: var(--secondary);
 }
 
-thead tr {
-    background-color: #D9D9D9;
-  }
-
-thead tr th {
-  border-bottom: none;
+.app-bar-image {
+  background-repeat: auto;
+  background-position-y: center;
+  background-size: cover;
+  background-image: url('/static/images/background_mirrored.png');
 }
 
-.metadata_columns_table {
+nav img {
   padding: 10px;
-}
-
-.metadata_columns_table thead tr {
-  background-color: #ededed;
+  max-height: 65px;
+  width: auto;
 }
