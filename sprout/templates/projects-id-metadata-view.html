@@ -1,70 +1,66 @@
 {% extends 'includes/base.html' %}
 
 {% block content %}
-
   <!-- View all metadata -->
-  <table class="primary-table">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Date Created</th>
-        <th>Data Rows</th>
-        <th>Last Upload</th>
-        <th style="width: 5%"></th>
-      </tr>
-    </thead>
-    <tbody>
-    {% for metadata in existing_metadata %}
-        <tr class="selectable" id="{{ metadata.id }}" onclick="rowSelected(event.target.parentElement)">
-          <td>{{ metadata.name }}</td>
-          <td>{{ metadata.description }}</td>
-          <td>{{ metadata.created_at }}</td>
-          <td>{{ metadata.data_rows }}</td>
-          <td>{{ metadata.last_data_upload }}</td>
-          <td style="text-align: right">
-            <i id="expand_icon" onclick="iconSelected(event)">expand_less</i>
-          </td>
+  <div class="table-content">
+    <!-- TABLE HEADER -->
+    <div class="table-header">
+      <div class="table-cell">Name</div>
+      <div class="table-cell">Description</div>
+      <div class="table-cell">Date Created</div>
+      <div class="table-cell">Data Rows</div>
+      <div class="table-cell">Last Upload</div>
+      <div style="width: 5%"></div>
+    </div>
 
-        </tr>
-        <tr>
-        <!-- View metadata of all columns in the selected metadata -->
-          <td colspan="6"
-              class="metadata_columns_table"
-              hidden
-              id="{{ metadata.id }}">
-            <table class="secondary-table">
-            <thead>
-              <tr>
-                <th>Extracted column name</th>
-                <th>Machine-readable name</th>
-                <th>Display name</th>
-                <th>Data type</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody>
+    <!-- TABLE ROWS -->
+    {% for metadata in existing_metadata %}
+
+      <!-- TABLE ROW -->
+      <div id="{{ metadata.id }}" class="table-row" onclick="selectRow('{{ metadata.id }}')">
+        <div class="table-cell">{{ metadata.name }}</div>
+        <div class="table-cell">{{ metadata.description }}</div>
+        <div class="table-cell">{{ metadata.created_at }}</div>
+        <div class="table-cell">{{ metadata.data_rows }}</div>
+        <div class="table-cell">{{ metadata.last_data_upload }}</div>
+        <div class="table-cell-icon" onclick="selectRow('{{ metadata.id }}')">
+          <i id="expand_icon">expand_less</i>
+        </div>
+
+
+        <!-- EXPANDED CONTENT -->
+        <div hidden class="expanded-content" id="{{ metadata.id }}" onclick="event.stopPropagation()">
+          <div class="expanded-table">
+            <div class="expanded-table-head">
+              <div class="expanded-table-cell">Original Column Name</div>
+              <div class="expanded-table-cell">Display Name</div>
+              <div class="expanded-table-cell">Data Type</div>
+              <div class="expanded-table-cell">Description</div>
+            </div>
+            <div class="expanded-table-body">
               {% for column in metadata.columns_set.all %}
-                <tr {% if forloop.counter > 5 %}hidden{% endif %}>
-                    <td>{{ column.extracted_name }}</td>
-                    <td>{{ column.machine_readable_name }}</td>
-                    <td>{{ column.display_name }}</td>
-                    <td>{{ column.data_type }}</td>
-                    <td>{{ column.description }}</td>
-                  </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-          {% if metadata.columns_set.all|length > 5 %}
-            <button style="text-align:right" onclick="showMore(event.target)">Show more columns</button>
-          {% endif %}
-        </td>
-        </tr>
-      {% empty %}
-      <p>No existing metadata to show.</p>
+                <div class="expanded-table-row" {% if forloop.counter > 5 %}hidden{% endif %}>
+                  <div class="expanded-table-cell">{{ column.extracted_name }}</div>
+                  <div class="expanded-table-cell">{{ column.display_name }}</div>
+                  <div class="expanded-table-cell">{{ column.data_type }}</div>
+                  <div class="expanded-table-cell">{{ column.description }}</div>
+                </div>
+                {% endfor %}
+
+              {% if metadata.columns_set.all|length > 5 %}
+                <div class="more-button-container">
+                  <button class="border small-round" onclick="showMore(event.target)">Show more columns</button>
+                </div>
+
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
     {% endfor %}
-    </tbody>
-  </table>
+  </div>
+  <!-- Create metadata dialog -->
+  {% include 'includes/metadata-create-dialog.html' %}
 
   <!-- Three buttons create new metadata, edit existing metadata, or upload data to metadata -->
   <nav class="right-align">
@@ -80,79 +76,68 @@
     let edit_url = "{% url 'projects-id-metadata-id-update' table_id=0 %}"
     let upload_url = "{% url 'projects-id-metadata-id-data-update' table_id=0 %}"
 
-    function rowSelected(row) {
-      // Deselect all other rows
-      document.querySelectorAll('.selectable').forEach(function (otherRow) {
-        otherRow.classList.remove('selected')
-        otherRow.querySelector('#expand_icon').textContent = 'expand_less';
-      })
+    // This function selects a row in the parent table
+    function selectRow(selectedRowId) {
+      deselectAllRows()
 
-      // Add selected class
-      row.classList.add('selected')
+      const selectedRow = document.getElementById(selectedRowId);
+
+      // Add 'selected' class to clicked row
+      selectedRow.classList.add('selected')
+
+      // Show expanded content for clicked row
+      selectedRow.lastElementChild.hidden = false;
 
       // Update the href and disabled state of the edit and upload buttons based on row selection
-      document.querySelector('#edit-link').href = edit_url.replace('0', row.id)
+      document.querySelector('#edit-link').href = edit_url.replace('0', selectedRow.id)
       document.querySelector('#edit-link').removeAttribute('disabled')
-      document.querySelector('#upload-link').href = upload_url.replace('0', row.id)
+      document.querySelector('#upload-link').href = upload_url.replace('0', selectedRow.id)
       document.querySelector('#upload-link').removeAttribute('disabled')
 
-      // Get all metadata columns
-      let metadata_columns = document.querySelectorAll('.metadata_columns_table')
-
-      // Loop through all the metadata columns and show the ones that matches the selected row
-      for (const metadata_column of metadata_columns) {
-        // If the metadata column's id matches the selected row's id, then show element
-        if (metadata_column.id === row.id) {
-          metadata_column.hidden = false
-        } else {
-          // Otherwise, hide alle other elements
-          metadata_column.hidden = true
-        }
-      }
-      // for tags with "shown" class, remove the class and add hidden attribute
-      let shown = document.querySelectorAll('.shown');
-      for (let i = 0; i < shown.length; i++) {
-        shown[i].classList.remove("shown");
-        shown[i].hidden = true;
-      }
-
-      // show hidden buttons
-      let buttons = document.querySelectorAll('button');
-      for (let i = 0; i < buttons.length; i++) {
-        buttons[i].style.display = "block";
-      }
-    
       // change icon to expand more
-      let expand_icon = row.querySelector('#expand_icon');
-      expand_icon.textContent = "expand_more";
+      selectedRow.querySelector('#expand_icon').textContent = "expand_more";
     }
 
-  function iconSelected(event) {
-    event.stopPropagation();
-    rowSelected(event.target.parentElement.parentElement)
+    // showMore will display more rows in the nested table
+    function showMore(button) {
+      // Get the parent element of the button
+      let parent = button.parentElement.parentElement;
 
-  }
+      // Get all the rows in the parent element
+      let rows = parent.querySelectorAll(".expanded-table-row[hidden]")
 
-  function showMore(button) {
-    // Get the parent element of the button
-    let parent = button.parentElement;
-
-    // Get all the rows in the parent element
-    let rows = parent.querySelectorAll("tr[hidden]");
-
-    // Loop through all the rows and show the ones that are hidden
-    for (let i = 0; i < rows.length; i++) {
-      if(i < 5) {
+      // Show the next five rows
+      for (let i = 0; i < Math.min(5, rows.length); i++) {
         rows[i].hidden = false;
-        // add class "shown" to the row
-        rows[i].classList.add("shown");
+      }
+
+      // If all rows are shown, hide the button
+      if(rows.length < 6) {
+        button.hidden = true;
       }
     }
 
-    // If all rows are shown, hide the button
-    if(rows.length < 6) {
-      button.style.display = "none";
+    // deselectAllRows will deselect all rows and hence resetting everything
+    function deselectAllRows() {
+      document.querySelectorAll('.table-row').forEach(otherRow => {
+        // Remove selected class
+        otherRow.classList.remove('selected')
+
+        // The icon at the right is reset to the 'expand_less'-icon
+        otherRow.querySelector('#expand_icon').textContent = 'expand_less';
+
+        // show only first 5 nested rows
+        let nestedRows = otherRow.getElementsByClassName('expanded-table-row');
+        for (let i = 5; i<nestedRows.length; i++) {
+          nestedRows[i].hidden = true;
+        }
+      })
+
+      // Hide expanded content for all rows
+      document.querySelectorAll('.expanded-content').forEach( e => e.hidden = true )
+
+      // show all the "Show more columns" buttons again
+      document.querySelectorAll('button').forEach(b => b.hidden = false)
     }
-  }
   </script>
 {% endblock %}
