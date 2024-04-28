@@ -1,0 +1,64 @@
+/* removing beercss' default borders for tables */
+table.border>tbody>tr:not(:last-child)>td,
+thead>tr>th {
+  border: none;
+}
+
+.primary-table {
+  margin: 25px 0;
+  padding: 10px;
+  background-color: var(--surface-container-lowest);
+  color: var(--on-surface-container-lowest);
+  box-shadow: var(--elevate1);
+  border-radius: 7px !important;
+  border-spacing: 0 5px;
+}
+
+.primary-table tbody {
+  background-color: var(--surface);
+  color: var(--on-surface);
+  border-radius: 0px;
+}
+
+td:first-child:not(.secondary-table td) {
+  border-radius: 7px 0 0 7px;
+}
+
+td:last-child:not(.secondary-table td) {
+  border-radius: 0 7px 7px 0;
+}
+
+.selectable:hover {
+  /* background-color: #ededed; */
+  cursor: pointer;
+}
+
+.selected,
+.selected:hover {
+  background-color: var(--secondary);
+  border: 2px solid var(--outline);
+}
+
+.selectable {
+  cursor: pointer;
+}
+
+.metadata_columns_table {
+  background-color: var(--surface-container-lowest);
+}
+
+.secondary-table thead tr {
+  background-color: var(--surface-bright);
+}
+
+.secondary-table {
+  border: 2px solid var(--outline-second-variant);
+}
+
+.secondary-table tbody {
+  background-color: var(--surface-container-lowest);
+}
+
+.secondary-table tbody tr td {
+  border-top: 2px solid var(--outline-third-variant);
+}
