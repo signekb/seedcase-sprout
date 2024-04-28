@@ -1,0 +1,18 @@
+.content-center {
+  justify-content: center;
+  text-align: center;
+}
+
+.width-40-pct {
+  width: 40%
+}
+
+.padding-top-big {
+  padding-top: 50px;
+}
+
+.error-msg {
+  text-align: center;
+  color: darkred;
+  font-weight: bold;
+}

@@ -15,6 +15,9 @@
     <link rel="stylesheet" href="{% static 'css/file-drop-zone.css' %}" />
     <link rel="stylesheet" href="{% static 'css/table.css' %}" />
     <link rel="stylesheet" href="{% static 'css/card.css' %}" />
+    <!-- Headers required for a page is injected by using a block called 'headers' -->
+    {% block headers %}
+    {% endblock headers %}
   </head>
   <body>
     <header class="fill app-bar-image">
