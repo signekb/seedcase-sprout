@@ -3,8 +3,9 @@ from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from sprout.views.projects_id_metadata_id.step_columns_update import step_columns_update
 from sprout.views.projects_id_metadata_id.step_confirmation import step_confirmation
 from sprout.views.projects_id_metadata_id.step_file_upload import step_file_upload
-from sprout.views.projects_id_metadata_id.step_name_and_description import \
-    step_name_and_description
+from sprout.views.projects_id_metadata_id.step_name_and_description import (
+    step_name_and_description,
+)
 
 
 def projects_id_metadata_create(

@@ -6,12 +6,12 @@ from django.shortcuts import get_object_or_404, redirect, render
 
 from sprout.csv.csv_reader import read_csv_file
 from sprout.forms import ColumnsForm
-from sprout.models import Columns, Tables, Files
+from sprout.models import Columns, Files, Tables
 from sprout.views.projects_id_metadata_id.helpers import create_stepper_url
 
 
 def step_columns_update(request: HttpRequest, table_id: int) -> HttpResponse:
-    """Takes the data from Columns and displays the metadata to update."""
+    """Renders the step where columns are displayed and changed."""
     tables = get_object_or_404(Tables, id=table_id)
     columns_metadata = Columns.objects.select_related("data_type").filter(tables=tables)
     data_sample = create_sample_of_unique_values(tables.id)
