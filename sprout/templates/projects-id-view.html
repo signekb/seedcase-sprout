@@ -4,13 +4,15 @@
   <div class="padding absolute center middle">
     <div class="row center-align">
       <div>
-        <article class="card-button-size" style="cursor:pointer" data-ui="#create-metadata-dialog">
+        <a href="{% url 'projects-id-metadata-create' %}">
+          <article class="card-button-size" style="cursor:pointer">
           <!--     In beercss, a small material icon is added with <i class="large">add</i>,
             but to create a large icon, I grabbed the svg from https://fonts.google.com/icons    -->
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
             <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z" />
           </svg>
         </article>
+        </a>
         <h6 class="center-align margin10">CREATE NEW METADATA</h6>
       </div>
       <div style="width: 10%"></div>
@@ -29,9 +31,6 @@
       <button class="circle medium fill" data-ui="#help-dialog"><i>question_mark</i></button>
     </div>
   </div>
-
-  <!-- Create metadata dialog -->
-  {% include 'includes/metadata-create-dialog.html' %}
 
   <!-- Help dialog -->
   <dialog class="dialog" id="help-dialog">

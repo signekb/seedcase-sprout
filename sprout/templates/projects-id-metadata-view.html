@@ -59,21 +59,16 @@
       </div>
     {% endfor %}
   </div>
-  <!-- Create metadata dialog -->
-  {% include 'includes/metadata-create-dialog.html' %}
 
   <!-- Three buttons create new metadata, edit existing metadata, or upload data to metadata -->
   <nav class="right-align">
-    <a class="button" data-ui="#create-metadata-dialog"><i>add</i>Create new metadata</a>
+    <a class="button" href="{% url 'projects-id-metadata-create' %}"><i>add</i>Create new metadata</a>
     <a href="#" class="button" id="edit-link" disabled><i>edit</i>Edit metadata</a>
     <a href="#" class="button" id="upload-link" disabled><i>upload</i>Upload data</a>
   </nav>
 
-  <!-- Create metadata dialog -->
-  {% include 'includes/metadata-create-dialog.html' %}
-
   <script>
-    let edit_url = "{% url 'projects-id-metadata-id-update' table_id=0 %}"
+    let edit_url = "{% url 'projects-id-metadata-create'%}?table_id=0&step=3"
     let upload_url = "{% url 'projects-id-metadata-id-data-update' table_id=0 %}"
 
     // This function selects a row in the parent table

@@ -1,0 +1,24 @@
+<form method="post" >
+  {% csrf_token %}
+
+  {% if form.name.errors %}
+    <div style="margin-bottom:50px;" class="field label invalid border">
+      {{ form.name }}
+      <label>Name</label>
+      <span class="error">{{ form.name.errors|striptags }}</span>
+    </div>
+  {% else %}
+    <div class="field label border small">
+      {{ form.name }}
+      <label>Name</label>
+      <span class="helper">Name of the metadata you want to create</span>
+    </div>
+  {% endif %}
+
+  <div class="field textarea label border">
+    {{ form.description }}
+    <label>Description</label>
+    <span class="helper">Short description of the metadata's content</span>
+  </div>
+  <button class="button" type="submit" name="continue_step_1">Continue</button>
+</form>

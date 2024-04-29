@@ -1,0 +1,37 @@
+
+.margin-bottom {
+  margin-bottom: 10px;
+}
+
+.step-header {
+  display: flex;
+  color: black;
+  font-weight: bold;
+  background-color: var(--outline-second-variant);
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+  padding: 5px 10px;
+}
+
+div.selected-step {
+  background-color: var(--primary);
+  color: var(--on-primary);
+}
+
+/* The expand icons is displayed or hidden based on selected-step class */
+div i.more {
+  display: none;
+}
+
+div.selected-step i.more {
+  display: block;
+}
+
+div i.less {
+  display: block;
+}
+
+div.selected-step i.less {
+  display: none;
+}

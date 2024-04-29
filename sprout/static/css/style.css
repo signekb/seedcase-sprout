@@ -16,6 +16,8 @@
   --on-surface-container-lowest: #6E6E6E;
   --surface-container-low: var(--surface-container-lowest);
   --surface-container-high: var(--surface-container-lowest);
+  --secondary-container: var(--secondary);
+  --on-secondary-container: var(--on-secondary);
   --outline-variant: #48DC76;
   --elevate1: 0 5px 10px rgba(0, 0, 0, 0.15);
 
@@ -60,6 +62,11 @@ button:not(.transparent),
   border: 1px solid var(--outline-variant);
   color: var(--on-secondary);
   background-color: var(--secondary);
+}
+
+button.border.left-round,
+button.border.right-round {
+  border: 1px solid var(--outline-variant);
 }
 
 .app-bar-image {

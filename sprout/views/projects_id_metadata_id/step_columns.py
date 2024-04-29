@@ -1,29 +1,17 @@
 """File with column_review view."""
-
 from typing import Dict, List
 
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse
 
 from sprout.csv.csv_reader import read_csv_file
 from sprout.forms import ColumnsForm
 from sprout.models import Columns, Files, Tables
+from sprout.views.projects_id_metadata_id.helpers import create_stepper_url
 
 
-def projects_id_metadata_id_update(request: HttpRequest, table_id: int) -> HttpResponse:
-    """Takes the data from Columns and displays the metadata to update.
-
-    The metadata can be updated and the result written back to the column metadata
-    database.
-
-    Args:
-        request: The HTTP request sent from the server (by the user).
-        table_id: The ``table_id`` from Tables.
-
-    Returns:
-        HttpResponse: A response given back to the server.
-    """
+def step_columns(request: HttpRequest, table_id: int) -> HttpResponse:
+    """Renders the step with metadata columns."""
     tables = get_object_or_404(Tables, id=table_id)
     columns_metadata = Columns.objects.select_related("data_type").filter(tables=tables)
     data_sample = create_sample_of_unique_values(tables.id)
@@ -51,11 +39,11 @@ def projects_id_metadata_id_update(request: HttpRequest, table_id: int) -> HttpR
             if form.cleaned_data["excluded"]:
                 form.instance.delete()
 
-        return redirect(reverse("projects-id-metadata-view"))
+        return redirect(create_stepper_url(4, table_id))
 
     return render(
         request,
-        "projects-id-metadata-id-update.html",
+        "projects-id-metadata-create.html",
         {
             "forms": forms,
             "tables": tables,
