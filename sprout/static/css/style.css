@@ -64,6 +64,11 @@ button:not(.transparent),
   background-color: var(--secondary);
 }
 
+button.border.left-round,
+button.border.right-round {
+  border: 1px solid var(--outline-variant);
+}
+
 .app-bar-image {
   background-repeat: auto;
   background-position-y: center;
