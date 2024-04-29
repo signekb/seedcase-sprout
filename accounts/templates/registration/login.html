@@ -1,0 +1,71 @@
+{% extends 'includes/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block headers %}
+  <link rel="stylesheet" href="{% static 'css/accounts.css' %}">
+{% endblock headers %}
+
+{% block content %}
+
+  <div class="row center-align height-90-pct" >
+
+    <!-- CARD -->
+    <article class="width-40-pct">
+      <h5 class="content-center">Welcome to Seedcase</h5>
+      <p class="content-center margin">Please login to continue</p>
+
+      <!-- FORM -->
+      <form method="post" >
+        {% csrf_token %}
+
+        <!-- EMAIL INPUT -->
+        <div class="row content-center">
+          <div class="field label small border">
+            {{ form.username|attr:'tabindex:1'|attr:'class:active' }}
+            <label class="active">Email</label>
+          </div>
+          <div class="error-msg">
+            {{ form.username|striptags }}
+          </div>
+        </div>
+
+        <!-- PASSWORD INPUT -->
+        <div class="row content-center">
+          <div class="field label small border">
+            {{ form.password|attr:'tabindex:2'|attr:'class:active' }}
+            <label class="active">Password</label>
+          </div>
+          <div class="error-msg">
+            {{ form.password|striptags }}
+          </div>
+        </div>
+
+        <!-- LOGIN BUTTON -->
+        <div class="content-center margin">
+          <button>Login</button>
+        </div>
+
+        <div class="error-msg">
+          {{ form.non_field_errors|striptags }}
+        </div>
+
+
+      </form>
+
+
+      <div class="row padding-top-big">
+
+        <div class="min">
+          <a href="{% url 'password_reset' %}">Can't login</a>
+        </div>
+        <div class="max"></div>
+        <div class="min">
+          <a href="{% url 'register' %}">Create an account</a>
+        </div>
+      </div>
+    </article>
+  </div>
+
+{% endblock %}
+
