@@ -1,34 +1,39 @@
-@startuml 
+@startuml container
+!theme C4_green from <C4/themes>
 ' Container diagram showing overview of Seedcase
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
-Person(user_request_input, "Data input and request")
-Person(user_admin, "Admin")
-Person_Ext(user_public, "Public (unauthorized)")
+Person(user_contributor, "Data contributor")
+Person(user_admin, "Project admin")
+Person(user_owner, "Project owner")
 
-System_Boundary(seedcase, "Seedcase instance for Data Resource") {
-  Container(web_framework, "Web Interface")
-  Container(id_authentication, "User Authentication")
-  Container(management, "User and Data Management Layer")
-
-  Container_Boundary(backend, "Backend environment") {
-    ContainerDb(backend_database_data, "Relational Database for Data")
-    ContainerDb(backend_database_metadata, "Relational Database for Metadata")
-    ContainerDb(backend_file_storage, "File Storage")
-    ContainerDb(backend_large_file_storage, "Large File Storage")
-  }
+System_Boundary(seedcase, "Seedcase Sprout") {
+  Container(ui, "User interface", "HTML, CSS, JavaScript")
+  Container(projects, "Project management", "Python, Django, SQLite",  $descr="Create projects, manage existing ones")
+  Container(data, "Data management", "Python, Django", $descr="Run checks, process data, send to database")
+  ' Authentication inside or outside?
+  Container(login, "User login", "Python, Django")
+  Container(users, "User management", "Python, Django, SQLite", $descr="Assign roles, add or remove users")
+  
+  ' Backend database setup
+  ContainerDb(database_data, "Relational database for data", "Postgres/SQLite")
+  ContainerDb(database_metadata, "Relational database for metadata", "SQLite")
+  ContainerDb(file_storage, "File storage for raw data", "Filesystem")
 }
-System_Ext(external_server, "External secure server")
+' Authentication inside or outside?
+' System_Ext(id_authentication, "User Authentication")
 
-Rel(user_public, web_framework, "View general details about Data Resource")
-Rel(user_request_input, web_framework, "Input to or request data from Data Resource")
-Rel(user_admin, web_framework, "Create, manage, and update data projects")
-BiRel(web_framework, id_authentication, "User Authentication")
-BiRel(web_framework, management, "Send or receive information")
-BiRel(management, backend_database_data, "Database-specific commands")
-BiRel(management, backend_database_metadata, "Database-specific commands")
-BiRel(management, backend_file_storage, "Request to read, create, update, or delete files")
-BiRel(management, backend_large_file_storage, "Request to read, create, update, or delete files")
-Rel(management, external_server, "Data extract for approved data projects")
+' Double spaces because PlantUML C4 is weird with rendering these text
+Rel(user_contributor, login, "Input  data")
+Rel(user_admin, login, "Manage  data  and  users")
+Rel(user_owner, login, "Create  and  manage  users  and  data")
+Rel(login, ui, "")
+BiRel(ui, projects, "")
+BiRel(projects, users, "")
+BiRel(projects, data, "")
+
+Rel(data, database_data, "")
+Rel(data, database_metadata, "")
+Rel(data, file_storage, "")
 
 @enduml

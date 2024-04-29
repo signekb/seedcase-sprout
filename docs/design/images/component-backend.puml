@@ -1,45 +1,34 @@
-@startuml 
+@startuml component-backend
+!theme C4_green from <C4/themes>
 !include  https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
 
-' Component diagram for The Seedcase product - Backend: File Storage
+' C4 Component diagram for backend database and file storage.
 
-Container(uia, "User ID Authentication")
-Container(api, "API Layer")
+Container(management, "Management containers")
 
-Container_Boundary(bee, "Backend Environment") {
-  Container_Boundary(rdb_metadata, "Relational Database for Metadata") {
-    Component(data_projects, "Data projects in Tables", $descr="Details on data projects in the Data Resource")
-    Component(changelog, "Changelog in Tables", $descr="Changes made to the data")
-    Component(user_info, "Information on users", $descr="Metadata on registered users of the Data Resource")
-    ' TODO: Not sure what to do about these.
-    ' Component(data_dictionary, "Resource data dictionary", "the data dictionary unique to the data Resource")
-    ' Component(cdm_data, "Common Data Models", "pre-loaded data dictionaries from common data models")
+Container_Boundary(bee, "Data and metadata storage") {
+  Container_Boundary(rdb_metadata, "Relational database for metadata") {
+    Component(changelog, "Changelog of data and metadata", $descr="Listing changes made to the data and metadata")
+    Component(metadata, "Metadata on data", $descr="Information about the data, like data types, column names, column descriptions, and description of data collection or generation procedure")
   }
-  Container_Boundary(rdb_data, "Relational Database for Data") {
-    Component(dt, "Data in Tables", $descr="Data from Data Resource entered into database")
-    ' TODO: Not sure what to do about these.
-    ' Component(data_dictionary, "Resource data dictionary", "the data dictionary unique to the data Resource")
-    ' Component(cdm_data, "Common Data Models", "pre-loaded data dictionaries from common data models")
-    ' Component(schema, "Schema Metadata", "Schema data pre-loaded?")
-  }
-  Container_Boundary(fs, "File storage") {
-    Component(raw_file, "Raw file storage", $descr="For uploaded raw data files")
-    Component(large_file, "Large file storage", $descr="For for large files not suitable for entry into database (eg. images)")
+  Component(users, "Database for user details", $descr="Details about user, roles, and connected projects")
+  Component(projects, "Database for project details", $descr="Details about projects, like a summary list of data and users within the project")
+  Container_Boundary(data_storage, "Storage for project data") {
+    Component(data, "Relational database for data", $descr="Data uploaded for project entered into database")
+    Component(raw_file, "File storage", $descr="A copy of the raw data that is saved to the database")
   }
 }
 
-Rel(api, fs, "Write data")
+Lay_Right(rdb_metadata, users)
+Lay_Right(data_storage, projects)
+Lay_Down(rdb_metadata, data_storage)
 
-Rel(api, dt, "Write and read")
-BiRel(api, changelog, "Write and read table with changes made")
-BiRel(api, data_projects, "Write and read table with data project requests or changes")
+Rel(management, data_storage, "Write")
 
-Rel(raw_file, dt, "Process and insert")
-Rel(dt, large_file, "Link to")
+BiRel(management, projects, "Read  and  write")
+BiRel(management, users, "Read  and  write")
 
-BiRel(uia, user_info, "Fetch permissions")
+BiRel(management, metadata, "Read  and  write")
+BiRel(management, changelog, "Auto-generated")
 
-' TODO: Not sure what to do about these yet.
-' Rel(api, data_dictionary, "reads data from")
-' Rel(data_dictionary, cdm_data, "may copy data from")
 @enduml
