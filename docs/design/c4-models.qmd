@@ -5,26 +5,26 @@ title: "C4 Models"
 This section contains the [C4 Models](https://c4model.com/) for Sprout.
 The C4 Model is an established visualization approach to describe the
 architecture of a software system. It breaks the system down into four
-levels of abstraction: Context, Containers, Components, and Code. The
+levels of architectural abstraction: Context, Containers, Components, and Code. The
 last level is rarely used nor recommended for most software architecture
 since it is used to visualize a high degree of detail that most projects
-don't need. Below is the diagrams for the Context, Containers, and
-Components (which includes three diagrams).
+don't need. Below are the diagrams for the **Context**, **Containers**, and
+**Components** (the last of which includes three diagrams).
 
 ::: panel-tabset
 ## Context
 
-The Context model shows the users and any external
+The Context diagram shows the users and any external
 systems that interact with Sprout. This includes the three user roles *data contributor*, *project admin* and *project owner* described in the [users](users.qmd) post.
 
-![C4 Context diagram showing very basic overview of Sprout and its
+![C4 Context diagram showing a very basic overview of Sprout and its
 intended users.](images/context.png)
 
 ## Container
 
-The Container model shows the larger parts of the system, what they
+The Container diagram shows the larger parts of the system, what they
 are responsible for, and how they interact with each other. It also shows
-the technology choices for each Container.
+the technology choices for each container.
 
 ![C4 Container diagram showing larger functional parts of Sprout and
 their connections.](images/container.png)
@@ -32,25 +32,29 @@ their connections.](images/container.png)
 ## Component
 
 The Component model offers a more detailed view of the system into what
-the smaller parts are that make up an individual Container and that
+the smaller parts are that make up an individual container and that
 allow it to fulfill its responsibilities. There are three diagrams for
-the Components: the user interface, the (internal) management,
+the components: the user interface, the (internal) management,
 and the databases and storage.
 
 ### User interface
 
-This diagram shows the pages of the user interface in the user interface container. In addition, it shows which user roles that can access them. Outside the container is the authentication container and the downstream management container. The authentication container is needed to authenticate users and their access. 
+This diagram shows the pages users interact with in the user interface container. In addition, it shows which user roles that can access them. Outside the container is the authentication container and the management container. The authentication container is needed to authenticate users and their access. 
 
 ![C4 Component diagram showing the parts that make up the user interface
-Containers.](images/component-ui.png)
+containers.](images/component-ui.png)
 
 ### Management
 
+This diagram shows the actions and behaviours that happen internally between the user interface and the database and storage. This includes things like creating databases, updating data and metadata, and modifying user roles.
+
 ![C4 Component diagram showing the parts that make up the management
-Containers.](images/component-management.png)
+containers.](images/component-management.png)
 
 ### Databases and storage
 
+This diagram shows the components that make up the database and storage container, and the types of actions and behaviours they have.
+
 ![C4 Component diagram showing the parts that make up the database and
-storage Containers.](images/component-backend.png)
+storage containers.](images/component-backend.png)
 :::

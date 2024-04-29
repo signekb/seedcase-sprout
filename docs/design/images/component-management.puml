@@ -9,7 +9,7 @@ LAYOUT_LEFT_RIGHT()
 Container(ui, "User interface")
 ContainerDb(storage, "Data and metadata storage")
 
-Container_Boundary(management, "All management containers") {
+Container_Boundary(management, "Management containers") {
   Container_Boundary(projects, "Project management") {
     Component(project_view, "View details of project")
     Component(project_create, "Create a new project", $descr="Create a new project to storage and organize data")

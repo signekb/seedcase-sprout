@@ -4,7 +4,7 @@
 
 ' C4 Component diagram for the user interface
 
-Container(management, "Downstream management")
+Container(management, "Management containers")
 Container(auth, "Authentication")
 
 Container_Boundary(ui, "User interface") {
