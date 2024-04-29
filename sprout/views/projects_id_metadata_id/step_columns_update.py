@@ -51,6 +51,7 @@ def step_columns_update(request: HttpRequest, table_id: int) -> HttpResponse:
         },
     )
 
+
 def create_form(request: HttpRequest, column: Columns) -> ColumnsForm:
     """Create form based on request can Columns.
 

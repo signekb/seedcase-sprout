@@ -1,108 +1,76 @@
-"""Tests for the metadata create view."""
-
 import io
 from pathlib import Path
 
 from django.test import TestCase
-from django.urls import reverse
 
-from sprout.models import Columns, Files, Tables
+from sprout.models import Columns, Files
 from sprout.tests.db_test_utils import create_table
+from sprout.views.projects_id_metadata_id.helpers import create_stepper_url
 
 
-class MetadataCreateTests(TestCase):
-    """Tests for the file upload view."""
-
-    def test_render_projects_id_metadata_create_view_and_verify_loaded_table_names(
-        self,
-    ):
-        """Test for the view being loaded and table_name is present in view.
-
-        Tests that the status code is 200 and that the html contains table_name
-        """
-        # Arrange
-        table_name = "Table Name"
-        create_table(table_name).save()
-
-        # Act
-        response = self.client.get("/metadata/1/create")
-
-        # Assert.
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, table_name)
+class MetadataStepFileUploadTests(TestCase):
+    def setUp(self):
+        """Called automatically by Django to prepare for a test."""
+        self.table = create_table("Table")
+        self.table.save()
+        self.current_url = create_stepper_url(2, table_id=self.table.id)
+        self.expected_redirect_url = create_stepper_url(3, table_id=self.table.id)
 
     def test_upload_of_file_should_create_columns_in_database(self):
         """Test for a table being created when csv is uploaded."""
         # Arrange
-        table_name = "Table"
-        file_name = table_name + ".csv"
-        create_table(table_name).save()
-        file = self.create_file(file_name, "name,city,age\nPhil,Aarhus,36")
+        file = self.create_file(
+            self.table.name + ".csv", "name,city,age\nPhil,Aarhus,36"
+        )
 
         # Act
-        response = self.client.post("/metadata/1/create", {"uploaded_file": file})
+        response = self.client.post(self.current_url, {"uploaded_file": file})
 
         # Assert
-        table = Tables.objects.get(name=table_name)
-        self.assertEqual("Table.csv", table.original_file_name)
-        self.assertEqual(302, response.status_code, "Redirect is expected")
-        self.assertEqual("/metadata/1/update", response.url)
-        self.assertEqual(3, table.columns_set.all().count(), "expects 3 columns")
-        # Clean up
-        Files.objects.first().delete()
+        self.assertEqual(file.name, self.table.original_file_name)
+        self.assertRedirects(response, self.expected_redirect_url)
+        self.assertEqual(3, self.table.columns_set.all().count(), "expects 3 columns")
 
     def test_extracted_column_names_formats(self):
         """Test for a table being created when csv is uploaded."""
         # Arrange
-        create_table("Table Name").save()
-
         file = self.create_file("file.csv", "DISPLAY_NAME,AGE\nPhil,36")
 
         # Act
-        url = reverse(
-            "projects-id-metadata-create",
-            kwargs={"table_id": 1},
-        )
-        self.client.post(url, {"uploaded_file": file})
+        self.client.post(self.current_url, {"uploaded_file": file})
 
         # Assert
         column = Columns.objects.filter(extracted_name="DISPLAY_NAME").first()
         self.assertEqual("Display Name", column.display_name)
         self.assertEqual("display_name", column.machine_readable_name)
-        # Clean up
-        Files.objects.first().delete()
 
     def test_upload_failed_with_wrong_file_extension(self):
         """Test for error message when file is not ending on .csv."""
-        create_table("Table Name").save()
         file = self.create_file("file-with-wrong-ext.svg", "file content")
 
-        response = self.client.post("/metadata/1/create", {"uploaded_file": file})
+        response = self.client.post(self.current_url, {"uploaded_file": file})
 
         self.assertContains(response, "Unsupported file format: .svg")
 
     def test_upload_failed_with_no_rows_found(self):
         """Test for error if not able to extract headers from CSV."""
-        create_table("Table Name").save()
         file = self.create_file("file-with-bad-headers.csv", "name, age")
 
-        response = self.client.post("/metadata/1/create", {"uploaded_file": file})
+        response = self.client.post(self.current_url, {"uploaded_file": file})
 
         self.assertContains(response, "Invalid CSV. No rows found!")
 
     def test_resubmit_of_file_should_delete_prev_file_and_columns(self):
         """Resubmitting a file table should delete the previous file and columns."""
         # Arrange
+        initial_file_content = "first_name,year\nHans,2000"
         expected_file_content = "name,city,age\nPhil,Aarhus,36"
-        table = create_table("Table Name")
-        table.save()
-        file1 = self.create_file("file.csv", "first_name,year\nHans,2000")
+        file1 = self.create_file("file.csv", initial_file_content)
         file2 = self.create_file("file.csv", expected_file_content)
-        url = reverse("projects-id-metadata-create", kwargs={"table_id": table.id})
 
         # Act
-        self.client.post(url, {"uploaded_file": file1})
-        self.client.post(url, {"uploaded_file": file2})
+        self.client.post(self.current_url, {"uploaded_file": file1})
+        self.client.post(self.current_url, {"uploaded_file": file2})
 
         # Assert
         files = Files.objects.all()
@@ -117,8 +85,10 @@ class MetadataCreateTests(TestCase):
         actual_file_content = Path(files.first().server_file_path).read_text()
         self.assertEqual(expected_file_content, actual_file_content)
 
-        # Clean up
-        Files.objects.first().delete()
+    def tearDown(self):
+        """Called automatically by Django to clean up after test."""
+        for file in Files.objects.all():
+            file.delete()
 
     @staticmethod
     def create_file(name: str, content: str) -> io.BytesIO:

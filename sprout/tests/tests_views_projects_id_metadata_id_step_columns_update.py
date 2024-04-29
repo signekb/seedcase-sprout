@@ -2,10 +2,12 @@ import io
 import os
 
 from django.test import TestCase
-from django.urls import reverse
 
 from sprout.models import Columns, Files, Tables
-from sprout.views.projects_id_metadata_id_update import create_sample_of_unique_values
+from sprout.views.projects_id_metadata_id.helpers import create_stepper_url
+from sprout.views.projects_id_metadata_id.step_columns_update import (
+    create_sample_of_unique_values,
+)
 
 
 class MetadataIDUpdateViewTest(TestCase):
@@ -13,12 +15,12 @@ class MetadataIDUpdateViewTest(TestCase):
 
     def setUp(self):
         """Create a table and a column for testing."""
-        self.tables = Tables.objects.create(
+        self.table = Tables.objects.create(
             name="Test Table",
             description="Test table description.",
         )
-        self.columns = Columns.objects.create(
-            tables=self.tables,
+        self.column = Columns.objects.create(
+            tables=self.table,
             extracted_name="TestColumn",
             machine_readable_name="test_column",
             display_name="Test Display Name",
@@ -30,42 +32,40 @@ class MetadataIDUpdateViewTest(TestCase):
 
         file = io.BytesIO(b"TestColumn,Letter\n1,A\n2,B\n3,C\n4,C\n5,C\n6,C")
         file.name = "file-name.csv"
-        self.files = Files.create_model(file, self.tables.id)
+        self.file = Files.create_model(file, self.table.id)
+        self.current_url = create_stepper_url(3, table_id=self.table.id)
+        self.redirect_url = create_stepper_url(4, table_id=self.table.id)
 
     def test_projects_id_metadata_id_update_view_get(self):
         """Test that the get function works."""
-        # Arrange
-        url = reverse("projects-id-metadata-id-update", args=[self.tables.id])
-
         # Act
-        response = self.client.get(url)
+        response = self.client.get(self.current_url)
 
         # Assert
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "projects-id-metadata-id-update.html")
+        self.assertTemplateUsed(response, "projects_id_metadata_id/create.html")
 
     def test_projects_id_metadata_id_update_view_post_valid_data(self):
         """Test that the view works if valid data is entered."""
         # Arrange
-        url = reverse("projects-id-metadata-id-update", args=[self.tables.id])
         data = {
-            f"{self.columns.id}-machine_read_name": "Updated Machine-Read Name",
-            f"{self.columns.id}-display_name": "Updated Column Display Name",
-            f"{self.columns.id}-description": "Test Description",
-            f"{self.columns.id}-data_type": 0,
-            f"{self.columns.id}-allow_missing_value": True,
-            f"{self.columns.id}-allow_duplicate_value": False,
+            f"{self.column.id}-machine_read_name": "Updated Machine-Read Name",
+            f"{self.column.id}-display_name": "Updated Column Display Name",
+            f"{self.column.id}-description": "Test Description",
+            f"{self.column.id}-data_type": 0,
+            f"{self.column.id}-allow_missing_value": True,
+            f"{self.column.id}-allow_duplicate_value": False,
         }
 
         # Act
-        response = self.client.post(url, data, follow=True)
+        response = self.client.post(self.current_url, data, follow=True)
 
         # Assert the status code
-        self.assertRedirects(response, reverse("projects-id-metadata-view"))
+        self.assertRedirects(response, self.redirect_url)
 
     def test_create_sample_of_unique_values(self):
         """Test if correct sample values are created."""
-        tables_id = self.tables.id
+        tables_id = self.table.id
 
         sample = create_sample_of_unique_values(tables_id)
 
@@ -75,17 +75,16 @@ class MetadataIDUpdateViewTest(TestCase):
     def test_excluded_should_delete_column(self):
         """An excluded column should be removed even if form is not valid."""
         # Arrange
-        url = reverse("projects-id-metadata-id-update", args=[self.tables.id])
         data = {
-            f"{self.columns.id}-excluded": True,
+            f"{self.column.id}-excluded": True,
         }
 
         # Act
-        response = self.client.post(url, data, follow=True)
+        response = self.client.post(self.current_url, data, follow=True)
 
         # Assert the status code
         self.assertEqual(response.status_code, 200)
-        self.assertFalse(Columns.objects.filter(id=self.columns.id).exists())
+        self.assertFalse(Columns.objects.filter(id=self.column.id).exists())
 
     def tearDown(self):
-        os.remove(self.files.server_file_path)
+        os.remove(self.file.server_file_path)
