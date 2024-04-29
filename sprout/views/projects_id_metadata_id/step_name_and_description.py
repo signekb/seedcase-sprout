@@ -9,7 +9,7 @@ from sprout.views.projects_id_metadata_id.helpers import create_stepper_url
 def step_name_and_description(
     request: HttpRequest, table_id: int | None
 ) -> HttpResponse | HttpResponseRedirect:
-    """Renders page for creating name and description for metadata."""
+    """Renders step creating/editing metadata name and description."""
     form = TablesForm(data=None)
     table = None
     if table_id:

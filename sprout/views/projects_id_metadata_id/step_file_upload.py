@@ -11,7 +11,7 @@ from sprout.views.projects_id_metadata_id.helpers import create_stepper_url
 def step_file_upload(
     request: HttpRequest, table_id: int
 ) -> HttpResponse | HttpResponseRedirect:
-    """Renders page for creating metadata step 2 - upload data."""
+    """Renders the step for uploading a file."""
     if request.method == "POST":
         return handle_post_request_with_file(request, table_id)
 
