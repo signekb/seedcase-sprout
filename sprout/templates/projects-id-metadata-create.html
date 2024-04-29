@@ -19,7 +19,7 @@
       </div>
     </div>
     {% if not request.GET.step or request.GET.step == '1' %}
-      {% include 'projects_id_metadata_id/step-name-and-description.html' %}
+      {% include 'projects_id_metadata/step-name-and-description.html' %}
     {% endif %}
 
   </div>
@@ -48,7 +48,7 @@
       </div>
     </div>
     {% if request.GET.step == '3' %}
-      {% include 'projects_id_metadata_id/step-columns-update.html' %}
+      {% include 'projects_id_metadata/step-columns.html' %}
     {% endif %}
   </div>
 
@@ -61,7 +61,7 @@
       </div>
     </div>
     {% if request.GET.step == '4' %}
-      {% include 'projects_id_metadata_id/step-metadata-confirmation.html' %}
+      {% include 'projects_id_metadata/step-confirmation.html' %}
     {% endif %}
   </div>
   <!-- The file drop zone is included -->

@@ -10,4 +10,4 @@ def step_confirmation(
     """Renders the final confirmation step when creating/updating metadata."""
     table = Tables.objects.prefetch_related("columns_set").get(pk=table_id)
     context = {"table": table}
-    return render(request, "projects_id_metadata_id/create.html", context)
+    return render(request, "projects-id-metadata-create.html", context)

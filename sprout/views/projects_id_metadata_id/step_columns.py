@@ -10,7 +10,7 @@ from sprout.models import Columns, Files, Tables
 from sprout.views.projects_id_metadata_id.helpers import create_stepper_url
 
 
-def step_columns_update(request: HttpRequest, table_id: int) -> HttpResponse:
+def step_columns(request: HttpRequest, table_id: int) -> HttpResponse:
     """Renders the step with metadata columns."""
     tables = get_object_or_404(Tables, id=table_id)
     columns_metadata = Columns.objects.select_related("data_type").filter(tables=tables)
@@ -43,7 +43,7 @@ def step_columns_update(request: HttpRequest, table_id: int) -> HttpResponse:
 
     return render(
         request,
-        "projects_id_metadata_id/create.html",
+        "projects-id-metadata-create.html",
         {
             "forms": forms,
             "tables": tables,

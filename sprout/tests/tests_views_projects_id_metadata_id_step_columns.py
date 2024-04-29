@@ -5,7 +5,7 @@ from django.test import TestCase
 
 from sprout.models import Columns, Files, Tables
 from sprout.views.projects_id_metadata_id.helpers import create_stepper_url
-from sprout.views.projects_id_metadata_id.step_columns_update import (
+from sprout.views.projects_id_metadata_id.step_columns import (
     create_sample_of_unique_values,
 )
 
@@ -43,7 +43,7 @@ class MetadataIDUpdateViewTest(TestCase):
 
         # Assert
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "projects_id_metadata_id/create.html")
+        self.assertTemplateUsed(response, "projects-id-metadata-create.html")
 
     def test_projects_id_metadata_id_update_view_post_valid_data(self):
         """Test that the view works if valid data is entered."""

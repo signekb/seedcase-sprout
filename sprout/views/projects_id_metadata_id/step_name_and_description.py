@@ -28,4 +28,4 @@ def step_name_and_description(
     context = {
         "form": form,
     }
-    return render(request, "projects_id_metadata_id/create.html", context)
+    return render(request, "projects-id-metadata-create.html", context)

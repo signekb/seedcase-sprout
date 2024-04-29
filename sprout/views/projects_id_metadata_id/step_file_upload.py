@@ -72,7 +72,7 @@ def render_projects_id_metadata_create(
         "table_name": tables.name,
         "upload_error": upload_error,
     }
-    return render(request, "projects_id_metadata_id/create.html", context)
+    return render(request, "projects-id-metadata-create.html", context)
 
 
 def validate_csv_and_save_columns(table_id: int, file: Files) -> None:
