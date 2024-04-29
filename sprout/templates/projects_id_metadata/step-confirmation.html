@@ -10,5 +10,8 @@
 </p>
 
 <div class="row center-align">
-  <a href="{% url 'projects-id-metadata-view' %}"><button>Done</button></a>
+  <form method="POST">
+    {% csrf_token %}
+    <button>Done</button>
+  </form>
 </div>
