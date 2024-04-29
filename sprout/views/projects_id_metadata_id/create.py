@@ -17,10 +17,10 @@ def projects_id_metadata_create(
     displayed/validated at the time. This is ensured by a query parameter called "step".
 
     All steps use the same template "projects_id_metadata_id/create.html" with several
-    include-statements: one for each step.
+    conditional include-statements: one for each step.
 
-    This function/view is responsible for only rendering the correct step and delegating
-    to correct view/function.
+    This function/view is responsible for delegating to the correct view/function based
+    on "step".
     """
     table_id = int(request.GET["table_id"]) if "table_id" in request.GET else None
     step = request.GET.get("step")
