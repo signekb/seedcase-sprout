@@ -1,5 +1,5 @@
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
 from django.urls import reverse
 
 from sprout.models import Tables
