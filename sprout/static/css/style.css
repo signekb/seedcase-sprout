@@ -45,6 +45,7 @@ dt {
 
 dd {
   margin: 0;
+  margin-left: 15px;
 }
 
 .card-header {
@@ -80,4 +81,9 @@ nav img {
   padding: 10px;
   max-height: 65px;
   width: auto;
+}
+
+dl {
+  display: grid;
+  grid-gap: 5px;
 }
