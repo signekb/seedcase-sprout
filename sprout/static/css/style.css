@@ -74,3 +74,8 @@ nav img {
   max-height: 65px;
   width: auto;
 }
+
+dl {
+  display: grid;
+  grid-gap: 5px;
+}
