@@ -16,6 +16,7 @@
 
 div.selected-step {
   background-color: var(--primary);
+  color: var(--on-primary);
 }
 
 /* The expand icons is displayed or hidden based on selected-step class */
