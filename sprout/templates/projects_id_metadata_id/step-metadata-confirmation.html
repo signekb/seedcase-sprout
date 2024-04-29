@@ -1,0 +1,14 @@
+<h4>Summary of metadata</h4>
+<p><span class="bold">Name:</span> {{ table.name }}</p>
+<p><span class="bold">Description:</span> {{ table.description }}</p>
+<p><span class="bold">Based on file:</span> {{ table.original_file_name }}</p>
+<p><span class="bold">Number of included columns:</span> {{ table.columns_set.all.count }}</p>
+<p><span class="bold">Included column names:</span>
+  {% for column in table.columns_set.all %}
+    {{ column.display_name }},
+  {% endfor %}
+</p>
+
+<div class="row center-align">
+  <a href="{% url 'projects-id-metadata-view' %}"><button>Done</button></a>
+</div>

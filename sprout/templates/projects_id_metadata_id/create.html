@@ -1,33 +1,11 @@
 {% extends 'includes/base.html' %}
 {% load static %}
 
+{% block headers %}
+    <link rel="stylesheet" href="{% static 'css/metadata-stepper.css' %}" />
+{% endblock headers %}
+
 {% block content %}
-  <style>
-    .margin-bottom {
-      margin-bottom: 10px;
-    }
-    .step-header {
-      display: flex;
-      color: black;
-      font-weight: bold;
-      background-color: var(--outline-second-variant);
-      justify-content: space-between;
-      align-items: center;
-      border-radius: 10px;
-      padding: 5px 10px;
-    }
-
-    div.selected-step {
-      background-color: var(--primary);
-    }
-
-    {# The expand icons is displayed or hidden based on selected-step class #}
-    div i.more { display: none; }
-    div.selected-step i.more { display: block; }
-    div i.less { display: block; }
-    div.selected-step i.less { display: none; }
-
-  </style>
   <h4>CREATE NEW METADATA</h4>
   <p>To create metadata (i.e., a space for your data), please go through the following steps</p>
 
@@ -83,7 +61,7 @@
       </div>
     </div>
     {% if request.GET.step == '4' %}
-      <div>Metadata was created! Yay!</div>
+      {% include 'projects_id_metadata_id/step-metadata-confirmation.html' %}
     {% endif %}
   </div>
   <!-- The file drop zone is included -->
