@@ -1,96 +1,92 @@
 ---
-title: Target users
+title: User roles and permissions
 ---
 
 {{< include ../_wip.qmd >}}
 
-## Data and action types
+There are three roles given to users: Project owner, project
+administrator (or project admin), and data contributor. Each role comes
+with a set of permissions that give access to different actions within
+Sprout.
 
-We use the CRUD framework when documenting interactions between users
-and data. There are three types of data in Seedcase Sprout, Research
-data, data about Research data (metadata), and data about Users.
+<!-- TODO: Create a role and permission for table level admin? -->
 
-The research data is the data that a user of Seedcase Sprout wish to
-store, this can be a variety of formats, although Sprout - in its
-current iteration - will handle only tabular data. The metadata is the
-data the a user creates in preparation for storing research data. It is
-expected that almost all users of Seedcase Sprout will have access to
-create research data, but only some will have the option to create,
-update, and/or delete metadata and research data.
+## Roles
 
-We believe that it is important to build a system which offers the
-greatest amount of flexibility for the users, which also means that it
-will be possible for a high level user to be able to customize access
-for their own users. We do at the same time acknowledge that not all
-teams will want to set their own user groups up, which is why we aim to
-offer a set of 'ready-made' user groups as described below.
+### Project owner
 
-## User types
+The project owner is designed for those users who want to create a new
+project to store data and who want full control over the project in
+Sprout. This role also includes having direct access to the database
+backend. Whoever creates a project is by default assigned the project
+owner role. A project owner can assign roles to any other user. In
+general, it is good practice to have at least two project owners, in
+case of any issues with the primary project owner (e.g. emergency or
+unavailable).
 
-Sprout is built for the target users described below. It is important to
-note that it is possible for an individual to have more than one role.
-If they are to do everything we would expect them to have the role of
-Project Owner.
+### Project administrator
 
-| Action | Type of data  | DC  | DMA | PO  |
-|--------|---------------|-----|-----|-----|
-| Create | Research Data | X   | X   | X   |
-|        | Metadata      |     | X   | X   |
-|        | User Data     |     |     | X   |
-| Read   | Research Data | ?   | X   | X   |
-|        | Metadata      |     | ?   | X   |
-|        | User Data     |     | X   | X   |
-| Update | Research Data |     | X   | X   |
-|        | Metadata      |     | X   | X   |
-|        | User Data     |     |     | X   |
-| Delete | Research Data |     | ?   | X   |
-|        | Metadata      |     | ?   | X   |
-|        | User Data     |     |     | X   |
+The project administrator (or project admin) role is designed for those
+who can take some of the responsibilities and tasks off of the project
+owner, without being given full control over the project. Ideally, a
+project admin user is someone who is familiar with the research data
+that is being stored.
 
-<!--TODO Talk about the ? items-->
+Tasks relate to general and technical administration of the project,
+users, metadata, and data. For instance, some specific tasks might be:
 
-### Data management administrators (DMA)
+-   Assessing or correcting any issues in the quality of the entered
+    data itself.
+-   Resolving any issues that the data contributors have during data
+    upload.
+-   Creating the metadata structure, so that data can be uploaded to it.
+-   Updating the metadata content or structure.
 
-Data management administrators are responsible for the database itself
-and the quality of the data that gets entered into Sprout. We assume
-that they will be people familiar with the research data. They are the
-people primarily responsible for dealing with creating and updating
-metadata.
+### Data contributor
 
-These users will:
+The data contributor role is designed for those uploading data into
+Sprout. These users will likely be researchers, student assistants, lab
+technicians, or other research personnel from research or data
+collection centers.
 
--   Log in and set up metadata structures.
--   Complete metadata (in particular the description of individual data
-    fields).
--   Be on call for potential data issues that the Data contributors
-    (described below) can't resolve.
+The specific task of a data contributor is to upload data into metadata
+structures already created by either the project owner or project admin.
 
-### Data contributors (DC)
+## Permissions
 
-Data contributors will be uploading or inputting collected data into
-Sprout. We assume that these users are from authorized research or data
-collection centers and are researchers, technicians, or other research
-personnel. They are the people responsible for inputting data into the
-database managed by Sprout.
+We follow the CRUD (create, read, update, delete) framework when
+designing the permissions. There are a few types of objects in Seedcase
+Sprout: Research data, data about the research data (metadata), users
+within the project, and the project itself. Research data is the data
+that a user wants to store in Sprout. The metadata is the data about the
+research data. In order to store data, there needs to be the metadata
+structure created first.
 
-These users will upload data in a format determined by the metadata
-defined by the Data management administrator(s). These users will also
-have access to forms where data can be entered directly (eg. during a
-clinic consultation), or upload other types of data (eg. scans or
-images) when these features are added to Sprout.
+Permissions for roles work hierarchically, in that a project owner has
+the same permissions as the project admin, which has the same
+permissions as the data contributor, but not the other way around.
 
-These users will be able to:
+<!-- TODO: Consider having custom assigned permissions, rather than roles -->
 
--   Log in and upload standardised and routine data through a web portal
-    into pre-defined metadata (i.e., table structures) set up by the
-    Data management administrator(s) or Project owner(s).
+| Action | Type of object | DC  | PA  | PO  |
+|--------|----------------|-----|-----|-----|
+| Create | Research Data  | X   | X   | X   |
+|        | Metadata       |     | X   | X   |
+|        | Project        |     |     | X   |
+|        | Users          |     |     | X   |
+| Read   | Research Data  |     | X   | X   |
+|        | Metadata       | X   | X   | X   |
+|        | Project        | X   | X   | X   |
+|        | Users          | X   | X   | X   |
+| Update | Research Data  |     | X   | X   |
+|        | Metadata       |     | X   | X   |
+|        | Project        |     |     | X   |
+|        | Users          |     | X   | X   |
+| Delete | Research Data  |     |     | X   |
+|        | Metadata       |     |     | X   |
+|        | Project        |     |     | X   |
+|        | Users          |     |     | X   |
 
-### Project owner (PO)
-
-The Project owner has access to everything in Sprout and can do all four
-actions to all types of data in Sprout. Often this will be the same
-person that has set up the instance of Seedcase Sprout. This will also
-be the person who in later versions of the Seedcase ecosystem will have
-access to the backend of Seedcase and be able to grant access directly
-to the database, should the team/organisation have a database
-administrator.
+: User permissions for different actions on different types of objects
+for the three user roles. Abbreviations are DC for Data Contributor, PA
+for Project Admin, and PO for Project Owner.
