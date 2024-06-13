@@ -2,8 +2,6 @@ project:
   type: seedcase-theme
 
 website:
-  title: "Seedcase Sprout"
-  #favicon: "/images/logo.svg"
   site-url: "https://sprout.seedcase-project.org/"
   repo-url: "https://github.com/seedcase-project/seedcase-sprout"
   page-footer:
