@@ -9,7 +9,7 @@ into five diagrams that go through the flow in more detail. At the end
 of the document, you can see the user flow of Sprout in its entirety.
 
 In this document, we will mention different user roles. Go to the
-[Users](users.qmd) post for definitions of user roles.
+[Users](user-roles.qmd) post for definitions of user roles.
 
 <!-- TODO: Add more of an overall introduction to what the user flow of sprout entails before going into each part -->
 
@@ -17,7 +17,7 @@ In this document, we will mention different user roles. Go to the
 
 The first step of uploading data to Sprout is to create a table for the
 data. Users with the role [Data Management
-Administrators](users.qmd#data-management-administrators) are
+Administrators](user-roles.qmd#data-management-administrators) are
 responsible for setting up these initial structures of the database.
 
 Table metadata includes:
@@ -42,7 +42,7 @@ table named `table_1` in a data resource that has not been modified:
 : Example of table metadata for `table_1`
 
 A [Data Management
-Administrator](users.qmd#data-management-administrators) only needs to
+Administrator](user-roles.qmd#data-management-administrators) only needs to
 write the table name and description. The remaining information is
 extracted by Sprout behind the scenes.
 
@@ -110,14 +110,14 @@ in snake case based on the original column names.
 
 The third option is to create a table from an existing table. This
 includes choosing an existing table as a "base table" for the [Data
-Management Administrator](users.qmd#data-management-administrators) to
+Management Administrator](user-roles.qmd#data-management-administrators) to
 build a new table from.
 
 ### Create Table Manually
 
 The fourth option is to create a table manually. In this scenario, the
 [Data Management
-Administrator](users.qmd#data-management-administrators) will add
+Administrator](user-roles.qmd#data-management-administrators) will add
 headers and definitions of the table manully.
 
 ![Diagram of the flow that occurs when column metadata is
@@ -139,7 +139,7 @@ interface together with the table.
 When a table is created using a file, the *description* fields will
 initially be empty, since descriptions of headers are not within the
 file itself. By ensuring that [Data Management
-Administrators](users.qmd#data-management-administrators) add
+Administrators](user-roles.qmd#data-management-administrators) add
 descriptions of the headers, it will be easier for others to understand
 what that header/column contains.
 :::
@@ -149,7 +149,7 @@ to save a draft of the table.
 
 At this user interface, missing fields will initially be highlighted in
 blue so the [Data Management
-Administrator](users.qmd#data-management-administrators)'s attention is
+Administrator](user-roles.qmd#data-management-administrators)'s attention is
 led to these missing fields. They will only be able to continue, if no
 fields have missing values. If a user clicks "Save and Submit Table"
 without having filled in all fields, the missing fields will be
@@ -161,19 +161,19 @@ table.](images/user-flow-validation-table-completeness.png)
 ### User Confirmation: Table Correctness
 
 Then, when the validation is successful, Sprout will show the [Data
-Management Administrator](users.qmd#data-management-administrators) the
+Management Administrator](user-roles.qmd#data-management-administrators) the
 final table for confirmation. This works as a user-driven check for
 *corretness*, i.e., is the table filled in correctly, rather than is the
 table complete, as the validation check before this step.
 
 If the [Data Management
-Administrator](users.qmd#data-management-administrators) decides that
+Administrator](user-roles.qmd#data-management-administrators) decides that
 the table is not correct, they will click "Edit Table", and they will be
 shown a user interface with the table where they can edit the headers,
 definitions, and add new fields if needed.
 
 When the [Data Management
-Administrator](users.qmd#data-management-administrators) is satisfied
+Administrator](user-roles.qmd#data-management-administrators) is satisfied
 with their adaptions, they click "Save and Submit Table". The table will
 then go through the validation check, "Table Completeness" again and if
 the validation is successful, Sprout will confirm: "New Table Added
@@ -184,7 +184,7 @@ Successfully".
 ### Continue to Data Upload or Quit?
 
 Now, that the table has been created successfully, the [Data Management
-Administrator](users.qmd#data-management-administrators) has two
+Administrator](user-roles.qmd#data-management-administrators) has two
 options: Either they can "Continue to Data Upload", if they want to add
 data to the newly created table right after the table has been
 submitted, or they can choose to quit Sprout at this step, if they only
@@ -199,7 +199,7 @@ steps.](images/user-flow-table-created-continue-to-upload.png)
 There are two entry points for a user to upload data using an existing
 table. The first option is to continue from the diagram above, where the
 [Data Management
-Administrator](users.qmd#data-management-administrators) will upload
+Administrator](user-roles.qmd#data-management-administrators) will upload
 data right after they have created a new table. In this option, they
 click "Continue to Data Upload" (left path of diagram below).
 
@@ -208,7 +208,7 @@ existing
 table.](images/user-flow-prepare-to-upload-using-existing-table.png)
 
 The other option is the typical [Data
-Contributor](users.qmd#data-contributors) route where the user will
+Contributor](user-roles.qmd#data-contributors) route where the user will
 enter Sprout, click "Upload Data", and then "Use Existing Table". Sprout
 will then show the user a list of existing tables to choose from and the
 user will select a table and select a file to upload. Then, they will
