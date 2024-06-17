@@ -3,11 +3,11 @@
 
 # Generate PNG images from all PlantUML files
 generate-puml-all:
-  docker run --rm -v $(pwd):/puml -w /puml ghcr.io/plantuml/plantuml:latest -tpng "**/*.puml"
+  docker run --rm -v $(pwd):/puml -w /puml ghcr.io/plantuml/plantuml:latest -tsvg "**/*.puml"
 
 # Generate PNG image from specific PlantUML file
 generate-puml name:
-  docker run --rm -v  $(pwd):/puml -w /puml ghcr.io/plantuml/plantuml:latest -tpng "**/{{name}}.puml"
+  docker run --rm -v  $(pwd):/puml -w /puml ghcr.io/plantuml/plantuml:latest -tsvg "**/{{name}}.puml"
 
 # Start up the docker container
 start-docker:
