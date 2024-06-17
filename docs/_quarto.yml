@@ -11,6 +11,7 @@ website:
   page-navigation: true
   navbar:
     pinned: true
+    title: false
     logo: "_extensions/seedcase-project/seedcase-theme/logos/navbar-logo-seedcase-sprout.svg"
     logo-alt: "Seedcase Sprout logo: Main page"
     left:
