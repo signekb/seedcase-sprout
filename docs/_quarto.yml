@@ -12,17 +12,17 @@ website:
   navbar:
     pinned: true
     logo: "_extensions/seedcase-project/seedcase-theme/logos/navbar-logo-seedcase-sprout.svg"
-    logo-alt: Seedcase sprout logo
+    logo-alt: "Seedcase Sprout logo: Main page"
     left:
       - text: "Design"
         href: design/index.qmd
     tools:
       - icon: github
         href: "https://github.com/seedcase-project/seedcase-sprout"
-        aria-label: GitHub
+        aria-label: "GitHub icon: Source code"
       - icon: house
         href: https://seedcase-project.org
-        aria-label: Home page
+        aria-label: "House icon: Seedcase Project home page"
   sidebar:
     - id: design
       title: "Design"
