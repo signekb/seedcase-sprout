@@ -20,17 +20,6 @@ to accomplish and how it will do that.
 showing users and external systems that connect to the Data Resource
 managed by Seedcase.](/design/images/context.png)
 
-## Definition of terms
-
--   **Seedcase Product**: This is the software itself that is installed
-    on computer or server.
--   **Data Resource**: {{< var design.data-resource >}}
--   **Data Project**: A data project, also called a data extract, would
-    be a subset of data from a Data Resource that researchers or other
-    analysts would request access to use for a specific purpose. This
-    request, when approved, would result in a data extract that is sent
-    to the user.
-
 ## Goals
 
 Primary **goal** of Sprout are:
