@@ -2,7 +2,7 @@
 title: User roles and permissions
 ---
 
-{{< include ../_wip.qmd >}}
+{{< include /includes/_wip.qmd >}}
 
 There are three roles given to users: Project owner, project
 administrator (or project admin), and data contributor. Each role comes

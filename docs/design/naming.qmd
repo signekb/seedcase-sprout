@@ -2,7 +2,7 @@
 title: "Naming of Things"
 ---
 
-{{< include ../_wip.qmd >}}
+{{< include /includes/_wip.qmd >}}
 
 ## Philosophy and ideals
 
