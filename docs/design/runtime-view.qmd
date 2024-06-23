@@ -17,7 +17,10 @@ checked follows the sequence described in the figure below.
 ![Login and authentication sequence of steps for a registered
 user.](images/runtime-login-sequence.png)
 
-For a more general discussion of our authentication strategy and potential alternatives, see the [Authentication](security.qmd#authentication) section on the Security page.
+For a more general discussion of our authentication strategy and
+potential alternatives, see the
+[Authentication](security.qmd#authentication) section on the Security
+page.
 
 ## Data Input
 
