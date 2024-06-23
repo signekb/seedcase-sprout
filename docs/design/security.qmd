@@ -1,0 +1,152 @@
+---
+title: "Security"
+date: last-modified
+---
+
+## Authentication
+
+Authentication is the process of verifying that a user is who they claim
+to be. This section describes the authentication and account management
+strategy of the Seedcase framework in general terms. For a more concrete
+explanation of how the login user flow is implemented, see the
+[Login](runtime-view.qmd#login-and-authentication) section.
+
+The Seedcase framework currently uses Django's built-in authentication
+and session framework, storing user credentials in a local database
+table. After logging in successfully, a session is created for the user
+and stored on the server side. The ID of the session is shared with the
+user's browser and stored on the client side. Subsequent requests from
+the user are authenticated using the session ID. Sessions are also
+supported for anonymous users.
+
+### Alternative authentication options:
+
+-   **Basic Authentication**: a simple authentication scheme used by
+    APIs to authenticate users based on a username and password. In this
+    scheme, the user's credentials are encoded in a Base64-encoded
+    string and included in the HTTP Authorization header of each
+    request. The server verifies the credentials and either grants or
+    denies access to the requested resource.
+
+-   **Token-based authentication**: an authentication scheme for APIs
+    which relies on a user token to authenticate user requests. When a
+    user logs in with their username and password, the API generates a
+    unique token for that user, which is then stored securely both on
+    the client side and in the backend database. The token is then
+    included in each subsequent request from the user and checked by the
+    server against the token saved in the database. User tokens are more
+    secure than Basic Authentication because user credentials are
+    transmitted only once, before token generation. Additionally, tokens
+    can be set to expire after a certain period of time, forcing the
+    user to log in again to obtain a new token. They can also be revoked
+    by the server, if the user's access needs to be terminated.
+
+-   **JSON Web Tokens (JWTs)**: an authentication and authorisation
+    scheme that differs from simple token-based authentication in that
+    the token is generated and verified using a secret key, and also
+    encodes user details, such as user ID or user privileges. The
+    advantage of this approach is that the server is able to establish
+    the identity and authorisation level of the user without making
+    requests to the database.
+
+An extra layer of security can be added by using **Two-Factor
+Authentication (2FA)**, where, in order to log in, the user has to enter
+an additional security code sent to another device or application. This
+is usually coupled with either a session-based or a token-based
+authentication system.
+
+## Authorisation
+
+Authorisation is the process of verifying that a user has access to a
+requested resource. This section sets out the different authorisation
+levels in the Seedcase framework and the system functionalities they
+give access to.
+
+The Seedcase framework will allow setting up multiple layers of user
+access to the Data Resource instance. By default there will be an
+administrator who will have access to everything to do with
+database-level user roles and permissions. In principle it will be
+possible for that user to set the framework up in a way that they
+themselves cannot view any of the uploaded data, but this will not be
+the standard setup.
+
+The database backend will hold all information about users and their
+permissions. The permissions system is set up by the administrator who
+can assign an individual user to database-level roles or groups, some of
+which will come pre-defined. It will also be possible for an
+administrator to create their own database-level roles and groups based
+on the people working on a particular project that is using the Seedcase
+framework to handle their data.
+
+### Database-level User Roles
+
+The Seedcase framework will ship with the following database-level user
+roles pre-defined to make it easier for the data project administrator
+to ensure the security and privacy of the data entered into the system.
+
+-   **Administrator**: Initial user, will by default be assigned
+    permissions to do everything in the database. Create, read, update,
+    and delete (CRUD) permissions on data, database objects, and users
+    (including assigning other users to the Administrator role).
+
+-   **Administrator light**: A user assigned this role will have full
+    CRUD permissions on data, but not on user permissions, tables, or
+    other database objects.
+
+-   **Data Requester**: This will be a way of connecting specific users
+    with specific views created on the data contained in the database.
+    These views will be created by someone with a type of administrator
+    role.
+
+-   **Data Contributor**: A user with permission to enter data and to
+    view the data that they have entered in the past.
+
+There will be other pre-defined roles, but those will be for the
+interaction between the backend and front end and mainly coded into the
+APIs. The above roles should be used by registered users. A full list of
+permissions for specific tasks is listed in the [User
+Permissions](#user-permissions) subsection below.
+
+### User Permissions {#user-permissions}
+
+| Task                                       | Administrator | Data Requester | Data Contributor | External User |
+|---------------|---------------|---------------|---------------|---------------|
+| Create, update, delete users               | Y             |                |                  |               |
+| Create, update, delete tables              | Y             |                |                  |               |
+| Create, update, delete metadata            | Y             |                |                  |               |
+| Read metadata                              | Y             | Y              | Y                | Y             |
+| Comment on/ask about metadata              | Y             | Y              | Y                | Y             |
+| Read information on existing data projects | Y             | Y              | Y                | Y             |
+| Create new data projects                   | Y             | Y              |                  |               |
+| Edit existing data projects                | Y             | Y              |                  |               |
+| Approve new data projects                  | Y             |                |                  |               |
+| Add tables to handle new data              | Y             |                |                  |               |
+| Add metadata on new data                   | Y             |                |                  |               |
+| Add data to existing tables                | Y             |                | Y                |               |
+
+: Permission levels for tasks associated with each user role.
+
+User roles and use cases are described in more detail on the [User
+Requirements](https://design.seedcase-project.org/software/user-requirements)
+page.
+
+### Alternative authorisation options:
+
+A popular authorisation protocol is **OAuth 2.0.**. This allows client
+applications to be granted access to user resources or data hosted by
+other applications. The basic steps of this scheme are:
+
+1.  User requests access to a Data Resource managed by the Seedcase
+    framework.
+
+2.  The Seedcase framework redirects the user to an OAuth server (e.g.,
+    Shib-Identity-Provider).
+
+3.  The OAuth server authenticates the user by username and password.
+
+4.  The OAuth server sends the secret key back to the Seedcase
+    framework.
+
+5.  The Seedcase framework uses the secret key from the OAuth server,
+    providing correct authorization of the user for accessing components
+    of the Data Resource.
