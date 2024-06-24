@@ -2,7 +2,7 @@
 title: "Design of Sprout"
 ---
 
-{{< include /includes/_wip.qmd >}}
+{{< include /docs/includes/_wip.qmd >}}
 
 This documentation contains the design specific to Sprout, for design
 of the Seedcase platform, see the [Design](https://design.seedcase-project.org) 

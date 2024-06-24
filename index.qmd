@@ -2,4 +2,4 @@
 title: "Welcome to Seedcase Sprout!"
 ---
 
-{{< include /includes/_wip.qmd >}}
+{{< include /docs/includes/_wip.qmd >}}
