@@ -1,4 +1,4 @@
-docs
+docs/
 .git
 .gitignore
 .env
@@ -11,3 +11,7 @@ fly.toml
 staticfiles
 persistent_storage/
 .venv
+_quarto.yml
+_publish.yml
+_extensions/
+*_libs/
