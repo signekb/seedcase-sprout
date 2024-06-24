@@ -1,0 +1,36 @@
+title: seedcase-theme
+author: Luke W. Johnston
+version: 1.0.0
+quarto-required: ">=1.2.0"
+contributes:
+  formats:
+    html:
+      from: markdown+emoji
+      theme:
+        - cosmo
+        - theme.scss
+      toc: true
+      toc-location: right
+      toc-depth: 3
+  
+  project:
+    project:
+      type: website
+      execute-dir: project
+
+    website:
+      page-navigation: true
+      favicon: favicon/favicon.ico
+      repo-branch: main
+      repo-actions: [edit, issue, source]
+      search:
+        location: navbar
+        type: overlay
+      navbar:
+        background: light
+        logo: logos/navbar-logo-seedcase-project.svg
+        logo-alt: "Seedcase Project logo: Main page"
+    
+    csl: vancouver.csl
+
+    format: seedcase-theme-html
