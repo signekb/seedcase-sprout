@@ -15,7 +15,7 @@ Resources. The steps for logging in and having their permission levels
 checked follows the sequence described in the figure below.
 
 ![Login and authentication sequence of steps for a registered
-user.](images/runtime-login-sequence.png)
+user.](images/runtime-login-sequence.svg)
 
 <!-- TODO: Make a link to authentication app instead of describing here? Or in design repo, since this is necessary for all components. -->
 
@@ -158,7 +158,7 @@ outside of Sprout.
 
 ![Logged in user chooses to use the batch upload function with an
 existing table
-schema.](images/user-flow-data-upload.png){#fig-batch-data-entry}
+schema.](images/user-flow-data-upload.svg){#fig-batch-data-entry}
 
 <!--TODO Ensure that the link above will still work once SKB has finished updating the diagrams-->
 
@@ -172,7 +172,7 @@ database will confirm successful entry of data to the API which will in
 turn send the confirmation back to the user via the frontend.
 
 ![Logged in user manually writes a new row to the Data
-Resource.](images/runtime-manual-data-entry.png){#fig-manual-data-entry}
+Resource.](images/runtime-manual-data-entry.svg){#fig-manual-data-entry}
 
 #### Manual Data Entry: Done in Multiple Sessions
 
@@ -203,4 +203,4 @@ which will in turn send the confirmation back to the user via the front
 end.
 
 ![Logged in user enters data manually in more than one
-session.](images/runtime-manual-data-update.png){#fig-manual-data-update}
+session.](images/runtime-manual-data-update.svg){#fig-manual-data-update}
