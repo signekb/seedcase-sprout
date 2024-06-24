@@ -1,5 +1,5 @@
 @startuml function-flow
-!theme cerulean-outline
+!theme seedcase from https://raw.githubusercontent.com/seedcase-project/seedcase-theme/main
 skinparam StateFontColor black
 skinparam StateFontSize 18
 skinparam StateFontName Fira Code

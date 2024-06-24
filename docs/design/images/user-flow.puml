@@ -1,4 +1,5 @@
 @startuml user-flow
+!theme seedcase from https://raw.githubusercontent.com/seedcase-project/seedcase-theme/main
 
 title Entire User Flow of Sprout
 
