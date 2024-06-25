@@ -6,6 +6,10 @@ on:
       - main
     paths:
       - docs/**
+      - _quarto.yml
+      - index.qmd
+      - _publish.yml
+      - _extensions/**
 
 jobs:
   build-deploy-docs:
