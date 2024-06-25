@@ -57,4 +57,4 @@ reset-local:
 
 # Build the documentation website using Quarto
 build-website:
-  docker run --rm -v $(pwd):/site -w /site ghcr.io/quarto-dev/quarto:latest quarto render docs
+  docker run --rm -v $(pwd):/site -w /site ghcr.io/quarto-dev/quarto:latest quarto render
