@@ -1,4 +1,3 @@
-
 @startuml component-management
 !theme seedcase from https://raw.githubusercontent.com/seedcase-project/seedcase-theme/main
 !include  https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
