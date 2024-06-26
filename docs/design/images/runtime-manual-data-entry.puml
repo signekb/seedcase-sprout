@@ -1,4 +1,5 @@
 @startuml runtime-manual-data-entry
+!theme seedcase from https://raw.githubusercontent.com/seedcase-project/seedcase-theme/main
 
 ' Logged in user who manually writes a new row to the Data Resource.
 
