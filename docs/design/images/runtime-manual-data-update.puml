@@ -1,4 +1,4 @@
-@startuml
+@startuml runtime-manual-data-update
 !theme seedcase from https://raw.githubusercontent.com/seedcase-project/seedcase-theme/main
 
 ' Logged in user enters data manually in more than one session.

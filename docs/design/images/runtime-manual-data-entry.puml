@@ -1,4 +1,4 @@
-@startuml
+@startuml runtime-manual-data-entry
 
 ' Logged in user who manually writes a new row to the Data Resource.
 
