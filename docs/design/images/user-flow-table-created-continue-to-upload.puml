@@ -1,4 +1,5 @@
 @startuml user-flow-table-created-continue-to-upload
+!theme seedcase from https://raw.githubusercontent.com/seedcase-project/seedcase-theme/main
 
 title User Flow: Table created - Continue to Upload?
 

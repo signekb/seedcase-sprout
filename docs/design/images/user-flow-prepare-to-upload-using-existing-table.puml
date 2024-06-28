@@ -1,4 +1,5 @@
 @startuml user-flow-prepare-to-upload-using-existing-table
+!theme seedcase from https://raw.githubusercontent.com/seedcase-project/seedcase-theme/main
 
 title User Flow: Prepare to Upload using Existing Table
 

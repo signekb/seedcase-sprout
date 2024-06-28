@@ -2,7 +2,7 @@
 title: "Requirements"
 ---
 
-{{< include ../_wip.qmd >}}
+{{< include /docs/includes/_wip.qmd >}}
 
 ## Technical requirements
 

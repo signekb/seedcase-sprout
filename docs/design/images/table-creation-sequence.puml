@@ -1,4 +1,5 @@
 @startuml table-creation-sequence
+!theme seedcase from https://raw.githubusercontent.com/seedcase-project/seedcase-theme/main
 
 ' TODO: Need to update this
 

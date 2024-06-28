@@ -1,5 +1,5 @@
 @startuml component-backend
-!theme C4_green from <C4/themes>
+!theme seedcase from https://raw.githubusercontent.com/seedcase-project/seedcase-theme/main
 !include  https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
 
 ' C4 Component diagram for backend database and file storage.

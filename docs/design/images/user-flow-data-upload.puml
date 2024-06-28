@@ -1,4 +1,5 @@
 @startuml user-flow-data-upload
+!theme seedcase from https://raw.githubusercontent.com/seedcase-project/seedcase-theme/main
 
 title User Flow: Data Upload
 

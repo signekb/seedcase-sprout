@@ -15,7 +15,7 @@ don't need. Below are the diagrams for the **Context**, **Containers**, and
 ## Context
 
 The Context diagram shows the users and any external
-systems that interact with Sprout. This includes the three user roles *data contributor*, *project admin* and *project owner* described in the [users](users.qmd) post.
+systems that interact with Sprout. This includes the three user roles *data contributor*, *project admin* and *project owner* described in the [users](user-roles.qmd) post.
 
 ![C4 Context diagram showing a very basic overview of Sprout and its
 intended users.](images/context.png)

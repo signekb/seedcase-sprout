@@ -1,4 +1,5 @@
 @startuml user-flow-column-metadata-creation
+!theme seedcase from https://raw.githubusercontent.com/seedcase-project/seedcase-theme/main
 
 title User Flow: Column Metadata Creation
 
