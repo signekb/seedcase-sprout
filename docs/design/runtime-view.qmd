@@ -17,7 +17,10 @@ checked follows the sequence described in the figure below.
 ![Login and authentication sequence of steps for a registered
 user.](images/runtime-login-sequence.svg)
 
-<!-- TODO: Make a link to authentication app instead of describing here? Or in design repo, since this is necessary for all components. -->
+For a more general discussion of our authentication strategy and
+potential alternatives, see the
+[Authentication](security.qmd#authentication) section on the Security
+page.
 
 ## Data Input
 
