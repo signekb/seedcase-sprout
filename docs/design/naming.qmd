@@ -1,37 +1,19 @@
 ---
-title: "Naming of Things"
+title: "Naming scheme"
 ---
 
 {{< include /docs/includes/_wip.qmd >}}
 
-## Philosophy and ideals
+The naming scheme for Sprout is guided by our [style
+guide](https://design.seedcase-project.org/style/). The below naming
+scheme *only* applies to file paths, functions, URLS, API endpoints, and
+command line interfaces that are exposed to or associated with
+user-facing content. It does *not* apply to internal content; see the
+style guide for details on naming internal (developer-facing) content.
 
-How we name things, both internally and user-facing, will be:
-
--   Simple: Keep the vocabulary simple and easy to understand
--   Composable: Can be combined with other names to imply intent
--   Predictable: Easy to guess and reason on, without needing to look up
-    documentation
--   Reusable: Can be used across multiple contexts
--   Consistent: Remains the same across different contexts
--   Align with existing conventions: Follow widely-established standards
-    and conventions
-
-## User-facing content
-
-The below naming scheme *only* applies to file paths, functions, URLS,
-API endpoints, and command line interfaces that are exposed to or
-associated with user-facing content. It does *not* apply to internal
-content; see section below on naming for developer-facing content.
-
-### Composing names
-
-We'll compose names based on the objects we and our users interact with
-as well as the actions taken on those objects. These objects and actions
-are inspired by and align with the "core" language of working with data
-called *CRUD* (Create Read Update Delete), common naming schemes used in
-REST API applications or services (such as Github), as well as by the
-vocabulary of the HTTP verbs (GET, POST, PUT, PATCH, and DELETE):
+Guided by our style guide, we'll compose names based on the objects we
+and our users interact with as well as the actions taken on those
+objects.
 
 -   Types of objects Sprout interacts with: projects, data, and
     metadata.
@@ -40,19 +22,6 @@ vocabulary of the HTTP verbs (GET, POST, PUT, PATCH, and DELETE):
 -   Types of identifiers for specific items of objects (as numbers):
     data, metadata, and project identifiers.
 
-To name things, we'll combine the above with the object name first,
-followed by the action, with a natural heirarchy of "offspring" to the
-objects. Based on these principles, we can derive a naming scheme. In
-the scheme, objects and actions are ordered, with names occurring first
-acting as a "parent" to later names. The names are separated by a symbol
-based on its context:
-
--   `_` for Python function names.
--   `-` for file path names.
--   `/` for URLs and web API endpoint names (a `/` always begins each
-    URL to act as a root, but never ends a URL).
--   for command line interface names.
-
 Additional "rules" to the naming include:
 
 -   When a naming scheme ends without an action, the default action is
@@ -60,10 +29,8 @@ Additional "rules" to the naming include:
 -   Data objects do not have any `view` action, since we want to limit
     access to looking at raw data.
 
-### Scheme
-
-Based on the above principles, we have defined the following naming
-scheme (here shown with `space` as separator):
+Based on the above principles and our style guide, we have defined the
+following naming scheme (here shown with `space` as separator):
 
 ```         
 # View all projects
@@ -101,56 +68,3 @@ projects <id> metadata <id> delete
 projects <id> metadata <id> data update
 projects <id> metadata <id> data delete
 ```
-
-## Developer-facing (internal) content
-
-### Python
-
-Following the same naming schemes for CRUD, HTTP verbs, and common REST
-API endpoints, these are some guidelines on the general words to use for
-actions and objects:
-
--   Actions: list, edit, delete, create, extract, verify, read, write,
-    to
--   Objects: array (analogous to non-nested Lists and Sets in base
-    Python and Series in Pandas or Polars), lists (analogous to nested
-    Lists, Tuples, and Dictionaries in Python or Tables in SQL), files,
-    classes
-
-Some general guidelines when naming things in Python:
-
--   Functions:
-    -   Use `snake_case()`.
-    -   Prefer a single action verb for functions: `action()`.
-    -   Use the arguments to specify the object: `action(object=)`.
-    -   If necessary, include the object in the name following the
-        pattern `action_object()`.
-    -   If the object is in the name, prefer the plural form of the
-        object if the function could return multiple items of an object.
-    -   If the object is in the name, prefer a single generic object
-        name rather than multiple specific names: `read_csv()` rather
-        than `read_csv_file()` or `upload_file()` rather than
-        `upload_csv_file()` (uploading isn't depending on file
-        extension, while reading is)
--   Methods (includes everything from the functions):
-    -   Prefer action verbs only: `ClassName.action()`.
-    -   Avoid using object names, unless it makes the action clearer.
--   Classes:
-    -   Use `PascalCase`.
-    -   Use objects as the class name: `Object`.
-    -   Prefer the plural form of the object name: `Objects`.
-    -   Prefer a single object name (`Objects`) rather than multiple
-        (`TwoObjects`).
--   Variables (of any type):
-    -   Use `snake_case`.
-    -   Prefer a plural form for objects if they *could* contain more
-        than one item.
-    -   Use singular form *only* if the object *must* only contain one
-        item.
-    -   If an action name is necessary, prefix action verb in the past
-        tense: `actioned_object`.
--   Arguments (includes everything from variables above):
-    -   Prefer single object names rather than actions: `object`.
-    -   Prefer the plural form: `objects`.
-    -   Use singular form *only* if the function or method input *must*
-        only contain one item.
