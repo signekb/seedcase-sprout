@@ -5,13 +5,20 @@ on:
     branches:
       - main
     paths-ignore:
-      - "docs/**"
+      # Config files
       - ".github/**"
       - ".vscode/**"
+      - ".gitignore"
+      # Documentation
+      - "docs/**"
       - "*.md"
       - "*.qmd"
-      - ".gitignore"
       - "justfile"
+      # Website files
+      - _quarto.yml
+      - index.qmd
+      - _publish.yml
+      - _extensions/**
 
 jobs:
   lint:
