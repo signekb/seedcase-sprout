@@ -8,10 +8,6 @@ website:
   title: "Seedcase Sprout"
   site-url: "https://sprout.seedcase-project.org/"
   repo-url: "https://github.com/seedcase-project/seedcase-sprout"
-  page-footer:
-    center:
-      - text: "License: CC-BY 4.0"
-        href: https://github.com/seedcase-project/seedcase-sprout/blob/main/docs/LICENSE.md
   page-navigation: true
   navbar:
     pinned: true
