@@ -6,10 +6,13 @@ title: "Naming scheme"
 
 The naming scheme for Sprout is guided by our [style
 guide](https://design.seedcase-project.org/style/). The below naming
-scheme *only* applies to file paths, functions, URLS, API endpoints, and
-command line interfaces that are exposed to or associated with
-user-facing content. It does *not* apply to internal content; see the
-style guide for details on naming internal (developer-facing) content.
+scheme *only* applies to file paths, data objects, functions, URLS, API
+endpoints, and command line interfaces that are exposed to or associated
+with user-facing content. It does *not* apply to internal content; see
+the style guide for details on naming internal (developer-facing)
+content.
+
+## Actions and objects
 
 Guided by our style guide, we'll compose names based on the objects we
 and our users interact with as well as the actions taken on those
