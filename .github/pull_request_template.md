@@ -6,11 +6,13 @@ Closes #
 
 ## Reviewer Focus
 
-<!-- Please delete as appropriate: -->
+<!-- Select quick/in-depth as necessary -->
 This PR needs a quick/in-depth review. Focus on CHANGES.
 
 ## Checklist
 
-- [ ] Ran spell-check
-- [ ] Formatted Markdown
-- [ ] Rendered website locally
+- [ ] Added or updated tests
+- [ ] Tests passed locally
+- [ ] Linted and formatted code
+- [ ] Build passed locally
+- [ ] Updated documentation 
