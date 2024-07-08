@@ -71,3 +71,55 @@ projects <id> metadata <id> delete
 projects <id> metadata <id> data update
 projects <id> metadata <id> data delete
 ```
+
+## Project file paths
+
+Sprout is designed to store and structure data in a coherent and
+consistent way. Part of that is about how the data are stored into files
+and folders. Depending on the context, if Sprout is within a server
+environment with Postgres installed, the original input from the user
+will be stored in the Postgres database as the below file path and can
+be exported into actual files if desired.
+
+When constructing the project paths, we use our [style
+guide](https://design.seedcase-project.org/style/) as well as these
+additional guidelines:
+
+-   Follow the [Frictionless
+    Framework](https://v4.framework.frictionlessdata.io/) and [Data
+    Package](https://datapackage.org/) structure
+
+The types of files and folders that make up the project are:
+
+-   Types of files: metadata, raw, database (as a SQLite database),
+    parquet (as a backup of the database)
+-   Types of folders: raw, data
+
+Following a similar pattern described in the actions and objects section
+above, the base folders are:
+
+-   `project <id>`: The related set of data specific to, for instance,
+    one data collection study.
+-   `data <id>`: The files related to a specific table or file. Uses
+    `data` instead of `metadata` like above because the metadata is
+    contained a separate file (see below), while the individual files
+    are themselves the data.
+-   `ROOT`: The default location that projects are stored in. If on a
+    server, would be the path to that server space given to Sprout. If
+    on local computer, would be a default path provided by Sprout for
+    the specific operating system.
+
+```         
+# Compress all raw data files
+ROOT/projects/<id>/data/<id>/raw/<timestamp>-<uuid>.<extension>.gzip
+ROOT/projects/<id>/data/<id>/data.parquet
+
+# Full database
+ROOT/projects/<id>/database.sqlite
+
+# Machine-readable metadata file
+ROOT/projects/<id>/datapackage.json
+
+# A human readable, auto-generated 'metadata' file
+ROOT/projects/<id>/README.md
+```
