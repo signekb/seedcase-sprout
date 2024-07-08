@@ -5,6 +5,10 @@
 
 app = "seedcase-sprout"
 primary_region = "ams"
+# Politely stop the process, rather than an abrupt close (default is SIGINT, signal interrupt).
+kill_signal = "SIGTERM"
+# Prevent the app from closing too early. Closes after 3 minutes.
+kill_timeout = 180
 
 [build]
 
