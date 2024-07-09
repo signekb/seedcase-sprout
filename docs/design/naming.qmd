@@ -6,7 +6,7 @@ title: "Naming scheme"
 
 The naming scheme for Sprout is guided by our [style
 guide](https://design.seedcase-project.org/style/). The below naming
-scheme *only* applies to file paths, data objects, functions, URLS, API
+scheme *only* applies to file paths, data objects, functions, URLs, API
 endpoints, and command line interfaces that are exposed to or associated
 with user-facing content. It does *not* apply to internal content; see
 the style guide for details on naming internal (developer-facing)
@@ -106,7 +106,7 @@ above, the base folders are:
     are themselves the data.
 -   `ROOT`: The default location that projects are stored in. If on a
     server, would be the path to that server space given to Sprout. If
-    on local computer, would be a default path provided by Sprout for
+    on a local computer, would be a default path provided by Sprout for
     the specific operating system.
 
 ```         
