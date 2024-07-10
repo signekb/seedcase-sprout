@@ -8,3 +8,6 @@ updates:
     commit-message:
       prefix: build
       include: scope
+    assignees:
+      - "lwjohnst86"
+
