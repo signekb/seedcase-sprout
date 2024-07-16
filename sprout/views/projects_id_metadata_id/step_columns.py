@@ -1,4 +1,5 @@
 """File with column_review view."""
+
 from typing import Dict, List
 
 from django.http import HttpRequest, HttpResponse

@@ -1,4 +1,5 @@
 """Testing CSV validator."""
+
 import os
 import tempfile
 from unittest import TestCase

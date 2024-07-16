@@ -1,4 +1,5 @@
 """Views for the accounts app."""
+
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse
