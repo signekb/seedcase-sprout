@@ -1,4 +1,5 @@
 """CsvValidationError file."""
+
 import polars as pl
 
 
@@ -8,7 +9,7 @@ class CsvValidationError:
     def __init__(
         self,
         column: str,
-        data_type: pl.PolarsDataType,
+        data_type: pl.DataType,
         row_number: int = 0,
         value: str = "",
         is_column_missing: bool = False,

@@ -1,4 +1,5 @@
 """CSV file validator."""
+
 from typing import Mapping
 
 import polars as pl
@@ -9,7 +10,7 @@ from sprout.csv.csv_validation_error import CsvValidationError
 
 
 def validate_csv(
-    file_path: str, type_mapping: Mapping[str, pl.PolarsDataType]
+    file_path: str, type_mapping: Mapping[str, pl.DataType]
 ) -> list[CsvValidationError]:
     """Validates the CSV file.
 
@@ -42,7 +43,7 @@ def validate_csv(
 
 
 def validate_column_names(
-    csv_columns: list[str], type_mapping: Mapping[str, pl.PolarsDataType]
+    csv_columns: list[str], type_mapping: Mapping[str, pl.DataType]
 ) -> list[CsvValidationError]:
     """Validate if the columns in type_mapping are present in the CSV file.
 
