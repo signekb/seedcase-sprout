@@ -24,7 +24,7 @@ update-migrations: install-deps
 
 # Run unit tests
 run-tests: install-deps update-migrations
-  poetry run python manage.py test
+  poetry run pytest
 
 # Check Python code with the linter for any errors that need manual attention
 check-python: install-deps
