@@ -1,9 +1,9 @@
 from django.test import TestCase
 from django.urls import reverse
 
-from sprout.models import Tables
+from sprout.app.models import Tables
+from sprout.app.views.projects_id_metadata_id.helpers import create_stepper_url
 from sprout.tests.db_test_utils import create_table
-from sprout.views.projects_id_metadata_id.helpers import create_stepper_url
 
 
 class MetadataStepConfirmationTests(TestCase):

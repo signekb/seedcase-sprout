@@ -7,8 +7,8 @@ from typing import IO
 from django.conf import settings
 from django.db import models
 
-from sprout.models.tables import Tables
-from sprout.uploaders import write_to_raw
+from sprout.app.models.tables import Tables
+from sprout.app.uploaders import write_to_raw
 
 
 class Files(models.Model):

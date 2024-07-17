@@ -3,9 +3,9 @@ import csv
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 
-from sprout.csv.csv_reader import read_csv_file
-from sprout.models import Columns, Files, Tables
-from sprout.views.projects_id_metadata_id.helpers import create_stepper_url
+from sprout.app.models import Columns, Files, Tables
+from sprout.app.views.projects_id_metadata_id.helpers import create_stepper_url
+from sprout.core.csv.csv_reader import read_csv_file
 
 
 def step_file_upload(

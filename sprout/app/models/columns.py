@@ -5,8 +5,8 @@ from re import sub
 import polars
 from django.db import models
 
-from sprout.models.data_types import DataTypes
-from sprout.models.tables import Tables
+from sprout.app.models.data_types import DataTypes
+from sprout.app.models.tables import Tables
 
 
 class Columns(models.Model):

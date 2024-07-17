@@ -3,7 +3,7 @@ from django.core.files.uploadedfile import UploadedFile
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, render
 
-from sprout.models import Columns, Files, Tables
+from sprout.app.models import Columns, Files, Tables
 
 
 def projects_id_metadata_id_data_update(

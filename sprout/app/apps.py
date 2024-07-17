@@ -13,12 +13,12 @@ class AppConfig(AppConfig):
     """The configuration for "sprout"."""
 
     default_auto_field = "django.db.models.BigAutoField"
-    name = "sprout"
+    name = "sprout.app"
 
     def ready(self) -> None:
         """This is executed when the app starts up."""
         # We do a lazy import, otherwise the app will fail with AppRegistryNotReady
-        from sprout.models.data_types import update_data_types
+        from sprout.app.models.data_types import update_data_types
 
         # We use a Django signal called post_migrate as the columns should
         # update after the migrations have been applied.

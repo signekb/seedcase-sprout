@@ -5,10 +5,10 @@ from typing import Dict, List
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
-from sprout.csv.csv_reader import read_csv_file
-from sprout.forms import ColumnsForm
-from sprout.models import Columns, Files, Tables
-from sprout.views.projects_id_metadata_id.helpers import create_stepper_url
+from sprout.app.forms import ColumnsForm
+from sprout.app.models import Columns, Files, Tables
+from sprout.app.views.projects_id_metadata_id.helpers import create_stepper_url
+from sprout.core.csv.csv_reader import read_csv_file
 
 
 def step_columns(request: HttpRequest, table_id: int) -> HttpResponse:

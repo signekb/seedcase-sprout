@@ -5,7 +5,7 @@ import datetime
 import polars
 from django.test import TestCase
 
-from sprout.models import DataTypes
+from sprout.app.models import DataTypes
 
 
 class DataTypesTests(TestCase):

@@ -2,8 +2,8 @@
 
 from django.forms import BooleanField, CharField, ModelForm, Textarea
 
-from sprout.models import Columns, Tables
-from sprout.validators import (
+from sprout.app.models import Columns, Tables
+from sprout.app.validators import (
     validate_no_special_characters,
     validate_table_name_does_not_exist,
 )

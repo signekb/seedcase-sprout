@@ -6,7 +6,7 @@ from unittest import TestCase
 
 import polars as pl
 
-from sprout.csv.csv_validator import validate_csv
+from sprout.core.csv.csv_validator import validate_csv
 
 
 class CsvValidatorTests(TestCase):

@@ -3,7 +3,7 @@
 from django.core.validators import RegexValidator
 from django.forms import ValidationError
 
-from sprout.models import Tables
+from sprout.app.models import Tables
 
 
 def validate_no_special_characters(field_name: str, field_value: str) -> None:

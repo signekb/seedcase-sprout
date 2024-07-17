@@ -1,9 +1,9 @@
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 
-from sprout.forms import TablesForm
-from sprout.models import Tables
-from sprout.views.projects_id_metadata_id.helpers import create_stepper_url
+from sprout.app.forms import TablesForm
+from sprout.app.models import Tables
+from sprout.app.views.projects_id_metadata_id.helpers import create_stepper_url
 
 
 def step_name_and_description(

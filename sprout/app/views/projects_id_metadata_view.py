@@ -3,7 +3,7 @@
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 
-from sprout.models import Tables
+from sprout.app.models import Tables
 
 
 def projects_id_metadata_view(request: HttpRequest) -> HttpResponse:

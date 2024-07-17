@@ -1,9 +1,9 @@
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 
-from sprout.views.projects_id_metadata_id.step_columns import step_columns
-from sprout.views.projects_id_metadata_id.step_confirmation import step_confirmation
-from sprout.views.projects_id_metadata_id.step_file_upload import step_file_upload
-from sprout.views.projects_id_metadata_id.step_name_and_description import (
+from sprout.app.views.projects_id_metadata_id.step_columns import step_columns
+from sprout.app.views.projects_id_metadata_id.step_confirmation import step_confirmation
+from sprout.app.views.projects_id_metadata_id.step_file_upload import step_file_upload
+from sprout.app.views.projects_id_metadata_id.step_name_and_description import (
     step_name_and_description,
 )
 

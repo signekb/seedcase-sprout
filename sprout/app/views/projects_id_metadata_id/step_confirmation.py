@@ -2,7 +2,7 @@ from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
-from sprout.models import Tables
+from sprout.app.models import Tables
 
 
 def step_confirmation(

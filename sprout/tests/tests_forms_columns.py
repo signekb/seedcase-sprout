@@ -2,8 +2,8 @@
 
 from django.test import TestCase
 
-from sprout.forms import ColumnsForm
-from sprout.models import DataTypes, Tables
+from sprout.app.forms import ColumnsForm
+from sprout.app.models import DataTypes, Tables
 
 
 class ColumnsFormTest(TestCase):

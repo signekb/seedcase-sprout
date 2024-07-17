@@ -5,8 +5,8 @@ import os
 
 from django.test import TestCase
 
-from sprout.models import Tables
-from sprout.models.files import Files
+from sprout.app.models import Tables
+from sprout.app.models.files import Files
 from sprout.tests.db_test_utils import create_table
 
 

@@ -3,7 +3,7 @@
 from django.http import FileResponse, HttpRequest, HttpResponse
 from django.shortcuts import render
 
-from sprout.models import Files, Tables
+from sprout.app.models import Files, Tables
 
 
 def table_files(request: HttpRequest, table_id: int) -> HttpResponse:

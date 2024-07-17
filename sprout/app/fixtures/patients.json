@@ -1,6 +1,6 @@
 [
   {
-    "model": "sprout.Tables",
+    "model": "app.Tables",
     "pk": 1,
     "fields": {
       "name": "Patients",
@@ -13,7 +13,7 @@
     }
   },
   {
-    "model": "sprout.Columns",
+    "model": "app.Columns",
     "pk": 1,
     "fields": {
       "tables": 1,
@@ -27,7 +27,7 @@
     }
   },
   {
-    "model": "sprout.Columns",
+    "model": "app.Columns",
     "pk": 2,
     "fields": {
       "tables": 1,
@@ -41,7 +41,7 @@
     }
   },
   {
-    "model": "sprout.Columns",
+    "model": "app.Columns",
     "pk": 3,
     "fields": {
       "tables": 1,
@@ -55,7 +55,7 @@
     }
   },
   {
-    "model": "sprout.Columns",
+    "model": "app.Columns",
     "pk": 4,
     "fields": {
       "tables": 1,
@@ -69,7 +69,7 @@
     }
   },
   {
-    "model": "sprout.Columns",
+    "model": "app.Columns",
     "pk": 5,
     "fields": {
       "tables": 1,
@@ -83,7 +83,7 @@
     }
   },
   {
-    "model": "sprout.Columns",
+    "model": "app.Columns",
     "pk": 6,
     "fields": {
       "tables": 1,
@@ -97,7 +97,7 @@
     }
   },
   {
-    "model": "sprout.Columns",
+    "model": "app.Columns",
     "pk": 7,
     "fields": {
       "tables": 1,
@@ -111,7 +111,7 @@
     }
   },
   {
-    "model": "sprout.Columns",
+    "model": "app.Columns",
     "pk": 8,
     "fields": {
       "tables": 1,
@@ -125,11 +125,11 @@
     }
   },
   {
-    "model": "sprout.Files",
+    "model": "app.Files",
     "pk": 1,
     "fields": {
       "original_file_name": "patients.csv",
-      "server_file_path": "sprout/fixtures/patients.csv",
+      "server_file_path": "sprout/app/fixtures/patients.csv",
       "file_extension": "csv",
       "file_size_bytes": 96042,
       "tables": 1,
