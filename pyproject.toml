@@ -33,6 +33,11 @@ polars = "^1.0.0"
 django-widget-tweaks = "^1.5.0"
 psycopg2-binary = "^2.9.9"
 
+[tool.poetry.group.test.dependencies]
+pytest = "^8.2.2"
+pytest-django = "^4.8.0"
+
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
