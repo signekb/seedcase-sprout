@@ -6,7 +6,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from sprout.app.models import Files
-from sprout.tests.db_test_utils import create_table
+from tests.db_test_utils import create_table
 
 
 class TableFilesTests(TestCase):
