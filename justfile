@@ -41,8 +41,7 @@ start-app: install-deps update-migrations
 
 # Install Python package dependencies
 install-deps:
-  # no-root to not install the parent folder as a package
-  poetry install --no-root
+  poetry install 
 
 # Add test data when running locally based on json files found in `fixtures/`
 add-test-data: install-deps update-migrations
