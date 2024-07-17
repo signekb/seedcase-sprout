@@ -21,7 +21,6 @@
     </button>
   </nav>
 </div>
-
 <!-- TABLE VIEW -->
 <form id="metadata_view_table" hidden method="post" action="">
   {% csrf_token %}
@@ -42,17 +41,18 @@
           <td>{{ form.display_name|attr:'tabindex:2' }}</td>
           <td style="overflow: hidden;">{{ form.description|attr:'tabindex:3' }}</td>
           <td style="overflow: hidden;">{{ form.data_type|attr:'tabindex:4' }}</td>
-          <td style="overflow: hidden;">{{ form.excluded|attr:'tabindex:5'|attr:'onclick:toggleExcluded(event)' }}</td>
-          <input type="hidden" name="{{ form.prefix }}-id" value="{{ form.instance.id }}" />
+          <td style="overflow: hidden;">{{ form.excluded|attr:'tabindex:5'|attr:'onclick:toggleExcluded(event) ' }}</td>
+          <input type="hidden"
+                 name="{{ form.prefix }}-id"
+                 value="{{ form.instance.id }}" />
         </tr>
       {% endfor %}
     </tbody>
   </table>
-  <div class="row right-align" >
+  <div class="row right-align">
     <button type="submit" tabindex="10">Continue</button>
   </div>
 </form>
-
 <!-- GRID VIEW -->
 <form id="metadata_view_grid" method="post" action="">
   {% csrf_token %}
@@ -61,20 +61,31 @@
       <!-- CARD -->
       <article class="row card">
         <!-- OVERLAY (when marked as excluded) -->
-        <div hidden id="overlay_{{ column.id }}" style="position: absolute; width: 100%; height: 100%">
-          <div style="position: relative; width: 100%; height: 100%; left: -16px; z-index: 10; background: rgba(0, 0, 0, 0.75)">
+        <div hidden
+             id="overlay_{{ column.id }}"
+             style="position: absolute;
+                    width: 100%;
+                    height: 100%">
+          <div style="position: relative;
+                      width: 100%;
+                      height: 100%;
+                      left: -16px;
+                      z-index: 10;
+                      background: rgba(0, 0, 0, 0.75)">
             <div class="middle">
-              <div style="text-align: center; color: antiquewhite; font-weight: bold; font-size: 1.5rem">Excluded!</div>
+              <div style="text-align: center;
+                          color: antiquewhite;
+                          font-weight: bold;
+                          font-size: 1.5rem">Excluded!</div>
             </div>
           </div>
         </div>
-
         <!-- CARD CONTENT -->
         <div style="min-width: 0; flex: 1; padding-top: 20px">
           <div class="row" style="margin-bottom: 20px">
             <h3 class="max card-header">{{ column.extracted_name }}</h3>
             <label class="checkbox icon" style="z-index: 11">
-              {{ column.form.excluded|attr:'tabindex:5'|attr:'onclick:toggleExcluded(event)' }}
+              {{ column.form.excluded|attr:'tabindex:5'|attr:'onclick:toggleExcluded(event) ' }}
               <span>
                 <i>delete</i>
                 <i style="color: antiquewhite">undo</i>
@@ -86,36 +97,35 @@
             {{ column.form.display_name|attr:'tabindex:1' }}
             <label>Display name</label>
           </div>
-
           <div hidden>{{ column.form.machine_readable_name|attr:'tabindex:2' }}</div>
-
           <div class="field label suffix border" style="margin-bottom: 20px">
             {{ column.form.data_type|attr:'tabindex:3' }}
-            <label>Type</label>
+            <label>Data type</label>
             <i>arrow_drop_down</i>
           </div>
-
           <div class="field label small border" style="margin-bottom: 20px">
             {{ column.form.description|attr:'tabindex:4'|attr:'class:active' }}
             <label class="active">Description</label>
           </div>
-
           <div style="min-width: 0">
-            <p style="color: grey; font-size: 0.75rem; font-weight: bold; margin-bottom: 5px">Preview (showing up to 5 unique values):</p>
+            <p style="color: grey;
+                      font-size: 0.75rem;
+                      font-weight: bold;
+                      margin-bottom: 5px">Preview (showing up to 5 unique values):</p>
             {% for cell in column.data %}
-              <p style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ cell }}</p>
+              <p style="overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap">{{ cell }}</p>
             {% endfor %}
           </div>
         </div>
       </article>
     {% endfor %}
   </div>
-
   <div class="row right-align">
     <button type="submit" tabindex="10">Continue</button>
   </div>
 </form>
-
 <!-- Help dialog -->
 <dialog class="dialog" id="help-ext_name">
   <h5 class="center-align">Fields</h5>
@@ -153,7 +163,6 @@
     <a class="transparent link" data-ui="#help-ext_name">Close</a>
   </nav>
 </dialog>
-
 <script>
   let moveInputValues = (source, target) => {
     for (let sourceInput of source.querySelectorAll('input[id],select[id]')) {
@@ -198,4 +207,3 @@
     document.getElementsByName(columnId + '-description').forEach((d) => (d.required = overlay.hidden))
   }
 </script>
-
