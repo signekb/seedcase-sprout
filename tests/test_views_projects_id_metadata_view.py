@@ -6,7 +6,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from sprout.app.models import Columns, Files, Tables
-from sprout.tests.db_test_utils import create_table
+from tests.db_test_utils import create_table
 
 
 class ProjectIdMetaDataTests(TestCase):

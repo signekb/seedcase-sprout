@@ -7,7 +7,7 @@ from django.test import TestCase
 
 from sprout.app.models import Tables
 from sprout.app.models.files import Files
-from sprout.tests.db_test_utils import create_table
+from tests.db_test_utils import create_table
 
 
 class FilesTests(TestCase):

@@ -24,7 +24,7 @@ update-migrations: install-deps
 
 # Run unit tests
 run-tests: install-deps update-migrations
-  poetry run python manage.py test
+  poetry run pytest
 
 # Check Python code with the linter for any errors that need manual attention
 check-python: install-deps
@@ -41,12 +41,11 @@ start-app: install-deps update-migrations
 
 # Install Python package dependencies
 install-deps:
-  # no-root to not install the parent folder as a package
-  poetry install --no-root
+  poetry install 
 
 # Add test data when running locally based on json files found in `fixtures/`
 add-test-data: install-deps update-migrations
-  poetry run python manage.py loaddata */fixtures/*.json
+  poetry run python manage.py loaddata */*/fixtures/*.json
 
 # Reset local Sprout (remove __pycache__ folders, db, migrations, and persistent storage raw files)
 reset-local: 
