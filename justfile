@@ -22,7 +22,7 @@ update-migrations: install-deps
   yes | poetry run python manage.py makemigrations
   poetry run python manage.py migrate
 
-# Run unit tests
+# Run Django tests
 run-tests: install-deps update-migrations
   poetry run pytest
 
@@ -41,7 +41,7 @@ start-app: install-deps update-migrations
 
 # Install Python package dependencies
 install-deps:
-  poetry install 
+  poetry install
 
 # Add test data when running locally based on json files found in `fixtures/`
 add-test-data: install-deps update-migrations
