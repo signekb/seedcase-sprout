@@ -14,6 +14,17 @@
       "args": [
         "runserver"
       ]
+    },
+    {
+      "name": "test-debugger",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${file}",
+      "purpose": [
+        "debug-test"
+      ],
+      "console": "integratedTerminal",
+      "justMyCode": false
     }
   ]
 }

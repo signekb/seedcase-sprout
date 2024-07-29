@@ -25,7 +25,7 @@ class AppConfig(AppConfig):
         post_migrate.connect(update_data_types, sender=self)
 
         # Adding test data after migrate when DEBUG=TRUE and not running unit tests
-        is_not_running_unit_tests = "test" not in sys.argv
+        is_not_running_unit_tests = "pytest" not in sys.modules
         if DEBUG and is_not_running_unit_tests:
             post_migrate.connect(load_test_data, sender=self)
 
