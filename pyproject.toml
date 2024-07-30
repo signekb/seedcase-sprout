@@ -18,6 +18,7 @@ readme = "README.md"
 homepage = "https://sprout.seedcase-project.org"
 repository = "https://github.com/seedcase-project/seedcase-sprout"
 license = "MIT"
+packages = [{include = "sprout"}]
 
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/seedcase-project/seedcase-sprout/issues"
