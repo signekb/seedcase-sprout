@@ -1,5 +1,6 @@
 @startuml container
-!theme C4_green from <C4/themes>
+!theme seedcase from https://raw.githubusercontent.com/seedcase-project/seedcase-theme/main
+
 ' Container diagram showing overview of Seedcase
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
