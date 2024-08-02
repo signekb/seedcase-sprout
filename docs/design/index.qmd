@@ -18,7 +18,7 @@ to accomplish and how it will do that.
 
 ![[C4 Context diagram](https://c4model.com/#SystemContextDiagram)
 showing users and external systems that connect to the Data Resource
-managed by Seedcase.](/design/images/context.png)
+managed by Seedcase.](images/context.svg) 
 
 ## Goals
 
