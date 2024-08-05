@@ -20,7 +20,7 @@ class MetadataStepConfirmationTests(TestCase):
         response = self.client.get(self.current_url)
 
         # Assert
-        self.assertEquals(200, response.status_code)
+        self.assertEqual(200, response.status_code)
         self.assertContains(response, self.table.name)
 
     def tests_confirmation_step_redirect(self):
