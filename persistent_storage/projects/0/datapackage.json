@@ -1,0 +1,107 @@
+{
+  "resources": [
+    {
+      "name": "patients",
+      "type": "table",
+      "path": "raw/patients-2d40e191163443659fd745a72cc40d0a.csv.gz",
+      "scheme": "file",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "encoding": "utf-8",
+      "description": "A table with patient information. This is created automatically when DEBUG=TRUE",
+      "schema": {
+        "fields": [
+          {
+            "name": "Id",
+            "title": "Id",
+            "description": "Unique patient identifier",
+            "type": "string",
+            "constraints": {
+              "required": true,
+              "unique": true
+            }
+          },
+          {
+            "name": "BIRTHDATE",
+            "title": "BIRTHDATE",
+            "description": "Patient's birth date. YYYY-MM-DD. Doesn't include missing values.",
+            "type": "date",
+            "constraints": {
+              "required": true
+            }
+          },
+          {
+            "name": "DEATHDATE",
+            "title": "DEATHDATE",
+            "description": "Patient's death date. YYYY-MM-DD. Includes missing values.",
+            "type": "date",
+            "missingValues": [
+              "NA"
+            ]
+          },
+          {
+            "name": "MARITAL",
+            "title": "MARITAL",
+            "description": "Patient's marital status. S=Single, M=Married, D=Divorced, W=Widowed. Includes missing values.",
+            "type": "string",
+            "constraints": {
+              "enum": [
+                "S",
+                "M",
+                "D",
+                "W"
+              ]
+            },
+            "missingValues": [
+              "NA"
+            ]
+          },
+          {
+            "name": "ETHNICITY",
+            "title": "ETHNICITY",
+            "description": "Patient's ethnicity. Either hispanic or nonhispanic. Doesn't include missing values",
+            "type": "string",
+            "constraints": {
+              "required": true,
+              "enum": [
+                "hispanic",
+                "nonhispanic"
+              ]
+            }
+          },
+          {
+            "name": "SEX",
+            "title": "SEX",
+            "description": "Patient's sex. F=female, M=male. Doesn't include missing values.",
+            "type": "string",
+            "constraints": {
+              "required": true,
+              "enum": [
+                "F",
+                "M"
+              ]
+            }
+          },
+          {
+            "name": "HEALTHCARE_EXPENSES",
+            "title": "HEALTHCARE_EXPENSES",
+            "description": "Patient's yearly healthcare expenses in US dollars. Doesn't include missing values.",
+            "type": "number",
+            "constraints": {
+              "required": true
+            }
+          },
+          {
+            "name": "INCOME",
+            "title": "INCOME",
+            "description": "Patient's yearly income in US dollars. Doesn't include missing values.",
+            "type": "integer",
+            "constraints": {
+              "required": true
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
