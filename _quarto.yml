@@ -32,7 +32,10 @@ website:
       align: left
       collapse-level: 1
       contents:
-        - auto: docs/design/
+        - docs/design/requirements.qmd
+        - docs/design/c4-models.qmd
+        - docs/design/naming.qmd
+        - docs/design/user-roles.qmd
 
 # format:
 #   seedcase-theme-html:
