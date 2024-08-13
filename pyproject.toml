@@ -27,7 +27,7 @@ packages = [{include = "sprout"}]
 python = "^3.10"
 django = "5.1"
 whitenoise = "^6.6.0"
-gunicorn = "^22.0.0"
+gunicorn = "^23.0.0"
 dj-database-url = "^2.1.0"
 polars = "^1.0.0"
 django-widget-tweaks = "^1.5.0"
