@@ -1,0 +1,64 @@
+@startuml create-resource-structure
+!theme seedcase from https://raw.githubusercontent.com/seedcase-project/seedcase-theme/main
+
+skinparam StateFontColor black
+skinparam StateFontName Fira Code
+
+state "Input" as input {
+  input : - `path_*()` functions assist\n  with giving correct paths
+' Arguments -----
+  path : - Path to resources\n  folder in a package
+}
+
+state "Output" as output {
+  output : - The package parent folder is shown as /
+  output : - Output: list two paths, the resource path\n  and the resource raw path
+  state "/resources/<id>/" as folder_id
+  folder_id : Folder with assigned ID (e.g. '1')
+
+  state "/resources/<id>/raw/" as folder_raw
+  folder_raw : Raw folder with assigned ID (e.g. '1')
+  folder_id --[hidden]> folder_raw
+}
+
+state "create_resource_structure()" as crs {
+  crs : - Required argument: path
+
+  state arg <<entryPoint>>
+  input --> arg
+
+  state "verify_is_directory()" as vid
+  vid : - Required arg: path
+  vid : - Output: path or Error
+  arg --> vid
+
+  state "get_resource_ids()" as gri
+  gri : - Required arg: path to resources folder
+  gri : - Output: list of existing IDs (or None) 
+  vid --> gri
+
+  state "create_resource_id()" as cri
+  cri : - Required arg: list of existing IDs
+  cri : - Output: ID
+  gri --> cri
+
+  state "create_resource_dir()" as crd
+  crd : - Required arg: ID to assign for directory
+  crd : - Output: path of created directory
+  cri --> crd
+
+  state "create_resource_raw_dir()" as crrd
+  crrd : - Required arg: path to resource ID
+  crrd : - Output: path of created directory
+  crd --> crrd
+
+  state join <<join>>
+  state return <<exitPoint>>
+  crrd --> join
+  crd --> join
+  join --> return
+  return --> output
+}
+
+@enduml
+
