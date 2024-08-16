@@ -1,0 +1,66 @@
+---
+title: "Naming scheme"
+---
+
+{{< include /docs/includes/_wip.qmd >}}
+
+This document describes a general naming scheme for Sprout that
+is guided by our [style guide](https://design.seedcase-project.org/style/)
+as well as by the [Frictionless
+Framework](https://v4.framework.frictionlessdata.io/) and [Data
+Package](https://datapackage.org/) structure. This naming scheme *only*
+applies to data objects, functions, URLs, API endpoints, and
+command line interfaces that are exposed to or associated with
+user-facing content. It does *not* apply to internal content; see the
+style guide for details on naming internal (developer-facing) content.
+
+We'll compose names based on the objects we and our users interact with
+as well as the actions taken on those objects. Following along with the
+[Frictionless Data Package](https://datapackage.org/) terminology, we simplify "data package" to "package" and
+"data resource" to "resource". We use the words "property" or "properties"
+to describe package and resource metadata contained
+in the `datapackage.json` file that follows the Frictionless Data
+specification.
+
+## Objects
+
+| Object | Description |
+|----------------------------|--------------------------------------------|
+| package(s) | A data package that contains a collection of related data resources and properties. |
+| resource(s) | A single data file within a package, along with its properties and associated *raw* data files. |
+| properties or property | Metadata about a package or resource. |
+| file structure or structure | The file and folder structure of a package. |
+| path | A file path listing the location of folders or files that Sprout interacts with. |
+| template | A template file for specific objects, such as a template for a package or resource properties file. |
+| data | The data file within a resource. Within Sprout, this includes the table in the database, the Parquet file, as well as raw files. |
+| identifier | A unique identifier for a package or resource, denoted as `id`. |
+
+: General objects used throughout Sprout.
+
+| File or folder | Description |
+|----------------------------|--------------------------------------------|
+| packages | The folder that contains all packages. |
+| resources | The folder that contains all resource files in a package. |
+| raw | The folder that contains raw data files for a data resource. |
+| raw data file | A compressed raw data file format, such as a `.zip`, `.gzip`, or `.tar.gz` file. |
+| JSON | The main way we save and pass information around on the package's or resource's properties. |
+| Parquet | A columnar, efficient storage file format that we use to save data within a resource. |
+| SQLite | A relational database file format that we use to contain all data resources in a package. |
+
+: Specific files and folders used within or output by Sprout.
+
+## Actions
+
+| Action | Description |
+|----------------------------|--------------------------------------------|
+| create | Create a new object. |
+| construct | Construct or reconstruct a data file (like the Parquet file). |
+| view | View details about an object. |
+| list | List basic details about many objects. |
+| edit | Edit an object, specifically the properties object. |
+| add | Add another object to an existing object, specifically adding data to a resource. |
+| write | Write an object to a file. |
+| copy | Copy a file from one location to another. |
+| delete | Permanently delete an object. |
+
+: General actions that Sprout can take on objects or files/folders.
