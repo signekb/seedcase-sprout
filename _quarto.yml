@@ -35,6 +35,7 @@ website:
         - docs/design/requirements.qmd
         - docs/design/c4-models.qmd
         - docs/design/naming.qmd
+        - docs/design/python-functions.qmd
         - docs/design/user-roles.qmd
 
 # format:
