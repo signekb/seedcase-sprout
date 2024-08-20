@@ -1,9 +1,6 @@
 @startuml create-resource-structure
 !theme seedcase from https://raw.githubusercontent.com/seedcase-project/seedcase-theme/main
 
-skinparam StateFontColor black
-skinparam StateFontName Fira Code
-
 state "Input" as input {
   input : - `path_*()` functions assist\n  with giving correct paths
 ' Arguments -----
