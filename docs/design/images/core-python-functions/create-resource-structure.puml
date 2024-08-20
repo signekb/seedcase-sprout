@@ -29,15 +29,15 @@ state "create_resource_structure()" as crs {
   vid : - Output: path or Error
   arg --> vid
 
-  state "get_resource_ids()" as gri
-  gri : - Required arg: path to resources folder
-  gri : - Output: list of existing IDs (or None) 
-  vid --> gri
+  state "get_ids()" as gi
+  gi : - Required arg: path to resources folder
+  gi : - Output: list of existing IDs (or None) 
+  vid --> gi
 
   state "create_resource_id()" as cri
   cri : - Required arg: list of existing IDs
   cri : - Output: ID
-  gri --> cri
+  gi --> cri
 
   state "create_resource_dir()" as crd
   crd : - Required arg: ID to assign for directory
