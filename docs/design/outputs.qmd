@@ -1,0 +1,175 @@
+---
+title: "Outputs"
+---
+
+{{< include /docs/includes/_wip.qmd >}}
+
+Sprout is designed to structure, organize, and store data in a
+standardized, coherent, and consistent way. At the base of how data is
+structured and stored are the files and folders. So, this document
+describes the main file and folder structure output when using Sprout.
+It is split into two sections:
+
+-   the file system when used either locally or via the code-based way
+    (through Python or the command line) in a user-controlled and
+    terminal-only server, or
+-   the file system when used as a web app on a server.
+
+## Local file and folder structure
+
+We follow our [naming scheme](naming.qmd), as well as the [Frictionless
+Data
+specification](https://decisions.seedcase-project.org/why-frictionless-data/),
+to decide on the structure and name of the files and folders. All data
+stored in Sprout for a specific set of conditions is called a data
+package and each set of data within the data package is called a data
+resource (see Note below).
+
+::: callout-note
+When a user starts using Sprout to structure their data, that data will
+form a [Data Package](https://datapackage.org) (from the Frictionless Data standard). A data
+package is called many things in other fields. For instance it could be
+a "cohort study data", a "data resource", a database, a clinical trial
+dataset, a dataset, a study dataset, simply "data", or any other combination
+of words that include the word data. To keep it
+consistent with the Frictionless Data standard, we name it a data
+package.
+
+A data package consists of one or more files (called data resources) that contain
+data specific to a given set of conditions. For instance, a data package
+could be a research study that collects information from people older
+than 50 who live in Denmark and who have diabetes. In this example data
+package, there might be data collected on basic demographics like
+gender, ethnicity, or education, or on blood sample data like blood
+glucose, cholesterol, or blood pressure. Here, the basic demographics
+could be one data resource, while the blood sample data could be another
+data resource within the data package.
+:::
+
+### Folders
+
+The folders that Sprout creates and uses are:
+
+`SPROUT_ROOT/`
+
+:   The location where Sprout will store all data that form one or more
+    data packages. This location can be changed depending on the needs
+    of the users. The default location is determined based on the
+    operating system and where Sprout is installed locally by a user or on a
+    server. An example default location for a local
+    computer, where Sprout is installed on a user's drive, would be
+    `/home/USERNAME/.sprout/`.
+
+`SPROUT_ROOT/packages/<id>/`
+
+:   All data packages are stored in the `packages/` folder and given an
+    `<id>` (a whole number).
+    Each `<id>` folder contains all the files relevant for **one** data
+    package.
+
+`SPROUT_ROOT/packages/<id>/resources/<id>/`
+
+:   Whenever a specific type of data, like demographics data or blood sample data,  is stored in the data package, it
+    will be stored as a data resource. In general, a data resource
+    encompasses data collected in a specific way and for a specific set
+    of measurements from a specific set of input sources for a specific
+    purpose. The data resource(s) will always be within one specific
+    package, with each data resource in its own folder based on a number `<id>`, e.g. `packages/1/resources/1/`.
+
+    ::: callout-note
+    Using the demographics and blood sample example above, the reason
+    why these sources of data would be considered two separate data resources,
+    rather than a single, joint data resource, is because, while
+    they both collect data on the same group of people, they collect the
+    data in different ways. The demographic data is usually collected
+    with a survey by a researcher or technician (or the participant
+    themselves if online) and obtained in a relatively consistent way using
+    some survey software. Meanwhile, the blood sample data is usually
+    taken at a specific time and analyzed by a specific machine by a
+    specific laboratory in a specific way that is output in a specific
+    format. The two types of data are collected in different ways and should be recognized
+    as separate entities and thus separate data resources, even though they contain data about the same group of people.
+    :::
+
+`SPROUT_ROOT/packages/<id>/resources/<id>/raw/`
+
+:   Whenever data is stored and structured for a specific data resource,
+    the original unprocessed and untouched data will be kept in this
+    `raw/` folder as a backup and in case anything unexpected happens during the
+    import stage. Given how messy data often is and given how some data
+    storage formats (e.g. Excel) often have their own way of storing and
+    encoding information, computer mistakes can happen that are not
+    caused by any human error.
+    The data in the `raw/` folder can potentially be used to determine
+    where things went wrong if they did go wrong.
+
+### Files
+
+Sprout creates and uses these files:
+
+`SPROUT_ROOT/packages/<id>/datapackage.json`
+
+:   This machine-readable JSON file is the foundation of a data package
+    and contains the full [Frictionless Data specification](https://datapackage.org/). This file
+    contains the metadata on the package (like title, description, and contributors) as
+    well as metadata on the data resources (like column names, data
+    types, descriptions, and a path to the Parquet file with the data in it).
+
+`SPROUT_ROOT/packages/<id>/README.md`
+
+:   Since JSON isn't easy for a human to read, this `README.md` file
+    will contain some basic information from the `datapackage.json` file
+    that is structured in a human readable, auto-generated way. This
+    file is largely used to a) adhere to interoperable principles and b)
+    serve potentially as the basis for displaying information for a
+    data package's landing page in the Sprout web app.
+
+`SPROUT_ROOT/packages/<id>/database.sqlite`
+
+:   This file contains all the data in the data package as a
+    [SQLite](https://decisions.seedcase-project.org/why-sqlite/)
+    database. Each relational table within represents one data resource.
+    The SQLite database is used because it is a lightweight, serverless,
+    and self-contained database that is easy to use and manage. It is
+    also a common database format that is used in many applications and
+    is easy to export to other database formats. The file is only
+    described within the `datapackage.json` file and is not classified
+    as a data resource, so the database file cannot be used by software that follows the
+    Frictionless Data standard. We use and provide it because of the
+    features that formal databases provide, like indexing, querying, and
+    data integrity. The `data.parquet` file described below will be the
+    data resource that is linked within the `datapackage.json` file.
+
+`SPROUT_ROOT/packages/<id>/resources/<id>/raw/<timestamp>-<uuid>.<extension>.gzip`
+
+:   These are compressed raw data files associated with a specific
+    resource. These files are kept intentionally raw and are copied
+    directly from the input data the user provides to this file. This
+    `raw/` folder will not be linked within the `datapackage.json` file.
+    Every time a user adds or updates data to the data resource, the
+    original file will be stored here before being processed for
+    correctness and basic checks. Afterwards, it will be merged in with
+    any existing data in the data resource's `data.parquet` file (for
+    tabular data).
+
+`SPROUT_ROOT/packages/<id>/resources/<id>/data.parquet`
+
+:   When a user creates a data resource and adds or updates data in the
+    resource, all resource data is processed and stored in the
+    [Parquet](https://decisions.seedcase-project.org/why-parquet/) data
+    format (if it is tabular data). The reason there is both a Parquet
+    file as well as a table in the SQLite database is the
+    way the [Frictionless Data Package](https://datapackage.org/) specification describes and sets data
+    resources. The specification requires either a path value or a data
+    value to be set for a data resource, but does not allow for setting a
+    table in a database as a value. So interoperability of the data
+    package is achieved by providing the Parquet file, rather than the SQLite
+    database. In this way, we use both the Parquet data file and the database
+    table for different reasons, even though they contain
+    the same data.
+
+## Server or multi-user computer
+
+::: callout-warning
+This section is still in development and will be updated soon.
+:::
