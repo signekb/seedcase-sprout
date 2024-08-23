@@ -8,11 +8,13 @@ authors = [
   "Kristiane Beicher <kris.beicher@clin.au.dk>", 
   "Philip Christiansen <pch@mjolner.dk>",
   "Signe Kirk Brødbæk <signekb@clin.au.dk>",
+  "Marton Vago <marton.vago95@gmail.com >",
 ]
 maintainers = [
   "Luke W. Johnston <lwjohnst@gmail.com>",
   "Kristiane Beicher <kris.beicher@clin.au.dk>", 
   "Signe Kirk Brødbæk <signekb@clin.au.dk>",
+  "Marton Vago <marton.vago95@gmail.com >",
 ]
 readme = "README.md"
 homepage = "https://sprout.seedcase-project.org"
