@@ -24,36 +24,40 @@ state "create_resource_structure()" as crs {
   state arg <<entryPoint>>
   input --> arg
 
-  state "verify_is_directory()" as vid
+  state "verify_is_dir()" as vid
   vid : - Required arg: path
   vid : - Output: path or Error
   arg --> vid
 
   state "get_ids()" as gi
-  gi : - Required arg: path to resources folder
-  gi : - Output: list of existing IDs (or None) 
+  gi : - Required arg: path to\n  resources folder
+  gi : - Output: list of existing\n  IDs (or the empty list) 
   vid --> gi
 
-  state "create_resource_id()" as cri
-  cri : - Required arg: list of existing IDs
-  cri : - Output: ID
-  gi --> cri
+  state "create_next_id()" as cni
+  cni : - Required arg: list of existing IDs
+  cni : - Output: ID
+  gi --> cni
 
-  state "create_resource_dir()" as crd
-  crd : - Required arg: ID to assign for directory
-  crd : - Output: path of created directory
-  cri --> crd
+  state "create_id_path()" as cip
+  cip : - Required args: path to resources folder\n  and ID to assign for folder
+  cip : - Output: path to directory for new resource
+  cni --> cip
+  arg --> cip
 
-  state "create_resource_raw_dir()" as crrd
-  crrd : - Required arg: path to resource ID
-  crrd : - Output: path of created directory
-  crd --> crrd
+  state "create_resource_raw_path()" as crrp
+  crrp : - Required arg: path to resource ID
+  crrp : - Output: path to raw folder
+  cip --> crrp
 
-  state join <<join>>
+  state "create_dirs()" as cd
+  cd : - Required arg: list of paths of\n  directories to create
+  cd : - Output: list of paths of created\n  directories
+  cip --> cd
+  crrp --> cd
+
   state return <<exitPoint>>
-  crrd --> join
-  crd --> join
-  join --> return
+  cd --> return
   return --> output
 }
 

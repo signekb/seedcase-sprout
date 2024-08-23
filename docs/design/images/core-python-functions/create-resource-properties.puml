@@ -30,7 +30,7 @@ state "create_resource_properties()" as crp {
   data_path --> arg_data_path
   properties --> arg_properties
 
-  state "verify_is_directory()" as vid
+  state "verify_is_dir()" as vid
   vid : - Required arg: path
   vid : - Output: path or Error
   arg_path --> vid
