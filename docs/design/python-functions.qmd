@@ -303,13 +303,14 @@ These functions are still being developed.
 
 :   Create a prettier, human readable version of a JSON object.
 
-`create_package_properties_template()`
+`create_properties_template(path)`
 
-:   TODO
-
-`create_resource_properties_template()`
-
-:   TODO
+:   While mostly intended for internal purposes, this function can be
+    useful to download and manually inspect the full Data Package
+    specification for a package. The aim, at least internally, is to use
+    this function to create a `datapackage.json` within Sprout core that
+    other functions can use. The `path` argument is the path to where
+    you want the file saved. Outputs the path of the created file.
 
 `view_properties()`
 
