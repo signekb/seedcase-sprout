@@ -18,7 +18,7 @@ The Context diagram shows the users and any external
 systems that interact with Sprout. This includes the three user roles *data contributor*, *project admin* and *project owner* described in the [users](user-roles.qmd) post.
 
 ![C4 Context diagram showing a very basic overview of Sprout and its
-intended users.](images/context.svg)
+intended users.](images/c4/context.svg)
 
 ## Container
 
@@ -27,7 +27,7 @@ are responsible for, and how they interact with each other. It also shows
 the technology choices for each container.
 
 ![C4 Container diagram showing larger functional parts of Sprout and
-their connections.](images/container.svg)
+their connections.](images/c4/container.svg)
 
 ## Component
 
@@ -42,19 +42,19 @@ and the databases and storage.
 This diagram shows the pages users interact with in the user interface container. In addition, it shows which user roles that can access them. Outside the container is the authentication container and the management container. The authentication container is needed to authenticate users and their access. 
 
 ![C4 Component diagram showing the parts that make up the user interface
-containers.](images/component-ui.svg)
+containers.](images/c4/component-ui.svg)
 
 ### Management
 
 This diagram shows the actions and behaviours that happen internally between the user interface and the database and storage. This includes things like creating databases, updating data and metadata, and modifying user roles.
 
 ![C4 Component diagram showing the parts that make up the management
-containers.](images/component-management.svg)
+containers.](images/c4/component-management.svg)
 
 ### Databases and storage
 
 This diagram shows the components that make up the database and storage container, and the types of actions and behaviours they have.
 
 ![C4 Component diagram showing the parts that make up the database and
-storage containers.](images/component-backend.svg)
+storage containers.](images/c4/component-backend.svg)
 :::

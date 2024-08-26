@@ -52,7 +52,7 @@ to create a table with a name that already exists, and the user will be
 asked to write a different name for the table.
 
 ![Diagram of the flow that occurs when table metadata is
-created.](images/user-flow-table-metadata-creation.svg)
+created.](images/user-flow/user-flow-table-metadata-creation.svg)
 
 After a table's metadata has been created, the next step is to define
 the columns within the table. Column metadata includes:
@@ -121,7 +121,7 @@ Administrator](user-roles.qmd#data-management-administrators) will add
 headers and definitions of the table manully.
 
 ![Diagram of the flow that occurs when column metadata is
-created.](images/user-flow-column-metadata-creation.svg)
+created.](images/user-flow/user-flow-column-metadata-creation.svg)
 
 <!--TODO SKB 19 January 2024: This is where I got to in the update of this post. It will probably change again, so I will stop this update for now and return at a later stage-->
 
@@ -156,7 +156,7 @@ without having filled in all fields, the missing fields will be
 highlighted in red.
 
 ![Diagram of the process flow for validating the
-table.](images/user-flow-validation-table-completeness.svg)
+table.](images/user-flow/user-flow-validation-table-completeness.svg)
 
 ### User Confirmation: Table Correctness
 
@@ -192,7 +192,7 @@ wanted to create the table as preparation for future uploads.
 
 ![Diagram describing the next steps given after creating the table and
 passing the validation
-steps.](images/user-flow-table-created-continue-to-upload.svg)
+steps.](images/user-flow/user-flow-table-created-continue-to-upload.svg)
 
 ## Data Upload
 
@@ -205,7 +205,7 @@ click "Continue to Data Upload" (left path of diagram below).
 
 ![Diagram showing the steps taken for uploading data when using an
 existing
-table.](images/user-flow-prepare-to-upload-using-existing-table.svg)
+table.](images/user-flow/user-flow-prepare-to-upload-using-existing-table.svg)
 
 The other option is the typical [Data
 Contributor](user-roles.qmd#data-contributors) route where the user will
@@ -237,7 +237,7 @@ If validation succeeds, the data will be uploaded and Sprout will
 confirm: "Upload Successful".
 
 ![Diagram showing the steps that occur after validation and final data
-upload from a Data Contributor.](images/user-flow-data-upload.svg)
+upload from a Data Contributor.](images/user-flow/user-flow-data-upload.svg)
 
 ## Entire User Flow
 
@@ -248,4 +248,4 @@ below, you can see the user flow in its entirety.
 <!-- TODO: Update full user flow diagram to include all the other diagrams after review -->
 
 ![Diagram showing the full flow from user inputting data into it finally
-being stored in the database.](images/user-flow.svg)
+being stored in the database.](images/user-flow/user-flow.svg)
