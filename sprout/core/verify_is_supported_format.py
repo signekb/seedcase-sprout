@@ -1,10 +1,24 @@
 from pathlib import Path
 
-SUPPORTED_FORMATS = ["csv", "tsv", "xlsx", "xls", "json", "jsonl", "ndjson", 
-                     "geojson", "topojson", "ods", "parq", "parquet"]
+SUPPORTED_FORMATS = [
+    "csv",
+    "tsv",
+    "xlsx",
+    "xls",
+    "json",
+    "jsonl",
+    "ndjson",
+    "geojson",
+    "topojson",
+    "ods",
+    "parq",
+    "parquet",
+]
+
 
 class UnsupportedFormatError(Exception):
     """Raised if file format is not supported by Sprout."""
+
     def __init__(self, format, *args, **kwargs):
         """Initialises UnsupportedFormatError.
 
@@ -16,8 +30,9 @@ class UnsupportedFormatError(Exception):
         message = (
             f"File format '{format}' is not supported. Sprout currently "
             f"supports the following formats: {', '.join(SUPPORTED_FORMATS)}."
-        )        
+        )
         super().__init__(message, *args, **kwargs)
+
 
 def verify_is_supported_format(path: Path) -> Path:
     """Checks that the format of the file given by the path is supported by Sprout.
