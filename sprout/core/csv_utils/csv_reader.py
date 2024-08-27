@@ -133,7 +133,7 @@ def _convert_to_booleans_if_possible(series: Series) -> Series:
         Series: A Series converted to booleans if possible or the original series.
     """
     if _check_series_values(series, list(BOOLEAN_MAPPING.keys())):
-        return series.replace(BOOLEAN_MAPPING, default=None)
+        return series.replace_strict(BOOLEAN_MAPPING, default=None)
 
     return series
 
