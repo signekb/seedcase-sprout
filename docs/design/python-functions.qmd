@@ -172,26 +172,17 @@ a list of these two path objects.
 function.](images/core-python-functions/create-resource-structure.svg){#fig-create-resource-structure
 fig-alt="A Plant UML schematic of the detailed code flow within the `create_resource_structure()` function."}
 
-### `create_resource_properties(path, data_path, properties)`
+### `create_resource_properties(path, properties)`
 
-This function either takes the data found in the `data_path` location
-and creates a JSON object following the Frictionless Data standard or
-takes the `properties` argument to fill in the correct fields for the
-data resource in the `datapackage.json` file.
-
-If the `data_path` argument is given, it tries to guess and fill in some
-of the property fields required by the Frictionless Data resource
-specification. Use `edit_resource_properties()` to fill in any missing
-fields.
-
-If the `data_path` argument is not given, the `properties` argument is
-required and is used to directly provide the properties values for the
-resource in the `datapackage.json` file. It must be given a a JSON
-object (use `view_resource_properties_template()` to have the correct
-JSON object).
-
-Use `path_resource()` to provide the correct `path` location or use the
-output of `create_resource_structure()`. Outputs a JSON object only; use
+This function sets up and structures a new resource property by taking
+the fields given in the `properties` argument to fill them and prepare
+them to be added to the `datapackage.json` file. It must be given as a
+JSON object following the Data Package specification (use
+`view_resource_properties_template()` to get a JSON object that follows
+the Frictionless Data Package standard). The `path` argument provides
+the path to the resource `id` that the properties are for; use
+`path_resource()` to provide the correct path or use the output of
+`create_resource_structure()`. Outputs a JSON object; use
 `write_resource_properties()` to save the JSON object to the
 `datapackage.json` file.
 
@@ -274,6 +265,22 @@ Writes a data object to the `path` database location. Use
 ensures the correct table is created in the database. Outputs the same
 `path` object as well as the name of the newly created database table.
 
+### `extract_resource_properties(path, data_path)`
+
+This takes the data found at the `data_path` location and creates a JSON
+object following the Frictionless Data standard. Internally it uses the
+frictionless Python package to guess and fill in some of the property
+fields required by the Frictionless Data resource specification. This
+function is often followed by `edit_resource_properties()` to fill in
+any remaining missing fields and then the `verify_resource_properties()`
+function. Usually, you use either this function or the
+`create_resource_properties()` function to create the resource
+properties for the specific data resource given. The `path` argument
+points to the resource `id` folder; use `path_resource()` to help give
+the correct path. Outputs a JSON object. Use
+`write_resource_properties()` to save the JSON object to the
+`datapackage.json` file.
+
 ## Path functions
 
 -   Nearly all the below `path_*()` functions use `path_sprout_root()`
@@ -285,8 +292,8 @@ ensures the correct table is created in the database. Outputs the same
     so all include a `verify_is_dir()` or `verify_is_file()` check.
 -   If the wrong `package_id` or `resource_id` is given, an error
     message will include a list of all the actual `package_id` at the
-    `path_sprout_root()` location or all actual `resource_id` for a specific
-    package.
+    `path_sprout_root()` location or all actual `resource_id` for a
+    specific package.
 
 ### `path_resources(package_id)`
 
