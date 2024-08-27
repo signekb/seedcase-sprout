@@ -27,7 +27,7 @@ def validate_csv(
     transformed_csv = _transform_to_suitable_csv_format(file_path, None)
 
     # Read the csv and convert cell values to null if unable to convert to type.
-    df = read_csv(transformed_csv, dtypes=type_mapping, ignore_errors=True)
+    df = read_csv(transformed_csv, schema_overrides=type_mapping, ignore_errors=True)
 
     validation_errors = validate_column_names(df.columns, type_mapping)
 

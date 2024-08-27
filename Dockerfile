@@ -1,4 +1,4 @@
-FROM python:3.11-slim-bookworm
+FROM python:3.12-slim-bookworm
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
@@ -13,7 +13,7 @@ RUN pip install --no-cache-dir poetry==1.7.1
 # executed when dependency files change)
 COPY pyproject.toml poetry.lock /code/
 RUN poetry config virtualenvs.create false
-RUN poetry install --only main --no-root --no-interaction
+RUN poetry install --with django --no-root --no-interaction
 
 # Copy all code to image
 COPY . /code
