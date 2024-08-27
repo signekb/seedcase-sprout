@@ -276,45 +276,61 @@ ensures the correct table is created in the database. Outputs the same
 
 ## Path functions
 
-::: callout-warning
-These functions are still being developed.
-:::
+-   Nearly all the below `path_*()` functions use `path_sprout_root()`
+    internally to get the root path as well as `package_id` and/or
+    `resource_id` to complete the correct path for the specific
+    package/resource.
+-   All of these functions output a path object.
+-   The paths returned by all of these functions are paths that exist,
+    so all include a `verify_is_dir()` or `verify_is_file()` check.
+-   If the wrong `package_id` or `resource_id` is given, an error
+    message will include a list of all the actual `package_id` at the
+    `path_sprout_root()` location or all actual `resource_id` for a specific
+    package.
 
-`path_resources(package_id)`
+### `path_resources(package_id)`
 
-:   TODO
+Creates the absolute path to the package's resources directory.
 
-`path_resource(package_id, resource_id)`
+### `path_resource(package_id, resource_id)`
 
-:   TODO
+Creates the absolute path to a specific resource directory within a
+package.
 
-`path_resource_raw(package_id, resource_id)`
+### `path_resource_raw(package_id, resource_id)`
 
-:   TODO
+Creates the absolute path to a resource's raw data directory within a
+package.
 
-`path_resource_raw_files(package_id, resource_id)`
+### `path_resource_raw_files(package_id, resource_id)`
 
-:   TODO
+Creates a list of absolute paths to all the raw data files within a
+resource's raw data directory within a package.
 
-`path_resource_data(package_id, resource_id)`
+### `path_resource_data(package_id, resource_id)`
 
-:   TODO
+Creates the absolute path to a resource's Parquet data file in a
+package.
 
-`path_properties(package_id)`
+### `path_properties(package_id)`
 
-:   TODO
+Creates the absolute path to the package's properties `datapackage.json`
+file.
 
-`path_package_database(package_id)`
+### `path_package_database(package_id)`
 
-:   TODO
+Creates the absolute path to the package's database.
 
-`path_package(package_id)`
+### `path_package(package_id)`
 
-:   TODO
+Creates the absolute path to the specific package folder.
 
-`path_sprout_root(package_id)`
+### `path_sprout_root()`
 
-:   TODO
+If the `SPROUT_ROOT` environment variable isn't provided, this function
+will return the default path to where data packages will be stored. The
+default locations are dependent on the operating system. This function
+also creates the necessary directory if it doesn't exist.
 
 ## Helper functions
 
