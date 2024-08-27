@@ -1,0 +1,69 @@
+@startuml extract-resource-properties
+!theme seedcase from https://raw.githubusercontent.com/seedcase-project/seedcase-theme/main
+
+state "Input" as input {
+  input : - `path_*()` functions assist with giving correct paths
+' Arguments -----
+  path : - Path to specific\n  resource folder
+  data_path : - Path to file with\n  data in it
+  path -[hidden]> data_path
+}
+
+state "Output" as output {
+  state "JSON" as json_output
+  json_output : - JSON object of the resource following\n  the Data Package spec
+  json_output : - Use `write_resource_properties()` to\n  save back to `datapackage.json`
+}
+
+state "extract_resource_properties()" as erp {
+  erp : - Required arg: path, data_path
+
+  state arg_path <<entryPoint>>
+  state arg_data_path <<entryPoint>>
+
+  path --> arg_path
+  data_path --> arg_data_path
+
+  state "verify_is_dir()" as vid
+  vid : - Required arg: path
+  vid : - Output: path or Error
+  arg_path --> vid : path object
+
+  state "create_relative_resource_data_path()" as crrdp
+  crrdp : - Required arg: absolute path from input
+  crrdp : - Output: relative path\n  (e.g. `resources/1/data.parquet`)
+  vid --> crrdp : path object
+
+  state "verify_is_file()" as vif
+  vif : - Required arg: path
+  vif : - Output: path or Error
+  arg_data_path --> vif : path object
+
+  state "verify_is_supported_format()" as vsf
+  vsf : - Required arg: path
+  vsf : - Output: path or Error
+  vif --> vsf : path object
+
+  state "extract_properties_from_file()" as epff
+  epff : - Required arg: path
+  epff : - Output: JSON
+  vsf --> epff : path object
+
+  state "edit_resource_properties_field()" as erpf
+  erpf : - Required args: properties, field, value
+  erpf : - Output: JSON
+  epff --> erpf : JSON object
+  crrdp --> erpf : Update `path`\nproperty
+
+  state "verify_resource_properties()" as vrp
+  vrp : - Required arg: properties
+  vrp : - Output: JSON or Error
+  vrp : - Checks against spec
+  erpf --> vrp : JSON object
+
+  state "return" <<exitPoint>>
+  vrp --> return : JSON object
+  return --> output
+}
+@enduml
+
