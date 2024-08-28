@@ -4,11 +4,8 @@
 state "Input" as input {
   input : - `path_*()` functions assist with giving correct paths
 ' Arguments -----
-  path : - Path to specific\n  resource folder
-  data_path : - Path to file with\n  data in it
-  properties : - JSON of\n  properties
-  path -[hidden]> data_path
-  data_path -[hidden]> properties
+  path : - Path to resource <id> folder
+  properties: - JSON object of the resource\n  following the Data Package spec
 }
 
 state "Output" as output {
@@ -18,66 +15,38 @@ state "Output" as output {
 }
 
 state "create_resource_properties()" as crp {
-  crp : - Required arg: path
-  crp : - Conditional args: data_path or properties object
-  crp : - Either data_path or properties must be given, not both
+  crp : - Required arg: path and properties object
 
   state arg_path <<entryPoint>>
-  state arg_data_path <<entryPoint>>
   state arg_properties <<entryPoint>>
 
   path --> arg_path
-  data_path --> arg_data_path
   properties --> arg_properties
 
   state "verify_is_dir()" as vid
   vid : - Required arg: path
   vid : - Output: path or Error
-  arg_path --> vid
+  arg_path --> vid : path object
 
-  state "path_relative_resource_data()" as prrd
-  prrd : - Required arg: absolute path from input
-  prrd : - Output: relative path\n  (e.g. `resources/1/data.parquet`)
-  vid --> prrd
-
-  state condition_input <<choice>>
-  arg_properties --> condition_input
+  state "create_relative_resource_data_path()" as crrdp
+  crrdp : - Required arg: absolute path from input
+  crrdp : - Output: relative path\n  (e.g. `resources/1/data.parquet`)
+  vid --> crrdp : path object
 
   state "verify_resource_properties()" as vrp
   vrp : - Required arg: properties
   vrp : - Output: JSON or Error
   vrp : - Checks against spec
-  condition_input --> vrp : If properties given
-
-  arg_data_path --> condition_input
-
-  state "verify_is_file()" as vif
-  vif : - Required arg: path
-  vif : - Output: path or Error
-  condition_input --> vif : If data_path given
-
-  state "verify_format_supported()" as vsf
-  vsf : - Required arg: path
-  vsf : - Output: path or Error
-  vif --> vsf
-
-  state "extract_resource_properties()" as erp
-  erp : - Required arg: path
-  erp : - Output: JSON
-  vsf --> erp
-
-  state condition_output <<choice>>
-  erp --> condition_output
-  vrp --> condition_output
+  arg_properties --> vrp : JSON object
 
   state "edit_resource_properties_field()" as erpf
   erpf : - Required args: properties, field, value
   erpf : - Output: JSON
-  prrd --> erpf : Update `path`\nproperty
-  condition_output --> erpf
+  crrdp --> erpf : Update `path`\nproperty
+  vrp --> erpf : JSON object
 
   state "return" <<exitPoint>>
-  erpf --> return
+  erpf --> return : JSON object
   return --> output
 }
 @enduml
