@@ -281,6 +281,11 @@ the correct path. Outputs a JSON object. Use
 `write_resource_properties()` to save the JSON object to the
 `datapackage.json` file.
 
+![Diagram showing the internal function flow of the
+`extract_resource_properties()`
+function.](images/core-python-functions/extract-resource-properties.svg){#fig-extract-resource-properties
+fig-alt="A Plant UML schematic of the detailed code flow within the `extract_resource_properties()` function."}
+
 ## Path functions
 
 -   Nearly all the below `path_*()` functions use `path_sprout_root()`
