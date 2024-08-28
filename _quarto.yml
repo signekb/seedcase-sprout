@@ -15,6 +15,8 @@ website:
     logo: "_extensions/seedcase-project/seedcase-theme/logos/navbar-logo-seedcase-sprout.svg"
     logo-alt: "Seedcase Sprout logo: Main page"
     left:
+      - text: "Guide"
+        href: docs/guide/index.qmd
       - text: "Design"
         href: docs/design/index.qmd
     tools:
@@ -26,19 +28,25 @@ website:
         aria-label: "House icon: Seedcase Project home page"
   sidebar:
     - id: design
-      title: "Design"
       pinned: true
       style: "floating"
-      align: left
-      collapse-level: 1
       contents:
-        - docs/design/requirements.qmd
-        - docs/design/c4-models.qmd
-        - docs/design/naming.qmd
-        - docs/design/outputs.qmd
-        - docs/design/python-functions.qmd
-        - docs/design/app-urls.qmd
-        - docs/design/user-roles.qmd
+        - section: "Design"
+          href: docs/design/index.qmd
+          contents:
+            - docs/design/requirements.qmd
+            - docs/design/c4-models.qmd
+            - docs/design/naming.qmd
+            - docs/design/outputs.qmd
+            - docs/design/python-functions.qmd
+            - docs/design/app-urls.qmd
+            - docs/design/user-roles.qmd
+    - id: guide
+      contents:
+        - section: "Guide"
+          href: docs/guide/index.qmd
+          contents:
+            - docs/guide/packages.qmd
 
 # format:
 #   seedcase-theme-html:
