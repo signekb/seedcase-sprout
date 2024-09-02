@@ -49,17 +49,17 @@ state "extract_resource_properties()" as erp {
   epff : - Output: JSON
   vsf --> epff : path object
 
-  state "edit_resource_properties_field()" as erpf
-  erpf : - Required args: properties, field, value
-  erpf : - Output: JSON
-  epff --> erpf : JSON object
-  crrdp --> erpf : Update `path`\nproperty
+  state "edit_property_field()" as epf
+  epf : - Required args: properties, field, value
+  epf : - Output: JSON
+  epff --> epf : JSON object
+  crrdp --> epf : Update `path`\nproperty
 
   state "verify_resource_properties()" as vrp
   vrp : - Required arg: properties
   vrp : - Output: JSON or Error
   vrp : - Checks against spec
-  erpf --> vrp : JSON object
+  epf --> vrp : JSON object
 
   state "return" <<exitPoint>>
   vrp --> return : JSON object
