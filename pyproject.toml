@@ -29,6 +29,7 @@ packages = [{include = "sprout"}]
 python = "^3.12"
 polars = "^1.5.0"
 frictionless = {extras = ["sql"], version = "^5.17.0"}
+requests = "^2.32.3"
 
 [tool.poetry.group.test.dependencies]
 pytest = "^8.3.2"
