@@ -14,9 +14,9 @@
 # Resources -----
 # from .list_resources import *
 # from .view_resource import *
+from .create_resource_properties import create_resource_properties
 from .create_resource_structure import create_resource_structure
 
-# from .create_resource_properties import *
 # from .extract_resource_properties import *
 # from .edit_resource_properties import *
 # from .write_resource_data_to_raw import *
