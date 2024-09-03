@@ -13,7 +13,7 @@ likely change quite a bit and may even be deleted later when they are no
 longer needed.
 :::
 
-Based on the [naming scheme](naming.qmd) and the [Frictionless Data
+Based on the [naming scheme](/docs/design/architecture/naming.qmd) and the [Frictionless Data
 Package standard](https://datapackage.org), these are the core
 external-facing functions in Sprout, which are stored in `sprout/core/`.
 See the [Outputs](outputs.qmd) section for an overview and explanation
@@ -91,7 +91,7 @@ the correct path location to create this structure.
 
 ![Diagram showing the internal function flow of the
 `create_package_structure()`
-function.](images/core-python-functions/create-package-structure.svg){#fig-create-package-structure
+function.](images/core/create-package-structure.svg){#fig-create-package-structure
 fig-alt="A Plant UML schematic of the detailed code flow within the `create_package_structure()` function."}
 
 ### `create_package_properties(path, properties)`
@@ -108,7 +108,7 @@ file.
 
 ![Diagram showing the internal function flow of the
 `create_package_properties()`
-function.](images/core-python-functions/create-package-properties.svg){#fig-create-package-properties
+function.](images/core/create-package-properties.svg){#fig-create-package-properties
 fig-alt="A Plant UML schematic of the detailed code flow within the `create_package_properties()` function."}
 
 ### `edit_package_properties(path, properties)`
@@ -169,7 +169,7 @@ a list of these two path objects.
 
 ![Diagram showing the internal function flow of the
 `create_resource_structure()`
-function.](images/core-python-functions/create-resource-structure.svg){#fig-create-resource-structure
+function.](images/core/create-resource-structure.svg){#fig-create-resource-structure
 fig-alt="A Plant UML schematic of the detailed code flow within the `create_resource_structure()` function."}
 
 ### `create_resource_properties(path, properties)`
@@ -188,7 +188,7 @@ the path to the resource `id` that the properties are for; use
 
 ![Diagram showing the internal function flow of the
 `create_resource_properties()`
-function.](images/core-python-functions/create-resource-properties.svg){#fig-create-resource-properties
+function.](images/core/create-resource-properties.svg){#fig-create-resource-properties
 fig-alt="A Plant UML schematic of the detailed code flow within the `create_resource_properties()` function."}
 
 ### `write_resource_data_to_raw(path, data_path)`
@@ -283,7 +283,7 @@ the correct path. Outputs a JSON object. Use
 
 ![Diagram showing the internal function flow of the
 `extract_resource_properties()`
-function.](images/core-python-functions/extract-resource-properties.svg){#fig-extract-resource-properties
+function.](images/core/extract-resource-properties.svg){#fig-extract-resource-properties
 fig-alt="A Plant UML schematic of the detailed code flow within the `extract_resource_properties()` function."}
 
 ## Path functions
@@ -365,7 +365,7 @@ These functions are still being developed.
 
     ![Diagram showing the internal function flow of the
     `create_properties_template()`
-    function.](images/core-python-functions/create-properties-template.svg){#fig-create-properties-template
+    function.](images/core/create-properties-template.svg){#fig-create-properties-template
     fig-alt="A Plant UML schematic of the detailed code flow within the `create_properties_template()` function."}
 
 `view_properties()`
