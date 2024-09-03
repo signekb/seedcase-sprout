@@ -39,14 +39,14 @@ state "create_resource_properties()" as crp {
   vrp : - Checks against spec
   arg_properties --> vrp : JSON object
 
-  state "edit_resource_properties_field()" as erpf
-  erpf : - Required args: properties, field, value
-  erpf : - Output: JSON
-  crrdp --> erpf : Update `path`\nproperty
-  vrp --> erpf : JSON object
+  state "edit_property_field()" as epf
+  epf : - Required args: properties, field, value
+  epf : - Output: JSON
+  crrdp --> epf : Update `path`\nproperty
+  vrp --> epf : JSON object
 
   state "return" <<exitPoint>>
-  erpf --> return : JSON object
+  epf --> return : JSON object
   return --> output
 }
 @enduml

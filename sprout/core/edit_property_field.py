@@ -1,4 +1,4 @@
-def edit_resource_properties_field(properties: dict, field: str, value: any) -> dict:
+def edit_property_field(properties: dict, field: str, value: any) -> dict:
     """Updates properties by setting the specified field to the specified value.
 
     The field must exist on the properties object.
