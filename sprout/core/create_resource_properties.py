@@ -3,7 +3,7 @@ from pathlib import Path
 from sprout.core.create_relative_resource_data_path import (
     create_relative_resource_data_path,
 )
-from sprout.core.edit_resource_properties_field import edit_resource_properties_field
+from sprout.core.edit_property_field import edit_property_field
 from sprout.core.verify_is_dir import verify_is_dir
 from sprout.core.verify_resource_properties import verify_resource_properties
 
@@ -35,4 +35,4 @@ def create_resource_properties(path: Path, properties: dict) -> dict:
     verify_is_dir(path)
     verify_resource_properties(properties)
     data_path = create_relative_resource_data_path(path)
-    return edit_resource_properties_field(properties, "path", str(data_path))
+    return edit_property_field(properties, "path", str(data_path))

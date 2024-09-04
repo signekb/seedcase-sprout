@@ -1,10 +1,12 @@
 ---
 title: "Core Python functions"
+callout-icon: false
+callout-appearance: "minimal"
 ---
 
 {{< include /docs/includes/_wip.qmd >}}
 
-::: callout-important
+::: {.callout-important appearance="default" icon="true"}
 We created this document, and especially the function diagrams, mainly
 as a way to help us as a team all understand and agree on what we're
 making and what needs to be worked on. Which means that the descriptions
@@ -13,11 +15,11 @@ likely change quite a bit and may even be deleted later when they are no
 longer needed.
 :::
 
-Based on the [naming scheme](/docs/design/architecture/naming.qmd) and the [Frictionless Data
-Package standard](https://datapackage.org), these are the core
-external-facing functions in Sprout, which are stored in `sprout/core/`.
-See the [Outputs](outputs.qmd) section for an overview and explanation
-of the different outputs provided by Sprout.
+Based on the [naming scheme](/docs/design/architecture/naming.qmd) and
+the [Frictionless Data Package standard](https://datapackage.org), these
+are the core external-facing functions in Sprout, which are stored in
+`sprout/core/`. See the [Outputs](outputs.qmd) section for an overview
+and explanation of the different outputs provided by Sprout.
 
 There are some small differences between the naming scheme and the
 functions described here:
@@ -62,6 +64,7 @@ Data specification.
 
 ## Data package functions
 
+::: {.callout-note collapse="true"}
 ### `list_packages(path)`
 
 This function lists some basic details contained in the
@@ -71,7 +74,9 @@ would be allowed by privacy and legal regulations (e.g. the package ID
 as well as the name, description, and contact persons for each package).
 Use `path_sprout_root()` to provide the path to the place packages are
 stored by default. Outputs a JSON object by default.
+:::
 
+::: {.callout-note collapse="true"}
 ### `view_package_properties(path)`
 
 This will show the information contained within the `datapackage.json`
@@ -79,7 +84,9 @@ file of a package for only the fields relevant to the package itself,
 and only basic details of the resources within the package. Use
 `path_properties()` to provide the correct path location. Outputs a JSON
 object.
+:::
 
+::: {.callout-note collapse="true"}
 ### `create_package_structure(path)`
 
 This is the first function to use to create a new data package. It
@@ -93,7 +100,9 @@ the correct path location to create this structure.
 `create_package_structure()`
 function.](images/core/create-package-structure.svg){#fig-create-package-structure
 fig-alt="A Plant UML schematic of the detailed code flow within the `create_package_structure()` function."}
+:::
 
+::: {.callout-note collapse="true"}
 ### `create_package_properties(path, properties)`
 
 This is the second function to use to create a new data package. It is
@@ -110,7 +119,9 @@ file.
 `create_package_properties()`
 function.](images/core/create-package-properties.svg){#fig-create-package-properties
 fig-alt="A Plant UML schematic of the detailed code flow within the `create_package_properties()` function."}
+:::
 
+::: {.callout-note collapse="true"}
 ### `edit_package_properties(path, properties)`
 
 Make edits to the `datapackage.json` properties of a specific package.
@@ -122,7 +133,9 @@ the correct specification. Use `path_properties()` in the `path`
 argument to provide the correct location for the file. Outputs a JSON
 object only. Use `write_package_properties()` to save back to the
 `datapackage.json` file.
+:::
 
+::: {.callout-note collapse="true"}
 ### `delete_package(path, confirm)`
 
 Completely delete a specific package and all it's data resources.
@@ -131,7 +144,9 @@ default to `false` so that the user needs to explicitly provide `true`
 to the function argument as confirmation. This is done to prevent
 accidental deletion. Use `path_package()` function in the `path` to get
 the correct location. Outputs `true` if the deletion was successful.
+:::
 
+::: {.callout-note collapse="true"}
 ### `write_package_properties(properties, path)`
 
 Writes JSON object containing package properties (not including resource
@@ -139,9 +154,11 @@ properties) back to the `datapackage.json` file. The `path` argument is
 the location of the `datapackage.json` file. Use the `path_properties()`
 function to provide this path to the correct location. Returns the same
 path object as given in the `path` argument.
+:::
 
 ## Data resource functions
 
+::: {.callout-note collapse="true"}
 ### `list_resources(path)`
 
 This looks in one specific package's `datapackage.json` file and lists a
@@ -149,14 +166,18 @@ basic summary of all the data resources contained within the package.
 The list would be basic information like resource ID, name, and
 description. Use `path_package()` to provide the correct path location.
 Outputs a JSON object.
+:::
 
+::: {.callout-note collapse="true"}
 ### `view_resource(path, properties_path)`
 
 Views the information on a package's specific resource that is contained
 within the `datapackage.json` file. Use the `path_resource()` function
 to provide the correct location for the `path` and `path_properties()`
 for the `properties_path` argument. Outputs a JSON object.
+:::
 
+::: {.callout-note collapse="true"}
 ### `create_resource_structure(path)`
 
 This is the first function to use to set up the structure for a data
@@ -171,7 +192,9 @@ a list of these two path objects.
 `create_resource_structure()`
 function.](images/core/create-resource-structure.svg){#fig-create-resource-structure
 fig-alt="A Plant UML schematic of the detailed code flow within the `create_resource_structure()` function."}
+:::
 
+::: {.callout-note collapse="true"}
 ### `create_resource_properties(path, properties)`
 
 This function sets up and structures a new resource property by taking
@@ -190,7 +213,9 @@ the path to the resource `id` that the properties are for; use
 `create_resource_properties()`
 function.](images/core/create-resource-properties.svg){#fig-create-resource-properties
 fig-alt="A Plant UML schematic of the detailed code flow within the `create_resource_properties()` function."}
+:::
 
+::: {.callout-note collapse="true"}
 ### `write_resource_data_to_raw(path, data_path)`
 
 Copy the file from `data_path` over into the resource location given by
@@ -199,7 +224,9 @@ name to store it as a backup. See the explanation of this file in the
 [Outputs](outputs.qmd) section. Use `path_resource_raw()` to provide the
 correct `path` location. Copies and compresses the file, and outputs the
 path object of the created file.
+:::
 
+::: {.callout-note collapse="true"}
 ### `write_resource_parquet(raw_files, path)`
 
 This function takes the files provided by `raw_files` and merges them
@@ -207,7 +234,9 @@ into a `data.parquet` file provided by `path`. Use
 `path_resource_data()` to provide the correct path location for `path`
 and `path_resources_raw_files()` for the `raw_files` argument. Outputs
 the path object of the created file.
+:::
 
+::: {.callout-note collapse="true"}
 ### `edit_resource_properties(path, properties)`
 
 Edit the properties of a resource in a package. The `properties`
@@ -216,7 +245,9 @@ specification. Use the `path_properties()` function to provide the
 correct path location. Outputs a JSON object only; use
 `write_resource_properties()` to save the JSON object to the
 `datapackage.json` file.
+:::
 
+::: {.callout-note collapse="true"}
 ### `delete_resource_raw_file(path, confirm)`
 
 Use this to delete a raw file in the `raw/` folder of a resource. This
@@ -227,7 +258,9 @@ list of files found. Will only delete one file. The `confirm` argument
 defaults to `false` so that the user needs to explicitly provide `true`
 to the function argument as confirmation. This is done to prevent
 accidental deletion. Outputs `true` if the deletion was successful.
+:::
 
+::: {.callout-note collapse="true"}
 ### `delete_resource_data(path, confirm)`
 
 Delete all data (Parquet and in the database) and raw data of a specific
@@ -238,7 +271,9 @@ confirmation. This is done to prevent accidental deletion. Outputs
 `true` if the deletion was successful. Use
 `delete_resource_properties()` to delete the the associated
 properties/metadata for the resource.
+:::
 
+::: {.callout-note collapse="true"}
 ### `delete_resource_properties(path, confirm)`
 
 Deletes all properties for a resource within the `datapackage.json`
@@ -247,7 +282,9 @@ file. Use `path_properties()` to provide the correct location for
 needs to explicitly provide `true` to the function argument as
 confirmation. This is done to prevent accidental deletion. Outputs
 `true` if the deletion was successful.
+:::
 
+::: {.callout-note collapse="true"}
 ### `write_resource_properties(properties, path)`
 
 Use to write the resource JSON object back to the `datapackage.json`
@@ -256,7 +293,9 @@ Package resource specification. The `path` argument is the location of
 the `datapackage.json` file. Use the `path_properties()` function to
 provide this path to the correct location. Returns the same path object
 as given in the `path` argument.
+:::
 
+::: {.callout-note collapse="true"}
 ### `write_resource_to_database(data, path, properties)`
 
 Writes a data object to the `path` database location. Use
@@ -264,7 +303,9 @@ Writes a data object to the `path` database location. Use
 `path` object. The `properties` argument, using `view_resource()`,
 ensures the correct table is created in the database. Outputs the same
 `path` object as well as the name of the newly created database table.
+:::
 
+::: {.callout-note collapse="true"}
 ### `extract_resource_properties(path, data_path)`
 
 This takes the data found at the `data_path` location and creates a JSON
@@ -285,6 +326,7 @@ the correct path. Outputs a JSON object. Use
 `extract_resource_properties()`
 function.](images/core/extract-resource-properties.svg){#fig-extract-resource-properties
 fig-alt="A Plant UML schematic of the detailed code flow within the `extract_resource_properties()` function."}
+:::
 
 ## Path functions
 
@@ -300,85 +342,111 @@ fig-alt="A Plant UML schematic of the detailed code flow within the `extract_res
     `path_sprout_root()` location or all actual `resource_id` for a
     specific package.
 
+::: {.callout-note collapse="true"}
 ### `path_resources(package_id)`
 
 Creates the absolute path to the package's resources directory.
+:::
 
+::: {.callout-note collapse="true"}
 ### `path_resource(package_id, resource_id)`
 
 Creates the absolute path to a specific resource directory within a
 package.
+:::
 
+::: {.callout-note collapse="true"}
 ### `path_resource_raw(package_id, resource_id)`
 
 Creates the absolute path to a resource's raw data directory within a
 package.
+:::
 
+::: {.callout-note collapse="true"}
 ### `path_resource_raw_files(package_id, resource_id)`
 
 Creates a list of absolute paths to all the raw data files within a
 resource's raw data directory within a package.
+:::
 
+::: {.callout-note collapse="true"}
 ### `path_resource_data(package_id, resource_id)`
 
 Creates the absolute path to a resource's Parquet data file in a
 package.
+:::
 
+::: {.callout-note collapse="true"}
 ### `path_properties(package_id)`
 
 Creates the absolute path to the package's properties `datapackage.json`
 file.
+:::
 
+::: {.callout-note collapse="true"}
 ### `path_package_database(package_id)`
 
 Creates the absolute path to the package's database.
+:::
 
+::: {.callout-note collapse="true"}
 ### `path_package(package_id)`
 
 Creates the absolute path to the specific package folder.
+:::
 
+::: {.callout-note collapse="true"}
 ### `path_sprout_root()`
 
 If the `SPROUT_ROOT` environment variable isn't provided, this function
 will return the default path to where data packages will be stored. The
 default locations are dependent on the operating system. This function
 also creates the necessary directory if it doesn't exist.
+:::
+
+## Property functions
+
+::: {.callout-note collapse="true"}
+### `create_properties_template(path)`
+
+While mostly intended for internal purposes, this function can be useful
+to download and manually inspect the full Data Package specification for
+a package. The aim, at least internally, is to use this function to
+create a `datapackage.json` within Sprout core that other functions can
+use. The `path` argument is the path to where you want the file saved.
+Outputs the path of the created file.
+
+![Diagram showing the internal function flow of the
+`create_properties_template()`
+function.](images/core/create-properties-template.svg){#fig-create-properties-template
+fig-alt="A Plant UML schematic of the detailed code flow within the `create_properties_template()` function."}
+:::
+
+::: {.callout-note collapse="true"}
+### `view_properties()`
+
+TODO. Outputs a JSON object.
+:::
+
+::: {.callout-note collapse="true"}
+### `view_package_properties_template()`
+
+TODO. Outputs a JSON object.
+:::
+
+::: {.callout-note collapse="true"}
+### `view_resource_properties_template()`
+
+TODO. Outputs a JSON object.
+:::
 
 ## Helper functions
 
-::: callout-warning
-These functions are still being developed.
+::: {.callout-note collapse="true"}
+### `pretty_json(json)`
+
+Create a prettier, human readable version of a JSON object.
 :::
-
-`pretty_json(json)`
-
-:   Create a prettier, human readable version of a JSON object.
-
-`create_properties_template(path)`
-
-:   While mostly intended for internal purposes, this function can be
-    useful to download and manually inspect the full Data Package
-    specification for a package. The aim, at least internally, is to use
-    this function to create a `datapackage.json` within Sprout core that
-    other functions can use. The `path` argument is the path to where
-    you want the file saved. Outputs the path of the created file.
-
-    ![Diagram showing the internal function flow of the
-    `create_properties_template()`
-    function.](images/core/create-properties-template.svg){#fig-create-properties-template
-    fig-alt="A Plant UML schematic of the detailed code flow within the `create_properties_template()` function."}
-
-`view_properties()`
-
-:   TODO. Outputs a JSON object.
-
-`view_package_properties_template()`
-
-:   TODO. Outputs a JSON object.
-
-`view_resource_properties_template()`
-
-:   TODO. Outputs a JSON object.
 
 ## Observational unit level functions
 
@@ -387,6 +455,8 @@ animal, event) that the data was collected on. Example would be: A
 person in a research study who came to the clinic in May 2024 to have
 their blood collected and to fill out a survey.
 
-`delete_participant_data()`
+::: {.callout-note collapse="true"}
+### `delete_participant_data()`
 
-:   TODO.
+TODO.
+:::
