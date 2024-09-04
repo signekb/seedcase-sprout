@@ -1,0 +1,19 @@
+---
+title: "Implementation"
+---
+
+{{< include /docs/includes/_wip.qmd >}}
+
+This section of the documentation focuses on how the architectural
+design will be implemented. It is split into the following set of
+documents:
+
+-   The main [Outputs](outputs.qmd), including the files, folders, and
+    other artifacts that will be produced by Sprout.
+-   The [core Python functions](python-functions.qmd) that form the
+    basis of Sprout and that are designed to be used in Python code as
+    well as form the foundation of the CLI and web app.
+-   The CLI commands (to be developed).
+-   The [app endpoints and pages](app-urls.qmd) that includes the exact
+    page URLS and their content, functionality, and interaction with
+    other pages.

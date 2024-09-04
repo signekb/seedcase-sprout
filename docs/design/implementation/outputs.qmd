@@ -17,7 +17,7 @@ It is split into two sections:
 
 ## Local file and folder structure
 
-We follow our [naming scheme](naming.qmd), as well as the [Frictionless
+We follow our [naming scheme](/docs/design/architecture/naming.qmd), as well as the [Frictionless
 Data
 specification](https://decisions.seedcase-project.org/why-frictionless-data/),
 to decide on the structure and name of the files and folders. All data

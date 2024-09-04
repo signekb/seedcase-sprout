@@ -2,6 +2,8 @@
 title: Data Types Used
 ---
 
+{{< include /docs/includes/_wip.qmd >}}
+
 When defining a table before uploading the data, the data types must be
 chosen from a pre-defined list of data types. These are a subset of the
 all possible data types that are available to most database systems,

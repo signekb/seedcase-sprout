@@ -4,7 +4,7 @@ title: "Web App URLs and Functionality"
 
 {{< include /docs/includes/_wip.qmd >}}
 
-Based on the [naming scheme](naming.qmd), this document describes the
+Based on the [naming scheme](/docs/design/architecture/naming.qmd), this document describes the
 core, user-facing web app URLs and functionality provided within
 `sprout/app/`. See the [outputs](outputs.qmd) document for an overview
 and explanation of the file and folder structure outputs of Sprout.

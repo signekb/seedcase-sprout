@@ -31,16 +31,21 @@ website:
       pinned: true
       style: "floating"
       contents:
-        - section: "Design"
+        - text: "Design"
           href: docs/design/index.qmd
+        - section: "Architecture"
+          href: docs/design/architecture/index.qmd
           contents:
-            - docs/design/requirements.qmd
-            - docs/design/c4-models.qmd
-            - docs/design/naming.qmd
-            - docs/design/outputs.qmd
-            - docs/design/python-functions.qmd
-            - docs/design/app-urls.qmd
-            - docs/design/user-roles.qmd
+            - docs/design/architecture/requirements.qmd
+            - docs/design/architecture/c4-models.qmd
+            - docs/design/architecture/naming.qmd
+            - docs/design/architecture/user-roles.qmd
+        - section: "Implementation"
+          href: docs/design/implementation/index.qmd
+          contents:
+            - docs/design/implementation/outputs.qmd
+            - docs/design/implementation/python-functions.qmd
+            - docs/design/implementation/app-urls.qmd
     - id: guide
       contents:
         - section: "Guide"

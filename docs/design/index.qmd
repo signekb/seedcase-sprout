@@ -4,29 +4,13 @@ title: "Design of Sprout"
 
 {{< include /docs/includes/_wip.qmd >}}
 
-This documentation contains the design specific to Sprout, for design
-of the Seedcase platform, see the [Design](https://design.seedcase-project.org) 
-documentation.
+Within the design documentation are two main sections:
 
-## Purpose
-
-The core purpose of writing this architecture documentation is to be
-able to describe to ourselves and others what Seedcase Sprout is aiming
-to accomplish and how it will do that.
-
-## Technical decisions
-
-![[C4 Context diagram](https://c4model.com/#SystemContextDiagram)
-showing users and external systems that connect to the Data Resource
-managed by Seedcase.](images/c4/context.svg) 
-
-## Goals
-
-Primary **goal** of Sprout are:
-
-1.  **Ingesting data and metadata into standardized storage**: Take
-    generated data from source locations (such as the clinic or
-    laboratories) that may be distributed geographically or
-    organizationally and store it in a secure, centralized location in a
-    standardized and efficient format to form a Data Resource. Metadata
-    are similarly stored and linked to the data.
+-   [Architecture](architecture/index.qmd): The architecture section
+    describes the high-level requirements, components, use cases,
+    expected users, and how the system will be organized and deployed.
+-   [Implementation](implementation/index.qmd): The implementation
+    section describes a much more detailed description of how we will
+    implement the architectural design. The detail is at the level of
+    exact Python functions, CLI commands, and the app endpoints and
+    pages.

@@ -4,7 +4,7 @@ title: "Creating and managing data packages"
 
 {{< include /docs/includes/_wip.qmd >}}
 
-At the core of Sprout is the [data package](/docs/design/outputs.qmd),
+At the core of Sprout is the [data package](/docs/design/implementation/outputs.qmd),
 which is a standardized way of structuring and sharing data. This guide
 will show you how to create and manage data packages using Sprout.
 
@@ -31,7 +31,7 @@ access.
 
 The first thing you'll need to decide is where you want to store your
 data packages. By default, Sprout will create it in
-`~/.sprout/packages/` on Linux (see [Outputs](/docs/design/outputs.qmd)
+`~/.sprout/packages/` on Linux (see [Outputs](/docs/design/implementation/outputs.qmd)
 for operating system specific locations), but you can change this by
 setting the `SPROUT_ROOT` environment variable. For instance, maybe you
 want the location to be `~/Documents/data-packages/`. You can set this
