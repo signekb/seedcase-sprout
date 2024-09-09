@@ -24,14 +24,14 @@ jobs:
   lint:
     uses: seedcase-project/.github/.github/workflows/lint-python.yml@main
 
-  django-test:
+  test:
     uses: seedcase-project/.github/.github/workflows/test.yml@main
     needs: lint
 
   deploy:
     name: Deploy app
     runs-on: ubuntu-latest
-    needs: django-test
+    needs: test
 
     concurrency: deploy-group    # optional: ensure only one action runs at a time
     steps:
