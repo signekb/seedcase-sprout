@@ -4,23 +4,36 @@ title: "Naming scheme"
 
 {{< include /docs/includes/_wip.qmd >}}
 
-This document describes a general naming scheme for Sprout that
-is guided by our [style guide](https://design.seedcase-project.org/style/)
+This document describes a general naming scheme for Sprout that is
+guided by our [style guide](https://design.seedcase-project.org/style/)
 as well as by the [Frictionless
 Framework](https://v4.framework.frictionlessdata.io/) and [Data
 Package](https://datapackage.org/) structure. This naming scheme *only*
-applies to data objects, functions, URLs, API endpoints, and
-command line interfaces that are exposed to or associated with
-user-facing content. It does *not* apply to internal content; see the
-style guide for details on naming internal (developer-facing) content.
+applies to data objects, functions, URLs, API endpoints, and command
+line interfaces that are exposed to or associated with user-facing
+content. It does *not* apply to internal content; see the style guide
+for details on naming internal (developer-facing) content.
 
 We'll compose names based on the objects we and our users interact with
 as well as the actions taken on those objects. Following along with the
-[Frictionless Data Package](https://datapackage.org/) terminology, we simplify "data package" to "package" and
-"data resource" to "resource". We use the words "property" or "properties"
-to describe package and resource metadata contained
-in the `datapackage.json` file that follows the Frictionless Data
-specification.
+[Frictionless Data Package](https://datapackage.org/) terminology, we
+simplify "data package" to "package" and "data resource" to "resource".
+We use the words "property" or "properties" to describe package and
+resource metadata contained in the `datapackage.json` file that follows
+the Frictionless Data specification.
+
+::: callout-important
+While we use the term "properties" to mean anything related to the
+metadata contained within the `datapackage.json` file, the Frictionless
+Data Package specification uses the term
+["descriptor"](https://datapackage.org/standard/glossary/#descriptor) to
+describe metadata as the structure of the properties (the metadata as a
+whole) and as the file itself. Since we mainly create, modify, or delete
+properties not descriptors and since we want to minimize using and
+introducing additional terms, for simplicity we use "properties" to refer to
+the content of the `datapackage.json` file rather than its structure.
+We may also occasionally use "properties" to refer to the file itself.
+:::
 
 ## Objects
 
