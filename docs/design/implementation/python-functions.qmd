@@ -440,6 +440,20 @@ TODO. Outputs a JSON object.
 TODO. Outputs a JSON object.
 :::
 
+::: {.callout-note collapse="true"}
+### `resource_properties(...)`
+
+TODO: This function is still being developed. Used to help create and
+validate a properties object to pass around.
+:::
+
+::: {.callout-note collapse="true"}
+### `package_properties(...)`
+
+TODO: This function is still being developed. Used to help create a
+properties object to pass around.
+:::
+
 ## Helper functions
 
 ::: {.callout-note collapse="true"}
