@@ -402,6 +402,8 @@ If the `SPROUT_ROOT` environment variable isn't provided, this function
 will return the default path to where data packages will be stored. The
 default locations are dependent on the operating system. This function
 also creates the necessary directory if it doesn't exist.
+
+![Diagram showing the internal function flow of the `path_sprout_root()` function.](images/core/path-sprout-root.svg){#fig-path-sprout-root fig-alt="A Plant UML schematic of the detailed code flow within the `path_sprout_root()` function."}
 :::
 
 ## Property functions
