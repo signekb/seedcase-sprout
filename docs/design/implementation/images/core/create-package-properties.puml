@@ -1,0 +1,57 @@
+@startuml create-package-properties
+!theme seedcase from https://raw.githubusercontent.com/seedcase-project/seedcase-theme/main
+
+state "Input" as input {
+  input : - `path_*()` functions assist with giving correct paths
+' Arguments -----
+  path : - Path to `datapackage.json` file\n  in the package `<id>` folder
+  path : - User may or may not have directly\n  edited the JSON file
+  properties: - JSON object of the package\n  following the Data Package spec
+}
+
+state "Output" as output {
+  state "JSON" as json_output
+  json_output : - JSON object of the package following\n  the Data Package spec
+  json_output : - Use `write_package_properties()` to\n  save back to `datapackage.json`
+}
+
+state "create_package_properties()" as cps {
+  cps : - Required arg: path and properties
+  cps : - Takes previously created properties template and adds\n  (at least) the required properties for a valid data package
+
+  state arg_path <<entryPoint>>
+  state arg_properties <<entryPoint>>
+
+  path --> arg_path : path object
+  properties --> arg_properties : JSON object
+
+  state "verify_is_file()" as vif
+  vif : - Required arg: path
+  vif : - Output: path or Error
+  arg_path --> vif
+
+  state "verify_package_properties()" as vpp
+  vpp : - Required arg: properties
+  vpp : - Output: JSON or Error
+  vpp : - Checks that all fields\n  and values match spec
+  vpp : - Checks that required\n  fields are present
+  arg_properties --> vpp
+
+  state "read_properties()" as rp
+  rp : - Required arg: path
+  rp : - Output: JSON
+  vif --> rp : path object
+
+  state "update_properties()" as up
+  up : - Required args: current_properties\n  and new_properties
+  up : - Output: JSON
+  up : - New properties overwrite old ones
+  rp --> up : JSON object
+  vpp --> up : JSON object
+
+  state "return" <<exitPoint>>
+  up --> return : JSON object
+  return --> output
+}
+
+@enduml
