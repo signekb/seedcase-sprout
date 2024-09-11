@@ -409,22 +409,6 @@ also creates the necessary directory if it doesn't exist.
 ## Property functions
 
 ::: {.callout-note collapse="true"}
-### `create_properties_template(path)`
-
-While mostly intended for internal purposes, this function can be useful
-to download and manually inspect the full Data Package specification for
-a package. The aim, at least internally, is to use this function to
-create a `datapackage.json` within Sprout core that other functions can
-use. The `path` argument is the path to where you want the file saved.
-Outputs the path of the created file.
-
-![Diagram showing the internal function flow of the
-`create_properties_template()`
-function.](images/core/create-properties-template.svg){#fig-create-properties-template
-fig-alt="A Plant UML schematic of the detailed code flow within the `create_properties_template()` function."}
-:::
-
-::: {.callout-note collapse="true"}
 ### `view_properties()`
 
 TODO. Outputs a JSON object.
