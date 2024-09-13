@@ -57,3 +57,8 @@ reset-local:
 # Build the documentation website using Quarto
 build-website:
   docker run --rm -v $(pwd):/site -w /site ghcr.io/quarto-dev/quarto:latest quarto render
+
+# Add files for a new function (function file and test file)
+add-function app part name:
+  touch ./{{app}}/{{part}}/{{name}}.py
+  touch ./tests/{{part}}/test_{{name}}.py
