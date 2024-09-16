@@ -40,11 +40,7 @@ from .create_resource_structure import create_resource_structure
 # from .path_sprout_root import *
 
 # Helpers -----
-# from .create_properties_template import *
 # from .pretty_json import *
-# from .view_properties import *
-# from .view_package_properties_template import *
-# from .view_resource_properties_template import *
 
 __all__ = [
     # Packages -----
@@ -80,9 +76,5 @@ __all__ = [
     # "path_package",
     # "path_sprout_root",
     # Helpers -----
-    # "create_properties_template",
     # "pretty_json",
-    # "view_properties",
-    # "view_package_properties_template",
-    # "view_resource_properties_template",
 ]
