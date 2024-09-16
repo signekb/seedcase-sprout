@@ -48,10 +48,10 @@ Afterwards, you can create the structure for your first data package by
 using:
 
 ``` python
-sp.create_package_structure(path=sp.path_package())
+sp.create_package_structure(path=sp.path_packages())
 ```
 
-```         
+```
 [PosixPath('~/Documents/data-packages/1/datapackage.json'),
  PosixPath('~/Documents/data-packages/1/README.md')]
 ```
@@ -68,15 +68,15 @@ function:
 
 ``` python
 package_properties = sp.create_package_properties(
-  path=sp.path_package_properties(package_id=1),
+  path=sp.path_properties(package_id=1),
   properties=sp.package_properties(
-    title="Diabetes and Hypertension Study", 
-    description="Data from the 2021 study on diabetes and hypertension", 
+    title="Diabetes and Hypertension Study",
+    description="Data from the 2021 study on diabetes and hypertension",
     contributors=[{
         "title": "Jamie Jones",
         "email": "jamie_jones@example.com",
         "roles": ["creator"]
-      }, 
+      },
       {
         "title": "Jimmy James",
         "email": "jimmy_james@example.com",
@@ -94,7 +94,7 @@ To save the package properties to the `datapackage.json` file, run:
 ``` python
 sp.write_package_properties(
   properties=package_properties,
-  path=sp.path_package_properties(package_id=1)
+  path=sp.path_properties(package_id=1)
 )
 ```
 
@@ -120,7 +120,7 @@ export SPROUT_ROOT=~/Documents/data-packages/
 Then creating a new package would be as simple as:
 
 ``` bash
-sprout package create 
+sprout package create
 ```
 
 This will prompt you for some required fields you need to fill in, like
@@ -144,7 +144,7 @@ the `datapackage.json`.
 You now have the basic starting point for adding data resources to your
 data package in the location you specified:
 
-```         
+```
 ~/Documents/data-packages/1/datapackage.json
 ~/Documents/data-packages/1/README.md
 ```
