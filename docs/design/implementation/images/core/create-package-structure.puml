@@ -38,6 +38,7 @@ state "create_package_structure()" as cps {
   cip : - Required arg: path and ID to assign for directory
   cip : - Output: path of created directory
   cni --> cip
+  arg --> cip
 
   state "create_dirs()" as cd
   cd : - Required arg: A list of paths
