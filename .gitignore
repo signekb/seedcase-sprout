@@ -61,14 +61,8 @@ coverage.xml
 .pytest_cache/
 cover/
 
-# MacO
+# MacOS
 .DS_Store
-
-# RStudio
-.Rbuildignore
-.Rhistory
-.RData
-.Rproj.user
 
 # Quarto
 /.quarto/
