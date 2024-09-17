@@ -98,9 +98,8 @@ sp.write_package_properties(
 )
 ```
 
-If you need help with filling in the right properties, use
-`view_package_properties_template()` to see the available fields to fill
-in.
+If you need help with filling in the right properties, see the documentation
+on `PackageProperties` to see what fields could or should be filled in.
 
 You now have the basic starting point for adding data resources to your
 data package.

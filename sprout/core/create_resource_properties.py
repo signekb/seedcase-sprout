@@ -21,8 +21,9 @@ def create_resource_properties(path: Path, properties: dict) -> dict:
             `create_resource_structure()`.
         properties: the properties of the resource; must be given as a
             JSON object following the Data Package specification; use
-            `view_resource_properties_template()` to get a JSON object
-            that follows the Frictionless Data Package standard.
+            the `ResourceProperties` class to provide the correct fields.
+            See the `ResourceProperties` help documentation for details
+            on what can or needs to be filled in.
 
     Raises:
         NotADirectoryError: if path does not point to a directory.

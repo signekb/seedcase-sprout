@@ -44,7 +44,6 @@ We may also occasionally use "properties" to refer to the file itself.
 | properties or property | Metadata about a package or resource. |
 | file structure or structure | The file and folder structure of a package. |
 | path | A file path listing the location of folders or files that Sprout interacts with. |
-| template | A template file for specific objects, such as a template for a package or resource properties file. |
 | data | The data file within a resource. Within Sprout, this includes the table in the database, the Parquet file, as well as raw files. |
 | identifier | A unique identifier for a package or resource, denoted as `id`. |
 
