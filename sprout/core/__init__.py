@@ -26,7 +26,6 @@ from .create_resource_structure import create_resource_structure
 # from .delete_resource_raw_file import *
 # from .delete_resource_data import *
 # from .delete_resource_properties import *
-
 # Path -----
 # TODO: Consider having all these in one module.
 # from .path_resources import *
@@ -37,7 +36,7 @@ from .create_resource_structure import create_resource_structure
 # from .path_properties import *
 # from .path_package_database import *
 # from .path_package import *
-# from .path_sprout_root import *
+from .path_sprout_root import path_sprout_root
 
 # Helpers -----
 # from .pretty_json import *
@@ -74,7 +73,7 @@ __all__ = [
     # "path_properties",
     # "path_package_database",
     # "path_package",
-    # "path_sprout_root",
+    "path_sprout_root",
     # Helpers -----
     # "pretty_json",
 ]
