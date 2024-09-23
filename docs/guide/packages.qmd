@@ -4,9 +4,10 @@ title: "Creating and managing data packages"
 
 {{< include /docs/includes/_wip.qmd >}}
 
-At the core of Sprout is the [data package](/docs/design/implementation/outputs.qmd),
-which is a standardized way of structuring and sharing data. This guide
-will show you how to create and manage data packages using Sprout.
+At the core of Sprout is the [data
+package](/docs/design/implementation/outputs.qmd), which is a
+standardized way of structuring and sharing data. This guide will show
+you how to create and manage data packages using Sprout.
 
 <!-- TODO: this callout might need to be its own include, since other docs will use it too -->
 
@@ -26,16 +27,17 @@ access.
 
 ## Creating a data package
 
-:::: panel-tabset
+::::: panel-tabset
 ### Python
 
 The first thing you'll need to decide is where you want to store your
 data packages. By default, Sprout will create it in
-`~/.sprout/packages/` on Linux (see [Outputs](/docs/design/implementation/outputs.qmd)
-for operating system specific locations), but you can change this by
-setting the `SPROUT_ROOT` environment variable. For instance, maybe you
-want the location to be `~/Documents/data-packages/`. You can set this
-in your Python script like so:
+`~/sprout/packages/` on Linux (see
+[Outputs](/docs/design/implementation/outputs.qmd) for operating system
+specific locations), but you can change this by setting the
+`SPROUT_ROOT` environment variable. For instance, maybe you want the
+location to be `~/Documents/data-packages/`. You can set this in your
+Python script like so:
 
 ``` python
 import sprout.core as sp
@@ -59,35 +61,53 @@ sp.create_package_structure(path=sp.path_packages())
 This creates the initial structure of your new package with the ID `1`.
 The output above shows that the folder of your data package `1` has been
 created. This folder consists of two files: `datapackage.json` and
-`README.md`. The `datapackage.json` file is empty initially, but it will
-contain the metadata, a.k.a. the `properties`, of your data package.
-`README.md` is a prettified, human-readable version of the content of
-the `datapackage.json`. Then to fill in the details in the
-`datapackage.json` file, you can use the `create_package_properties()`
-function:
+`README.md`. The `datapackage.json` file initially contains fields with
+some default values in them, but it will eventually contain the
+metadata, a.k.a. the `properties`, of your data package. `README.md` is
+a prettified, human-readable version of the content of the
+`datapackage.json`.
+
+While you *can* manually fill in the details in the `datapackage.json`
+file, we have several helper classes, such as `PackageProperties`, `LicenseProperties`, and `ContributorProperties`, to make it easier for you.
 
 ``` python
-package_properties = sp.create_package_properties(
-  path=sp.path_properties(package_id=1),
-  properties=sp.package_properties(
+properties = sp.PackageProperties(
     title="Diabetes and Hypertension Study",
     description="Data from the 2021 study on diabetes and hypertension",
-    contributors=[{
-        "title": "Jamie Jones",
-        "email": "jamie_jones@example.com",
-        "roles": ["creator"]
-      },
-      {
-        "title": "Jimmy James",
-        "email": "jimmy_james@example.com",
-        "roles": ["contact"]
-      }],
-    licenses=["ODC-BY-1.0"]
-  )
+    contributors=[sp.ContributorProperties(
+        title="Jamie Jones",
+        email="jamie_jones@example.com",
+        roles=["creator"]
+    )],
+    licenses=[sp.LicensesProperties("ODC-BY-1.0")]
 )
-
-# TODO: add an example output of the above.
+print(properties)
 ```
+
+```
+# TODO: This will eventually show the actual output.
+PackageProperties(...)
+```
+
+Then, to update the current `datapackage.json` file with these properties, you can use the `update_package_properties()` function:
+
+``` python
+package_properties = sp.update_package_properties(
+  path=sp.path_properties(package_id=1),
+  properties=properties
+)
+print(package_properties)
+```
+
+```
+# TODO: add an example output of the above.
+{...}
+```
+
+::: callout-important
+The `update_package_properties()` function will give an error if the
+required fields are not filled in to create a valid `datapackage.json` file.
+:::
 
 To save the package properties to the `datapackage.json` file, run:
 
@@ -98,8 +118,10 @@ sp.write_package_properties(
 )
 ```
 
-If you need help with filling in the right properties, see the documentation
-on `PackageProperties` to see what fields could or should be filled in.
+If you need help with filling in the right properties, see the
+documentation for the `PackageProperties` classes or run
+e.g., `print(sp.PackageProperties())` to get a list of all the fields you can
+fill in for a package.
 
 You now have the basic starting point for adding data resources to your
 data package.
@@ -153,4 +175,4 @@ data package in the location you specified:
 ::: callout-warning
 In development.
 :::
-::::
+:::::
