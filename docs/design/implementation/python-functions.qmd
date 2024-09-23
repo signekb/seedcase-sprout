@@ -103,36 +103,26 @@ fig-alt="A Plant UML schematic of the detailed code flow within the `create_pack
 :::
 
 ::: {.callout-note collapse="true"}
-### `create_package_properties(path, properties)`
+### `edit_package_properties(path, properties)`
 
-This is the second function to use to create a new data package. It is
-used to fill in the details in the `datapackage.json` file by using the
-`properties` argument which must be a JSON object. The `properties`
-argument must follow the Frictionless Data specification. To get a JSON
-object that follows the correct specification use
-`view_package_properties_template()`. Use `path_properties()` to provide
+Because there already exists an empty `datapackage.json` file, we use this function
+to fill in the properties file with details specific to the package.
+We update the properties file by using the
+`properties` argument and giving it the `PackageProperties` object.
+See the help documentation of `PackageProperties` to know what should or needs to be added to the `datapackage.json` file.
+Use `path_properties()` to provide
 the correct path location. Outputs a JSON object only. Use
 `write_package_properties()` to save back to the `datapackage.json`
 file.
 
+Whenever you need to edit the `datapackage.json` properties, this is the function you will use again.
+It only edits metadata on the package itself, not on the data resources
+contained within the package.
+
 ![Diagram showing the internal function flow of the
-`create_package_properties()`
-function.](images/core/create-package-properties.svg){#fig-create-package-properties
-fig-alt="A Plant UML schematic of the detailed code flow within the `create_package_properties()` function."}
-:::
-
-::: {.callout-note collapse="true"}
-### `edit_package_properties(path, properties)`
-
-Make edits to the `datapackage.json` properties of a specific package.
-Only edits metadata on the package itself, not on the data resources
-contained within the package. The `properties` argument must follow the
-Frictionless Data specification. Use
-`view_package_properties_template()` to get a JSON object that follows
-the correct specification. Use `path_properties()` in the `path`
-argument to provide the correct location for the file. Outputs a JSON
-object only. Use `write_package_properties()` to save back to the
-`datapackage.json` file.
+`edit_package_properties()`
+function.](images/core/edit-package-properties.svg){#fig-edit-package-properties
+fig-alt="A Plant UML schematic of the detailed code flow within the `edit_package_properties()` function."}
 :::
 
 ::: {.callout-note collapse="true"}

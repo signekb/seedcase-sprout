@@ -1,4 +1,4 @@
-@startuml create-package-properties
+@startuml edit-package-properties
 !theme seedcase from https://raw.githubusercontent.com/seedcase-project/seedcase-theme/main
 
 state "Input" as input {
@@ -15,9 +15,9 @@ state "Output" as output {
   json_output : - Use `write_package_properties()` to\n  save back to `datapackage.json`
 }
 
-state "create_package_properties()" as cps {
+state "edit_package_properties()" as cps {
   cps : - Required arg: path and properties
-  cps : - Takes previously created properties template and adds\n  (at least) the required properties for a valid data package
+  cps : - Takes the current properties file and updates\n  the properties with the given fields
 
   state arg_path <<entryPoint>>
   state arg_properties <<entryPoint>>
@@ -42,15 +42,15 @@ state "create_package_properties()" as cps {
   rp : - Output: JSON
   vif --> rp : path object
 
-  state "update_properties()" as up
-  up : - Required args: current_properties\n  and new_properties
-  up : - Output: JSON
-  up : - New properties overwrite old ones
-  rp --> up : JSON object
-  vpp --> up : JSON object
+  state "join_properties()" as jp
+  jp : - Required args: current_properties\n  and new_properties
+  jp : - Output: JSON
+  jp : - New properties overwrite old ones
+  rp --> jp : JSON object
+  vpp --> jp : JSON object
 
   state "return" <<exitPoint>>
-  up --> return : JSON object
+  jp --> return : JSON object
   return --> output
 }
 
