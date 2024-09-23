@@ -38,6 +38,7 @@ pytest-django = "^4.8.0"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.6.2"
+datamodel-code-generator = {extras = ["http"], version = "^0.26.0"}
 
 [tool.poetry.group.django.dependencies]
 psycopg2-binary = "^2.9.9"
