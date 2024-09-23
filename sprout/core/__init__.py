@@ -38,7 +38,9 @@ from .create_resource_structure import create_resource_structure
 # from .path_package import *
 from .path_sprout_root import path_sprout_root
 from .properties import (
+    ConstraintsProperties,
     ContributorProperties,
+    FieldProperties,
     LicenseProperties,
     MissingValueProperties,
     PackageProperties,
@@ -55,7 +57,9 @@ from .properties import (
 
 __all__ = [
     # Properties -----
+    "ConstraintsProperties",
     "ContributorProperties",
+    "FieldProperties",
     "LicenseProperties",
     "MissingValueProperties",
     "PackageProperties",

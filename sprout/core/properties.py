@@ -160,6 +160,106 @@ class MissingValueProperties:
     label: str | None = None
 
 
+FieldType = Literal[
+    "string",
+    "number",
+    "integer",
+    "boolean",
+    "object",
+    "array",
+    "list",
+    "datetime",
+    "date",
+    "time",
+    "year",
+    "yearmonth",
+    "duration",
+    "geopoint",
+    "geojson",
+    "any",
+]
+
+
+@dataclass
+class ConstraintsProperties:
+    """A class used by consumers to list constraints for validating field values.
+
+    Attributes:
+        - required (bool | None): Indicates whether a property must have a
+        value for each instance.
+        - unique (bool | None): When `true`, each value for the property
+        `MUST` be unique.
+        - pattern (str | None): A regular expression pattern to test each
+        value of the property against, where a truthy response indicates
+        validity.
+        - enum (list | None): The value of the field must exactly match one of
+        the values in the enum array.
+        - min_length (int | None): An integer that specifies the minimum
+        length of a value.
+        - max_length (int | None): An integer that specifies the maximum
+        length of a value.
+        - minimum (str | float | int | None): Specifies a minimum value for a field.
+        - maximum (str | float | int | None): Specifies a maximum value for a field.
+        - exclusive_minimum (str | float | int | None): Specifies an exclusive minimum
+        value for a field.
+        - exclusive_maximum (str | float | int | None): Specifies an exclusive maximum
+        value for a field.
+        - json_schema (dict[str, Any] | None): A valid JSON Schema object to
+        validate field values. If a field value conforms to the provided
+        JSON Schema then this field value is valid.
+    """
+
+    required: bool | None = None
+    unique: bool | None = None
+    pattern: str | None = None
+    enum: list | None = None
+    min_length: int | None = None
+    max_length: int | None = None
+    minimum: str | float | int | None = None
+    maximum: str | float | int | None = None
+    exclusive_minimum: str | float | int | None = None
+    exclusive_maximum: str | float | int | None = None
+    json_schema: dict[str, Any] | None = None
+
+
+@dataclass
+class FieldProperties:
+    """A field in a Table Schema.
+
+    Attributes:
+        - name (str | None): A name for this field. Must be unique amongst other field
+        names in this Table Schema.
+        - title (str | None): A human readable label or title for this field.
+        - type (FieldType | None): The data type of this field.
+        - format (str | None): The format for this field.
+        - description (str | None): A text description for this field.
+        - example (str | None): An example value for this field.
+        - constraints (ConstraintsProperties | None): The constraints applicable to
+        this field.
+        - categories (list[str] | list[int] | None): A finite set of possible values
+        for this field.
+        - categories_ordered (bool | None): Specifies whether the order of appearance
+        of the values in the `categories` property should be regarded as their natural
+        order.
+        - missing_values (list[str] | list[MissingValueProperties] | None): Values that
+        when encountered in the source, should be considered as not present. Takes
+        precedence over the schema-level property.
+    """
+
+    name: str | None = None
+    title: str | None = None
+    type: FieldType | None = None
+    format: str | None = "default"
+    description: str | None = None
+    example: str | None = None
+    constraints: ConstraintsProperties | None = None
+    categories: list[str] | list[int] | None = None
+    categories_ordered: bool | None = None
+    missing_values: list[str] | list[MissingValueProperties] | None = field(
+        default_factory=lambda: [""]
+    )
+
+
 # Allowed strategies for matching fields in the Table Schema to fields the data source.
 FieldsMatchType = Literal["exact", "equal", "subset", "superset", "partial"]
 
@@ -169,6 +269,8 @@ class TableSchemaProperties:
     """A Table Schema for this resource, compliant with the Table Schema specification.
 
     Attributes:
+        - fields (list[FieldProperties] | None): An `array` of Table Schema Field
+        objects.
         - fields_match (FieldsMatchType | None):
         - primary_key (list[str] | str | None): A primary key is a field name
         or an array of field names, whose values `MUST` uniquely identify
@@ -180,6 +282,7 @@ class TableSchemaProperties:
         present', or 'blank' values.
     """
 
+    fields: list[FieldProperties] | None = None
     fields_match: FieldsMatchType | None = "exact"
     primary_key: list[str] | str | None = None
     unique_keys: list[list[str]] | None = None
