@@ -45,13 +45,13 @@ state "create_package_structure()" as cps {
   cd : - Output: A list of paths\n  of created directories
   cip --> cd
 
-  state "create_properties_object()" as cppt
-  cppt : - Output: JSON object
-  cppt : - Uses properties dataclasses\n  internally and sets default values
+  state "create_default_package_properties()" as cdpp
+  cdpp : - Output: JSON object
+  cdpp : - Uses properties dataclasses\n  internally and sets default values
   state "create_readme_text()" as crt
   crt : - Required arg: JSON object
   crt : - Output: string
-  cppt --> crt
+  cdpp --> crt
 
   state "create_readme_path()" as crp
   crp : - Required arg: path
@@ -74,7 +74,7 @@ state "create_package_structure()" as cps {
   state as_list <<join>>
   state return <<exitPoint>>
 
-  cppt --> prop_input
+  cdpp --> prop_input
   crt --> readme_input
   cprop --> prop_input
   crp --> readme_input
@@ -86,8 +86,8 @@ state "create_package_structure()" as cps {
   as_list --> return
   return --> output
 
-  crp -[hidden]> cppt
-  cppt-[hidden]> cprop
+  crp -[hidden]> cdpp
+  cdpp-[hidden]> cprop
 }
 
 @enduml
