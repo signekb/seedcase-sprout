@@ -11,15 +11,19 @@ class {{ class_name }}({{ base_class }}):
 class {{ class_name }}:
 {%- endif %}
 {%- if description %}
-    """
-    {{ description | wordwrap(80) | indent(4) }}
+    """{{ description | wordwrap(80) | indent(4) }}
 
     Attributes:
-    {%- for field in fields %}
-        {%- if not field.name.startswith("ignore") %}
-        - {{ (field.name ~ " (" ~ field.type_hint ~ "): " ~ (field.docstring or "")) | wordwrap(68) | indent(8) }}
-        {%- endif %}
-    {%- endfor %}
+{%- for field in fields %}
+    {%- if not field.name.startswith("ignore") %}
+        {%- set wrapped = (field.name ~ " (" ~ field.type_hint ~ "): " ~ (field.docstring or "")) | wordwrap(70) %}
+        {%- set lines = wrapped.split("\n") %}
+        {{ lines[0] }}
+        {%- for line in lines[1:] %}
+            {{ line }}
+        {%- endfor %}
+    {%- endif %}
+{%- endfor %}
     """
 {%- endif %}
 {%- if not fields and not description %}

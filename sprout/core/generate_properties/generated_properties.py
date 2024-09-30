@@ -8,18 +8,17 @@ from typing import Any, Literal
 
 @dataclass
 class ContributorProperties:
-    """
-    A contributor to this descriptor.
+    """A contributor to this descriptor.
 
     Attributes:
-        - title (str | None): A human-readable title.
-        - path (str | None): A fully qualified URL, or a POSIX file path.
-        - email (str | None): An email address.
-        - given_name (str | None):
-        - family_name (str | None):
-        - organization (str | None): An organizational affiliation for this
-        contributor.
-        - roles (list[str] | None):
+        title (str | None): A human-readable title.
+        path (str | None): A fully qualified URL, or a POSIX file path.
+        email (str | None): An email address.
+        given_name (str | None):
+        family_name (str | None):
+        organization (str | None): An organizational affiliation for this
+            contributor.
+        roles (list[str] | None):
     """
 
     title: str | None = None
@@ -33,14 +32,13 @@ class ContributorProperties:
 
 @dataclass
 class LicenseProperties:
-    """
-    A license for this descriptor.
+    """A license for this descriptor.
 
     Attributes:
-        - name (str | None): MUST be an Open Definition license identifier,
-        see http://licenses.opendefinition.org/
-        - path (str | None): A fully qualified URL, or a POSIX file path.
-        - title (str | None): A human-readable title.
+        name (str | None): MUST be an Open Definition license identifier, see
+            http://licenses.opendefinition.org/
+        path (str | None): A fully qualified URL, or a POSIX file path.
+        title (str | None): A human-readable title.
     """
 
     name: str | None = None
@@ -53,14 +51,13 @@ Path = str | None
 
 @dataclass
 class SourceProperties:
-    """
-    A source file.
+    """A source file.
 
     Attributes:
-        - title (str | None): A human-readable title.
-        - path (str | None): A fully qualified URL, or a POSIX file path.
-        - email (str | None): An email address.
-        - version (str | None):
+        title (str | None): A human-readable title.
+        path (str | None): A fully qualified URL, or a POSIX file path.
+        email (str | None): An email address.
+        version (str | None):
     """
 
     title: str | None = None
@@ -71,40 +68,39 @@ class SourceProperties:
 
 @dataclass
 class TableDialectProperties:
-    """
-    The Table dialect descriptor.
+    """The Table dialect descriptor.
 
     Attributes:
-        - header (bool | None): Specifies if the file includes a header row,
-        always as the first row in the file.
-        - header_rows (list[int] | None):
-        - header_join (str | None):
-        - comment_rows (list[int] | None):
-        - comment_char (str | None): Specifies that any row beginning with
-        this one-character string, without preceeding whitespace, causes the
-        entire line to be ignored.
-        - delimiter (str | None): A character sequence to use as the field
-        separator.
-        - line_terminator (str | None): Specifies the character sequence that
-        must be used to terminate rows.
-        - quote_char (str | None): Specifies a one-character string to use as
-        the quoting character.
-        - double_quote (bool | None): Specifies the handling of quotes inside
-        fields.
-        - escape_char (str | None): Specifies a one-character string to use as
-        the escape character.
-        - null_sequence (str | None): Specifies the null sequence, for
-        example, `\\N`.
-        - skip_initial_space (bool | None): Specifies the interpretation of
-        whitespace immediately following a delimiter. If false, whitespace
-        immediately after a delimiter should be treated as part of the
-        subsequent field.
-        - property (str | None):
-        - item_type (Literal['array', 'object'] | None):
-        - item_keys (list[str] | None):
-        - sheet_number (int | None):
-        - sheet_name (str | None):
-        - table (str | None):
+        header (bool | None): Specifies if the file includes a header row,
+            always as the first row in the file.
+        header_rows (list[int] | None):
+        header_join (str | None):
+        comment_rows (list[int] | None):
+        comment_char (str | None): Specifies that any row beginning with this
+            one-character string, without preceeding whitespace, causes the entire
+            line to be ignored.
+        delimiter (str | None): A character sequence to use as the field
+            separator.
+        line_terminator (str | None): Specifies the character sequence that
+            must be used to terminate rows.
+        quote_char (str | None): Specifies a one-character string to use as
+            the quoting character.
+        double_quote (bool | None): Specifies the handling of quotes inside
+            fields.
+        escape_char (str | None): Specifies a one-character string to use as
+            the escape character.
+        null_sequence (str | None): Specifies the null sequence, for example,
+            `\\N`.
+        skip_initial_space (bool | None): Specifies the interpretation of
+            whitespace immediately following a delimiter. If false, whitespace
+            immediately after a delimiter should be treated as part of the
+            subsequent field.
+        property (str | None):
+        item_type (Literal['array', 'object'] | None):
+        item_keys (list[str] | None):
+        sheet_number (int | None):
+        sheet_name (str | None):
+        table (str | None):
     """
 
     header: bool | None = True
@@ -138,12 +134,11 @@ class ReferenceProperties:
 
 @dataclass
 class TableSchemaForeignKeyProperties:
-    """
-    Table Schema Foreign Key
+    """Table Schema Foreign Key
 
     Attributes:
-        - fields (list[str] | None):
-        - reference (ReferenceProperties | None):
+        fields (list[str] | None):
+        reference (ReferenceProperties | None):
     """
 
     fields: list[str] | None = None
@@ -158,20 +153,19 @@ class MissingValueProperties:
 
 @dataclass
 class TableSchemaProperties:
-    """
-    A Table Schema for this resource, compliant with the [Table
+    """A Table Schema for this resource, compliant with the [Table
     Schema](/tableschema/) specification.
 
     Attributes:
-        - fields_match (list | None):
-        - primary_key (list[str] | str | None): A primary key is a field name
-        or an array of field names, whose values `MUST` uniquely identify
-        each row in the table.
-        - unique_keys (list[UniqueKey] | None):
-        - foreign_keys (list[TableSchemaForeignKeyProperties] | None):
-        - missing_values (list[str] | list[MissingValueProperties] | None): Values that
-        when encountered in the source, should be considered as `null`, 'not
-        present', or 'blank' values.
+        fields_match (list | None):
+        primary_key (list[str] | str | None): A primary key is a field name or
+            an array of field names, whose values `MUST` uniquely identify each
+            row in the table.
+        unique_keys (list[UniqueKey] | None):
+        foreign_keys (list[TableSchemaForeignKeyProperties] | None):
+        missing_values (list[str] | list[MissingValueProperties] | None): Values that
+            when encountered in the source, should be considered as `null`, 'not
+            present', or 'blank' values.
     """
 
     fields_match: list | None = None
@@ -185,36 +179,34 @@ class TableSchemaProperties:
 
 @dataclass
 class ResourceProperties:
-    """
-    Data Resource.
+    """Data Resource.
 
     Attributes:
-        - name (str | None): An identifier string.
-        - path (str | list[Path] | None): A reference to the data for this
-        resource, as either a path as a string, or an array of paths as
-        strings. of valid URIs.
-        - data (Any | None): Inline data for this resource.
-        - type (Literal['table'] | None):
-        - title (str | None): A human-readable title.
-        - description (str | None): A text description. Markdown is
-        encouraged.
-        - homepage (str | None): The home on the web that is related to this
-        data package.
-        - sources (list[SourceProperties] | None): The raw sources for this resource.
-        - licenses (list[LicenseProperties] | None): The license(s) under which the
-        resource is published.
-        - format (str | None): The file format of this resource.
-        - mediatype (str | None): The media type of this resource. Can be any
-        valid media type listed with
-        [IANA](https://www.iana.org/assignments/media-types/media-
-        types.xhtml).
-        - encoding (str | None): The file encoding of this resource.
-        - bytes (int | None): The size of this resource in bytes.
-        - hash (str | None): The MD5 hash of this resource. Indicate other
-        hashing algorithms with the {algorithm}:{hash} format.
-        - dialect (TableDialectProperties | None): The Table dialect descriptor.
-        - schema (TableSchemaProperties | None): A Table Schema for this resource,
-        compliant with the [Table Schema](/tableschema/) specification.
+        name (str | None): An identifier string.
+        path (str | list[Path] | None): A reference to the data for this
+            resource, as either a path as a string, or an array of paths as
+            strings. of valid URIs.
+        data (Any | None): Inline data for this resource.
+        type (Literal['table'] | None):
+        title (str | None): A human-readable title.
+        description (str | None): A text description. Markdown is encouraged.
+        homepage (str | None): The home on the web that is related to this
+            data package.
+        sources (list[SourceProperties] | None): The raw sources for this resource.
+        licenses (list[LicenseProperties] | None): The license(s) under which the
+            resource is published.
+        format (str | None): The file format of this resource.
+        mediatype (str | None): The media type of this resource. Can be any
+            valid media type listed with
+            [IANA](https://www.iana.org/assignments/media-types/media-
+            types.xhtml).
+        encoding (str | None): The file encoding of this resource.
+        bytes (int | None): The size of this resource in bytes.
+        hash (str | None): The MD5 hash of this resource. Indicate other
+            hashing algorithms with the {algorithm}:{hash} format.
+        dialect (TableDialectProperties | None): The Table dialect descriptor.
+        schema (TableSchemaProperties | None): A Table Schema for this resource,
+            compliant with the [Table Schema](/tableschema/) specification.
     """
 
     name: str | None = None
@@ -237,33 +229,30 @@ class ResourceProperties:
 
 @dataclass
 class PackageProperties:
-    """
-    Data Package
+    """Data Package
 
     Attributes:
-        - name (str | None): An identifier string.
-        - id (str | None): A property reserved for globally unique
-        identifiers. Examples of identifiers that are unique include UUIDs
-        and DOIs.
-        - title (str | None): A human-readable title.
-        - description (str | None): A text description. Markdown is
-        encouraged.
-        - homepage (str | None): The home on the web that is related to this
-        data package.
-        - version (str | None): A unique version number for this descriptor.
-        - created (str | None): The datetime on which this descriptor was
-        created.
-        - contributors (list[ContributorProperties] | None): The contributors to this
-        descriptor.
-        - keywords (list[str] | None): A list of keywords that describe this
-        package.
-        - image (str | None): A image to represent this package.
-        - licenses (list[LicenseProperties] | None): The license(s) under which this
-        package is published.
-        - resources (list[ResourceProperties] | None): An `array` of Data Resource
-        objects, each compliant with the [Data Resource](/data-resource/)
-        specification.
-        - sources (list[SourceProperties] | None): The raw sources for this resource.
+        name (str | None): An identifier string.
+        id (str | None): A property reserved for globally unique identifiers.
+            Examples of identifiers that are unique include UUIDs and DOIs.
+        title (str | None): A human-readable title.
+        description (str | None): A text description. Markdown is encouraged.
+        homepage (str | None): The home on the web that is related to this
+            data package.
+        version (str | None): A unique version number for this descriptor.
+        created (str | None): The datetime on which this descriptor was
+            created.
+        contributors (list[ContributorProperties] | None): The contributors to this
+            descriptor.
+        keywords (list[str] | None): A list of keywords that describe this
+            package.
+        image (str | None): A image to represent this package.
+        licenses (list[LicenseProperties] | None): The license(s) under which this
+            package is published.
+        resources (list[ResourceProperties] | None): An `array` of Data Resource
+            objects, each compliant with the [Data Resource](/data-resource/)
+            specification.
+        sources (list[SourceProperties] | None): The raw sources for this resource.
     """
 
     name: str | None = None
