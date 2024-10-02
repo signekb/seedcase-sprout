@@ -1,0 +1,73 @@
+@startuml write-resource-data-to-raw
+!theme seedcase from https://raw.githubusercontent.com/seedcase-project/seedcase-theme/main
+
+state "Input" as input {
+  input : - `path_*()` functions assist with giving correct paths
+' Arguments -----
+  path : - Path to resource <id>\n  folder
+  data_path: - Path to file that\n  contains the data
+}
+
+state "Output" as output {
+  state "/resources/<id>/raw/<timestamp>-<uuid>.<ext>.gz" as raw_file
+  raw_file : Raw folder with assigned ID (e.g. '1')
+}
+
+state "write_resource_data_to_raw()" as wrdtr {
+  wrdtr : - Required arg: path and data_path
+
+  state arg_path <<entryPoint>>
+  state arg_data_path <<entryPoint>>
+
+  path --> arg_path
+  data_path --> arg_data_path
+
+  state "verify_is_dir()" as vid
+  vid : - Required arg: path
+  vid : - Output: path or Error
+  arg_path --> vid : path object
+
+  state "verify_is_file()" as vif
+  vif : - Required arg: path
+  vif : - Output: path or Error
+  arg_data_path --> vif : path object
+
+  state "create_raw_file_name()" as crfn
+  crfn : - Required arg: path
+  crfn : - Output: path object
+  crfn : - Internally creates\n  `timestamp` and `uuid`
+  crfn : - Uses `data_path` to\n  get extension
+  vif --> crfn : path object
+
+  state "verify_raw_data()" as verify_rd
+  verify_rd : - Required arg: path
+  verify_rd : - Output: path or Error
+  verify_rd : - Basic checks on readability\n  and structure of data
+  vif --> verify_rd
+
+  state "validate_raw_data()" as validate_rd
+  validate_rd : - Required arg: path
+  validate_rd : - Output: path or Error
+  validate_rd : - Validate against constraints\n  properties (if they exist)
+  verify_rd --> validate_rd
+
+  state "write_compressed_file()" as wcf
+  wcf : - Required arg: input_path and output_path
+  wcf : - Output: path object
+  wcf : - Internally uses gzip compression
+
+  state output_path <<join>>
+  crfn --> output_path : path object
+  vid --> output_path : path object
+  output_path --> wcf : path object
+
+  state input_path <<join>>
+  validate_rd --> input_path
+  input_path --> wcf : path object
+
+  state "return" <<exitPoint>>
+  wcf --> return : path object
+  return --> output
+}
+@enduml
+

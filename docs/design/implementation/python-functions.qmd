@@ -219,6 +219,11 @@ name to store it as a backup. See the explanation of this file in the
 [Outputs](outputs.qmd) section. Use `path_resource_raw()` to provide the
 correct `path` location. Copies and compresses the file, and outputs the
 path object of the created file.
+
+![Diagram showing the internal function flow of the
+`write_resource_data_to_raw()`
+function.](images/core/write-resource-data-to-raw.svg){#fig-write-resource-data-to-raw
+fig-alt="A Plant UML schematic of the detailed code flow within the `write_resource_data_to_raw()` function."}
 :::
 
 ::: {.callout-note collapse="true"}
