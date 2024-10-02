@@ -3,12 +3,26 @@
 # properties file to add more dataclasses and move them into this file.
 
 
-from dataclasses import dataclass, field
+from abc import ABC
+from dataclasses import asdict, dataclass, field
 from typing import Any, Literal
 
 
+class Properties(ABC):
+    """An abstract base class for all *Properties classes holding common logic."""
+
+    @property
+    def asdict(self) -> dict:
+        """Produces a dictionary representation of the object.
+
+        Returns:
+            The object as a dictionary.
+        """
+        return asdict(self)
+
+
 @dataclass
-class ContributorProperties:
+class ContributorProperties(Properties):
     """The people or organizations who contributed to this data package.
 
     Attributes:
@@ -36,7 +50,7 @@ class ContributorProperties:
 
 
 @dataclass
-class LicenseProperties:
+class LicenseProperties(Properties):
     """The license(s) under which the package or resource is provided.
 
     Attributes:
@@ -52,7 +66,7 @@ class LicenseProperties:
 
 
 @dataclass
-class SourceProperties:
+class SourceProperties(Properties):
     """The raw sources for this data package.
 
     Attributes:
@@ -71,7 +85,7 @@ class SourceProperties:
 # The `r"""` string is used to avoid escaping backslashes in the `null_sequence`
 # attribute.
 @dataclass
-class TableDialectProperties:
+class TableDialectProperties(Properties):
     r"""Table dialect describes how tabular data is stored in a file.
 
     It supports delimited text files like CSV, semi-structured formats like JSON
@@ -138,7 +152,7 @@ class TableDialectProperties:
 
 
 @dataclass
-class ReferenceProperties:
+class ReferenceProperties(Properties):
     """The destination part of a foreign key.
 
     Attributes:
@@ -154,7 +168,7 @@ class ReferenceProperties:
 
 
 @dataclass
-class TableSchemaForeignKeyProperties:
+class TableSchemaForeignKeyProperties(Properties):
     """A foreign key in a table schema.
 
     A foreign key is a reference where values in a field (or fields) on the table
@@ -173,7 +187,7 @@ class TableSchemaForeignKeyProperties:
 
 
 @dataclass
-class MissingValueProperties:
+class MissingValueProperties(Properties):
     """Values that, when encountered in the source, should be considered as not present.
 
     Attributes:
@@ -207,7 +221,7 @@ FieldType = Literal[
 
 
 @dataclass
-class ConstraintsProperties:
+class ConstraintsProperties(Properties):
     """A class that expresses constraints for validating field values.
 
     Attributes:
@@ -249,7 +263,7 @@ class ConstraintsProperties:
 
 
 @dataclass
-class FieldProperties:
+class FieldProperties(Properties):
     """A field in a table schema.
 
     Provides human-readable documentation as well as additional information that can
@@ -294,7 +308,7 @@ FieldsMatchType = Literal["exact", "equal", "subset", "superset", "partial"]
 
 
 @dataclass
-class TableSchemaProperties:
+class TableSchemaProperties(Properties):
     """A table schema for a data resource.
 
     Table schema is a simple language- and implementation-agnostic way to declare a
@@ -332,7 +346,7 @@ class TableSchemaProperties:
 
 
 @dataclass
-class ResourceProperties:
+class ResourceProperties(Properties):
     """A data resource.
 
     A simple format to describe and package a single data resource such as an
@@ -385,7 +399,7 @@ class ResourceProperties:
 
 
 @dataclass
-class PackageProperties:
+class PackageProperties(Properties):
     """A data package.
 
     A simple container format for describing a coherent collection of data in a single
