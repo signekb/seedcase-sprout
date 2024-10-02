@@ -26,27 +26,25 @@ class ContributorProperties(Properties):
     """The people or organizations who contributed to this data package.
 
     Attributes:
-        title (str | None): The name of the contributor.
-        path (str | None): A fully qualified URL pointing to a relevant
+        title (str): The name of the contributor.
+        path (str): A fully qualified URL pointing to a relevant
             location online for the contributor.
-        email (str | None): An email address.
-        given_name (str | None): A string containing the name a person has been
+        email (str): An email address.
+        given_name (str): A string containing the name a person has been
             given, if the contributor is a person.
-        family_name (str | None): A string containing the familial name that a person
+        family_name (str): A string containing the familial name that a person
             inherits, if the contributor is a person.
-        organization (str | None): An organizational affiliation for this
-            contributor.
-        roles (list[str] | None): An array of strings describing the roles of the
-            contributor.
+        organization (str): An organizational affiliation for this contributor.
+        roles (list[str]): An array of strings describing the roles of the contributor.
     """
 
-    title: str | None = None
-    path: str | None = None
-    email: str | None = None
-    given_name: str | None = None
-    family_name: str | None = None
-    organization: str | None = None
-    roles: list[str] | None = None
+    title: str = ""
+    path: str = ""
+    email: str = ""
+    given_name: str = ""
+    family_name: str = ""
+    organization: str = ""
+    roles: list[str] = field(default_factory=list)
 
 
 @dataclass
@@ -54,15 +52,15 @@ class LicenseProperties(Properties):
     """The license(s) under which the package or resource is provided.
 
     Attributes:
-        name (str | None): Must be an Open Definition license identifier,
+        name (str): Must be an Open Definition license identifier,
             see http://licenses.opendefinition.org/
-        path (str | None): A fully qualified URL, or a POSIX file path.
-        title (str | None): A human-readable title.
+        path (str): A fully qualified URL, or a POSIX file path.
+        title (str): A human-readable title.
     """
 
-    name: str | None = None
-    path: str | None = None
-    title: str | None = None
+    name: str = ""
+    path: str = ""
+    title: str = ""
 
 
 @dataclass
@@ -70,16 +68,16 @@ class SourceProperties(Properties):
     """The raw sources for this data package.
 
     Attributes:
-        title (str | None): The title of the source (e.g. document or organization).
-        path (str | None): A fully qualified URL, or a POSIX file path.
-        email (str | None): An email address.
-        version (str | None): The version of the source.
+        title (str): The title of the source (e.g. document or organization).
+        path (str): A fully qualified URL, or a POSIX file path.
+        email (str): An email address.
+        version (str): The version of the source.
     """
 
-    title: str | None = None
-    path: str | None = None
-    email: str | None = None
-    version: str | None = None
+    title: str = ""
+    path: str = ""
+    email: str = ""
+    version: str = ""
 
 
 # The `r"""` string is used to avoid escaping backslashes in the `null_sequence`
@@ -407,37 +405,36 @@ class PackageProperties(Properties):
     management of datasets.
 
     Attributes:
-        name (str | None): A simple name or identifier to be used for this package.
+        name (str): A simple name or identifier to be used for this package.
             Should consist only of lowercase English alphanumeric characters plus
             characters in `.-_`.
-        id (str | None): The unique identifier of this package.
-        title (str | None): A human-readable title.
-        description (str | None): A text description. Markdown is encouraged.
-        homepage (str | None): The home on the web that is related to this package.
-        version (str | None): A version string identifying the version of this package.
-        created (str | None): The datetime on which this package was created.
-        contributors (list[ContributorProperties] | None): The people or organizations
+        id (str): The unique identifier of this package.
+        title (str): A human-readable title.
+        description (str): A text description. Markdown is encouraged.
+        homepage (str): The home on the web that is related to this package.
+        version (str): A version string identifying the version of this package.
+        created (str): The datetime on which this package was created.
+        contributors (list[ContributorProperties]): The people or organizations
             who contributed to this package.
-        keywords (list[str] | None): A list of keywords that describe this package.
-        image (str | None): An image to represent this package.
-        licenses (list[LicenseProperties] | None): The license(s) under which this
+        keywords (list[str]): A list of keywords that describe this package.
+        image (str): An image to represent this package.
+        licenses (list[LicenseProperties]): The license(s) under which this
             package is published.
-        resources (list[ResourceProperties] | None): Specifies the data resources
+        resources (list[ResourceProperties]): Specifies the data resources
             in this data package, each compliant with the data resource specification.
-        sources (list[SourceProperties] | None): The raw sources for this data
-            package.
+        sources (list[SourceProperties]): The raw sources for this data package.
     """
 
-    name: str | None = None
-    id: str | None = None
-    title: str | None = None
-    description: str | None = None
-    homepage: str | None = None
-    version: str | None = None
-    created: str | None = None
-    contributors: list[ContributorProperties] | None = None
-    keywords: list[str] | None = None
-    image: str | None = None
-    licenses: list[LicenseProperties] | None = None
-    resources: list[ResourceProperties] | None = None
-    sources: list[SourceProperties] | None = None
+    name: str = ""
+    id: str = ""
+    title: str = ""
+    description: str = ""
+    homepage: str = ""
+    version: str = ""
+    created: str = ""
+    contributors: list[ContributorProperties] = field(default_factory=list)
+    keywords: list[str] = field(default_factory=list)
+    image: str = ""
+    licenses: list[LicenseProperties] = field(default_factory=list)
+    resources: list[ResourceProperties] = field(default_factory=list)
+    sources: list[SourceProperties] = field(default_factory=list)
