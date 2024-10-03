@@ -3,7 +3,7 @@ name: Deploy PR Preview App
 
 on:
   pull_request:
-    types: [opened, reopened, synchronize, closed]
+    types: [opened, reopened, synchronize]
     branches:
       - main
     paths-ignore:
@@ -22,10 +22,10 @@ on:
       - _publish.yml
       - _extensions/**
 
-env:
-  FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-  FLY_REGION: ams
-  FLY_ORG: seedcase-project
+# env:
+#   FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+#   FLY_REGION: ams
+#   FLY_ORG: seedcase-project
 
 jobs:
   lint:
@@ -35,37 +35,31 @@ jobs:
     uses: seedcase-project/.github/.github/workflows/test.yml@main
     needs: lint
 
-  staging-app:
-    runs-on: ubuntu-latest
-    needs: test
+  # staging-app:
+  #   runs-on: ubuntu-latest
+  #   needs: test
 
-    # Only run one deployment at a time per PR.
-    concurrency:
-      group: pr-${{ github.event.number }}
+  #   # Only run one deployment at a time per PR.
+  #   concurrency:
+  #     group: pr-${{ github.event.number }}
 
-    # Create a GitHub deployment environment per staging app so it shows up
-    # in the pull request UI.
-    environment:
-      name: pr-${{ github.event.number }}
-      url: ${{ steps.deploy.outputs.url }}
+  #   # Create a GitHub deployment environment per staging app so it shows up
+  #   # in the pull request UI.
+  #   environment:
+  #     name: pr-${{ github.event.number }}
+  #     url: ${{ steps.deploy.outputs.url }}
 
-    steps:
-      - uses: actions/checkout@v4
+  #   steps:
+  #     - uses: actions/checkout@v4
 
-      - name: Deploy preview of PR
-        id: deploy
-        uses: superfly/fly-pr-review-apps@1.2.1
-        with:
-          name: ${{ github.event.repository.name }}-pr-${{ github.event.number }}
+  #     # Need to install direct from source, since their action is outdated
+  #     - name: Install Fly CLI
+  #       run: |
+  #         curl -L https://fly.io/install.sh | sh
+  #         echo "/home/runner/.fly/bin" >> $GITHUB_PATH
 
-      # This removes left over environments in GitHub from the building and deploying.
-      - name: Clean up GitHub environment
-        run: |
-          gh api \
-            --method DELETE \
-            -H "Accept: application/vnd.github+json" \
-            -H "X-GitHub-Api-Version: 2022-11-28" \
-            /repos/seedcase-project/${{ github.event.repository.name }}/environments/pr-${{ github.event.number }}
-        if: ${{ github.event.action == 'closed' }}
-        env:
-          GH_TOKEN: ${{ secrets.DELETE_ENV_TOKEN }}
+  #     - name: Deploy preview of PR
+  #       id: deploy
+  #       uses: ...
+  #       with:
+  #         name: ${{ github.event.repository.name }}-pr-${{ github.event.number }}
