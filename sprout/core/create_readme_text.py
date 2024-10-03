@@ -1,6 +1,3 @@
-import json
-
-
 def create_readme_text(properties: dict) -> str:
     """Create a json object containing the readme text.
 
@@ -16,7 +13,7 @@ def create_readme_text(properties: dict) -> str:
 
     readme_text = (
         f"# {properties["name"]}: {properties["title"]}\n\n"
-        f"properties["description"]\n\n"
+        f"{properties["description"]}\n\n"
         f"There are {len(properties["resources"])} resources in this package."
     )
     return readme_text
