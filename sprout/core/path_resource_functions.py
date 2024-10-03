@@ -3,7 +3,6 @@ from pathlib import Path
 from sprout.core import path_package
 from sprout.core.verify_is_dir import verify_is_dir
 from sprout.core.verify_is_file import verify_is_file
-from sprout.core.verify_is_package_dir import verify_is_package_dir
 from sprout.core.verify_is_resource_dir import verify_is_resource_dir
 
 
