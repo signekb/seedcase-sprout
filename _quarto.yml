@@ -1,7 +1,7 @@
 project:
   type: seedcase-theme
   render:
-    - "docs/*" 
+    - "docs/*"
     - "index.qmd"
 
 website:
@@ -39,6 +39,7 @@ website:
             - docs/design/architecture/requirements.qmd
             - docs/design/architecture/c4-models.qmd
             - docs/design/architecture/naming.qmd
+            - docs/design/architecture/modular-design.qmd
             - docs/design/architecture/user-roles.qmd
         - section: "Implementation"
           href: docs/design/implementation/index.qmd

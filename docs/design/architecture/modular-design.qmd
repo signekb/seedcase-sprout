@@ -1,0 +1,48 @@
+---
+title: "Modular design"
+---
+
+While we describe how we implement aspects of modular design across all
+Seedcase products in our [design
+documentation](https://design.seedcase-project.org), this document
+explains this split between Python code, CLI, web app, and web API in
+the context of Sprout.
+
+## Python modules
+
+In order to achieve our aims, the main functionality is designed and
+implemented as a Python package and can be used as a Python package.
+This code is stored in the Python module (folder location)
+`sprout/core/` and is accessible via the Python code
+`import sprout.core` statement. Only external-facing functions would be
+exposed to the user and to other programs.
+
+Any extensions would then only need to incorporate and depend on the
+`sprout.core` package to get Sprout's functionality. Each extension
+would be its own module within Sprout, with modules named like
+`sprout/extension_name/`, for instance, `sprout/cli/`. That way, within
+the extension's module, the logic that we implement is only specific to
+creating the CLI and not to the actual functionality of Sprout.
+
+Other potential extensions would follow the same or similar pattern.
+This allows other developers to create their own extensions and
+interfaces to Sprout that suit their particular needs.
+
+Our [Guide](/guide/index.qmd) has examples and tutorials on how each
+split is used.
+
+-   For our CLI, it is placed in the module `sprout/cli/`. Each command
+    imports the relevant functions from `sprout.core`, along with
+    decorators (from other Python packages) to convert the Python code
+    into a CLI program.
+
+-   The web app is in `sprout/app/`. Each page of the web app imports
+    the required functions from `sprout.core`, with functions from other
+    Python packages that convert that code into a web app.
+
+-   The web API is in `sprout/api/`. Each endpoint imports the required
+    functions from `sprout.core` with
+    functions from other Python packages that convert that code into a
+    web API. This particular module may not be necessary as many Python
+    packages that create web apps are also able to easily create web
+    APIs from the same or slightly modified code.
