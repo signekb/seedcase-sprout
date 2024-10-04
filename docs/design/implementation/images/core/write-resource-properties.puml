@@ -1,0 +1,61 @@
+@startuml write-resource-properties
+!theme seedcase from https://raw.githubusercontent.com/seedcase-project/seedcase-theme/main
+
+state "Input" as input {
+  input: - Use `path_*()` functions to help\ncreate correct paths
+' Arguments -----
+  properties : - Properties objects in JSON format
+  path : - Path to where properties is stored
+}
+
+state "Output" as output {
+  output : - The package parent folder is shown as /
+  state "/packages/<id>/datapackage.json" as properties_file
+}
+
+state "write_resource_properties()" as wrp {
+  wrp : - Required arg: properties and path
+
+  state arg_path <<entryPoint>>
+  state arg_properties <<entryPoint>>
+  properties --> arg_properties
+  path --> arg_path
+
+  state "verify_resource_properties()" as vrp
+  vrp : - Required arg: properties
+  vrp : - Output: JSON or Error
+  vrp : - Checks that all fields\n  and values match spec
+  vrp : - Checks that required\n  fields are present
+  arg_properties --> vrp
+
+  state "verify_is_file()" as vif
+  vif : - Required arg: path
+  vif : - Output: path or Error
+  arg_path --> vif
+
+  state "read_properties()" as rp
+  rp : - Required arg: path
+  rp : - Output: JSON
+  vif --> rp : path object
+
+  state "properties.update()" as jp
+  jp : - Required arg: new_properties
+  jp : - Output: JSON
+  jp : - New properties overwrite old ones
+  jp : - Uses built-in `update()` method
+  jp : - Need to join the resource properties\n  to the existing properties
+  rp --> jp : JSON object
+  vrp --> jp : JSON object
+
+  state "write_json()" as wj
+  wj : - Required arg: json_object and path
+  wj : - Output: path to created file
+  jp --> wj : JSON object
+  vif --> wj : path object
+
+  state return <<exitPoint>>
+  wj --> return : path object
+  return --> output
+}
+
+@enduml

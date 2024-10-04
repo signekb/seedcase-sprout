@@ -105,19 +105,19 @@ fig-alt="A Plant UML schematic of the detailed code flow within the `create_pack
 ::: {.callout-note collapse="true"}
 ### `edit_package_properties(path, properties)`
 
-Because there already exists an empty `datapackage.json` file, we use this function
-to fill in the properties file with details specific to the package.
-We update the properties file by using the
-`properties` argument and giving it the `PackageProperties` object.
-See the help documentation of `PackageProperties` to know what should or needs to be added to the `datapackage.json` file.
-Use `path_properties()` to provide
+Because there already exists an empty `datapackage.json` file, we use
+this function to fill in the properties file with details specific to
+the package. We update the properties file by using the `properties`
+argument and giving it the `PackageProperties` object. See the help
+documentation of `PackageProperties` to know what should or needs to be
+added to the `datapackage.json` file. Use `path_properties()` to provide
 the correct path location. Outputs a JSON object only. Use
 `write_package_properties()` to save back to the `datapackage.json`
 file.
 
-Whenever you need to edit the `datapackage.json` properties, this is the function you will use again.
-It only edits metadata on the package itself, not on the data resources
-contained within the package.
+Whenever you need to edit the `datapackage.json` properties, this is the
+function you will use again. It only edits metadata on the package
+itself, not on the data resources contained within the package.
 
 ![Diagram showing the internal function flow of the
 `edit_package_properties()`
@@ -195,10 +195,10 @@ fig-alt="A Plant UML schematic of the detailed code flow within the `create_reso
 This function sets up and structures a new resource property by taking
 the fields given in the `properties` argument to fill them and prepare
 them to be added to the `datapackage.json` file. It must be given as a
-JSON object following the Data Package specification (use
-the `ResourceProperties` class to get an object that follows
-the Frictionless Data Package standard). The `path` argument provides
-the path to the resource `id` that the properties are for; use
+JSON object following the Data Package specification (use the
+`ResourceProperties` class to get an object that follows the
+Frictionless Data Package standard). The `path` argument provides the
+path to the resource `id` that the properties are for; use
 `path_resource()` to provide the correct path or use the output of
 `create_resource_structure()`. Outputs a JSON object; use
 `write_resource_properties()` to save the JSON object to the
@@ -289,10 +289,18 @@ confirmation. This is done to prevent accidental deletion. Outputs
 
 Use to write the resource JSON object back to the `datapackage.json`
 file. This function validates whether the JSON object follows the Data
-Package resource specification. The `path` argument is the location of
-the `datapackage.json` file. Use the `path_properties()` function to
+Package resource specification. The `properties` argument must be given
+as a JSON object following the Data Package specification (use the
+`ResourceProperties` class to get an object that follows the
+Frictionless Data Package standard). The `path` argument is the location
+of the `datapackage.json` file. Use the `path_properties()` function to
 provide this path to the correct location. Returns the same path object
 as given in the `path` argument.
+
+![Diagram showing the internal function flow of the
+`write_resource_properties()`
+function.](images/core/write-resource-properties.svg){#fig-write-resource-properties
+fig-alt="A Plant UML schematic of the detailed code flow within the `write_resource_properties()` function."}
 :::
 
 ::: {.callout-note collapse="true"}
