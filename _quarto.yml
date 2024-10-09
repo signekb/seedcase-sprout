@@ -9,6 +9,12 @@ website:
   site-url: "https://sprout.seedcase-project.org/"
   repo-url: "https://github.com/seedcase-project/seedcase-sprout"
   page-navigation: true
+  body-header: |
+    ::: {.callout-warning appearance="default" icon="true"}
+    🚧 Sprout is still in active development and evolving quickly, so the
+    documentation and functionality may not work as described
+    and could undergo substantial changes 🚧
+    :::
   navbar:
     pinned: true
     title: false

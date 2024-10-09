@@ -2,8 +2,6 @@
 title: "Creating and managing data packages"
 ---
 
-{{< include /docs/includes/_wip.qmd >}}
-
 At the core of Sprout is the [data
 package](/docs/design/implementation/outputs.qmd), which is a
 standardized way of structuring and sharing data. This guide will show

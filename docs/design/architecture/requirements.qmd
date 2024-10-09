@@ -2,8 +2,6 @@
 title: "Requirements"
 ---
 
-{{< include /docs/includes/_wip.qmd >}}
-
 ## Technical requirements
 
 -   Run on Windows, MacOS, and Linux (likely on servers): Our potential

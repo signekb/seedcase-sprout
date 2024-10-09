@@ -4,8 +4,6 @@ callout-icon: false
 callout-appearance: "minimal"
 ---
 
-{{< include /docs/includes/_wip.qmd >}}
-
 ::: {.callout-important appearance="default" icon="true"}
 We created this document, and especially the function diagrams, mainly
 as a way to help us as a team all understand and agree on what we're

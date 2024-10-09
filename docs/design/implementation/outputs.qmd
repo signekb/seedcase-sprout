@@ -2,8 +2,6 @@
 title: "Outputs"
 ---
 
-{{< include /docs/includes/_wip.qmd >}}
-
 Sprout is designed to structure, organize, and store data in a
 standardized, coherent, and consistent way. At the base of how data is
 structured and stored are the files and folders. So, this document

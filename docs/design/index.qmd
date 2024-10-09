@@ -2,8 +2,6 @@
 title: "Design of Sprout"
 ---
 
-{{< include /docs/includes/_wip.qmd >}}
-
 Within the design documentation are two main sections:
 
 -   [Architecture](architecture/index.qmd): The architecture section

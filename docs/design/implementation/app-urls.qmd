@@ -2,8 +2,6 @@
 title: "Web App URLs and Functionality"
 ---
 
-{{< include /docs/includes/_wip.qmd >}}
-
 Based on the [naming scheme](/docs/design/architecture/naming.qmd), this document describes the
 core, user-facing web app URLs and functionality provided within
 `sprout/app/`. See the [outputs](outputs.qmd) document for an overview
@@ -15,7 +13,7 @@ URLs:
     use plural nouns like `packages` and `resources` since they
     represent a collection of items traditionally shown in a folder or
     list view. For instance, `packages/` is the URL/folder that contains
-    all the packages, but `packages/1/` is the folder for the package 
+    all the packages, but `packages/1/` is the folder for the package
     with the ID of 1.
 2.  Since the default action for viewing a list of items or
     details of a specific item are the same, unlike for the Python functions
@@ -66,9 +64,9 @@ Following these principles, the URLs would be:
 
 :   Create a new resource for data and associated properties. The user
     can upload a file with data, which will be used to extract some
-    basic properties. The user will then be prompted to fill in the remaining 
-    properties and validate the extracted properties. When this is done, the 
-    properties are completed and created. The user can continue to edit the 
+    basic properties. The user will then be prompted to fill in the remaining
+    properties and validate the extracted properties. When this is done, the
+    properties are completed and created. The user can continue to edit the
     resource after creation.
 
 `packages/<id>/resources/<id>`
@@ -94,5 +92,5 @@ Following these principles, the URLs would be:
 
 `packages/<id>/resources/<id>/delete`
 
-:   Delete all associated data and properties of a specific resource. 
+:   Delete all associated data and properties of a specific resource.
     This is permanent, so the user will be asked to confirm the deletion.

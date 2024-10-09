@@ -1,4 +1,0 @@
-::: {.callout-warning appearance="default" icon="true"}
-🚧 This section is still in active development and is subject to changes
-🚧
-:::

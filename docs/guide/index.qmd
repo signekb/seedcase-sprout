@@ -3,4 +3,3 @@ title: "Guide"
 description: "A guide on using Sprout to structure and organize your data."
 ---
 
-{{< include /docs/includes/_wip.qmd >}}

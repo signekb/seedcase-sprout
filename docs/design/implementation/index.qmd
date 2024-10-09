@@ -2,8 +2,6 @@
 title: "Implementation"
 ---
 
-{{< include /docs/includes/_wip.qmd >}}
-
 This section of the documentation focuses on how the architectural
 design will be implemented. It is split into the following set of
 documents:

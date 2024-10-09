@@ -2,8 +2,6 @@
 title: User Flow
 ---
 
-{{< include /docs/includes/_wip.qmd >}}
-
 This document describes the user flow of Sprout. The user flow is split
 into five diagrams that go through the flow in more detail. At the end
 of the document, you can see the user flow of Sprout in its entirety.
