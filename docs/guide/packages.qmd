@@ -1,5 +1,6 @@
 ---
 title: "Creating and managing data packages"
+order: 1
 ---
 
 At the core of Sprout is the [data
