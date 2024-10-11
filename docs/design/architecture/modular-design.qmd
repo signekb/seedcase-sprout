@@ -28,8 +28,8 @@ Other potential extensions would follow the same or similar pattern.
 This allows other developers to create their own extensions and
 interfaces to Sprout that suit their particular needs.
 
-Our [Guide](/guide/index.qmd) has examples and tutorials on how each
-split is used.
+Our [Guide](../../guide/index.qmd) has examples and tutorials on how
+each split is used.
 
 -   For our CLI, it is placed in the module `sprout/cli/`. Each command
     imports the relevant functions from `sprout.core`, along with
@@ -41,8 +41,8 @@ split is used.
     Python packages that convert that code into a web app.
 
 -   The web API is in `sprout/api/`. Each endpoint imports the required
-    functions from `sprout.core` with
-    functions from other Python packages that convert that code into a
-    web API. This particular module may not be necessary as many Python
-    packages that create web apps are also able to easily create web
-    APIs from the same or slightly modified code.
+    functions from `sprout.core` with functions from other Python
+    packages that convert that code into a web API. This particular
+    module may not be necessary as many Python packages that create web
+    apps are also able to easily create web APIs from the same or
+    slightly modified code.
