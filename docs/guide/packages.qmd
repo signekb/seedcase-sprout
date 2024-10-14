@@ -8,21 +8,7 @@ package](/docs/design/implementation/outputs.qmd), which is a
 standardized way of structuring and sharing data. This guide will show
 you how to create and manage data packages using Sprout.
 
-<!-- TODO: this callout might need to be its own include, since other docs will use it too -->
-
-::: callout-important
-For both the Python library and the CLI, Sprout assumes you have full
-control over the folders and files of the system, or at least your
-user's home directory. This includes being given space on a server that
-mostly has access through a Terminal, where you have control over the
-directories you can write to.
-
-An easy example of this is if you install Sprout on your own computer
-because you want to create some data packages for research studies you
-are running. Another example would be if your research group has storage
-space on a server that you need to use a Terminal and SSH to be able to
-access.
-:::
+{{< include _preamble.qmd >}}
 
 ## Creating a data package
 
