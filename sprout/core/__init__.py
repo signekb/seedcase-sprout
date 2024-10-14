@@ -5,12 +5,12 @@
 # Packages -----
 # from .list_packages import *
 # from .view_package_properties import *
-# from .create_package_structure import *
+from .create_package_structure import create_package_structure
+
 # from .create_package_properties import *
 # from .edit_package_properties import *
 # from .write_package_properties import *
 # from .delete_package import *
-
 # Resources -----
 # from .list_resources import *
 # from .view_resource import *
@@ -77,7 +77,7 @@ __all__ = [
     # Packages -----
     # "list_packages",
     # "view_package_properties",
-    # "create_package_structure",
+    "create_package_structure",
     # "create_package_properties",
     # "edit_package_properties",
     # "write_package_properties",
