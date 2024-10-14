@@ -16,7 +16,7 @@ def get_ids(path: Path) -> list[int]:
     dirs = list(path.glob("*/"))
     ids = list(map(get_number_from_dir, dirs))
     # Drop any empty items
-    ids = list(filter(None, ids))
+    ids = sorted(filter(None, ids))
 
     return ids
 
