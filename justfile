@@ -62,7 +62,3 @@ build-website:
 add-function app part name:
   touch ./{{app}}/{{part}}/{{name}}.py
   touch ./tests/{{part}}/test_{{name}}.py
-
-# Extract dataclasses from the Data Package JSON schema
-generate-dataclasses:
-  poetry run python sprout/core/generate_properties/generate_dataclasses.py
