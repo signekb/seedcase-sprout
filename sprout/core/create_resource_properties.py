@@ -27,7 +27,7 @@ def create_resource_properties(path: Path, properties: dict) -> dict:
 
     Raises:
         NotADirectoryError: if path does not point to a directory.
-        InvalidResourcePropertiesError: if properties are not valid Frictionless
+        NotPropertiesError: if properties are not correct Frictionless
             resource properties.
 
     Returns:

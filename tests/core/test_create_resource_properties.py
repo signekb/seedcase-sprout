@@ -3,7 +3,7 @@ from pathlib import Path
 from pytest import raises
 
 from sprout.core.create_resource_properties import create_resource_properties
-from sprout.core.verify_resource_properties import InvalidResourcePropertiesError
+from sprout.core.not_properties_error import NotPropertiesError
 
 
 def test_creates_properties_correctly(tmp_path):
@@ -34,8 +34,7 @@ def test_rejects_path_if_invalid(tmp_path):
         create_resource_properties(resource_path, properties)
 
 
-def test_rejects_properties_if_invalid(tmp_path):
-    """Given an invalid properties input, should raise
-    InvalidResourcePropertiesError."""
-    with raises(InvalidResourcePropertiesError):
+def test_rejects_properties_if_incorrect(tmp_path):
+    """Given an incorrect properties input, should raise NotPropertiesError."""
+    with raises(NotPropertiesError):
         create_resource_properties(tmp_path, {})

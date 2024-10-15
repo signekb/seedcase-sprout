@@ -1,13 +1,11 @@
 from pytest import mark, raises
 
-from sprout.core.verify_resource_properties import (
-    InvalidResourcePropertiesError,
-    verify_resource_properties,
-)
+from sprout.core.not_properties_error import NotPropertiesError
+from sprout.core.verify_resource_properties import verify_resource_properties
 
 
-def test_returns_valid_properties():
-    """Given a set of valid properties, should return the same set of properties."""
+def test_returns_correct_properties():
+    """Given a set of correct properties, should return the same set of properties."""
     properties = {
         "name": "test",
         "type": "table",
@@ -27,8 +25,8 @@ def test_returns_valid_properties():
     assert verify_resource_properties(properties) == properties
 
 
-def test_returns_valid_properties_with_custom_field():
-    """Given a set of valid properties with a custom field, should return the same
+def test_returns_correct_properties_with_custom_field():
+    """Given a set of correct properties with a custom field, should return the same
     set of properties."""
     properties = {
         "name": "test",
@@ -54,14 +52,14 @@ def test_returns_valid_properties_with_custom_field():
 @mark.parametrize("properties", [{}, [], 1, None])
 def test_rejects_completely_malformed_properties(properties):
     """Given an input which is empty or the wrong type, should throw
-    InvalidResourcePropertiesError."""
-    with raises(InvalidResourcePropertiesError):
+    NotPropertiesError."""
+    with raises(NotPropertiesError):
         verify_resource_properties(properties)
 
 
-def test_rejects_properties_with_single_invalid_field():
-    """Given a set of properties with a single invalid field, should throw
-    InvalidResourcePropertiesError."""
+def test_rejects_properties_with_single_incorrect_field():
+    """Given a set of properties with a single incorrect field, should throw
+    NotPropertiesError."""
     properties = {
         "name": "test",
         "type": "unknown type",
@@ -80,15 +78,15 @@ def test_rejects_properties_with_single_invalid_field():
     }
 
     with raises(
-        InvalidResourcePropertiesError,
+        NotPropertiesError,
         match='resource type "unknown type" is not supported',
     ):
         verify_resource_properties(properties)
 
 
-def test_rejects_properties_with_multiple_invalid_fields():
-    """Given a set of properties with multiple invalid fields, should throw
-    InvalidResourcePropertiesError."""
+def test_rejects_properties_with_multiple_incorrect_fields():
+    """Given a set of properties with multiple incorrect fields, should throw
+    NotPropertiesError."""
     properties = {
         "type": "table",
         "path": "test.csv",
@@ -105,7 +103,7 @@ def test_rejects_properties_with_multiple_invalid_fields():
         },
     }
 
-    with raises(InvalidResourcePropertiesError) as error:
+    with raises(NotPropertiesError) as error:
         verify_resource_properties(properties)
 
     message = str(error.value)
