@@ -36,6 +36,7 @@ def test_path_package_functions_return_expected_path(
 ):
     # When, then
     assert function(package_id=1) == tmp_sprout_root / expected_path
+    assert function(package_id=1).is_file() or function(package_id=1).is_dir()
 
 
 @mark.parametrize(
@@ -55,7 +56,12 @@ def test_path_packages_returns_expected_path(tmp_sprout_root):
     assert path_packages() == tmp_sprout_root / "packages"
 
 
-def test_path_packages_raises_error_when_no_packages_exist():
-    # When, then
-    with raises(NotADirectoryError):
-        path_packages()
+def test_path_packages_creates_and_returns_expected_path_when_no_packages_exist(
+    monkeypatch, tmp_path
+):
+    # When
+    monkeypatch.setenv("SPROUT_ROOT", str(tmp_path))
+
+    # Then
+    assert path_packages() == tmp_path / "packages"
+    assert path_packages().is_dir()

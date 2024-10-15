@@ -1,5 +1,6 @@
 from pathlib import Path
 
+from sprout.core.create_dirs import create_dir
 from sprout.core.path_sprout_root import path_sprout_root
 from sprout.core.verify_is_dir import verify_is_dir
 from sprout.core.verify_is_file import verify_is_file
@@ -54,4 +55,5 @@ def path_packages() -> Path:
     Raises:
         NotADirectoryError: If the packages folder doesn't exist.
     """
-    return verify_is_dir(path_sprout_root() / "packages")
+    path = path_sprout_root() / "packages"
+    return create_dir(path) if not path.exists() else verify_is_dir(path)
