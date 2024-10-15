@@ -3,13 +3,13 @@ title: Grow structured and scalable data
 toc: false
 sidebar: false
 css: _extensions/seedcase-project/seedcase-theme/landing-page-theme.css
-image: "images/home.svg"
+image: "_extensions/seedcase-project/seedcase-theme/logos/sprout-logo.svg"
 image-title: Image from Storyset
 image-alt: Illustration of two people looking at data charts together.
 about:
   id: hero-heading
   template: solana
-  image-width: 30em
+  image-width: 10em
   links: 
     - text: "Install Sprout"
       href: "https://sprout.seedcase-project.org/docs/guide/installation.qmd"
