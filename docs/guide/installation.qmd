@@ -1,0 +1,88 @@
+---
+title: "Installing Sprout"
+order: 0
+---
+
+We designed Sprout to be installed for use either on your own computer
+(locally) or on a server (remote). This guide will walk you through
+installing Sprout. Regardless of how you install Sprout, you will need
+to use the Terminal. If you are unfamiliar with the terminal, start with our
+[guide for beginners]() before continuing.
+
+<!-- TODO: this callout might need to be its own include, since other docs will use it too -->
+
+::: callout-important
+Sprout as a Python package and as a CLI assumes you have full control
+over the folders and files of the system, or at least your user's home
+directory. This includes being given space on a server that mostly has
+access through a Terminal, where you have control over the directories
+you can write to.
+:::
+
+## Use in a project in a virtual environment
+
+Sprout requires [Python](https://www.python.org/downloads/) version
+\>=3.6 be installed on your system, which includes pip. Run this command
+in the Terminal to check your version of Python:
+
+``` bash
+python3 --version
+```
+
+If the version isn't 3.6 or greater, download and install the latest
+version of Python by going to their [download
+page](https://www.python.org/downloads/).
+
+### Creating a virtual environment
+
+In general, it isn't recommended to use pip to install into your global
+system (accessible everywhere on your computer) because it can
+negatively affect other Python packages. Rather, you install a package
+into a virtual environment so that it doesn't affect your global system.
+
+To make this virtual environment, we need to create it with venv in a
+folder location that makes sense for your purposes. A good location
+might be in your documents folder or desktop. For now, we will create it
+on the desktop:
+
+``` bash
+cd Desktop
+mkdir use-sprout
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+<!-- TODO: Write instructions using Poetry as well -->
+
+You're now ready to install Sprout!
+
+### Install Sprout
+
+We can install Sprout directly from the [GitHub
+repository](https://github.com/seedcase-project/seedcase-sprout) by
+running the following command:
+
+``` bash
+pip install git+https://github.com/seedcase-project/seedcase-sprout
+```
+
+To check that Sprout has been installed correctly, run the following
+command in your terminal:
+
+``` bash
+pip show seedcase_sprout
+```
+
+If it installed successfully, it will show details about Sprout.
+
+Get started with your first data package by following the guide on
+[Creating and managing data packages](/docs/guide/packages.qmd).
+
+## Use anywhere on the computer or in the Terminal
+
+<!-- TODO: Finish this section -->
+
+::: callout-warning
+We're still developing this section.
+:::
+
