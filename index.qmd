@@ -1,8 +1,9 @@
 ---
 title: Grow structured and scalable data
 toc: false
+page-layout: custom
+section-divs: false
 sidebar: false
-css: _extensions/seedcase-project/seedcase-theme/landing-page-theme.css
 image: "_extensions/seedcase-project/seedcase-theme/logos/sprout-logo.svg"
 image-title: Image from Storyset
 image-alt: Illustration of two people looking at data charts together.
@@ -17,11 +18,15 @@ about:
       href: "https://sprout.seedcase-project.org/docs/guide"
 ---
 
+::: {.landing-page-block}
 ::: {#hero-heading}
 :::
+:::
 
-::: full-width-banner
-## Manage your data, your way
+::: {.hero-banner}
+::: {.landing-page-block}
+::: {.hero-text}
+## Manage your data in a consistent way
 
 **Sprout** is at the backbone of the [**Seedcase
 Project**](https://seedcase-project.org), offering a flexible solution
@@ -37,7 +42,10 @@ Sprout has three key components:
 With these options, you can choose the method that works best for your
 workflow.
 :::
+:::
+:::
 
+::: {.landing-page-block}
 ## Want to contribute?
 
 We’re a community-driven project and would love your feedback! Head over
@@ -46,5 +54,8 @@ repository](https://github.com/seedcase-project/seedcase-sprout) to
 share your ideas or contribute code. Your input makes us better!
 
 <!-- TODO: Add link to a guide on how to contribute in more detail -->
+:::
 
+::: {.landing-page-block}
 ## Image by [Storyset](https://storyset.com/data) {.appendix}
+::: 
