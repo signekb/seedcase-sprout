@@ -13,6 +13,6 @@ on:
 
 jobs:
   build-deploy-docs:
-    uses: seedcase-project/.github/.github/workflows/deploy-docs.yml@main
+    uses: seedcase-project/.github/.github/workflows/deploy-docs-with-python.yml@main
     secrets: 
       netlify-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
