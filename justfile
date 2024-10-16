@@ -56,7 +56,9 @@ reset-local:
 
 # Build the documentation website using Quarto
 build-website:
-  docker run --rm -v $(pwd):/site -w /site ghcr.io/quarto-dev/quarto:latest quarto render
+  # To let Quarto know where python is.
+  export QUARTO_PYTHON=.venv/bin/python3
+  poetry run quarto render --execute
 
 # Add files for a new function (function file and test file)
 add-function app part name:
