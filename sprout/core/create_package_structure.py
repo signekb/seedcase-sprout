@@ -27,8 +27,8 @@ def create_package_structure(path: Path) -> list[Path]:
             to provide the correct path location.
 
     Returns:
-        A list of paths to the two created files: The datapackage.json and the
-            README.md.
+        A list of paths to the two created files, the datapackage.json and the
+            README.md, as well as one created `resources/` folder.
 
     Raises:
         NotADirectoryError: If the directory in the path doesn't exist.
@@ -46,4 +46,8 @@ def create_package_structure(path: Path) -> list[Path]:
     readme = create_readme_text(properties)
     readme_path = create_readme_path(package_path)
 
-    return [write_json(properties, properties_path), write_file(readme, readme_path)]
+    return [
+        write_json(properties, properties_path),
+        write_file(readme, readme_path),
+        create_dir(package_path / "resources"),
+    ]

@@ -10,6 +10,7 @@ def test_creates_folder_structure_correctly(tmp_path):
     expected_package_path = tmp_path / "1"
     expected_properties_path = expected_package_path / "datapackage.json"
     expected_readme_path = expected_package_path / "README.md"
+    expected_resources_dir = expected_package_path / "resources"
 
     # when
     paths = create_package_structure(tmp_path)
@@ -17,8 +18,12 @@ def test_creates_folder_structure_correctly(tmp_path):
     # then
     assert len(list(tmp_path.iterdir())) == 1
     assert expected_package_path.is_dir()
-    assert len(list(expected_package_path.iterdir())) == 2
-    assert paths == [expected_properties_path, expected_readme_path]
+    assert len(list(expected_package_path.iterdir())) == 3
+    assert paths == [
+        expected_properties_path,
+        expected_readme_path,
+        expected_resources_dir,
+    ]
     assert expected_properties_path.is_file()
     assert expected_readme_path.is_file()
 
@@ -26,10 +31,11 @@ def test_creates_folder_structure_correctly(tmp_path):
 def test_writes_nonempty_files(tmp_path):
     """The files written should not be empty. The properties file should be parsable as
     JSON."""
-    properties_path, readme_path = create_package_structure(tmp_path)
+    properties_path, readme_path, resource_dir = create_package_structure(tmp_path)
 
     assert read_json(properties_path)
     assert readme_path.read_text()
+    assert resource_dir.is_dir()
 
 
 def test_throws_error_if_directory_does_not_exist(tmp_path):
