@@ -23,6 +23,9 @@
     "chore", // Misc things, like renaming or deleting files
   ],
   "conventional-branch.format": "{Type}/{Branch}",
+  "[quarto][qmd]": {
+    "editor.formatOnSave": false
+  },
   "[python]": {
     "editor.defaultFormatter": "charliermarsh.ruff"
   },
