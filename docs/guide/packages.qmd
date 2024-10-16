@@ -1,6 +1,7 @@
 ---
 title: "Creating and managing data packages"
 order: 1
+jupyter: python3
 ---
 
 At the core of Sprout is the [data
@@ -16,31 +17,36 @@ you how to create and manage data packages using Sprout.
 ### Python
 
 The first thing you'll need to decide is where you want to store your
-data packages. By default, Sprout will create it in
-`~/sprout/packages/` on Linux (see
-[Outputs](/docs/design/implementation/outputs.qmd) for operating system
-specific locations), but you can change this by setting the
-`SPROUT_ROOT` environment variable. For instance, maybe you want the
-location to be `~/Documents/data-packages/`. You can set this in your
-Python script like so:
+data packages. By default, Sprout will create it in `~/sprout/packages/`
+on Linux (see [Outputs](/docs/design/implementation/outputs.qmd) for
+operating system specific locations), but you can change this by setting
+the `SPROUT_ROOT` environment variable. For instance, maybe you want the
+location to be `~/Desktop/sprout/` or `~/Documents`. For our example, we
+will store it in our current working directory in the hidden folder
+`.storage/`.
 
-``` python
+```{python}
 import sprout.core as sp
 import os
+import pathlib
 
-os.environ["SPROUT_ROOT"] = "~/Documents/data-packages/"
+# For pretty printing of output
+from pprint import pprint
+
+os.environ["SPROUT_ROOT"] = ".storage/"
+```
+
+```{python}
+#| include: false
+pathlib.Path(".storage").mkdir(exist_ok=True)
 ```
 
 Afterwards, you can create the structure for your first data package by
 using:
 
-``` python
-sp.create_package_structure(path=sp.path_packages())
-```
-
-```
-[PosixPath('~/Documents/data-packages/1/datapackage.json'),
- PosixPath('~/Documents/data-packages/1/README.md')]
+```{python}
+new_package = sp.create_package_structure(path=sp.path_packages())
+pprint(new_package)
 ```
 
 This creates the initial structure of your new package with the ID `1`.
@@ -53,9 +59,11 @@ a prettified, human-readable version of the content of the
 `datapackage.json`.
 
 While you *can* manually fill in the details in the `datapackage.json`
-file, we have several helper classes, such as `PackageProperties`, `LicenseProperties`, and `ContributorProperties`, to make it easier for you.
+file, we have several helper classes, such as `PackageProperties`,
+`LicenseProperties`, and `ContributorProperties`, to make it easier for
+you.
 
-``` python
+```{python}
 properties = sp.PackageProperties(
     title="Diabetes and Hypertension Study",
     description="Data from the 2021 study on diabetes and hypertension",
@@ -64,34 +72,26 @@ properties = sp.PackageProperties(
         email="jamie_jones@example.com",
         roles=["creator"]
     )],
-    licenses=[sp.LicensesProperties("ODC-BY-1.0")]
+    licenses=[sp.LicenseProperties(name="ODC-BY-1.0")]
 )
-print(properties)
+pprint(properties)
 ```
 
-```
-# TODO: This will eventually show the actual output.
-PackageProperties(...)
-```
-
-Then, to update the current `datapackage.json` file with these properties, you can use the `update_package_properties()` function:
+Then, to update the current `datapackage.json` file with these
+properties, you can use the `update_package_properties()` function:
 
 ``` python
-package_properties = sp.update_package_properties(
+package_properties = sp.edit_package_properties(
   path=sp.path_properties(package_id=1),
   properties=properties
 )
 print(package_properties)
 ```
 
-```
-# TODO: add an example output of the above.
-{...}
-```
-
 ::: callout-important
-The `update_package_properties()` function will give an error if the
-required fields are not filled in to create a valid `datapackage.json` file.
+The `edit_package_properties()` function will give an error if the
+required fields are not filled in to create a valid `datapackage.json`
+file.
 :::
 
 To save the package properties to the `datapackage.json` file, run:
@@ -104,8 +104,8 @@ sp.write_package_properties(
 ```
 
 If you need help with filling in the right properties, see the
-documentation for the `PackageProperties` classes or run
-e.g., `print(sp.PackageProperties())` to get a list of all the fields you can
+documentation for the `PackageProperties` classes or run e.g.,
+`print(sp.PackageProperties())` to get a list of all the fields you can
 fill in for a package.
 
 You now have the basic starting point for adding data resources to your
@@ -150,7 +150,7 @@ the `datapackage.json`.
 You now have the basic starting point for adding data resources to your
 data package in the location you specified:
 
-```
+```         
 ~/Documents/data-packages/1/datapackage.json
 ~/Documents/data-packages/1/README.md
 ```
