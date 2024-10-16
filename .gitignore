@@ -67,6 +67,8 @@ cover/
 # Quarto
 /.quarto/
 docs/.quarto/
+*.ipynb
+*.storage
 
 # Website generation
 _site
