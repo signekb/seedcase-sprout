@@ -7,8 +7,6 @@
 # from .view_package_properties import *
 from .create_package_structure import create_package_structure
 
-# from .create_package_properties import *
-# from .edit_package_properties import *
 # from .write_package_properties import *
 # from .delete_package import *
 # Resources -----
@@ -16,6 +14,7 @@ from .create_package_structure import create_package_structure
 # from .view_resource import *
 from .create_resource_properties import create_resource_properties
 from .create_resource_structure import create_resource_structure
+from .edit_package_properties import edit_package_properties
 
 # from .extract_resource_properties import *
 # from .edit_resource_properties import *
@@ -78,8 +77,7 @@ __all__ = [
     # "list_packages",
     # "view_package_properties",
     "create_package_structure",
-    # "create_package_properties",
-    # "edit_package_properties",
+    "edit_package_properties",
     # "write_package_properties",
     # "delete_package",
     # Resources -----
