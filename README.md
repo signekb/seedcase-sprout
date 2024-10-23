@@ -1,4 +1,10 @@
-# Seedcase Sprout: Grow your data in a structured and healthy way
+<p align=center>
+    <a href="https://sprout.seedcase-project.org/">
+        <img src="_extensions/seedcase-project/seedcase-theme/logos/navbar-logo-seedcase-sprout.svg" height="150" alt="Sprout website"/>
+    </a>
+</p> 
+
+## Grow structured and scalable data
 
 Sprout is a component of the Seedcase framework that aims to take data
 created or collected for research studies and "grow" it in a structured
