@@ -55,9 +55,10 @@ reset-local:
   rm persistent_storage/raw/*.csv
 
 # Build the documentation website using Quarto
-build-website:
+build-website: install-deps
   # To let Quarto know where python is.
   export QUARTO_PYTHON=.venv/bin/python3
+  poetry run quartodoc build
   poetry run quarto render --execute
 
 # Add files for a new function (function file and test file)

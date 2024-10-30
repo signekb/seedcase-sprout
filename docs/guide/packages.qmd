@@ -82,7 +82,7 @@ pprint(properties)
 Then, to update the current `datapackage.json` file with these
 properties, you can use the `update_package_properties()` function:
 
-``` {python}
+``` python
 package_properties = sp.edit_package_properties(
   path=sp.path_package_properties(package_id=1),
   properties=properties.asdict

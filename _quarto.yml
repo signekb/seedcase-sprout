@@ -26,6 +26,8 @@ website:
         href: docs/guide/index.qmd
       - text: "Design"
         href: docs/design/index.qmd
+      - text: "Reference"
+        href: docs/reference/index.qmd
     tools:
       - icon: github
         href: "https://github.com/seedcase-project/seedcase-sprout"
@@ -61,6 +63,64 @@ website:
           contents:
             - docs/guide/installation.qmd
             - docs/guide/packages.qmd
+
+quartodoc:
+  sidebar: "docs/reference/_sidebar.yml"
+  style: "pkgdown"
+  dir: "docs/reference"
+  package: "sprout"
+  parser: google
+  renderer:
+    style: markdown
+    table_style: description-list
+  sections:
+    - title: "Core functions"
+
+    - subtitle: "Data package functions"
+      desc: "Functions to work with and manage data packages, but not the data resources within them."
+      contents:
+        - core.create_package_structure
+        - core.edit_package_properties
+
+    - subtitle: "Data resource functions"
+      desc: "Functions to work with and manage data resources found within a data package."
+      contents:
+        - core.write_resource_properties
+        - core.create_resource_properties
+        - core.create_resource_structure
+
+    - subtitle: "Property dataclasses"
+      desc: "Dataclasses that support creating correct data package properties."
+      contents:
+        - core.ConstraintsProperties
+        - core.ContributorProperties
+        - core.FieldProperties
+        - core.LicenseProperties
+        - core.MissingValueProperties
+        - core.PackageProperties
+        - core.ReferenceProperties
+        - core.ResourceProperties
+        - core.SourceProperties
+        - core.TableDialectProperties
+        - core.TableSchemaForeignKeyProperties
+        - core.TableSchemaProperties
+
+    - subtitle: "Path functions"
+      desc: "Functions to support providing the correct file paths to data package and data resource functions."
+      contents:
+        - core.path_package
+        - core.path_package_database
+        - core.path_package_properties
+        - core.path_packages
+        - core.path_resource
+        - core.path_resource_data
+        - core.path_resource_raw
+        - core.path_resource_raw_files
+        - core.path_resources
+        - core.path_sprout_root
+
+metadata-files:
+  - docs/reference/_sidebar.yml
 
 # format:
 #   seedcase-theme-html:
