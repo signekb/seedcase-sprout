@@ -70,10 +70,6 @@ docs/.quarto/
 *.ipynb
 *.storage
 
-# Quartodoc
-/docs/reference/
-objects.json
-
 # Website generation
 _site
 _book
