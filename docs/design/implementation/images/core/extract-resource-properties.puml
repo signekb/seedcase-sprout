@@ -66,4 +66,3 @@ state "extract_resource_properties()" as erp {
   return --> output
 }
 @enduml
-

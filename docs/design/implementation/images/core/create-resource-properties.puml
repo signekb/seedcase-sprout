@@ -50,4 +50,3 @@ state "create_resource_properties()" as crp {
   return --> output
 }
 @enduml
-

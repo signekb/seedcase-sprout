@@ -9,7 +9,7 @@ title User Flow: Table created - Continue to Upload?
 'table created - continue to upload? start
   if (System asks user if they want to upload data) then (No)
     if (System asks user if they want\nto download metadata) then (No)
-      :User quits Sprout; 
+      :User quits Sprout;
       end
     else (Yes)
       :User clicks "Download Metadata";

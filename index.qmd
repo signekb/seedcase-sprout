@@ -11,7 +11,7 @@ about:
   id: hero-heading
   template: solana
   image-width: 10em
-  links: 
+  links:
     - text: "Install Sprout"
       href: "https://sprout.seedcase-project.org/docs/guide/installation.qmd"
     - text: "Explore tutorials"
@@ -58,4 +58,4 @@ share your ideas or contribute code. Your input makes us better!
 
 ::: {.landing-page-block}
 ## Image by [Storyset](https://storyset.com/data) {.appendix}
-::: 
+:::

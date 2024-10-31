@@ -15,7 +15,7 @@ System_Boundary(seedcase, "Seedcase Sprout") {
   ' Authentication inside or outside?
   Container(login, "User login", "Python, Django")
   Container(users, "User management", "Python, Django, SQLite", $descr="Assign roles, add or remove users")
-  
+
   ' Backend database setup
   ContainerDb(database_data, "Relational database for data", "Postgres/SQLite")
   ContainerDb(database_metadata, "Relational database for metadata", "SQLite")

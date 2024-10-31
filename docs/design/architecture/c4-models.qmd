@@ -39,7 +39,7 @@ and the databases and storage.
 
 ### User interface
 
-This diagram shows the pages users interact with in the user interface container. In addition, it shows which user roles that can access them. Outside the container is the authentication container and the management container. The authentication container is needed to authenticate users and their access. 
+This diagram shows the pages users interact with in the user interface container. In addition, it shows which user roles that can access them. Outside the container is the authentication container and the management container. The authentication container is needed to authenticate users and their access.
 
 ![C4 Component diagram showing the parts that make up the user interface
 containers.](images/c4/component-ui.svg)

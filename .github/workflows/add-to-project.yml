@@ -6,7 +6,7 @@ on:
       - opened
       - reopened
       - transferred
-  pull_request: 
+  pull_request:
     types:
       - reopened
       - opened
@@ -21,7 +21,7 @@ jobs:
     steps:
       - name: Add issue or PR to project board
         uses: actions/add-to-project@v1.0.2
-        with: 
+        with:
           project-url: https://github.com/orgs/seedcase-project/projects/18
           github-token: ${{ secrets.ADD_TO_BOARD }}
 
@@ -33,5 +33,3 @@ jobs:
           AUTHOR: ${{ github.event.pull_request.user.login }}
           PR: ${{ github.event.pull_request.html_url }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-

@@ -12,7 +12,7 @@ title User Flow: Table Metadata Creation
     :System shows error message:
     "Table with this name already
     exists. Please rename your table.";
-    :User renames table; 
+    :User renames table;
   end while (No)
 'table metadata creation end
 'copied from user-flow.puml end

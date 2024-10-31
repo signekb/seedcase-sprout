@@ -48,7 +48,7 @@ add-test-data: install-deps update-migrations
   poetry run python manage.py loaddata */*/fixtures/*.json
 
 # Reset local Sprout (remove __pycache__ folders, db, migrations, and persistent storage raw files)
-reset-local: 
+reset-local:
   find . -type d -name "__pycache__" -exec rm -rf {} +
   find */**/migrations -type f ! -name '__init__.py' -exec rm {} \;
   rm db.sqlite3

@@ -2,7 +2,7 @@ name: Deploy documentation as website
 
 on:
   push:
-    branches: 
+    branches:
       - main
     paths:
       - docs/**
@@ -14,5 +14,5 @@ on:
 jobs:
   build-deploy-docs:
     uses: seedcase-project/.github/.github/workflows/deploy-docs-with-python.yml@main
-    secrets: 
+    secrets:
       netlify-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}

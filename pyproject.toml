@@ -5,14 +5,14 @@ description = "Grow your research data in a structured, modern way that follows 
 authors = [
   "Luke W. Johnston <lwjohnst@gmail.com>",
   "Henrik Goul <hgo@mjolner.dk>",
-  "Kristiane Beicher <kris.beicher@clin.au.dk>", 
+  "Kristiane Beicher <kris.beicher@clin.au.dk>",
   "Philip Christiansen <pch@mjolner.dk>",
   "Signe Kirk Brødbæk <signekb@clin.au.dk>",
   "Marton Vago <marton.vago95@gmail.com >",
 ]
 maintainers = [
   "Luke W. Johnston <lwjohnst@gmail.com>",
-  "Kristiane Beicher <kris.beicher@clin.au.dk>", 
+  "Kristiane Beicher <kris.beicher@clin.au.dk>",
   "Signe Kirk Brødbæk <signekb@clin.au.dk>",
   "Marton Vago <marton.vago95@gmail.com >",
 ]
@@ -40,6 +40,8 @@ time-machine = "^2.15.0"
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.7.0"
 datamodel-code-generator = {extras = ["http"], version = "^0.26.0"}
+commitizen = "^3.30.0"
+pre-commit = "^4.0.1"
 
 [tool.poetry.group.django.dependencies]
 psycopg2-binary = "^2.9.9"

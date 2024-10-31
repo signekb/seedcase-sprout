@@ -3,8 +3,8 @@ title: "Glossary"
 ---
 
 ::: hidden
-{{< glossary "data package" >}} 
-{{< glossary "data resource" >}} 
+{{< glossary "data package" >}}
+{{< glossary "data resource" >}}
 {{< glossary properties >}}
 :::
 

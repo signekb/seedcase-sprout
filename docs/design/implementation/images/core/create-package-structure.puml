@@ -68,7 +68,7 @@ state "create_package_structure()" as cps {
   wf : - Output: path of created file
   wf : - Only one string and path at a time
   wf : - Used multiple times for each write\n  operation
-  
+
   state readme_input <<join>>
   state prop_input <<join>>
   state as_list <<join>>
@@ -78,10 +78,10 @@ state "create_package_structure()" as cps {
   crt --> readme_input
   cprop --> prop_input
   crp --> readme_input
-  
+
   prop_input --> wf : input to write\nproperties file
   readme_input --> wf : input to write\nreadme file
-  
+
   wf --> as_list : Convert to list
   as_list --> return
   return --> output

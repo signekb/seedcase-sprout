@@ -10,12 +10,12 @@ if (System shows data upload UI) then (Create New Table)
 'prepare to upload using existing table start
 else (Use Existing Table)
     :User selects\n"Use Existing Table";
-    :System shows UI with existing tables 
+    :System shows UI with existing tables
     to choose from and file upload;
-    :User selects existing table and 
+    :User selects existing table and
     selects file to upload;
     :User clicks "Upload Data to Table";
-endif 
+endif
 'prepare to upload using existing table end
 'copied from user-flow.puml end
 :System initialises data upload;

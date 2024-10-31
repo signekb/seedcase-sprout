@@ -21,7 +21,7 @@ title User Flow: Column Metadata Creation
       extracts column metadata*;
     while (\nVALIDATION CHECK: Is file a supported file type?\n) is (No)
       :System shows error message
-      informing the user of the 
+      informing the user of the
       supported file types;
       :User selects new file to upload;
     end while (Yes)
@@ -32,7 +32,7 @@ title User Flow: Column Metadata Creation
       :System shows UI with
       file upload;
       :User selects file with
-      metadata and clicks 
+      metadata and clicks
       "Extract Data Structure";
     end fork
       :System extracts column metadata from file;
@@ -55,13 +55,13 @@ title User Flow: Column Metadata Creation
       :User adds table metadata;
       :User clicks "Submit";
     endswitch
-    :System shows UI where user can 
+    :System shows UI where user can
     add/edit the following fields:
     - Column name (textbox)
     - Title (textbox, optional)
     - Data type (dropdown)
     - Short description (textbox)
-    - Allow missing (boolean) 
+    - Allow missing (boolean)
     - Allow duplication (boolean);
     :User completes/edits table
     and clicks "Submit";

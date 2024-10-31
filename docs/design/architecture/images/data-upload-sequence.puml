@@ -13,7 +13,7 @@ u -> f: User selects "Upload Data based on Existing\nTable"
 f -> u: Systems shows UI with overview of existing\ntables to choose from
 u -> f: User selects existing table (from dropdown?)\nand data to upload (csv)
 f -> api: System transfers data and ID of selected table
-api -> b: System transfers ID of selected table 
+api -> b: System transfers ID of selected table
 b -> api: System retrieves existing table
 api -> api: System validates by comparing\ndata to table
 
@@ -21,9 +21,9 @@ group Validation error (data does not match table)
     api --> f: System sends back error "Upload failed"\n with information on where they don't match
     f --> u: System shows error messages with details\non why and where the validation failed
     note right of u
-        Example of error message 
-        Upload failed. Data does not match table. 
-        NULL values in column A, line 22. 
+        Example of error message
+        Upload failed. Data does not match table.
+        NULL values in column A, line 22.
         Column A cannot contain NULL values
     end note
     note right of u
@@ -33,7 +33,7 @@ group Validation error (data does not match table)
     end note
     u -->o f: User clicks "Cancel Upload" (endpoint), or
     u --> f: User has edited file and attempted to fix errors outside\nof Sprout and selects "Upload Edited/New Version of Data"
-    f --> api: System sends new data to validation 
+    f --> api: System sends new data to validation
     api --> api: System validates by comparing\ndata to table
 end
 group Validation success (data matches table)

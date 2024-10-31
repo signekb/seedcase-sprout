@@ -31,7 +31,7 @@ state "create_resource_structure()" as crs {
 
   state "get_ids()" as gi
   gi : - Required arg: path to\n  resources folder
-  gi : - Output: list of existing\n  IDs (or the empty list) 
+  gi : - Output: list of existing\n  IDs (or the empty list)
   vid --> gi
 
   state "create_next_id()" as cni
@@ -62,4 +62,3 @@ state "create_resource_structure()" as crs {
 }
 
 @enduml
-

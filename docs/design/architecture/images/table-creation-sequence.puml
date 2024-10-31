@@ -15,7 +15,7 @@ f -> u: System shows data entry UI
 u -> f: User selects the file (csv) to upload\nand clicks "Create New Table"
 f -> api: System transfers file to API
 api -> api: System extracts headers and analyse data types
-api -> api: System validates table (missing definitions* in BLUE) 
+api -> api: System validates table (missing definitions* in BLUE)
 api -> f: System transfers extracted headers and definitions*
 f -> u: System shows headers and definitions* to user
 note right of u

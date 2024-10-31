@@ -149,7 +149,7 @@ the `datapackage.json`.
 You now have the basic starting point for adding data resources to your
 data package in the location you specified:
 
-```         
+```
 ~/Documents/data-packages/1/datapackage.json
 ~/Documents/data-packages/1/README.md
 ```

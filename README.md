@@ -2,9 +2,11 @@
     <a href="https://sprout.seedcase-project.org/">
         <img src="_extensions/seedcase-project/seedcase-theme/logos/navbar-logo-seedcase-sprout.svg" height="150" alt="Sprout website"/>
     </a>
-</p> 
+</p>
 
 ## Grow structured and scalable data
+
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/seedcase-project/seedcase-sprout/main.svg)](https://results.pre-commit.ci/latest/github/seedcase-project/seedcase-sprout/main)
 
 Sprout is a component of the Seedcase framework that aims to take data
 created or collected for research studies and "grow" it in a structured
@@ -29,7 +31,7 @@ To install it as a user, see our [Installation Guide](https://sprout.seedcase-pr
 If you would like to contribute, please
 read the [contribution guidelines]() first. Then
 return here to install Poetry and clone the repository.
-<!--TODO add link above--> 
+<!--TODO add link above-->
 
 We use Poetry to manage
 dependencies. If you haven't worked with Poetry before, you will find an
@@ -44,7 +46,6 @@ pipx install poetry
 ```
 
 Then, open a terminal so that the working directory is the root of this project (`seedcase-sprout/`) and run:
-
 
 ``` bash
 just install-deps

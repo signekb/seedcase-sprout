@@ -13,7 +13,7 @@ if (\nSystem shows data upload\nUI with option to create new\ntable or use exist
     :System shows error message:
     "Table with this name already
     exists. Please rename your table.";
-    :User renames table; 
+    :User renames table;
   end while (No)
 'table metadata creation end
 'column metadata creation start
@@ -32,7 +32,7 @@ if (\nSystem shows data upload\nUI with option to create new\ntable or use exist
       extracts column metadata*;
     while (\nVALIDATION CHECK: Is file a supported file type?\n) is (No)
       :System shows error message
-      informing the user of the 
+      informing the user of the
       supported file types;
       :User selects new file to upload;
     end while (Yes)
@@ -43,7 +43,7 @@ if (\nSystem shows data upload\nUI with option to create new\ntable or use exist
       :System shows UI with
       file upload;
       :User selects file with
-      metadata and clicks 
+      metadata and clicks
       "Extract Data Structure";
     end fork
       :System extracts column metadata from file;
@@ -66,13 +66,13 @@ if (\nSystem shows data upload\nUI with option to create new\ntable or use exist
       :User adds table metadata;
       :User clicks "Submit";
     endswitch
-    :System shows UI where user can 
+    :System shows UI where user can
     add/edit the following fields:
     - Column name (textbox)
     - Title (textbox, optional)
     - Data type (dropdown)
     - Short description (textbox)
-    - Allow missing (boolean) 
+    - Allow missing (boolean)
     - Allow duplication (boolean)
     :User completes/edits table
     and clicks "Submit";
@@ -105,7 +105,7 @@ if (\nSystem shows data upload\nUI with option to create new\ntable or use exist
 'table created - continue to upload? start
   if (System asks user if they want to upload data) then (No)
     if (System asks user if they want\nto download metadata) then (No)
-      :User quits Sprout; 
+      :User quits Sprout;
       end
     else (Yes)
       :User clicks "Download Metadata";
@@ -119,12 +119,12 @@ if (\nSystem shows data upload\nUI with option to create new\ntable or use exist
 'prepare to upload using existing table start
 else (Use Existing Table)
     :User selects\n"Use Existing Table";
-    :System shows UI with existing tables 
+    :System shows UI with existing tables
     to choose from and file upload;
-    :User selects existing table and 
+    :User selects existing table and
     selects file to upload;
     :User clicks "Upload Data to Table";
-endif 
+endif
 'prepare to upload using existing table end
 'data upload start
 :System initialises data upload;
@@ -136,7 +136,7 @@ while (\nVALIDATION CHECK: Check if table and data match\n) is (Validation faile
     end while (Yes);
   #LightBlue:User edits file and attempts to fix errors\noutside of Sprout;
   :User clicks "Upload Edited/New Version of File";
-  :System shows UI where user can add file; 
+  :System shows UI where user can add file;
   :User selects file and clicks "Upload File";
 end while (Validation successful);
 while (\nSystem displays the number of \nsuccessfully validated rows \nto the user for agreement\n) is (No)

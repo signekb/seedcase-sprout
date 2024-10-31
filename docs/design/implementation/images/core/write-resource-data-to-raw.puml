@@ -70,4 +70,3 @@ state "write_resource_data_to_raw()" as wrdtr {
   return --> output
 }
 @enduml
-

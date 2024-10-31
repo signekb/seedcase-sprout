@@ -15,7 +15,7 @@ while (\nVALIDATION CHECK: Check if table and data match\n) is (Validation faile
     end while (Yes);
   #LightBlue:User edits file and attempts to fix errors\noutside of Sprout;
   :User clicks "Upload Edited/New Version of File";
-  :System shows UI where user can add file; 
+  :System shows UI where user can add file;
   :User selects file and clicks "Upload File";
 end while (Validation successful);
 while (\nSystem displays the number of \nsuccessfully validated rows \nto the user for agreement\n) is (No)
