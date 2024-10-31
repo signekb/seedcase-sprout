@@ -1,0 +1,11 @@
+---
+title: "Glossary"
+---
+
+::: hidden
+{{< glossary "data package" >}} 
+{{< glossary "data resource" >}} 
+{{< glossary properties >}}
+:::
+
+{{< glossary table=true >}}

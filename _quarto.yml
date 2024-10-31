@@ -5,6 +5,11 @@ project:
     - "docs/*"
     - "index.qmd"
 
+glossary:
+  path: _extensions/debruine/glossary/glossary.yml
+  popup: none
+  show: true
+
 website:
   title: "Seedcase Sprout"
   site-url: "https://sprout.seedcase-project.org/"
@@ -28,6 +33,8 @@ website:
         href: docs/design/index.qmd
       - text: "Reference"
         href: docs/reference/index.qmd
+      - text: "Glossary"
+        href: docs/glossary.qmd
     tools:
       - icon: github
         href: "https://github.com/seedcase-project/seedcase-sprout"
