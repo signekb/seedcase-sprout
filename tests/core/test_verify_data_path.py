@@ -14,7 +14,7 @@ def resource_properties() -> dict:
         path=str(Path("resources", "1", "data.parquet")),
         title="My Resource",
         description="This is my resource.",
-    ).asdict
+    ).compact_dict
 
 
 def test_accepts_well_formed_path(resource_properties):

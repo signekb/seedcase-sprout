@@ -48,9 +48,12 @@ def package_properties_path(
         description="This is my package.",
         version="2.0.0",
         created="2024-05-14T05:00:01+00:00",
-        resources=[resource_properties_1, resource_properties_2],
+        resources=[
+            resource_properties_1.compact_dict,
+            resource_properties_2.compact_dict,
+        ],
     )
-    return write_json(package_properties.asdict, tmp_path / "datapackage.json")
+    return write_json(package_properties.compact_dict, tmp_path / "datapackage.json")
 
 
 def test_updates_existing_resource_in_package(
@@ -65,11 +68,14 @@ def test_updates_existing_resource_in_package(
         title="My New Title",
         description="This is my updated resource.",
     )
-    expected_resources = [new_resource_properties.asdict, resource_properties_2.asdict]
+    expected_resources = [
+        new_resource_properties.compact_dict,
+        resource_properties_2.compact_dict,
+    ]
 
     # when
     path = write_resource_properties(
-        package_properties_path, new_resource_properties.asdict
+        package_properties_path, new_resource_properties.compact_dict
     )
 
     # then
@@ -91,14 +97,14 @@ def test_adds_new_resource_to_package(
         description="This is my third resource.",
     )
     expected_resources = [
-        resource_properties_1.asdict,
-        resource_properties_2.asdict,
-        resource_properties_3.asdict,
+        resource_properties_1.compact_dict,
+        resource_properties_2.compact_dict,
+        resource_properties_3.compact_dict,
     ]
 
     # when
     path = write_resource_properties(
-        package_properties_path, resource_properties_3.asdict
+        package_properties_path, resource_properties_3.compact_dict
     )
 
     # then
@@ -127,7 +133,7 @@ def test_throws_error_if_properties_file_cannot_be_read(
     file_path.write_text(",,, this is not, JSON")
 
     with raises(JSONDecodeError):
-        write_resource_properties(file_path, resource_properties_1.asdict)
+        write_resource_properties(file_path, resource_properties_1.compact_dict)
 
 
 def test_throws_error_if_resource_properties_are_incorrect(package_properties_path):
@@ -144,7 +150,9 @@ def test_throws_error_if_data_path_malformed_on_new_resource(
     resource_properties_1.path = str(Path("no", "id"))
 
     with raises(NotPropertiesError):
-        write_resource_properties(package_properties_path, resource_properties_1.asdict)
+        write_resource_properties(
+            package_properties_path, resource_properties_1.compact_dict
+        )
 
 
 def test_throws_error_if_data_path_malformed_on_existing_resource(
@@ -164,12 +172,14 @@ def test_throws_error_if_data_path_malformed_on_existing_resource(
         resources=[resource_properties_1],
     )
     package_properties_path = write_json(
-        package_properties.asdict, tmp_path / "datapackage.json"
+        package_properties.compact_dict, tmp_path / "datapackage.json"
     )
 
     # when + then
     with raises(NotPropertiesError):
-        write_resource_properties(package_properties_path, resource_properties_2.asdict)
+        write_resource_properties(
+            package_properties_path, resource_properties_2.compact_dict
+        )
 
 
 def test_throws_error_if_package_properties_are_incorrect(
@@ -179,4 +189,4 @@ def test_throws_error_if_package_properties_are_incorrect(
     path = write_json({}, tmp_path / "datapackage.json")
 
     with raises(NotPropertiesError):
-        write_resource_properties(path, resource_properties_1.asdict)
+        write_resource_properties(path, resource_properties_1.compact_dict)

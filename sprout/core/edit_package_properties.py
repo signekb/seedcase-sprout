@@ -48,10 +48,11 @@ def edit_package_properties(path: Path, properties: dict) -> dict:
         JSONDecodeError: If the `datapackage.json` file couldn't be read.
     """
     verify_is_file(path)
-    verify_package_properties(properties)
+    verify_properties_are_well_formed(properties, PackageError.type)
 
     current_properties = read_json(path)
     verify_properties_are_well_formed(current_properties, PackageError.type)
 
     current_properties.update(properties)
-    return current_properties
+
+    return verify_package_properties(current_properties)

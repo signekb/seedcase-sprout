@@ -1,8 +1,5 @@
 from pathlib import Path
 
-from sprout.core.create_default_package_properties import (
-    create_default_package_properties,
-)
 from sprout.core.create_dirs import create_dir
 from sprout.core.create_id_path import create_id_path
 from sprout.core.create_next_id import create_next_id
@@ -10,6 +7,7 @@ from sprout.core.create_properties_path import create_properties_path
 from sprout.core.create_readme_path import create_readme_path
 from sprout.core.create_readme_text import create_readme_text
 from sprout.core.get_ids import get_ids
+from sprout.core.properties import PackageProperties
 from sprout.core.verify_is_dir import verify_is_dir
 from sprout.core.write_file import write_file
 from sprout.core.write_json import write_json
@@ -41,7 +39,7 @@ def create_package_structure(path: Path) -> list[Path]:
     package_path = create_id_path(path, id)
     create_dir(package_path)
 
-    properties = create_default_package_properties()
+    properties = PackageProperties.default().compact_dict
     properties_path = create_properties_path(package_path)
     readme = create_readme_text(properties)
     readme_path = create_readme_path(package_path)

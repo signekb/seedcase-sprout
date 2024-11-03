@@ -23,7 +23,8 @@ def properties():
         description="This is my package.",
         version="2.0.0",
         created="2024-05-14T05:00:01+00:00",
-    ).asdict
+        resources=[],
+    ).compact_dict
 
 
 def test_accepts_required_fields(properties):
@@ -36,9 +37,9 @@ def test_accepts_required_and_optional_fields(properties):
     properties["homepage"] = "www.mypage.com"
     properties["keywords"] = ["a", "b"]
     properties["image"] = "my/image"
-    properties["licenses"] = [LicenseProperties(name="a license").asdict]
-    properties["sources"] = [SourceProperties().asdict]
-    properties["contributors"] = [ContributorProperties().asdict]
+    properties["licenses"] = [LicenseProperties(name="a license").compact_dict]
+    properties["sources"] = [SourceProperties().compact_dict]
+    properties["contributors"] = [ContributorProperties().compact_dict]
     properties["custom1"] = ""
     properties["custom2"] = "test"
 
@@ -48,7 +49,7 @@ def test_accepts_required_and_optional_fields(properties):
 def test_accepts_properties_with_only_resource_error(properties):
     """Should not throw if there's a malformed resource but the package properties are
     correct."""
-    bad_resource = ResourceProperties(name="a bad name with spaces").asdict
+    bad_resource = ResourceProperties(name="a bad name with spaces").compact_dict
     properties["resources"].append(bad_resource)
 
     assert verify_package_properties(properties) == properties

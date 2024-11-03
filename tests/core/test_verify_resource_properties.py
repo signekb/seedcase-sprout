@@ -17,7 +17,7 @@ def resource_properties() -> dict:
         path=str(Path("resources", "1", "data.parquet")),
         title="My Resource",
         description="This is my resource.",
-    ).asdict
+    ).compact_dict
 
 
 def test_accepts_required_fields(resource_properties):
@@ -38,7 +38,7 @@ def test_accepts_required_and_optional_fields(resource_properties):
 def test_accepts_properties_with_only_schema_error(resource_properties):
     """Should not throw if there's a malformed schema but the resource properties are
     correct."""
-    bad_schema = TableSchemaProperties(fields="these are not fields").asdict
+    bad_schema = TableSchemaProperties(fields="these are not fields").compact_dict
     resource_properties["schema"] = bad_schema
 
     assert verify_resource_properties(resource_properties) == resource_properties
