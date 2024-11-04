@@ -68,7 +68,12 @@ cover/
 /.quarto/
 docs/.quarto/
 *.ipynb
+*.quarto_ipynb
 *.storage
+
+# Quartodoc
+/docs/reference/
+objects.json
 
 # Website generation
 _site
