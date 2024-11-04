@@ -1,6 +1,8 @@
 @_default:
     just --list --unsorted
 
+run-all: install-deps format-python check-python run-tests
+
 # Generate SVG images from all PlantUML files
 generate-puml-all:
   docker run --rm -v $(pwd):/puml -w /puml ghcr.io/plantuml/plantuml:latest -tsvg "**/*.puml"
@@ -55,9 +57,10 @@ reset-local:
   rm persistent_storage/raw/*.csv
 
 # Build the documentation website using Quarto
-build-website:
+build-website: install-deps
   # To let Quarto know where python is.
   export QUARTO_PYTHON=.venv/bin/python3
+  poetry run quartodoc build
   poetry run quarto render --execute
 
 check-commit:
