@@ -1,22 +1,32 @@
 ---
-title: Grow structured and scalable data
+title: Grow structured, organized, and *usable* data
 toc: false
 page-layout: custom
 section-divs: false
 sidebar: false
-image: "_extensions/seedcase-project/seedcase-theme/logos/sprout-logo.svg"
-image-title: Image from Storyset
-image-alt: Illustration of two people looking at data charts together.
 about:
   id: hero-heading
-  template: solana
-  image-width: 10em
+  template: jolla
+  image: "docs/images/home.svg"
+  image-title: Image from Storyset.
+  image-alt: Illustration of a woman interacting with digital files and folders, with database objects on the ground in front of her.
+  image-shape: rectangle
+  image-width: 25em
   links:
     - text: "Install Sprout"
-      href: "https://sprout.seedcase-project.org/docs/guide/installation.qmd"
+      href: "https://sprout.seedcase-project.org/docs/guide/installation"
     - text: "Explore tutorials"
       href: "https://sprout.seedcase-project.org/docs/guide"
 ---
+
+```{=html}
+<style>
+div.quarto-about-jolla {
+  margin-top: 0%
+  margin-bottom: 0%
+}
+</style>
+```
 
 ::: {.landing-page-block}
 ::: {#hero-heading}
