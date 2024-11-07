@@ -6,7 +6,7 @@ project:
     - "index.qmd"
 
 glossary:
-  path: _extensions/debruine/glossary/glossary.yml
+  path: _extensions/seedcase-project/seedcase-theme/glossary.yml
   popup: none
   show: true
 
