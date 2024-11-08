@@ -4,7 +4,7 @@ import os
 from django.test import TestCase
 
 from config.settings import PERSISTENT_STORAGE_PATH
-from sprout.app.uploaders import write_to_raw
+from seedcase_sprout.app.uploaders import write_to_raw
 
 
 class TestUploadRawDataFile(TestCase):

@@ -2,7 +2,7 @@
 
 from django.test import TestCase
 
-from sprout.app.models import Columns, Tables
+from seedcase_sprout.app.models import Columns, Tables
 from tests.db_test_utils import (
     create_metadata_table_and_column,
     create_table,

@@ -1,14 +1,14 @@
 from pytest import fixture, mark, raises
 
-from sprout.core.not_properties_error import NotPropertiesError
-from sprout.core.properties import (
+from seedcase_sprout.core.not_properties_error import NotPropertiesError
+from seedcase_sprout.core.properties import (
     ContributorProperties,
     LicenseProperties,
     PackageProperties,
     ResourceProperties,
     SourceProperties,
 )
-from sprout.core.verify_package_properties import (
+from seedcase_sprout.core.verify_package_properties import (
     REQUIRED_PACKAGE_PROPERTIES,
     verify_package_properties,
 )

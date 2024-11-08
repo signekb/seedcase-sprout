@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from sprout.core.utils import convert_to_human_readable
+from seedcase_sprout.core.utils import convert_to_human_readable
 
 
 class ConvertToHumanReadable(TestCase):

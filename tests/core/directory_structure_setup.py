@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from sprout.core.create_resource_structure import create_resource_structure
+from seedcase_sprout.core.create_resource_structure import create_resource_structure
 
 
 def create_test_package_structure(root_path: Path, package_id: int) -> Path:

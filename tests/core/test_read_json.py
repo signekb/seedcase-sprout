@@ -3,8 +3,8 @@ from pathlib import Path
 
 from pytest import mark, raises
 
-from sprout.core.read_json import read_json
-from sprout.core.write_json import write_json
+from seedcase_sprout.core.read_json import read_json
+from seedcase_sprout.core.write_json import write_json
 
 
 @mark.parametrize(

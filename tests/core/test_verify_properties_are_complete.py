@@ -1,8 +1,10 @@
 from frictionless.errors import PackageError
 from pytest import mark, raises
 
-from sprout.core.not_properties_error import NotPropertiesError
-from sprout.core.verify_properties_are_complete import verify_properties_are_complete
+from seedcase_sprout.core.not_properties_error import NotPropertiesError
+from seedcase_sprout.core.verify_properties_are_complete import (
+    verify_properties_are_complete,
+)
 
 
 @mark.parametrize("required_fields", [{}, {"field1"}, {"field1", "field2"}])

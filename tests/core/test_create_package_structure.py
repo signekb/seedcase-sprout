@@ -1,7 +1,7 @@
 from pytest import raises
 
-from sprout.core.create_package_structure import create_package_structure
-from sprout.core.read_json import read_json
+from seedcase_sprout.core.create_package_structure import create_package_structure
+from seedcase_sprout.core.read_json import read_json
 
 
 def test_creates_folder_structure_correctly(tmp_path):

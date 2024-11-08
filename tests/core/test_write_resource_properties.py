@@ -3,14 +3,14 @@ from pathlib import Path
 
 from pytest import fixture, raises
 
-from sprout.core.create_relative_resource_data_path import (
+from seedcase_sprout.core.create_relative_resource_data_path import (
     create_relative_resource_data_path,
 )
-from sprout.core.not_properties_error import NotPropertiesError
-from sprout.core.properties import PackageProperties, ResourceProperties
-from sprout.core.read_json import read_json
-from sprout.core.write_json import write_json
-from sprout.core.write_resource_properties import write_resource_properties
+from seedcase_sprout.core.not_properties_error import NotPropertiesError
+from seedcase_sprout.core.properties import PackageProperties, ResourceProperties
+from seedcase_sprout.core.read_json import read_json
+from seedcase_sprout.core.write_json import write_json
+from seedcase_sprout.core.write_resource_properties import write_resource_properties
 
 
 def create_data_path(resource_id: int) -> str:

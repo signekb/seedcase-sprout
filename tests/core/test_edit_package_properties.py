@@ -3,12 +3,12 @@ from pathlib import Path
 
 from pytest import fixture, raises
 
-from sprout.core.create_package_structure import create_package_structure
-from sprout.core.edit_package_properties import edit_package_properties
-from sprout.core.not_properties_error import NotPropertiesError
-from sprout.core.properties import PackageProperties
-from sprout.core.read_json import read_json
-from sprout.core.write_json import write_json
+from seedcase_sprout.core.create_package_structure import create_package_structure
+from seedcase_sprout.core.edit_package_properties import edit_package_properties
+from seedcase_sprout.core.not_properties_error import NotPropertiesError
+from seedcase_sprout.core.properties import PackageProperties
+from seedcase_sprout.core.read_json import read_json
+from seedcase_sprout.core.write_json import write_json
 
 
 @fixture
@@ -92,9 +92,10 @@ def test_adds_custom_fields(
     new_properties = {"custom-field": "custom-value"}
 
     # When, Then
-    assert edit_package_properties(
-        properties_path, new_properties
-    ) == current_properties | new_properties
+    assert (
+        edit_package_properties(properties_path, new_properties)
+        == current_properties | new_properties
+    )
 
 
 def test_throws_error_if_new_properties_are_empty(properties_path):

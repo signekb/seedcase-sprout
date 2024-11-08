@@ -1,6 +1,6 @@
 from pytest import mark, raises
 
-from sprout.core.edit_property_field import edit_property_field
+from seedcase_sprout.core.edit_property_field import edit_property_field
 
 
 @mark.parametrize(

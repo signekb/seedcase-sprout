@@ -2,9 +2,9 @@ from pathlib import Path
 
 from pytest import fixture, mark, raises
 
-from sprout.core.not_properties_error import NotPropertiesError
-from sprout.core.properties import ResourceProperties
-from sprout.core.verify_data_path import verify_data_path
+from seedcase_sprout.core.not_properties_error import NotPropertiesError
+from seedcase_sprout.core.properties import ResourceProperties
+from seedcase_sprout.core.verify_data_path import verify_data_path
 
 
 @fixture

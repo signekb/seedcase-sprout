@@ -9,7 +9,7 @@ from unittest import TestCase
 
 from polars import DataFrame, Series
 
-from sprout.core.csv_utils.csv_reader import read_csv_file
+from seedcase_sprout.core.csv_utils.csv_reader import read_csv_file
 
 
 class CsvTests(TestCase):

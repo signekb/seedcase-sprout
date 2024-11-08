@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from sprout.core.utils import convert_to_snake_case
+from seedcase_sprout.core.utils import convert_to_snake_case
 
 
 class ConvertToSnakeCase(TestCase):

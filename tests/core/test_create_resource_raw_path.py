@@ -1,4 +1,4 @@
-from sprout.core.create_resource_raw_path import create_resource_raw_path
+from seedcase_sprout.core.create_resource_raw_path import create_resource_raw_path
 
 
 def test_outputs_correct_raw_directory_path(tmp_path):

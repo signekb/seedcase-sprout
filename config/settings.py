@@ -45,7 +45,7 @@ if APP_NAME:
 INSTALLED_APPS = [
     "widget_tweaks",
     "accounts",
-    "sprout.app",
+    "seedcase_sprout.app",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -85,7 +85,7 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
-            os.path.join(BASE_DIR, "sprout/app/templates"),
+            os.path.join(BASE_DIR, "seedcase_sprout/app/templates"),
         ],
         "APP_DIRS": True,
         "OPTIONS": {

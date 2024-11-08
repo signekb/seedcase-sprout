@@ -2,8 +2,8 @@
 
 from django.test import TestCase
 
-from sprout.app.forms import TablesForm
-from sprout.app.models import Tables
+from seedcase_sprout.app.forms import TablesForm
+from seedcase_sprout.app.models import Tables
 
 
 class TablesFormTests(TestCase):

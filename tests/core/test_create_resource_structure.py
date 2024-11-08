@@ -1,6 +1,6 @@
 from pytest import raises
 
-import sprout.core as sp
+import seedcase_sprout.core as sp
 
 
 def test_returns_resource_structure_when_no_resources_exist(tmp_path):

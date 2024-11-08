@@ -1,7 +1,9 @@
 import csv
 import json
 
-from sprout.core.extract_properties_from_file import extract_properties_from_file
+from seedcase_sprout.core.extract_properties_from_file import (
+    extract_properties_from_file,
+)
 
 
 def test_extracts_properties_from_empty_csv(tmp_path):

@@ -3,8 +3,8 @@
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 
-from sprout.app.models import Tables
-from sprout.app.validators import (
+from seedcase_sprout.app.models import Tables
+from seedcase_sprout.app.validators import (
     validate_no_special_characters,
     validate_table_name_does_not_exist,
 )

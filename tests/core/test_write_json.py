@@ -1,6 +1,6 @@
 from pytest import raises
 
-from sprout.core.write_json import write_json
+from seedcase_sprout.core.write_json import write_json
 
 
 def test_writes_dictionary_to_json_correctly(tmp_path):

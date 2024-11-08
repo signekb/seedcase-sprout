@@ -1,6 +1,6 @@
 from pytest import raises
 
-from sprout.core.verify_is_file import verify_is_file
+from seedcase_sprout.core.verify_is_file import verify_is_file
 
 
 def test_returns_file_with_valid_path(tmp_path):

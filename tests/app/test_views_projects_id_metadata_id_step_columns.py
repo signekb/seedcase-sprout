@@ -3,9 +3,9 @@ import os
 
 from django.test import TestCase
 
-from sprout.app.models import Columns, Files, Tables
-from sprout.app.views.projects_id_metadata_id.helpers import create_stepper_url
-from sprout.app.views.projects_id_metadata_id.step_columns import (
+from seedcase_sprout.app.models import Columns, Files, Tables
+from seedcase_sprout.app.views.projects_id_metadata_id.helpers import create_stepper_url
+from seedcase_sprout.app.views.projects_id_metadata_id.step_columns import (
     create_sample_of_unique_values,
 )
 

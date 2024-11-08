@@ -6,7 +6,7 @@ from uuid import UUID
 import time_machine
 from pytest import mark
 
-from sprout.core.properties import (
+from seedcase_sprout.core.properties import (
     ConstraintsProperties,
     ContributorProperties,
     FieldProperties,
@@ -62,7 +62,7 @@ def test_compact_dict_preserves_only_non_none_values():
     assert properties.compact_dict == {"name": "package-1", "version": "3.2.1"}
 
 
-@patch("sprout.core.properties.uuid4", return_value=UUID(int=1))
+@patch("seedcase_sprout.core.properties.uuid4", return_value=UUID(int=1))
 @time_machine.travel(datetime(2024, 5, 14, 5, 0, 1), tick=False)
 def test_creates_package_properties_with_correct_defaults(mock_uuid):
     """Should return a dictionary of package properties containing correct defaults for

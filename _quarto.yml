@@ -75,7 +75,7 @@ quartodoc:
   sidebar: "docs/reference/_sidebar.yml"
   style: "pkgdown"
   dir: "docs/reference"
-  package: "sprout"
+  package: "seedcase_sprout"
   parser: google
   renderer:
     style: markdown

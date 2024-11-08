@@ -1,4 +1,4 @@
-from sprout.core.get_ids import get_ids, get_number_from_dir
+from seedcase_sprout.core.get_ids import get_ids, get_number_from_dir
 
 
 def test_get_single_id(tmp_path):

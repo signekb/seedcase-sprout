@@ -1,6 +1,6 @@
 from pytest import fixture, raises
 
-from sprout.core.write_file import write_file
+from seedcase_sprout.core.write_file import write_file
 
 
 @fixture

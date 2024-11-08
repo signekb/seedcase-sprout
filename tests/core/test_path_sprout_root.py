@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from sprout.core.path_sprout_root import path_sprout_root
+from seedcase_sprout.core.path_sprout_root import path_sprout_root
 
 
 def test_returns_root_envvar_if_set(monkeypatch):

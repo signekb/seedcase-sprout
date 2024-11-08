@@ -1,6 +1,6 @@
 """File containing database utility functions used for testing."""
 
-from sprout.app.models import Columns, Tables
+from seedcase_sprout.app.models import Columns, Tables
 
 
 def create_table(name: str) -> Tables:

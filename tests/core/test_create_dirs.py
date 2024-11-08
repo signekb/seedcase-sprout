@@ -1,6 +1,6 @@
 from pytest import raises
 
-from sprout.core.create_dirs import create_dirs
+from seedcase_sprout.core.create_dirs import create_dirs
 
 
 def test_create_single_dir(tmp_path):

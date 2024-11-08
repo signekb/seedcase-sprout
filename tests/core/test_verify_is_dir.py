@@ -1,6 +1,6 @@
 from pytest import raises
 
-from sprout.core.verify_is_dir import verify_is_dir
+from seedcase_sprout.core.verify_is_dir import verify_is_dir
 
 
 def test_returns_existing_directory(tmp_path):

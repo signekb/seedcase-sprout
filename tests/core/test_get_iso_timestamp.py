@@ -3,7 +3,10 @@ from zoneinfo import ZoneInfo
 
 import time_machine
 
-from sprout.core.get_iso_timestamp import get_compact_iso_timestamp, get_iso_timestamp
+from seedcase_sprout.core.get_iso_timestamp import (
+    get_compact_iso_timestamp,
+    get_iso_timestamp,
+)
 
 
 @time_machine.travel(datetime(2024, 5, 14, 5, 0, 1), tick=False)

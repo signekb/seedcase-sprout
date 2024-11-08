@@ -1,4 +1,4 @@
-from sprout.core.create_next_id import create_next_id
+from seedcase_sprout.core.create_next_id import create_next_id
 
 
 def test_create_next_id_creates_first_id_correctly():

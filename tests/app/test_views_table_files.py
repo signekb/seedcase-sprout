@@ -5,7 +5,7 @@ import io
 from django.test import TestCase
 from django.urls import reverse
 
-from sprout.app.models import Files
+from seedcase_sprout.app.models import Files
 from tests.db_test_utils import create_table
 
 
