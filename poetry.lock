@@ -2635,13 +2635,13 @@ cffi = {version = "*", markers = "implementation_name == \"pypy\""}
 
 [[package]]
 name = "quartodoc"
-version = "0.9.0"
+version = "0.9.1"
 description = "Generate API documentation with Quarto."
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "quartodoc-0.9.0-py3-none-any.whl", hash = "sha256:fba8ec56ab82a871607dc92f3533db6e4249b5f057b914bb43c84ec28e331813"},
-    {file = "quartodoc-0.9.0.tar.gz", hash = "sha256:1f287891773bd86ab84cfa1d55181e03e4bf74d57035c73dc1c0e7355148ad27"},
+    {file = "quartodoc-0.9.1-py3-none-any.whl", hash = "sha256:78345002f75f086be6e1b1ccf3b4e3ada2fa3affb8a8fc0dbdb37890a5da03fa"},
+    {file = "quartodoc-0.9.1.tar.gz", hash = "sha256:418d9ff0f2d4481a87e926e3a3e5bc31efbe556c7f36912aa0a3f716c0eafa9c"},
 ]
 
 [package.dependencies]
