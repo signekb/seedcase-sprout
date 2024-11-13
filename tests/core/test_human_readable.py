@@ -1,49 +1,31 @@
-from django.test import TestCase
-
 from seedcase_sprout.core.utils import convert_to_human_readable
 
 
-class ConvertToHumanReadable(TestCase):
-    """Tests to convert to human-readable format."""
+def test_snake_case_to_human_readable():
+    """Converts snake_case to a human readable string in title case."""
+    assert convert_to_human_readable("snake_case") == "Snake Case"
 
-    def test_snake_case_to_human_readable(self):
-        string = "snake_case"
 
-        human_readable = convert_to_human_readable(string)
+def test_pascal_case_to_human_readable():
+    """Converts PascalCase to human readable title case"""
+    assert convert_to_human_readable("PascalCase") == "Pascal Case"
 
-        self.assertEqual("Snake Case", human_readable)
 
-    def test_pascal_case_to_human_readable(self):
-        string = "PascalCase"
+def test_camel_case_to_human_readable():
+    """Converts camelCase to a human readable string in title case."""
+    assert convert_to_human_readable("camelCase") == "Camel Case"
 
-        human_readable = convert_to_human_readable(string)
 
-        self.assertEqual("Pascal Case", human_readable)
+def test_lower_case_to_human_readable():
+    """Converts lower case to a human readable string in title case."""
+    assert convert_to_human_readable("lower case") == "Lower Case"
 
-    def test_camel_case_to_human_readable(self):
-        string = "camelCase"
 
-        human_readable = convert_to_human_readable(string)
+def test_upper_case_to_human_readable():
+    """Converts UPPER CASE to a human readable string in title case."""
+    assert convert_to_human_readable("UPPER CASE") == "Upper Case"
 
-        self.assertEqual("Camel Case", human_readable)
 
-    def test_lower_case_to_human_readable(self):
-        string = "lower case"
-
-        human_readable = convert_to_human_readable(string)
-
-        self.assertEqual("Lower Case", human_readable)
-
-    def test_upper_case_to_human_readable(self):
-        string = "UPPER CASE"
-
-        human_readable = convert_to_human_readable(string)
-
-        self.assertEqual("Upper Case", human_readable)
-
-    def test_upper_case_with_underscore_to_human_readable(self):
-        string = "UPPER_CASE"
-
-        human_readable = convert_to_human_readable(string)
-
-        self.assertEqual("Upper Case", human_readable)
+def test_upper_case_with_underscore_to_human_readable():
+    """Converts UPPER_CASE to a human readable string in title case."""
+    assert convert_to_human_readable("UPPER_CASE") == "Upper Case"

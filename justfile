@@ -19,13 +19,8 @@ start-docker:
 stop-docker:
   docker compose down
 
-# Update the Django migration files
-update-migrations: install-deps
-  yes | poetry run python manage.py makemigrations
-  poetry run python manage.py migrate
-
-# Run Django tests
-run-tests: install-deps update-migrations
+# Run tests
+run-tests: install-deps
   poetry run pytest
 
 # Check Python code with the linter for any errors that need manual attention
@@ -37,22 +32,17 @@ format-python: install-deps
   poetry run ruff check --fix .
   poetry run ruff format .
 
-# Builds and starts a development web server for the Django app (at http://localhost:8000)
-start-app: install-deps update-migrations
-  poetry run python ./manage.py runserver
-
 # Install Python package dependencies
 install-deps:
   poetry install
 
 # Add test data when running locally based on json files found in `fixtures/`
-add-test-data: install-deps update-migrations
+add-test-data: install-deps
   poetry run python manage.py loaddata */*/fixtures/*.json
 
-# Reset local Sprout (remove __pycache__ folders, db, migrations, and persistent storage raw files)
+# Reset local Sprout (remove __pycache__ folders, db, and persistent storage raw files)
 reset-local:
   find . -type d -name "__pycache__" -exec rm -rf {} +
-  find */**/migrations -type f ! -name '__init__.py' -exec rm {} \;
   rm db.sqlite3
   rm persistent_storage/raw/*.csv
 

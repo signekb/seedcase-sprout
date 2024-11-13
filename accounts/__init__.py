@@ -1,1 +1,0 @@
-"""Application responsible for authentication."""

@@ -34,7 +34,6 @@ platformdirs = "^4.3.2"
 
 [tool.poetry.group.test.dependencies]
 pytest = "^8.3.2"
-pytest-django = "^4.8.0"
 time-machine = "^2.15.0"
 
 [tool.poetry.group.dev.dependencies]
@@ -43,15 +42,6 @@ datamodel-code-generator = {extras = ["http"], version = "^0.26.0"}
 commitizen = "^3.30.0"
 pre-commit = "^4.0.1"
 
-[tool.poetry.group.django.dependencies]
-psycopg2-binary = "^2.9.9"
-django-widget-tweaks = "^1.5.0"
-dj-database-url = "^2.2.0"
-gunicorn = "^23.0.0"
-whitenoise = "^6.7.0"
-django = "^5.1"
-
-
 [tool.poetry.group.docs.dependencies]
 jupyter = "^1.1.1"
 quartodoc = "^0.9.0"
@@ -59,6 +49,3 @@ quartodoc = "^0.9.0"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
-
-[tool.pytest.ini_options]
-DJANGO_SETTINGS_MODULE = "config.settings"
