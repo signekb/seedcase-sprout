@@ -7,7 +7,6 @@ on:
 
 jobs:
   update-version:
-    if: github.event.pull_request.merged == true
     uses: seedcase-project/.github/.github/workflows/reusable-update-python-project-version.yml@main
     secrets:
       update-version-gh-token: ${{ secrets.UPDATE_VERSION_TOKEN }}
