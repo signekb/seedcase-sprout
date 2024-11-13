@@ -1,4 +1,4 @@
-name: Deploy documentation as website
+name: Build website of documentation
 
 on:
   push:
@@ -12,7 +12,7 @@ on:
       - _extensions/**
 
 jobs:
-  build-deploy-docs:
-    uses: seedcase-project/.github/.github/workflows/deploy-docs-with-python.yml@main
+  build-website:
+    uses: seedcase-project/.github/.github/workflows/reusable-build-docs-with-python.yml@main
     secrets:
       netlify-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}

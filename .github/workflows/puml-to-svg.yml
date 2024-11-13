@@ -7,6 +7,6 @@ on:
 
 jobs:
   generate-plantuml:
-    uses: seedcase-project/.github/.github/workflows/puml-to-svg.yml@main
+    uses: seedcase-project/.github/.github/workflows/reusable-puml-to-svg.yml@main
     secrets:
       github-token: ${{ secrets.GITHUB_TOKEN }}

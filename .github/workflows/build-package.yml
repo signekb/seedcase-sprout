@@ -1,0 +1,32 @@
+name: Build package
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths-ignore:
+      # Config files
+      - ".github/**"
+      - ".vscode/**"
+      - ".gitignore"
+      # Documentation
+      - "docs/**"
+      - "*.md"
+      - "*.qmd"
+      - "justfile"
+      # Website files
+      - _quarto.yml
+      - index.qmd
+      - _publish.yml
+      - _extensions/**
+  push:
+    branches:
+      - main
+
+jobs:
+  lint:
+    uses: seedcase-project/.github/.github/workflows/reusable-lint-python.yml@main
+
+  test:
+    uses: seedcase-project/.github/.github/workflows/reusable-test-python.yml@main
+    needs: lint
