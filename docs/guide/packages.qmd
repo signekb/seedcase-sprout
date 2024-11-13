@@ -23,7 +23,7 @@ will store it in our current working directory in the hidden folder
 `.storage/`.
 
 ```{python}
-import sprout.core as sp
+import seedcase_sprout.core as sp
 import os
 import pathlib
 
@@ -65,13 +65,21 @@ properties = sp.PackageProperties(
     name="diabetes-hypertension-study",
     title="Diabetes and Hypertension Study",
     description="Data from the 2021 study on diabetes and hypertension",
-    contributors=[sp.ContributorProperties(
-        given_name="Jamie",
-        family_name="Jones",
-        email="jamie_jones@example.com",
-        roles=["creator"]
-    )],
-    licenses=[sp.LicenseProperties(name="ODC-BY-1.0")]
+    contributors=[
+        sp.ContributorProperties(
+            title="Jamie Jones",
+            email="jamie_jones@example.com",
+            path="example.com/jamie_jones",
+            roles=["creator"],
+        )
+    ],
+    licenses=[
+        sp.LicenseProperties(
+            name="ODC-BY-1.0",
+            path="https://opendatacommons.org/licenses/by",
+            title="Open Data Commons Attribution License 1.0",
+        )
+    ],
 )
 pprint(properties)
 ```
@@ -79,10 +87,10 @@ pprint(properties)
 Then, to update the current `datapackage.json` file with these
 properties, you can use the `update_package_properties()` function:
 
-``` python
+``` {python}
 package_properties = sp.edit_package_properties(
   path=sp.path_package_properties(package_id=1),
-  properties=properties.asdict
+  properties=properties.compact_dict
 )
 pprint(package_properties)
 ```
