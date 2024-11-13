@@ -87,8 +87,9 @@ site
 persistent_storage
 !persistent_storage/**/*.md
 
-# Python
+# Python Web App
+*.sqlite3
+*.sqlite3-journal
+
+# Misc files
 *.log
-local_settings.py
-db.sqlite3
-db.sqlite3-journal
