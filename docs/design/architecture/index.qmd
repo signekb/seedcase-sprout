@@ -12,11 +12,13 @@ The core purpose of writing this architecture documentation is to be
 able to describe to ourselves and others what Seedcase Sprout is aiming
 to accomplish and how it will do that.
 
+::: content-hidden
 ## Technical decisions
 
 ![[C4 Context diagram](https://c4model.com/#SystemContextDiagram)
 showing users and external systems that connect to the Data Resource
 managed by Seedcase.](images/c4/context.svg)
+:::
 
 ## Goals
 

@@ -1,5 +1,6 @@
 ---
 title: "Web App URLs and Functionality"
+draft: true
 ---
 
 Based on the [naming scheme](/docs/design/architecture/naming.qmd), this document describes the

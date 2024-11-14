@@ -1,5 +1,6 @@
 ---
 title: "C4 Models"
+draft: true
 ---
 
 This section contains the [C4 Models](https://c4model.com/) for Sprout.
