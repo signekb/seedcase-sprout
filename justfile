@@ -1,7 +1,8 @@
 @_default:
     just --list --unsorted
 
-run-all: install-deps format-python check-python run-tests check-commits build-website
+# Run all the build recipes
+run-all: reset-local install-deps format-python check-python test-python check-commits build-website
 
 # Install Python package dependencies
 install-deps:
@@ -15,8 +16,8 @@ generate-puml-all:
 generate-puml name:
   docker run --rm -v  $(pwd):/puml -w /puml ghcr.io/plantuml/plantuml:latest -tsvg "**/{{name}}.puml"
 
-# Run Python tests
-run-tests:
+# Run the Python tests
+test-python:
   poetry run pytest
 
 # Check Python code with the linter for any errors that need manual attention
