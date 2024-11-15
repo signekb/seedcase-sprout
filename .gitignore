@@ -81,15 +81,6 @@ _book
 public
 site
 
-# Local data files
-**/datafile/*
-# Persistent storage should not be stored in git except for the markdown files
-persistent_storage
-!persistent_storage/**/*.md
-
-# Python Web App
-*.sqlite3
-*.sqlite3-journal
 
 # Misc files
 *.log
