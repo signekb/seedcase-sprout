@@ -10,7 +10,5 @@ This PR needs a quick/an in-depth review.
 ## Checklist
 
 - [ ] Added or updated tests
-- [ ] Tests passed locally
-- [ ] Linted and formatted code
-- [ ] Build passed locally
 - [ ] Updated documentation
+- [ ] Ran `just run-all`
