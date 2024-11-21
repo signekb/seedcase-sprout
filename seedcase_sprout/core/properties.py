@@ -21,12 +21,19 @@ class Properties(ABC):
 
     @property
     def compact_dict(self) -> dict:
-        """Convert the object to a dictionary, removing any keys with None values.
+        """Converts the object to a dictionary, removing any keys with None values.
+
+        Applies recursively to nested `*Properties` objects.
 
         Returns:
             A dictionary representation of the object with only non-None values.
         """
-        return {key: value for key, value in asdict(self).items() if value is not None}
+        return asdict(
+            obj=self,
+            dict_factory=lambda tuples: {
+                key: value for key, value in tuples if value is not None
+            },
+        )
 
 
 @dataclass
