@@ -1,7 +1,6 @@
 [tool.commitizen]
 bump_message = "build(version): update version from $current_version to $new_version [skip ci]"
-# Don't implement yet.
-update_changelog_on_bump = false
+update_changelog_on_bump = true
 version_provider = "poetry"
 version_files = [
     "pyproject.toml"
