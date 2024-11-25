@@ -37,7 +37,7 @@ pytest = "^8.3.2"
 time-machine = "^2.15.0"
 
 [tool.poetry.group.dev.dependencies]
-ruff = "^0.7.0"
+ruff = "^0.8.0"
 datamodel-code-generator = {extras = ["http"], version = "^0.26.0"}
 commitizen = "^3.30.0"
 pre-commit = "^4.0.1"
