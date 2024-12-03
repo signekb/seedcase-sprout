@@ -36,18 +36,21 @@ div.quarto-about-jolla {
 ::: {.hero-banner}
 ::: {.landing-page-block}
 ::: {.hero-text}
-## Manage your data in a consistent way
+## Streamlined data management for every workflow
 
 **Sprout** is at the backbone of the [**Seedcase
 Project**](https://seedcase-project.org), offering a flexible solution
 to structure and manage your data.
 
-Sprout has three key components:
+Sprout is a **Python package** with four key modules:
 
--   A **Python package** for organising and managing data
+-   A flexible `core` encapsuling Sprout's core functionalities,
+    directed at developers.
+-   An opinionated `lib` for organising and managing data
     programmatically.
--   A **CLI** for managing data directly from the terminal.
--   A **web interface** for an easy-to-use graphical experience.
+-   A `cli` for managing data directly from the terminal.
+-   An `app` providing a web interface for an easy-to-use
+    graphical experience.
 
 With these options, you can choose the method that works best for your
 workflow.
