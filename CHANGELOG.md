@@ -1,3 +1,9 @@
+## 0.2.0 (2024-12-16)
+
+### Feat
+
+- :sparkles: check properties against standard (#905)
+
 ## 0.1.1 (2024-11-21)
 
 ### Fix
