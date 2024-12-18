@@ -1,3 +1,9 @@
+## 0.2.2 (2024-12-18)
+
+### Refactor
+
+- ♻️ rename `verify_` functions to `check_` (#918)
+
 ## 0.2.1 (2024-12-18)
 
 ### Refactor
