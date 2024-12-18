@@ -1,8 +1,8 @@
 from pathlib import Path
 
+from seedcase_sprout.core.check_data_path import check_data_path
+from seedcase_sprout.core.check_is_file import check_is_file
 from seedcase_sprout.core.read_json import read_json
-from seedcase_sprout.core.verify_data_path import verify_data_path
-from seedcase_sprout.core.verify_is_file import verify_is_file
 from seedcase_sprout.core.verify_package_properties import verify_package_properties
 from seedcase_sprout.core.verify_resource_properties import verify_resource_properties
 from seedcase_sprout.core.write_json import write_json
@@ -29,7 +29,7 @@ def write_resource_properties(path: Path, resource_properties: dict) -> Path:
             they are incomplete or don't follow the Data Package specification.
         JSONDecodeError: If the `datapackage.json` file couldn't be read.
     """
-    verify_is_file(path)
+    check_is_file(path)
     verify_resource_properties(resource_properties)
 
     package_properties = read_json(path)
@@ -73,5 +73,5 @@ def get_resource_id_from_properties(resource_properties: dict) -> int:
         NotPropertiesError: If the resource properties have a malformed or missing
             data path.
     """
-    verify_data_path(resource_properties)
+    check_data_path(resource_properties)
     return int(Path(resource_properties["path"]).parts[1])

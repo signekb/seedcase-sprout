@@ -34,7 +34,7 @@ class UnsupportedFormatError(Exception):
         super().__init__(message, *args, **kwargs)
 
 
-def verify_is_supported_format(path: Path) -> Path:
+def check_is_supported_format(path: Path) -> Path:
     """Checks that the format of the file given by the path is supported by Sprout.
 
     Args:

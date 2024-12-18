@@ -2,11 +2,11 @@ from pathlib import Path
 
 from frictionless.errors import ResourceError
 
+from seedcase_sprout.core.check_is_dir import check_is_dir
 from seedcase_sprout.core.create_relative_resource_data_path import (
     create_relative_resource_data_path,
 )
 from seedcase_sprout.core.edit_property_field import edit_property_field
-from seedcase_sprout.core.verify_is_dir import verify_is_dir
 from seedcase_sprout.core.verify_properties_are_well_formed import (
     verify_properties_are_well_formed,
 )
@@ -37,7 +37,7 @@ def create_resource_properties(path: Path, properties: dict) -> dict:
     Returns:
         the properties object, verified and updated
     """
-    verify_is_dir(path)
+    check_is_dir(path)
     verify_properties_are_well_formed(properties, ResourceError.type)
     data_path = create_relative_resource_data_path(path)
     return edit_property_field(properties, "path", str(data_path))

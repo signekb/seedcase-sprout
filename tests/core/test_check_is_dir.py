@@ -1,11 +1,11 @@
 from pytest import raises
 
-from seedcase_sprout.core.verify_is_dir import verify_is_dir
+from seedcase_sprout.core.check_is_dir import check_is_dir
 
 
 def test_returns_existing_directory(tmp_path):
     """Test the path is returned if the directory exists."""
-    assert verify_is_dir(tmp_path) == tmp_path
+    assert check_is_dir(tmp_path) == tmp_path
 
 
 def test_raises_error_with_non_existent_directory(tmp_path):
@@ -14,7 +14,7 @@ def test_raises_error_with_non_existent_directory(tmp_path):
         NotADirectoryError,
         match=r"/non_existent_directory",
     ):
-        verify_is_dir(tmp_path / "non_existent_directory")
+        check_is_dir(tmp_path / "non_existent_directory")
 
 
 def test_returns_error_with_file(tmp_path):
@@ -29,4 +29,4 @@ def test_returns_error_with_file(tmp_path):
         NotADirectoryError,
         match=r"/test.py",
     ):
-        verify_is_dir(file_path)
+        check_is_dir(file_path)

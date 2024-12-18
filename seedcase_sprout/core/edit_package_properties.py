@@ -2,8 +2,8 @@ from pathlib import Path
 
 from frictionless.errors import PackageError
 
+from seedcase_sprout.core.check_is_file import check_is_file
 from seedcase_sprout.core.read_json import read_json
-from seedcase_sprout.core.verify_is_file import verify_is_file
 from seedcase_sprout.core.verify_package_properties import (
     verify_package_properties,
 )
@@ -47,7 +47,7 @@ def edit_package_properties(path: Path, properties: dict) -> dict:
             package properties are not well-formed.
         JSONDecodeError: If the `datapackage.json` file couldn't be read.
     """
-    verify_is_file(path)
+    check_is_file(path)
     verify_properties_are_well_formed(properties, PackageError.type)
 
     current_properties = read_json(path)

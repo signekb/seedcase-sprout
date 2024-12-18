@@ -5,7 +5,7 @@ from frictionless.errors import ResourceError
 from seedcase_sprout.core.not_properties_error import NotPropertiesError
 
 
-def verify_data_path(properties: dict) -> dict:
+def check_data_path(properties: dict) -> dict:
     """Checks if the data path in the resource properties is well-formed.
 
     Args:

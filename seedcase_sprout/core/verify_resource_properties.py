@@ -1,6 +1,6 @@
 from frictionless.errors import ResourceError
 
-from seedcase_sprout.core.verify_data_path import verify_data_path
+from seedcase_sprout.core.check_data_path import check_data_path
 from seedcase_sprout.core.verify_properties_are_complete import (
     verify_properties_are_complete,
 )
@@ -31,6 +31,6 @@ def verify_resource_properties(properties: dict) -> dict:
         properties, ResourceError, REQUIRED_RESOURCE_PROPERTIES
     )
     verify_properties_are_well_formed(properties, ResourceError.type)
-    verify_data_path(properties)
+    check_data_path(properties)
 
     return properties

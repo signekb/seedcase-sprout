@@ -2,9 +2,9 @@ from pathlib import Path
 
 from pytest import fixture, mark, raises
 
+from seedcase_sprout.core.check_data_path import check_data_path
 from seedcase_sprout.core.not_properties_error import NotPropertiesError
 from seedcase_sprout.core.properties import ResourceProperties
-from seedcase_sprout.core.verify_data_path import verify_data_path
 
 
 @fixture
@@ -19,7 +19,7 @@ def resource_properties() -> dict:
 
 def test_accepts_well_formed_path(resource_properties):
     """Should accept a set of properties with a well-formed data path."""
-    assert verify_data_path(resource_properties) == resource_properties
+    assert check_data_path(resource_properties) == resource_properties
 
 
 def test_rejects_properties_with_no_path(resource_properties):
@@ -31,7 +31,7 @@ def test_rejects_properties_with_no_path(resource_properties):
         NotPropertiesError,
         match="No resource ID found",
     ):
-        verify_data_path(resource_properties)
+        check_data_path(resource_properties)
 
 
 @mark.parametrize(
@@ -51,4 +51,4 @@ def test_rejects_malformed_path(resource_properties, data_path):
         NotPropertiesError,
         match="No resource ID found",
     ):
-        verify_data_path(resource_properties)
+        check_data_path(resource_properties)

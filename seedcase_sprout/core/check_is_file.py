@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-def verify_is_file(path: Path) -> Path:
+def check_is_file(path: Path) -> Path:
     """Verifies whether the file given by the path exists or not.
 
     Args:
