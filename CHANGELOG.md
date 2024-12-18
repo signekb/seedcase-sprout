@@ -1,3 +1,9 @@
+## 0.2.1 (2024-12-18)
+
+### Refactor
+
+- :recycle: move `check_` tests to `checks` folder (#915)
+
 ## 0.2.0 (2024-12-16)
 
 ### Feat
