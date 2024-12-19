@@ -55,11 +55,11 @@ website:
             - docs/design/architecture/requirements.qmd
             - docs/design/architecture/naming.qmd
             - docs/design/architecture/modular-design.qmd
-        - section: "Implementation"
-          href: docs/design/implementation/index.qmd
+        - section: "Interface"
+          href: docs/design/interface/index.qmd
           contents:
-            - docs/design/implementation/outputs.qmd
-            - docs/design/implementation/python-functions.qmd
+            - docs/design/interface/outputs.qmd
+            - docs/design/interface/python-functions.qmd
     - id: guide
       contents:
         - section: "Guide"

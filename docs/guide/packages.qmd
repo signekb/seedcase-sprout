@@ -15,7 +15,7 @@ At the core of Sprout is the [{{< glossary "data package">}}](../glossary.qmd), 
 
 The first thing you'll need to decide is where you want to store your
 data packages. By default, Sprout will create it in `~/sprout/packages/`
-on Linux (see [Outputs](/docs/design/implementation/outputs.qmd) for
+on Linux (see [Outputs](/docs/design/interface/outputs.qmd) for
 operating system specific locations), but you can change this by setting
 the `SPROUT_ROOT` environment variable. For instance, maybe you want the
 location to be `~/Desktop/sprout/` or `~/Documents`. For our example, we
