@@ -1,16 +1,14 @@
 ---
-title: "Design of Sprout"
+title: "Architecture"
 ---
 
-This documentation contains the design specific to Sprout, for design
-of the Seedcase platform, see the [Design](https://design.seedcase-project.org)
-documentation.
+This documentation contains the architectural designs that are specific
+to Sprout. For design details on Seedcase as a whole, see the
+[Design](https://design.seedcase-project.org) documentation.
 
-## Purpose
-
-The core purpose of writing this architecture documentation is to be
-able to describe to ourselves and others what Seedcase Sprout is aiming
-to accomplish and how it will do that.
+The core purpose of these architectural documents is to be able to
+describe to ourselves and others what Seedcase Sprout is aiming to
+accomplish and how it will do that.
 
 ::: content-hidden
 ## Technical decisions
@@ -19,14 +17,3 @@ to accomplish and how it will do that.
 showing users and external systems that connect to the Data Resource
 managed by Seedcase.](images/c4/context.svg)
 :::
-
-## Goals
-
-Primary **goal** of Sprout are:
-
-1.  **Ingesting data and metadata into standardized storage**: Take
-    generated data from source locations (such as the clinic or
-    laboratories) that may be distributed geographically or
-    organizationally and store it in a secure, centralized location in a
-    standardized and efficient format to form a Data Resource. Metadata
-    are similarly stored and linked to the data.

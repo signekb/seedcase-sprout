@@ -1,5 +1,6 @@
 from pathlib import Path
 
+from seedcase_sprout.core.check_is_dir import check_is_dir
 from seedcase_sprout.core.create_dirs import create_dir
 from seedcase_sprout.core.create_id_path import create_id_path
 from seedcase_sprout.core.create_next_id import create_next_id
@@ -8,7 +9,6 @@ from seedcase_sprout.core.create_readme_path import create_readme_path
 from seedcase_sprout.core.create_readme_text import create_readme_text
 from seedcase_sprout.core.get_ids import get_ids
 from seedcase_sprout.core.properties import PackageProperties
-from seedcase_sprout.core.verify_is_dir import verify_is_dir
 from seedcase_sprout.core.write_file import write_file
 from seedcase_sprout.core.write_json import write_json
 
@@ -33,7 +33,7 @@ def create_package_structure(path: Path) -> list[Path]:
         FileNotFoundError: If a file could not be created.
         TypeError: If `datapackage.json` could not be created.
     """
-    verify_is_dir(path)
+    check_is_dir(path)
     ids = get_ids(path)
     id = create_next_id(ids)
     package_path = create_id_path(path, id)

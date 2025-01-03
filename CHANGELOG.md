@@ -1,3 +1,15 @@
+## 0.2.2 (2024-12-18)
+
+### Refactor
+
+- ♻️ rename `verify_` functions to `check_` (#918)
+
+## 0.2.1 (2024-12-18)
+
+### Refactor
+
+- :recycle: move `check_` tests to `checks` folder (#915)
+
 ## 0.2.0 (2024-12-16)
 
 ### Feat

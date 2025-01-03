@@ -1,5 +1,5 @@
 ---
-title: "Naming scheme"
+title: "Naming"
 ---
 
 This document describes a general naming scheme for Sprout that is

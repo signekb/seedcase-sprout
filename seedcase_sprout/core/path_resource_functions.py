@@ -1,9 +1,9 @@
 from pathlib import Path
 
 from seedcase_sprout.core import path_package
-from seedcase_sprout.core.verify_is_dir import verify_is_dir
-from seedcase_sprout.core.verify_is_file import verify_is_file
-from seedcase_sprout.core.verify_is_resource_dir import verify_is_resource_dir
+from seedcase_sprout.core.check_is_dir import check_is_dir
+from seedcase_sprout.core.check_is_file import check_is_file
+from seedcase_sprout.core.check_is_resource_dir import check_is_resource_dir
 
 
 def path_resource(package_id: int, resource_id: int) -> Path:
@@ -17,7 +17,7 @@ def path_resource(package_id: int, resource_id: int) -> Path:
         A Path to the resource.
     """
     path = path_resources(package_id) / str(resource_id)
-    return verify_is_resource_dir(path)
+    return check_is_resource_dir(path)
 
 
 def path_resource_data(package_id: int, resource_id: int) -> Path:
@@ -31,7 +31,7 @@ def path_resource_data(package_id: int, resource_id: int) -> Path:
         A Path to the resource's data file.
     """
     path = path_resource(package_id, resource_id) / "data.parquet"
-    return verify_is_file(path)
+    return check_is_file(path)
 
 
 def path_resource_raw(package_id: int, resource_id: int) -> Path:
@@ -45,7 +45,7 @@ def path_resource_raw(package_id: int, resource_id: int) -> Path:
         A Path to the resource's raw folder.
     """
     path = path_resource(package_id, resource_id) / "raw"
-    return verify_is_dir(path)
+    return check_is_dir(path)
 
 
 def path_resource_raw_files(package_id: int, resource_id: int) -> list[Path]:
@@ -75,5 +75,5 @@ def path_resources(package_id: int) -> Path:
         A Path to the resources within the package.
     """
     path = path_package(package_id) / "resources"
-    verify_is_dir(path)
+    check_is_dir(path)
     return path

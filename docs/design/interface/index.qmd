@@ -1,5 +1,5 @@
 ---
-title: "Implementation"
+title: "Interface"
 ---
 
 This section of the documentation focuses on how the architectural
