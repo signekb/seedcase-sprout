@@ -13,8 +13,6 @@ It is split into two sections:
     terminal-only server, or
 -   the file system when used as a web app on a server.
 
-## Local file and folder structure
-
 We follow our [naming scheme](/docs/design/architecture/naming.qmd), as
 well as the [Frictionless Data
 specification](https://decisions.seedcase-project.org/why-frictionless-data/),
@@ -44,27 +42,18 @@ demographics could be one data resource, while the blood sample data
 could be another data resource within the data package.
 :::
 
+## Single data package in working directory
+
+As per the overall design patterns, the default behaviour of Sprout is
+to create a data package in the working directory or in a new folder for
+the data package. This is referred below as `.`, to indicate the working
+directory.
+
 ### Folders
 
 The folders that Sprout creates and uses are:
 
-`SPROUT_ROOT/`
-
-:   The location where Sprout will store all data that form one or more
-    data packages. This location can be changed depending on the needs
-    of the users. The default location is determined based on the
-    operating system and where Sprout is installed locally by a user or
-    on a server. An example default location for a local computer, where
-    Sprout is installed on a user's drive, would be
-    `/home/USERNAME/.sprout/`.
-
-`SPROUT_ROOT/packages/<id>/`
-
-:   All data packages are stored in the `packages/` folder and given an
-    `<id>` (a whole number). Each `<id>` folder contains all the files
-    relevant for **one** data package.
-
-`SPROUT_ROOT/packages/<id>/resources/<id>/`
+`./resources/<id>/`
 
 :   Whenever a specific type of data, like demographics data or blood
     sample data, is stored in the data package, it will be stored as a
@@ -73,7 +62,7 @@ The folders that Sprout creates and uses are:
     from a specific set of input sources for a specific purpose. The
     data resource(s) will always be within one specific package, with
     each data resource in its own folder based on a number `<id>`, e.g.
-    `packages/1/resources/1/`.
+    `./resources/1/`.
 
     ::: callout-note
     Using the demographics and blood sample example above, the reason
@@ -92,7 +81,7 @@ The folders that Sprout creates and uses are:
     the same group of people.
     :::
 
-`SPROUT_ROOT/packages/<id>/resources/<id>/raw/`
+`./resources/<id>/raw/`
 
 :   Whenever data is stored and structured for a specific data resource,
     the original unprocessed and untouched data will be kept in this
@@ -108,7 +97,7 @@ The folders that Sprout creates and uses are:
 
 Sprout creates and uses these files:
 
-`SPROUT_ROOT/packages/<id>/datapackage.json`
+`./datapackage.json`
 
 :   This machine-readable JSON file is the foundation of a data package
     and contains the full [Frictionless Data
@@ -118,7 +107,7 @@ Sprout creates and uses these files:
     types, descriptions, and a path to the Parquet file with the data in
     it).
 
-`SPROUT_ROOT/packages/<id>/README.md`
+`./README.md`
 
 :   Since JSON isn't easy for a human to read, this `README.md` file
     will contain some basic information from the `datapackage.json` file
@@ -127,7 +116,7 @@ Sprout creates and uses these files:
     serve potentially as the basis for displaying information for a data
     package's landing page in the Sprout web app.
 
-`SPROUT_ROOT/packages/<id>/database.sqlite`
+`./database.sqlite`
 
 :   This file contains all the data in the data package as a
     [SQLite](https://decisions.seedcase-project.org/why-sqlite/)
@@ -144,7 +133,7 @@ Sprout creates and uses these files:
     described below will be the data resource that is linked within the
     `datapackage.json` file.
 
-`SPROUT_ROOT/packages/<id>/resources/<id>/raw/<timestamp>-<uuid>.<extension>.gzip`
+`./resources/<id>/raw/<timestamp>-<uuid>.<extension>.gzip`
 
 :   These are compressed raw data files associated with a specific
     resource. These files are kept intentionally raw and are copied
@@ -156,7 +145,7 @@ Sprout creates and uses these files:
     any existing data in the data resource's `data.parquet` file (for
     tabular data).
 
-`SPROUT_ROOT/packages/<id>/resources/<id>/data.parquet`
+`./resources/<id>/data.parquet`
 
 :   When a user creates a data resource and adds or updates data in the
     resource, all resource data is processed and stored in the
@@ -172,8 +161,27 @@ Sprout creates and uses these files:
     both the Parquet data file and the database table for different
     reasons, even though they contain the same data.
 
-## Server or multi-user computer
+## Multi-user server environment
 
-::: callout-warning
-This section is still in development and will be updated soon.
-:::
+When Sprout is used within a server environment where multiple users and
+potentially multiple data packages are stored, the file system structure
+is different. The main difference is that the data packages are stored
+in a central location, rather than in the working directory of the user.
+Instead of a newly created data package being stored in `.`, it will
+default to the below paths.
+
+`SPROUT_GLOBAL/`
+
+:   The location where Sprout will store all data that form one or more
+    data packages. This location can be changed depending on the needs
+    of the users. The default location is determined based on the
+    operating system and where Sprout is installed locally by a user or
+    on a server. An example default location for a local computer, where
+    Sprout is installed on a user's drive, would be
+    `/home/USERNAME/sprout/`.
+
+`SPROUT_GLOBAL/packages/<id>/`
+
+:   All data packages are stored in the `packages/` folder and given an
+    `<id>` (a whole number). Each `<id>` folder contains all the files
+    relevant for **one** data package.
