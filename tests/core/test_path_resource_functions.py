@@ -18,9 +18,9 @@ from tests.core.directory_structure_setup import (
 
 # Given a package with two resources
 @fixture
-def tmp_sprout_root(monkeypatch, tmp_path):
-    """Set up test package folder structure return temp root directory"""
-    monkeypatch.setenv("SPROUT_ROOT", str(tmp_path))
+def tmp_sprout_global(monkeypatch, tmp_path):
+    """Set up test package folder structure return temp global directory"""
+    monkeypatch.setenv("SPROUT_GLOBAL", str(tmp_path))
 
     path_package_1 = create_test_package_structure(tmp_path, "1")
 
@@ -41,23 +41,24 @@ def tmp_sprout_root(monkeypatch, tmp_path):
     ],
 )
 def test_path_resource_functions_return_expected_path(
-    tmp_sprout_root, function, expected_path
+    tmp_sprout_global, function, expected_path
 ):
     # When, then
-    assert function(package_id=1, resource_id=2) == tmp_sprout_root / expected_path
+    assert function(package_id=1, resource_id=2) == tmp_sprout_global / expected_path
 
 
-def test_path_resources_returns_expected_path(tmp_sprout_root):
+def test_path_resources_returns_expected_path(tmp_sprout_global):
     # When, then
     assert (
-        path_resources(package_id=1) == tmp_sprout_root / "packages" / "1" / "resources"
+        path_resources(package_id=1)
+        == tmp_sprout_global / "packages" / "1" / "resources"
     )
 
 
-def test_path_resource_raw_files_returns_expected_list_of_paths(tmp_sprout_root):
+def test_path_resource_raw_files_returns_expected_list_of_paths(tmp_sprout_global):
     # When
     resource_raw_path = (
-        Path(tmp_sprout_root) / "packages" / "1" / "resources" / "2" / "raw"
+        Path(tmp_sprout_global) / "packages" / "1" / "resources" / "2" / "raw"
     )
     # Then
     assert set(path_resource_raw_files(package_id=1, resource_id=2)) == set(
@@ -73,7 +74,7 @@ def test_path_resource_raw_files_returns_expected_list_of_paths(tmp_sprout_root)
     [path_resource, path_resource_data, path_resource_raw, path_resource_raw_files],
 )
 def test_path_resource_functions_raise_error_if_res_id_does_not_exist(
-    tmp_sprout_root, function
+    tmp_sprout_global, function
 ):
     """Raises error if package ID exists but resource ID does not"""
     # When, then
@@ -91,7 +92,7 @@ def test_path_resource_functions_raise_error_if_res_id_does_not_exist(
     ],
 )
 def test_raises_error_if_package_id_does_not_exist(
-    tmp_sprout_root,
+    tmp_sprout_global,
     function,
 ):
     """Raises error if package ID doesn't exist but resource ID does
@@ -101,7 +102,7 @@ def test_raises_error_if_package_id_does_not_exist(
         function(package_id=2, resource_id=1)
 
 
-def test_path_resources_raises_error_when_package_does_not_exist(tmp_sprout_root):
+def test_path_resources_raises_error_when_package_does_not_exist(tmp_sprout_global):
     # When, then
     with raises(NotADirectoryError, match=escape("[1]")):
         path_resources(package_id=2)

@@ -4,7 +4,7 @@ from seedcase_sprout.core.check_is_dir import check_is_dir
 from seedcase_sprout.core.check_is_file import check_is_file
 from seedcase_sprout.core.check_is_package_dir import check_is_package_dir
 from seedcase_sprout.core.create_dirs import create_dir
-from seedcase_sprout.core.path_sprout_root import path_sprout_root
+from seedcase_sprout.core.path_sprout_global import path_sprout_global
 
 
 def path_package(package_id: int) -> Path:
@@ -55,5 +55,5 @@ def path_packages() -> Path:
     Raises:
         NotADirectoryError: If the packages folder doesn't exist.
     """
-    path = path_sprout_root() / "packages"
+    path = path_sprout_global() / "packages"
     return create_dir(path) if not path.exists() else check_is_dir(path)

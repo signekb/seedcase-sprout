@@ -8,11 +8,11 @@ state "path_*()" as pr {
 
   state args <<entryPoint>>
 
-  state "path_sprout_root()" as psr
+  state "path_sprout_global()" as psr
   psr : - Output: path
 
   state "pathlib.Path()" as path
-  path : - Required args: fstring in form of\n  `f"{root}/packages/{package_id}/..."`
+  path : - Required args: fstring in form of\n  `f"{global}/packages/{package_id}/..."`
   psr --> path : path object
   args --> path : integer
 

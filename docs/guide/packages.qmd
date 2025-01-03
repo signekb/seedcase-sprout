@@ -17,7 +17,7 @@ The first thing you'll need to decide is where you want to store your
 data packages. By default, Sprout will create it in `~/sprout/packages/`
 on Linux (see [Outputs](/docs/design/interface/outputs.qmd) for
 operating system specific locations), but you can change this by setting
-the `SPROUT_ROOT` environment variable. For instance, maybe you want the
+the `SPROUT_GLOBAL` environment variable. For instance, maybe you want the
 location to be `~/Desktop/sprout/` or `~/Documents`. For our example, we
 will store it in our current working directory in the hidden folder
 `.storage/`.
@@ -30,7 +30,7 @@ import pathlib
 # For pretty printing of output
 from pprint import pprint
 
-os.environ["SPROUT_ROOT"] = ".storage/"
+os.environ["SPROUT_GLOBAL"] = ".storage/"
 ```
 
 ```{python}
@@ -121,13 +121,13 @@ data package.
 ### CLI
 
 The CLI is a bit more straightforward as long as you are comfortable
-using the Terminal. You can set the `SPROUT_ROOT` environment variable
+using the Terminal. You can set the `SPROUT_GLOBAL` environment variable
 to change the location of the data packages. For instance, maybe you
 want the location to be `~/Documents/data-packages/`. You can set this
 in your terminal like so:
 
 ``` bash
-export SPROUT_ROOT=~/Documents/data-packages/
+export SPROUT_GLOBAL=~/Documents/data-packages/
 ```
 
 Then creating a new package would be as simple as:
