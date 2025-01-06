@@ -1,8 +1,8 @@
 @_default:
     just --list --unsorted
 
-# Run all the build recipes
-run-all: reset-local install-deps format-python check-python test-python check-commits build-website
+# Run all build-related recipes in the justfile
+run-all: install-deps format-python check-python run-tests check-commits build-website
 
 # Install Python package dependencies
 install-deps:
@@ -28,11 +28,6 @@ check-python:
 format-python:
   poetry run ruff check --fix .
   poetry run ruff format .
-
-# Reset local Sprout (remove __pycache__ folders, generated build files, etc)
-reset-local:
-  find . -type d -name "__pycache__" -exec rm -rf {} +
-  rm -rf .storage
 
 # Build the documentation website using Quarto
 build-website:
