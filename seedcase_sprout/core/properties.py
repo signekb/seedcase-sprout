@@ -45,9 +45,9 @@ class ContributorProperties(Properties):
         path (str | None): A fully qualified URL pointing to a relevant
             location online for the contributor.
         email (str | None): An email address.
-        given_name (str | None): A string containing the name a person has been
+        given_name (str | None): The name a person has been
             given, if the contributor is a person.
-        family_name (str | None): A string containing the familial name that a person
+        family_name (str | None): The familial name that a person
             inherits, if the contributor is a person.
         organization (str | None): An organizational affiliation for this
             contributor.

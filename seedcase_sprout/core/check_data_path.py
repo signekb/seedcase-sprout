@@ -8,14 +8,17 @@ from seedcase_sprout.core.not_properties_error import NotPropertiesError
 def check_data_path(properties: dict) -> dict:
     """Checks if the data path in the resource properties is well-formed.
 
+    To be well-formed the data path must have three parts: the root, the resource ID,
+    and the file name. The resource ID must be a number.
+
     Args:
         properties: The resource properties to check.
 
     Returns:
-        The properties, if the data path is well formed.
+        The properties if the data path is well-formed.
 
     Raises:
-        NotPropertiesError: If the data path is not well formed.
+        NotPropertiesError: If the data path is not well-formed.
     """
     data_path = Path(properties.get("path", ""))
     if len(data_path.parts) != 3 or not data_path.parts[1].isdigit():

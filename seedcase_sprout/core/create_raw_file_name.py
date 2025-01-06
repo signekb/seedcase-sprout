@@ -5,7 +5,7 @@ from seedcase_sprout.core.get_iso_timestamp import get_compact_iso_timestamp
 
 
 def create_raw_file_name(path: Path) -> str:
-    """Generates a unique filename for a raw file.
+    """Creates a unique filename for a raw file.
 
     Args:
         path: The path to the raw file to extract the original extension from.

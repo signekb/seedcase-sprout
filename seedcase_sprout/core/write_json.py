@@ -12,7 +12,7 @@ def write_json(json_object: list | dict, path: Path) -> Path:
         path: The path to the file with name and extension.
 
     Returns:
-        The path to the newly created file.
+        The path to the newly created JSON file.
 
     Raises:
         FileNotFoundError: If the parent folder of the file doesn't exist.

@@ -9,7 +9,7 @@ from seedcase_sprout.core.write_json import write_json
 
 
 def write_resource_properties(path: Path, resource_properties: dict) -> Path:
-    """Adds the specified resource properties to the `datapackage.json` file.
+    """Wrties the specified resource properties to the `datapackage.json` file.
 
     This functions verifies `resource_properties`, and if a
     resource with that ID is already present on the package, the properties of the

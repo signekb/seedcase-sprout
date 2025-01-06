@@ -5,9 +5,9 @@ from seedcase_sprout.core.get_root_envvar import get_root_envvar
 
 
 def path_sprout_root() -> Path:
-    """Get Sprout's root path.
+    """Gets Sprout's root path.
 
     Returns:
-        A Path to Sprout's root directory.
+        The path to Sprout's root directory.
     """
     return get_root_envvar() or create_root_path()

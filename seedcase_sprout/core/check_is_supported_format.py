@@ -23,9 +23,9 @@ class UnsupportedFormatError(Exception):
         """Initialises UnsupportedFormatError.
 
         Args:
-            format: the extension of the unsupported format
-            *args: non-keyword arguments
-            **kwargs: keyword arguments
+            format: The extension of the unsupported format
+            *args: Non-keyword arguments
+            **kwargs: Keyword arguments
         """
         message = (
             f"File format '{format}' is not supported. Sprout currently "
@@ -38,13 +38,13 @@ def check_is_supported_format(path: Path) -> Path:
     """Checks that the format of the file given by the path is supported by Sprout.
 
     Args:
-        path: the path pointing to the file to check
-
-    Raises:
-        UnsupportedFormatError: raised if the file format is not supported
+        path: The path pointing to the file to check
 
     Returns:
-        the path pointing to the file, if the file format is supported
+        The path pointing to the file, if the file format is supported
+
+    Raises:
+        UnsupportedFormatError: If the file format is not supported
     """
     format = path.suffix[1:]
     if format not in SUPPORTED_FORMATS:

@@ -20,22 +20,22 @@ def create_resource_properties(path: Path, properties: dict) -> dict:
     them to be added to the `datapackage.json` file.
 
     Args:
-        path: the path to the resource `id` folder; use `path_resource()`
+        path: The path to the resource `id` folder; use `path_resource()`
             to provide the correct path or use the output of
             `create_resource_structure()`.
-        properties: the properties of the resource; must be given as a
+        properties: The properties of the resource; must be given as a
             JSON object following the Data Package specification; use
             the `ResourceProperties` class to provide the correct fields.
             See the `ResourceProperties` help documentation for details
             on what can or needs to be filled in.
 
-    Raises:
-        NotADirectoryError: if path does not point to a directory.
-        NotPropertiesError: if properties are not correct Frictionless
-            resource properties.
-
     Returns:
-        the properties object, verified and updated
+        The properties object, verified and updated
+
+    Raises:
+        NotADirectoryError: If path does not point to a directory.
+        NotPropertiesError: If properties are not correct Frictionless
+            resource properties.
     """
     check_is_dir(path)
     verify_properties_are_well_formed(properties, ResourceError.type)

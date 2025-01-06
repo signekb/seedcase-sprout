@@ -5,13 +5,13 @@ from seedcase_sprout.core.get_ids import get_ids
 
 
 def check_is_package_dir(path: Path) -> Path:
-    """Verifies that the path is a directory in the package directory.
+    """Checks that the path is a directory within the package directory.
 
     Args:
-        path: Path to verify.
+        path: The path to verify.
 
     Returns:
-        Path, if path is a directory.
+        The path if it's a directory within the package directory.
 
     Raises:
         NotADirectoryError: If the path is not a directory. The error message

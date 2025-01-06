@@ -2,13 +2,13 @@ import requests
 
 
 def get_json_from_url(url: str) -> dict:
-    """Scrapes a URL with a JSON object.
+    """Gets the JSON object from a URL.
 
     Args:
-        url: URL with JSON object to scrape.
+        url: A URL with a JSON object to scrape.
 
     Returns:
-        A dictionary with the JSON object from the URL.
+        The JSON object from the URL as a dictionary.
 
     Raises:
         json.JSONDecodeError: If the URL does not contain a JSON object.

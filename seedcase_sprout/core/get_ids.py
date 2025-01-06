@@ -3,14 +3,14 @@ from pathlib import Path
 
 
 def get_ids(path: Path) -> list[int]:
-    """Get ids of existing resources or packages in a directory.
+    """Gets the ids of existing resources or packages in a directory.
 
     Args:
-        path: Directory to search for IDs.
+        path: The directory to search for IDs.
 
     Returns:
         A list of integers representing the ids of the subdirectories.
-        If no IDs are found, an empty list is returned.
+            If no IDs are found, an empty list is returned.
     """
     # Keep only directories
     dirs = list(path.glob("*/"))
@@ -22,13 +22,13 @@ def get_ids(path: Path) -> list[int]:
 
 
 def get_number_from_dir(path: Path) -> int | None:
-    """Get only the number from directory.
+    """Gets only the number from the directory.
 
     Args:
-        path: Directory to extract the number from.
+        path: The directory to extract the number from.
 
     Returns:
-        A single integer or None if the directory name does not contain a number.
+        A single integer if the directory contains a number. Otherwise, None.
     """
     dir_name = path.name
     if re.match(r"^\d+$", dir_name):

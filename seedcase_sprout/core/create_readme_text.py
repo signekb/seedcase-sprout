@@ -1,11 +1,11 @@
 def create_readme_text(properties: dict) -> str:
-    """Create a json object containing the readme text.
+    """Creates a string containing the README text.
 
     Args:
       properties: An object containing the package and resource properties.
 
     Returns:
-      A string for the README text
+      A string with the README text based on the properties.
     """
     # TODO: Finish this once Properties have been finished.
     # resources = # Python code to convert the resource details in the dict as
