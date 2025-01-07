@@ -78,6 +78,7 @@ quartodoc:
   renderer:
     style: markdown
     table_style: description-list
+    show_signature_annotations: true
   sections:
     - title: "Core functions"
       desc: "Core functions that support the creation and management of data packages and data resources."
