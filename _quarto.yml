@@ -74,6 +74,7 @@ quartodoc:
   dir: "docs/reference"
   package: "seedcase_sprout"
   parser: google
+  dynamic: true
   renderer:
     style: markdown
     table_style: description-list
