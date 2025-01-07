@@ -79,49 +79,54 @@ quartodoc:
     table_style: description-list
   sections:
     - title: "Core functions"
+      desc: "Core functions that support the creation and management of data packages and data resources."
 
     - subtitle: "Data package functions"
       desc: "Functions to work with and manage data packages, but not the data resources within them."
+      package: "seedcase_sprout.core"
       contents:
-        - core.create_package_structure
-        - core.edit_package_properties
+        - create_package_structure
+        - edit_package_properties
 
     - subtitle: "Data resource functions"
       desc: "Functions to work with and manage data resources found within a data package."
+      package: "seedcase_sprout.core"
       contents:
-        - core.write_resource_properties
-        - core.create_resource_properties
-        - core.create_resource_structure
+        - write_resource_properties
+        - create_resource_properties
+        - create_resource_structure
 
     - subtitle: "Property dataclasses"
       desc: "Dataclasses that support creating correct data package properties."
+      package: "seedcase_sprout.core"
       contents:
-        - core.ConstraintsProperties
-        - core.ContributorProperties
-        - core.FieldProperties
-        - core.LicenseProperties
-        - core.MissingValueProperties
-        - core.PackageProperties
-        - core.ReferenceProperties
-        - core.ResourceProperties
-        - core.SourceProperties
-        - core.TableDialectProperties
-        - core.TableSchemaForeignKeyProperties
-        - core.TableSchemaProperties
+        - ConstraintsProperties
+        - ContributorProperties
+        - FieldProperties
+        - LicenseProperties
+        - MissingValueProperties
+        - PackageProperties
+        - ReferenceProperties
+        - ResourceProperties
+        - SourceProperties
+        - TableDialectProperties
+        - TableSchemaForeignKeyProperties
+        - TableSchemaProperties
 
     - subtitle: "Path functions"
       desc: "Functions to support providing the correct file paths to data package and data resource functions."
+      package: "seedcase_sprout.core"
       contents:
-        - core.path_package
-        - core.path_package_database
-        - core.path_package_properties
-        - core.path_packages
-        - core.path_resource
-        - core.path_resource_data
-        - core.path_resource_raw
-        - core.path_resource_raw_files
-        - core.path_resources
-        - core.path_sprout_root
+        - path_package
+        - path_package_database
+        - path_package_properties
+        - path_packages
+        - path_resource
+        - path_resource_data
+        - path_resource_raw
+        - path_resource_raw_files
+        - path_resources
+        - path_sprout_root
 
 metadata-files:
   - docs/reference/_sidebar.yml
