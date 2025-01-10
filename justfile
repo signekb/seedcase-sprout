@@ -2,7 +2,7 @@
     just --list --unsorted
 
 # Run all build-related recipes in the justfile
-run-all: install-deps format-python check-python run-tests check-commits build-website
+run-all: install-deps format-python check-python test-python check-commits build-website
 
 # Install Python package dependencies
 install-deps:
