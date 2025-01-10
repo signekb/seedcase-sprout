@@ -1,3 +1,10 @@
+## 0.2.4 (2025-01-10)
+
+### Refactor
+
+- :recycle: can't use the word global on it's own, so renamed to path
+- :truck: rename sprout root to sprout global
+
 ## 0.2.3 (2025-01-10)
 
 ### Refactor
