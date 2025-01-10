@@ -4,28 +4,34 @@ title: "Design"
 
 The core aim of Sprout is to **take data and metadata and convert them
 into a standardized and organized storage structure** that follows best
-practices for data engineering, particularly with a focus on research contexts.
-Specifically, Sprout aims to:
+practices for data engineering, particularly with a focus on research
+contexts. Specifically, Sprout aims to:
 
-1.  Take generated data from various source locations (such as
-    clinics or laboratories), which may be distributed geographically or
+1.  Take generated data from various source locations (such as clinics
+    or laboratories), which may be distributed geographically or
     organizationally, and store it in a standardized and efficient
     format.
 2.  Ensure that metadata is included for the data and organized in a
-    standardized format, explicitly and programmatically
-    linking the metadata to the data.
+    standardized format, explicitly and programmatically linking the
+    metadata to the data.
 
-The purpose of these documents is to describe the overall design of
-Sprout in enough detail to help us develop it in a way
-that is sustainable (i.e., maintainable over the long term) and that ensures we as a team
-have a shared understanding of what Sprout is and is not.
+The purpose of these documents is to describe the design of
+Sprout in enough detail to help us develop it in a way that is
+sustainable (i.e., maintainable over the long term) and that ensures we
+as a team have a shared understanding of what Sprout is and is not.
+
+Sprout's design builds off of our overall Seedcase [design principles
+and patterns](https://design.seedcase-project.org/), in that any design
+we create for Sprout should strongly follow the same design principles
+and patterns described there. Unless explicitly stated otherwise,
+Sprout's design adds to but does not replace the overall design.
 
 There are two main sections of this design documentation:
 
 -   [Architecture](architecture/index.qmd): The architecture section
     describes the high-level requirements, components, use cases,
     expected users, and how the system will be organized and structured.
--   [Interface](interface/index.qmd): The interface section gives a
-    much more detailed description of the software interface for the
+-   [Interface](interface/index.qmd): The interface section gives a much
+    more detailed description of the software interface for the
     architecture. The detail is at the level of exact Python functions
     and CLI commands, as well as their arguments, inputs, and outputs.
