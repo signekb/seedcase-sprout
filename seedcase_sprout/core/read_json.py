@@ -3,7 +3,7 @@ from pathlib import Path
 
 
 def read_json(path: Path) -> list | dict:
-    """Loads the contents of a JSON file into an object.
+    """Reads the contents of a JSON file into an object.
 
     Args:
         path: The path to the file to load.

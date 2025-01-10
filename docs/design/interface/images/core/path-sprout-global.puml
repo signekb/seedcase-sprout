@@ -3,13 +3,13 @@
 
 state "path_sprout_global()" as prs {
 
-  state "get_global_envvar()" as gre
+  state "get_sprout_global_envvar()" as gre
   gre : - If user sets the `SPROUT_GLOBAL`\n  environment variable
 
   state condition <<choice>>
   gre --> condition : path or none
 
-  state "create_global_path()" as crp
+  state "create_sprout_global_path()" as crp
   crp : - Uses `platformdirs` package\n  internally
   crp : - Ends with `sprout/`
   condition --> crp : env var\nnot found

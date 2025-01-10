@@ -8,8 +8,8 @@ def write_file(string: str, path: Path) -> Path:
     If the file already exists, it will be overwritten.
 
     Args:
-        string: Content to be written to the file.
-        path: Path of the file to be created, including file name and extension.
+        string: The content to be written to the file.
+        path: A path of the file to be created, including the file name and extension.
 
     Returns:
         A path to the file that was created.

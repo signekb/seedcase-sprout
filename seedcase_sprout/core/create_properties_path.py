@@ -2,12 +2,12 @@ from pathlib import Path
 
 
 def create_properties_path(path: Path) -> Path:
-    """Returns the path to the datapackage.json file of the package.
+    """Creates the path to the package's properties file.
 
     Args:
-        path: the path to the package folder
+        path: The path to the package folder.
 
     Returns:
-        the path to datapackage.json
+        The path to the properties file.
     """
     return path / "datapackage.json"

@@ -8,39 +8,39 @@ from seedcase_sprout.core.path_sprout_global import path_sprout_global
 
 
 def path_package(package_id: int) -> Path:
-    """Gets the absolute path to the specific package folder.
+    """Gets the absolute path to the specified package.
 
     Args:
-        package_id: The ID of the package to get the folder path for.
+        package_id: The ID of the package.
 
     Returns:
-        The absolute path to the package folder.
+        The absolute path to the specified package.
     """
     path = path_packages() / str(package_id)
     return check_is_package_dir(path)
 
 
 def path_package_database(package_id: int) -> Path:
-    """Gets the absolute path to a given package's SQL database.
+    """Gets the absolute path to the specified package's SQL database.
 
     Args:
-        package_id: ID of the package.
+        package_id: The ID of the package.
 
     Returns:
-        A Path to the package's database.
+        The absolute path to the specified package's database.
     """
     path = path_package(package_id) / "database.sql"
     return check_is_file(path)
 
 
 def path_package_properties(package_id: int) -> Path:
-    """Gets the absolute path to a given package's properties file.
+    """Gets the absolute path to the specified package's properties file.
 
     Args:
-        package_id: ID of the package.
+        package_id: The ID of the package.
 
     Returns:
-        A Path to the properties file.
+        The absolute path to the specified package's properties file.
     """
     path = path_package(package_id) / "datapackage.json"
     return check_is_file(path)
@@ -50,7 +50,7 @@ def path_packages() -> Path:
     """Gets the absolute path to the packages folder.
 
     Returns:
-        A Path to the packages folder.
+        The absolute path to the packages folder.
 
     Raises:
         NotADirectoryError: If the packages folder doesn't exist.

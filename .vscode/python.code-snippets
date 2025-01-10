@@ -13,20 +13,19 @@
 	// 	"description": "Log output to console"
 	// }
 	"Insert a Python test": {
-		"prefix": "test-aaa",
+		"prefix": "test-gwt",
 		"body": [
 			"def test_$1():",
-			"		# Arrange",
-			"		$2",
-			"		",
-			"		# Act",
-			"		$3",
-			"		",
-			"		# Assert",
-			"		$4",
+			"	# Given",
+			"	$2",
+			"	",
+			"	# When",
+			"	$3",
+			"	",
+			"	# Then",
+			"	$4",
 			"",
 		],
-		"description": "Create AAA test"
+		"description": "Create Given-When-Then test"
 	}
-
 }

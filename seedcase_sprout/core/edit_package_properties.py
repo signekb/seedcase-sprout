@@ -37,9 +37,9 @@ def edit_package_properties(path: Path, properties: dict) -> dict:
             dictionary. See `help(PackageProperties)` for details on how to use it.
 
     Returns:
-        The updated package properties as a Python dictionary that mimicks the
-        JSON structure. Use `write_package_properties()` to save it back to the
-        `datapackage.json` file.
+        The updated package properties as a Python dictionary that mimics the
+            JSON structure. Use `write_package_properties()` to save it back to the
+            `datapackage.json` file.
 
     Raises:
         FileNotFound: If the `datapackage.json` file doesn't exist.

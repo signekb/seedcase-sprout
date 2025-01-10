@@ -10,7 +10,7 @@ def create_dir(path: Path) -> Path:
         path: The path pointing to the new directory to create
 
     Returns:
-        path to the newly created directory.
+        The path to the newly created directory.
     """
     path.mkdir(parents=True)
     return path
