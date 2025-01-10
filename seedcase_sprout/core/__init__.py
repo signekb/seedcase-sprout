@@ -35,7 +35,7 @@ from .path_resource_functions import (
     path_resource_raw_files,
     path_resources,
 )
-from .path_sprout_root import path_sprout_root
+from .path_sprout_global import path_sprout_global
 from .properties import (
     ConstraintsProperties,
     ContributorProperties,
@@ -105,7 +105,7 @@ __all__ = [
     "path_resource_raw",
     "path_resource_raw_files",
     "path_resources",
-    "path_sprout_root",
+    "path_sprout_global",
     # Helpers -----
     # "pretty_json",
 ]

@@ -1,22 +1,22 @@
 from pathlib import Path
 
-from seedcase_sprout.core.path_sprout_root import path_sprout_root
+from seedcase_sprout.core.path_sprout_global import path_sprout_global
 
 
-def test_returns_root_envvar_if_set(monkeypatch):
-    """Returns Sprout's root path when SPROUT_ROOT is set."""
+def test_returns_global_envvar_if_set(monkeypatch):
+    """Returns Sprout's global path when SPROUT_GLOBAL is set."""
     # Given
-    SPROUT_ROOT = "my/sprout/root"
-    monkeypatch.setenv("SPROUT_ROOT", SPROUT_ROOT)
+    SPROUT_GLOBAL = "my/sprout/global"
+    monkeypatch.setenv("SPROUT_GLOBAL", SPROUT_GLOBAL)
 
     # When
-    path_root = path_sprout_root()
+    path_global = path_sprout_global()
 
     # Then
-    assert path_root == Path(SPROUT_ROOT)
-    assert path_root.name == "root"
+    assert path_global == Path(SPROUT_GLOBAL)
+    assert path_global.name == "global"
 
 
-def test_returns_root_path_when_SPROUT_ROOT_is_not_set():
-    """Returns Sprout's root path when SPROUT_ROOT isn't set."""
-    assert path_sprout_root().name == "sprout"
+def test_returns_global_path_when_SPROUT_GLOBAL_is_not_set():
+    """Returns Sprout's global path when SPROUT_GLOBAL isn't set."""
+    assert path_sprout_global().name == "sprout"

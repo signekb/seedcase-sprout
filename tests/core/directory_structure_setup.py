@@ -3,18 +3,18 @@ from pathlib import Path
 from seedcase_sprout.core.create_resource_structure import create_resource_structure
 
 
-def create_test_package_structure(root_path: Path, package_id: int) -> Path:
+def create_test_package_structure(global_path: Path, package_id: int) -> Path:
     """Creates a package file structure (with empty files) for path function tests.
 
     Args:
-        root_path: Root path to create the package structure.
+        global_path: Global path to create the package structure.
         package_id: ID of the package to create.
 
     Returns:
         Path of package.
     """
     # TODO: Use `create_package_structure()` function here when has been implemented.
-    path_package = root_path / "packages" / str(package_id)
+    path_package = global_path / "packages" / str(package_id)
     path_package.mkdir(parents=True)
     (path_package / "datapackage.json").touch()
     (path_package / "database.sql").touch()

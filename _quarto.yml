@@ -128,7 +128,7 @@ quartodoc:
         - path_resource_raw
         - path_resource_raw_files
         - path_resources
-        - path_sprout_root
+        - path_sprout_global
 
 metadata-files:
   - docs/reference/_sidebar.yml
