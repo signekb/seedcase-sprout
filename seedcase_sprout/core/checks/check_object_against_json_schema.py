@@ -1,9 +1,14 @@
-from jsonschema import Draft7Validator, FormatChecker, ValidationError
+from jsonschema import Draft7Validator, FormatChecker
+
+from seedcase_sprout.core.checks.check_error import CheckError
+from seedcase_sprout.core.checks.validation_errors_to_check_errors import (
+    validation_errors_to_check_errors,
+)
 
 
 def check_object_against_json_schema(
     json_object: dict, schema: dict
-) -> list[ValidationError]:
+) -> list[CheckError]:
     """Checks that `json_object` matches the given JSON schema.
 
     Structural, type and format constraints are all checked. All schema violations are
@@ -21,4 +26,4 @@ def check_object_against_json_schema(
     """
     Draft7Validator.check_schema(schema)
     validator = Draft7Validator(schema, format_checker=FormatChecker())
-    return list(validator.iter_errors(json_object))
+    return validation_errors_to_check_errors(validator.iter_errors(json_object))

@@ -1,8 +1,7 @@
-from jsonschema import ValidationError
-
 from seedcase_sprout.core.checks.add_package_recommendations import (
     add_package_recommendations,
 )
+from seedcase_sprout.core.checks.check_error import CheckError
 from seedcase_sprout.core.checks.check_object_against_json_schema import (
     check_object_against_json_schema,
 )
@@ -14,7 +13,7 @@ from seedcase_sprout.core.read_json import read_json
 
 def check_package_properties(
     properties: dict, check_recommendations: bool = True
-) -> list[ValidationError]:
+) -> list[CheckError]:
     """Checks that `properties` matches the Data Package standard (v2.0).
 
     Only package properties are checked. Schema constraints for resource properties are

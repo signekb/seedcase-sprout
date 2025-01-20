@@ -16,13 +16,8 @@ def test_fails_properties_with_missing_required_fields():
     """Should fail properties with missing required fields."""
     errors = check_resource_properties({}, check_recommendations=False)
 
-    assert len(errors) == 1
-    assert errors[0].validator == "oneOf"
-    assert errors[0].json_path == "$"
-
-    context = errors[0].context
-    assert len(context) == 4
-    assert all(error.validator == "required" for error in context)
+    assert len(errors) == 3
+    assert all(error.validator == "required" for error in errors)
 
 
 def test_fails_properties_with_bad_type():
@@ -53,10 +48,8 @@ def test_fails_properties_with_pattern_mismatch():
 
     errors = check_resource_properties(properties, check_recommendations=False)
 
-    assert len(errors) == 1
-    assert errors[0].validator == "oneOf"
-    assert errors[0].json_path == "$.path"
-    assert any(error.validator == "pattern" for error in errors[0].context)
+    assert all(error.json_path == "$.path" for error in errors)
+    assert any(error.validator == "pattern" for error in errors)
 
 
 # With recommendations
