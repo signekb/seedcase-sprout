@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import Literal, Union
 
 from plum import dispatch
-from quartodoc import MdRenderer
+from quartodoc import MdRenderer, layout
 from quartodoc._griffe_compat import docstrings as ds
 from quartodoc.pandoc.blocks import DefinitionList
 from tabulate import tabulate
@@ -45,3 +45,28 @@ class Renderer(MdRenderer):
             for tup in row_tuples
         ]
         return tabulate(row_tuples_compact, headers=headers, tablefmt="github")
+
+    # Summarize ===============================================================
+
+    @dispatch
+    def summarize(self, el: layout.Section):
+        desc = f"\n\n{el.desc}" if el.desc is not None else ""
+        if el.title is not None:
+            header = f"## {el.title}{desc}"
+        elif el.subtitle is not None:
+            header = f"### {el.subtitle}{desc}"
+        else:
+            header = ""
+
+        if el.contents:
+            thead = "| | |\n| --- | --- |"
+
+            rendered = []
+            for child in el.contents:
+                rendered.append(self.summarize(child))
+
+            str_func_table = "\n".join([thead, *rendered])
+            # add colwidths
+            return f"{header}\n\n{str_func_table}\n\n" + ': {tbl-colwidths="[40,60]"}'
+
+        return header
