@@ -76,7 +76,7 @@ quartodoc:
   parser: google
   dynamic: true
   renderer:
-    style: markdown
+    style: _renderer.py
     table_style: description-list
     show_signature_annotations: true
   sections:
