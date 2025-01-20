@@ -1,3 +1,9 @@
+## 0.5.0 (2025-01-20)
+
+### Feat
+
+- :sparkles: put required fields into constants (#961)
+
 ## 0.4.0 (2025-01-20)
 
 ### Feat
