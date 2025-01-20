@@ -1,3 +1,9 @@
+## 0.4.0 (2025-01-20)
+
+### Feat
+
+- :sparkles: Add custom `CheckError` for check functions (#924)
+
 ## 0.3.0 (2025-01-20)
 
 ### Feat
