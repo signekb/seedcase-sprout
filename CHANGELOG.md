@@ -1,3 +1,9 @@
+## 0.6.0 (2025-01-21)
+
+### Feat
+
+- :sparkles: add simple helper functions (#962)
+
 ## 0.5.0 (2025-01-20)
 
 ### Feat
