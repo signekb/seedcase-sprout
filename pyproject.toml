@@ -38,14 +38,14 @@ pytest = "^8.3.2"
 time-machine = "^2.15.0"
 
 [tool.poetry.group.dev.dependencies]
-ruff = "^0.10.0"
+ruff = "^0.9.0"
 datamodel-code-generator = {extras = ["http"], version = "^0.26.0"}
 commitizen = "^4.0.0"
 pre-commit = "^4.0.1"
 
 [tool.poetry.group.docs.dependencies]
 jupyter = "^1.1.1"
-quartodoc = "^0.10.0"
+quartodoc = "^0.9.0"
 
 [build-system]
 requires = ["poetry-core"]

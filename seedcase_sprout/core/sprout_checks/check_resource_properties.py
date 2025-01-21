@@ -29,7 +29,7 @@ def check_resource_properties(properties: dict, check_required: bool = True) -> 
         `properties`, if all checks passed.
 
     Raises:
-        ExceptionGroup: A group of `CheckError`s, one for each check that failed.
+        ExceptionGroup: A group of `CheckError`s, one error per failed check.
     """
     errors = checks.check_resource_properties(properties)
     errors = exclude_non_sprout_resource_errors(errors)
