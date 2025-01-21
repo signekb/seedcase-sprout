@@ -1,3 +1,9 @@
+## 0.8.0 (2025-01-21)
+
+### Feat
+
+- :sparkles: collect all Sprout-specific property errors (#964)
+
 ## 0.7.0 (2025-01-21)
 
 ### Feat
