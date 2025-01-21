@@ -1,3 +1,9 @@
+## 0.7.0 (2025-01-21)
+
+### Feat
+
+- :sparkles: add functions to check required and blank fields (#963)
+
 ## 0.6.0 (2025-01-21)
 
 ### Feat
