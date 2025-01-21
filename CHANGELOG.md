@@ -1,3 +1,9 @@
+## 0.9.0 (2025-01-21)
+
+### Feat
+
+- :sparkles: add `check_resource_properties()` (#965)
+
 ## 0.8.0 (2025-01-21)
 
 ### Feat
