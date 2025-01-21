@@ -1,3 +1,9 @@
+## 0.11.0 (2025-01-21)
+
+### Feat
+
+- :sparkles: add `check_properties()` (#967)
+
 ## 0.10.0 (2025-01-21)
 
 ### Feat
