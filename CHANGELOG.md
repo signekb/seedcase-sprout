@@ -1,3 +1,9 @@
+## 0.11.1 (2025-01-22)
+
+### Refactor
+
+- ♻️  user `Properties` classes in user facing functions (#976)
+
 ## 0.11.0 (2025-01-21)
 
 ### Feat
