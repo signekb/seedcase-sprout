@@ -16,7 +16,6 @@ from .create_resource_properties import create_resource_properties
 from .create_resource_structure import create_resource_structure
 from .edit_package_properties import edit_package_properties
 
-# from .write_resource_to_database import *
 # from .delete_resource_raw_file import *
 # from .delete_resource_data import *
 # from .delete_resource_properties import *
@@ -90,7 +89,6 @@ __all__ = [
     # "write_resource_data_to_raw",
     # "write_resource_parquet",
     "write_resource_properties",
-    # "write_resource_to_database",
     # "delete_resource_raw_file",
     # "delete_resource_data",
     # "delete_resource_properties",

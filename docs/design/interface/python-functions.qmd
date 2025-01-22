@@ -290,16 +290,6 @@ fig-alt="A Plant UML schematic of the detailed code flow within the `write_resou
 :::
 
 ::: {.callout-note collapse="true"}
-### `write_resource_to_database(data, path, properties)`
-
-Writes a data object to the `path` database location. Use
-`path_resource_database()` to provide the correct location for the
-`path` object. The `properties` argument, using `view_resource()`,
-ensures the correct table is created in the database. Outputs the same
-`path` object as well as the name of the newly created database table.
-:::
-
-::: {.callout-note collapse="true"}
 ### `extract_resource_properties(path, data_path)`
 
 This takes the data found at the `data_path` location and creates a JSON
