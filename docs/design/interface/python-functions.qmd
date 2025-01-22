@@ -249,7 +249,7 @@ accidental deletion. Outputs `true` if the deletion was successful.
 ::: {.callout-note collapse="true"}
 ### `delete_resource_data(path, confirm)`
 
-Delete all data (Parquet and in the database) and raw data of a specific
+Delete all data (Parquet) and raw data of a specific
 resource. Use `path_resource_raw()` to provide the correct path
 location. The `confirm` argument defaults to `false` so that the user
 needs to explicitly provide `true` to the function argument as
@@ -455,14 +455,6 @@ print(path_properties(6))
 ```
 [PosixPath('~/.sprout/packages/6/datapackage.json')]
 ```
-:::
-
-::: {.callout-note collapse="true"}
-### `path_package_database(package_id)`
-
-Creates the absolute path to the package's database.
-
-<!-- TODO: Not sure if we will keep the database -->
 :::
 
 ::: {.callout-note collapse="true"}

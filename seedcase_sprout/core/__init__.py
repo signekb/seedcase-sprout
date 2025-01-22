@@ -24,7 +24,6 @@ from .edit_package_properties import edit_package_properties
 # TODO: Consider having all these in one module.
 from .path_package_functions import (
     path_package,
-    path_package_database,
     path_package_properties,
     path_packages,
 )
@@ -97,7 +96,6 @@ __all__ = [
     # "delete_resource_properties",
     # Path -----
     "path_package",
-    "path_package_database",
     "path_package_properties",
     "path_packages",
     "path_resource",

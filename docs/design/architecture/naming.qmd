@@ -42,7 +42,7 @@ We may also occasionally use "properties" to refer to the file itself.
 | properties or property | Metadata about a package or resource. |
 | file structure or structure | The file and folder structure of a package. |
 | path | A file path listing the location of folders or files that Sprout interacts with. |
-| data | The data file within a resource. Within Sprout, this includes the table in the database, the Parquet file, as well as raw files. |
+| data | The data file within a resource. Within Sprout, this includes the Parquet file and raw files. |
 | identifier | A unique identifier for a package or resource, denoted as `id`. |
 
 : General objects used throughout Sprout.
@@ -55,7 +55,6 @@ We may also occasionally use "properties" to refer to the file itself.
 | raw data file | A compressed raw data file format, such as a `.zip`, `.gzip`, or `.tar.gz` file. |
 | JSON | The main way we save and pass information around on the package's or resource's properties. |
 | Parquet | A columnar, efficient storage file format that we use to save data within a resource. |
-| SQLite | A relational database file format that we use to contain all data resources in a package. |
 
 : Specific files and folders used within or output by Sprout.
 

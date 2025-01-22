@@ -17,7 +17,6 @@ def create_test_package_structure(global_path: Path, package_id: int) -> Path:
     path_package = global_path / "packages" / str(package_id)
     path_package.mkdir(parents=True)
     (path_package / "datapackage.json").touch()
-    (path_package / "database.sql").touch()
 
     return path_package
 

@@ -120,7 +120,6 @@ quartodoc:
       package: "seedcase_sprout.core"
       contents:
         - path_package
-        - path_package_database
         - path_package_properties
         - path_packages
         - path_resource

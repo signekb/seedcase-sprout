@@ -20,19 +20,6 @@ def path_package(package_id: int) -> Path:
     return check_is_package_dir(path)
 
 
-def path_package_database(package_id: int) -> Path:
-    """Gets the absolute path to the specified package's SQL database.
-
-    Args:
-        package_id: The ID of the package.
-
-    Returns:
-        The absolute path to the specified package's database.
-    """
-    path = path_package(package_id) / "database.sql"
-    return check_is_file(path)
-
-
 def path_package_properties(package_id: int) -> Path:
     """Gets the absolute path to the specified package's properties file.
 
