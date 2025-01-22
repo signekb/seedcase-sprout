@@ -2,13 +2,16 @@ from pathlib import Path
 
 from seedcase_sprout.core.check_data_path import check_data_path
 from seedcase_sprout.core.check_is_file import check_is_file
+from seedcase_sprout.core.properties import ResourceProperties
 from seedcase_sprout.core.read_json import read_json
 from seedcase_sprout.core.verify_package_properties import verify_package_properties
 from seedcase_sprout.core.verify_resource_properties import verify_resource_properties
 from seedcase_sprout.core.write_json import write_json
 
 
-def write_resource_properties(path: Path, resource_properties: dict) -> Path:
+def write_resource_properties(
+    path: Path, resource_properties: ResourceProperties
+) -> Path:
     """Writes the specified resource properties to the `datapackage.json` file.
 
     This functions verifies `resource_properties`, and if a
@@ -29,6 +32,7 @@ def write_resource_properties(path: Path, resource_properties: dict) -> Path:
             they are incomplete or don't follow the Data Package specification.
         JSONDecodeError: If the `datapackage.json` file couldn't be read.
     """
+    resource_properties = resource_properties.compact_dict
     check_is_file(path)
     verify_resource_properties(resource_properties)
 

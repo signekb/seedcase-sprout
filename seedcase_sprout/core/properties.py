@@ -7,6 +7,8 @@ from dataclasses import asdict, dataclass
 from typing import Any, Literal, Self
 from uuid import uuid4
 
+from dacite import from_dict
+
 from seedcase_sprout.core.get_iso_timestamp import get_iso_timestamp
 
 
@@ -34,6 +36,19 @@ class Properties(ABC):
                 key: value for key, value in tuples if value is not None
             },
         )
+
+    @classmethod
+    def from_dict(cls: type[Self], data: dict) -> Self:
+        """Creates an instance populated with data from a dictionary.
+
+        Args:
+            cls: The class to create an instance of.
+            data: The data to populate the instance with.
+
+        Returns:
+            An instance of the class with the properties from the dictionary.
+        """
+        return from_dict(data_class=cls, data=data)
 
 
 @dataclass

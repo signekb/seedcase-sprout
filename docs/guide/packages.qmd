@@ -90,7 +90,7 @@ properties, you can use the `update_package_properties()` function:
 ``` {python}
 package_properties = sp.edit_package_properties(
   path=sp.path_package_properties(package_id=1),
-  properties=properties.compact_dict
+  properties=properties,
 )
 pprint(package_properties)
 ```

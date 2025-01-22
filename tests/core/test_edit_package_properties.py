@@ -20,7 +20,7 @@ def properties():
         description="This is my package.",
         version="2.0.0",
         created="2024-05-14T05:00:01+00:00",
-    ).compact_dict
+    )
 
 
 @fixture
@@ -48,20 +48,22 @@ def test_edits_only_changed_package_properties(properties_path, properties):
     current_properties = read_json(properties_path)
 
     # When, Then
-    expected_properties = current_properties | properties
-    assert edit_package_properties(properties_path, properties) == expected_properties
+    expected_properties = current_properties | properties.compact_dict
+    assert edit_package_properties(
+        properties_path, properties
+    ) == PackageProperties.from_dict(expected_properties)
 
 
 def test_throws_error_if_path_points_to_dir(tmp_path):
     """Should throw FileNotFoundError if the path points to a folder."""
     with raises(FileNotFoundError):
-        edit_package_properties(tmp_path, {})
+        edit_package_properties(tmp_path, PackageProperties())
 
 
 def test_throws_error_if_path_points_to_nonexistent_file(tmp_path):
     """Should throw FileNotFoundError if the path points to a nonexistent file."""
     with raises(FileNotFoundError):
-        edit_package_properties(tmp_path / "datapackage.json", {})
+        edit_package_properties(tmp_path / "datapackage.json", PackageProperties())
 
 
 def test_throws_error_if_properties_file_cannot_be_read(tmp_path, properties):
@@ -83,22 +85,7 @@ def test_throws_error_if_current_package_properties_are_malformed(tmp_path, prop
         edit_package_properties(path, properties)
 
 
-def test_adds_custom_fields(
-    properties_path,
-):
-    """Should add custom fields to properties."""
-    # Given
-    current_properties = read_json(properties_path)
-    new_properties = {"custom-field": "custom-value"}
-
-    # When, Then
-    assert (
-        edit_package_properties(properties_path, new_properties)
-        == current_properties | new_properties
-    )
-
-
 def test_throws_error_if_new_properties_are_empty(properties_path):
     """Should throw NotPropertiesError if the new properties are empty."""
     with raises(NotPropertiesError):
-        edit_package_properties(properties_path, {})
+        edit_package_properties(properties_path, PackageProperties())

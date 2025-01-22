@@ -7,12 +7,15 @@ from seedcase_sprout.core.create_relative_resource_data_path import (
     create_relative_resource_data_path,
 )
 from seedcase_sprout.core.edit_property_field import edit_property_field
+from seedcase_sprout.core.properties import ResourceProperties
 from seedcase_sprout.core.verify_properties_are_well_formed import (
     verify_properties_are_well_formed,
 )
 
 
-def create_resource_properties(path: Path, properties: dict) -> dict:
+def create_resource_properties(
+    path: Path, properties: ResourceProperties
+) -> ResourceProperties:
     """Creates a valid properties object for the specified resource.
 
     This function sets up and structures a new resource property by taking
@@ -37,7 +40,10 @@ def create_resource_properties(path: Path, properties: dict) -> dict:
         NotPropertiesError: If properties are not correct Frictionless
             resource properties.
     """
+    properties = properties.compact_dict
     check_is_dir(path)
     verify_properties_are_well_formed(properties, ResourceError.type)
     data_path = create_relative_resource_data_path(path)
-    return edit_property_field(properties, "path", str(data_path))
+    edited_properties = edit_property_field(properties, "path", str(data_path))
+
+    return ResourceProperties.from_dict(edited_properties)

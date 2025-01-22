@@ -3,6 +3,7 @@ from pathlib import Path
 from frictionless.errors import PackageError
 
 from seedcase_sprout.core.check_is_file import check_is_file
+from seedcase_sprout.core.properties import PackageProperties
 from seedcase_sprout.core.read_json import read_json
 from seedcase_sprout.core.verify_package_properties import (
     verify_package_properties,
@@ -12,7 +13,9 @@ from seedcase_sprout.core.verify_properties_are_well_formed import (
 )
 
 
-def edit_package_properties(path: Path, properties: dict) -> dict:
+def edit_package_properties(
+    path: Path, properties: PackageProperties
+) -> PackageProperties:
     """Edits the properties of an existing package.
 
     Use this any time you want to edit the package's properties and particularly
@@ -47,6 +50,8 @@ def edit_package_properties(path: Path, properties: dict) -> dict:
             package properties are not well-formed.
         JSONDecodeError: If the `datapackage.json` file couldn't be read.
     """
+    properties = properties.compact_dict
+
     check_is_file(path)
     verify_properties_are_well_formed(properties, PackageError.type)
 
@@ -55,4 +60,6 @@ def edit_package_properties(path: Path, properties: dict) -> dict:
 
     current_properties.update(properties)
 
-    return verify_package_properties(current_properties)
+    verify_package_properties(current_properties)
+
+    return PackageProperties.from_dict(current_properties)
