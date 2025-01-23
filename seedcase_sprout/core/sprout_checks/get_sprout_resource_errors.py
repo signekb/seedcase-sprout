@@ -18,14 +18,12 @@ from seedcase_sprout.core.sprout_checks.required_fields import (
 
 
 def get_sprout_resource_errors(
-    properties: dict, check_required: bool, index: int | None = None
+    properties: dict, index: int | None = None
 ) -> list[checks.CheckError]:
     """Checks the resource `properties` against Sprout-specific requirements only.
 
     Args:
         properties: The resource properties.
-        check_required: Whether the function should enforce the presence of required
-            fields.
         index: The index of the resource properties. Defaults to None.
 
     Returns:
@@ -34,15 +32,6 @@ def get_sprout_resource_errors(
     errors = check_resource_path_string(properties, index)
     errors += check_id_in_resource_path(properties, index)
     errors += check_no_inline_data(properties, index)
-    errors += check_fields_not_blank(
-        properties,
-        RESOURCE_SPROUT_REQUIRED_FIELDS,
-        index,
-    )
-
-    if check_required:
-        errors += check_fields_present(
-            properties, RESOURCE_SPROUT_REQUIRED_FIELDS, index
-        )
-
+    errors += check_fields_not_blank(properties, RESOURCE_SPROUT_REQUIRED_FIELDS, index)
+    errors += check_fields_present(properties, RESOURCE_SPROUT_REQUIRED_FIELDS, index)
     return errors

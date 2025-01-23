@@ -1,10 +1,14 @@
 from seedcase_sprout.core import checks
+from seedcase_sprout.core.checks.check_error_matcher import CheckErrorMatcher
+from seedcase_sprout.core.checks.exclude_matching_errors import exclude_matching_errors
 from seedcase_sprout.core.sprout_checks.get_sprout_package_errors import (
     get_sprout_package_errors,
 )
 
 
-def check_package_properties(properties: dict, check_required=True) -> dict:
+def check_package_properties(
+    properties: dict, ignore: list[CheckErrorMatcher] = []
+) -> dict:
     """Checks that package `properties` matches requirements in Sprout.
 
     `properties` is checked against the Data Package standard and the following
@@ -16,8 +20,7 @@ def check_package_properties(properties: dict, check_required=True) -> dict:
 
     Args:
         properties: The package properties to check.
-        check_required: Whether the function should enforce the presence of required
-            fields. Defaults to True.
+        ignore: A list of matchers for any `CheckErrors` to ignore.
 
     Returns:
         `properties` if all checks pass.
@@ -25,12 +28,10 @@ def check_package_properties(properties: dict, check_required=True) -> dict:
     Raises:
         ExceptionGroup: A group of `CheckError`s, one error per failed check.
     """
-    errors = checks.check_package_properties(properties)
-
-    if not check_required:
-        errors = [error for error in errors if error.validator != "required"]
-
-    errors += get_sprout_package_errors(properties, check_required)
+    errors = checks.check_package_properties(properties) + get_sprout_package_errors(
+        properties
+    )
+    errors = exclude_matching_errors(errors, ignore)
     errors = sorted(set(errors))
 
     if errors:

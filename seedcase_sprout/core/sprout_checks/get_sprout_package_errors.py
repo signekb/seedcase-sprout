@@ -10,20 +10,15 @@ from seedcase_sprout.core.sprout_checks.required_fields import (
 )
 
 
-def get_sprout_package_errors(
-    properties: dict, check_required: bool
-) -> list[CheckError]:
+def get_sprout_package_errors(properties: dict) -> list[CheckError]:
     """Checks the package `properties` against Sprout-specific requirements only.
 
     Args:
         properties: The package properties.
-        check_required: Whether the function should enforce the presence of required
-            fields.
 
     Returns:
         A list of errors. An empty list if no errors were found.
     """
     errors = check_required_package_properties_not_blank(properties)
-    if check_required:
-        errors += check_fields_present(properties, PACKAGE_SPROUT_REQUIRED_FIELDS)
+    errors += check_fields_present(properties, PACKAGE_SPROUT_REQUIRED_FIELDS)
     return errors

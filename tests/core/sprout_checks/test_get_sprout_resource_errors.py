@@ -34,12 +34,9 @@ def properties_partial():
     ).compact_dict
 
 
-# Check required fields
-
-
 def test_passes_full_resource_properties(properties):
     """Should pass with a full set of resource properties."""
-    assert get_sprout_resource_errors(properties, check_required=True) == []
+    assert get_sprout_resource_errors(properties) == []
 
 
 @mark.parametrize("index", [None, 2])
@@ -47,7 +44,7 @@ def test_error_found_if_inline_data_is_set(properties, index):
     """Should find an error if inline data is set."""
     properties["data"] = "some data"
 
-    errors = get_sprout_resource_errors(properties, check_required=True, index=index)
+    errors = get_sprout_resource_errors(properties, index=index)
 
     assert len(errors) == 1
     assert errors[0].json_path == get_json_path_to_resource_field("data", index)
@@ -60,7 +57,7 @@ def test_error_found_if_fields_are_blank(properties, name, type, index):
     """Should find an error if there is one required field that is present but blank."""
     properties[name] = get_blank_value_for_type(type)
 
-    errors = get_sprout_resource_errors(properties, check_required=True, index=index)
+    errors = get_sprout_resource_errors(properties, index=index)
     blank_errors = [error for error in errors if error.validator == "blank"]
 
     assert len(blank_errors) == 1
@@ -70,29 +67,14 @@ def test_error_found_if_fields_are_blank(properties, name, type, index):
 @mark.parametrize("index", [None, 2])
 @mark.parametrize("name", RESOURCE_SPROUT_REQUIRED_FIELDS.keys())
 def test_error_found_if_required_fields_are_missing(properties, name, index):
-    """Should find an error if there is a missing required field and required fields are
-    enforced."""
+    """Should find an error if there is a missing required field."""
     del properties[name]
 
-    errors = get_sprout_resource_errors(properties, check_required=True, index=index)
+    errors = get_sprout_resource_errors(properties, index=index)
     required_errors = [error for error in errors if error.validator == "required"]
 
     assert len(required_errors) == 1
     assert required_errors[0].json_path == get_json_path_to_resource_field(name, index)
-
-
-# Do not check required fields
-
-
-def test_passes_full_resource_properties_without_required_check(properties):
-    """Should pass with a full set of resource properties."""
-    assert get_sprout_resource_errors(properties, check_required=False) == []
-
-
-def test_passes_partial_resource_properties_without_required_check():
-    """Should pass with missing required fields when required fields are not
-    enforced."""
-    assert get_sprout_resource_errors({}, check_required=False) == []
 
 
 @mark.parametrize("path", ["", [], str(Path("resources", "1"))])
@@ -101,23 +83,6 @@ def test_error_found_if_data_path_is_incorrect_(properties, path):
     string, or is otherwise malformed."""
     properties["path"] = path
 
-    errors = get_sprout_resource_errors(properties, check_required=False)
+    errors = get_sprout_resource_errors(properties)
 
     assert len(errors) >= 1
-
-
-@mark.parametrize("index", [None, 2])
-@mark.parametrize("name,type", RESOURCE_SPROUT_REQUIRED_FIELDS.items())
-def test_error_found_if_fields_are_blank_without_required_check(
-    properties_partial, name, type, index
-):
-    """Should find an error if there is one required field that is present but blank."""
-    properties_partial[name] = get_blank_value_for_type(type)
-
-    errors = get_sprout_resource_errors(
-        properties_partial, check_required=False, index=index
-    )
-    blank_errors = [error for error in errors if error.validator == "blank"]
-
-    assert len(blank_errors) == 1
-    assert blank_errors[0].json_path == get_json_path_to_resource_field(name, index)

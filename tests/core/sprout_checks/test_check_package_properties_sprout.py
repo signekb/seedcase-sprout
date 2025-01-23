@@ -1,5 +1,6 @@
 from pytest import fixture, mark, raises
 
+from seedcase_sprout.core.checks.check_error_matcher import CheckErrorMatcher
 from seedcase_sprout.core.properties import PackageProperties
 from seedcase_sprout.core.sprout_checks.check_package_properties import (
     check_package_properties,
@@ -27,37 +28,27 @@ def properties():
     ).compact_dict
 
 
-@mark.parametrize("check_required", [True, False])
-def test_passes_full_package_properties(properties, check_required):
+def test_passes_full_package_properties(properties):
     """Should pass if all required fields are present and correct."""
-    assert (
-        check_package_properties(properties, check_required=check_required)
-        == properties
-    )
+    assert check_package_properties(properties) == properties
 
 
-@mark.parametrize("check_required", [True, False])
 @mark.parametrize("resources", [[], [{}], [{"name": "name", "path": "data.csv"}]])
-def test_passes_without_checking_resources(resources, properties, check_required):
+def test_passes_without_checking_resources(resources, properties):
     """Should pass well-formed package properties without checking individual resource
-    ``
-        properties."""
+    properties."""
     properties["resources"] = resources
 
-    assert (
-        check_package_properties(properties, check_required=check_required)
-        == properties
-    )
+    assert check_package_properties(properties) == properties
 
 
-@mark.parametrize("check_required", [True, False])
-def test_raises_error_for_resources_of_wrong_type(properties, check_required):
+def test_raises_error_for_resources_of_wrong_type(properties):
     """Should raise an error if there is a `resources` field with a value of the wrong
     type."""
     properties["resources"] = 123
 
     with raises(ExceptionGroup) as error_info:
-        check_package_properties(properties, check_required=check_required)
+        check_package_properties(properties)
 
     errors = error_info.value.exceptions
     assert len(errors) == 1
@@ -71,7 +62,7 @@ def test_raises_error_if_required_field_is_missing(properties, field):
     del properties[field]
 
     with raises(ExceptionGroup) as error_info:
-        check_package_properties(properties, check_required=True)
+        check_package_properties(properties)
 
     errors = error_info.value.exceptions
     assert len(errors) == 1
@@ -94,7 +85,7 @@ def test_raises_error_if_nested_required_fields_are_missing():
     ).compact_dict
 
     with raises(ExceptionGroup) as error_info:
-        check_package_properties(properties, check_required=True)
+        check_package_properties(properties)
 
     required_errors = [
         error for error in error_info.value.exceptions if error.validator == "required"
@@ -107,13 +98,12 @@ def test_raises_error_if_nested_required_fields_are_missing():
     ]
 
 
-@mark.parametrize("check_required", [True, False])
-def test_raises_error_for_mismatched_pattern(properties, check_required):
+def test_raises_error_for_mismatched_pattern(properties):
     """Should raise an error if `name` violates the pattern."""
     properties["name"] = "a name with spaces"
 
     with raises(ExceptionGroup) as error_info:
-        check_package_properties(properties, check_required=check_required)
+        check_package_properties(properties)
 
     errors = error_info.value.exceptions
     assert len(errors) == 1
@@ -121,13 +111,12 @@ def test_raises_error_for_mismatched_pattern(properties, check_required):
     assert errors[0].validator == "pattern"
 
 
-@mark.parametrize("check_required", [True, False])
-def test_raises_error_for_mismatched_format(properties, check_required):
+def test_raises_error_for_mismatched_format(properties):
     """Should raise an error if `homepage` violates the format."""
     properties["homepage"] = "not a URL"
 
     with raises(ExceptionGroup) as error_info:
-        check_package_properties(properties, check_required=check_required)
+        check_package_properties(properties)
 
     errors = error_info.value.exceptions
     assert len(errors) == 1
@@ -135,15 +124,14 @@ def test_raises_error_for_mismatched_format(properties, check_required):
     assert errors[0].validator == "format"
 
 
-@mark.parametrize("check_required", [True, False])
 @mark.parametrize("name,type", PACKAGE_SPROUT_REQUIRED_FIELDS.items())
-def test_raises_error_if_fields_are_blank(properties, name, type, check_required):
+def test_raises_error_if_fields_are_blank(properties, name, type):
     """Should raise an error if there is one required field that is present but
     blank."""
     properties[name] = get_blank_value_for_type(type)
 
     with raises(ExceptionGroup) as error_info:
-        check_package_properties(properties, check_required=check_required)
+        check_package_properties(properties)
 
     blank_errors = [
         error for error in error_info.value.exceptions if error.validator == "blank"
@@ -153,8 +141,7 @@ def test_raises_error_if_fields_are_blank(properties, name, type, check_required
     assert blank_errors[0].json_path == f"$.{name}"
 
 
-@mark.parametrize("check_required", [True, False])
-def test_raises_error_if_nested_fields_are_blank(check_required):
+def test_raises_error_if_nested_fields_are_blank():
     """Should raise errors if required nested fields are present but blank."""
     properties = PackageProperties(
         name="package-1",
@@ -169,7 +156,7 @@ def test_raises_error_if_nested_fields_are_blank(check_required):
     ).compact_dict
 
     with raises(ExceptionGroup) as error_info:
-        check_package_properties(properties, check_required=check_required)
+        check_package_properties(properties)
 
     blank_errors = [
         error for error in error_info.value.exceptions if error.validator == "blank"
@@ -182,7 +169,25 @@ def test_raises_error_if_nested_fields_are_blank(check_required):
     ]
 
 
-def test_passes_partial_package_properties_without_required_check():
-    """Should pass properties with missing required fields when these are not
-    enforced."""
-    assert check_package_properties({}, check_required=False) == {}
+def test_ignored_errors_should_not_make_check_fail():
+    """Check should not fail if triggered by an error that is ignored."""
+    assert (
+        check_package_properties({}, ignore=[CheckErrorMatcher(validator="required")])
+        == {}
+    )
+
+
+def test_excludes_ignored_errors_from_output(properties):
+    """Errors that are ignored should not be in error output."""
+    properties["name"] = "invalid name with spaces"
+    properties["homepage"] = "not a URL"
+
+    with raises(ExceptionGroup) as error_info:
+        check_package_properties(
+            properties, ignore=[CheckErrorMatcher(json_path="homepage")]
+        )
+
+    errors = error_info.value.exceptions
+    assert len(errors) == 1
+    assert errors[0].json_path == "$.name"
+    assert errors[0].validator == "pattern"
