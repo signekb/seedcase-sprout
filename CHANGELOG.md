@@ -1,3 +1,9 @@
+## 0.12.1 (2025-01-23)
+
+### Refactor
+
+- :recycle: use `CheckErrorMatcher` in Sprout checks (#973)
+
 ## 0.12.0 (2025-01-23)
 
 ### Feat
