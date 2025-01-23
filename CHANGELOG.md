@@ -1,3 +1,9 @@
+## 0.12.0 (2025-01-23)
+
+### Feat
+
+- :sparkles: add `CheckErrorMatcher` object (#972)
+
 ## 0.11.1 (2025-01-22)
 
 ### Refactor
