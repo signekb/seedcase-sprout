@@ -1,3 +1,9 @@
+## 0.13.0 (2025-01-24)
+
+### Feat
+
+- ✨ output everything from code cells in Reference docs (#997)
+
 ## 0.12.2 (2025-01-24)
 
 ### Refactor
