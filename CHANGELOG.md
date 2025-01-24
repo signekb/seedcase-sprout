@@ -1,3 +1,9 @@
+## 0.12.2 (2025-01-24)
+
+### Refactor
+
+- :recycle: `path_package_properties()` -> `path_properties()` (#996)
+
 ## 0.12.1 (2025-01-23)
 
 ### Refactor
