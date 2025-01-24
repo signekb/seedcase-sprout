@@ -32,6 +32,22 @@ def create_package_structure(path: Path) -> list[Path]:
         NotADirectoryError: If the directory in the path doesn't exist.
         FileNotFoundError: If a file could not be created.
         TypeError: If `datapackage.json` could not be created.
+
+    Examples:
+        ```{python}
+        #| output: true
+        import tempfile
+        from pathlib import Path
+
+        import seedcase_sprout.core as sp
+
+        # Create a temporary directory for the example
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_path = Path(temp_dir)
+
+            # Create a package structure
+            sp.create_package_structure(path=temp_path)
+        ```
     """
     check_is_dir(path)
     ids = get_ids(path)

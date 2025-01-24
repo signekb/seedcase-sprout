@@ -94,9 +94,9 @@ quartodoc:
       desc: "Functions to work with and manage data resources found within a data package."
       package: "seedcase_sprout.core"
       contents:
-        - write_resource_properties
         - create_resource_properties
         - create_resource_structure
+        - write_resource_properties
 
     - subtitle: "Property dataclasses"
       desc: "Dataclasses that support creating correct data package properties."

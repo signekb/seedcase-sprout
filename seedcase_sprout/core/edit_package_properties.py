@@ -49,6 +49,32 @@ def edit_package_properties(
         NotPropertiesError: If the new package properties are not correct or the current
             package properties are not well-formed.
         JSONDecodeError: If the `datapackage.json` file couldn't be read.
+
+    Examples:
+        ```{python}
+        #| output: true
+        import tempfile
+        from pathlib import Path
+
+        import seedcase_sprout.core as sp
+
+        # Create a temporary directory for the example
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_path = Path(temp_dir)
+
+            # Create a package structure first
+            sp.create_package_structure(path=temp_path)
+
+            # Edit package properties
+            sp.edit_package_properties(
+                path=temp_path / "1" / "datapackage.json",
+                properties=sp.PackageProperties(
+                    title="New Package Title",
+                    name="new-package-name",
+                    description="New Description",
+                ),
+            )
+        ```
     """
     properties = properties.compact_dict
 
