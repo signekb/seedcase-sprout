@@ -12,7 +12,20 @@ from tabulate import tabulate
 
 
 class Renderer(MdRenderer):
-    style = "fix-output-of-returns-and-raises-without-names"
+    style = "seedcase"
+
+    @dispatch
+    def render_header(self, el: layout.Doc) -> str:
+        """Render the header of a docstring, including any anchors."""
+        _str_dispname = el.name
+
+        _anchor = f"{{ #{el.obj.path} }}"
+
+        # For lvl 1 headers, add a yml header with the ipynb-shell-interactivity setting
+        # to get all output from the cell
+        if self.crnt_header_level == 1:
+            return f"---\nipynb-shell-interactivity: all\ntitle: {_str_dispname}\n---"
+        return f"{'#' * self.crnt_header_level} {_str_dispname} {_anchor}"
 
     # returns ----
 

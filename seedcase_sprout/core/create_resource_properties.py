@@ -42,7 +42,6 @@ def create_resource_properties(
 
     Examples:
         ```{python}
-        #| output: true
         import tempfile
         from pathlib import Path
 

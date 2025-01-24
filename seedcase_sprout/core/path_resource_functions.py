@@ -18,7 +18,6 @@ def path_resource(package_id: int, resource_id: int) -> Path:
 
     Examples:
         ```{python}
-        #| output: true
         import os
         import tempfile
 
@@ -52,7 +51,6 @@ def path_resource_data(package_id: int, resource_id: int) -> Path:
 
     Examples:
         ```{python}
-        #| output: true
         import os
         import tempfile
 
@@ -96,7 +94,6 @@ def path_resource_raw(package_id: int, resource_id: int) -> Path:
 
     Examples:
         ```{python}
-        #| output: true
         import os
         import tempfile
 
@@ -134,7 +131,6 @@ def path_resource_raw_files(package_id: int, resource_id: int) -> list[Path]:
 
     Examples:
         ```{python}
-        #| output: true
         import os
         import tempfile
 
@@ -171,7 +167,6 @@ def path_resources(package_id: int) -> Path:
 
     Examples:
         ```{python}
-        #| output: true
         import os
         import tempfile
 

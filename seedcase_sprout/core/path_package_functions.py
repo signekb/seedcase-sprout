@@ -18,7 +18,6 @@ def path_package(package_id: int) -> Path:
 
     Examples:
         ```{python}
-        #| output: true
         import os
         import tempfile
         from pathlib import Path
@@ -51,7 +50,6 @@ def path_properties(package_id: int) -> Path:
 
     Examples:
         ```{python}
-        #| output: true
         import os
         import tempfile
 
@@ -83,7 +81,6 @@ def path_packages() -> Path:
 
     Examples:
         ```{python}
-        #| output: true
         import os
         import tempfile
 

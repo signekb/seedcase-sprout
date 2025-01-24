@@ -12,7 +12,6 @@ def path_sprout_global() -> Path:
 
     Examples:
         ```{python}
-        #| output: true
         import tempfile
         import os
 

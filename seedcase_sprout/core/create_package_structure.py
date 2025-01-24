@@ -35,7 +35,6 @@ def create_package_structure(path: Path) -> list[Path]:
 
     Examples:
         ```{python}
-        #| output: true
         import tempfile
         from pathlib import Path
 

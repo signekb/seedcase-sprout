@@ -52,7 +52,6 @@ def edit_package_properties(
 
     Examples:
         ```{python}
-        #| output: true
         import tempfile
         from pathlib import Path
 
