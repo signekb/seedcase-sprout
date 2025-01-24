@@ -1,3 +1,9 @@
+"""This module contains functions to get the paths to data resources and their files.
+
+They are intended to be used in conjunction with other functions to read, write, and
+edit the contents and properties of resources.
+"""
+
 from pathlib import Path
 
 from seedcase_sprout.core import path_package

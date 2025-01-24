@@ -1,3 +1,9 @@
+"""This module contains functions to get the paths to data packages and their files.
+
+They are intended to be used in conjunction with other functions to read, write, and
+edit the contents and properties of packages.
+"""
+
 from pathlib import Path
 
 from seedcase_sprout.core.check_is_dir import check_is_dir

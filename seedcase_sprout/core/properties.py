@@ -1,3 +1,9 @@
+"""This module includes the dataclasses for the properties of a data package.
+
+The properties are based on the Frictionless Data Package specification. They are used
+as input for creating and editing the properties of data packages and data resources and
+are intended to help users with the correct structure and content of the properties.
+"""
 # NOTE: This content is modified from the auto-generated
 # `generate_properties/generated_properties.py` file. Update the auto-generated
 # properties file to add more dataclasses and move them into this file.
