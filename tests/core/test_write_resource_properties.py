@@ -6,8 +6,11 @@ from pytest import fixture, raises
 from seedcase_sprout.core.create_relative_resource_data_path import (
     create_relative_resource_data_path,
 )
-from seedcase_sprout.core.not_properties_error import NotPropertiesError
-from seedcase_sprout.core.properties import PackageProperties, ResourceProperties
+from seedcase_sprout.core.properties import (
+    LicenseProperties,
+    PackageProperties,
+    ResourceProperties,
+)
 from seedcase_sprout.core.read_json import read_json
 from seedcase_sprout.core.write_json import write_json
 from seedcase_sprout.core.write_resource_properties import write_resource_properties
@@ -52,6 +55,7 @@ def package_properties_path(
             resource_properties_1.compact_dict,
             resource_properties_2.compact_dict,
         ],
+        licenses=[LicenseProperties(name="license")],
     )
     return write_json(package_properties.compact_dict, tmp_path / "datapackage.json")
 
@@ -132,27 +136,38 @@ def test_throws_error_if_properties_file_cannot_be_read(
         write_resource_properties(file_path, resource_properties_1)
 
 
-def test_throws_error_if_resource_properties_are_incorrect(package_properties_path):
-    """Should throw NotPropertiesError if the resource properties are incorrect."""
-    with raises(NotPropertiesError):
+def test_throws_error_if_resource_properties_have_missing_required_fields(
+    package_properties_path,
+):
+    """Should throw `CheckError`s if the resource properties have missing required
+    fields."""
+    with raises(ExceptionGroup) as error_info:
         write_resource_properties(package_properties_path, ResourceProperties())
+
+    errors = error_info.value.exceptions
+    assert len(errors) == 4
+    assert all(error.validator == "required" for error in errors)
 
 
 def test_throws_error_if_data_path_malformed_on_new_resource(
     package_properties_path, resource_properties_1
 ):
-    """Should throw NotPropertiesError if the data path of the new resource is
-    malformed."""
+    """Should throw a `CheckError` if the data path of the new resource is malformed."""
     resource_properties_1.path = str(Path("no", "id"))
 
-    with raises(NotPropertiesError):
+    with raises(ExceptionGroup) as error_info:
         write_resource_properties(package_properties_path, resource_properties_1)
+
+    errors = error_info.value.exceptions
+    assert len(errors) == 1
+    assert errors[0].validator == "pattern"
+    assert errors[0].json_path == "$.path"
 
 
 def test_throws_error_if_data_path_malformed_on_existing_resource(
     tmp_path, resource_properties_1, resource_properties_2
 ):
-    """Should throw NotPropertiesError if the data path of an existing resource is
+    """Should throw a `CheckError` if the data path of an existing resource is
     malformed."""
     # given
     resource_properties_1.path = str(Path("no", "id"))
@@ -164,21 +179,32 @@ def test_throws_error_if_data_path_malformed_on_existing_resource(
         version="2.0.0",
         created="2024-05-14T05:00:01+00:00",
         resources=[resource_properties_1],
+        licenses=[LicenseProperties(name="license")],
     )
     package_properties_path = write_json(
         package_properties.compact_dict, tmp_path / "datapackage.json"
     )
 
     # when + then
-    with raises(NotPropertiesError):
+    with raises(ExceptionGroup) as error_info:
         write_resource_properties(package_properties_path, resource_properties_2)
 
+    errors = error_info.value.exceptions
+    assert len(errors) == 1
+    assert errors[0].validator == "pattern"
+    assert errors[0].json_path == "$.resources[0].path"
 
-def test_throws_error_if_package_properties_are_incorrect(
+
+def test_throws_error_if_package_properties_have_missing_required_fields(
     tmp_path, resource_properties_1
 ):
-    """Should throw NotPropertiesError if the package properties are incorrect."""
+    """Should throw `CheckError`s if the package properties have missing required
+    fields."""
     path = write_json({}, tmp_path / "datapackage.json")
 
-    with raises(NotPropertiesError):
+    with raises(ExceptionGroup) as error_info:
         write_resource_properties(path, resource_properties_1)
+
+    errors = error_info.value.exceptions
+    assert len(errors) == 7
+    assert all(error.validator == "required" for error in errors)

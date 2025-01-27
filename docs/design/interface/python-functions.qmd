@@ -263,12 +263,10 @@ confirmation. This is done to prevent accidental deletion. Outputs
 Use to write the resource JSON object back to the `datapackage.json`
 file. This function validates whether the JSON object follows the Data
 Package resource specification. The `properties` argument must be given
-as a JSON object following the Data Package specification (use the
-`ResourceProperties` class to get an object that follows the
-Frictionless Data Package standard). The `path` argument is the location
-of the `datapackage.json` file. Use the `path_properties()` function to
-provide this path to the correct location. Returns the same path object
-as given in the `path` argument.
+as a `ResourceProperties` object following the Data Package specification.
+The `path` argument is the location of the `datapackage.json` file. Use
+the `path_properties()` function to provide this path to the correct
+location. Returns the same path object as given in the `path` argument.
 
 ![Diagram showing the internal function flow of the
 `write_resource_properties()`
