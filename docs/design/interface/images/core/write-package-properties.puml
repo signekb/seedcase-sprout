@@ -21,17 +21,17 @@ state "write_package_properties()" as wpp {
   properties --> arg_properties
   path --> arg_path
 
-  state "verify_package_properties()" as vpp
-  vpp : - Required arg: properties
-  vpp : - Output: JSON or Error
-  vpp : - Checks that all fields\n  and values match spec
-  vpp : - Checks that required\n  fields are present
-  arg_properties --> vpp
+  state "check_properties()" as cp
+  cp : - Required arg: properties
+  cp : - Output: JSON or Error
+  cp : - Checks that all fields\n  and values match spec
+  cp : - Checks that required\n  fields are present
+  arg_properties --> cp
 
   state "write_json()" as wj
   wj : - Required arg: json_object and path
   wj : - Output: path to created file
-  vpp --> wj : JSON object
+  cp --> wj : JSON object
   arg_path --> wj : path object
 
   state return <<exitPoint>>
