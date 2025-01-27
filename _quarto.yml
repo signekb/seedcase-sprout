@@ -52,9 +52,8 @@ website:
         - section: "Architecture"
           href: docs/design/architecture/index.qmd
           contents:
-            - docs/design/architecture/requirements.qmd
             - docs/design/architecture/naming.qmd
-            - docs/design/architecture/modular-design.qmd
+            - docs/design/architecture/input-data.qmd
         - section: "Interface"
           href: docs/design/interface/index.qmd
           contents:
