@@ -83,7 +83,7 @@ __all__ = [
     # "list_resources",
     # "view_resource",
     "create_resource_structure",
-    # "create_resource_properties",
+    "create_resource_properties",
     # "extract_resource_properties",
     # "edit_resource_properties",
     # "write_resource_data_to_raw",

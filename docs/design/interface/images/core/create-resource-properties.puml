@@ -23,27 +23,27 @@ state "create_resource_properties()" as crp {
   path --> arg_path
   properties --> arg_properties
 
-  state "verify_is_dir()" as vid
-  vid : - Required arg: path
-  vid : - Output: path or Error
-  arg_path --> vid : path object
+  state "check_is_dir()" as cid
+  cid : - Required arg: path
+  cid : - Output: path or Error
+  arg_path --> cid : path object
 
   state "create_relative_resource_data_path()" as crrdp
   crrdp : - Required arg: absolute path from input
   crrdp : - Output: relative path\n  (e.g. `resources/1/data.parquet`)
-  vid --> crrdp : path object
+  cid --> crrdp : path object
 
-  state "verify_resource_properties()" as vrp
-  vrp : - Required arg: properties
-  vrp : - Output: JSON or Error
-  vrp : - Checks against spec
-  arg_properties --> vrp : JSON object
+  state "check_resource_properties()" as chrp
+  chrp : - Required arg: properties
+  chrp : - Output: JSON or Error
+  chrp : - Checks against spec
+  arg_properties --> chrp : JSON object
 
   state "edit_property_field()" as epf
   epf : - Required args: properties, field, value
   epf : - Output: JSON
   crrdp --> epf : Update `path`\nproperty
-  vrp --> epf : JSON object
+  chrp --> epf : JSON object
 
   state "return" <<exitPoint>>
   epf --> return : JSON object
