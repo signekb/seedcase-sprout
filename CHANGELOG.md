@@ -1,3 +1,9 @@
+## 0.14.0 (2025-01-27)
+
+### Feat
+
+- :sparkles: add `write_package_properties()` (#984)
+
 ## 0.13.3 (2025-01-27)
 
 ### Refactor
