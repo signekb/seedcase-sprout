@@ -35,8 +35,6 @@ def create_resource_properties(
         NotADirectoryError: If path does not point to a directory.
         ExceptionGroup: If there is an error in the properties. A group of
             `CheckError`s, one error per failed check.
-        NotPropertiesError: If properties are not correct Frictionless
-            resource properties.
 
     Examples:
         ```{python}
