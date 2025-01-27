@@ -1,3 +1,9 @@
+## 0.13.1 (2025-01-27)
+
+### Refactor
+
+- :recycle: use check functions in `edit_package_properties` (#974)
+
 ## 0.13.0 (2025-01-24)
 
 ### Feat
