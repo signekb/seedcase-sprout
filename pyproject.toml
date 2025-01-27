@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "seedcase-sprout"
-version = "0.13.2"
+version = "0.13.3"
 description = "Grow your research data in a structured, modern way that follows best practices."
 authors = [
   "Luke W. Johnston <lwjohnst@gmail.com>",
