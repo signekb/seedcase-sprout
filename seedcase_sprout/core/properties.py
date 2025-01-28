@@ -706,17 +706,7 @@ class PackageProperties(Properties):
             A `PackageProperties` dataclass with default values.
         """
         return cls(
-            name="",
             id=str(uuid4()),
-            title="",
-            description="",
-            homepage="",
             version="0.1.0",
             created=get_iso_timestamp(),
-            contributors=[],
-            keywords=[],
-            image="",
-            licenses=[],
-            resources=[],
-            sources=[],
         )

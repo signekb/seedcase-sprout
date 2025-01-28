@@ -42,8 +42,8 @@ Afterwards, you can create the structure for your first data package by
 using:
 
 ```{python}
-new_package = sp.create_package_structure(path=sp.path_packages())
-pprint(new_package)
+package_paths = sp.create_package_structure(path=sp.path_packages())
+pprint(package_paths)
 ```
 
 This creates the initial structure of your new package with the ID `1`.
@@ -84,10 +84,10 @@ properties = sp.PackageProperties(
 pprint(properties)
 ```
 
-Then, to update the current `datapackage.json` file with these
-properties, you can use the `update_package_properties()` function:
+Now, to update the current `datapackage.json` file with these
+properties, you can use the `edit_package_properties()` function:
 
-``` python
+```{python}
 package_properties = sp.edit_package_properties(
   path=sp.path_properties(package_id=1),
   properties=properties,
@@ -103,11 +103,12 @@ file.
 
 To save the package properties to the `datapackage.json` file, run:
 
-``` python
-sp.write_package_properties(
+``` {python}
+package_path = sp.write_package_properties(
   properties=package_properties,
   path=sp.path_properties(package_id=1)
 )
+pprint(package_path)
 ```
 
 If you need help with filling in the right properties, see the
