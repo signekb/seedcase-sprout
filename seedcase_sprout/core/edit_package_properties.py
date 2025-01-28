@@ -30,7 +30,7 @@ def edit_package_properties(
     values within the original package properties.
 
     Args:
-        path: The path to the `datapackage.json` file. Use `path_package_properties()`
+        path: The path to the `datapackage.json` file. Use `path_properties()`
             to provide the correct path.
         properties: The new package properties to update from the original. Use
             `PackageProperties` to provide a correctly structured properties
