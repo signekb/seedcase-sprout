@@ -14,13 +14,16 @@ from seedcase_sprout.core.path_sprout_global import path_sprout_global
 
 
 def path_package(package_id: int) -> Path:
-    """Gets the absolute path to the specified package.
+    """Get the path to a specific package in Sprout's global location.
+
+    If you want to get the location of the global packages directory,
+    see `path_sprout_global()`.
 
     Args:
         package_id: The ID of the package.
 
     Returns:
-        The absolute path to the specified package.
+        The absolute path to the specified package found in `SPROUT_GLOBAL`.
 
     Examples:
         ```{python}
@@ -77,7 +80,10 @@ def path_properties(package_id: int) -> Path:
 
 
 def path_packages() -> Path:
-    """Gets the absolute path to the packages folder.
+    """Get the paths for all packages in Sprout's global location.
+
+    If you want to get the location of the global packages directory,
+    see `path_sprout_global()`.
 
     Returns:
         The absolute path to the packages folder.

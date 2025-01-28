@@ -54,13 +54,13 @@ def create_package_structure(path: Path) -> list[Path]:
     package_path = create_id_path(path, id)
     create_dir(package_path)
 
-    properties = PackageProperties.default().compact_dict
+    properties = PackageProperties.default()
     properties_path = create_properties_path(package_path)
     readme = create_readme_text(properties)
     readme_path = create_readme_path(package_path)
 
     return [
-        write_json(properties, properties_path),
+        write_json(properties.compact_dict, properties_path),
         write_file(readme, readme_path),
         create_dir(package_path / "resources"),
     ]

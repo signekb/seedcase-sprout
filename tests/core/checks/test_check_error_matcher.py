@@ -31,18 +31,23 @@ def test_matches_message(message, matcher, expected):
     "json_path,matcher,expected",
     [
         ("$.match", None, True),
-        ("$.no.match", "", False),
+        ("$.match", "", True),
         ("", "", True),
-        ("$.match", "$.match", True),
-        ("$.no.match", "$.no", False),
-        ("$.match", "match", True),
-        ("$.no.match", "no", False),
+        ("$.same", r"\$\.same", True),
+        ("$.start.match", r"\$\.start", True),
+        ("$.start.match", r"^\$\.start", True),
+        ("$.match.end", "end", True),
+        ("$.match.end", r"end$", True),
+        ("$.match.middle.match", "middle", True),
+        ("$.match.list[999].match", r"list\[\d+\]", True),
+        ("$.not.last.field", r"\.last$", False),
+        ("$.not.first.field", r"^\$\.first", False),
         ("$.no.match", "other", False),
     ],
 )
 def test_matches_json_path(json_path, matcher, expected):
-    """Should match if the matcher's `json_path` matches the full `json_path` of the
-    error or its field name."""
+    """Should match if the regular expression in the matcher's `json_path` matches the
+    `json_path` of the error."""
     assert (
         CheckErrorMatcher(json_path=matcher).matches(
             CheckError(message="Hello", json_path=json_path, validator="")
@@ -77,10 +82,10 @@ def test_matches_validator(validator, matcher, expected):
     [
         ("name' is a", "name", "required", True),
         ("name' is a", "name", "no-match", False),
-        ("name' is a", "no.match", "required", False),
+        ("name' is a", r"no\.match", "required", False),
         ("no match", "name", "required", False),
         ("no match", "name", "no-match", False),
-        ("no match", "no.match", "no-match", False),
+        ("no match", r"no\.match", "no-match", False),
     ],
 )
 def test_matches_on_all_fields(message, json_path, validator, expected):

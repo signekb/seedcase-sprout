@@ -64,7 +64,6 @@ We may also occasionally use "properties" to refer to the file itself.
 |----------------------------|--------------------------------------------|
 | create | Create a new object. |
 | build | Build implies either creating a new object or recreating an existing one, e.g. (re-)build a file like the README or Parquet file. |
-| view | View details about an object. |
 | list | List basic details about many objects. |
 | edit | Edit an object, specifically the properties object. |
 | add | Add another object to an existing object, specifically adding data to a resource. |

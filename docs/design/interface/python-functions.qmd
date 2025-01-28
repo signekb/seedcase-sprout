@@ -21,17 +21,7 @@ different outputs provided by Sprout.
 There are some small differences between the naming scheme and the
 functions described here:
 
-1.  Whenever `view` is used, it is always for one object (either a
-    package or a resource). Whenever `list` is used, it is always to
-    show basic details of all existing objects of a given type (e.g.
-    resources). Both `view` and `list` only ever show the information
-    contained in the `datapackage.json` and never show actual data. We
-    don't provide the ability for Sprout to show personally-identifiable
-    data directly since it is [out of scope](index.qmd#goals) of Sprout
-    and we want to minimise any security and privacy risks. Those with
-    at least read access to the filesystem will still be able to see the
-    data directly.
-2.  `edit` only ever edits the `datapackage.json` which contains the
+1.  `edit` only ever edits the `datapackage.json` which contains the
     properties/metadata of the package or resource(s) but never edits
     the data itself. If there is a need for updates to the data itself,
     the user can update it by uploading a new file with the updates (as
@@ -39,7 +29,7 @@ functions described here:
     are the same). We don't provide access for users to directly edit
     the data because we want to limit security risks as well as to
     maintain privacy and legal compliance.
-3.  `add` only ever adds more data to an existing data resource and does
+2.  `add` only ever adds more data to an existing data resource and does
     not add any new metadata to the `datapackage.json`. Since Sprout
     contains the full Frictionless Data specification, using `edit` is
     enough to make updates to the existing properties found in the
@@ -68,17 +58,7 @@ are implemented.
 ## Data package functions
 
 ::: {.callout-warning collapse="true"}
-### `view_package_properties(path)`
-
-This will show the information contained within the `datapackage.json`
-file of a package for only the fields relevant to the package itself,
-and only basic details of the resources within the package. Use
-`path_properties()` to provide the correct path location. Outputs a JSON
-object.
-:::
-
-::: {.callout-warning collapse="true"}
-### `create_package_properties(properties)`
+### `create_package_properties(properties, path)`
 
 This is the first function to use to create a new data package. It
 generates a template for the `datapackage.json` file where the user
@@ -127,25 +107,6 @@ if the file already exists. Returns the same path object as given in the
 :::
 
 ## Data resource functions
-
-::: {.callout-note collapse="true"}
-### `list_resources(path)`
-
-This looks in one specific package's `datapackage.json` file and lists a
-basic summary of all the data resources contained within the package.
-The list would be basic information like resource ID, name, and
-description. Use `path_resources()` to provide the correct path
-location. Outputs a JSON object.
-:::
-
-::: {.callout-note collapse="true"}
-### `view_resource(path, properties_path)`
-
-Views the information on a package's specific resource that is contained
-within the `datapackage.json` file. Use the `path_resource()` function
-to provide the correct location for the `path` and `path_properties()`
-for the `properties_path` argument. Outputs a JSON object.
-:::
 
 ::: {.callout-note collapse="true"}
 ### `create_resource_structure(path)`
@@ -299,118 +260,50 @@ fig-alt="A Plant UML schematic of the detailed code flow within the `extract_res
 
 ## Path functions
 
--   Nearly all the below `path_*()` functions use `path_sprout_global()`
-    internally to get the global path as well as `package_id` and/or
-    `resource_id` to complete the correct path for the specific
-    package/resource.
 -   All of these functions output a path object.
 -   The paths returned by all of these functions are paths that exist,
-    so all include a `verify_is_dir()` or `verify_is_file()` check.
--   If the wrong `package_id` or `resource_id` is given, an error
-    message will include a list of all the actual `package_id` at the
-    `path_sprout_global()` location or all actual `resource_id` for a
-    specific package.
+    so all include a `check_is_dir()` or `check_is_file()` check.
+-   If the wrong `resource_id` is given, an error message will include a
+    list of all the actual `resource_id`s for a specific package.
 
 ::: {.callout-note collapse="true"}
-### `path_*()` diagram
+### `path_properties(path)`
 
-![Diagram showing the internal function flow of most of the `path_*()`
-functions.](images/core/path-generic.svg){#fig-path-generic
-fig-alt="A Plant UML schematic of the detailed code flow within a typical `path_*()` function."}
+See the help documentation with `help(path_properties)` for more
+details.
 :::
 
 ::: {.callout-note collapse="true"}
-### `path_resources(package_id)`
+### `path_resources()`
 
-Creates the absolute path to the package's resources directory.
-
-#### Example usage
-
-``` python
-print(path_resources(1))
-```
-
-<!-- TODO: This output will be autogenerated, so it can be wrong for now. -->
-
-```
-[PosixPath('~/.sprout/packages/1/resources')]
-```
+See the help documentation with `help(path_resources)` for more details.
 :::
 
 ::: {.callout-note collapse="true"}
-### `path_resource(package_id, resource_id)`
+### `path_resource(resource_id)`
 
-Creates the absolute path to a specific resource directory within a
-package.
-
-#### Example usage
-
-``` python
-print(path_resource(1, 2))
-```
-
-<!-- TODO: This output will be autogenerated, so it can be wrong for now. -->
-
-```
-[PosixPath('~/.sprout/packages/1/resources/2')]
-```
+See the help documentation with `help(path_resource)` for more details.
 :::
 
 ::: {.callout-note collapse="true"}
-### `path_resource_raw(package_id, resource_id)`
+### `path_resource_raw(resource_id)`
 
-Creates the absolute path to a resource's raw data directory within a
-package.
-
-#### Example usage
-
-``` python
-print(path_resource_raw(4, 2))
-```
-
-<!-- TODO: This output will be autogenerated, so it can be wrong for now. -->
-
-```
-[PosixPath('~/.sprout/packages/4/resources/2/raw')]
-```
+See the help documentation with `help(path_resource_raw)` for more
+details.
 :::
 
 ::: {.callout-note collapse="true"}
 ### `path_resource_raw_files(package_id, resource_id)`
 
-Creates a list of absolute paths to all the raw data files within a
-resource's raw data directory within a package.
-
-#### Example usage
-
-``` python
-print(path_resource_raw_files(4, 2))
-```
-
-<!-- TODO: This output will be autogenerated, so it can be wrong for now. -->
-
-```
-[PosixPath('~/.sprout/packages/4/resources/2/raw/2024-05-01T12:00:00Z-***.csv.gz')]
-```
+See the help documentation with `help(path_resource_raw_files)` for more
+details.
 :::
 
 ::: {.callout-note collapse="true"}
 ### `path_resource_data(package_id, resource_id)`
 
-Creates the absolute path to a resource's Parquet data file in a
-package. Internally also has a `verify_is_file()` check.
-
-#### Example usage
-
-``` python
-print(path_resource_data(4, 2))
-```
-
-<!-- TODO: This output will be autogenerated, so it can be wrong for now. -->
-
-```
-[PosixPath('~/.sprout/packages/4/resources/2/data.parquet')]
-```
+See the help documentation with `help(path_resource_data)` for more
+details.
 :::
 
 ## Properties dataclasses
@@ -437,95 +330,6 @@ Reads the `datapackage.json` file, checks that is correct, and then
 outputs a `PackageProperties` object.
 :::
 
-::: {.callout-warning collapse="true"}
-### `view_properties(path)`
-
-Reads the `datapackage.json` file, checks that is correct, and then
-outputs a human-readable version of the properties as a string.
-:::
-
-
-::: {.callout-note collapse="true"}
-### `path_properties(package_id)`
-
-Creates the absolute path to the package's properties `datapackage.json`
-file. Internally also has a `verify_is_file()` check.
-
-#### Example usage
-
-``` python
-print(path_properties(6))
-```
-
-<!-- TODO: This output will be autogenerated, so it can be wrong for now. -->
-
-```
-[PosixPath('~/.sprout/packages/6/datapackage.json')]
-```
-:::
-
-::: {.callout-note collapse="true"}
-### `path_packages()`
-
-Creates an absolute path to the directory that has or will have all the
-data packages.
-
-#### Example usage
-
-``` python
-print(path_packages())
-```
-
-<!-- TODO: This output will be autogenerated, so it can be wrong for now. -->
-
-```
-[PosixPath('~/.sprout/packages')]
-```
-:::
-
-::: {.callout-note collapse="true"}
-### `path_package(package_id)`
-
-Creates the absolute path to the specific package folder.
-
-#### Example usage
-
-``` python
-print(path_package(10))
-```
-
-<!-- TODO: This output will be autogenerated, so it can be wrong for now. -->
-
-```
-[PosixPath('~/.sprout/packages/10')]
-```
-:::
-
-::: {.callout-note collapse="true"}
-### `path_sprout_global()`
-
-If the `SPROUT_GLOBAL` environment variable isn't provided, this
-function will return the default path to where data packages will be
-stored. The default locations are dependent on the operating system.
-This function also creates the necessary directory if it doesn't exist.
-
-![Diagram showing the internal function flow of the
-`path_sprout_global()`
-function.](images/core/path-sprout-global.svg){#fig-path-sprout-global
-fig-alt="A Plant UML schematic of the detailed code flow within the `path_sprout_global()` function."}
-
-#### Example usage
-
-``` python
-print(path_sprout_global())
-```
-
-<!-- TODO: This output will be autogenerated, so it can be wrong for now. -->
-
-```
-[PosixPath('~/.sprout')]
-```
-
 ## Helper functions
 
 ::: {.callout-note collapse="true"}
@@ -543,7 +347,7 @@ Create a prettier, human readable version of a JSON object.
 ## Observational unit level functions
 
 Observational unit is the level of detail on the entity (e.g. human,
-animal, event) that the data was collected on. Example would be: A
+animal, event) that the data was collected on. An example would be: A
 person in a research study who came to the clinic in May 2024 to have
 their blood collected and to fill out a survey.
 
@@ -551,4 +355,33 @@ their blood collected and to fill out a survey.
 ### `delete_participant_data()`
 
 TODO.
+:::
+
+## Multi-user environments
+
+There are some functions that are useful in multi-user environments. For
+example, where the user may need to know where the data structured by
+Sprout is stored on the system.
+
+All the below `path_*()` functions use `path_sprout_global()` internally
+to get the global path as well as `package_id` and/or `resource_id` to
+complete the correct path for the specific package/resource.
+
+::: {.callout-note collapse="true"}
+### `path_packages()`
+
+See the help documentation with `help(path_packages)` for more details.
+:::
+
+::: {.callout-note collapse="true"}
+### `path_package(package_id)`
+
+See the help documentation with `help(path_package)` for more details.
+:::
+
+::: {.callout-note collapse="true"}
+### `path_sprout_global()`
+
+See the help documentation with `help(path_sprout_global)` for more
+details.
 :::

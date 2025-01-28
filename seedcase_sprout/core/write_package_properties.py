@@ -25,9 +25,8 @@ def write_package_properties(path: Path, properties: PackageProperties) -> Path:
         ExceptionGroup: If there is an error in the properties. A group of
             `CheckError`s, one error for each failed check.
     """
-    properties = properties.compact_dict
     check_properties(
         properties,
-        ignore=[CheckErrorMatcher(validator="required", json_path="resources")],
+        ignore=[CheckErrorMatcher(validator="required", json_path=r"resources$")],
     )
-    return write_json(properties, path)
+    return write_json(properties.compact_dict, path)

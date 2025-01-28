@@ -7,6 +7,11 @@ from seedcase_sprout.core.get_sprout_global_envvar import get_sprout_global_envv
 def path_sprout_global() -> Path:
     """Gets Sprout's global path location.
 
+    If the `SPROUT_GLOBAL` environment variable isn't provided, this function
+    will return the default path to where data packages will be stored. The
+    default locations are dependent on the operating system.  This function also
+    creates the necessary directory if it doesn't exist.
+
     Returns:
         The path to Sprout's global directory.
 

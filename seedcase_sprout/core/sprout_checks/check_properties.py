@@ -1,6 +1,7 @@
 from seedcase_sprout.core import checks
 from seedcase_sprout.core.checks.check_error_matcher import CheckErrorMatcher
 from seedcase_sprout.core.checks.exclude_matching_errors import exclude_matching_errors
+from seedcase_sprout.core.properties import PackageProperties
 from seedcase_sprout.core.sprout_checks.get_sprout_package_errors import (
     get_sprout_package_errors,
 )
@@ -8,12 +9,23 @@ from seedcase_sprout.core.sprout_checks.get_sprout_resource_errors import (
     get_sprout_resource_errors,
 )
 
+RESOURCE_FIELD_PATTERN = r"resources\[\d+\]"
 
-def check_properties(properties: dict, ignore: list[CheckErrorMatcher] = []) -> dict:
+
+def check_properties(
+    properties: PackageProperties | dict, ignore: list[CheckErrorMatcher] = []
+) -> PackageProperties | dict:
     """Checks that `properties` matches requirements in Sprout.
 
-    `properties` is checked against the Data Package standard and Sprout-specific
-    requirements. Both package and resource properties are checked.
+    `properties` is checked against the Data Package standard and the following
+    Sprout-specific requirements:
+      - Sprout-specific required fields are present
+      - Required fields are not blank
+      - Resource `path` is of type string
+      - Resource `path` includes resource ID
+      - Resource `data` is not set
+
+    Both package and resource properties are checked.
 
     Args:
         properties: The full package properties to check, including resource properties.
@@ -25,19 +37,30 @@ def check_properties(properties: dict, ignore: list[CheckErrorMatcher] = []) -> 
     Raises:
         ExceptionGroup: A group of `CheckError`s, one error per failed check.
     """
-    errors = checks.check_properties(properties)
-    errors += get_sprout_package_errors(properties)
+    properties_dict = (
+        properties.compact_dict
+        if isinstance(properties, PackageProperties)
+        else properties
+    )
 
-    for index, resource in enumerate(properties.get("resources", [])):
-        errors += get_sprout_resource_errors(resource, index)
+    errors = checks.check_properties(properties_dict)
+    errors += get_sprout_package_errors(properties_dict)
+
+    if isinstance(properties_dict.get("resources"), list):
+        for index, resource in enumerate(properties_dict.get("resources")):
+            errors += get_sprout_resource_errors(resource, index)
 
     errors = exclude_matching_errors(
         errors,
         [
             *ignore,
-            CheckErrorMatcher(validator="required", json_path="data"),
             CheckErrorMatcher(
-                validator="type", json_path="path", message="not of type 'array'"
+                validator="required", json_path=rf"{RESOURCE_FIELD_PATTERN}\.data$"
+            ),
+            CheckErrorMatcher(
+                validator="type",
+                json_path=rf"{RESOURCE_FIELD_PATTERN}\.path$",
+                message="not of type 'array'",
             ),
         ],
     )

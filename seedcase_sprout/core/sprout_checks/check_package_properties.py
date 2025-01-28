@@ -1,14 +1,14 @@
-from seedcase_sprout.core import checks
 from seedcase_sprout.core.checks.check_error_matcher import CheckErrorMatcher
-from seedcase_sprout.core.checks.exclude_matching_errors import exclude_matching_errors
-from seedcase_sprout.core.sprout_checks.get_sprout_package_errors import (
-    get_sprout_package_errors,
+from seedcase_sprout.core.properties import PackageProperties
+from seedcase_sprout.core.sprout_checks.check_properties import (
+    RESOURCE_FIELD_PATTERN,
+    check_properties,
 )
 
 
 def check_package_properties(
-    properties: dict, ignore: list[CheckErrorMatcher] = []
-) -> dict:
+    properties: PackageProperties | dict, ignore: list[CheckErrorMatcher] = []
+) -> PackageProperties | dict:
     """Checks that package `properties` matches requirements in Sprout.
 
     `properties` is checked against the Data Package standard and the following
@@ -28,16 +28,11 @@ def check_package_properties(
     Raises:
         ExceptionGroup: A group of `CheckError`s, one error per failed check.
     """
-    errors = checks.check_package_properties(properties) + get_sprout_package_errors(
-        properties
+    return check_properties(
+        properties,
+        ignore=[
+            *ignore,
+            CheckErrorMatcher(json_path=RESOURCE_FIELD_PATTERN),
+            CheckErrorMatcher(json_path=r"resources$", validator="required"),
+        ],
     )
-    errors = exclude_matching_errors(errors, ignore)
-    errors = sorted(set(errors))
-
-    if errors:
-        raise ExceptionGroup(
-            f"The following checks failed on the package properties:\n{properties}",
-            errors,
-        )
-
-    return properties
