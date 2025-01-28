@@ -12,8 +12,8 @@ def create_readme_text(properties: dict) -> str:
     # a Markdown list.
 
     readme_text = (
-        f"# {properties["name"]}: {properties["title"]}\n\n"
-        f"{properties["description"]}\n\n"
-        f"There are {len(properties["resources"])} resources in this package."
+        f"# {properties['name']}: {properties['title']}\n\n"
+        f"{properties['description']}\n\n"
+        f"There are {len(properties['resources'])} resources in this package."
     )
     return readme_text
