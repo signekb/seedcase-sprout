@@ -52,8 +52,10 @@ website:
         - section: "Architecture"
           href: docs/design/architecture/index.qmd
           contents:
-            - docs/design/architecture/naming.qmd
+            - docs/design/architecture/requirements.qmd
+            - docs/design/architecture/user-personas.qmd
             - docs/design/architecture/input-data.qmd
+            - docs/design/architecture/naming.qmd
         - section: "Interface"
           href: docs/design/interface/index.qmd
           contents:
