@@ -50,6 +50,8 @@ def edit_package_properties(
 
     Examples:
         ```{python}
+        #| eval: false
+        # TODO: This needs to be updated to match using `create_package_properties()`.
         import tempfile
         from pathlib import Path
 
