@@ -1,6 +1,5 @@
 from pathlib import Path
 
-from seedcase_sprout.core.check_data_path import check_data_path
 from seedcase_sprout.core.check_is_file import check_is_file
 from seedcase_sprout.core.checks.check_error_matcher import CheckErrorMatcher
 from seedcase_sprout.core.properties import ResourceProperties
@@ -115,10 +114,5 @@ def get_resource_id_from_properties(resource_properties: dict) -> int:
 
     Returns:
         The ID of the resource.
-
-    Raises:
-        NotPropertiesError: If the resource properties have a malformed or missing
-            data path.
     """
-    check_data_path(resource_properties)
     return int(Path(resource_properties["path"]).parts[1])

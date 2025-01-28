@@ -45,7 +45,7 @@ def check_properties(properties: dict, ignore: list[CheckErrorMatcher] = []) -> 
 
     if errors:
         raise ExceptionGroup(
-            f"The follow checks failed on the properties:\n{properties}", errors
+            f"The following checks failed on the properties:\n{properties}", errors
         )
 
     return properties

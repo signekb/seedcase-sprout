@@ -1,7 +1,8 @@
+from importlib.resources import files
 from pathlib import Path
 
-DATA_PACKAGE_SCHEMA_PATH = Path(
-    "seedcase_sprout/core/checks/schemas/data-package-schema.json"
+DATA_PACKAGE_SCHEMA_PATH: Path = files("seedcase_sprout.core.checks.schemas").joinpath(
+    "data-package-schema.json"
 )
 
 NAME_PATTERN = r"^[a-z0-9._-]+$"

@@ -1,3 +1,9 @@
+## 0.14.1 (2025-01-27)
+
+### Refactor
+
+- :recycle: make schema path resolve when working directory different (#1000)
+
 ## 0.14.0 (2025-01-27)
 
 ### Feat
