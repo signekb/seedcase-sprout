@@ -43,14 +43,7 @@ def test_writes_list_to_json_correctly(tmp_path):
     file_path_in = tmp_path / "test.test"
     json_object = [{"prop1": "value"}, {"prop2": 123}]
     expected_contents = (
-        "[\n"
-        "  {\n"
-        '    "prop1": "value"\n'
-        "  },\n"
-        "  {\n"
-        '    "prop2": 123\n'
-        "  }\n"
-        "]"
+        '[\n  {\n    "prop1": "value"\n  },\n  {\n    "prop2": 123\n  }\n]'
     )
 
     # when

@@ -57,6 +57,8 @@ def create_resource_properties(
                 properties=sp.ResourceProperties(
                     name="new-resource-name",
                     path="data.parquet",
+                    title="Resource Title",
+                    description="This resource contains data about...",
                 ),
             )
         ```

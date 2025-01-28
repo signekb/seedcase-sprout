@@ -9,7 +9,7 @@ ROOT = Path("sprout", "core", "generate_properties")
 SCHEMA_PATH = ROOT / "schema.json"
 OUTPUT_PATH = ROOT / "generated_properties.py"
 CUSTOM_TEMPLATE_DIR = ROOT
-CUSTOM_FORMATTERS_MODULE = f"{".".join(ROOT.parts)}.custom_formatters"
+CUSTOM_FORMATTERS_MODULE = f"{'.'.join(ROOT.parts)}.custom_formatters"
 
 
 def run_codegen():

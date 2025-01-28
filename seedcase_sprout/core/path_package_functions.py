@@ -69,7 +69,7 @@ def path_properties(package_id: int) -> Path:
             sp.create_package_structure(path=sp.path_packages())
 
             # Get the path to the package properties
-            sp.path_package_properties(package_id=1)
+            sp.path_properties(package_id=1)
         ```
     """
     path = path_package(package_id) / "datapackage.json"
