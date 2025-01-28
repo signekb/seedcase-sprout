@@ -1,12 +1,13 @@
 from seedcase_sprout.core.checks.check_error_matcher import CheckErrorMatcher
+from seedcase_sprout.core.properties import ResourceProperties
 from seedcase_sprout.core.sprout_checks.check_properties import check_properties
 
 PACKAGE_FIELD_PATTERN = r"\$\.\w+$"
 
 
 def check_resource_properties(
-    properties: dict, ignore: list[CheckErrorMatcher] = []
-) -> dict:
+    properties: ResourceProperties | dict, ignore: list[CheckErrorMatcher] = []
+) -> ResourceProperties | dict:
     """Checks that resource `properties` matches requirements in Sprout.
 
     `properties` is checked against the Data Package standard and the following
@@ -29,9 +30,15 @@ def check_resource_properties(
     Raises:
         ExceptionGroup: A group of `CheckError`s, one error per failed check.
     """
+    properties_dict = (
+        properties.compact_dict
+        if isinstance(properties, ResourceProperties)
+        else properties
+    )
+
     try:
         check_properties(
-            {"resources": [properties]},
+            {"resources": [properties_dict]},
             ignore=[*ignore, CheckErrorMatcher(json_path=PACKAGE_FIELD_PATTERN)],
         )
     except ExceptionGroup as error_info:

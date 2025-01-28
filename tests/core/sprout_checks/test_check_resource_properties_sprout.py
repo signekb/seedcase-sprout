@@ -31,6 +31,12 @@ def test_passes_full_resource_properties(properties):
     assert check_resource_properties(properties) == properties
 
 
+def test_check_accepts_properties_object(properties):
+    """Should accept a properties object as input."""
+    properties = ResourceProperties.from_dict(properties)
+    assert check_resource_properties(properties) == properties
+
+
 @mark.parametrize(
     "field",
     RESOURCE_SPROUT_REQUIRED_FIELDS.keys(),

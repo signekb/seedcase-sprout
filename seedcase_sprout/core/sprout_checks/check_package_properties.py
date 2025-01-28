@@ -1,4 +1,5 @@
 from seedcase_sprout.core.checks.check_error_matcher import CheckErrorMatcher
+from seedcase_sprout.core.properties import PackageProperties
 from seedcase_sprout.core.sprout_checks.check_properties import (
     RESOURCE_FIELD_PATTERN,
     check_properties,
@@ -6,8 +7,8 @@ from seedcase_sprout.core.sprout_checks.check_properties import (
 
 
 def check_package_properties(
-    properties: dict, ignore: list[CheckErrorMatcher] = []
-) -> dict:
+    properties: PackageProperties | dict, ignore: list[CheckErrorMatcher] = []
+) -> PackageProperties | dict:
     """Checks that package `properties` matches requirements in Sprout.
 
     `properties` is checked against the Data Package standard and the following

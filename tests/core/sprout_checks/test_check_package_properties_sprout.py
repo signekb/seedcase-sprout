@@ -33,6 +33,12 @@ def test_passes_full_package_properties(properties):
     assert check_package_properties(properties) == properties
 
 
+def test_check_accepts_properties_object(properties):
+    """Should accept a properties object as input."""
+    properties = PackageProperties.from_dict(properties)
+    assert check_package_properties(properties) == properties
+
+
 @mark.parametrize("resources", [[{}], [{"name": "name", "path": "data.csv"}]])
 def test_passes_without_checking_resources(resources, properties):
     """Should pass well-formed package properties without checking individual resource

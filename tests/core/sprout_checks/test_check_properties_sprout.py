@@ -49,6 +49,12 @@ def test_check_passes_full_properties(properties):
     assert check_properties(properties) == properties
 
 
+def test_check_accepts_properties_object(properties):
+    """Should accept a properties object as input."""
+    properties = PackageProperties.from_dict(properties)
+    assert check_properties(properties) == properties
+
+
 @mark.parametrize("field", [*PACKAGE_SPROUT_REQUIRED_FIELDS.keys(), "resources"])
 def test_raises_error_if_package_required_field_is_missing(properties, field):
     """Should raise an error if a required field is missing among the package

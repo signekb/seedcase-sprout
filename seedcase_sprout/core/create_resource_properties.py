@@ -65,5 +65,4 @@ def create_resource_properties(
     """
     check_is_dir(path)
     properties.path = str(create_relative_resource_data_path(path))
-    check_resource_properties(properties.compact_dict)
-    return properties
+    return check_resource_properties(properties)

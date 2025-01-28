@@ -75,11 +75,9 @@ def edit_package_properties(
             )
         ```
     """
-    properties = properties.compact_dict
-
     check_is_file(path)
 
-    properties.pop("resources", None)
+    properties.resources = None
     check_package_properties(
         properties, ignore=[CheckErrorMatcher(validator="required")]
     )
@@ -90,7 +88,7 @@ def edit_package_properties(
         ignore=[CheckErrorMatcher(validator="required")],
     )
 
-    current_properties.update(properties)
+    current_properties.update(properties.compact_dict)
 
     check_properties(
         current_properties,
