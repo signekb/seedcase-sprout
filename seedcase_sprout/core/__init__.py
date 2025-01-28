@@ -3,14 +3,10 @@
 # the package is imported via `from sprout.core import *`.
 
 # Packages -----
-# from .list_packages import *
-# from .view_package_properties import *
 from .create_package_structure import create_package_structure
 
 # from .delete_package import *
 # Resources -----
-# from .list_resources import *
-# from .view_resource import *
 from .create_resource_properties import create_resource_properties
 from .create_resource_structure import create_resource_structure
 from .edit_package_properties import edit_package_properties
@@ -73,15 +69,11 @@ __all__ = [
     "TableSchemaForeignKeyProperties",
     "TableSchemaProperties",
     # Packages -----
-    # "list_packages",
-    # "view_package_properties",
     "create_package_structure",
     "edit_package_properties",
     "write_package_properties",
     # "delete_package",
     # Resources -----
-    # "list_resources",
-    # "view_resource",
     "create_resource_structure",
     "create_resource_properties",
     # "extract_resource_properties",

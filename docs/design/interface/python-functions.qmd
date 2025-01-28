@@ -21,17 +21,7 @@ different outputs provided by Sprout.
 There are some small differences between the naming scheme and the
 functions described here:
 
-1.  Whenever `view` is used, it is always for one object (either a
-    package or a resource). Whenever `list` is used, it is always to
-    show basic details of all existing objects of a given type (e.g.
-    resources). Both `view` and `list` only ever show the information
-    contained in the `datapackage.json` and never show actual data. We
-    don't provide the ability for Sprout to show personally-identifiable
-    data directly since it is [out of scope](index.qmd#goals) of Sprout
-    and we want to minimise any security and privacy risks. Those with
-    at least read access to the filesystem will still be able to see the
-    data directly.
-2.  `edit` only ever edits the `datapackage.json` which contains the
+1.  `edit` only ever edits the `datapackage.json` which contains the
     properties/metadata of the package or resource(s) but never edits
     the data itself. If there is a need for updates to the data itself,
     the user can update it by uploading a new file with the updates (as
@@ -39,7 +29,7 @@ functions described here:
     are the same). We don't provide access for users to directly edit
     the data because we want to limit security risks as well as to
     maintain privacy and legal compliance.
-3.  `add` only ever adds more data to an existing data resource and does
+2.  `add` only ever adds more data to an existing data resource and does
     not add any new metadata to the `datapackage.json`. Since Sprout
     contains the full Frictionless Data specification, using `edit` is
     enough to make updates to the existing properties found in the
@@ -68,17 +58,7 @@ are implemented.
 ## Data package functions
 
 ::: {.callout-warning collapse="true"}
-### `view_package_properties(path)`
-
-This will show the information contained within the `datapackage.json`
-file of a package for only the fields relevant to the package itself,
-and only basic details of the resources within the package. Use
-`path_properties()` to provide the correct path location. Outputs a JSON
-object.
-:::
-
-::: {.callout-warning collapse="true"}
-### `create_package_properties(properties)`
+### `create_package_properties(properties, path)`
 
 This is the first function to use to create a new data package. It
 generates a template for the `datapackage.json` file where the user
@@ -127,25 +107,6 @@ if the file already exists. Returns the same path object as given in the
 :::
 
 ## Data resource functions
-
-::: {.callout-note collapse="true"}
-### `list_resources(path)`
-
-This looks in one specific package's `datapackage.json` file and lists a
-basic summary of all the data resources contained within the package.
-The list would be basic information like resource ID, name, and
-description. Use `path_resources()` to provide the correct path
-location. Outputs a JSON object.
-:::
-
-::: {.callout-note collapse="true"}
-### `view_resource(path, properties_path)`
-
-Views the information on a package's specific resource that is contained
-within the `datapackage.json` file. Use the `path_resource()` function
-to provide the correct location for the `path` and `path_properties()`
-for the `properties_path` argument. Outputs a JSON object.
-:::
 
 ::: {.callout-note collapse="true"}
 ### `create_resource_structure(path)`
@@ -436,14 +397,6 @@ details on the properties.
 Reads the `datapackage.json` file, checks that is correct, and then
 outputs a `PackageProperties` object.
 :::
-
-::: {.callout-warning collapse="true"}
-### `view_properties(path)`
-
-Reads the `datapackage.json` file, checks that is correct, and then
-outputs a human-readable version of the properties as a string.
-:::
-
 
 ::: {.callout-note collapse="true"}
 ### `path_properties(package_id)`
