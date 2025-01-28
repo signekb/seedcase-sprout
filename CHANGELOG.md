@@ -1,3 +1,9 @@
+## 0.14.3 (2025-01-28)
+
+### Refactor
+
+- :recycle: use jinja template for README (#1011)
+
 ## 0.14.2 (2025-01-28)
 
 ### Refactor
