@@ -28,6 +28,6 @@ def write_package_properties(path: Path, properties: PackageProperties) -> Path:
     properties = properties.compact_dict
     check_properties(
         properties,
-        ignore=[CheckErrorMatcher(validator="required", json_path="resources")],
+        ignore=[CheckErrorMatcher(validator="required", json_path=r"resources$")],
     )
     return write_json(properties, path)

@@ -27,7 +27,7 @@ def test_not_matching_matchers_have_no_effect():
                     validator="required", json_path="path", message="no match!"
                 ),
                 CheckErrorMatcher(
-                    validator="type", json_path="$no.match", message="123 is not"
+                    validator="type", json_path=r"\$no\.match", message="123 is not"
                 ),
             ],
         )

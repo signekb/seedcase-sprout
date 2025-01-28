@@ -1,9 +1,7 @@
-from seedcase_sprout.core import checks
 from seedcase_sprout.core.checks.check_error_matcher import CheckErrorMatcher
-from seedcase_sprout.core.checks.exclude_matching_errors import exclude_matching_errors
-from seedcase_sprout.core.sprout_checks.get_sprout_resource_errors import (
-    get_sprout_resource_errors,
-)
+from seedcase_sprout.core.sprout_checks.check_properties import check_properties
+
+PACKAGE_FIELD_PATTERN = r"\$\.\w+$"
 
 
 def check_resource_properties(
@@ -31,25 +29,14 @@ def check_resource_properties(
     Raises:
         ExceptionGroup: A group of `CheckError`s, one error per failed check.
     """
-    errors = checks.check_resource_properties(properties) + get_sprout_resource_errors(
-        properties
-    )
-    errors = exclude_matching_errors(
-        errors,
-        [
-            *ignore,
-            CheckErrorMatcher(validator="required", json_path="data"),
-            CheckErrorMatcher(
-                validator="type", json_path="path", message="not of type 'array'"
-            ),
-        ],
-    )
-    errors = sorted(set(errors))
-
-    if errors:
-        raise ExceptionGroup(
-            f"The following checks failed for the resource properties:\n{properties}",
-            errors,
+    try:
+        check_properties(
+            {"resources": [properties]},
+            ignore=[*ignore, CheckErrorMatcher(json_path=PACKAGE_FIELD_PATTERN)],
         )
+    except ExceptionGroup as error_info:
+        for error in error_info.exceptions:
+            error.json_path = error.json_path.replace("resources[0].", "")
+        raise error_info
 
     return properties

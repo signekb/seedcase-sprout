@@ -1,3 +1,4 @@
+import re
 from dataclasses import dataclass
 
 from seedcase_sprout.core.checks.check_error import CheckError
@@ -5,10 +6,30 @@ from seedcase_sprout.core.checks.check_error import CheckError
 
 @dataclass
 class CheckErrorMatcher:
-    """A class that helps to filter `CheckError`s based on their attributes."""
+    r"""A class that helps to filter `CheckError`s based on their attributes.
 
+    Examples:
+            ```{python}
+            error = CheckError(
+                message="123 is not of type 'string'",
+                json_path="$.resources[0].name",
+                validator="type",
+            )
+            matcher = CheckErrorMatcher(
+                message="of type 'string'",
+                json_path=r"resources\[.\]",
+                validator="type",
+            )
+            matcher.matches(error)
+
+            ```
+    """
+
+    # The substring to find in the error message.
     message: str | None = None
+    # The subpath to find in the error's `json_path`. Expressed as a regular expression.
     json_path: str | None = None
+    # The validator to match.
     validator: str | None = None
 
     def matches(self, error: CheckError) -> bool:
@@ -40,7 +61,7 @@ class CheckErrorMatcher:
     def json_path_matches(self, error: CheckError) -> bool:
         """Determines if this matcher matches the `json_path` of the given `CheckError`.
 
-        Matching on the full `json_path` and matching on the field name are supported.
+        Matching regular expressions is supported.
 
         Args:
             error: The `CheckError` to match.
@@ -50,9 +71,7 @@ class CheckErrorMatcher:
         """
         if self.json_path is None:
             return True
-        if self.json_path == "" or self.json_path.startswith("$"):
-            return self.json_path == error.json_path
-        return error.json_path.endswith(f".{self.json_path}")
+        return re.search(self.json_path, error.json_path) is not None
 
     def validator_matches(self, error: CheckError) -> bool:
         """Determines if this matcher matches the validator of the given `CheckError`.

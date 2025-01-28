@@ -33,7 +33,7 @@ def test_passes_full_package_properties(properties):
     assert check_package_properties(properties) == properties
 
 
-@mark.parametrize("resources", [[], [{}], [{"name": "name", "path": "data.csv"}]])
+@mark.parametrize("resources", [[{}], [{"name": "name", "path": "data.csv"}]])
 def test_passes_without_checking_resources(resources, properties):
     """Should pass well-formed package properties without checking individual resource
     properties."""
