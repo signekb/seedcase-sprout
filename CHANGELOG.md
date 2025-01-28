@@ -1,3 +1,9 @@
+## 0.14.2 (2025-01-28)
+
+### Refactor
+
+- :recycle: commonise Sprout checks (#998)
+
 ## 0.14.1 (2025-01-27)
 
 ### Refactor
