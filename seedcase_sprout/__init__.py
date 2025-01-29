@@ -1,1 +1,1 @@
-"""The Sprout application."""
+"""The Sprout Python package."""

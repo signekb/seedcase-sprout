@@ -28,37 +28,30 @@ div.quarto-about-jolla {
 </style>
 ```
 
-::: {.landing-page-block}
+:::: landing-page-block
 ::: {#hero-heading}
 :::
-:::
+::::
 
-::: {.hero-banner}
-::: {.landing-page-block}
-::: {.hero-text}
+::::: hero-banner
+:::: landing-page-block
+::: hero-text
 ## Streamlined data management for every workflow
 
 **Sprout** is at the backbone of the [**Seedcase
 Project**](https://seedcase-project.org), offering a flexible solution
 to structure and manage your data.
 
-Sprout is a **Python package** with four key modules:
-
--   A flexible `core` encapsuling Sprout's core functionalities,
-    directed at developers.
--   An opinionated `lib` for organising and managing data
-    programmatically.
--   A `cli` for managing data directly from the terminal.
--   An `app` providing a web interface for an easy-to-use
-    graphical experience.
-
-With these options, you can choose the method that works best for your
-workflow.
+Sprout Core is a **Python package** with a flexible interface that
+encapsulates Sprout's core functionalities, directed at developers and
+those who want lots of control. It's designed to be easily extended and
+customized to fit your needs, such as to build a command-line interface
+or web app.
 :::
-:::
-:::
+::::
+:::::
 
-::: {.landing-page-block}
+::: landing-page-block
 ## Want to contribute?
 
 We’re a community-driven project and would love your feedback! Head over
@@ -69,6 +62,6 @@ share your ideas or contribute code. Your input makes us better!
 <!-- TODO: Add link to a guide on how to contribute in more detail -->
 :::
 
-::: {.landing-page-block}
+::: landing-page-block
 ## Image by [Storyset](https://storyset.com/data) {.appendix}
 :::

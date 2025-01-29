@@ -19,9 +19,9 @@ There are two main sections of this design documentation:
     describes the high-level requirements, components, use cases,
     expected users, and how the system will be organized and structured.
 -   [Interface](interface/index.qmd): The interface section gives a much
-    more detailed description of the software interface for the
-    architecture. The detail is at the level of exact Python functions
-    and CLI commands, as well as their arguments, inputs, and outputs.
+    more detailed description of the design of the software interface.
+    The detail is at the level of exact Python functions, as well as
+    their arguments, inputs, and outputs.
 
 ## Purpose
 
@@ -61,8 +61,8 @@ Overall, Sprout must:
     data are stored should be flexible based on the needs and
     restrictions of the user.
 -   Be able to handle a variety of data file sizes: While the size of
-    research data usually does not compare to that found in industry, it can
-    still become large enough that it requires special care and
+    research data usually does not compare to that found in industry, it
+    can still become large enough that it requires special care and
     handling.
 -   Store data in a format that is open source, integrates with many
     tools, and is storage efficient: Sprout is first and foremost a data

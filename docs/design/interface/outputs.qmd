@@ -6,12 +6,6 @@ Sprout is designed to structure, organize, and store data in a
 standardized, coherent, and consistent way. At the base of how data is
 structured and stored are the files and folders. So, this document
 describes the main file and folder structure output when using Sprout.
-It is split into two sections:
-
--   the file system when used either locally or via the code-based way
-    (through Python or the command line) in a user-controlled and
-    terminal-only server, or
--   the file system when used as a web app on a server.
 
 We follow our [naming scheme](/docs/design/architecture/naming.qmd), as
 well as the [Frictionless Data
@@ -113,8 +107,8 @@ Sprout creates and uses these files:
     will contain some basic information from the `datapackage.json` file
     that is structured in a human readable, auto-generated way. This
     file is largely used to a) adhere to interoperable principles and b)
-    serve potentially as the basis for displaying information for a data
-    package's landing page in the Sprout web app.
+    serve as the basis for displaying human-readable information about
+    the data package.
 
 `./resources/<id>/raw/<timestamp>-<uuid>.<extension>.gzip`
 

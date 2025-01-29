@@ -4,23 +4,23 @@ order: 1
 jupyter: python3
 ---
 
-At the core of Sprout is the [{{< glossary "data package">}}](../glossary.qmd), which is a standardized way of structuring and sharing data. This guide will show you how to create and manage data packages using Sprout.
+At the core of Sprout is the
+[{{< glossary "data package">}}](../glossary.qmd), which is a
+standardized way of structuring and sharing data. This guide will show
+you how to create and manage data packages using Sprout.
 
 {{< include _preamble.qmd >}}
 
 ## Creating a data package
 
-::::: panel-tabset
-### Python
-
 The first thing you'll need to decide is where you want to store your
 data packages. By default, Sprout will create it in `~/sprout/packages/`
 on Linux (see [Outputs](/docs/design/interface/outputs.qmd) for
 operating system specific locations), but you can change this by setting
-the `SPROUT_GLOBAL` environment variable. For instance, maybe you want the
-location to be `~/Desktop/sprout/` or `~/Documents`. For our example, we
-will store it in our current working directory in the hidden folder
-`.storage/`.
+the `SPROUT_GLOBAL` environment variable. For instance, maybe you want
+the location to be `~/Desktop/sprout/` or `~/Documents`. For our
+example, we will store it in our current working directory in the hidden
+folder `.storage/`.
 
 ```{python}
 import seedcase_sprout.core as sp
@@ -118,54 +118,3 @@ fill in for a package.
 
 You now have the basic starting point for adding data resources to your
 data package.
-
-### CLI
-
-The CLI is a bit more straightforward as long as you are comfortable
-using the Terminal. You can set the `SPROUT_GLOBAL` environment variable
-to change the location of the data packages. For instance, maybe you
-want the location to be `~/Documents/data-packages/`. You can set this
-in your terminal like so:
-
-``` bash
-export SPROUT_GLOBAL=~/Documents/data-packages/
-```
-
-Then creating a new package would be as simple as:
-
-``` bash
-sprout package create
-```
-
-This will prompt you for some required fields you need to fill in, like
-the title and description of the data package. If you want to skip the
-prompt, you can provide the information directly in the command:
-
-``` bash
-sprout package create \
-  --title "Diabetes and Hypertension Study" \
-  --description "Data from the 2021 study on diabetes and hypertension"
-```
-
-This creates the initial structure of your new package with the ID `1`.
-The output above shows that the folder of your data package `1` has been
-created. This folder consists of two files: `datapackage.json` and
-`README.md`. The `datapackage.json` file is empty initially, but it will
-contain the metadata, a.k.a. the `properties`, of your data package.
-`README.md` is a prettified, human-readable version of the content of
-the `datapackage.json`.
-
-You now have the basic starting point for adding data resources to your
-data package in the location you specified:
-
-```
-~/Documents/data-packages/1/datapackage.json
-~/Documents/data-packages/1/README.md
-```
-
-### Web App
-
-::: callout-warning
-In development.
-:::
-:::::
