@@ -116,7 +116,7 @@ see the help documentation with `help(create_resource_properties)` for more
 details.
 :::
 
-::: {.callout-note collapse="true"}
+::: {.callout-warning collapse="true"}
 ### `write_resource_data_to_raw(path, data_path)`
 
 Copy the file from `data_path` over into the resource location given by
@@ -132,7 +132,7 @@ function.](images/core/write-resource-data-to-raw.svg){#fig-write-resource-data-
 fig-alt="A Plant UML schematic of the detailed code flow within the `write_resource_data_to_raw()` function."}
 :::
 
-::: {.callout-note collapse="true"}
+::: {.callout-warning collapse="true"}
 ### `write_resource_parquet(raw_files, path)`
 
 This function takes the files provided by `raw_files` and merges them
@@ -142,7 +142,7 @@ and `path_resource_raw_files()` for the `raw_files` argument. Outputs
 the path object of the created file.
 :::
 
-::: {.callout-note collapse="true"}
+::: {.callout-warning collapse="true"}
 ### `edit_resource_properties(path, properties)`
 
 Edit the properties of a resource in a package. The `properties`
@@ -153,7 +153,7 @@ correct path location. Outputs a JSON object only; use
 `datapackage.json` file.
 :::
 
-::: {.callout-note collapse="true"}
+::: {.callout-warning collapse="true"}
 ### `delete_resource_raw_file(path, confirm)`
 
 Use this to delete a raw file in the `raw/` folder of a resource. This
@@ -166,7 +166,7 @@ to the function argument as confirmation. This is done to prevent
 accidental deletion. Outputs `true` if the deletion was successful.
 :::
 
-::: {.callout-note collapse="true"}
+::: {.callout-warning collapse="true"}
 ### `delete_resource_data(path, confirm)`
 
 Delete all data (Parquet) and raw data of a specific
@@ -179,7 +179,7 @@ confirmation. This is done to prevent accidental deletion. Outputs
 properties/metadata for the resource.
 :::
 
-::: {.callout-note collapse="true"}
+::: {.callout-warning collapse="true"}
 ### `delete_resource_properties(path, confirm)`
 
 Deletes all properties for a resource within the `datapackage.json`
@@ -197,7 +197,7 @@ See the help documentation with `help(write_resource_properties)` for more
 details.
 :::
 
-::: {.callout-note collapse="true"}
+::: {.callout-warning collapse="true"}
 ### `extract_resource_properties(path, data_path)`
 
 This takes the data found at the `data_path` location and creates a JSON
@@ -294,26 +294,27 @@ outputs a `PackageProperties` object.
 
 ## Helper functions
 
-::: {.callout-note collapse="true"}
-### `list_files(path)`
-
-List all files in a directory. Outputs a list of path objects.
-:::
-
-::: {.callout-note collapse="true"}
+::: {.callout-warning collapse="true"}
 ### `pretty_json(json)`
 
 Create a prettier, human readable version of a JSON object.
 :::
 
-## Observational unit level functions
+::: {.callout-warning collapse="true"}
+### `write_text(text, path)`
+
+Writes a text string to a file at the given path. Outputs the path
+object of the created file.
+:::
+
+## Observational unit functions
 
 Observational unit is the level of detail on the entity (e.g. human,
 animal, event) that the data was collected on. An example would be: A
 person in a research study who came to the clinic in May 2024 to have
 their blood collected and to fill out a survey.
 
-::: {.callout-note collapse="true"}
+::: {.callout-warning collapse="true"}
 ### `delete_participant_data()`
 
 TODO.
