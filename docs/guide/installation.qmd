@@ -6,53 +6,53 @@ order: 0
 We designed Sprout to be installed for use either on your own computer
 (locally) or on a server (remote). This guide will walk you through
 installing Sprout. Regardless of how you install Sprout, you will need
-to use the Terminal. If you are unfamiliar with the terminal, start with our
-[guide for beginners]() before continuing.
+to use the Terminal.
 
-<!-- TODO: this callout might need to be its own include, since other docs will use it too -->
+{{< include _preamble.qmd >}}
 
-::: callout-important
-Sprout as a Python package and as a CLI assumes you have full control
-over the folders and files of the system, or at least your user's home
-directory. This includes being given space on a server that mostly has
-access through a Terminal, where you have control over the directories
-you can write to.
-:::
+Before installing Sprout in either a virtual environment or system-wide,
+you need the following:
 
-## Use in a project in a virtual environment
+-   [Python](https://www.python.org/downloads/) version \>=3.12
+-   [pipx](https://pipx.pypa.io/latest/installation/) version \>=1.7.1
 
-Sprout requires [Python](https://www.python.org/downloads/) version
-\>=3.6 be installed on your system, which includes pip. Run this command
-in the Terminal to check your version of Python:
+To check that you've installed these programs, run these commands in the
+Terminal to check their versions:
 
 ``` bash
 python3 --version
+pipx --version
 ```
 
-If the version isn't 3.6 or greater, download and install the latest
-version of Python by going to their [download
-page](https://www.python.org/downloads/).
+## Use in a project in a virtual environment
+
+To install into a project, you can use any package dependency manager.
+For this guide, we will use Poetry:
+
+-   [Poetry](https://python-poetry.org/docs/main/#installing-with-pipx)
+    version \>=1.8
+
+To check that you've installed these programs, run these commands in the
+Terminal to check their versions:
+
+``` bash
+poetry --version
+```
 
 ### Creating a virtual environment
 
-In general, it isn't recommended to use pip to install into your global
-system (accessible everywhere on your computer) because it can
-negatively affect other Python packages. Rather, you install a package
-into a virtual environment so that it doesn't affect your global system.
-
-To make this virtual environment, we need to create it with venv in a
-folder location that makes sense for your purposes. A good location
-might be in your documents folder or desktop. For now, we will create it
-on the desktop:
+Python packages are generally recommended to be installed in a virtual
+environment. This is a way to isolate the packages you install for a
+specific project from the global system. To make this virtual
+environment, we need to create it with Poetry in any folder on the
+computer. A good location might be in your Documents folder or Desktop.
+For now, we will create it on the desktop:
 
 ``` bash
 cd Desktop
-mkdir use-sprout
-python3 -m venv .venv
-source .venv/bin/activate
+poetry new use-sprout
+cd use-sprout
 ```
-
-<!-- TODO: Write instructions using Poetry as well -->
 
 You're now ready to install Sprout!
 
@@ -63,14 +63,14 @@ repository](https://github.com/seedcase-project/seedcase-sprout) by
 running the following command:
 
 ``` bash
-pip install git+https://github.com/seedcase-project/seedcase-sprout
+poetry add "git+https://github.com/seedcase-project/seedcase-sprout.git"
 ```
 
 To check that Sprout has been installed correctly, run the following
 command in your terminal:
 
 ``` bash
-pip show seedcase_sprout
+poetry show seedcase_sprout
 ```
 
 If it installed successfully, it will show details about Sprout.
@@ -80,8 +80,19 @@ Get started with your first data package by following the guide on
 
 ## Use anywhere on the computer or in the Terminal
 
-<!-- TODO: Finish this section -->
+Rather than installing Sprout in a virtual environment, you can install
+it system-wide. This means you can use Sprout from any folder on your
+computer or in the Terminal. The easiest way to do this is to use pipx.
 
-::: callout-warning
-We're still developing this section.
-:::
+``` bash
+pipx install git+https://github.com/seedcase-project/seedcase-sprout.git
+```
+
+To check that Sprout has been installed correctly, run the following:
+
+``` bash
+pipx show seedcase_sprout
+```
+
+Now you can use `seedcase_sprout` in any Python script throughout your
+computer.

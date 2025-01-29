@@ -1,13 +1,7 @@
-::: callout-important
-Whether you're using the Python library or the CLI, Sprout assumes you have full
-control over the system's folders and files, or at least your
-user's home directory. This includes being given space on a server that
-is primarily accessed through a terminal, where you have control over the
-directories you can write to.
-
-For example, you might install Sprout on your own computer
-because you want to create data packages for your research studies.
-Alternatively, your research group might have storage
-space on a server that requires the use of a terminal and SSH to
-access.
+::: {.callout-important appearance="default" icon="true"}
+The Sprout Python package assumes you have full control
+over the folders and files of the system, or at least your user's home
+directory. This includes being given space on a server that mostly has
+access through a Terminal, where you have control over the directories
+you can write to.
 :::
