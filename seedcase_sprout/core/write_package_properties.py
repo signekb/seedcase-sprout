@@ -15,8 +15,13 @@ def write_package_properties(path: Path, properties: PackageProperties) -> Path:
     argument.
 
     Args:
-        path: The path to the `datapackage.json` file.
-        properties: The package properties to write.
+        path: The `path` argument is to an existing `datapackage.json` file, to a
+            folder that exists but is empty, or to a folder that doesn't exist yet.
+            Either way, the `datapackage.json` file will be created or overwritten
+            in the path given. Use `path_properties()` as a helper to get the
+            correct path.
+        properties: The package properties to write. Use `PackageProperties`
+            to help create the properties object.
 
     Returns:
         The path to the updated `datapackage.json` file.

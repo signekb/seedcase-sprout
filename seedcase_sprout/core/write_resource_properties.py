@@ -17,13 +17,16 @@ def write_resource_properties(
     """Writes the specified resource properties to the `datapackage.json` file.
 
     This functions verifies `resource_properties`, and if a
-    resource with that ID is already present on the package, the properties of the
-    resource with that ID are updated, with values in `resource_properties` overwriting
+    resource with that ID is already present on the package, the properties of that
+    resource are updated. The values in `resource_properties` overwrite
     preexisting values. Otherwise, `resource_properties` is added as a new resource.
 
+
     Args:
-        path: The path to the `datapackage.json` file.
-        resource_properties: The resource properties to add.
+        path: The path to the `datapackage.json` file. Use `path_properties()`
+            to help give the correct path.
+        resource_properties: The resource properties to add. Use
+            `ResourceProperties` to help create this object.
 
     Returns:
         The path to the updated `datapackage.json` file.

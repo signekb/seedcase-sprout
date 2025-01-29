@@ -15,8 +15,8 @@ def create_resource_structure(path: Path) -> list[Path]:
     resource. It creates the paths for a new data resource in a specific
     (existing) package by creating the folder setup described in the
     [Outputs](https://sprout.seedcase-project.org/docs/design/outputs) section
-    on the Sprout website. Use the `path_resources()` function to provide the
-    correct path location.
+    on the Sprout website. It creates two paths: the `resources/<id>/` path and the
+    `resources/<id>/raw/` path. The output is a list of these two path objects.
 
     Args:
        path: Path to the resources directory in a package.
