@@ -169,14 +169,13 @@ accidental deletion. Outputs `true` if the deletion was successful.
 ::: {.callout-warning collapse="true"}
 ### `delete_resource_data(path, confirm)`
 
-Delete all data (Parquet) and raw data of a specific
-resource. Use `path_resource_raw()` to provide the correct path
-location. The `confirm` argument defaults to `false` so that the user
-needs to explicitly provide `true` to the function argument as
-confirmation. This is done to prevent accidental deletion. Outputs
-`true` if the deletion was successful. Use
-`delete_resource_properties()` to delete the the associated
-properties/metadata for the resource.
+Delete all data (Parquet) and raw data of a specific resource. Use
+`path_resource_raw()` to provide the correct path location. The
+`confirm` argument defaults to `false` so that the user needs to
+explicitly provide `true` to the function argument as confirmation. This
+is done to prevent accidental deletion. Outputs `true` if the deletion
+was successful. Use `delete_resource_properties()` to delete the the
+associated properties/metadata for the resource.
 :::
 
 ::: {.callout-warning collapse="true"}
@@ -197,27 +196,11 @@ See the help documentation with `help(write_resource_properties)` for more
 details.
 :::
 
-::: {.callout-warning collapse="true"}
-### `extract_resource_properties(path, data_path)`
+::: {.callout-note collapse="true"}
+### `extract_resource_properties(data_path)`
 
-This takes the data found at the `data_path` location and creates a JSON
-object following the Frictionless Data standard. Internally it uses the
-frictionless Python package to guess and fill in some of the property
-fields required by the Frictionless Data resource specification. This
-function is often followed by `edit_resource_properties()` to fill in
-any remaining missing fields and then the `verify_resource_properties()`
-function. Usually, you use either this function or the
-`create_resource_properties()` function to create the resource
-properties for the specific data resource given. The `path` argument
-points to the resource `id` folder; use `path_resource()` to help give
-the correct path. Outputs a JSON object. Use
-`write_resource_properties()` to save the JSON object to the
-`datapackage.json` file.
-
-![Diagram showing the internal function flow of the
-`extract_resource_properties()`
-function.](images/core/extract-resource-properties.svg){#fig-extract-resource-properties
-fig-alt="A Plant UML schematic of the detailed code flow within the `extract_resource_properties()` function."}
+See the help documentation with `help(extract_resource_properties)` for more
+details.
 :::
 
 ## Path functions
