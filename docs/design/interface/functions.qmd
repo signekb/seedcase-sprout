@@ -1,5 +1,5 @@
 ---
-title: "Core Python functions"
+title: "Functions and classes"
 callout-icon: false
 callout-appearance: "minimal"
 ---
