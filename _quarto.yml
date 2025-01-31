@@ -5,11 +5,6 @@ project:
     - "docs/*"
     - "index.qmd"
 
-glossary:
-  path: _extensions/seedcase-project/seedcase-theme/glossary.yml
-  popup: none
-  show: true
-
 website:
   title: "Seedcase Sprout"
   site-url: "https://sprout.seedcase-project.org/"
