@@ -1,61 +1,80 @@
 ---
 title: "C4 Models"
-draft: true
 ---
 
 This section contains the [C4 Models](https://c4model.com/) for Sprout.
 The C4 Model is an established visualization approach to describe the
 architecture of a software system. It breaks the system down into four
-levels of architectural abstraction: Context, Containers, Components, and Code. The
-last level is rarely used nor recommended for most software architecture
-since it is used to visualize a high degree of detail that most projects
-don't need. Below are the diagrams for the **Context**, **Containers**, and
-**Components** (the last of which includes three diagrams).
+levels of architectural abstraction: Context, Containers, Components,
+and Code. The last level is rarely used nor recommended for most
+software architecture since it is used to visualize a high degree of
+detail that most projects don't need. For our needs, we only needed to
+create the **Context** and **Containers** diagrams.
 
-::: panel-tabset
+These diagrams and their content draw from our overall Seedcase [design
+documentation](https://design.seedcase-project.org/) and [design
+decisions](https://decisions.seedcase-project.org/). See those websites
+for more information.
+
 ## Context
 
-The Context diagram shows the users and any external
-systems that interact with Sprout. This includes the three user roles *data contributor*, *project admin* and *project owner* described in the [users](user-roles.qmd) post.
+The Context diagram shows the users and any external systems that
+interact with Sprout. This includes the user roles described in the
+[User Personas](user-personas.qmd) page.
 
-![C4 Context diagram showing a very basic overview of Sprout and its
-intended users.](images/c4/context.svg)
+::: column-page
+```{mermaid}
+%%| fig-cap: "C4 Context diagram showing a very basic overview of Sprout and its anticipated users."
+flowchart LR
+    user_owner(["Owner/creator<br>[person]<br><br>Creates and owns a project that generates data. Uses Sprout Core for more control."])
+    user_admin(["Administrator<br>[person]<br><br>Manages data and metadata from a project for an owner. Uses Sprout Core for more control."])
+    user_swe(["Software engineer<br>[person]<br><br>Creates and develops data infrastructure. Uses Sprout Core to build extensions and customizations."])
+    user_de(["Data engineer<br>[person]<br><br>Develops data pipelines and infrastructures. Uses Sprout Core to build and customize the pipelines."])
+    sprout["Seedcase Sprout<br>[system]<br><br>Allows users fine-grained control over building, managing, and structuring data in a way that makes it easier to share with collaborators and to analyze. Structures data following the Frictionless Data Package Standard."]
+    output[("Filesystem (local or server)<br>[system]<br><br>Structured data from Sprout that is stored in a filesystem for later use. This can be on a server or on a local, personal computer, depending on the privacy of the data.")]
+
+    user_swe --> sprout:::system
+    user_de --> sprout
+    user_admin --> sprout
+    user_owner --> sprout
+    sprout --> output:::external
+
+    classDef system stroke-width:4pt
+    classDef external fill:lightgrey
+```
+:::
 
 ## Container
 
 The Container diagram shows the larger parts of the system, what they
-are responsible for, and how they interact with each other. It also shows
-the technology choices for each container.
+are responsible for, and how they interact with each other. It also
+shows the technology choices for each container.
 
-![C4 Container diagram showing larger functional parts of Sprout and
-their connections.](images/c4/container.svg)
+::: column-page
+```{mermaid}
+%%| fig-cap: "C4 Container diagram showing larger functional parts of Sprout and their connections."
+flowchart TB
+    user(["User<br>[person]"])
+    subgraph sprout [Sprout]
+        package["Data package functions<br>[Python]<br><br>Create, manage, and check a data package and its 'properties' (metadata)."]
+        resource["Data resource functions<br>[Python]<br><br>Create, manage, and check data resources and their 'properties' (metadata) in a data package."]
+        obs_unit["Observational unit functions<br>[Python]<br><br>Manage and delete observational units in a resource. An observational unit is an entity with data collected at a specific time. Necessary for GDPR-compliance."]
+        raw[("Raw data<br>[gzipped CSV]")]
+        data[("Data<br>[Parquet]")]
+        metadata[["Metadata ('properties')<br>[Frictionless Standard, JSON]"]]
+    end
+    output[("Filesystem<br><br>Stored data and metadata on a local or server filesystem.")]
 
-## Component
+    user --> sprout:::system
+    package --> resource
+    package --> metadata
+    resource --> raw
+    resource --> data
+    resource --> metadata
+    obs_unit --> data
+    sprout --> output:::external
 
-The Component model offers a more detailed view of the system into what
-the smaller parts are that make up an individual container and that
-allow it to fulfill its responsibilities. There are three diagrams for
-the components: the user interface, the (internal) management,
-and the databases and storage.
-
-### User interface
-
-This diagram shows the pages users interact with in the user interface container. In addition, it shows which user roles that can access them. Outside the container is the authentication container and the management container. The authentication container is needed to authenticate users and their access.
-
-![C4 Component diagram showing the parts that make up the user interface
-containers.](images/c4/component-ui.svg)
-
-### Management
-
-This diagram shows the actions and behaviours that happen internally between the user interface and the database and storage. This includes things like creating databases, updating data and metadata, and modifying user roles.
-
-![C4 Component diagram showing the parts that make up the management
-containers.](images/c4/component-management.svg)
-
-### Databases and storage
-
-This diagram shows the components that make up the database and storage container, and the types of actions and behaviours they have.
-
-![C4 Component diagram showing the parts that make up the database and
-storage containers.](images/c4/component-backend.svg)
+    classDef system fill:none
+    classDef external fill:lightgrey
+```
 :::
