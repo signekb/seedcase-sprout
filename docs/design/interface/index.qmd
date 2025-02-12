@@ -8,5 +8,5 @@ documents:
 
 -   The main [Outputs](outputs.qmd), including the files, folders, and
     other artifacts that will be produced by Sprout.
--   The [Python functions](python-functions.qmd) that form the core of
+-   The [Python functions](functions.qmd) that form the core of
     Sprout and its extensions.
