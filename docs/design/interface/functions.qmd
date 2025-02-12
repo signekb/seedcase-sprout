@@ -2,7 +2,16 @@
 title: "Functions and classes"
 callout-icon: false
 callout-appearance: "minimal"
+toc-depth: 2
 ---
+
+```{=html}
+<style>
+    h3 {
+        font-size: 1.1em;
+    }
+</style>
+```
 
 ::: {.callout-important appearance="default" icon="true"}
 We created this document mainly as a way to help us as a team all
@@ -51,14 +60,13 @@ and resource(s) in the package. This metadata is stored in the
 `datapackage.json` file and follows the Frictionless Data specification.
 
 ::: {.callout-important appearance="default" icon="true"}
-Functions shown in orange are not yet implemented while those in blue
-are implemented.
+Functions shown with a {{< var wip >}} icon are not yet implemented
+while those with a {{< var done >}} icon are implemented.
 :::
 
 ## Data package functions
 
-::: {.callout-warning collapse="true"}
-### `create_package_properties(properties, path)`
+### {{< var wip >}} `create_package_properties(properties, path)`
 
 This is the first function to use to create a new data package. It
 generates a template for the `datapackage.json` file where the user
@@ -66,58 +74,44 @@ needs to fill in required fields by providing the `properties` argument
 using the helper `PackageProperties` class. Outputs a full Properties
 object. Use `write_package_properties()` to store the properties to the
 `datapackage.json` file.
-:::
 
-::: {.callout-warning collapse="true"}
-### `build_readme_text(properties)`
+### {{< var wip >}} `build_readme_text(properties)`
 
 Using a template, this will build a README file with the contents of the
 properties object in a human-readable format. Outputs a text string. Use
 `write_text()` to save the text to the `README.md` file.
-:::
 
-::: {.callout-note collapse="true"}
-### `edit_package_properties(path, properties)`
+### {{< var done >}} `edit_package_properties(path, properties)`
 
 See the help documentation with `help(edit_package_properties())` for
 more details.
-:::
 
-::: {.callout-warning collapse="true"}
-### `delete_package(path, confirm)`
+### {{< var wip >}} `delete_package(path, confirm)`
 
 Completely delete a specific package and all it's data resources.
 Because this action would be permanent, the `confirm` argument would
 default to `false` so that the user needs to explicitly provide `true`
 to the function argument as confirmation. This is done to prevent
 accidental deletion. Outputs `true` if the deletion was successful.
-:::
 
-::: {.callout-note collapse="true"}
-### `write_package_properties(properties, path)`
+### {{< var done >}} `write_package_properties(properties, path)`
 
-See the help documentation with `help(write_package_properties)` for more
-details.
-:::
+See the help documentation with `help(write_package_properties)` for
+more details.
 
 ## Data resource functions
 
-::: {.callout-note collapse="true"}
-### `create_resource_structure(path)`
+### {{< var done >}}`create_resource_structure(path)`
 
-See the help documentation with `help(create_resource_structure)` for more
-details.
-:::
+See the help documentation with `help(create_resource_structure)` for
+more details.
 
-::: {.callout-note collapse="true"}
-### `create_resource_properties(path, properties)`
+### {{< var done >}} `create_resource_properties(path, properties)`
 
-see the help documentation with `help(create_resource_properties)` for more
-details.
-:::
+See the help documentation with `help(create_resource_properties)` for
+more details.
 
-::: {.callout-warning collapse="true"}
-### `write_resource_data_to_raw(data_path, resource_properties)`
+### {{< var wip >}} `write_resource_data_to_raw(data_path, resource_properties)`
 
 See the help documentation with `help(write_resource_data_to_raw)` for
 more details.
@@ -132,20 +126,16 @@ flowchart
     in_properties --> function
     function --> out
 ```
-:::
 
-::: {.callout-warning collapse="true"}
-### `write_resource_parquet(raw_files, path)`
+### {{< var wip >}} `write_resource_parquet(raw_files, path)`
 
 This function takes the files provided by `raw_files` and merges them
 into a `data.parquet` file provided by `path`. Use
 `path_resource_data()` to provide the correct path location for `path`
 and `path_resource_raw_files()` for the `raw_files` argument. Outputs
 the path object of the created file.
-:::
 
-::: {.callout-warning collapse="true"}
-### `edit_resource_properties(path, properties)`
+### {{< var wip >}} `edit_resource_properties(path, properties)`
 
 Edit the properties of a resource in a package. The `properties`
 argument must be a JSON object that follows the Frictionless Data
@@ -153,10 +143,8 @@ specification. Use the `path_properties()` function to provide the
 correct path location. Outputs a JSON object only; use
 `write_resource_properties()` to save the JSON object to the
 `datapackage.json` file.
-:::
 
-::: {.callout-warning collapse="true"}
-### `delete_resource_raw_file(path, confirm)`
+### {{< var wip >}} `delete_resource_raw_file(path, confirm)`
 
 Use this to delete a raw file in the `raw/` folder of a resource. This
 is useful if the file is no longer needed or if it is incorrect or had
@@ -166,10 +154,8 @@ list of files found. Will only delete one file. The `confirm` argument
 defaults to `false` so that the user needs to explicitly provide `true`
 to the function argument as confirmation. This is done to prevent
 accidental deletion. Outputs `true` if the deletion was successful.
-:::
 
-::: {.callout-warning collapse="true"}
-### `delete_resource_data(path, confirm)`
+### {{< var wip >}} `delete_resource_data(path, confirm)`
 
 Delete all data (Parquet) and raw data of a specific resource. Use
 `path_resource_raw()` to provide the correct path location. The
@@ -178,10 +164,8 @@ explicitly provide `true` to the function argument as confirmation. This
 is done to prevent accidental deletion. Outputs `true` if the deletion
 was successful. Use `delete_resource_properties()` to delete the the
 associated properties/metadata for the resource.
-:::
 
-::: {.callout-warning collapse="true"}
-### `delete_resource_properties(path, confirm)`
+### {{< var wip >}} `delete_resource_properties(path, confirm)`
 
 Deletes all properties for a resource within the `datapackage.json`
 file. Use `path_properties()` to provide the correct location for
@@ -189,21 +173,16 @@ file. Use `path_properties()` to provide the correct location for
 needs to explicitly provide `true` to the function argument as
 confirmation. This is done to prevent accidental deletion. Outputs
 `true` if the deletion was successful.
-:::
 
-::: {.callout-note collapse="true"}
-### `write_resource_properties(properties, path)`
+### {{< var done >}} `write_resource_properties(properties, path)`
 
-See the help documentation with `help(write_resource_properties)` for more
-details.
-:::
+See the help documentation with `help(write_resource_properties)` for
+more details.
 
-::: {.callout-note collapse="true"}
-### `extract_resource_properties(data_path)`
+### {{< var done >}} `extract_resource_properties(data_path)`
 
-See the help documentation with `help(extract_resource_properties)` for more
-details.
-:::
+See the help documentation with `help(extract_resource_properties)` for
+more details.
 
 ## Path functions
 
@@ -213,45 +192,33 @@ details.
 -   If the wrong `resource_id` is given, an error message will include a
     list of all the actual `resource_id`s for a specific package.
 
-::: {.callout-note collapse="true"}
-### `path_properties(path)`
+### {{< var done >}} `path_properties(path)`
 
 See the help documentation with `help(path_properties)` for more
 details.
-:::
 
-::: {.callout-note collapse="true"}
-### `path_resources()`
+### {{< var done >}} `path_resources()`
 
 See the help documentation with `help(path_resources)` for more details.
-:::
 
-::: {.callout-note collapse="true"}
-### `path_resource(resource_id)`
+### {{< var done >}} `path_resource(resource_id)`
 
 See the help documentation with `help(path_resource)` for more details.
-:::
 
-::: {.callout-note collapse="true"}
-### `path_resource_raw(resource_id)`
+### {{< var done >}} `path_resource_raw(resource_id)`
 
 See the help documentation with `help(path_resource_raw)` for more
 details.
-:::
 
-::: {.callout-note collapse="true"}
-### `path_resource_raw_files(package_id, resource_id)`
+### {{< var done >}} `path_resource_raw_files(package_id, resource_id)`
 
 See the help documentation with `help(path_resource_raw_files)` for more
 details.
-:::
 
-::: {.callout-note collapse="true"}
-### `path_resource_data(package_id, resource_id)`
+### {{< var done >}} `path_resource_data(package_id, resource_id)`
 
 See the help documentation with `help(path_resource_data)` for more
 details.
-:::
 
 ## Properties dataclasses
 
@@ -261,36 +228,28 @@ to allow us to pass structured properties objects between functions.
 They also enable users to create valid properties objects more easily
 and get an overview of optional and required class fields.
 
-::: {.callout-note collapse="true"}
-### `PackageProperties`
+### {{< var done >}} `PackageProperties`
 
 See the help documentation with `help(PackageProperties())` for more
 details on the properties.
-:::
 
 ## Properties functions
 
-::: {.callout-warning collapse="true"}
-### `read_properties(path)`
+### {{< var wip >}} `read_properties(path)`
 
 Reads the `datapackage.json` file, checks that is correct, and then
 outputs a `PackageProperties` object.
-:::
 
 ## Helper functions
 
-::: {.callout-warning collapse="true"}
-### `pretty_json(json)`
+### {{< var wip >}} `pretty_json(json)`
 
 Create a prettier, human readable version of a JSON object.
-:::
 
-::: {.callout-warning collapse="true"}
-### `write_text(text, path)`
+### {{< var wip >}} `write_text(text, path)`
 
 Writes a text string to a file at the given path. Outputs the path
 object of the created file.
-:::
 
 ## Observational unit functions
 
@@ -299,11 +258,9 @@ animal, event) that the data was collected on. An example would be: A
 person in a research study who came to the clinic in May 2024 to have
 their blood collected and to fill out a survey.
 
-::: {.callout-warning collapse="true"}
-### `delete_participant_data()`
+### {{< var wip >}} `delete_participant_data()`
 
 TODO.
-:::
 
 ## Multi-user environments
 
@@ -315,21 +272,15 @@ All the below `path_*()` functions use `path_sprout_global()` internally
 to get the global path as well as `package_id` and/or `resource_id` to
 complete the correct path for the specific package/resource.
 
-::: {.callout-note collapse="true"}
-### `path_packages()`
+### {{< var done >}} `path_packages()`
 
 See the help documentation with `help(path_packages)` for more details.
-:::
 
-::: {.callout-note collapse="true"}
-### `path_package(package_id)`
+### {{< var done >}} `path_package(package_id)`
 
 See the help documentation with `help(path_package)` for more details.
-:::
 
-::: {.callout-note collapse="true"}
-### `path_sprout_global()`
+### {{< var done >}} `path_sprout_global()`
 
 See the help documentation with `help(path_sprout_global)` for more
 details.
-:::
