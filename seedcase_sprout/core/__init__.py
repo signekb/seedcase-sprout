@@ -10,6 +10,7 @@ from .create_package_structure import create_package_structure
 from .create_resource_properties import create_resource_properties
 from .create_resource_structure import create_resource_structure
 from .edit_package_properties import edit_package_properties
+from .example_package_properties import example_package_properties
 
 # from .delete_resource_raw_file import *
 # from .delete_resource_data import *
@@ -68,6 +69,8 @@ __all__ = [
     "TableDialectProperties",
     "TableSchemaForeignKeyProperties",
     "TableSchemaProperties",
+    # Example properties -----
+    "example_package_properties",
     # Packages -----
     "create_package_structure",
     "edit_package_properties",
