@@ -1,3 +1,9 @@
+## 0.16.0 (2025-02-12)
+
+### Feat
+
+- :sparkles: add an `example_package_properties` object (#1044)
+
 ## 0.15.0 (2025-02-12)
 
 ### Feat
