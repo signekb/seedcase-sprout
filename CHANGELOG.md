@@ -1,3 +1,9 @@
+## 0.15.0 (2025-02-12)
+
+### Feat
+
+- :sparkles: add `get_nested_attr()` (#1039)
+
 ## 0.14.3 (2025-01-28)
 
 ### Refactor
