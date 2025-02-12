@@ -117,19 +117,21 @@ details.
 :::
 
 ::: {.callout-warning collapse="true"}
-### `write_resource_data_to_raw(path, data_path)`
+### `write_resource_data_to_raw(data_path, resource_properties)`
 
-Copy the file from `data_path` over into the resource location given by
-`path`. This will compress the file and use a timestamped, unique file
-name to store it as a backup. See the explanation of this file in the
-[Outputs](outputs.qmd) section. Use `path_resource_raw()` to provide the
-correct `path` location. Copies and compresses the file, and outputs the
-path object of the created file.
+See the help documentation with `help(write_resource_data_to_raw)` for
+more details.
 
-![Diagram showing the internal function flow of the
-`write_resource_data_to_raw()`
-function.](images/core/write-resource-data-to-raw.svg){#fig-write-resource-data-to-raw
-fig-alt="A Plant UML schematic of the detailed code flow within the `write_resource_data_to_raw()` function."}
+```{mermaid}
+flowchart
+    in_data_path[/data_path/]
+    in_properties[/resource_properties/]
+    function("write_resource_data_to_raw()")
+    out[("{path}/{timestamp}-{uuid}.{ext}.csv")]
+    in_data_path --> function
+    in_properties --> function
+    function --> out
+```
 :::
 
 ::: {.callout-warning collapse="true"}
