@@ -8,14 +8,6 @@ run-all: install-deps format-python check-python test-python check-commits build
 install-deps:
   poetry install
 
-# Generate SVG images from all PlantUML files
-generate-puml-all:
-  docker run --rm -v $(pwd):/puml -w /puml ghcr.io/plantuml/plantuml:latest -tsvg "**/*.puml"
-
-# Generate SVG image from specific PlantUML file
-generate-puml name:
-  docker run --rm -v  $(pwd):/puml -w /puml ghcr.io/plantuml/plantuml:latest -tsvg "**/{{name}}.puml"
-
 # Run the Python tests
 test-python:
   poetry run pytest
@@ -39,7 +31,11 @@ build-website:
 # Run checks on commits with non-main branches
 check-commits:
   #!/bin/zsh
-  if [[ $(git rev-parse --abbrev-ref HEAD) != "main" ]]
+  branch_name=$(git rev-parse --abbrev-ref HEAD)
+  number_of_commits=$(git rev-list --count HEAD ^$branch_name)
+  if [[ ${branch_name} != "main" && ${number_of_commits} -gt 0 ]]
   then
     poetry run cz check --rev-range main..HEAD
+  else
+    echo "Not on main or haven't committed yet."
   fi
