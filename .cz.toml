@@ -1,5 +1,5 @@
 [tool.commitizen]
-bump_message = "build(version): update version from $current_version to $new_version [skip ci]"
+bump_message = "build(version): :bookmark: update version from $current_version to $new_version [skip ci]"
 update_changelog_on_bump = true
 version_provider = "poetry"
 version_files = [
