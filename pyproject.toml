@@ -20,7 +20,6 @@ readme = "README.md"
 homepage = "https://sprout.seedcase-project.org"
 repository = "https://github.com/seedcase-project/seedcase-sprout"
 license = "MIT"
-packages = [{include = "seedcase_sprout"}]
 
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/seedcase-project/seedcase-sprout/issues"
@@ -51,3 +50,11 @@ quartodoc = "^0.9.0"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+addopts = [
+  # A short traceback mode to make it easier to view
+  "--tb=short",
+  # Use the `src/` package
+  "--import-mode=importlib",
+]
