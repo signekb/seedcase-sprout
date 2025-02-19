@@ -1,3 +1,9 @@
+## 0.17.0 (2025-02-19)
+
+### Feat
+
+- :sparkles: add Pandera checks on the data (#1050)
+
 ## 0.16.0 (2025-02-12)
 
 ### Feat
