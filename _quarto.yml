@@ -1,6 +1,7 @@
 project:
   type: seedcase-theme
-  pre-render: rm -rf docs/reference .storage
+  pre-render: rm -rf .storage
+  post-render: rm -rf docs/reference
   render:
     - "docs/*"
     - "index.qmd"
