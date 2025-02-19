@@ -101,7 +101,7 @@ more details.
 
 ## Data resource functions
 
-### {{< var done >}}`create_resource_structure(path)`
+### {{< var done >}} `create_resource_structure(path)`
 
 See the help documentation with `help(create_resource_structure)` for
 more details.
@@ -127,13 +127,21 @@ flowchart
     function --> out
 ```
 
-### {{< var wip >}} `write_resource_parquet(raw_files, path)`
+### {{< var wip >}} `build_resource_parquet(raw_files_path, resource_properties)`
 
-This function takes the files provided by `raw_files` and merges them
-into a `data.parquet` file provided by `path`. Use
-`path_resource_data()` to provide the correct path location for `path`
-and `path_resource_raw_files()` for the `raw_files` argument. Outputs
-the path object of the created file.
+See the help documentation with `help(build_resource_parquet)` for more
+details.
+
+```{mermaid}
+flowchart
+    in_raw_files_path[/raw_files_path/]
+    in_properties[/resource_properties/]
+    function("build_resource_parquet()")
+    out[("./resources/{id}/data.parquet")]
+    in_raw_files_path --> function
+    in_properties --> function
+    function --> out
+```
 
 ### {{< var wip >}} `edit_resource_properties(path, properties)`
 
