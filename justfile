@@ -6,7 +6,7 @@ run-all: install-deps format-python check-python test-python check-commits build
 
 # Install Python package dependencies
 install-deps:
-  poetry install
+  poetry sync
 
 # Run the Python tests
 test-python:
