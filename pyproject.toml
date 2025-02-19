@@ -32,6 +32,8 @@ requests = "^2.32.3"
 platformdirs = "^4.3.2"
 jsonschema = "^4.23.0"
 dacite = "^1.8.1"
+xmlschema = "^3.4.3"
+pandera = {extras = ["polars"], version = "^0.22.1"}
 
 [tool.poetry.group.test.dependencies]
 pytest = "^8.3.2"
