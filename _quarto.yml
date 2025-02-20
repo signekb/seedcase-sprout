@@ -129,11 +129,10 @@ quartodoc:
 metadata-files:
   - docs/reference/_sidebar.yml
 
-# format:
-#   seedcase-theme-html:
-    # include-before-body:
-      # - "includes/site-counter.html"
-      # - "includes/contribute.html"
+format:
+  seedcase-theme-html:
+    include-before-body:
+      - "docs/site-counter.html"
 
 editor:
   markdown:
