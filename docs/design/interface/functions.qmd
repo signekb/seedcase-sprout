@@ -27,23 +27,6 @@ are the core external-facing functions in Sprout. See the
 [Outputs](outputs.qmd) section for an overview and explanation of the
 different outputs provided by Sprout.
 
-There are some small differences between the naming scheme and the
-functions described here:
-
-1.  `edit` only ever edits the `datapackage.json` which contains the
-    properties/metadata of the package or resource(s) but never edits
-    the data itself. If there is a need for updates to the data itself,
-    the user can update it by uploading a new file with the updates (as
-    long as the primary keys like participant ID and time of collection
-    are the same). We don't provide access for users to directly edit
-    the data because we want to limit security risks as well as to
-    maintain privacy and legal compliance.
-2.  `add` only ever adds more data to an existing data resource and does
-    not add any new metadata to the `datapackage.json`. Since Sprout
-    contains the full Frictionless Data specification, using `edit` is
-    enough to make updates to the existing properties found in the
-    `datapackage.json` file.
-
 Nearly all functions have a `path` argument. Depending on what the
 function does, the path object will be different. Use the `path_*()`
 functions to get the correct path object for the specific function. It's
@@ -86,10 +69,21 @@ Using a template, this will build a README file with the contents of the
 properties object in a human-readable format. Outputs a text string. Use
 `write_text()` to save the text to the `README.md` file.
 
-### {{< var done >}} `edit_package_properties(path, properties)`
+### {{< var done >}} `update_package_properties(path, properties)`
 
-See the help documentation with `help(edit_package_properties())` for
+See the help documentation with `help(update_package_properties())` for
 more details.
+
+```{mermaid}
+flowchart
+    in_path[/path/]
+    in_properties[/properties/]
+    function("update_package_properties()")
+    out[("PackageProperties")]
+    in_path --> function
+    in_properties --> function
+    function --> out
+```
 
 ### {{< var wip >}} `delete_package(path, confirm)`
 
@@ -157,14 +151,25 @@ flowchart
     function --> out
 ```
 
-### {{< var wip >}} `edit_resource_properties(path, properties)`
+### {{< var wip >}} `update_resource_properties(path, resource_properties)`
 
 Edit the properties of a resource in a package. The `properties`
-argument must be a JSON object that follows the Frictionless Data
-specification. Use the `path_properties()` function to provide the
-correct path location. Outputs a JSON object only; use
-`write_resource_properties()` to save the JSON object to the
+argument must be a `ResourceProperties` object. Use the
+`path_properties()` function to provide the
+correct path location. Outputs a `ResourceProperties` object; use
+`write_resource_properties()` to save the properties object to the
 `datapackage.json` file.
+
+```{mermaid}
+flowchart
+    in_path[/path/]
+    in_properties[/resource_properties/]
+    function("update_resource_properties()")
+    out[("ResourceProperties")]
+    in_path --> function
+    in_properties --> function
+    function --> out
+```
 
 ### {{< var wip >}} `delete_resource_raw_file(path, confirm)`
 
