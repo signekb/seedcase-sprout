@@ -17,7 +17,6 @@ from seedcase_sprout.core.properties import (
     ReferenceProperties,
     ResourceProperties,
     SourceProperties,
-    TableDialectProperties,
     TableSchemaForeignKeyProperties,
     TableSchemaProperties,
 )
@@ -29,7 +28,6 @@ from seedcase_sprout.core.properties import (
         ContributorProperties,
         LicenseProperties,
         SourceProperties,
-        TableDialectProperties,
         ReferenceProperties,
         TableSchemaForeignKeyProperties,
         MissingValueProperties,
@@ -107,7 +105,6 @@ def test_creates_package_properties_with_correct_defaults(mock_uuid):
         ({"family_name": "Doe"}, ContributorProperties(family_name="Doe")),
         ({"name": "a licence"}, LicenseProperties(name="a licence")),
         ({"title": "a source"}, SourceProperties(title="a source")),
-        ({"header": True}, TableDialectProperties(header=True)),
         ({"resource": "a resource"}, ReferenceProperties(resource="a resource")),
         ({"fields": ["a field"]}, TableSchemaForeignKeyProperties(fields=["a field"])),
         ({"value": "NA"}, MissingValueProperties(value="NA")),

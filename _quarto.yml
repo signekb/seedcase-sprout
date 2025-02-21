@@ -108,7 +108,6 @@ quartodoc:
         - ReferenceProperties
         - ResourceProperties
         - SourceProperties
-        - TableDialectProperties
         - TableSchemaForeignKeyProperties
         - TableSchemaProperties
 

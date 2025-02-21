@@ -40,7 +40,6 @@ from .properties import (
     ReferenceProperties,
     ResourceProperties,
     SourceProperties,
-    TableDialectProperties,
     TableSchemaForeignKeyProperties,
     TableSchemaProperties,
 )
@@ -66,7 +65,6 @@ __all__ = [
     "ReferenceProperties",
     "ResourceProperties",
     "SourceProperties",
-    "TableDialectProperties",
     "TableSchemaForeignKeyProperties",
     "TableSchemaProperties",
     # Example properties -----

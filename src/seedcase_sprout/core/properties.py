@@ -176,101 +176,6 @@ class SourceProperties(Properties):
         return cls(title="", path="", email="", version="")
 
 
-# The `r"""` string is used to avoid escaping backslashes in the `null_sequence`
-# attribute.
-@dataclass
-class TableDialectProperties(Properties):
-    r"""Table dialect describes how tabular data is stored in a file.
-
-    It supports delimited text files like CSV, semi-structured formats like JSON
-    and YAML, and spreadsheets like Microsoft Excel.
-
-    Attributes:
-        header (bool | None): Specifies if the file includes a header row,
-            always as the first row in the file.
-        header_rows (list[int] | None): Specifies the row numbers for the header.
-        header_join (str | None): Specifies how multiline-header files have to join
-            the resulting header rows.
-        comment_rows (list[int] | None): Specifies what rows have to be omitted from the
-            data.
-        comment_char (str | None): Specifies that any row beginning with
-            this one-character string, without preceding whitespace, causes the
-            entire line to be ignored.
-        delimiter (str | None): A character sequence to use as the field separator.
-        line_terminator (str | None): Specifies the character sequence that
-            must be used to terminate rows.
-        quote_char (str | None): Specifies a character to use for quoting in
-            case the `delimiter` is used inside a data cell.
-        double_quote (bool | None): Controls the handling of `quote_char` inside
-            data cells. If true, two consecutive quotes are interpreted as one.
-        escape_char (str | None): Specifies a one-character string to use as
-            the escape character. Mutually exclusive with `quote_char`.
-        null_sequence (str | None): Specifies the null sequence, for example, `\N`.
-        skip_initial_space (bool | None): Specifies the interpretation of
-            whitespace immediately following a delimiter. If false, whitespace
-            immediately after a delimiter should be treated as part of the
-            subsequent field.
-        property (str | None): Specifies where a data array is located in the data
-            structure.
-        item_type (Literal['array', 'object'] | None): Specifies whether `property`
-            contains an array of arrays or an array of objects.
-        item_keys (list[str] | None): Specifies the keys for extracting rows from
-            data arrays where `item_type` is `object`.
-        sheet_number (int | None): Specifies the sheet number of a table in a
-            spreadsheet file.
-        sheet_name (str | None): Specifies the sheet name of a table in a spreadsheet
-            file.
-        table (str): Specifies the name of a table in a database.
-    """
-
-    header: bool | None = None
-    header_rows: list[int] | None = None
-    header_join: str | None = None
-    comment_rows: list[int] | None = None
-    comment_char: str | None = None
-    delimiter: str | None = None
-    line_terminator: str | None = None
-    quote_char: str | None = None
-    double_quote: bool | None = None
-    escape_char: str | None = None
-    null_sequence: str | None = None
-    skip_initial_space: bool | None = None
-    property: str | None = None
-    item_type: Literal["array", "object"] | None = None
-    item_keys: list[str] | None = None
-    sheet_number: int | None = None
-    sheet_name: str | None = None
-    table: str | None = None
-
-    @classmethod
-    def default(cls: type[Self]) -> Self:
-        """Creates a `TableDialectProperties` dataclass with default values.
-
-        Returns:
-            A `TableDialectProperties` dataclass with default values.
-        """
-        return cls(
-            header=True,
-            header_rows=[1],
-            header_join=" ",
-            comment_rows=[1],
-            comment_char="",
-            delimiter=",",
-            line_terminator="\r\n",
-            quote_char='"',
-            double_quote=True,
-            escape_char="",
-            null_sequence="",
-            skip_initial_space=False,
-            property="",
-            item_type="array",
-            item_keys=[],
-            sheet_number=1,
-            sheet_name="",
-            table="",
-        )
-
-
 @dataclass
 class ReferenceProperties(Properties):
     """The destination part of a foreign key.
@@ -354,7 +259,6 @@ FieldType = Literal[
     "boolean",
     "object",
     "array",
-    "list",
     "datetime",
     "date",
     "time",
@@ -581,8 +485,6 @@ class ResourceProperties(Properties):
         bytes (int | None): The size of this resource in bytes.
         hash (str | None): The MD5 hash of this resource. Indicate other
             hashing algorithms with the {algorithm}:{hash} format.
-        dialect (TableDialectProperties | None): The tabular dialect of the resource
-            data.
         schema (TableSchemaProperties | None): A table schema for the resource data,
             compliant with the table schema specification.
 
@@ -606,7 +508,6 @@ class ResourceProperties(Properties):
     encoding: str | None = None
     bytes: int | None = None
     hash: str | None = None
-    dialect: TableDialectProperties | None = None
     schema: TableSchemaProperties | None = None
 
     @classmethod
