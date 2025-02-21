@@ -1,3 +1,9 @@
+## 0.18.0 (2025-02-21)
+
+### Feat
+
+- ✨ add initial `extract_resource_properties()` (csv, tsv, and parquet files) (#1067)
+
 ## 0.17.0 (2025-02-19)
 
 ### Feat
