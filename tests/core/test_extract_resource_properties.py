@@ -39,6 +39,11 @@ tidy_data = pl.DataFrame(
             '"geometry": {"type": "Point", "coordinates": [104.0, 0.0]}, '
             '"properties": {"name": "value1"}}',
         ],
+        "object": [
+            '{"answer_q1": "No", "answer_q2": "Yes"}',
+            '{"answer_q1": "Yes", "answer_q2": "Yes"}',
+            '{"answer_q1": "No", "answer_q2": "No"}',
+        ],
     }
 )
 schema_tidy_data = {
@@ -59,6 +64,7 @@ schema_tidy_data = {
         {"name": "survey_geopoint", "type": "geopoint"},
         {"name": "survey_array", "type": "array"},
         {"name": "survey_geojson", "type": "geojson"},
+        {"name": "object", "type": "object"},
     ]
 }
 
@@ -92,6 +98,7 @@ non_tidy_data = pl.DataFrame(
             '"geometry": {"type": "Point", "coordinates": [104.0, 0.0]}, '
             '"properties": {"name": "value1"}}',
         ],
+        "object": ["{}", "", '{"answer_q1": "No"}'],
     },
     strict=False,
 )
@@ -114,6 +121,7 @@ schema_non_tidy_data = {
         {"name": "survey_geopoint", "type": "string"},
         {"name": "survey_array", "type": "array"},
         {"name": "survey_geojson", "type": "string"},
+        {"name": "object", "type": "object"},
     ]
 }
 
