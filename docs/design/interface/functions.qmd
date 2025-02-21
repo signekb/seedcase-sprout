@@ -56,18 +56,34 @@ Firefox. To see them, try using a different browser like Chrome or Edge.
 
 ### {{< var wip >}} `create_package_properties(properties, path)`
 
-This is the first function to use to create a new data package. It
-generates a template for the `datapackage.json` file where the user
-needs to fill in required fields by providing the `properties` argument
-using the helper `PackageProperties` class. Outputs a full Properties
-object. Use `write_package_properties()` to store the properties to the
-`datapackage.json` file.
+See the help documentation with `help(create_package_properties)` for
+more details.
+
+```{mermaid}
+flowchart
+    in_properties[/properties/]
+    in_path[/path/]
+    function("create_package_properties()")
+    out[("{path}/datapackage.json")]
+    in_properties --> function
+    in_path --> function
+    function --> out
+```
 
 ### {{< var wip >}} `build_readme_text(properties)`
 
 Using a template, this will build a README file with the contents of the
 properties object in a human-readable format. Outputs a text string. Use
 `write_text()` to save the text to the `README.md` file.
+
+```{mermaid}
+flowchart
+    in_properties[/properties/]
+    function("build_readme_text()")
+    out[("str")]
+    in_properties --> function
+    function --> out
+```
 
 ### {{< var done >}} `update_package_properties(path, properties)`
 
@@ -114,10 +130,21 @@ flowchart
     function --> out
 ```
 
-### {{< var done >}} `create_resource_properties(path, properties)`
+### {{< var done >}} `create_resource_properties(resource_properties, path)`
 
 See the help documentation with `help(create_resource_properties)` for
 more details.
+
+```{mermaid}
+flowchart
+    in_properties[/resource_properties/]
+    in_path[/path/]
+    function("create_resource_properties()")
+    out[("{path}/datapackage.json")]
+    in_properties --> function
+    in_path --> function
+    function --> out
+```
 
 ### {{< var wip >}} `write_resource_data_to_raw(data_path, resource_properties)`
 
@@ -192,7 +219,7 @@ is done to prevent accidental deletion. Outputs `true` if the deletion
 was successful. Use `delete_resource_properties()` to delete the the
 associated properties/metadata for the resource.
 
-### {{< var wip >}} `delete_resource_properties(path, confirm)`
+### {{< var wip >}} `delete_resource_properties(path, resource_id, confirm)`
 
 Deletes all properties for a resource within the `datapackage.json`
 file. Use `path_properties()` to provide the correct location for
@@ -201,15 +228,35 @@ needs to explicitly provide `true` to the function argument as
 confirmation. This is done to prevent accidental deletion. Outputs
 `true` if the deletion was successful.
 
-### {{< var done >}} `write_resource_properties(properties, path)`
+### {{< var done >}} `write_resource_properties(resource_properties, path)`
 
 See the help documentation with `help(write_resource_properties)` for
 more details.
+
+```{mermaid}
+flowchart
+    in_properties[/resource_properties/]
+    in_path[/path/]
+    function("write_resource_properties()")
+    out[("{path}/datapackage.json")]
+    in_properties --> function
+    in_path --> function
+    function --> out
+```
 
 ### {{< var done >}} `extract_resource_properties(data_path)`
 
 See the help documentation with `help(extract_resource_properties)` for
 more details.
+
+```{mermaid}
+flowchart
+    in_data_path[/data_path/]
+    function("extract_resource_properties()")
+    out[("ResourceProperties")]
+    in_data_path --> function
+    function --> out
+```
 
 ## Path functions
 
