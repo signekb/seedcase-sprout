@@ -106,10 +106,19 @@ more details.
 
 ## Data resource functions
 
-### {{< var done >}} `create_resource_structure(path)`
+### {{< var done >}} `create_resource_dirs(path)`
 
-See the help documentation with `help(create_resource_structure)` for
+See the help documentation with `help(create_resource_dirs)` for
 more details.
+
+```{mermaid}
+flowchart
+    in_path[/path/]
+    function("create_resource_dirs()")
+    out[("{path}/resources/{id}/<br>{path}/resources/{id}/raw/")]
+    in_path --> function
+    function --> out
+```
 
 ### {{< var done >}} `create_resource_properties(path, properties)`
 
