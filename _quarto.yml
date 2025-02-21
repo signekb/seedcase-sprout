@@ -64,6 +64,7 @@ website:
           contents:
             - docs/guide/installation.qmd
             - docs/guide/packages.qmd
+            - docs/guide/checks.qmd
 
 quartodoc:
   sidebar: "docs/reference/_sidebar.yml"
