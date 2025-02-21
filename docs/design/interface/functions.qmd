@@ -64,6 +64,11 @@ Functions shown with a {{< var wip >}} icon are not yet implemented
 while those with a {{< var done >}} icon are implemented.
 :::
 
+::: callout-caution
+For some reason, the diagrams below don't display well on some browsers like
+Firefox. To see them, try using a different browser like Chrome or Edge.
+:::
+
 ## Data package functions
 
 ### {{< var wip >}} `create_package_properties(properties, path)`
