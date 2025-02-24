@@ -1,3 +1,9 @@
+## 0.19.0 (2025-02-24)
+
+### Feat
+
+- :sparkles: add conversion from resource properties to Pandera schema (#1051)
+
 ## 0.18.2 (2025-02-24)
 
 ### Refactor
