@@ -1,5 +1,6 @@
 import polars as pl
 from pytest import mark
+from xlwt import Workbook
 
 from seedcase_sprout.core.extract_resource_properties import extract_resource_properties
 
@@ -213,6 +214,78 @@ def test_returns_expected_resource_properties_from_parquet_file(
         "type": "table",
         "format": f"{extension}",
         "mediatype": "application/parquet",
+        "schema": expected_schema,
+    }
+    # When
+    properties = extract_resource_properties(file_path)
+
+    # Then
+    assert properties.compact_dict == expected_properties_compact_dict
+
+
+@mark.parametrize(
+    "data, expected_schema",
+    [
+        (empty_data, schema_empty_data),
+        (tidy_data, schema_tidy_data),
+        (non_tidy_data, schema_non_tidy_data),
+    ],
+)
+def test_returns_expected_resource_properties_from_xlsx_file(
+    tmp_path, data, expected_schema
+):
+    """Returns expected resource properties from an xlsx file."""
+    # Given
+    file_path = tmp_path / "data.xlsx"
+    data.write_excel(file_path)
+
+    expected_properties_compact_dict = {
+        "name": "data",
+        "path": str(file_path),
+        "type": "table",
+        "format": "xlsx",
+        "mediatype": "application/vnd.ms-excel",
+        "encoding": "utf-8",
+        "schema": expected_schema,
+    }
+    # When
+    properties = extract_resource_properties(file_path)
+
+    # Then
+    assert properties.compact_dict == expected_properties_compact_dict
+
+
+@mark.parametrize(
+    "data, expected_schema",
+    [
+        (empty_data, schema_empty_data),
+        (tidy_data, schema_tidy_data),
+        (non_tidy_data, schema_non_tidy_data),
+    ],
+)
+def test_returns_expected_resource_properties_from_xls_file(
+    tmp_path, data, expected_schema
+):
+    """Returns expected resource properties from an xls file."""
+    # Given
+    file_path = tmp_path / "data.xls"
+
+    wb = Workbook()
+    ws = wb.add_sheet("sheet1")
+    for i, header in enumerate(data.columns):
+        ws.write(0, i, header)
+    for i, row in enumerate(data.rows()):
+        for j, cell in enumerate(row):
+            ws.write(i + 1, j, cell)
+    wb.save(tmp_path / "data.xls")
+
+    expected_properties_compact_dict = {
+        "name": "data",
+        "path": str(file_path),
+        "type": "table",
+        "format": "xls",
+        "mediatype": "application/vnd.ms-excel",
+        "encoding": "utf-8",
         "schema": expected_schema,
     }
     # When
