@@ -1,3 +1,9 @@
+## 0.18.1 (2025-02-24)
+
+### Refactor
+
+- :recycle: convert `example_package_properties` to function (#1046)
+
 ## 0.18.0 (2025-02-21)
 
 ### Feat
