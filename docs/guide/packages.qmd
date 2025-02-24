@@ -38,27 +38,21 @@ os.environ["SPROUT_GLOBAL"] = ".storage/"
 pathlib.Path(".storage").mkdir(exist_ok=True)
 ```
 
-Afterwards, you can create the structure for your first data package by
-using:
+Now we can make our first data package. A data package always needs a
+`datapackage.json` file, which is a file that contains a set of
+properties, or metadata, about the data package and later about the data
+resources within. To set up this `datapackage.json` file as well as the
+new package folder, we start with the `create_package_properties()`
+function. This function takes the properties you want to add to the data
+package and the path where you want to store the data package as
+arguments. So first, we need to establish our properties.
 
-```{python}
-package_paths = sp.create_package_structure(path=sp.path_packages())
-pprint(package_paths)
-```
-
-This creates the initial structure of your new package with the ID `1`.
-The output above shows that the folder of your data package `1` has been
-created. This folder consists of two files: `datapackage.json` and
-`README.md`. The `datapackage.json` file initially contains fields with
-some default values in them, but it will eventually contain the
-metadata, a.k.a. the `properties`, of your data package. `README.md` is
-a prettified, human-readable version of the content of the
-`datapackage.json`.
-
-While you *can* manually fill in the details in the `datapackage.json`
-file, we have several helper classes, such as `PackageProperties`,
+We have several helper classes, such as `PackageProperties`,
 `LicenseProperties`, and `ContributorProperties`, to make it easier for
-you.
+you to make properties with the correct fields filled in. See the guide
+on [properties](/docs/guide/properties.qmd) for more information about
+these classes. Let's create a new data package with some basic
+properties:
 
 ```{python}
 properties = sp.PackageProperties(
@@ -84,15 +78,44 @@ properties = sp.PackageProperties(
 pprint(properties)
 ```
 
-Now, to update the current `datapackage.json` file with these
-properties, you can use the `edit_package_properties()` function:
+Now, let's create our data package with these properties:
 
 ```{python}
-package_properties = sp.edit_package_properties(
-  path=sp.path_properties(package_id=1),
-  properties=properties,
+# Create the path to the package
+package_path = sp.path_sprout_global() / "diabetes-study"
+package_path.mkdir()
+package_path = sp.create_package_properties(
+    properties = properties,
+    path=sp.path_sprout_global() / "diabetes-study"
 )
-pprint(package_properties)
+pprint(package_path)
+```
+
+::: callout-important
+The `create_package_properties()` function will give an error if the
+required fields are not filled in correctly from the `PackageProperties`
+object and will not create the `datapackage.json` file.
+:::
+
+This creates the initial structure of your new package. The output above
+shows that the folder of your data package `diabetes-study` has been
+created. This folder contains one file so far: `datapackage.json`. The
+`datapackage.json` file contains the fields we wrote from above.
+
+<!-- TODO: Add section on building the README -->
+
+## Editing package properties
+
+If we made a mistake and want to update the properties in the current
+`datapackage.json`, you can use the `edit_package_properties()`
+function:
+
+```{python}
+updated_package_properties = sp.edit_package_properties(
+  path=package_path,
+  properties=sp.PackageProperties(name="diabetes-study"),
+)
+pprint(updated_package_properties)
 ```
 
 ::: callout-important
@@ -101,12 +124,14 @@ required fields are not filled in to create a valid `datapackage.json`
 file.
 :::
 
-To save the package properties to the `datapackage.json` file, run:
+This function only takes the properties and updates them, but does not
+save it back to the `datapackage.json` file. To save it back to the
+file, run:
 
-``` {python}
+```{python}
 package_path = sp.write_package_properties(
-  properties=package_properties,
-  path=sp.path_properties(package_id=1)
+  properties=updated_package_properties,
+  path=package_path
 )
 pprint(package_path)
 ```

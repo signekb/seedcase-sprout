@@ -85,7 +85,7 @@ quartodoc:
       desc: "Functions to work with and manage data packages, but not the data resources within them."
       package: "seedcase_sprout.core"
       contents:
-        - create_package_structure
+        - create_package_properties
         - edit_package_properties
 
     - subtitle: "Data resource functions"

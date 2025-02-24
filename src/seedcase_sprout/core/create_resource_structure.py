@@ -46,8 +46,9 @@ def create_resource_structure(path: Path) -> list[Path]:
             path=temp_path
         )
 
+         # TODO: Update after converting to "local-first"
          # Create a resource structure
-         sp.create_resource_structure(path=temp_path / "1" / "resources")
+         # sp.create_resource_structure(path=temp_path / "1" / "resources")
       ```
     """
     check_is_dir(path)

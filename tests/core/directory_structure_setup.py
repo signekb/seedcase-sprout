@@ -13,7 +13,7 @@ def create_test_package_structure(global_path: Path, package_id: int) -> Path:
     Returns:
         Path of package.
     """
-    # TODO: Use `create_package_structure()` function here when has been implemented.
+    # TODO: Use `create_package_properties()` function here when has been implemented.
     path_package = global_path / "packages" / str(package_id)
     path_package.mkdir(parents=True)
     (path_package / "datapackage.json").touch()

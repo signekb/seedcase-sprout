@@ -3,10 +3,9 @@
 # the package is imported via `from sprout.core import *`.
 
 # Packages -----
-from .create_package_structure import create_package_structure
-
 # from .delete_package import *
 # Resources -----
+from .create_package_properties import create_package_properties
 from .create_resource_properties import create_resource_properties
 from .create_resource_structure import create_resource_structure
 from .edit_package_properties import edit_package_properties
@@ -73,7 +72,7 @@ __all__ = [
     # Example properties -----
     "example_package_properties",
     # Packages -----
-    "create_package_structure",
+    "create_package_properties",
     "edit_package_properties",
     "write_package_properties",
     # "delete_package",

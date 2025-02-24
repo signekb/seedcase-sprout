@@ -53,9 +53,9 @@ def write_resource_properties(
             properties=sp.example_package_properties(),
             path=temp_dir
         )
-        sp.create_resource_structure(path=temp_dir / "1" / "resources")
 
         # TODO: Write package properties that passes checks
+        # sp.create_resource_structure(path=temp_dir / "1" / "resources")
         # Write package properties
         # sp.write_package_properties(
         #     path=temp_dir / "1" / "datapackage.json",
