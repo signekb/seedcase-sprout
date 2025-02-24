@@ -162,17 +162,17 @@ flowchart
     function --> out
 ```
 
-### {{< var wip >}} `build_resource_parquet(raw_files_path, resource_properties)`
+### {{< var wip >}} `build_resource_data(raw_files_path, resource_properties)`
 
-See the help documentation with `help(build_resource_parquet)` for more
+See the help documentation with `help(build_resource_data)` for more
 details.
 
 ```{mermaid}
 flowchart
     in_raw_files_path[/raw_files_path/]
     in_properties[/resource_properties/]
-    function("build_resource_parquet()")
-    out[("./resources/{id}/data.parquet")]
+    function("build_resource_data()")
+    out[("Polars<br>DataFrame")]
     in_raw_files_path --> function
     in_properties --> function
     function --> out
