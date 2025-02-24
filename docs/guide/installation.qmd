@@ -13,63 +13,60 @@ to use the Terminal.
 Before installing Sprout in either a virtual environment or system-wide,
 you need the following:
 
--   [Python](https://www.python.org/downloads/) version \>=3.12
--   [pipx](https://pipx.pypa.io/latest/installation/) version \>=1.7.1
+-   [Python](https://www.python.org/downloads/)
+-   [pipx](https://pipx.pypa.io/latest/installation/)
 
 To check that you've installed these programs, run these commands in the
 Terminal to check their versions:
 
-``` bash
+``` {.bash filename="Terminal"}
 python3 --version
 pipx --version
 ```
 
 ## Use in a project in a virtual environment
 
-To install into a project, you can use any package dependency manager.
-For this guide, we will use Poetry:
+Python packages are generally recommended to be installed in a virtual
+environment. This is a way to isolate the packages you install for a
+specific project from the global system. There are several tools to
+manage package dependencies and create virtual environments, such as
+`venv`, `virtualenv`, and `poetry`. For this guide, we will use
+[Poetry](https://python-poetry.org/docs/main/#installing-with-pipx),
+with at least version \>=2.0.
 
--   [Poetry](https://python-poetry.org/docs/main/#installing-with-pipx)
-    version \>=1.8
+You can check that you've installed these programs by running this
+command in your Terminal:
 
-To check that you've installed these programs, run these commands in the
-Terminal to check their versions:
-
-``` bash
+``` {.bash filename="Terminal"}
 poetry --version
 ```
 
-### Creating a virtual environment
+If you don't have Poetry installed, you can install it using `pipx`:
 
-Python packages are generally recommended to be installed in a virtual
-environment. This is a way to isolate the packages you install for a
-specific project from the global system. To make this virtual
-environment, we need to create it with Poetry in any folder on the
-computer. A good location might be in your Documents folder or Desktop.
-For now, we will create it on the desktop:
-
-``` bash
-cd Desktop
-poetry new use-sprout
-cd use-sprout
+``` {.bash filename="Terminal"}
+pipx install poetry
 ```
 
-You're now ready to install Sprout!
+::: callout-important
+We assume you've already created a Python project using `poetry new` and
+your working directory in the Terminal is the project folder, which you
+can determine with the `pwd` command. If you haven't made a Python
+project using Poetry, follow the instructions on
+[Poetry's](https://python-poetry.org/docs/) website.
+:::
 
-### Install Sprout
-
-We can install Sprout directly from the [GitHub
+You can now install Sprout directly from the [GitHub
 repository](https://github.com/seedcase-project/seedcase-sprout) by
 running the following command:
 
-``` bash
-poetry add "git+https://github.com/seedcase-project/seedcase-sprout.git"
+``` {.bash filename="Terminal"}
+poetry add git+https://github.com/seedcase-project/seedcase-sprout.git
 ```
 
-To check that Sprout has been installed correctly, run the following
+You can check that Sprout has been installed correctly by running the following
 command in your terminal:
 
-``` bash
+``` {.bash filename="Terminal"}
 poetry show seedcase_sprout
 ```
 
@@ -80,17 +77,19 @@ Get started with your first data package by following the guide on
 
 ## Use anywhere on the computer or in the Terminal
 
-Rather than installing Sprout in a virtual environment, you can install
-it system-wide. This means you can use Sprout from any folder on your
-computer or in the Terminal. The easiest way to do this is to use pipx.
+While we *strongly* recommend using Sprout in a virtual environment of a
+specific Python project folder, there are some situations where you
+might want to install Sprout system-wide. This will allow you to use
+Sprout from any folder on your computer or in the Terminal. The easiest
+way to do this is to use pipx.
 
-``` bash
+``` {.bash filename="Terminal"}
 pipx install git+https://github.com/seedcase-project/seedcase-sprout.git
 ```
 
 To check that Sprout has been installed correctly, run the following:
 
-``` bash
+``` {.bash filename="Terminal"}
 pipx show seedcase_sprout
 ```
 
