@@ -178,6 +178,22 @@ flowchart
     function --> out
 ```
 
+### {{< var wip >}} `write_resource_parquet(data, resource_properties)`
+
+See the help documentation with `help(write_parquet)` for more
+details.
+
+```{mermaid}
+flowchart
+    in_data[/data/]
+    in_properties[/resource_properties/]
+    function("write_resource_parquet()")
+    out[("./resources/{id}/data.parquet")]
+    in_data --> function
+    in_properties --> function
+    function --> out
+```
+
 ### {{< var wip >}} `update_resource_properties(path, resource_properties)`
 
 Edit the properties of a resource in a package. The `properties`
