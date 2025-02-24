@@ -62,7 +62,10 @@ def edit_package_properties(
             temp_path = Path(temp_dir)
 
             # Create a package structure first
-            sp.create_package_structure(path=temp_path)
+            sp.create_package_properties(
+                properties=sp.example_package_properties(),
+                path=temp_path
+            )
 
             # Edit package properties
             sp.edit_package_properties(

@@ -34,7 +34,10 @@ def path_resource(package_id: int, resource_id: int) -> Path:
             os.environ["SPROUT_GLOBAL"] = temp_dir
 
             # Create a package and resource structure first
-            sp.create_package_structure(path=sp.path_packages())
+            sp.create_package_properties(
+                properties=sp.example_package_properties(),
+                path=sp.path_packages()
+            )
             sp.create_resource_structure(path=sp.path_resources(package_id=1))
 
             # Get the path to the resource
@@ -67,7 +70,10 @@ def path_resource_data(package_id: int, resource_id: int) -> Path:
             os.environ["SPROUT_GLOBAL"] = temp_dir
 
             # Create a package and resource structure first
-            sp.create_package_structure(path=sp.path_packages())
+            sp.create_package_properties(
+                properties=sp.example_package_properties(),
+                path=sp.path_packages()
+            )
             sp.create_resource_structure(path=sp.path_resources(package_id=1))
 
             # TODO: Add data to resource
@@ -110,7 +116,10 @@ def path_resource_raw(package_id: int, resource_id: int) -> Path:
             os.environ["SPROUT_GLOBAL"] = temp_dir
 
             # Create a package and resource structure first
-            sp.create_package_structure(path=sp.path_packages())
+            sp.create_package_properties(
+                properties=sp.example_package_properties(),
+                path=sp.path_packages()
+            )
             sp.create_resource_structure(path=sp.path_resources(package_id=1))
 
             # Get the path to the resource's raw folder
@@ -147,7 +156,10 @@ def path_resource_raw_files(package_id: int, resource_id: int) -> list[Path]:
             os.environ["SPROUT_GLOBAL"] = temp_dir
 
             # Create a package and resource structure first
-            sp.create_package_structure(path=sp.path_packages())
+            sp.create_package_properties(
+                properties=sp.example_package_properties(),
+                path=sp.path_packages()
+            )
             sp.create_resource_structure(path=sp.path_resources(package_id=1))
 
             # TODO: Add data/raw files to resource
@@ -183,7 +195,10 @@ def path_resources(package_id: int) -> Path:
             os.environ["SPROUT_GLOBAL"] = temp_dir
 
             # Create a package structure first
-            sp.create_package_structure(path=sp.path_packages())
+            sp.create_package_properties(
+                properties=sp.example_package_properties(),
+                path=sp.path_packages()
+            )
 
             # Get the path to the resource's raw files
             sp.path_resources(package_id=1)

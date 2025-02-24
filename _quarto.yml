@@ -126,6 +126,12 @@ quartodoc:
         - path_resources
         - path_sprout_global
 
+    - subtitle: "Helper functions"
+      desc: "Functions to support working with data packages and running code within Sprout Core."
+      package: "seedcase_sprout.core"
+      contents:
+        - example_package_properties
+
 metadata-files:
   - docs/reference/_sidebar.yml
 

@@ -49,7 +49,10 @@ def write_resource_properties(
         temp_dir.mkdir()
 
         # Create package and resource structure first
-        sp.create_package_structure(path=temp_dir)
+        sp.create_package_properties(
+            properties=sp.example_package_properties(),
+            path=temp_dir
+        )
         sp.create_resource_structure(path=temp_dir / "1" / "resources")
 
         # TODO: Write package properties that passes checks

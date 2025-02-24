@@ -48,7 +48,10 @@ def create_resource_properties(
             temp_path = Path(temp_dir)
 
             # Create a package and resource structure first
-            sp.create_package_structure(path=temp_path)
+            sp.create_package_properties(
+                properties=sp.example_package_properties(),
+                path=temp_path
+            )
             sp.create_resource_structure(path=temp_path / "1" / "resources")
 
             # Create resource properties
