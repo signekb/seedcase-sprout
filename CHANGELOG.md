@@ -1,3 +1,9 @@
+## 0.18.2 (2025-02-24)
+
+### Refactor
+
+- :recycle: switch `create_package_structure()` to make properties only (#1047)
+
 ## 0.18.1 (2025-02-24)
 
 ### Refactor
