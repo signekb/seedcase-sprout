@@ -1,3 +1,9 @@
+## 0.20.0 (2025-02-26)
+
+### Feat
+
+- ✨ extract resource properties from `.json`, `.ndjson`, and `.jsonl` files (#1085)
+
 ## 0.19.0 (2025-02-24)
 
 ### Feat
