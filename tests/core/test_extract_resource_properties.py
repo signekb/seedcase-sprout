@@ -293,3 +293,66 @@ def test_returns_expected_resource_properties_from_xls_file(
 
     # Then
     assert properties.compact_dict == expected_properties_compact_dict
+
+
+@mark.parametrize(
+    "data, expected_schema",
+    [  # No empty data since that isn't valid json
+        (tidy_data, schema_tidy_data),
+        (non_tidy_data, schema_non_tidy_data),
+    ],
+)
+def test_returns_expected_resource_properties_from_json_file(
+    tmp_path, data, expected_schema
+):
+    """Returns expected resource properties from json files."""
+    # Given
+    file_path = tmp_path / "data.json"
+    data.write_json(file_path)
+
+    expected_properties_compact_dict = {
+        "name": "data",
+        "path": str(file_path),
+        "type": "table",
+        "format": "json",
+        "mediatype": "text/json",
+        "encoding": "utf-8",
+        "schema": expected_schema,
+    }
+    # When
+    properties = extract_resource_properties(file_path)
+
+    # Then
+    assert properties.compact_dict == expected_properties_compact_dict
+
+
+@mark.parametrize("extension", {"jsonl", "ndjson"})
+@mark.parametrize(
+    "data, expected_schema",
+    [  # No empty data since that isn't valid jsonl/ndjson
+        (tidy_data, schema_tidy_data),
+        (non_tidy_data, schema_non_tidy_data),
+    ],
+)
+def test_returns_expected_resource_properties_from_newline_delimited_json_file(
+    tmp_path, extension, data, expected_schema
+):
+    """Returns expected resource properties from a newline delimited json files."""
+    # Given
+    file_path = tmp_path / f"data.{extension}"
+    data.write_ndjson(file_path)
+
+    expected_properties_compact_dict = {
+        "name": "data",
+        "path": str(file_path),
+        "type": "table",
+        "format": f"{extension}",
+        "mediatype": f"text/{extension}",
+        "encoding": "utf-8",
+        "schema": expected_schema,
+    }
+    # When
+    properties = extract_resource_properties(file_path)
+
+    # Then
+    assert properties.compact_dict == expected_properties_compact_dict

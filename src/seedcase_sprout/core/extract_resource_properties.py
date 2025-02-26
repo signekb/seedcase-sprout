@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from frictionless import describe
+from frictionless.resources import JsonResource
 
 from seedcase_sprout.core.check_is_file import check_is_file
 from seedcase_sprout.core.check_is_supported_format import check_is_supported_format
@@ -31,6 +32,15 @@ def extract_resource_properties(data_path: Path) -> ResourceProperties:
     properties = describe(data_path).to_dict()
 
     properties.pop("dialect", None)
+
+    if properties["format"] == "json":
+        # Frictionless sets type to "json", but only "table" is accepted by
+        # ResourceProperties, so we'll change the value here.
+        properties["type"] = "table"
+
+        properties["schema"] = describe(
+            JsonResource(data_path).read_data(), type="schema"
+        ).to_dict()
 
     check_resource_properties(properties)
     return ResourceProperties.from_dict(properties)
