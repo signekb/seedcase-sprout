@@ -8,9 +8,6 @@ SUPPORTED_FORMATS = [
     "json",
     "jsonl",
     "ndjson",
-    "geojson",
-    "topojson",
-    "ods",
     "parq",
     "parquet",
 ]
