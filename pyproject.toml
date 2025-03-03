@@ -41,7 +41,7 @@ time-machine = "^2.15.0"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.9.0"
-datamodel-code-generator = {extras = ["http"], version = "^0.26.0"}
+datamodel-code-generator = {extras = ["http"], version = "^0.28.2"}
 commitizen = "^4.0.0"
 pre-commit = "^4.0.1"
 
