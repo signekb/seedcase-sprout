@@ -6,6 +6,7 @@ from seedcase_sprout.core import (
     path_package,
     path_packages,
     path_properties,
+    path_readme,
 )
 from tests.core.directory_structure_setup import (
     create_test_package_structure,
@@ -27,6 +28,7 @@ def tmp_sprout_global(monkeypatch, tmp_path):
     [
         (path_package, "packages/1"),
         (path_properties, "packages/1/datapackage.json"),
+        (path_readme, "packages/1/README.md"),
     ],
 )
 def test_path_package_functions_return_expected_path(
@@ -39,7 +41,7 @@ def test_path_package_functions_return_expected_path(
 
 @mark.parametrize(
     "function",
-    [path_package, path_properties],
+    [path_package, path_properties, path_readme],
 )
 def test_path_package_functions_raise_error_if_package_id_does_not_exist(
     tmp_sprout_global, function
