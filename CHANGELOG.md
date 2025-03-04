@@ -1,3 +1,9 @@
+## 0.20.1 (2025-03-04)
+
+### Refactor
+
+- 🚚 rename `create_readme_text()` to `build_readme_text()` (#1099)
+
 ## 0.20.0 (2025-02-26)
 
 ### Feat
