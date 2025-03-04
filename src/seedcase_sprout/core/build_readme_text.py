@@ -12,7 +12,7 @@ from seedcase_sprout.core.properties import (
 TEMPLATES_PATH: Path = files("seedcase_sprout.core").joinpath("templates")
 
 
-def create_readme_text(properties: PackageProperties) -> str:
+def build_readme_text(properties: PackageProperties) -> str:
     """Creates a string containing the README text.
 
     Args:
