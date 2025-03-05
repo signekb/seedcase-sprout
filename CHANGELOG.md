@@ -1,3 +1,9 @@
+## 0.21.1 (2025-03-05)
+
+### Fix
+
+- :bug: only remove qmd files in reference post render to fix md formatting issues (#1107)
+
 ## 0.21.0 (2025-03-04)
 
 ### Feat
