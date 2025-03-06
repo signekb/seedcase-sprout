@@ -1,3 +1,9 @@
+## 0.22.0 (2025-03-06)
+
+### Feat
+
+- :sparkles: add mapping from Frictionless data types to Polars data types (#1106)
+
 ## 0.21.1 (2025-03-05)
 
 ### Fix
