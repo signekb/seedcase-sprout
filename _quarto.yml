@@ -87,6 +87,7 @@ quartodoc:
       contents:
         - create_package_properties
         - edit_package_properties
+        - build_readme_text
 
     - subtitle: "Data resource functions"
       desc: "Functions to work with and manage data resources found within a data package."
@@ -131,6 +132,7 @@ quartodoc:
       package: "seedcase_sprout.core"
       contents:
         - example_package_properties
+        - write_file
 
 metadata-files:
   - docs/reference/_sidebar.yml

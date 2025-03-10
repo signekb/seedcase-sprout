@@ -15,11 +15,15 @@ TEMPLATES_PATH: Path = files("seedcase_sprout.core").joinpath("templates")
 def build_readme_text(properties: PackageProperties) -> str:
     """Creates a string containing the README text.
 
+    Using a template, this will build a README file with the contents of the
+    properties object in a human-readable format. Use `write_file()` to save
+    the text to the `README.md` file.
+
     Args:
-      properties: An object containing the package and resource properties.
+        properties: An object containing the package and resource properties.
 
     Returns:
-      A string with the README text based on the properties.
+        A string with the README text based on the properties.
     """
     env = Environment(loader=FileSystemLoader(TEMPLATES_PATH))
     env.filters["join_names"] = join_names

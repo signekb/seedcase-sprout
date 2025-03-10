@@ -5,16 +5,17 @@
 # Packages -----
 # from .delete_package import *
 # Resources -----
+# from .delete_resource_raw_file import *
+# from .delete_resource_data import *
+# from .delete_resource_properties import *
+
+from .build_readme_text import build_readme_text
 from .create_package_properties import create_package_properties
 from .create_resource_properties import create_resource_properties
 from .create_resource_structure import create_resource_structure
 from .edit_package_properties import edit_package_properties
 from .example_package_properties import example_package_properties
 
-# from .delete_resource_raw_file import *
-# from .delete_resource_data import *
-# from .delete_resource_properties import *
-# Path -----
 # TODO: Consider having all these in one module.
 from .path_package_functions import (
     path_package,
@@ -46,6 +47,7 @@ from .properties import (
 from .sprout_checks.check_package_properties import check_package_properties
 from .sprout_checks.check_properties import check_properties
 from .sprout_checks.check_resource_properties import check_resource_properties
+from .write_file import write_file
 from .write_package_properties import write_package_properties
 
 # from .extract_resource_properties import *
@@ -76,6 +78,7 @@ __all__ = [
     "create_package_properties",
     "edit_package_properties",
     "write_package_properties",
+    "build_readme_text",
     # "delete_package",
     # Resources -----
     "create_resource_structure",
@@ -101,6 +104,7 @@ __all__ = [
     "path_sprout_global",
     # Helpers -----
     # "pretty_json",
+    "write_file",
     # Checks -----
     "check_package_properties",
     "check_properties",
