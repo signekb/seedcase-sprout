@@ -1,3 +1,9 @@
+## 0.23.0 (2025-03-10)
+
+### Feat
+
+- :sparkles: make `build_readme_text()` and `write_file()` public (#1119)
+
 ## 0.22.0 (2025-03-06)
 
 ### Feat
