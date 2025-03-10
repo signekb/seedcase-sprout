@@ -1,7 +1,5 @@
 ---
 title: "Functions and classes"
-callout-icon: false
-callout-appearance: "minimal"
 toc-depth: 2
 ---
 
@@ -13,7 +11,7 @@ toc-depth: 2
 </style>
 ```
 
-::: {.callout-important appearance="default" icon="true"}
+::: callout-important
 We created this document mainly as a way to help us as a team all
 understand and agree on what we're making and what needs to be worked
 on. Which means that the descriptions and explanations of these
@@ -42,7 +40,7 @@ object), built using the `Properties` object, that describes the package
 and resource(s) in the package. This metadata is stored in the
 `datapackage.json` file and follows the Frictionless Data specification.
 
-::: {.callout-important appearance="default" icon="true"}
+::: callout-important
 Functions shown with a {{< var wip >}} icon are not yet implemented
 while those with a {{< var done >}} icon are implemented.
 :::
