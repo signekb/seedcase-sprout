@@ -52,7 +52,7 @@ Firefox. To see them, try using a different browser like Chrome or Edge.
 
 ## Data package functions
 
-### {{< var wip >}} `create_package_properties(properties, path)`
+### {{< var done >}} `create_package_properties(properties, path)`
 
 See the help documentation with `help(create_package_properties)` for
 more details.
@@ -68,11 +68,10 @@ flowchart
     function --> out
 ```
 
-### {{< var wip >}} `build_readme_text(properties)`
+### {{< var done >}} `build_readme_text(properties)`
 
-Using a template, this will build a README file with the contents of the
-properties object in a human-readable format. Outputs a text string. Use
-`write_text()` to save the text to the `README.md` file.
+See the help documentation with `help(build_readme_text)` for more
+details.
 
 ```{mermaid}
 flowchart
@@ -99,6 +98,11 @@ flowchart
     function --> out
 ```
 
+### {{< var done >}} `write_package_properties(properties, path)`
+
+See the help documentation with `help(write_package_properties)` for
+more details.
+
 ### {{< var wip >}} `delete_package(path, confirm)`
 
 Completely delete a specific package and all it's data resources.
@@ -106,11 +110,6 @@ Because this action would be permanent, the `confirm` argument would
 default to `false` so that the user needs to explicitly provide `true`
 to the function argument as confirmation. This is done to prevent
 accidental deletion. Outputs `true` if the deletion was successful.
-
-### {{< var done >}} `write_package_properties(properties, path)`
-
-See the help documentation with `help(write_package_properties)` for
-more details.
 
 ## Data resource functions
 
@@ -334,10 +333,9 @@ outputs a `PackageProperties` object.
 
 Create a prettier, human readable version of a JSON object.
 
-### {{< var wip >}} `write_text(text, path)`
+### {{< var done >}} `write_file(text, path)`
 
-Writes a text string to a file at the given path. Outputs the path
-object of the created file.
+See the help documentation with `help(write_file)` for more details.
 
 ## Observational unit functions
 
