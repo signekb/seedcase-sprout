@@ -1,3 +1,9 @@
+## 0.24.0 (2025-03-12)
+
+### Feat
+
+- :sparkles: add `read_csv()` to load CSV as DataFrames (#1129)
+
 ## 0.23.0 (2025-03-10)
 
 ### Feat
