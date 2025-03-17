@@ -1,3 +1,9 @@
+## 0.26.1 (2025-03-17)
+
+### Refactor
+
+- :recycle: major refactor of path functions to be local-first (#1114)
+
 ## 0.26.0 (2025-03-17)
 
 ### Feat
