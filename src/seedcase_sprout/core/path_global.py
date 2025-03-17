@@ -1,16 +1,19 @@
 """This module contains functions to get the paths to data packages and their files.
 
 They are intended to be used in conjunction with other functions to read, write, and
-edit the contents and properties of packages.
+edit the contents and properties of packages. These functions in particular are used
+for the global location of packages, in environments with potentially multiple users
+and many data packages.
 """
 
+from os import getenv
 from pathlib import Path
 
+from platformdirs import user_data_path
+
 from seedcase_sprout.core.check_is_dir import check_is_dir
-from seedcase_sprout.core.check_is_file import check_is_file
 from seedcase_sprout.core.check_is_package_dir import check_is_package_dir
 from seedcase_sprout.core.create_dirs import create_dir
-from seedcase_sprout.core.path_sprout_global import path_sprout_global
 
 
 def path_package(package_id: int) -> Path:
@@ -37,54 +40,20 @@ def path_package(package_id: int) -> Path:
         with tempfile.TemporaryDirectory() as temp_dir:
             os.environ["SPROUT_GLOBAL"] = temp_dir
 
+            package_path = sp.path_packages() / "1"
+            package_path.mkdir()
             # Create a package structure first
             sp.create_package_properties(
                 properties=sp.example_package_properties(),
-                path=sp.path_packages()
+                path=package_path
             )
 
-            # TODO: Update after converting to "local-first"
             # Get the path to the package
-            # sp.path_package(package_id=1)
+            sp.path_package(package_id=1)
         ```
     """
     path = path_packages() / str(package_id)
     return check_is_package_dir(path)
-
-
-def path_properties(package_id: int) -> Path:
-    """Gets the absolute path to the specified package's properties file.
-
-    Args:
-        package_id: The ID of the package.
-
-    Returns:
-        The absolute path to the specified package's properties file.
-
-    Examples:
-        ```{python}
-        import os
-        import tempfile
-
-        import seedcase_sprout.core as sp
-
-        # Create a temporary directory for the example
-        with tempfile.TemporaryDirectory() as temp_dir:
-            os.environ["SPROUT_GLOBAL"] = temp_dir
-
-            # Create a package structure first
-            sp.create_package_properties(
-                properties=sp.example_package_properties(),
-                path=sp.path_packages()
-            )
-
-            # TODO: Need to modify after revising to "local-first"
-            # Get the path to the package properties
-            # sp.path_properties(package_id=1)
-        ```
-    """
-    path = path_package(package_id) / "datapackage.json"
-    return check_is_file(path)
 
 
 def path_packages() -> Path:
@@ -118,19 +87,21 @@ def path_packages() -> Path:
     return create_dir(path) if not path.exists() else check_is_dir(path)
 
 
-def path_readme(package_id: int) -> Path:
-    """Get the path to the README file for the specified package.
+def path_sprout_global() -> Path:
+    """Gets Sprout's global path location.
 
-    Args:
-        package_id: The ID of the package.
+    If the `SPROUT_GLOBAL` environment variable isn't provided, this function
+    will return the default path to where data packages will be stored. The
+    default locations are dependent on the operating system.  This function also
+    creates the necessary directory if it doesn't exist.
 
     Returns:
-        The absolute path to the README file.
+        The path to Sprout's global directory.
 
     Examples:
         ```{python}
-        import os
         import tempfile
+        import os
 
         import seedcase_sprout.core as sp
 
@@ -138,16 +109,27 @@ def path_readme(package_id: int) -> Path:
         with tempfile.TemporaryDirectory() as temp_dir:
             os.environ["SPROUT_GLOBAL"] = temp_dir
 
-            # Create a package structure first
-            sp.create_package_properties(
-                properties=sp.example_package_properties(),
-                path=sp.path_packages()
-            )
-
-            # TODO: Need to modify after revising to "local-first"
-            # Get the path to the package README
-            # sp.path_readme(package_id=1)
+            # Get the path to Sprout's global directory
+            sp.path_sprout_global()
         ```
     """
-    path = path_package(package_id=package_id) / "README.md"
-    return check_is_file(path)
+    return _get_sprout_global_envvar() or _create_sprout_global_path()
+
+
+def _create_sprout_global_path() -> Path:
+    """Creates the path to Sprout global location.
+
+    Returns:
+        The path with the Sprout global directory tied to the user.
+    """
+    return user_data_path("sprout")
+
+
+def _get_sprout_global_envvar() -> Path | None:
+    """Gets the global environment variable `SPROUT_GLOBAL` if it exists.
+
+    Returns:
+        The path containing `SPROUT_GLOBAL` if it is set, otherwise None.
+    """
+    sprout_global = getenv("SPROUT_GLOBAL")
+    return Path(sprout_global) if sprout_global else None

@@ -17,20 +17,20 @@ from .edit_package_properties import edit_package_properties
 from .example_package_properties import example_package_properties
 
 # TODO: Consider having all these in one module.
-from .path_package_functions import (
+from .path_global import (
     path_package,
     path_packages,
+    path_sprout_global,
+)
+from .path_local import (
     path_properties,
     path_readme,
-)
-from .path_resource_functions import (
     path_resource,
     path_resource_data,
     path_resource_raw,
     path_resource_raw_files,
     path_resources,
 )
-from .path_sprout_global import path_sprout_global
 from .properties import (
     ConstraintsProperties,
     ContributorProperties,
