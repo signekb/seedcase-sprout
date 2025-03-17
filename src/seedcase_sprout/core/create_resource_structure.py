@@ -23,6 +23,7 @@ def create_resource_structure(path: Path) -> list[Path]:
 
     Returns:
        A list of the two created directories:
+
           - A path to the resource directory and
           - A path to the raw data directory.
 
@@ -30,26 +31,27 @@ def create_resource_structure(path: Path) -> list[Path]:
        NotADirectoryError: If path is not an existing directory.
 
     Examples:
-      ```{python}
-      import tempfile
-      from pathlib import Path
+        ```{python}
+        import tempfile
+        from pathlib import Path
 
-      import seedcase_sprout.core as sp
+        import seedcase_sprout.core as sp
 
-      # Create a temporary directory for the example
-      with tempfile.TemporaryDirectory() as temp_dir:
-         temp_path = Path(temp_dir)
+        # Create a temporary directory for the example
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_path = Path(temp_dir)
 
-         # Create a package structure first
-         sp.create_package_properties(
-            properties=sp.example_package_properties(),
-            path=temp_path
-        )
+            # Create a package structure first
+            sp.create_package_properties(
+                properties=sp.example_package_properties(),
+                path=temp_path
+            )
 
-         # TODO: Update after converting to "local-first"
-         # Create a resource structure
-         # sp.create_resource_structure(path=temp_path / "1" / "resources")
-      ```
+            resources_path = Path(temp_path / "resources")
+            resources_path.mkdir()
+            # Create a resource structure
+            sp.create_resource_structure(path=resources_path)
+        ```
     """
     check_is_dir(path)
 
