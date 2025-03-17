@@ -1,0 +1,340 @@
+---
+title: "Creating and managing data resources"
+order: 2
+jupyter: python3
+execute:
+  eval: false
+---
+
+In each [data package](/docs/design/interface/outputs.qmd) are [data
+resources](/docs/design/interface/outputs.qmd), which contain a
+conceptually standalone set of data. This page shows you how to create
+and manage data resources inside a data package using Sprout. You will
+need to have already [created a data package](packages.qmd).
+
+{{< include _preamble.qmd >}}
+
+::: callout-important
+Data resources can only be created from [tidy
+data](https://design.seedcase-project.org/data/). Before you can store
+it, you need to process it into a tidy format, ideally using Python so
+that you have a record of the steps taken to clean and transform the
+data.
+:::
+
+Putting your raw data into a data package makes it easier for yourself
+and others to use later one. So the steps you'll take to get your data
+into the structure offered by Sprout are:
+
+1.  Create the properties for the resource, using the original raw data
+    as a starting point and edit as needed.
+2.  Create a folder to store the (processed) data resource in your
+    package, as well as having a folder for the (tidy) batch data.
+3.  Save the properties of and path to the new data resource into the
+    `datapackage.json` file.
+4.  Re-build the data package's `README.md` file from the updated
+    `datapackage.json` file.
+5.  If you need to edit the properties at a later point, you can use
+    `edit_resource_properties()` and then re-build the
+    `datapackage.json` file.
+
+```{python setup}
+#| include: false
+# This `setup` code chunk loads packages and prepares the data.
+import seedcase_sprout.core as sp
+from tempfile import mkdtemp
+from pathlib import Path
+from urllib.request import urlretrieve
+
+temp_path = Path(mkdtemp())
+package_path = temp_path / "diabetes-study"
+package_path.mkdir()
+sp.create_package_properties(
+    properties=sp.example_package_properties(),
+    path=package_path
+)
+readme = sp.build_readme_text(sp.example_package_properties())
+sp.write_file(readme, package_path.parent)
+
+# Since the path leads to the datapackage.json file, for later functions we need the folder instead.
+package_path = package_path.parent
+
+# TODO: Maybe eventually move this over into Sprout as an example dataset, rather than via a URL.
+# Download the example data and save to a data-raw folder in the temp path.
+url = "https://raw.githubusercontent.com/seedcase-project/data/refs/heads/main/patients/patients.csv"
+raw_data_path = temp_path / "patients.csv"
+urlretrieve(
+    url,
+    raw_data_path
+)
+```
+
+Making a data resource requires that you have data that can be made into
+a resource in the first place. Usually, generated or collected data
+always starts out in a bit of a "raw" shape that needs some working.
+This work needs to be done before adding the data as a data package,
+since Sprout assumes that the data is already
+[tidy](https://design.seedcase-project.org/data/). For this guide, we
+use a raw (but fake) data file that is already tidy and that looks like:
+
+```{python}
+#| echo: false
+with open(raw_data_path, "r") as f:
+    print(f.read())
+```
+
+If you want to follow this guide with the same data, you can find it
+[here](https://raw.githubusercontent.com/seedcase-project/data/refs/heads/main/patients/patients.csv).
+The path to this data, which is stored in a variable called
+`raw_data_path`, is:
+
+```{python}
+#| echo: false
+print(raw_data_path)
+```
+
+Before we start, you need to import Sprout as well as other helper
+packages:
+
+```{python}
+import seedcase_sprout.core as sp
+
+# For pretty printing of output
+from pprint import pprint
+
+# TODO: This could be a wrapper helper function instead
+# To be able to write multiline strings without indentation
+from textwrap import dedent
+```
+
+## Extract resource properties from raw data
+
+You'll start by creating the resource's properties. Before you can have
+data stored in a data package, it needs properties (i.e., metadata) on
+the data. The resource's properties are what allow people to more easily
+use the data in the data package, as well as being used to check that
+the actual data matches the properties. While you can create a resource
+properties object manually using `ResourceProperties`, it can be quite
+intensive and time-consuming if you, for example, have many columns in
+your data. To ease this process, you can extract as much information as
+possible from the raw data to create an initial resource properties
+object with `extract_resource_properties()`. Then, you can edit the
+properties as needed.
+
+Start with extracting the resource properties from the raw data. While
+this function tries to infer the data types in the raw data, it might
+not get it right. So, be sure to check the properties after using this
+function. It can also not infer things that are not in the data itself,
+like a description of what the data contains or the unit of the data.
+
+```{python}
+resource_properties = extract_resource_properties(
+    data_path=raw_data_path
+)
+pprint(resource_properties)
+```
+
+You may be able to see that some things are missing, for instance, the
+individual columns (called `fields`) don't have any descriptions. You
+will have to manually add this yourself. You can run a check on the
+properties to confirm what is missing:
+
+```{python}
+#| error: true
+print(sp.check_resource_properties(resource_properties))
+```
+
+Time to fill in the description for all the fields in the resource:
+
+```{python}
+# TODO: Need to consider/design how editing can be done in an easier, user-friendly way.
+# TODO: Add more detail when we know what can and can't be extracted.
+# TODO: Set the path field here?
+```
+
+## Creating a data resource
+
+Now that you have the properties for the resource, you can create the
+resource itself within the data package. What this means is that you
+will create a folder for the specific resource (since you may have more
+data resources to add).
+
+We assume you've already created a package (either by using the steps
+from the [package guide](packages.qmd) or started making one for your
+own data), with the path to the data package set as the variable
+`package_path`:
+
+```{python}
+print(package_path)
+```
+
+Let's take a look at the current files and folders in the data package:
+
+```{python}
+#| echo: false
+print(package_path.glob("**/*"))
+```
+
+This shows that the data package already includes a `datapackage.json`
+file and a `README.md` file. Now you'll add the resource structure to
+the package, using the helper function `path_resources()` to give the
+correct path to the resources folder. The default behaviour of
+`path_resources()` is to use the current working directory, but for this
+guide you'll have to use the `path` argument to point to where the
+package is stored in the temporary folder.
+
+```{python}
+# TODO: This doesn't work exactly as expected here. We need to create
+# the `resources/` folder first.
+sp.create_resource_structure(
+    path=sp.path_resources(path=package_path)
+)
+```
+
+The next step is to add the resource properties to the
+`datapackage.json` file. Before they are added, they will be checked to
+confirm that they are correctly filled in and that no required fields
+are missing. You can use the `path_properties()` helper function to give
+you the location to the `datapackage.json` path. Here, the `path`
+argument points to the temporary folder where the package is stored.
+
+```{python}
+# TODO: This function needs to be updated to write to datapackage.json
+sp.create_resource_properties(
+    path=sp.path_properties(path=package_path),
+    properties=resource_properties
+)
+```
+
+::: callout-tip
+If you want to see the list of resources available in your data package
+via Python code (rather than looking at it directly in the file system),
+you can use the `list_resources()` function.
+
+```{python}
+#| eval: false
+# TODO: This could also be the `path_resources()` which lists the resources.
+print(sp.list_resources(path=package_path))
+```
+:::
+
+Let's check the contents of the `datapackage.json` file to see that the
+resource properties have been added:
+
+```{python}
+pprint(sp.read_properties(sp.path_properties(path=package_path))
+```
+
+## Storing a backup of the raw data as a "batch" file
+
+When you create a new data resource, or add data to an existing one,
+Sprout has been designed to always store a backup of each time you add
+new (or modified) data to a specific resource as a "batch" file. All the
+batch data files are stored in a folder called `batch/` within the
+resource's folder and is processed into the final Parquet data resource
+file. This can be useful if you ever need to re-process the data at a
+later point, troubleshoot any issues, update incorrect values, or if you
+need to compare the stored batch data to your original raw data (before
+it enters into the data resource).
+
+As shown above, the data is stored in the path that we've set as
+`raw_data_path`. Time to store this data in the resource's folder by
+using:
+
+```{python}
+sp.write_resource_batch_data(
+    data_path=raw_data_path,
+    resource_properties=resource_properties
+)
+```
+
+This function uses the properties object to determine where to store the
+data as a batch file, which is in the `batch/` folder of the resource's
+folder. You can check the newly added file by using:
+
+```{python}
+print(sp.path_resource_batch_files(1, path=package_path))
+```
+
+## Building the Parquet data resource file
+
+Now that you've stored the data as a batch file, you can build the
+Parquet file that will be used as the data resource. This Parquet file
+is built from the all the data in the `batch/` folder. Since there is
+only one batch data file stored in the resource's folder, only this one
+will be used to build the data resource's parquet file:
+
+```{python}
+sp.build_resource_parquet(
+    raw_files=sp.path_resource_batch_files(1, path=package_path),
+    path=sp.path_resource_data(1, path=package_path)
+)
+```
+
+::: callout-tip
+If you add more raw data to the resource later on, you can update this
+Parquet file to include all data in the batch folder using the
+`build_resource_parquet()` function like shown above.
+:::
+
+## Re-building the README file
+
+One of the last steps to adding a new data resource is to re-build the
+`README.md` file for the data package. To allow some flexibility with
+what gets added to the README text, this next function will only *build
+the text*, but not write it to the file. This allows you to add
+additional information to the README text before writing it to the file.
+
+```{python}
+readme_text = sp.build_readme_text(
+    properties=sp.read_properties(sp.path_properties(path=package_path))
+)
+```
+
+For this guide, you'll only use the default text and not add anything
+else to it. Next you write the text to the `README.md` file by:
+
+```{python}
+sp.write_file(
+    text=readme_text,
+    path=sp.path_readme(path=package_path)
+)
+```
+
+## Edit resource properties
+
+After having created a resource, you may need to make edits to the
+properties. While technically you can do this manually by opening up the
+`datapackage.json` file and editing it, we've strongly recommend you use
+the functions to do this. These functions help to ensure that the
+`datapackage.json` is still in a correct JSON format and have the
+correct fields filled in. Using the `edit_resource_properties()`
+function, you give it the path to the current properties and then create
+a new `ResourceProperties` object with the changes you want to make.
+Anything in the new properties object will overwrite fields in the old
+properties object. This function does not write back, it only returns
+the new properties object.
+
+```{python}
+resource_properties = sp.edit_resource_properties(
+    path=sp.path_properties(path=package_path),
+    properties=sp.ResourceProperties(
+        title="Basic characteristics of patients"
+    )
+)
+pprint(resource_properties)
+```
+
+To write back, use the `write_resource_properties()` function:
+
+```{python}
+sp.write_resource_properties(
+    properties=resource_properties,
+    path=sp.path_properties(path=package_path)
+)
+```
+
+```{python}
+#| include: false
+temp_path.cleanup()
+```
