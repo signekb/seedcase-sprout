@@ -1,3 +1,9 @@
+## 0.25.0 (2025-03-17)
+
+### Feat
+
+- :sparkles: add `set_missing_values_to_null()` (#1131)
+
 ## 0.24.0 (2025-03-12)
 
 ### Feat
