@@ -123,8 +123,8 @@ quartodoc:
         - path_packages
         - path_resource
         - path_resource_data
-        - path_resource_raw
-        - path_resource_raw_files
+        - path_resource_batch
+        - path_resource_batch_files
         - path_resources
         - path_sprout_global
 

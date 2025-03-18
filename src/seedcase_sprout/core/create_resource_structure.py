@@ -4,7 +4,7 @@ from seedcase_sprout.core.check_is_dir import check_is_dir
 from seedcase_sprout.core.create_dirs import create_dirs
 from seedcase_sprout.core.create_id_path import create_id_path
 from seedcase_sprout.core.create_next_id import create_next_id
-from seedcase_sprout.core.create_resource_raw_path import create_resource_raw_path
+from seedcase_sprout.core.create_resource_batch_path import create_resource_batch_path
 from seedcase_sprout.core.get_ids import get_ids
 
 
@@ -16,7 +16,7 @@ def create_resource_structure(path: Path) -> list[Path]:
     (existing) package by creating the folder setup described in the
     [Outputs](https://sprout.seedcase-project.org/docs/design/outputs) section
     on the Sprout website. It creates two paths: the `resources/<id>/` path and the
-    `resources/<id>/raw/` path. The output is a list of these two path objects.
+    `resources/<id>/batch/` path. The output is a list of these two path objects.
 
     Args:
        path: Path to the resources directory in a package.
@@ -25,7 +25,7 @@ def create_resource_structure(path: Path) -> list[Path]:
        A list of the two created directories:
 
           - A path to the resource directory and
-          - A path to the raw data directory.
+          - A path to the batch data directory.
 
     Raises:
        NotADirectoryError: If path is not an existing directory.
@@ -59,6 +59,6 @@ def create_resource_structure(path: Path) -> list[Path]:
     next_id = create_next_id(existing_ids)
 
     resource_path = create_id_path(path, next_id)
-    resource_raw_path = create_resource_raw_path(resource_path)
+    resource_batch_path = create_resource_batch_path(resource_path)
 
-    return create_dirs([resource_path, resource_raw_path])
+    return create_dirs([resource_path, resource_batch_path])

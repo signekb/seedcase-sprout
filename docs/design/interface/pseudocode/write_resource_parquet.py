@@ -17,7 +17,7 @@ def write_resource_parquet(
         import seedcase_sprout.core as sp
 
         data = sp.build_resource_data(
-            raw_files_path=sp.path_resources_raw_files(1),
+            batch_files_path=sp.path_resources_batch_files(1),
             resource_properties=sp.example_resource_properties,
         )
 
@@ -26,7 +26,7 @@ def write_resource_parquet(
 
     Args:
         data: A DataFrame object with the resources data from the files in its
-            `raw/` folder.
+            `batch/` folder.
         resource_properties: The `ResourceProperties` object that contains the
             properties of the resource you want to create the Parquet file for.
 

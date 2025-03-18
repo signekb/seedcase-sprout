@@ -10,7 +10,7 @@ from seedcase_sprout.core.properties import ResourceProperties
 
 
 def extract_resource_properties(data_path: Path) -> ResourceProperties:
-    """Extracts resource properties from a raw data file.
+    """Extracts resource properties from a batch data file.
 
     This function takes the data file found at the `data_path` location and
     extracts properties from the file into a `ResourceProperties` object. This
@@ -20,7 +20,7 @@ def extract_resource_properties(data_path: Path) -> ResourceProperties:
     create the initial resource properties for a specific (new) data resource.
 
     Args:
-        data_path: The path to a raw data file of a supported format.
+        data_path: The path to a batch data file of a supported format.
 
     Returns:
         Outputs a `ResourceProperties` object. Use `write_resource_properties()`

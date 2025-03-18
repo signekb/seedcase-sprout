@@ -154,14 +154,17 @@ def path_resource_data(resource_id: int, path: Path = Path.cwd()) -> Path:
             # resource_path = Path(temp_path / "resources")
             # resource_path.mkdir()
             # sp.create_resource_structure(path=resource_path)
-            # sp.write_resource_data_to_raw(
+            # sp.write_resource_data_to_batch(
             #   package_id=1,
             #   resource_id=1,
             #   data="path/to/data.csv")
 
             # sp.write_resource_parquet(
-            #     raw_files=sp.path_resource_raw_files(resource_id=1, path=temp_path),
-            #     path=sp.path_resource_data(resource_id=1, path=temp_path))
+            #         batch_files=sp.path_resource_batch_files(
+            #             resource_id=1, path=temp_path
+            #         ),
+            #         path=sp.path_resource_data(resource_id=1, path=temp_path),
+            #     )
 
             # Get the path to the resource data
             # sp.path_resource_data(resource_id=1, path=temp_path)
@@ -251,7 +254,7 @@ def path_resource_batch_files(resource_id: int, path: Path = Path.cwd()) -> list
             # sp.path_resource_batch_files(resource_id=1, path=temp_dir)
         ```
     """
-    return list(path_resource_raw(resource_id, path=path).iterdir())
+    return list(path_resource_batch(resource_id, path=path).iterdir())
 
 
 def path_resources(path: Path = Path.cwd()) -> Path:

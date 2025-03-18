@@ -5,7 +5,7 @@
 # Packages -----
 # from .delete_package import *
 # Resources -----
-# from .delete_resource_raw_file import *
+# from .delete_resource_batch_file import *
 # from .delete_resource_data import *
 # from .delete_resource_properties import *
 
@@ -26,9 +26,9 @@ from .path_local import (
     path_properties,
     path_readme,
     path_resource,
+    path_resource_batch,
+    path_resource_batch_files,
     path_resource_data,
-    path_resource_raw,
-    path_resource_raw_files,
     path_resources,
 )
 from .properties import (
@@ -52,7 +52,7 @@ from .write_package_properties import write_package_properties
 
 # from .extract_resource_properties import *
 # from .edit_resource_properties import *
-# from .write_resource_data_to_raw import *
+# from .write_resource_data_to_batch import *
 # from .write_resource_parquet import *
 from .write_resource_properties import write_resource_properties
 
@@ -85,10 +85,10 @@ __all__ = [
     "create_resource_properties",
     # "extract_resource_properties",
     # "edit_resource_properties",
-    # "write_resource_data_to_raw",
+    # "write_resource_data_to_batch",
     # "write_resource_parquet",
     "write_resource_properties",
-    # "delete_resource_raw_file",
+    # "delete_resource_batch_file",
     # "delete_resource_data",
     # "delete_resource_properties",
     # Path -----
@@ -98,8 +98,8 @@ __all__ = [
     "path_readme",
     "path_resource",
     "path_resource_data",
-    "path_resource_raw",
-    "path_resource_raw_files",
+    "path_resource_batch",
+    "path_resource_batch_files",
     "path_resources",
     "path_sprout_global",
     # Helpers -----
