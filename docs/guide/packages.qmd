@@ -127,7 +127,7 @@ function is to look in the current working directory, but for this
 guide, it is pointing to the temporary folder created from above.
 
 ```{python}
-sp.edit_package_properties(
+updated_package_properties = sp.edit_package_properties(
   path=sp.path_properties(path=package_path),
   properties=sp.PackageProperties(name="diabetes-study"),
 )
