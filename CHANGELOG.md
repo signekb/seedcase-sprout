@@ -1,3 +1,9 @@
+## 0.26.2 (2025-03-18)
+
+### Refactor
+
+- 🚚 rename `raw` to `batch` within Python code (#1145)
+
 ## 0.26.1 (2025-03-17)
 
 ### Refactor
