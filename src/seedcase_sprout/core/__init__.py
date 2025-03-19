@@ -15,6 +15,7 @@ from .create_resource_properties import create_resource_properties
 from .create_resource_structure import create_resource_structure
 from .edit_package_properties import edit_package_properties
 from .example_package_properties import example_package_properties
+from .extract_resource_properties import extract_resource_properties
 
 # TODO: Consider having all these in one module.
 from .path_global import (
@@ -50,7 +51,6 @@ from .sprout_checks.check_resource_properties import check_resource_properties
 from .write_file import write_file
 from .write_package_properties import write_package_properties
 
-# from .extract_resource_properties import *
 # from .edit_resource_properties import *
 # from .write_resource_data_to_batch import *
 # from .write_resource_parquet import *
@@ -83,7 +83,7 @@ __all__ = [
     # Resources -----
     "create_resource_structure",
     "create_resource_properties",
-    # "extract_resource_properties",
+    "extract_resource_properties",
     # "edit_resource_properties",
     # "write_resource_data_to_batch",
     # "write_resource_parquet",
