@@ -75,17 +75,17 @@ The folders that Sprout creates and uses are:
     the same group of people.
     :::
 
-`./resources/<id>/raw/`
+`./resources/<id>/batch/`
 
 :   Whenever data is stored and structured for a specific data resource,
-    the original unprocessed and untouched data will be kept in this
-    `raw/` folder as a backup and in case anything unexpected happens
-    during the import stage. Given how messy data often is and given how
-    some data storage formats (e.g. Excel) often have their own way of
-    storing and encoding information, computer mistakes can happen that
-    are not caused by any human error. The data in the `raw/` folder can
-    potentially be used to determine where things went wrong if they did
-    go wrong.
+    it is often done in batches, which are bulk collections of data that
+    are processed together. This `batch/` folder is where the data is
+    stored before it is processed and stored in the `data.parquet` file.
+    This folder is partly used to keep track of each time data has been
+    added or updated, and to also use for record-keeping purposes of
+    what data was added and when it was added to the resource. This can
+    help with troubleshooting issues that may arise during data entry or
+    processing.
 
 ### Files
 
@@ -110,17 +110,20 @@ Sprout creates and uses these files:
     serve as the basis for displaying human-readable information about
     the data package.
 
-`./resources/<id>/raw/<timestamp>-<uuid>.<extension>.gzip`
+`./resources/<id>/batch/<timestamp>-<uuid>.parquet`
 
-:   These are compressed raw data files associated with a specific
-    resource. These files are kept intentionally raw and are copied
-    directly from the input data the user provides to this file. This
-    `raw/` folder will not be linked within the `datapackage.json` file.
+:   These are
+    [Parquet](https://decisions.seedcase-project.org/why-parquet/) files
+    that store the data in a structured, columnar format. These files
+    are created when data is added or updated in a specific data
+    resource and are stored in the `batch/` folder before being
+    processed and stored in the `data.parquet` file. The files in the
+    `batch/` folder are not linked within the `datapackage.json` file.
     Every time a user adds or updates data to the data resource, the
-    original file will be stored here before being processed for
-    correctness and basic checks. Afterwards, it will be merged in with
-    any existing data in the data resource's `data.parquet` file (for
-    tabular data).
+    data file will be processed for correctness and some basic checks
+    against the `datapackage.json` properties, before being stored in
+    the `batch/` folder. All files within this folder are used to
+    (re-)generate the data resource's `data.parquet` file.
 
 `./resources/<id>/data.parquet`
 

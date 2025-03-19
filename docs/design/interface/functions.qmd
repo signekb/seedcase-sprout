@@ -122,7 +122,7 @@ more details.
 flowchart
     in_path[/path/]
     function("create_resource_dirs()")
-    out[("{path}/resources/{id}/<br>{path}/resources/{id}/raw/")]
+    out[("{path}/resources/{id}/<br>{path}/resources/{id}/batch/")]
     in_path --> function
     function --> out
 ```
@@ -143,34 +143,34 @@ flowchart
     function --> out
 ```
 
-### {{< var wip >}} `write_resource_data_to_raw(data_path, resource_properties)`
+### {{< var wip >}} `write_resource_batch_data(data_path, resource_properties)`
 
-See the help documentation with `help(write_resource_data_to_raw)` for
+See the help documentation with `help(write_resource_batch_data)` for
 more details.
 
 ```{mermaid}
 flowchart
     in_data_path[/data_path/]
     in_properties[/resource_properties/]
-    function("write_resource_data_to_raw()")
-    out[("{path}/{timestamp}-{uuid}.{ext}.csv")]
+    function("write_resource_batch_data()")
+    out[("{path}/{timestamp}-{uuid}.parquet")]
     in_data_path --> function
     in_properties --> function
     function --> out
 ```
 
-### {{< var wip >}} `build_resource_data(raw_files_path, resource_properties)`
+### {{< var wip >}} `build_resource_data(batch_files_path, resource_properties)`
 
 See the help documentation with `help(build_resource_data)` for more
 details.
 
 ```{mermaid}
 flowchart
-    in_raw_files_path[/raw_files_path/]
+    in_batch_files_path[/batch_files_path/]
     in_properties[/resource_properties/]
     function("build_resource_data()")
     out[("Polars<br>DataFrame")]
-    in_raw_files_path --> function
+    in_batch_files_path --> function
     in_properties --> function
     function --> out
 ```
@@ -211,12 +211,12 @@ flowchart
     function --> out
 ```
 
-### {{< var wip >}} `delete_resource_raw_file(path, confirm)`
+### {{< var wip >}} `delete_resource_batch_file(path, confirm)`
 
-Use this to delete a raw file in the `raw/` folder of a resource. This
+Use this to delete a batch file in the `batch/` folder of a resource. This
 is useful if the file is no longer needed or if it is incorrect or had
 an issue during the time when a user first added the file to a resource.
-Use `path_resource_raw_files()` to select which file to delete from the
+Use `path_resource_batch_files()` to select which file to delete from the
 list of files found. Will only delete one file. The `confirm` argument
 defaults to `false` so that the user needs to explicitly provide `true`
 to the function argument as confirmation. This is done to prevent
@@ -224,8 +224,8 @@ accidental deletion. Outputs `true` if the deletion was successful.
 
 ### {{< var wip >}} `delete_resource_data(path, confirm)`
 
-Delete all data (Parquet) and raw data of a specific resource. Use
-`path_resource_raw()` to provide the correct path location. The
+Delete all Parquet data and its batch data of a specific resource. Use
+`path_resource_batch()` to provide the correct path location. The
 `confirm` argument defaults to `false` so that the user needs to
 explicitly provide `true` to the function argument as confirmation. This
 is done to prevent accidental deletion. Outputs `true` if the deletion
@@ -294,14 +294,14 @@ See the help documentation with `help(path_resources)` for more details.
 
 See the help documentation with `help(path_resource)` for more details.
 
-### {{< var done >}} `path_resource_raw(resource_id, path)`
+### {{< var done >}} `path_resource_batch(resource_id)`
 
-See the help documentation with `help(path_resource_raw)` for more
+See the help documentation with `help(path_resource_batch)` for more
 details.
 
-### {{< var done >}} `path_resource_raw_files(resource_id, path)`
+### {{< var done >}} `path_resource_batch_files(resource_id, path)`
 
-See the help documentation with `help(path_resource_raw_files)` for more
+See the help documentation with `help(path_resource_batch_files)` for more
 details.
 
 ### {{< var done >}} `path_resource_data(resource_id, path)`

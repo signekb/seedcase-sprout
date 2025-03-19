@@ -38,10 +38,10 @@ We may also occasionally use "properties" to refer to the file itself.
 | Object | Description |
 |----------------------------|--------------------------------------------|
 | package(s) | A data package that contains a collection of related data resources and properties. |
-| resource(s) | A single data file within a package, along with its properties and associated *raw* data files. |
+| resource(s) | A single data file within a package, along with its properties and associated batch data files. |
 | properties | Metadata about a package or resource. |
 | path | A file path listing the location of folders or files that Sprout interacts with. |
-| data | The data file within a resource. Within Sprout, this includes the Parquet file and raw files. |
+| data | The data file within a resource. Within Sprout, this includes the Parquet data and batch files. |
 | identifier | A unique identifier for a package (*only for server environments*) or resource, denoted as `id`. |
 | changes | The changes made to the data package that will be stored in the version control repository of the data package. |
 | version | The version of the data package, denoted as `version`. |
@@ -54,10 +54,9 @@ We may also occasionally use "properties" to refer to the file itself.
 | dirs | A shortened name for folder or directory. |
 | packages | The folder that contains all packages. *Only for server environments*. |
 | resources | The folder that contains all resource files in a package. |
-| raw | The folder that contains raw data files for a data resource. |
-| raw data file | A compressed raw data file format, such as a `.gzip` file. |
+| batch | The folder that contains the batch data files for a data resource (timestamped data when first added (or updated) to a resource). |
 | JSON | The main way we save and pass information around on the package's or resource's properties. |
-| Parquet | A columnar, efficient storage file format that we use to save data within a resource. |
+| Parquet | A columnar, efficient storage file format that we use to save data within a resource, but as the final resource as well as a batch file when the data was first added or updated to the resource. |
 
 : Specific files and folders used within or output by Sprout.
 

@@ -64,7 +64,7 @@ flowchart TB
         package["Data package functions<br>[Python]<br><br>Create, manage, and check a data package and its 'properties' (metadata)."]
         resource["Data resource functions<br>[Python]<br><br>Create, manage, and check data resources and their 'properties' (metadata) in a data package."]
         obs_unit["Observational unit functions<br>[Python]<br><br>Manage and delete observational units in a resource. An observational unit is an entity with data collected at a specific time. Necessary for GDPR-compliance."]
-        raw[("Raw data<br>[gzipped CSV]")]
+        batch[("Batch data<br>[Parquet]")]
         data[("Data<br>[Parquet]")]
         metadata[["Metadata ('properties')<br>[Frictionless Standard, JSON]"]]
     end
@@ -73,7 +73,7 @@ flowchart TB
     user --> sprout:::system
     package --> resource
     package --> metadata
-    resource --> raw
+    resource --> batch
     resource --> data
     resource --> metadata
     obs_unit --> data
