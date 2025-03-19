@@ -1,3 +1,9 @@
+## 0.26.4 (2025-03-19)
+
+### Refactor
+
+- :recycle: expose `extract_resource_properties()` (#1152)
+
 ## 0.26.3 (2025-03-19)
 
 ### Refactor
