@@ -1,3 +1,9 @@
+## 0.26.3 (2025-03-19)
+
+### Refactor
+
+- :recycle: remove original extension and `.gz` from batch file names (#1147)
+
 ## 0.26.2 (2025-03-18)
 
 ### Refactor
