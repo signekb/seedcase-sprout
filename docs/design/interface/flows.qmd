@@ -1,0 +1,55 @@
+---
+title: "Flows"
+toc-depth: 2
+---
+
+::: callout-important
+We created this document mainly as a way to help us as a team all
+understand and agree on what we're making and what needs to be worked
+on. This means that the flows may change quite substantially until we've
+reached a stable full release at `v1.0.0`.
+:::
+
+Based on the [functions](functions.qmd) that list and describe the main
+functions and classes that make up the interface, this document
+describes and shows how all these objects work together and flow into
+one another, but not necessarily the functions' exact input and output.
+Those are already described in the [functions](functions.qmd) document.
+
+Each diagram uses specific shapes and lines to represent different
+things:
+
+-   A dotted line between objects/functions means the flow is optional.
+-   A solid line between objects/functions means the flow is required
+    and is the next step.
+-   A cylinder means an object such as a class or file.
+-   A rectangle with rounded corners means an action like a function or
+    method.
+
+::: callout-caution
+For some reason, the diagrams below don't display well on some browsers
+like Firefox. To see them, try using a different browser like Chrome or
+Edge.
+:::
+
+## Creating a new package
+
+This is the flow for making a new package. The
+`write_package_properties()` will internally call `check_properties()`,
+but it can also be called separately to check the properties before
+writing them to the `datapackage.json` file.
+
+```{mermaid}
+%%| label: fig-flow-new-package
+%%| fig-cap: "Diagram showing the flow of objects and functions to create a new package."
+%%| fig-alt: "A flow diagram showing the steps to making a new package."
+flowchart
+    properties[(PackageProperties)]
+    path_properties("path_properties()")
+    check_properties("check_properties()")
+    write_package_properties("write_package_properties()")
+
+    properties -.-> check_properties
+    properties --> write_package_properties
+    path_properties --> write_package_properties
+```
