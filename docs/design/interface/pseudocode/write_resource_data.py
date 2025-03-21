@@ -1,27 +1,28 @@
 # ruff: noqa
-def write_resource_parquet(
+def write_resource_data(
     data: DataFrame, resource_properties: ResourceProperties
 ) -> Path:
-    """Check and write the resource data into a Parquet file.
+    """Check and write the resource data into a file.
 
-    This function takes the `data` built from `build_resource_data()`, checks it
-    against the `resource_properties`, and then writes the data to the resources
-    `data.parquet` file .  The Parquet file is saved based on the path found in
-    `ResourceProperties.path` and is always overwritten.  Before writing, this
-    function does a check against the `resource_properties` to ensure that the
-    data is correctly structured and tidy.
+    This function takes the `data` obtained after using
+    `join_resource_batches()`, checks it against the `resource_properties`, and
+    then writes the data to the resources `data.parquet` file .  The Parquet
+    file is saved based on the path found in `ResourceProperties.path` and is
+    always overwritten.  Before writing, this function does a check against the
+    `resource_properties` to ensure that the data is correctly structured and
+    tidy.
 
     Examples:
 
         ``` python
         import seedcase_sprout.core as sp
 
-        data = sp.build_resource_data(
+        data = sp.join_resource_data(
             batch_files_path=sp.path_resources_batch_files(1),
             resource_properties=sp.example_resource_properties,
         )
 
-        sp.write_resource_parquet(data, sp.example_resource_properties)
+        sp.write_resource_data(data, sp.example_resource_properties)
         ```
 
     Args:
