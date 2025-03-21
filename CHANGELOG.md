@@ -1,3 +1,9 @@
+## 0.26.5 (2025-03-21)
+
+### Refactor
+
+- :recycle: rename `build_` to `as_readme_text()` (#1172)
+
 ## 0.26.4 (2025-03-19)
 
 ### Refactor
