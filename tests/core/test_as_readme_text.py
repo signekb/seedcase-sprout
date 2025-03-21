@@ -1,4 +1,4 @@
-from seedcase_sprout.core.build_readme_text import build_readme_text
+from seedcase_sprout.core.as_readme_text import as_readme_text
 from seedcase_sprout.core.properties import (
     ContributorProperties,
     LicenseProperties,
@@ -46,9 +46,9 @@ def test_creates_readme():
             ),
         ],
     )
-    assert build_readme_text(properties)
+    assert as_readme_text(properties)
 
 
 def test_creates_readme_with_empty_values():
     """Should be able to create a README for an empty set of properties."""
-    assert build_readme_text(PackageProperties())
+    assert as_readme_text(PackageProperties())

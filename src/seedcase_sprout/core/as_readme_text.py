@@ -12,8 +12,8 @@ from seedcase_sprout.core.properties import (
 TEMPLATES_PATH: Path = files("seedcase_sprout.core").joinpath("templates")
 
 
-def build_readme_text(properties: PackageProperties) -> str:
-    """Creates a string containing the README text.
+def as_readme_text(properties: PackageProperties) -> str:
+    """Creates a string containing the README text based on the properties.
 
     Using a template, this will build a README file with the contents of the
     properties object in a human-readable format. Use `write_file()` to save

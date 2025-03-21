@@ -53,7 +53,7 @@ sp.create_package_properties(
     properties=sp.example_package_properties(),
     path=package_path
 )
-readme = sp.build_readme_text(sp.example_package_properties())
+readme = sp.as_readme_text(sp.example_package_properties())
 sp.write_file(readme, package_path.parent)
 
 # Since the path leads to the datapackage.json file, for later functions we need the folder instead.
@@ -286,7 +286,7 @@ the text*, but not write it to the file. This allows you to add
 additional information to the README text before writing it to the file.
 
 ```{python}
-readme_text = sp.build_readme_text(
+readme_text = sp.as_readme_text(
     properties=sp.read_properties(sp.path_properties(path=package_path))
 )
 ```
