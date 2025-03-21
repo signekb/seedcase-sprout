@@ -53,3 +53,32 @@ flowchart
     properties --> write_package_properties
     path_properties --> write_package_properties
 ```
+
+## Updating properties in an existing package
+
+The flow for updating properties in an existing package. The
+`update_package_properties()` function will internally call
+`check_properties()`, but it can also be called separately to check the
+properties before updating them in the `datapackage.json` file.
+
+```{mermaid}
+%%| label: fig-flow-update-package
+%%| fig-cap: "Diagram showing the flow of objects and functions to update properties in an existing package."
+%%| fig-alt: "A flow diagram showing the steps to updating properties in an existing package."
+flowchart
+    properties_current[("PackageProperties<br>(current)")]
+    properties_updates[("PackageProperties<br>(updates)")]
+    properties_updated[("PackageProperties<br>(updated)")]
+    path_properties("path_properties()")
+    update_package_properties("update_package_properties()")
+    read_package_properties("read_package_properties()")
+    write_package_properties("write_package_properties()")
+
+    path_properties --> read_package_properties
+    read_package_properties --> properties_current
+    properties_current --> update_package_properties
+    properties_updates --> update_package_properties
+    update_package_properties --> properties_updated
+    properties_updated --> write_package_properties
+    path_properties --> write_package_properties
+```
