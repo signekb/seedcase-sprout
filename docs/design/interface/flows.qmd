@@ -82,3 +82,34 @@ flowchart
     properties_updated --> write_package_properties
     path_properties --> write_package_properties
 ```
+
+## Save new, added, or modified raw data to batch
+
+A data resource needs data, not just properties. You can add data to any
+data resource that has resource properties. Whenever data is added to a
+data resource, it gets first saved in the `batch/` folder to keep track
+of additions or changes. You add the data when:
+
+-   A new data resource is created and data is added to it.
+-   Additional data is added to an existing data resource.
+-   You need to fix, update, or modify existing data in the resource by
+    correcting the data (e.g. fixing a data entry issue).
+
+The data must be in a tidy format and must have already been loaded in
+as a Polars DataFrame.
+
+```{mermaid}
+%%| label: fig-flow-save-raw-data-to-batch
+%%| fig-cap: "Diagram showing the flow of objects and functions to save new, added, or modified raw data to a batch."
+%%| fig-alt: "A flow diagram showing the steps to save new, added, or modified raw data to a batch."
+flowchart
+    raw_data[("DataFrame<br>(raw data)")]
+    resource_properties[(ResourceProperties)]
+    write_resource_batch("write_resource_batch()")
+    check_data("check_data()")
+
+    raw_data --> write_resource_batch
+    resource_properties --> write_resource_batch
+    raw_data -.-> check_data
+    resource_properties -.-> check_data
+```
