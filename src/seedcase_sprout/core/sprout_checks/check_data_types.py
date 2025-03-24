@@ -1,94 +1,139 @@
-import json
-import re
-import uuid
+import polars as pl
 
-import xmlschema
+from seedcase_sprout.core.get_nested_attr import get_nested_attr
+from seedcase_sprout.core.properties import (
+    FieldProperties,
+    ResourceProperties,
+)
+from seedcase_sprout.core.sprout_checks.check_column_data_types import (
+    FRICTIONLESS_TO_COLUMN_CHECK,
+)
+from seedcase_sprout.core.sprout_checks.field_general_error_messages import (
+    FIELD_GENERAL_ERROR_MESSAGES,
+)
 
-# Data types for validating time and date values
-XML_SCHEMA_TYPES = xmlschema.XMLSchema11(
-    '<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>'
-).types
-
-
-def check_is_xml_type(value: str, type: str) -> bool:
-    """Checks if `value` is correctly formatted as an XML data type.
-
-    The Frictionless Data Package standard follows the definitions at
-    https://www.w3.org/TR/xmlschema-2/ for time and date-related data types.
-    This function is for checking values against these XML data type definitions.
-
-    Args:
-        value: The value to check.
-        type: The XML data type to check against.
-
-    Returns:
-        True if the value is the correct type, False otherwise.
-    """
-    try:
-        XML_SCHEMA_TYPES[type].decode(value)
-        return True
-    except (xmlschema.XMLSchemaDecodeError, KeyError):
-        return False
+# Column name for column containing the row index
+INDEX_COLUMN = "__row_index__"
+# Column name for column containing the result of the check
+CHECK_COLUMN_NAME = "__{column}_check_data_types_correct__"
 
 
-def check_is_json(value: str, expected_type: type[list | dict]) -> bool:
-    """Checks if the `value` is correctly formatted as a JSON object or array.
+def check_data_types(data: pl.DataFrame, resource_properties: ResourceProperties):
+    """Checks that all data items match their data type given in `resource_properties`.
+
+    Each value in each data frame column is checked against the data type given in the
+    resource properties for the corresponding field. This function expects the column
+    names of the data frame to be the same as in the `resource_properties` and assumes
+    that missing values are represented by null.
 
     Args:
-        value: The value to check.
-        expected_type: The expected JSON type: an object or an array.
+        data: The data frame to check.
+        resource_properties: The resource properties to check against.
 
     Returns:
-        True if the value is a correct JSON type, False otherwise.
+        The data frame, if all data type checks passed.
+
+    Raises:
+        ExceptionGroup[ValueError]: One error for each column/field that has any values
+            that failed the data type check. Each error lists all failed values together
+            with their row index.
     """
-    try:
-        return isinstance(json.loads(value), expected_type)
-    except json.JSONDecodeError:
-        return False
+    fields: list[FieldProperties] = get_nested_attr(
+        resource_properties, "schema.fields", default=[]
+    )
+
+    # Add column with failed values for each field
+    df_checked = data.with_row_index(INDEX_COLUMN).with_columns(
+        check_column(data, field)
+        .pipe(extract_failed_values, field.name)
+        .alias(CHECK_COLUMN_NAME.format(column=field.name))
+        for field in fields
+    )
+
+    # Collect failed values into one error per field
+    errors = []
+    for field in fields:
+        failed_values = (
+            df_checked.get_column(CHECK_COLUMN_NAME.format(column=field.name))
+            .drop_nulls()
+            .to_list()
+        )
+        if failed_values:
+            errors.append(TypeError(get_field_error_message(field, failed_values)))
+
+    if errors:
+        raise ExceptionGroup(
+            "Some columns contain values that do not match the column's data type.",
+            errors,
+        )
+
+    return data
 
 
-def check_is_geopoint(value: str) -> bool:
-    """Checks if the `value` is correctly formatted as a geographic point.
+def extract_failed_values(check_result: pl.Expr, field_name: str) -> pl.Expr:
+    """Adds a short error message for each value that failed the data type check.
+
+    The error message includes the index of the row and the incorrect value itself.
 
     Args:
-        value: The value to check.
+        check_result: The column containing the result of the check.
+        field_name: The name of the field to check.
 
     Returns:
-        True if the value is a geographic point, False otherwise.
+        A Polars expression.
     """
-    try:
-        lat, long = value.split(",")
-        return abs(float(lat.strip())) <= 90 and abs(float(long.strip())) <= 180
-    except ValueError:
-        return False
+    return (
+        pl.when(check_result)
+        .then(pl.lit(None))
+        .otherwise(
+            pl.format(
+                "[{}]: '{}'",
+                pl.col(INDEX_COLUMN),
+                pl.col(field_name),
+            )
+        )
+    )
 
 
-EMAIL_PATTERN = r"^[^@\s]+@[^@\s]+\.[^@\s]+$"
+def check_column(data: pl.DataFrame, field: FieldProperties) -> pl.Expr:
+    """Checks that the values in the given column/field are of the correct type.
 
-
-def check_is_email(value: str) -> bool:
-    """Checks if `value` meets the main format constraints of email addresses.
+    This function constructs the appropriate check expression for the field
+    based on the field's type.
 
     Args:
-        value: The value to check.
+        data: The data frame being operated on.
+        field: The field to check.
 
     Returns:
-        True if the value meets the main format constraints, False otherwise.
+        A Polars expression for checking the data type of values in the column.
     """
-    return bool(re.match(EMAIL_PATTERN, value)) and len(value) <= 254
+    field_name, field_type = field.name, (field.type or "any")
+    check = FRICTIONLESS_TO_COLUMN_CHECK[field_type]
+    return (
+        pl.col(field_name)
+        .is_null()
+        .or_(check(data, field_name) if field_type == "datetime" else check(field_name))
+        .cast(pl.Boolean)
+    )
 
 
-def check_is_uuid(value: str) -> bool:
-    """Checks if `value` can be parsed as an UUID.
+def get_field_error_message(field: FieldProperties, failed_values: list[str]) -> str:
+    """Returns an error message for the given field.
+
+    The error message includes a general comment about the data type of the field,
+    the name of the field, and a list of failed values in the field's column together
+    with their row indices.
 
     Args:
-        value: The value to check.
+        field: The field to get the error message for.
+        failed_values: The failed values in the field's column.
 
     Returns:
-        True if the value can be parsed as a UUID, False otherwise.
+        An error message for the field.
     """
-    try:
-        uuid.UUID(value)
-        return True
-    except ValueError:
-        return False
+    return (
+        f"{FIELD_GENERAL_ERROR_MESSAGES.get(field.type, '')} "
+        f"Values in column '{field.name}' at the following row indices "
+        f"could not be parsed as '{field.type}': {', '.join(failed_values)}"
+    )
