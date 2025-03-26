@@ -112,6 +112,30 @@ flowchart
     path_readme --> write_file
 ```
 
+## Create resource properties manually
+
+If the user doesn't have a raw data file yet, but the user knows what
+the properties will be, they can use this workflow to add the resource
+properties manually. The `write_resource_properties()` function will
+internally call `check_resource_properties()`, but it can also be called
+separately to check the properties before writing them to the
+`datapackage.json` file.
+
+```{mermaid}
+%%| label: fig-flow-create-resource-properties
+%%| fig-cap: "Diagram showing the flow of objects and functions to create resource properties manually."
+%%| fig-alt: "A flow diagram showing the steps to create resource properties manually."
+flowchart
+    properties[(ResourceProperties)]
+    path_properties("path_properties()")
+    check_resource_properties("check_resource_properties()")
+    write_resource_properties("write_resource_properties()")
+
+    properties -.-> check_resource_properties
+    properties --> write_resource_properties
+    path_properties --> write_resource_properties
+```
+
 ## Save new, added, or modified raw data to batch
 
 A data resource needs data, not just properties. You can add data to any
