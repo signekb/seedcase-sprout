@@ -113,3 +113,40 @@ flowchart
     raw_data -.-> check_data
     resource_properties -.-> check_data
 ```
+
+## Create or re-create the resource data
+
+The batch data files are used to keep track of changes to the data
+without deleting the original data, while also keeping the data that
+will be used clean and ready for analysis. With this flow, the batch data is
+converted into the final resource data. These steps are split up so
+that, if needed or desired, you can make modifications to the data
+before it is written to the final resource data. While
+`write_resource_data()` will call `check_data()` internally, it can also
+be called separately to check the data before writing it to the final
+resource data.
+
+```{mermaid}
+%%| label: fig-flow-create-resource-data
+%%| fig-cap: "Diagram showing the flow of objects and functions to create or re-create the resource data."
+%%| fig-alt: "A flow diagram showing the steps to create or re-create the resource data."
+flowchart
+    path_resource_batch_files("path_resource_batch_files()")
+    read_resource_batches("read_resource_batches()")
+    list_data[("List[DataFrame]")]
+    join_resource_batches("join_resource_batches()")
+    joined_data[(DataFrame)]
+    write_resource_data("write_resource_data()")
+    resource_properties[(ResourceProperties)]
+    check_data("check_data()")
+
+    path_resource_batch_files --> read_resource_batches
+    read_resource_batches --> list_data
+    list_data --> join_resource_batches
+    join_resource_batches --> joined_data
+    joined_data --> write_resource_data
+    resource_properties --> write_resource_data
+    joined_data -.-> check_data
+    resource_properties -.-> check_data
+```
+
