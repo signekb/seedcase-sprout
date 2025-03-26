@@ -10,8 +10,7 @@ def write_resource_batch(
     name to store it as a backup. See the
     [design](https://sprout.seedcase-project.org/docs/design/) docs for an
     explanation of this batch file. Data is always checked against the properties
-    before saving into the batch folder. Copies and compresses the file, and
-    outputs the path object of the created file.
+    before saving into the batch folder.
 
         Args:
             data: A Polars DataFrame object with the data to write to the batch folder.
@@ -19,7 +18,7 @@ def write_resource_batch(
                 data ready to write.
             resource_properties: The properties object for the specific resource.
                 Use `read_properties()` to read the properties for the resource
-                and `get_properties()` to get the correct resource properties.
+                and `get_resource_properties()` to get the correct resource properties.
 
         Returns:
             The path to the written Parquet resource file.
