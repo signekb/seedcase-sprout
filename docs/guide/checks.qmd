@@ -1,6 +1,6 @@
 ---
 title: "Checking package and resource properties"
-order: 2
+order: 4
 jupyter: python3
 ---
 
