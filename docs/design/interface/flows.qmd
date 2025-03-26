@@ -83,6 +83,35 @@ flowchart
     path_properties --> write_package_properties
 ```
 
+## Update README after changing package or resource properties
+
+The flow for updating the README file after changing the package or
+resource properties. Since the README template text is generated from
+the properties in the `datapackage.json` file, any change to that file
+will require updating the README file. The split between
+`as_readme_text()` and `write_file()` is to allow for testing or
+programmatically modifying the generated README text before writing it
+to the file.
+
+```{mermaid}
+%%| label: fig-flow-update-readme
+%%| fig-cap: "Diagram showing the flow of objects and functions to update the README file after changing the package or resource properties."
+%%| fig-alt: "A flow diagram showing the steps to update the README file after changing the package or resource properties."
+flowchart
+    properties[(PackageProperties)]
+    path_properties("path_properties()")
+    read_package_properties("read_package_properties()")
+    as_readme_text("as_readme_text()")
+    write_file("write_file()")
+    path_readme("path_readme()")
+
+    path_properties --> read_package_properties
+    read_package_properties --> properties
+    properties --> as_readme_text
+    as_readme_text --> write_file
+    path_readme --> write_file
+```
+
 ## Save new, added, or modified raw data to batch
 
 A data resource needs data, not just properties. You can add data to any
@@ -149,4 +178,3 @@ flowchart
     joined_data -.-> check_data
     resource_properties -.-> check_data
 ```
-
