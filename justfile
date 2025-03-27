@@ -6,7 +6,7 @@ run-all: install-deps format-python check-python test-python check-commits build
 
 # Install Python package dependencies
 install-deps:
-  poetry sync
+  poetry install
 
 # Run the Python tests
 test-python:
@@ -25,6 +25,8 @@ format-python:
 build-website:
   # To let Quarto know where python is.
   export QUARTO_PYTHON=.venv/bin/python3
+  # Delete any previously built files from quartodoc
+  rm docs/reference/*.qmd
   poetry run quartodoc build
   poetry run quarto render --execute
 
@@ -32,10 +34,10 @@ build-website:
 check-commits:
   #!/bin/zsh
   branch_name=$(git rev-parse --abbrev-ref HEAD)
-  number_of_commits=$(git rev-list --count HEAD ^$branch_name)
+  number_of_commits=$(git rev-list --count HEAD ^main)
   if [[ ${branch_name} != "main" && ${number_of_commits} -gt 0 ]]
   then
     poetry run cz check --rev-range main..HEAD
   else
-    echo "Not on main or haven't committed yet."
+    echo "Can't either be on ${branch_name} or have more than ${number_of_commits}."
   fi
