@@ -43,6 +43,7 @@ from .properties import (
     TableSchemaForeignKeyProperties,
     TableSchemaProperties,
 )
+from .read_properties import read_properties
 from .sprout_checks.check_package_properties import check_package_properties
 from .sprout_checks.check_properties import check_properties
 from .sprout_checks.check_resource_properties import check_resource_properties
@@ -71,6 +72,7 @@ __all__ = [
     "SourceProperties",
     "TableSchemaForeignKeyProperties",
     "TableSchemaProperties",
+    "read_properties",
     # Example properties -----
     "example_package_properties",
     # Packages -----

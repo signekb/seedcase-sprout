@@ -112,6 +112,12 @@ quartodoc:
         - TableSchemaForeignKeyProperties
         - TableSchemaProperties
 
+    - subtitle: "Property functions"
+      desc: "Functions used to work with properties."
+      package: "seedcase_sprout.core"
+      contents:
+        - read_properties
+
     - subtitle: "Path functions"
       desc: "Functions to support providing the correct file paths to data package and data resource functions."
       package: "seedcase_sprout.core"

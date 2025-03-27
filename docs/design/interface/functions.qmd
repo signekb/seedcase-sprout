@@ -283,9 +283,20 @@ details on the properties.
 
 ## Properties functions
 
-### {{< var wip >}} `read_properties(path)`
+### {{< var done >}} `read_properties(path)`
 
-Reads the `datapackage.json` file, checks that is correct, and then
+See the help documentation with `help(read_properties)` for more details.
+
+```{mermaid}
+flowchart
+    in_path[/path/]
+    function("read_properties()")
+    out[("PackageProperties")]
+    in_path --> function
+    function --> out
+```
+
+Reads the `datapackage.json` file, checks that it is correct, and then
 outputs a `PackageProperties` object.
 
 ## Helper functions
