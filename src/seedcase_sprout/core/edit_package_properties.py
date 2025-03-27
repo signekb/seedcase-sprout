@@ -46,7 +46,7 @@ def edit_package_properties(
     Examples:
         ```{python}
         #| eval: false
-        # TODO: This needs to be updated to match using `create_package_properties()`.
+        # TODO: This needs to be updated to match using `write_package_properties()`.
         import tempfile
         from pathlib import Path
 
@@ -57,9 +57,9 @@ def edit_package_properties(
             temp_path = Path(temp_dir)
 
             # Create a package structure first
-            sp.create_package_properties(
+            sp.write_package_properties(
                 properties=sp.example_package_properties(),
-                path=temp_path
+                path=Path(temp_path / "datapackage.json")
             )
 
             # Edit package properties

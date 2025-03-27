@@ -35,9 +35,9 @@ def path_properties(path: Path = Path.cwd()) -> Path:
         with tempfile.TemporaryDirectory() as temp_dir:
             temp_path = Path(temp_dir)
             # Create a package structure first
-            sp.create_package_properties(
+            sp.write_package_properties(
                 properties=sp.example_package_properties(),
-                path=temp_path
+                path=Path(temp_path / "datapackage.json")
             )
 
             sp.path_properties(path=temp_path)
@@ -70,9 +70,9 @@ def path_readme(path: Path = Path.cwd) -> Path:
             temp_path = Path(temp_dir)
 
             # Create a package structure first
-            sp.create_package_properties(
+            sp.write_package_properties(
                 properties=sp.example_package_properties(),
-                path=temp_path
+                path=Path(temp_path / "datapackage.json")
             )
 
             sp.path_readme(path=temp_path)
@@ -105,9 +105,9 @@ def path_resource(resource_id: int, path: Path = Path.cwd()) -> Path:
             temp_path = Path(temp_dir)
 
             # Create a package and resource structure first
-            sp.create_package_properties(
+            sp.write_package_properties(
                 properties=sp.example_package_properties(),
-                path=temp_path
+                path=Path(temp_path / "datapackage.json")
             )
 
             resources_path = Path(temp_path / "resources")
@@ -145,9 +145,9 @@ def path_resource_data(resource_id: int, path: Path = Path.cwd()) -> Path:
             temp_path = Path(temp_dir)
 
             # Create a package and resource structure first
-            sp.create_package_properties(
+            sp.write_package_properties(
                 properties=sp.example_package_properties(),
-                path=temp_path
+                path=Path(temp_path / "datapackage.json")
             )
 
             # TODO: Update after writing data to resource
@@ -197,9 +197,9 @@ def path_resource_batch(resource_id: int, path: Path = Path.cwd()) -> Path:
             temp_path = Path(temp_dir)
 
             # Create a package and resource structure first
-            sp.create_package_properties(
+            sp.write_package_properties(
                 properties=sp.example_package_properties(),
-                path=temp_path
+                path=Path(temp_path / "datapackage.json")
             )
 
             resources_path = Path(temp_path / "resources")
@@ -237,9 +237,9 @@ def path_resource_batch_files(resource_id: int, path: Path = Path.cwd()) -> list
             temp_path = Path(temp_dir)
 
             # Create a package and resource structure first
-            sp.create_package_properties(
+            sp.write_package_properties(
                 properties=sp.example_package_properties(),
-                path=temp_path
+                path=Path(temp_path / "datapackage.json")
             )
 
             resources_path = Path(temp_path / "resources")
@@ -279,9 +279,9 @@ def path_resources(path: Path = Path.cwd()) -> Path:
             temp_path = Path(temp_dir)
 
             # Create a package structure first
-            sp.create_package_properties(
+            sp.write_package_properties(
                 properties=sp.example_package_properties(),
-                path=temp_path
+                path=Path(temp_path / "datapackage.json")
             )
 
             Path(temp_path / "resources").mkdir()

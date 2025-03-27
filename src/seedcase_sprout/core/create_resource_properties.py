@@ -48,9 +48,9 @@ def create_resource_properties(
             temp_path = Path(temp_dir)
 
             # Create a package and resource structure first
-            sp.create_package_properties(
+            sp.write_package_properties(
                 properties=sp.example_package_properties(),
-                path=temp_path
+                path=Path(temp_path / "datapackage.json")
             )
 
             # TODO: Update after converting to "local-first"

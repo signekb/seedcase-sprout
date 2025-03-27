@@ -29,7 +29,7 @@ needs a `datapackage.json` file. This file contains a set of [{{< glossary "prop
 or metadata, about the data package and, eventually, about the data
 resources within it. To set up this `datapackage.json` file, you first
 need a set of properties you want to add to the data package. Then, you
-can use the `create_package_properties()` function that takes the
+can use the `write_package_properties()` function that takes the
 properties and the path where you want to store the data package as
 arguments. So first, you need to establish our properties.
 
@@ -45,10 +45,23 @@ First, import the necessary modules and set up the environment:
 import seedcase_sprout.core as sp
 ```
 
-Then you can create some basic properties:
+There are a few properties that are required for a data package, such as
+`version`, `id`, and `created`. While you could fill these in manually,
+it's much easier to use the `default()` method of the `PackageProperties`:
+
+```{python}
+# TODO: This could be improved.
+default_properties = sp.PackageProperties.default().compact_dict
+print(default_properties)
+```
+
+Then you can add some basic properties for your data package:
 
 ```{python}
 properties = sp.PackageProperties(
+    # TODO: This could be improved.
+    # Insert in the default properties.
+    **default_properties,
     name="diabetes-hypertension-study",
     title="Diabetes and Hypertension Study",
     description="Data from the 2021 study on diabetes and hypertension",
@@ -68,6 +81,7 @@ properties = sp.PackageProperties(
         )
     ],
 )
+print(properties)
 ```
 
 Now, time to create your data package with these properties.
@@ -92,21 +106,21 @@ package_path.mkdir(parents=True)
 :::
 
 ```{python}
-sp.create_package_properties(
-    properties = properties,
-    path = package_path
+sp.write_package_properties(
+    properties=properties,
+    path=Path(package_path / "datapackage.json")
 )
 ```
 
 ::: callout-important
-The `create_package_properties()` function will give an error if the
+The `write_package_properties()` function will give an error if the
 `PackageProperties` object is missing some of its required fields or if
 they are not filled in correctly. In that case, a `datapackage.json`
 file won't be created.
 :::
 
 This creates the initial structure of your new package. The
-`create_package_properties()` function created the `datapackage.json`
+`write_package_properties()` function created the `datapackage.json`
 file in your data package `diabetes-study` folder, which contains the
 properties you added to it. The newly created file would be:
 
@@ -195,9 +209,9 @@ only one change:
 # TODO: Update this after fixing the path_package() function
 package_path=sp.path_sprout_global() / "diabetes-study"
 package_path.mkdir(parents=True)
-sp.create_package_properties(
+sp.write_package_properties(
     properties = properties,
-    path=package_path
+    path=Path(package_path / "datapackage.json")
 )
 ```
 

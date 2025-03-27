@@ -43,9 +43,9 @@ def path_package(package_id: int) -> Path:
             package_path = sp.path_packages() / "1"
             package_path.mkdir()
             # Create a package structure first
-            sp.create_package_properties(
+            sp.write_package_properties(
                 properties=sp.example_package_properties(),
-                path=package_path
+                path=Path(package_path / "datapackage.json")
             )
 
             # Get the path to the package

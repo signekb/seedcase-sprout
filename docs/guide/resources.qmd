@@ -49,9 +49,9 @@ from urllib.request import urlretrieve
 temp_path = Path(mkdtemp())
 package_path = temp_path / "diabetes-study"
 package_path.mkdir()
-sp.create_package_properties(
+sp.write_package_properties(
     properties=sp.example_package_properties(),
-    path=package_path
+    path=Path(package_path / "datapackage.json")
 )
 readme = sp.as_readme_text(sp.example_package_properties())
 sp.write_file(readme, package_path.parent)

@@ -52,21 +52,6 @@ Firefox. To see them, try using a different browser like Chrome or Edge.
 
 ## Data package functions
 
-### {{< var done >}} `create_package_properties(properties, path)`
-
-See the help documentation with `help(create_package_properties)` for
-more details.
-
-```{mermaid}
-flowchart
-    in_properties[/properties/]
-    in_path[/path/]
-    function("create_package_properties()")
-    out[("{path}/datapackage.json")]
-    in_properties --> function
-    in_path --> function
-    function --> out
-```
 
 ### {{< var done >}} `as_readme_text(properties)`
 
@@ -102,6 +87,17 @@ flowchart
 
 See the help documentation with `help(write_package_properties)` for
 more details.
+
+```{mermaid}
+flowchart
+    in_properties[/properties/]
+    in_path[/path/]
+    function("write_package_properties()")
+    out[("Path: ./datapackage.json")]
+    in_properties --> function
+    in_path --> function
+    function --> out
+```
 
 ## Data resource functions
 

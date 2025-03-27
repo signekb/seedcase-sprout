@@ -15,4 +15,4 @@ print("`." + "`, `.".join(sorted(SUPPORTED_FORMATS)) + "`")
 
 For more information on how to extract properties from these formats,
 see the [Creating and managing data
-resources](/docs/guides/resources.qmd) guide.
+resources](/docs/guide/resources.qmd) guide.

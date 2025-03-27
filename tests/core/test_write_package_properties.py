@@ -42,7 +42,7 @@ def path(tmp_path) -> Path:
 
 def test_writes_properties_when_file_does_not_exist(path, package_properties):
     """Should write properties to file when the file doesn't yet exist."""
-    assert write_package_properties(path, package_properties) == path
+    assert write_package_properties(package_properties, path) == path
     assert_file_contains(path, package_properties)
 
 
@@ -52,7 +52,7 @@ def test_rewrites_package_properties_when_file_exists(path, package_properties):
     old_properties = package_properties.compact_dict | {"name": "old-name"}
     write_json(old_properties, path)
 
-    assert write_package_properties(path, package_properties) == path
+    assert write_package_properties(package_properties, path) == path
     assert_file_contains(path, package_properties)
 
 
@@ -65,7 +65,7 @@ def test_rewrites_resource_properties_when_file_exists(path, package_properties)
     )
     write_json(old_properties.compact_dict, path)
 
-    assert write_package_properties(path, package_properties) == path
+    assert write_package_properties(package_properties, path) == path
     assert_file_contains(path, package_properties)
 
 
@@ -74,7 +74,7 @@ def test_writes_properties_with_missing_resources(path, package_properties):
     write_json(package_properties.compact_dict, path)
     new_properties = replace(package_properties, resources=None)
 
-    assert write_package_properties(path, new_properties) == path
+    assert write_package_properties(new_properties, path) == path
     assert_file_contains(path, new_properties)
 
 
@@ -85,7 +85,7 @@ def test_throws_error_if_error_in_package_properties(path, package_properties):
     write_json(resource_properties.compact_dict, path)
 
     with raises(ExceptionGroup) as error_info:
-        write_package_properties(path, package_properties)
+        write_package_properties(package_properties, path)
 
     errors = error_info.value.exceptions
     assert len(errors) == 2
@@ -100,7 +100,7 @@ def test_throws_error_if_error_in_resource_properties(path, package_properties):
     write_json(resource_properties.compact_dict, path)
 
     with raises(ExceptionGroup) as error_info:
-        write_package_properties(path, package_properties)
+        write_package_properties(package_properties, path)
 
     errors = error_info.value.exceptions
     assert len(errors) == 2

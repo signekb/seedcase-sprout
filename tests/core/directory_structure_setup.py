@@ -1,9 +1,9 @@
 from pathlib import Path
 
 from seedcase_sprout.core import (
-    create_package_properties,
     create_resource_structure,
     example_package_properties,
+    write_package_properties,
 )
 
 
@@ -17,7 +17,9 @@ def create_test_data_package(tmp_path: Path) -> Path:
         Path of package.
     """
     tmp_path.mkdir(parents=True, exist_ok=True)
-    create_package_properties(properties=example_package_properties(), path=tmp_path)
+    write_package_properties(
+        properties=example_package_properties(), path=tmp_path / "datapackage.json"
+    )
 
     (tmp_path / "README.md").touch()
 
@@ -34,7 +36,7 @@ def create_test_global_data_package(global_path: Path, package_id: int) -> Path:
     Returns:
         Path of package.
     """
-    # TODO: Use `create_package_properties()` function here when has been implemented.
+    # TODO: Use `write_package_properties()` function here when has been implemented.
     path_package = global_path / "packages" / str(package_id)
     path_package.mkdir(parents=True, exist_ok=True)
     (path_package / "datapackage.json").touch()

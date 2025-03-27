@@ -6,7 +6,7 @@ from seedcase_sprout.core.sprout_checks.check_properties import check_properties
 from seedcase_sprout.core.write_json import write_json
 
 
-def write_package_properties(path: Path, properties: PackageProperties) -> Path:
+def write_package_properties(properties: PackageProperties, path: Path) -> Path:
     """Writes the specified package properties to the `datapackage.json` file.
 
     Writes a set of package properties (with or without resource properties) back to the
@@ -15,13 +15,13 @@ def write_package_properties(path: Path, properties: PackageProperties) -> Path:
     argument.
 
     Args:
+        properties: The package properties to write. Use `PackageProperties`
+            to help create the properties object.
         path: The `path` argument is to an existing `datapackage.json` file, to a
             folder that exists but is empty, or to a folder that doesn't exist yet.
             Either way, the `datapackage.json` file will be created or overwritten
             in the path given. Use `path_properties()` as a helper to get the
             correct path.
-        properties: The package properties to write. Use `PackageProperties`
-            to help create the properties object.
 
     Returns:
         The path to the updated `datapackage.json` file.
