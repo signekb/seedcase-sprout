@@ -1,3 +1,9 @@
+## 0.26.9 (2025-03-27)
+
+### Fix
+
+- :bug: check that package and resource properties are `dict`s (#1179)
+
 ## 0.26.8 (2025-03-27)
 
 ### Refactor
