@@ -136,6 +136,43 @@ flowchart
     path_properties --> write_resource_properties
 ```
 
+## Update resource properties
+
+If you want to make a change to one or more of the fields inside the
+resource properties, this would be the flow you use. While the
+`update_resource_properties()` and `write_resource_properties()`
+functions will internally call `check_resource_properties()`, they can
+also be called separately to check the properties before updating them
+in the `datapackage.json` file.
+
+```{mermaid}
+%%| label: fig-flow-update-resource-properties
+%%| fig-cap: "Diagram showing the flow of objects and functions to update a resource's properties."
+%%| fig-alt: "A flow diagram showing the steps to update resource properties."
+flowchart
+    resource_name[("string<br>(name of resource)")]
+    properties_current[("ResourceProperties<br>(current)")]
+    properties_updates[("ResourceProperties<br>(updates)")]
+    properties_updated[("ResourceProperties<br>(updated)")]
+    path_properties("path_properties()")
+    update_resource_properties("update_resource_properties()")
+    read_properties("read_properties()")
+    get_resource_properties("get_resource_properties()")
+    write_resource_properties("write_resource_properties()")
+    check_resource_properties("check_resource_properties()")
+
+    path_properties --> read_properties
+    read_properties --> get_resource_properties
+    get_resource_properties --> properties_current
+    properties_current --> update_resource_properties
+    properties_updates --> update_resource_properties
+    update_resource_properties --> properties_updated
+    properties_updated --> write_resource_properties
+    path_properties --> write_resource_properties
+    resource_name --> get_resource_properties
+    properties_updated -.-> check_resource_properties
+```
+
 ## Save new, added, or modified raw data to batch
 
 A data resource needs data, not just properties. You can add data to any
