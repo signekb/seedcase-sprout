@@ -65,7 +65,6 @@ We may also occasionally use "properties" to refer to the file itself.
 | Action | Description |
 |----------------------------|--------------------------------------------|
 | commit | Saves changes made in a data package to the version control system. |
-| build | Build means generating or re-generating an object from other objects, e.g. (re-)build the text for the README. |
 | update | Update an object, mainly of the properties or version objects. |
 | write | Write an object to a file. |
 | read | Reads an object from a file. |

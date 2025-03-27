@@ -71,12 +71,11 @@ flowchart TB
     output[("Filesystem<br><br>Stored data and metadata on a local or server filesystem.")]
 
     user --> sprout:::system
-    package --> resource
     package --> metadata
-    resource --> batch
     resource --> data
     resource --> metadata
-    obs_unit --> data
+    obs_unit --> batch
+    resource --> batch
     sprout --> output:::external
 
     classDef system fill:none
