@@ -83,6 +83,43 @@ flowchart
     path_properties --> write_package_properties
 ```
 
+## Extract resource properties from data
+
+The flow for extracting resource properties from data. This is useful
+when the data is in a format that contains metadata about the data, such
+as a CSV file with a header row that contains the column names. The
+`extract_resource_properties()` function cannot extract all required
+properties from the data, so they must be updated by the user. So both
+`TableSchemaProperties` and `ResourceProperties` will need many of their
+fields filled in after using `extract_resource_properties()`. The
+`update_resource_properties()` function will internally call
+`check_resource_properties()`.
+
+```{mermaid}
+%%| label: fig-flow-extract-resource-properties
+%%| fig-cap: "Diagram showing the flow of objects and functions to extract resource properties from data."
+%%| fig-alt: "A flow diagram showing the steps to extract resource properties from data."
+flowchart
+    data[("DataFrame<br>(Tidy)")]
+    properties_extracted[("ResourceProperties<br>(extracted)")]
+    properties_updates[("ResourceProperties<br>(additions)")]
+    schema_properties_updates[("TableSchemaProperties<br>(additions)")]
+    properties_updated[("ResourceProperties<br>(updated)")]
+    update_resource_properties("update_resource_properties()")
+    path_properties("path_properties()")
+    extract_resource_properties("extract_resource_properties()")
+    write_resource_properties("write_resource_properties()")
+
+    data --> extract_resource_properties
+    extract_resource_properties --> properties_extracted
+    properties_extracted --> update_resource_properties
+    schema_properties_updates --> properties_updates
+    properties_updates --> update_resource_properties
+    update_resource_properties --> properties_updated
+    properties_updated --> write_resource_properties
+    path_properties --> write_resource_properties
+```
+
 ## Update README after changing package or resource properties
 
 The flow for updating the README file after changing the package or
@@ -173,7 +210,7 @@ flowchart
     properties_updated -.-> check_resource_properties
 ```
 
-## Save new, added, or modified raw data to batch
+## Save new, added, or modified data to batch
 
 A data resource needs data, not just properties. You can add data to any
 data resource that has resource properties. Whenever data is added to a
@@ -189,18 +226,18 @@ The data must be in a tidy format and must have already been loaded in
 as a Polars DataFrame.
 
 ```{mermaid}
-%%| label: fig-flow-save-raw-data-to-batch
-%%| fig-cap: "Diagram showing the flow of objects and functions to save new, added, or modified raw data to a batch."
-%%| fig-alt: "A flow diagram showing the steps to save new, added, or modified raw data to a batch."
+%%| label: fig-flow-save-data-to-batch
+%%| fig-cap: "Diagram showing the flow of objects and functions to save new, added, or modified data to a batch."
+%%| fig-alt: "A flow diagram showing the steps to save new, added, or modified data to a batch."
 flowchart
-    raw_data[("DataFrame<br>(raw data)")]
+    data[("DataFrame<br>(original data)")]
     resource_properties[(ResourceProperties)]
     write_resource_batch("write_resource_batch()")
     check_data("check_data()")
 
-    raw_data --> write_resource_batch
+    data --> write_resource_batch
     resource_properties --> write_resource_batch
-    raw_data -.-> check_data
+    data -.-> check_data
     resource_properties -.-> check_data
 ```
 
