@@ -1,3 +1,9 @@
+## 0.27.0 (2025-03-27)
+
+### Feat
+
+- :sparkles: add `read_properties()` function (#1156)
+
 ## 0.26.9 (2025-03-27)
 
 ### Fix
