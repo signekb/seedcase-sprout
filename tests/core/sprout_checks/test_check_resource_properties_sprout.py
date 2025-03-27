@@ -146,6 +146,17 @@ def test_error_raised_for_mismatched_type(properties):
     assert errors[0].validator == "type"
 
 
+def test_raises_error_if_resource_properties_not_dict(properties):
+    """A `CheckError` should be raised if the resource properties is not a dict."""
+    with raises(ExceptionGroup) as error_info:
+        check_resource_properties([1, 2, 3])
+
+    errors = error_info.value.exceptions
+    assert len(errors) == 1
+    assert errors[0].json_path == "$"
+    assert errors[0].validator == "type"
+
+
 def test_error_raised_for_only_sprout_specific_errors(properties):
     """Errors should be triggered by only those Data Package standard violations that
     are relevant for Sprout."""

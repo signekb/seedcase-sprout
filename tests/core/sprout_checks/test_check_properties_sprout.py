@@ -163,6 +163,30 @@ def test_raises_error_for_only_sprout_specific_errors(properties):
     )
 
 
+def test_raises_error_if_package_properties_not_dict():
+    """A `CheckError` should be raised if the package properties is not a dict."""
+    with raises(ExceptionGroup) as error_info:
+        check_properties([1, 2, 3])
+
+    errors = error_info.value.exceptions
+    assert len(errors) == 1
+    assert errors[0].json_path == "$"
+    assert errors[0].validator == "type"
+
+
+def test_raises_error_if_resource_properties_not_dict(properties):
+    """A `CheckError` should be raised if a resource properties is not a dict."""
+    properties["resources"][0] = [1, 2, 3]
+
+    with raises(ExceptionGroup) as error_info:
+        check_properties(properties)
+
+    errors = error_info.value.exceptions
+    assert len(errors) == 1
+    assert errors[0].json_path == "$.resources[0]"
+    assert errors[0].validator == "type"
+
+
 def test_ignored_errors_should_not_make_check_fail():
     """Check should not fail if triggered by an error that is ignored."""
     assert check_properties({}, ignore=[CheckErrorMatcher(validator="required")]) == {}

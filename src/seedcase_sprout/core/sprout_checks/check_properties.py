@@ -44,11 +44,13 @@ def check_properties(
     )
 
     errors = checks.check_properties(properties_dict)
-    errors += get_sprout_package_errors(properties_dict)
 
-    if isinstance(properties_dict.get("resources"), list):
-        for index, resource in enumerate(properties_dict.get("resources")):
-            errors += get_sprout_resource_errors(resource, index)
+    if isinstance(properties_dict, dict):
+        errors += get_sprout_package_errors(properties_dict)
+        if isinstance(properties_dict.get("resources"), list):
+            for index, resource in enumerate(properties_dict.get("resources")):
+                if isinstance(resource, dict):
+                    errors += get_sprout_resource_errors(resource, index)
 
     errors = exclude_matching_errors(
         errors,

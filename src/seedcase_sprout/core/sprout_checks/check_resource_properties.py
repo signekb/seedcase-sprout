@@ -43,7 +43,7 @@ def check_resource_properties(
         )
     except ExceptionGroup as error_info:
         for error in error_info.exceptions:
-            error.json_path = error.json_path.replace("resources[0].", "")
+            error.json_path = error.json_path.replace(".resources[0]", "")
         raise error_info
 
     return properties
