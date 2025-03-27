@@ -103,14 +103,6 @@ flowchart
 See the help documentation with `help(write_package_properties)` for
 more details.
 
-### {{< var wip >}} `delete_package(path, confirm)`
-
-Completely delete a specific package and all it's data resources.
-Because this action would be permanent, the `confirm` argument would
-default to `false` so that the user needs to explicitly provide `true`
-to the function argument as confirmation. This is done to prevent
-accidental deletion. Outputs `true` if the deletion was successful.
-
 ## Data resource functions
 
 ### {{< var done >}} `create_resource_dirs(path)`
@@ -198,7 +190,8 @@ argument must be a `ResourceProperties` object. Use the
 `path_properties()` function to provide the
 correct path location. Outputs a `ResourceProperties` object; use
 `write_resource_properties()` to save the properties object to the
-`datapackage.json` file.
+`datapackage.json` file. This function can also be used to delete all of
+a resource's properties.
 
 ```{mermaid}
 flowchart
@@ -210,36 +203,6 @@ flowchart
     in_properties --> function
     function --> out
 ```
-
-### {{< var wip >}} `delete_resource_batch_file(path, confirm)`
-
-Use this to delete a batch file in the `batch/` folder of a resource. This
-is useful if the file is no longer needed or if it is incorrect or had
-an issue during the time when a user first added the file to a resource.
-Use `path_resource_batch_files()` to select which file to delete from the
-list of files found. Will only delete one file. The `confirm` argument
-defaults to `false` so that the user needs to explicitly provide `true`
-to the function argument as confirmation. This is done to prevent
-accidental deletion. Outputs `true` if the deletion was successful.
-
-### {{< var wip >}} `delete_resource_data(path, confirm)`
-
-Delete all Parquet data and its batch data of a specific resource. Use
-`path_resource_batch()` to provide the correct path location. The
-`confirm` argument defaults to `false` so that the user needs to
-explicitly provide `true` to the function argument as confirmation. This
-is done to prevent accidental deletion. Outputs `true` if the deletion
-was successful. Use `delete_resource_properties()` to delete the the
-associated properties/metadata for the resource.
-
-### {{< var wip >}} `delete_resource_properties(path, resource_id, confirm)`
-
-Deletes all properties for a resource within the `datapackage.json`
-file. Use `path_properties()` to provide the correct location for
-`path`. The `confirm` argument defaults to `false` so that the user
-needs to explicitly provide `true` to the function argument as
-confirmation. This is done to prevent accidental deletion. Outputs
-`true` if the deletion was successful.
 
 ### {{< var done >}} `write_resource_properties(resource_properties, path)`
 
@@ -331,13 +294,27 @@ outputs a `PackageProperties` object.
 
 ## Helper functions
 
-### {{< var wip >}} `pretty_json(json)`
-
-Create a prettier, human readable version of a JSON object.
+## Base functions
 
 ### {{< var done >}} `write_file(text, path)`
 
 See the help documentation with `help(write_file)` for more details.
+
+### {{< var wip >}} `delete_file(path, confirm)`
+
+Given a path, delete that file. This is mostly a wrapper around standard
+functions in Python. The `confirm` argument defaults to `false` so that
+the user needs to explicitly provide `true` to the function argument as
+confirmation. This is done to prevent accidental deletion. Outputs `true`
+if the deletion was successful.
+
+### {{< var wip >}} `delete_dir(path, confirm)`
+
+Given a path, delete that directory and everything inside. This is mostly a
+wrapper around standard functions in Python. The `confirm` argument defaults to
+`false` so that the user needs to explicitly provide `true` to the function
+argument as confirmation. This is done to prevent accidental deletion. Outputs
+`true` if the deletion was successful.
 
 ## Observational unit functions
 
