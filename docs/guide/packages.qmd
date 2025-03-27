@@ -134,21 +134,21 @@ print(package_path.glob("**/*"))
 ## Editing package properties
 
 If you made a mistake and want to update the properties in the current
-`datapackage.json`, you can use the `edit_package_properties()` function
+`datapackage.json`, you can use the `update_package_properties()` function
 while using the helper `path_properties()` function to point to the
 `datapackage.json` file. The default behavior of the `path_properties()`
 function is to look in the current working directory, but for this
 guide, it is pointing to the temporary folder created from above.
 
 ```{python}
-updated_package_properties = sp.edit_package_properties(
-  path=sp.path_properties(path=package_path),
-  properties=sp.PackageProperties(name="diabetes-study"),
+updated_package_properties = sp.update_package_properties(
+  current=properties,
+  updates=sp.PackageProperties(name="diabetes-study"),
 )
 ```
 
 ::: callout-important
-The `edit_package_properties()` function will give an error if the
+The `update_package_properties()` function will give an error if the
 required fields are not filled in correctly and so will not create a
 `datapackage.json` file.
 :::

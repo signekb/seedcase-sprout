@@ -86,7 +86,7 @@ quartodoc:
       package: "seedcase_sprout.core"
       contents:
         - write_package_properties
-        - edit_package_properties
+        - update_package_properties
         - as_readme_text
 
     - subtitle: "Data resource functions"
