@@ -1,3 +1,9 @@
+## 0.28.0 (2025-03-31)
+
+### Feat
+
+- :sparkles: add `example_resource_properties()` (#1212)
+
 ## 0.27.1 (2025-03-31)
 
 ### Refactor
