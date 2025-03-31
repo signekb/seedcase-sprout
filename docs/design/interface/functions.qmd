@@ -46,8 +46,9 @@ while those with a {{< var done >}} icon are implemented.
 :::
 
 ::: callout-caution
-For some reason, the diagrams below don't display well on some browsers like
-Firefox. To see them, try using a different browser like Chrome or Edge.
+For some reason, the diagrams below don't display well on some browsers
+like Firefox. To see them, try using a different browser like Chrome or
+Edge.
 :::
 
 ## Data package functions
@@ -55,8 +56,7 @@ Firefox. To see them, try using a different browser like Chrome or Edge.
 
 ### {{< var done >}} `as_readme_text(properties)`
 
-See the help documentation with `help(as_readme_text)` for more
-details.
+See the help documentation with `help(as_readme_text)` for more details.
 
 ```{mermaid}
 flowchart
@@ -103,8 +103,8 @@ flowchart
 
 ### {{< var done >}} `create_resource_dirs(path)`
 
-See the help documentation with `help(create_resource_dirs)` for
-more details.
+See the help documentation with `help(create_resource_dirs)` for more
+details.
 
 ```{mermaid}
 flowchart
@@ -165,8 +165,7 @@ flowchart
 
 ### {{< var wip >}} `write_resource_parquet(data, resource_properties)`
 
-See the help documentation with `help(write_parquet)` for more
-details.
+See the help documentation with `help(write_parquet)` for more details.
 
 ```{mermaid}
 flowchart
@@ -233,8 +232,8 @@ flowchart
 ## Path functions
 
 -   All of these functions output a path object.
--   All of these functions have an optional `path` argument that defaults to
-    the current working directory.
+-   All of these functions have an optional `path` argument that
+    defaults to the current working directory.
 -   The paths returned by all of these functions are paths that exist,
     so all include a `check_is_dir()` or `check_is_file()` check.
 -   If the wrong `resource_id` is given, an error message will include a
@@ -260,8 +259,8 @@ details.
 
 ### {{< var done >}} `path_resource_batch_files(resource_id, path)`
 
-See the help documentation with `help(path_resource_batch_files)` for more
-details.
+See the help documentation with `help(path_resource_batch_files)` for
+more details.
 
 ### {{< var done >}} `path_resource_data(resource_id, path)`
 
@@ -299,7 +298,89 @@ flowchart
 Reads the `datapackage.json` file, checks that it is correct, and then
 outputs a `PackageProperties` object.
 
-## Helper functions
+## Check functions
+
+All the check functions check the properties given in the
+`datapackage.json` file against the Frictionless Data Package standard.
+Even the checks on the data itself are based on the properties given in
+the `datapackage.json` file. The checks on the properties are mainly
+wrappers around the `check_datapackage` "sub-package" (that we will
+eventually split into its own package).
+
+### {{< var done >}} `check_properties(properties)`
+
+See the help documentation with `help(check_properties)` for more
+details. This checks all the properties, both package and resources.
+
+```{mermaid}
+flowchart
+    in_properties[/properties/]
+    function("check_properties()")
+    out[("PackageProperties<br>or Error")]
+    in_properties --> function
+    function --> out
+```
+
+### {{< var done >}} `check_package_properties(properties)`
+
+See the help documentation with `help(check_package_properties)` for
+more details. This *only* checks the package properties.
+
+```{mermaid}
+flowchart
+    in_properties[/properties/]
+    function("check_package_properties()")
+    out[("PackageProperties<br>or Error")]
+    in_properties --> function
+    function --> out
+```
+
+### {{< var done >}} `check_resource_properties(resource_properties)`
+
+See the help documentation with `help(check_resource_properties)` for
+more details. The *only* checks the resource properties.
+
+```{mermaid}
+flowchart
+    in_properties[/properties/]
+    function("check_resource_properties()")
+    out[("ResourceProperties<br>or Error")]
+    in_properties --> function
+    function --> out
+```
+
+### {{< var wip >}} `check_data(data, resource_properties)`
+
+See the help documentation with `help(check_data)` for more details.
+This function checks the data against the properties in the
+`datapackage.json` file. It includes checks on the data headers against
+the `field.name` properties, the columns' data types against the
+`fields.type` properties, and the data itself against the constraints
+given in the `fields.constraints` properties (if it exists). See the
+[function flow](flows.qmd) for more details on the internal flow of this
+particular function.
+
+```{mermaid}
+flowchart
+    in_data[/data/]
+    in_properties[/resource_properties/]
+    function("check_data()")
+    out[("DataFrame<br>or Error")]
+    in_data --> function
+    in_properties --> function
+    function --> out
+```
+
+## Observational unit functions
+
+Observational unit is the level of detail on the entity (e.g. human,
+animal, event) that the data was collected on. An example would be: A
+person in a research study who came to the clinic in May 2024 to have
+their blood collected and to fill out a survey.
+
+### {{< var wip >}} `delete_participant_data()`
+
+TODO.
 
 ## Base functions
 
@@ -322,17 +403,6 @@ wrapper around standard functions in Python. The `confirm` argument defaults to
 `false` so that the user needs to explicitly provide `true` to the function
 argument as confirmation. This is done to prevent accidental deletion. Outputs
 `true` if the deletion was successful.
-
-## Observational unit functions
-
-Observational unit is the level of detail on the entity (e.g. human,
-animal, event) that the data was collected on. An example would be: A
-person in a research study who came to the clinic in May 2024 to have
-their blood collected and to fill out a survey.
-
-### {{< var wip >}} `delete_participant_data()`
-
-TODO.
 
 ## Multi-user environments
 
