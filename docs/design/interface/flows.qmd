@@ -276,3 +276,33 @@ flowchart
     joined_data -.-> check_data
     resource_properties -.-> check_data
 ```
+
+### Checking the properties of packages or resources
+
+The flow to check the `datapackage.json` file's properties is fairly
+simple. For the `PackageProperties` (that includes or does not include
+resources), you give it to either the `check_properties()` function or
+the `check_package_properties()` function. For the specific resource's
+`ResourceProperties`, you give it to the `check_resource_properties()`
+function. In all cases, these functions are mostly customised wrappers
+using a generic `_check_properties()` function, which includes arguments
+to subset which properties to check. The `_check_properties()` function
+itself is also mostly a wrapper around our "sub-package"
+`check_datapackage` (which we intend to split into its own package
+later).
+
+```{mermaid}
+%%| label: fig-flow-check-properties
+%%| fig-cap: "Diagram showing the flow of objects and functions to check the properties of packages or resources."
+%%| fig-alt: "A flow diagram showing the steps to check the properties of packages or resources."
+flowchart
+    properties[(PackageProperties)]
+    check_properties("check_properties()")
+    check_package_properties("check_package_properties()")
+    resource_properties[(ResourceProperties)]
+    check_resource_properties("check_resource_properties()")
+
+    properties --> check_properties
+    properties --> check_package_properties
+    resource_properties --> check_resource_properties
+```
