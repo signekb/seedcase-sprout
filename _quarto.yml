@@ -132,6 +132,7 @@ quartodoc:
       package: "seedcase_sprout.core"
       contents:
         - example_package_properties
+        - example_resource_properties
         - write_file
 
 metadata-files:
