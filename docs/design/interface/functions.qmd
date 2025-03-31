@@ -40,6 +40,9 @@ object), built using the `Properties` object, that describes the package
 and resource(s) in the package. This metadata is stored in the
 `datapackage.json` file and follows the Frictionless Data specification.
 
+`write_*()` functions will always overwrite the file and they
+will always create the folders to the file if they don't exist.
+
 ::: callout-important
 Functions shown with a {{< var wip >}} icon are not yet implemented
 while those with a {{< var done >}} icon are implemented.
@@ -101,84 +104,87 @@ flowchart
 
 ## Data resource functions
 
-### {{< var done >}} `create_resource_dirs(path)`
+### {{< var done >}} `write_resource_properties(resource_properties, path)`
 
-See the help documentation with `help(create_resource_dirs)` for more
-details.
-
-```{mermaid}
-flowchart
-    in_path[/path/]
-    function("create_resource_dirs()")
-    out[("{path}/resources/{id}/<br>{path}/resources/{id}/batch/")]
-    in_path --> function
-    function --> out
-```
-
-### {{< var done >}} `create_resource_properties(resource_properties, path)`
-
-See the help documentation with `help(create_resource_properties)` for
+See the help documentation with `help(write_resource_properties)` for
 more details.
 
 ```{mermaid}
 flowchart
     in_properties[/resource_properties/]
     in_path[/path/]
-    function("create_resource_properties()")
+    function("write_resource_properties()")
     out[("{path}/datapackage.json")]
     in_properties --> function
     in_path --> function
     function --> out
 ```
 
-### {{< var wip >}} `write_resource_batch_data(data_path, resource_properties)`
+### {{< var wip >}} `write_resource_batches(data, resource_properties)`
 
-See the help documentation with `help(write_resource_batch_data)` for
+See the help documentation with `help(write_resource_batch)` for
 more details.
-
-```{mermaid}
-flowchart
-    in_data_path[/data_path/]
-    in_properties[/resource_properties/]
-    function("write_resource_batch_data()")
-    out[("{path}/{timestamp}-{uuid}.parquet")]
-    in_data_path --> function
-    in_properties --> function
-    function --> out
-```
-
-### {{< var wip >}} `build_resource_data(batch_files_path, resource_properties)`
-
-See the help documentation with `help(build_resource_data)` for more
-details.
-
-```{mermaid}
-flowchart
-    in_batch_files_path[/batch_files_path/]
-    in_properties[/resource_properties/]
-    function("build_resource_data()")
-    out[("Polars<br>DataFrame")]
-    in_batch_files_path --> function
-    in_properties --> function
-    function --> out
-```
-
-### {{< var wip >}} `write_resource_parquet(data, resource_properties)`
-
-See the help documentation with `help(write_parquet)` for more details.
 
 ```{mermaid}
 flowchart
     in_data[/data/]
     in_properties[/resource_properties/]
-    function("write_resource_parquet()")
-    out[("./resources/{id}/data.parquet")]
+    function("write_resource_batch()")
+    out[("{path}/{timestamp}-{uuid}.parquet")]
     in_data --> function
     in_properties --> function
     function --> out
 ```
 
-### {{< var wip >}} `update_resource_properties(path, resource_properties)`
+### {{< var wip >}} `read_resource_batches(paths, resource_properties)`
+
+See the help documentation with `help(read_resource_batches)` for more
+details.
+
+```{mermaid}
+flowchart
+    in_path[/paths/]
+    in_properties[/resource_properties/]
+    function("read_resource_batches()")
+    out[("List[DataFrame]")]
+    in_path --> function
+    in_properties --> function
+    function --> out
+```
+
+### {{< var wip >}} `join_resource_batches(data_list, resource_properties)`
+
+See the help documentation with `help(join_resource_batches)` for more
+details.
+
+```{mermaid}
+flowchart
+    in_data[/data_list/]
+    in_properties[/resource_properties/]
+    function("join_resource_batches()")
+    out[("DataFrame")]
+    in_data --> function
+    in_properties --> function
+    function --> out
+```
+
+### {{< var wip >}} `write_resource_data(data, resource_properties)`
+
+See the help documentation with `help(write_resource_data)` for more
+details.
+
+```{mermaid}
+flowchart
+    in_data[/data/]
+    in_properties[/resource_properties/]
+    function("write_resource_data()")
+    out[("./resources/{name}/data.parquet")]
+    in_data --> function
+    in_properties --> function
+    function --> out
+```
+
+### {{< var wip >}} `update_resource_properties(current, updates)`
 
 Edit the properties of a resource in a package. The `properties`
 argument must be a `ResourceProperties` object. Use the
