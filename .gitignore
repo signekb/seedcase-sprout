@@ -69,7 +69,6 @@ cover/
 docs/.quarto/
 *.ipynb
 *.quarto_ipynb
-*.storage
 
 # Quartodoc
 /docs/reference/

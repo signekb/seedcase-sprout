@@ -409,26 +409,3 @@ wrapper around standard functions in Python. The `confirm` argument defaults to
 `false` so that the user needs to explicitly provide `true` to the function
 argument as confirmation. This is done to prevent accidental deletion. Outputs
 `true` if the deletion was successful.
-
-## Multi-user environments
-
-There are some functions that are useful in multi-user environments. For
-example, where the user may need to know where the data structured by
-Sprout is stored on the system.
-
-All the below `path_*()` functions use `path_sprout_global()` internally
-to get the global path as well as `package_id` and/or `resource_id` to
-complete the correct path for the specific package/resource.
-
-### {{< var done >}} `path_packages()`
-
-See the help documentation with `help(path_packages)` for more details.
-
-### {{< var done >}} `path_package(package_id)`
-
-See the help documentation with `help(path_package)` for more details.
-
-### {{< var done >}} `path_sprout_global()`
-
-See the help documentation with `help(path_sprout_global)` for more
-details.

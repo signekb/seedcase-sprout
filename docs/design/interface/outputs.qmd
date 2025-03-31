@@ -131,28 +131,3 @@ Sprout creates and uses these files:
     resource, all resource data is processed and stored in the
     [Parquet](https://decisions.seedcase-project.org/why-parquet/) data
     format (if it is tabular data).
-
-## Multi-user server environment
-
-When Sprout is used within a server environment where multiple users and
-potentially multiple data packages are stored, the file system structure
-is different. The main difference is that the data packages are stored
-in a central location, rather than in the working directory of the user.
-Instead of a newly created data package being stored in `.`, it will
-default to the below paths.
-
-`SPROUT_GLOBAL/`
-
-:   The location where Sprout will store all data that form one or more
-    data packages. This location can be changed depending on the needs
-    of the users. The default location is determined based on the
-    operating system and where Sprout is installed locally by a user or
-    on a server. An example default location for a local computer, where
-    Sprout is installed on a user's drive, would be
-    `/home/USERNAME/sprout/`.
-
-`SPROUT_GLOBAL/packages/<id>/`
-
-:   All data packages are stored in the `packages/` folder and given an
-    `<id>` (a whole number). Each `<id>` folder contains all the files
-    relevant for **one** data package.

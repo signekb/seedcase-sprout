@@ -183,57 +183,6 @@ fill in for a package.
 You now have the basic starting point for adding data resources to your
 data package.
 
-## Creating a data package in a multi-user server environment
-
-If you are making and managing data packages in a multi-user server
-environment that will have or has multiple data packages, there are some
-very small changes you can make to creating and managing packages. Since
-all the functions to create and manage data packages in Sprout take the
-`path` as an argument, they can run in any directory. With that in mind,
-Sprout has a series of helper path functions that can be used to point
-to a "global" Sprout storage location.
-
-The first thing you'll need to decide is where you want to store your
-data packages in this type of environment. By default, Sprout will
-create it in `~/sprout/packages/` on Linux (see
-[Outputs](/docs/design/interface/outputs.qmd) for operating system
-specific locations).
-
-::: callout-note
-You can change the location of the global storage by setting the
-`SPROUT_GLOBAL` environment variable. For instance, maybe you want the
-location to be `~/Desktop/sprout/` or `~/Documents`. For this guide, you
-can try storing your data packages in the current working directory in a
-hidden folder called `.storage/`. It's hidden so it doesn't clutter up
-the directory.
-
-```{python}
-import os
-os.environ["SPROUT_GLOBAL"] = ".storage/"
-```
-:::
-
-Now, you can create a new data package using this global variable, with
-only one change:
-
-```{python}
-# TODO: Update this after fixing the path_package() function
-package_path=sp.path_sprout_global() / "diabetes-study"
-package_path.mkdir(parents=True)
-sp.write_package_properties(
-    properties = properties,
-    path=Path(package_path / "datapackage.json")
-)
-```
-
-After creating the package, you can use functions like `path_package()`
-to point to the correct package or `path_packages()` to list all the
-package in the storage:
-
-```{python}
-print(sp.path_packages())
-```
-
 ```{python}
 #| include: false
 temp_path.cleanup()
