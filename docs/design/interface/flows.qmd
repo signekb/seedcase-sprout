@@ -241,6 +241,41 @@ flowchart
     resource_properties -.-> check_data
 ```
 
+### Check data against the properties
+
+The data must always match what is described in the properties. This
+means that the data must have the same column names, column types, type
+of columns' individual values (in rows), and constraints of columns'
+values. The `check_data()` function will internally call several
+separate functions for these specific checks. Each of these functions
+outputs a string with an error message describing what the problems are
+if the check fails, otherwise it outputs a data frame with the same data
+as the input. The `check_data()` then gathers together all the messages
+and gives an error using those messages if there are any.
+
+```{mermaid}
+%%| label: fig-flow-check-data-against-properties
+%%| fig-cap: "Diagram showing the flow of objects and functions to check data against the properties."
+%%| fig-alt: "A flow diagram showing the steps to check data against the properties."
+flowchart
+    data[(DataFrame)]
+    resource_properties[(ResourceProperties)]
+    check_data("check_data()")
+    subgraph Internal
+        check_column_names("_check_column_names()")
+        check_column_types("_check_column_types()")
+        check_column_values_constraints("_check_column_values_constraints()")
+        output[("DataFrame<br>or error")]
+    end
+
+    data --> check_data
+    resource_properties --> check_data
+    check_data -.-> Internal
+    check_column_names -.-> output
+    check_column_types -.-> output
+    check_column_values_constraints -.-> output
+```
+
 ## Create or re-create the resource data
 
 The batch data files are used to keep track of changes to the data
