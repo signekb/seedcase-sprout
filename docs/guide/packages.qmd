@@ -153,8 +153,8 @@ guide, it is pointing to the temporary folder created from above.
 
 ```{python}
 updated_package_properties = sp.update_package_properties(
-  current=properties,
-  updates=sp.PackageProperties(name="diabetes-study"),
+  current_properties=properties,
+  update_properties=sp.PackageProperties(name="diabetes-study"),
 )
 ```
 
