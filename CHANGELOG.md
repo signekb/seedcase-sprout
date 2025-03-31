@@ -1,3 +1,9 @@
+## 0.27.1 (2025-03-31)
+
+### Refactor
+
+- :fire: remove multi-user features, we won't be doing them (#1216)
+
 ## 0.27.0 (2025-03-27)
 
 ### Feat
