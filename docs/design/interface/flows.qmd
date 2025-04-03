@@ -274,6 +274,7 @@ flowchart
     check_column_names -.-> output
     check_column_types -.-> output
     check_column_values_constraints -.-> output
+    style Internal fill:#ffffff
 ```
 
 ## Create or re-create the resource data
