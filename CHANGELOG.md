@@ -1,3 +1,9 @@
+## 0.28.1 (2025-04-04)
+
+### Refactor
+
+- :recycle: convert `path_` functions into class without checks (#1173)
+
 ## 0.28.0 (2025-03-31)
 
 ### Feat
