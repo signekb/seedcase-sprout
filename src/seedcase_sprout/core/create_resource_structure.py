@@ -19,7 +19,8 @@ def create_resource_structure(path: Path) -> list[Path]:
     `resources/<id>/batch/` path. The output is a list of these two path objects.
 
     Args:
-       path: Path to the resources directory in a package.
+       path: Path to the resources directory in a package. Use
+            `PackagePath().resources()` to provide the correct path.
 
     Returns:
        A list of the two created directories:
@@ -44,10 +45,10 @@ def create_resource_structure(path: Path) -> list[Path]:
             # Create a package structure first
             sp.write_package_properties(
                 properties=sp.example_package_properties(),
-                path=Path(temp_path / "datapackage.json")
+                path=sp.PackagePath(temp_path).properties(),
             )
 
-            resources_path = Path(temp_path / "resources")
+            resources_path = sp.PackagePath(temp_path).resources()
             resources_path.mkdir()
             # Create a resource structure
             sp.create_resource_structure(path=resources_path)

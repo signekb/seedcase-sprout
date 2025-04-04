@@ -26,7 +26,7 @@ are the core external-facing functions in Sprout. See the
 different outputs provided by Sprout.
 
 Nearly all functions have a `path` argument. Depending on what the
-function does, the path object will be different. Use the `path_*()`
+function does, the path object will be different. Use the `PackagePath.*()`
 functions to get the correct path object for the specific function. It's
 designed this way to make it more flexible to where individual packages
 and resources are stored and to make it a bit easier to write tests for
@@ -188,7 +188,7 @@ flowchart
 
 Edit the properties of a resource in a package. The `properties`
 argument must be a `ResourceProperties` object. Use the
-`path_properties()` function to provide the
+`PackagePath().properties()` function to provide the
 correct path location. Outputs a `ResourceProperties` object; use
 `write_resource_properties()` to save the properties object to the
 `datapackage.json` file. This function can also be used to delete all of
@@ -237,41 +237,7 @@ flowchart
 
 ## Path functions
 
--   All of these functions output a path object.
--   All of these functions have an optional `path` argument that
-    defaults to the current working directory.
--   The paths returned by all of these functions are paths that exist,
-    so all include a `check_is_dir()` or `check_is_file()` check.
--   If the wrong `resource_id` is given, an error message will include a
-    list of all the actual `resource_id`s for a specific package.
-
-### {{< var done >}} `path_properties(path)`
-
-See the help documentation with `help(path_properties)` for more
-details.
-
-### {{< var done >}} `path_resources(path)`
-
-See the help documentation with `help(path_resources)` for more details.
-
-### {{< var done >}} `path_resource(resource_id, path)`
-
-See the help documentation with `help(path_resource)` for more details.
-
-### {{< var done >}} `path_resource_batch(resource_id)`
-
-See the help documentation with `help(path_resource_batch)` for more
-details.
-
-### {{< var done >}} `path_resource_batch_files(resource_id, path)`
-
-See the help documentation with `help(path_resource_batch_files)` for
-more details.
-
-### {{< var done >}} `path_resource_data(resource_id, path)`
-
-See the help documentation with `help(path_resource_data)` for more
-details.
+See the help documentation for `help(path)` for more details.
 
 ## Properties dataclasses
 

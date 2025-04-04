@@ -23,7 +23,7 @@ def write_resource_properties(
 
 
     Args:
-        path: The path to the `datapackage.json` file. Use `path_properties()`
+        path: The path to the `datapackage.json` file. Use `PackagePath().properties()`
             to help give the correct path.
         resource_properties: The resource properties to add. Use
             `ResourceProperties` to help create this object.
@@ -51,11 +51,11 @@ def write_resource_properties(
         # Create package and resource structure first
         sp.write_package_properties(
             properties=sp.example_package_properties(),
-            path=Path(temp_dir / "datapackage.json")
+            path=sp.PackagePath(temp_dir).properties()
         )
 
         # TODO: Write package properties that passes checks
-        # sp.create_resource_structure(path=temp_dir / "1" / "resources")
+        # sp.create_resource_structure(path=sp.PackagePath(temp_dir).resource("1")
         # Write package properties
         # sp.write_package_properties(
         #     path=temp_dir / "1" / "datapackage.json",

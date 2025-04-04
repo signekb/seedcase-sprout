@@ -18,7 +18,7 @@ def write_resource_data(
         import seedcase_sprout.core as sp
 
         data = sp.join_resource_data(
-            batch_files_path=sp.path_resources_batch_files(1),
+            batch_files_path=sp.PackagePath().resources_batch_files(1),
             resource_properties=sp.example_resource_properties,
         )
 

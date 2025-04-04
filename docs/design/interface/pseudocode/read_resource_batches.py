@@ -18,14 +18,14 @@ def read_resource_batches(
         import seedcase_sprout.core as sp
 
         sp.read_resource_batches(
-            paths=sp.path_resources_batch_files(1),
+            paths=sp.PackagePath().resources_batch_files(1),
             resource_properties=sp.example_resource_properties(),
         )
         ```
 
     Args:
         paths: A list of paths for all the files in the resource's `batch/` folder.
-            Use `path_resource_batch_files()` to help provide the correct paths to the
+            Use `PackagePath().resource_batch_files()` to help provide the correct paths to the
             batch files.
         resource_properties: The `ResourceProperties` object that contains the properties
             of the resource you want to check the data against.

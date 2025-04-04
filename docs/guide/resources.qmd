@@ -51,7 +51,7 @@ package_path = temp_path / "diabetes-study"
 package_path.mkdir()
 sp.write_package_properties(
     properties=sp.example_package_properties(),
-    path=Path(package_path / "datapackage.json")
+    path=sp.PackagePath(package_path).properties(),
 )
 readme = sp.as_readme_text(sp.example_package_properties())
 sp.write_file(readme, package_path.parent)
@@ -177,9 +177,9 @@ print(package_path.glob("**/*"))
 
 This shows that the data package already includes a `datapackage.json`
 file and a `README.md` file. Now you'll add the resource structure to
-the package, using the helper function `path_resources()` to give the
+the package, using the helper function `PackagePath().resources()` to give the
 correct path to the resources folder. The default behaviour of
-`path_resources()` is to use the current working directory, but for this
+`PackagePath().resources()` is to use the current working directory, but for this
 guide you'll have to use the `path` argument to point to where the
 package is stored in the temporary folder.
 
@@ -187,42 +187,30 @@ package is stored in the temporary folder.
 # TODO: This doesn't work exactly as expected here. We need to create
 # the `resources/` folder first.
 sp.create_resource_structure(
-    path=sp.path_resources(path=package_path)
+    path=sp.PackagePath(package_path).resources()
 )
 ```
 
 The next step is to add the resource properties to the
 `datapackage.json` file. Before they are added, they will be checked to
 confirm that they are correctly filled in and that no required fields
-are missing. You can use the `path_properties()` helper function to give
+are missing. You can use the `PackagePath().properties()` helper function to give
 you the location to the `datapackage.json` path. Here, the `path`
 argument points to the temporary folder where the package is stored.
 
 ```{python}
 # TODO: This function needs to be updated to write to datapackage.json
 sp.create_resource_properties(
-    path=sp.path_properties(path=package_path),
+    path=sp.PackagePath(package_path).properties(),
     properties=resource_properties
 )
 ```
-
-::: callout-tip
-If you want to see the list of resources available in your data package
-via Python code (rather than looking at it directly in the file system),
-you can use the `list_resources()` function.
-
-```{python}
-#| eval: false
-# TODO: This could also be the `path_resources()` which lists the resources.
-print(sp.list_resources(path=package_path))
-```
-:::
 
 Let's check the contents of the `datapackage.json` file to see that the
 resource properties have been added:
 
 ```{python}
-pprint(sp.read_properties(sp.path_properties(path=package_path))
+pprint(sp.read_properties(sp.PackagePath(package_path).properties())
 ```
 
 ## Storing a backup of the raw data as a "batch" file
@@ -253,7 +241,7 @@ data as a batch file, which is in the `batch/` folder of the resource's
 folder. You can check the newly added file by using:
 
 ```{python}
-print(sp.path_resource_batch_files(1, path=package_path))
+print(sp.PackagePath(package_path).resource_batch_files(1))
 ```
 
 ## Building the Parquet data resource file
@@ -266,8 +254,8 @@ will be used to build the data resource's parquet file:
 
 ```{python}
 sp.build_resource_parquet(
-    raw_files=sp.path_resource_batch_files(1, path=package_path),
-    path=sp.path_resource_data(1, path=package_path)
+    raw_files=sp.PackagePath(package_path).resource_batch_files(1),
+    path=sp.PackagePath(package_path).resource_data(1),
 )
 ```
 
@@ -287,7 +275,7 @@ additional information to the README text before writing it to the file.
 
 ```{python}
 readme_text = sp.as_readme_text(
-    properties=sp.read_properties(sp.path_properties(path=package_path))
+    properties=sp.read_properties(sp.PackagePath(package_path).properties())
 )
 ```
 
@@ -297,7 +285,7 @@ else to it. Next you write the text to the `README.md` file by:
 ```{python}
 sp.write_file(
     text=readme_text,
-    path=sp.path_readme(path=package_path)
+    path=sp.PackagePath(package_path).readme()
 )
 ```
 
@@ -317,7 +305,7 @@ the new properties object.
 
 ```{python}
 resource_properties = sp.edit_resource_properties(
-    path=sp.path_properties(path=package_path),
+    path=sp.PackagePath(package_path).properties(),
     properties=sp.ResourceProperties(
         title="Basic characteristics of patients"
     )
@@ -330,7 +318,7 @@ To write back, use the `write_resource_properties()` function:
 ```{python}
 sp.write_resource_properties(
     properties=resource_properties,
-    path=sp.path_properties(path=package_path)
+    path=sp.PackagePath(package_path).properties()
 )
 ```
 

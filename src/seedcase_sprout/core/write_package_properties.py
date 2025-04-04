@@ -20,7 +20,7 @@ def write_package_properties(properties: PackageProperties, path: Path) -> Path:
         path: The `path` argument is to an existing `datapackage.json` file, to a
             folder that exists but is empty, or to a folder that doesn't exist yet.
             Either way, the `datapackage.json` file will be created or overwritten
-            in the path given. Use `path_properties()` as a helper to get the
+            in the path given. Use `PackagePath().properties()` as a helper to get the
             correct path.
 
     Returns:

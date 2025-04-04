@@ -108,7 +108,7 @@ package_path.mkdir(parents=True)
 ```{python}
 sp.write_package_properties(
     properties=properties,
-    path=Path(package_path / "datapackage.json")
+    path=sp.PackagePath(package_path).properties()
 )
 ```
 
@@ -141,13 +141,13 @@ that takes the path to the `datapackage.json` file as an argument.
 
 ```{python}
 current_properties = sp.read_properties(
-  path=sp.path_properties(path=package_path),
+  path=sp.PackagePath(package_path).properties(),
 )
 ```
 
 Then you you can use the `update_package_properties()` function
-while using the helper `path_properties()` function to point to the
-`datapackage.json` file. The default behavior of the `path_properties()`
+while using the helper `PackagePath().properties()` function to point to the
+`datapackage.json` file. The default behavior of the `PackagePath().properties()`
 function is to look in the current working directory, but for this
 guide, it is pointing to the temporary folder created from above.
 
@@ -171,7 +171,7 @@ file, run:
 ```{python}
 sp.write_package_properties(
   properties=updated_package_properties,
-  path=sp.path_properties(path=package_path),
+  path=sp.PackagePath(package_path).properties(),
 )
 ```
 

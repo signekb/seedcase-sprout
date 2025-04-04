@@ -20,7 +20,7 @@ def create_resource_properties(
     them to be added to the `datapackage.json` file.
 
     Args:
-        path: The path to the resource `id` folder; use `path_resource()`
+        path: The path to the resource `id` folder; use `PackagePath().resource()`
             to provide the correct path or use the output of
             `create_resource_structure()`.
         properties: The properties of the resource; must be given as a
@@ -50,7 +50,7 @@ def create_resource_properties(
             # Create a package and resource structure first
             sp.write_package_properties(
                 properties=sp.example_package_properties(),
-                path=Path(temp_path / "datapackage.json")
+                path=sp.PackagePath(temp_path).properties()
             )
 
             # TODO: Update after converting to "local-first"

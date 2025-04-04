@@ -45,7 +45,7 @@ writing them to the `datapackage.json` file.
 %%| fig-alt: "A flow diagram showing the steps to making a new package."
 flowchart
     properties[(PackageProperties)]
-    path_properties("path_properties()")
+    path_properties("PackagePath().properties()")
     check_properties("check_properties()")
     write_package_properties("write_package_properties()")
 
@@ -69,7 +69,7 @@ flowchart
     properties_current[("PackageProperties<br>(current)")]
     properties_updates[("PackageProperties<br>(updates)")]
     properties_updated[("PackageProperties<br>(updated)")]
-    path_properties("path_properties()")
+    path_properties("PackagePath().properties()")
     update_package_properties("update_package_properties()")
     read_package_properties("read_package_properties()")
     write_package_properties("write_package_properties()")
@@ -106,7 +106,7 @@ flowchart
     schema_properties_updates[("TableSchemaProperties<br>(additions)")]
     properties_updated[("ResourceProperties<br>(updated)")]
     update_resource_properties("update_resource_properties()")
-    path_properties("path_properties()")
+    path_properties("PackagePath().properties()")
     extract_resource_properties("extract_resource_properties()")
     write_resource_properties("write_resource_properties()")
 
@@ -136,11 +136,11 @@ to the file.
 %%| fig-alt: "A flow diagram showing the steps to update the README file after changing the package or resource properties."
 flowchart
     properties[(PackageProperties)]
-    path_properties("path_properties()")
+    path_properties("PackagePath().properties()")
     read_package_properties("read_package_properties()")
     as_readme_text("as_readme_text()")
     write_file("write_file()")
-    path_readme("path_readme()")
+    path_readme("PackagePath().readme()")
 
     path_properties --> read_package_properties
     read_package_properties --> properties
@@ -164,7 +164,7 @@ separately to check the properties before writing them to the
 %%| fig-alt: "A flow diagram showing the steps to create resource properties manually."
 flowchart
     properties[(ResourceProperties)]
-    path_properties("path_properties()")
+    path_properties("PackagePath().properties()")
     check_resource_properties("check_resource_properties()")
     write_resource_properties("write_resource_properties()")
 
@@ -191,7 +191,7 @@ flowchart
     properties_current[("ResourceProperties<br>(current)")]
     properties_updates[("ResourceProperties<br>(updates)")]
     properties_updated[("ResourceProperties<br>(updated)")]
-    path_properties("path_properties()")
+    path_properties("PackagePath().properties()")
     update_resource_properties("update_resource_properties()")
     read_properties("read_properties()")
     get_resource_properties("get_resource_properties()")
@@ -294,7 +294,7 @@ resource data.
 %%| fig-cap: "Diagram showing the flow of objects and functions to create or re-create the resource data."
 %%| fig-alt: "A flow diagram showing the steps to create or re-create the resource data."
 flowchart
-    path_resource_batch_files("path_resource_batch_files()")
+    path_resource_batch_files("PackagePath().resource_batch_files()")
     read_resource_batches("read_resource_batches()")
     list_data[("List[DataFrame]")]
     join_resource_batches("join_resource_batches()")
