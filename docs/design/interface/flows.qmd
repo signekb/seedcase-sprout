@@ -375,3 +375,35 @@ flowchart
     list_data_updated --> write_resource_batches
     properties_updated --> write_resource_batches
 ```
+
+## Deleting an observational unit
+
+If you need to delete an observational unit from the data, you can use
+this flow. The `delete_observational_unit()` function will delete the
+observational unit from the data about output a list of DataFrames with
+the deletions. The `write_resource_batches()` function will save the
+updated data back to the batch files.
+
+<!-- TODO: I don't know how the saving back to the batch files will work yet. -->
+
+```{mermaid}
+%%| label: fig-flow-delete-observational-unit
+%%| fig-cap: "Diagram showing the flow of objects and functions to delete an observational unit."
+%%| fig-alt: "A flow diagram showing the steps to delete an observational unit."
+flowchart
+    path_resource_batch_files("path_resource_batch_files()")
+    read_resource_batches("read_resource_batches()")
+    list_data_current[("List[DataFrame]<br>(original)")]
+    list_data_deletions[("List[DataFrame]<br>(deletions)")]
+    obs_unit[("dict<br>(observational unit)")]
+    delete_observational_unit("delete_observational_unit()")
+    write_resource_batch("write_resource_batch()")
+
+    path_resource_batch_files --> read_resource_batches
+    read_resource_batches --> list_data_current
+    list_data_current --> delete_observational_unit
+    obs_unit --> delete_observational_unit
+    delete_observational_unit --> list_data_deletions
+    list_data_deletions --> write_resource_batch
+    path_resource_batch_files --> write_resource_batch
+```

@@ -237,7 +237,7 @@ flowchart
 
 ## Path functions
 
-See the help documentation for `help(path)` for more details.
+See the help documentation for `help(PackagePath)` for more details.
 
 ## Properties dataclasses
 
@@ -345,14 +345,62 @@ flowchart
 
 ## Observational unit functions
 
-Observational unit is the level of detail on the entity (e.g. human,
-animal, event) that the data was collected on. An example would be: A
-person in a research study who came to the clinic in May 2024 to have
-their blood collected and to fill out a survey.
+An observational unit is the level of detail on the entity (e.g. human,
+animal, event) that the data was collected on at a given point in time.
+An example would be: A person in a research study who came to the clinic
+in May 2024 to have their blood collected and to fill out a survey.
 
-### {{< var wip >}} `delete_participant_data()`
+### {{< var wip >}} `delete_observational_unit(data_list, observational_unit)`
 
-TODO.
+As per legal and privacy regulations of multiple countries, a person can
+request that any personally identifiable and sensitive data of theirs be
+deleted in a variation of a ["right to be
+forgotten"](https://en.wikipedia.org/wiki/Right_to_be_forgotten)
+regulation or law. This function makes this process easier by searching
+for all places where their data is stored in the data and deletes it. We
+can not guarantee that all data is deleted in the history (e.g. backups)
+or in projects that have used the data for research purposes, but the
+data will no longer exist in the current data package and all subsequent
+uses of it. This has the potential to be highly destructive, but it
+doesn't yet write back to the files. So be cautious and check that
+everything is correct at this stage before writing back.
+
+The data given must be a list of DataFrames, even if it is only a list
+of one DataFrame. The `observational_unit` is a dictionary that contains
+the information about the observational unit that needs to be deleted.
+The dictionary must contain one or more primary keys that represent the
+observational unit in the data as well as the value to delete. For
+example:
+
+``` python
+# For one person with the ID "1234", even if there are multiple time-points
+# of data for that person.
+observational_unit = {"person_id": ["1234"]}
+
+# For multiple people with the IDs "1234" and "5678"
+observational_unit = {"person_id": ["1234", "5678"]}
+
+# For one person with the IDs "1234" and date of collections "2024-05-01"
+# and "2024-05-02"
+observational_unit = {
+    "person_id": ["1234"],
+    "date_of_collection": ["2024-05-01", "2024-05-02"]
+}
+```
+
+The function will search for all instances of the keys and values in the
+data and delete them.
+
+```{mermaid}
+flowchart
+    in_data[/data_list/]
+    in_observational_unit[/observational_unit/]
+    function("delete_observational_unit()")
+    out[("DataFrame")]
+    in_data --> function
+    in_observational_unit --> function
+    function --> out
+```
 
 ## Base functions
 
