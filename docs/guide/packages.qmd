@@ -25,13 +25,14 @@ functions assume that the working directory is where the
 file (or `.git/` folder) is stored.
 
 With that in mind, let's make a data package! A data package always
-needs a `datapackage.json` file. This file contains a set of [{{< glossary "properties">}}](../glossary.qmd),
-or metadata, about the data package and, eventually, about the data
-resources within it. To set up this `datapackage.json` file, you first
-need a set of properties you want to add to the data package. Then, you
-can use the `write_package_properties()` function that takes the
-properties and the path where you want to store the data package as
-arguments. So first, you need to establish our properties.
+needs a `datapackage.json` file. This file contains a set of
+[{{< glossary "properties">}}](../glossary.qmd), or metadata, about the
+data package and, eventually, about the data resources within it. To set
+up this `datapackage.json` file, you first need a set of properties you
+want to add to the data package. Then, you can use the
+`write_package_properties()` function that takes the properties and the
+path where you want to store the data package as arguments. So first,
+you need to establish our properties.
 
 Sprout has several helper classes, such as `PackageProperties`,
 `LicenseProperties`, and `ContributorProperties`, to make it easier for
@@ -47,7 +48,8 @@ import seedcase_sprout.core as sp
 
 There are a few properties that are required for a data package, such as
 `version`, `id`, and `created`. While you could fill these in manually,
-it's much easier to use the `default()` method of the `PackageProperties`:
+it's much easier to use the `default()` method of the
+`PackageProperties`:
 
 ```{python}
 # TODO: This could be improved.
@@ -129,15 +131,40 @@ properties you added to it. The newly created file would be:
 print(package_path.glob("**/*"))
 ```
 
-<!-- TODO: Add section on building the README -->
+## Creating a README of the properties
+
+Having a *human-readable* version of what is contained in the
+`datapackage.json` file is useful for others who may be working with or
+wanting to learn more about your data package. You can use `as_readme_text()` to
+convert the properties information into text that can be added to a
+README file. Let's create a README file with the properties of the data
+package you just created:
+
+```{python}
+readme_text = sp.as_readme_text(properties)
+print(readme_text)
+```
+
+It outputs a text string so that, if you want to, you can add other,
+maybe project specific, information before writing to the file. For this
+guide we won't cover how or why to do this.
+
+Then to save it to the file:
+
+```{python}
+sp.write_file(
+    string=readme_text,
+    path=Path(package_path / "README.md")
+)
+```
 
 ## Editing package properties
 
 If you made a mistake and want to update the properties in the current
 `datapackage.json`. You likely want to edit the properties in the
 `datapackage.json` file so you first need to read in the properties from
-the file. You can do this with the `read_properties()` function
-that takes the path to the `datapackage.json` file as an argument.
+the file. You can do this with the `read_properties()` function that
+takes the path to the `datapackage.json` file as an argument.
 
 ```{python}
 current_properties = sp.read_properties(
