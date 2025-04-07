@@ -29,6 +29,7 @@ from .properties import (
     TableSchemaProperties,
 )
 from .read_properties import read_properties
+from .read_resource_batches import read_resource_batches
 from .sprout_checks.check_package_properties import check_package_properties
 from .sprout_checks.check_properties import check_properties
 from .sprout_checks.check_resource_properties import check_resource_properties
@@ -71,6 +72,7 @@ __all__ = [
     "create_resource_structure",
     "create_resource_properties",
     "extract_resource_properties",
+    "read_resource_batches",
     # "edit_resource_properties",
     # "write_resource_data_to_batch",
     # "write_resource_parquet",
