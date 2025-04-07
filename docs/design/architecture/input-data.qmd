@@ -42,19 +42,6 @@ Health research data tends to consist of these types of data:
     of data collected based on the survey, and on the format of the
     data.
 
-## File and data formats
-
-While we aim to handle a wide variety of data types, we will start with
-the most common types of formats. We also have a limitation or
-restriction that the data format needs to be open source and not
-proprietary, since we cannot process it if we don't have the software to
-read it.
-
-The file formats we expect to work with are text (`.txt`) files, various
-forms of comma-separated value (`.csv`) files, Excel (`.xls` or `.xlsx`)
-files (technically closed source but practically easy to read), images,
-audio, XML, JSON, and potentially some SQL databases.
-
 ## Flow or frequency of data collection
 
 In research (and even in most industry settings), we rarely encounter

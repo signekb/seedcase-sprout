@@ -54,8 +54,8 @@ website:
           href: docs/design/interface/index.qmd
           contents:
             - docs/design/interface/outputs.qmd
-            - docs/design/interface/functions.qmd
             - docs/design/interface/inputs.qmd
+            - docs/design/interface/functions.qmd
             - docs/design/interface/flows.qmd
     - id: guide
       contents:

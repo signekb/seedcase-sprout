@@ -6,7 +6,11 @@ This section of the documentation focuses on how the interface
 will be implemented. It is split into the following set of
 documents:
 
+-   The [Inputs](inputs.qmd) that Sprout will accept, specifically the
+    type of object the paths, properties, and data must be.
 -   The main [Outputs](outputs.qmd), including the files, folders, and
     other artifacts that will be produced by Sprout.
 -   The [Python functions](functions.qmd) that form the core of
     Sprout and its extensions.
+-   The [flow](flows.qmd) of functions and objects visually represented
+    in diagrams.
