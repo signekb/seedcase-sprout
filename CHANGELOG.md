@@ -1,3 +1,9 @@
+## 0.28.2 (2025-04-07)
+
+### Refactor
+
+- :recycle: clean split of `check_datapackage` sub-package (#1239)
+
 ## 0.28.1 (2025-04-04)
 
 ### Refactor
