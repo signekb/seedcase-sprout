@@ -1,3 +1,9 @@
+## 0.29.0 (2025-04-07)
+
+### Feat
+
+- :sparkles: add `read_resource_batches()` - without `check_data()` (#1201)
+
 ## 0.28.2 (2025-04-07)
 
 ### Refactor

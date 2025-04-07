@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "seedcase-sprout"
-version = "0.28.2"
+version = "0.29.0"
 description = "Grow your research data in a structured, modern way that follows best practices."
 authors = [
   "Luke W. Johnston <lwjohnst@gmail.com>",
@@ -38,7 +38,7 @@ time-machine = "^2.15.0"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.9.0"
-datamodel-code-generator = {extras = ["http"], version = "^0.28.2"}
+datamodel-code-generator = {extras = ["http"], version = "^0.29.0"}
 commitizen = "^4.0.0"
 pre-commit = "^4.0.1"
 
