@@ -1,4 +1,4 @@
-import seedcase_sprout.core.checks as checks
+import seedcase_sprout.core.check_datapackage as check_datapackage
 from seedcase_sprout.core.sprout_checks.check_fields_not_blank import (
     check_fields_not_blank,
 )
@@ -19,7 +19,7 @@ from seedcase_sprout.core.sprout_checks.required_fields import (
 
 def get_sprout_resource_errors(
     properties: dict, index: int | None = None
-) -> list[checks.CheckError]:
+) -> list[check_datapackage.CheckError]:
     """Checks the resource `properties` against Sprout-specific requirements only.
 
     Args:

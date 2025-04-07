@@ -187,18 +187,18 @@ previous section:
 | ExceptionGroup: The following checks failed on the properties:
 | PackageProperties(name='woolly-dormice', id='123-abc-123', title='Hibernation Physiology of the Woolly Dormouse: A Scoping Review.', description=None, homepage=None, version='1.0.0', created='2014-05-14T05:00:01+00:00', contributors=None, keywords=None, image=None, licenses=[LicenseProperties(name='odc-pddl', path=None, title=None)], resources=[ResourceProperties(name='woolly-dormice-2015', path='https://en.wikipedia.org/wiki/Woolly_dormouse', type=None, title='Body fat percentage in the hibernating woolly dormouse', description=None, sources=None, licenses=None, format=None, mediatype=None, encoding=None, bytes=None, hash=None, dialect=None, schema=None)], sources=None) (3 sub-exceptions)
 +-+---------------- 1 ----------------
-| seedcase_sprout.core.checks.check_error.CheckError: Error at `$.description` caused by `required`: 'description' is a required property
+| seedcase_sprout.core.check_datapackage.check_error.CheckError: Error at `$.description` caused by `required`: 'description' is a required property
 +---------------- 2 ----------------
-| seedcase_sprout.core.checks.check_error.CheckError: Error at `$.resources[0].description` caused by `required`: 'description' is a required property
+| seedcase_sprout.core.check_datapackage.check_error.CheckError: Error at `$.resources[0].description` caused by `required`: 'description' is a required property
 +---------------- 3 ----------------
-| seedcase_sprout.core.checks.check_error.CheckError: Error at `$.resources[0].path` caused by `pattern`: 'path' should contain the resource ID
+| seedcase_sprout.core.check_datapackage.check_error.CheckError: Error at `$.resources[0].path` caused by `pattern`: 'path' should contain the resource ID
 +------------------------------------
 ```
 
 First, the offending properties are printed, followed by the list of
 errors. Error messages are composed of the following parts:
 
--   "seedcase_sprout.core.checks.check_error.CheckError": the class
+-   "seedcase_sprout.core.check_datapackage.check_error.CheckError": the class
     representing the error. Check functions will always throw
     `CheckError`s for failing checks.
 -   "Error at `$.resources[0].description`": the location of the error
@@ -233,7 +233,7 @@ raise any errors, even though required fields are missing and `title`
 has the wrong type.
 
 ```{python}
-import seedcase_sprout.core.checks as checks
+import seedcase_sprout.core.check_datapackage as checks
 
 matcher1 = checks.CheckErrorMatcher(validator="required")
 matcher2 = checks.CheckErrorMatcher(validator="type")

@@ -2,11 +2,11 @@ from typing import Iterator
 
 from jsonschema import ValidationError
 
-from seedcase_sprout.core.checks.check_error import CheckError
-from seedcase_sprout.core.checks.get_full_json_path_from_error import (
+from seedcase_sprout.core.check_datapackage.check_error import CheckError
+from seedcase_sprout.core.check_datapackage.get_full_json_path_from_error import (
     get_full_json_path_from_error,
 )
-from seedcase_sprout.core.checks.unwrap_errors import unwrap_errors
+from seedcase_sprout.core.check_datapackage.unwrap_errors import unwrap_errors
 
 COMPLEX_VALIDATORS = {"allOf", "anyOf", "oneOf"}
 

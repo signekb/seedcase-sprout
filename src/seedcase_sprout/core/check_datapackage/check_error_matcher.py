@@ -1,7 +1,7 @@
 import re
 from dataclasses import dataclass
 
-from seedcase_sprout.core.checks.check_error import CheckError
+from seedcase_sprout.core.check_datapackage.check_error import CheckError
 
 
 @dataclass

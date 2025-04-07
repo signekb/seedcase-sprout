@@ -1,5 +1,4 @@
-from seedcase_sprout.core.checks.check_error import CheckError
-from seedcase_sprout.core.checks.required_fields import RequiredFieldType
+from seedcase_sprout.core.check_datapackage import CheckError, RequiredFieldType
 from seedcase_sprout.core.sprout_checks.check_fields_not_blank import (
     SPROUT_BLANK_ERROR_MESSAGE,
 )

@@ -1,6 +1,4 @@
-from seedcase_sprout.core import checks
-from seedcase_sprout.core.checks.check_error_matcher import CheckErrorMatcher
-from seedcase_sprout.core.checks.exclude_matching_errors import exclude_matching_errors
+import seedcase_sprout.core.check_datapackage as cdp
 from seedcase_sprout.core.properties import PackageProperties
 from seedcase_sprout.core.sprout_checks.get_sprout_package_errors import (
     get_sprout_package_errors,
@@ -13,7 +11,7 @@ RESOURCE_FIELD_PATTERN = r"resources\[\d+\]"
 
 
 def check_properties(
-    properties: PackageProperties | dict, ignore: list[CheckErrorMatcher] = []
+    properties: PackageProperties | dict, ignore: list[cdp.CheckErrorMatcher] = []
 ) -> PackageProperties | dict:
     """Checks that `properties` matches requirements in Sprout.
 
@@ -43,7 +41,7 @@ def check_properties(
         else properties
     )
 
-    errors = checks.check_properties(properties_dict)
+    errors = cdp.check_properties(properties_dict)
 
     if isinstance(properties_dict, dict):
         errors += get_sprout_package_errors(properties_dict)
@@ -52,14 +50,14 @@ def check_properties(
                 if isinstance(resource, dict):
                     errors += get_sprout_resource_errors(resource, index)
 
-    errors = exclude_matching_errors(
+    errors = cdp.exclude_matching_errors(
         errors,
         [
             *ignore,
-            CheckErrorMatcher(
+            cdp.CheckErrorMatcher(
                 validator="required", json_path=rf"{RESOURCE_FIELD_PATTERN}\.data$"
             ),
-            CheckErrorMatcher(
+            cdp.CheckErrorMatcher(
                 validator="type",
                 json_path=rf"{RESOURCE_FIELD_PATTERN}\.path$",
                 message="not of type 'array'",

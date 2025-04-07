@@ -1,4 +1,4 @@
-from seedcase_sprout.core.checks.config import NAME_PATTERN
+from seedcase_sprout.core.check_datapackage.config import NAME_PATTERN
 
 
 def add_resource_recommendations(schema: dict) -> dict:

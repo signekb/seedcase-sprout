@@ -1,13 +1,11 @@
 from pytest import mark
 
-from seedcase_sprout.core.checks.check_package_properties import (
-    check_package_properties,
-)
+from seedcase_sprout.core.check_datapackage.check_properties import check_properties
 
 # Without recommendations
 
 
-def test_passes_matching_properties():
+def test_passes_matching_properties_with_resources():
     """Should pass properties matching the schema."""
     properties = {
         "name": "a name with spaces",
@@ -16,39 +14,53 @@ def test_passes_matching_properties():
         "version": "a version",
         "contributors": [{"email": "jane@doe.com"}],
         "sources": [{"email": "jane@doe.com"}],
+        "resources": [{"name": "a name", "path": "data.csv"}],
     }
 
-    assert check_package_properties(properties, check_recommendations=False) == []
+    assert check_properties(properties, check_recommendations=False) == []
 
 
-@mark.parametrize("resources", [[], [{}], [{"name": "name", "path": "data.csv"}]])
-def test_passes_matching_properties_without_checking_resources(resources):
-    """Should pass matching package properties without checking individual resource
-    properties."""
-    properties = {"resources": resources}
+def test_fails_properties_without_resources():
+    """Should fail properties without resources."""
+    properties = {"name": "a name with spaces"}
 
-    assert check_package_properties(properties, check_recommendations=False) == []
-
-
-def test_fails_properties_with_resources_of_wrong_type():
-    """Should fail properties if they have a `resources` field with a value of the wrong
-    type."""
-    properties = {"resources": 123}
-    errors = check_package_properties(properties, check_recommendations=False)
+    errors = check_properties(properties, check_recommendations=False)
 
     assert len(errors) == 1
-    assert errors[0].validator == "type"
+    assert errors[0].validator == "required"
     assert errors[0].json_path == "$.resources"
+
+
+@mark.parametrize(
+    "resources, json_path, num_errors",
+    [
+        ([], "$.resources", 1),
+        ([{}], "$.resources[0].data", 3),
+        ([{"name": "a name", "path": "/a/bad/path"}], "$.resources[0].path", 2),
+    ],
+)
+def test_fails_properties_with_bad_resources(resources, json_path, num_errors):
+    """Should fail properties with malformed resources."""
+    properties = {
+        "name": "a name with spaces",
+        "resources": resources,
+    }
+
+    errors = check_properties(properties, check_recommendations=False)
+
+    assert len(errors) == num_errors
+    assert errors[0].json_path == json_path
 
 
 def test_fails_properties_with_missing_required_fields():
     """Should fail properties with missing required fields."""
     properties = {
         "name": "a name",
+        "resources": [{"name": "a name", "path": "data.csv"}],
         "licenses": [{"title": "my license"}],
     }
 
-    errors = check_package_properties(properties, check_recommendations=False)
+    errors = check_properties(properties, check_recommendations=False)
 
     assert len(errors) == 2
     assert all(error.validator == "required" for error in errors)
@@ -60,8 +72,11 @@ def test_fails_properties_with_missing_required_fields():
 
 def test_fails_properties_with_bad_type():
     """Should fail properties with a field of the wrong type."""
-    properties = {"name": 123}
-    errors = check_package_properties(properties, check_recommendations=False)
+    properties = {
+        "name": 123,
+        "resources": [{"name": "a name", "path": "data.csv"}],
+    }
+    errors = check_properties(properties, check_recommendations=False)
 
     assert len(errors) == 1
     assert errors[0].validator == "type"
@@ -70,9 +85,13 @@ def test_fails_properties_with_bad_type():
 
 def test_fails_properties_with_bad_format():
     """Should fail properties with a field of the wrong format."""
-    properties = {"name": "a name", "homepage": "not a URL"}
+    properties = {
+        "name": "a name",
+        "resources": [{"name": "a name", "path": "data.csv"}],
+        "homepage": "not a URL",
+    }
 
-    errors = check_package_properties(properties, check_recommendations=False)
+    errors = check_properties(properties, check_recommendations=False)
 
     assert len(errors) == 1
     assert errors[0].validator == "format"
@@ -81,9 +100,13 @@ def test_fails_properties_with_bad_format():
 
 def test_fails_properties_with_pattern_mismatch():
     """Should fail properties with a field that does not match the pattern."""
-    properties = {"name": "a name", "contributors": [{"path": "/a/bad/path"}]}
+    properties = {
+        "name": "a name",
+        "resources": [{"name": "a name", "path": "data.csv"}],
+        "contributors": [{"path": "/a/bad/path"}],
+    }
 
-    errors = check_package_properties(properties, check_recommendations=False)
+    errors = check_properties(properties, check_recommendations=False)
 
     assert len(errors) == 1
     assert errors[0].validator == "pattern"
@@ -104,14 +127,19 @@ def test_passes_matching_properties_with_recommendations():
         "contributors": [{"title": "a contributor"}],
         "sources": [{"title": "a source"}],
         "licenses": [{"name": "a-license"}],
+        "resources": [{"name": "a-name-with-no-spaces", "path": "data.csv"}],
     }
 
-    assert check_package_properties(properties, check_recommendations=True) == []
+    assert check_properties(properties, check_recommendations=True) == []
 
 
 def test_fails_properties_with_missing_required_fields_with_recommendations():
     """Should fail properties with missing required fields."""
-    errors = check_package_properties({}, check_recommendations=True)
+    properties = {
+        "resources": [{"name": "a-name-with-no-spaces", "path": "data.csv"}],
+    }
+
+    errors = check_properties(properties, check_recommendations=True)
 
     assert len(errors) == 3
     assert all(error.validator == "required" for error in errors)
@@ -126,14 +154,16 @@ def test_fails_properties_violating_recommendations():
         "contributors": [{"email": "jane@doe.com"}],
         "sources": [{"email": "jane@doe.com"}],
         "licenses": [{"name": "a-license"}],
+        "resources": [{"name": "a name with spaces", "path": "data.csv"}],
     }
 
-    errors = check_package_properties(properties, check_recommendations=True)
+    errors = check_properties(properties, check_recommendations=True)
 
-    assert len(errors) == 4
+    assert len(errors) == 5
     assert {error.json_path for error in errors} == {
         "$.name",
         "$.version",
         "$.contributors[0].title",
         "$.sources[0].title",
+        "$.resources[0].name",
     }

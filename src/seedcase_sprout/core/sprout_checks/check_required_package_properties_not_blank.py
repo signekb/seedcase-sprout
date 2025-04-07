@@ -1,4 +1,4 @@
-from seedcase_sprout.core.checks.check_error import CheckError
+from seedcase_sprout.core.check_datapackage import CheckError
 from seedcase_sprout.core.sprout_checks.check_fields_not_blank import (
     check_fields_not_blank,
 )

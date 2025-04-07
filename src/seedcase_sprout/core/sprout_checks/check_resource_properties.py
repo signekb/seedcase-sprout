@@ -1,4 +1,4 @@
-from seedcase_sprout.core.checks.check_error_matcher import CheckErrorMatcher
+from seedcase_sprout.core.check_datapackage import CheckErrorMatcher
 from seedcase_sprout.core.properties import ResourceProperties
 from seedcase_sprout.core.sprout_checks.check_properties import check_properties
 

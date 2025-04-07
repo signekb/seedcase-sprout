@@ -2,8 +2,7 @@ from pathlib import Path
 
 from pytest import fixture, mark, raises
 
-from seedcase_sprout.core.checks.check_error import CheckError
-from seedcase_sprout.core.checks.check_error_matcher import CheckErrorMatcher
+from seedcase_sprout.core.check_datapackage import CheckError, CheckErrorMatcher
 from seedcase_sprout.core.properties import ResourceProperties
 from seedcase_sprout.core.sprout_checks.check_resource_properties import (
     check_resource_properties,

@@ -1,6 +1,6 @@
 from pytest import mark
 
-from seedcase_sprout.core.checks.required_fields import RequiredFieldType
+from seedcase_sprout.core.check_datapackage import RequiredFieldType
 from seedcase_sprout.core.sprout_checks.check_list_item_field_not_blank import (
     check_list_item_field_not_blank,
 )

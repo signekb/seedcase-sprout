@@ -1,6 +1,6 @@
 from pytest import mark, raises
 
-from seedcase_sprout.core.checks.check_error import CheckError
+from seedcase_sprout.core.check_datapackage.check_error import CheckError
 
 check_error = CheckError(
     message="There was an error!", json_path="a.b.field", validator="a-validator"

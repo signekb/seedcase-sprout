@@ -1,6 +1,6 @@
 from pytest import mark
 
-from seedcase_sprout.core.checks.required_fields import RequiredFieldType
+from seedcase_sprout.core.check_datapackage import RequiredFieldType
 from seedcase_sprout.core.sprout_checks.get_blank_value_for_type import (
     get_blank_value_for_type,
 )

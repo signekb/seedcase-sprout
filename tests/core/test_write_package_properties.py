@@ -3,7 +3,7 @@ from pathlib import Path
 
 from pytest import fixture, raises
 
-from seedcase_sprout.core.checks.check_error import CheckError
+from seedcase_sprout.core.check_datapackage import CheckError
 from seedcase_sprout.core.properties import (
     LicenseProperties,
     PackageProperties,

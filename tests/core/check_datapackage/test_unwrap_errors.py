@@ -1,7 +1,7 @@
 from jsonschema import ValidationError
 from pytest import mark
 
-from seedcase_sprout.core.checks.unwrap_errors import unwrap_errors
+from seedcase_sprout.core.check_datapackage.unwrap_errors import unwrap_errors
 
 simple_error = ValidationError(message="Simple error", path=["field1"], validator="val")
 

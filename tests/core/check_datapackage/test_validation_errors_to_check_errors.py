@@ -1,8 +1,8 @@
 from jsonschema import ValidationError
 from pytest import mark
 
-from seedcase_sprout.core.checks.check_error import CheckError
-from seedcase_sprout.core.checks.validation_errors_to_check_errors import (
+from seedcase_sprout.core.check_datapackage.check_error import CheckError
+from seedcase_sprout.core.check_datapackage.validation_errors_to_check_errors import (
     COMPLEX_VALIDATORS,
     validation_errors_to_check_errors,
 )

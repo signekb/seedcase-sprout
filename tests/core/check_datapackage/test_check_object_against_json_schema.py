@@ -1,7 +1,7 @@
 from jsonschema import SchemaError
 from pytest import raises
 
-from seedcase_sprout.core.checks.check_object_against_json_schema import (
+from seedcase_sprout.core.check_datapackage.check_object_against_json_schema import (
     check_object_against_json_schema,
 )
 

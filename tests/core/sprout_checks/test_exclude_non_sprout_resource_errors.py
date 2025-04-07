@@ -1,4 +1,4 @@
-from seedcase_sprout.core.checks.check_error import CheckError
+from seedcase_sprout.core.check_datapackage import CheckError
 from seedcase_sprout.core.sprout_checks.exclude_non_sprout_resource_errors import (
     exclude_non_sprout_resource_errors,
 )

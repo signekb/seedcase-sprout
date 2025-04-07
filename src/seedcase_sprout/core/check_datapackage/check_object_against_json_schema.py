@@ -1,7 +1,7 @@
 from jsonschema import Draft7Validator, FormatChecker
 
-from seedcase_sprout.core.checks.check_error import CheckError
-from seedcase_sprout.core.checks.validation_errors_to_check_errors import (
+from seedcase_sprout.core.check_datapackage.check_error import CheckError
+from seedcase_sprout.core.check_datapackage.validation_errors_to_check_errors import (
     validation_errors_to_check_errors,
 )
 

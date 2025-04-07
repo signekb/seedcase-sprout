@@ -1,4 +1,4 @@
-from seedcase_sprout.core.checks.required_fields import RequiredFieldType
+from seedcase_sprout.core.check_datapackage import RequiredFieldType
 
 
 def get_blank_value_for_type(type: RequiredFieldType) -> str | list | None:

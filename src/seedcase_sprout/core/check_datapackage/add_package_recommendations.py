@@ -1,5 +1,5 @@
-from seedcase_sprout.core.checks.config import NAME_PATTERN, SEMVER_PATTERN
-from seedcase_sprout.core.checks.required_fields import (
+from seedcase_sprout.core.check_datapackage.config import NAME_PATTERN, SEMVER_PATTERN
+from seedcase_sprout.core.check_datapackage.required_fields import (
     PACKAGE_RECOMMENDED_FIELDS,
 )
 

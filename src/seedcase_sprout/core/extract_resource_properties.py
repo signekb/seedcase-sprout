@@ -3,9 +3,9 @@ from pathlib import Path
 from frictionless import describe
 from frictionless.resources import JsonResource
 
+from seedcase_sprout.core.check_datapackage import check_resource_properties
 from seedcase_sprout.core.check_is_file import check_is_file
 from seedcase_sprout.core.check_is_supported_format import check_is_supported_format
-from seedcase_sprout.core.checks import check_resource_properties
 from seedcase_sprout.core.properties import ResourceProperties
 
 

@@ -1,5 +1,5 @@
-from seedcase_sprout.core.checks.check_error import CheckError
-from seedcase_sprout.core.checks.check_error_matcher import CheckErrorMatcher
+from seedcase_sprout.core.check_datapackage.check_error import CheckError
+from seedcase_sprout.core.check_datapackage.check_error_matcher import CheckErrorMatcher
 
 
 def exclude_matching_errors(

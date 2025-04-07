@@ -1,4 +1,4 @@
-from seedcase_sprout.core.checks.check_resource_properties import (
+from seedcase_sprout.core.check_datapackage.check_resource_properties import (
     check_resource_properties,
 )
 
