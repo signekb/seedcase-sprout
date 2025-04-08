@@ -31,6 +31,7 @@ frictionless = {extras = ["excel", "json", "parquet"], version = "^5.18.0"}
 requests = "^2.32.3"
 jsonschema = "^4.23.0"
 dacite = "^1.8.1"
+deepmerge = "^2.0"
 
 [tool.poetry.group.test.dependencies]
 pytest = "^8.3.2"
@@ -38,7 +39,7 @@ time-machine = "^2.15.0"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.9.0"
-datamodel-code-generator = {extras = ["http"], version = "^0.29.0"}
+datamodel-code-generator = "^0.28.5"
 commitizen = "^4.0.0"
 pre-commit = "^4.0.1"
 
