@@ -1,3 +1,9 @@
+## 0.29.1 (2025-04-08)
+
+### Fix
+
+- :bug: update nested objects correctly (#1138)
+
 ## 0.29.0 (2025-04-07)
 
 ### Feat
