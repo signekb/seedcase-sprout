@@ -120,7 +120,7 @@ flowchart
     function --> out
 ```
 
-### {{< var wip >}} `write_resource_batches(data, resource_properties)`
+### {{< var wip >}} `write_resource_batch(data, resource_properties)`
 
 See the help documentation with `help(write_resource_batch)` for
 more details.

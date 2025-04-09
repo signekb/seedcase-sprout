@@ -350,7 +350,7 @@ Sometimes you may need to modify the data types or table schema of the
 data in a resource. So you'd first modify the resource properties before
 using this flow. The `update_resource_batches()` function will
 update each batch DataFrame with the new data types or table schema, then
-you can use `write_resource_batches()` to save the updated data back to the
+you can use `write_resource_batch()` to save the updated data back to the
 batch files. The same file name should be used, so it will completely overwrite the
 old batch files.
 
@@ -365,15 +365,15 @@ flowchart
     list_data[("List[DataFrame]")]
     list_data_updated[("List[DataFrame]<br>(updated)")]
     update_resource_batches("update_resource_batches()")
-    write_resource_batches("write_resource_batches()")
+    write_resource_batch("write_resource_batch()")
 
     path_resource_batch_files --> read_resource_batches
     read_resource_batches --> list_data
     list_data --> update_resource_batches
     properties_updated --> update_resource_batches
     update_resource_batches --> list_data_updated
-    list_data_updated --> write_resource_batches
-    properties_updated --> write_resource_batches
+    list_data_updated --> write_resource_batch
+    properties_updated --> write_resource_batch
 ```
 
 ## Deleting an observational unit
@@ -381,7 +381,7 @@ flowchart
 If you need to delete an observational unit from the data, you can use
 this flow. The `delete_observational_unit()` function will delete the
 observational unit from the data about output a list of DataFrames with
-the deletions. The `write_resource_batches()` function will save the
+the deletions. The `write_resource_batch()` function will save the
 updated data back to the batch files.
 
 <!-- TODO: I don't know how the saving back to the batch files will work yet. -->
