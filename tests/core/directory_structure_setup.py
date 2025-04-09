@@ -38,12 +38,9 @@ def create_test_resource_structure(
     Returns:
         List with two Paths: one to the resource, one to its batch directory.
     """
-    path_resources = path_package / "resources"
-    path_resources.mkdir(parents=True, exist_ok=True)
-
-    path_list_resource = create_resource_structure(path_resources)
-    (path_list_resource[0] / "data.parquet").touch()
+    resource_path, resource_batch_path = create_resource_structure(path_package)
+    (resource_path / "data.parquet").touch()
     for batch_file in batch_files:
-        (path_list_resource[1] / batch_file).touch()
+        (resource_batch_path / batch_file).touch()
 
-    return path_list_resource
+    return [resource_path, resource_batch_path]

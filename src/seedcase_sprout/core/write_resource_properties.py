@@ -95,7 +95,8 @@ def write_resource_properties(
         current_resource.clear()
         current_resource.update(updated_properties)
     else:
-        package_properties["resources"].append(resource_properties)
+        resources = package_properties.get("resources", [])
+        package_properties["resources"] = resources + [resource_properties]
 
     return write_json(package_properties, path)
 
@@ -110,7 +111,7 @@ def get_resource_properties(package_properties: dict, resource_id: int) -> dict 
     Returns:
         The resource with the specified ID, if found. Otherwise returns `None`.
     """
-    for resource in package_properties["resources"]:
+    for resource in package_properties.get("resources", []):
         if get_resource_id_from_properties(resource) == resource_id:
             return resource
 

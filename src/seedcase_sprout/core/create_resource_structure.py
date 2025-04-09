@@ -19,8 +19,7 @@ def create_resource_structure(path: Path) -> list[Path]:
     `resources/<id>/batch/` path. The output is a list of these two path objects.
 
     Args:
-       path: Path to the resources directory in a package. Use
-            `PackagePath().resources()` to provide the correct path.
+       path: Path to the package folder.
 
     Returns:
        A list of the two created directories:
@@ -48,18 +47,18 @@ def create_resource_structure(path: Path) -> list[Path]:
                 path=sp.PackagePath(temp_path).properties(),
             )
 
-            resources_path = sp.PackagePath(temp_path).resources()
-            resources_path.mkdir()
             # Create a resource structure
-            sp.create_resource_structure(path=resources_path)
+            sp.create_resource_structure(path=temp_path)
         ```
     """
     check_is_dir(path)
+    path_resources = path / "resources"
+    path_resources.mkdir(exist_ok=True)
 
-    existing_ids = get_ids(path)
+    existing_ids = get_ids(path_resources)
     next_id = create_next_id(existing_ids)
 
-    resource_path = create_id_path(path, next_id)
+    resource_path = create_id_path(path_resources, next_id)
     resource_batch_path = create_resource_batch_path(resource_path)
 
     return create_dirs([resource_path, resource_batch_path])
