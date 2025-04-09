@@ -2000,7 +2000,7 @@ wheels = [
 
 [[package]]
 name = "seedcase-sprout"
-version = "0.29.1"
+version = "0.30.0"
 source = { editable = "." }
 dependencies = [
     { name = "dacite" },
@@ -2018,6 +2018,7 @@ dev = [
     { name = "jupyter" },
     { name = "pre-commit" },
     { name = "pytest" },
+    { name = "pyyaml" },
     { name = "quartodoc" },
     { name = "ruff" },
     { name = "time-machine" },
@@ -2040,6 +2041,7 @@ dev = [
     { name = "jupyter", specifier = ">=1.1.1" },
     { name = "pre-commit", specifier = ">=4.2.0" },
     { name = "pytest", specifier = ">=8.3.5" },
+    { name = "pyyaml", specifier = ">=6.0.2" },
     { name = "quartodoc", specifier = ">=0.9.1" },
     { name = "ruff", specifier = ">=0.11.4" },
     { name = "time-machine", specifier = ">=2.16.0" },
