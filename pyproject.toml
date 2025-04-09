@@ -1,55 +1,67 @@
-[tool.poetry]
+[project]
 name = "seedcase-sprout"
 version = "0.30.0"
 description = "Grow your research data in a structured, modern way that follows best practices."
 authors = [
-  "Luke W. Johnston <lwjohnst@gmail.com>",
-  "Henrik Goul <hgo@mjolner.dk>",
-  "Kristiane Beicher <kris.beicher@clin.au.dk>",
-  "Philip Christiansen <pch@mjolner.dk>",
-  "Signe Kirk Brødbæk <signekb@clin.au.dk>",
-  "Marton Vago <marton.vago95@gmail.com >",
+  {name = "Luke W. Johnston", email = "lwjohnst@gmail.com" },
+  {name = "Kristiane Beicher", email = "kris.beicher@clin.au.dk" },
+  {name = "Signe Kirk Brødbæk", email = "signekb@clin.au.dk" },
+  {name = "Marton Vago", email = "marton.vago95@gmail.com" },
 ]
 maintainers = [
-  "Luke W. Johnston <lwjohnst@gmail.com>",
-  "Kristiane Beicher <kris.beicher@clin.au.dk>",
-  "Signe Kirk Brødbæk <signekb@clin.au.dk>",
-  "Marton Vago <marton.vago95@gmail.com >",
+  {name = "Luke W. Johnston", email = "lwjohnst@gmail.com" },
+  {name = "Kristiane Beicher", email = "kris.beicher@clin.au.dk" },
+  {name = "Signe Kirk Brødbæk", email = "signekb@clin.au.dk" },
+  {name = "Marton Vago", email = "marton.vago95@gmail.com" },
 ]
 readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE.md"]
+keywords = [
+  "frictionless",
+  "framework",
+  "data",
+  "data structure",
+  "data organization",
+  "data management",
+  "data infrastructure",
+  "data engineering",
+  "data verification",
+  "data checks",
+  "data package",
+  "data package checks",
+]
+requires-python = ">=3.12"
+dependencies = [
+    "dacite>=1.9.2",
+    "deepmerge>=2.0",
+    "frictionless[excel,json,parquet]>=5.18.1",
+    "jsonschema>=4.23.0",
+    "polars>=1.26.0",
+    "requests>=2.32.3",
+]
+
+[project.urls]
 homepage = "https://sprout.seedcase-project.org"
 repository = "https://github.com/seedcase-project/seedcase-sprout"
-license = "MIT"
+changelog = "https://github.com/seedcase-project/seedcase-sprout/blob/main/CHANGELOG.md"
+issues = "https://github.com/seedcase-project/seedcase-sprout/issues"
 
-[tool.poetry.urls]
-"Bug Tracker" = "https://github.com/seedcase-project/seedcase-sprout/issues"
-
-[tool.poetry.dependencies]
-python = "^3.12"
-polars = "^1.5.0"
-frictionless = {extras = ["excel", "json", "parquet"], version = "^5.18.0"}
-requests = "^2.32.3"
-jsonschema = "^4.23.0"
-dacite = "^1.8.1"
-deepmerge = "^2.0"
-
-[tool.poetry.group.test.dependencies]
-pytest = "^8.3.2"
-time-machine = "^2.15.0"
-
-[tool.poetry.group.dev.dependencies]
-ruff = "^0.9.0"
-datamodel-code-generator = "^0.28.5"
-commitizen = "^4.0.0"
-pre-commit = "^4.0.1"
-
-[tool.poetry.group.docs.dependencies]
-jupyter = "^1.1.1"
-quartodoc = "^0.9.0"
+[dependency-groups]
+dev = [
+    "commitizen>=4.5.0",
+    "datamodel-code-generator>=0.28.5",
+    "jupyter>=1.1.1",
+    "pre-commit>=4.2.0",
+    "pytest>=8.3.5",
+    "quartodoc>=0.9.1",
+    "ruff>=0.11.4",
+    "time-machine>=2.16.0",
+]
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [tool.pytest.ini_options]
 addopts = [

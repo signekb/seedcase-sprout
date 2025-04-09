@@ -30,19 +30,19 @@ To install it as a user, see our [Installation Guide](https://sprout.seedcase-pr
 
 If you would like to contribute, please
 read the [contribution guidelines]() first. Then
-return here to install Poetry and clone the repository.
+return here to install uv and clone the repository.
 <!--TODO add link above-->
 
-We use Poetry to manage
-dependencies. If you haven't worked with Poetry before, you will find an
-excellent introduction to it in the [Poetry
-documentation](https://python-poetry.org/docs/). If you have worked with
+We use uv to manage
+dependencies. If you haven't worked with uv before, you will find an
+excellent introduction to it in the [uv
+documentation](https://docs.astral.sh/uv/). If you have worked with
 it before you can find a quick guide to installing it below.
 
-To install Poetry, run:
+To install uv, run:
 
 ``` bash
-pipx install poetry
+pipx install uv
 ```
 
 Then, open a terminal so that the working directory is the root of this project (`seedcase-sprout/`) and run:

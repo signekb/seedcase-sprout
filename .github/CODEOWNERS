@@ -10,4 +10,4 @@ justfile
 .gitignore
 ruff.toml
 pyproject.toml
-poetry.lock
+uv.lock

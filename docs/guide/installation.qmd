@@ -30,29 +30,28 @@ Python packages are generally recommended to be installed in a virtual
 environment. This is a way to isolate the packages you install for a
 specific project from the global system. There are several tools to
 manage package dependencies and create virtual environments, such as
-`venv`, `virtualenv`, and `poetry`. For this guide, we will use
-[Poetry](https://python-poetry.org/docs/main/#installing-with-pipx),
-with at least version \>=2.0.
+`venv`, `virtualenv`, and `uv`. For this guide, we will use
+[uv](https://docs.astral.sh/uv/).
 
 You can check that you've installed these programs by running this
 command in your Terminal:
 
 ``` {.bash filename="Terminal"}
-poetry --version
+uv
 ```
 
-If you don't have Poetry installed, you can install it using `pipx`:
+If you don't have uv installed, you can install it using `pipx`:
 
 ``` {.bash filename="Terminal"}
-pipx install poetry
+pipx install uv
 ```
 
 ::: callout-important
-We assume you've already created a Python project using `poetry new` and
+We assume you've already created a Python project using `uv init` and
 your working directory in the Terminal is the project folder, which you
 can determine with the `pwd` command. If you haven't made a Python
-project using Poetry, follow the instructions on
-[Poetry's](https://python-poetry.org/docs/) website.
+project using uv, follow the instructions on
+[uv's](https://docs.astral.sh/uv/guides/projects/) website.
 :::
 
 You can now install Sprout directly from the [GitHub
@@ -60,14 +59,14 @@ repository](https://github.com/seedcase-project/seedcase-sprout) by
 running the following command:
 
 ``` {.bash filename="Terminal"}
-poetry add git+https://github.com/seedcase-project/seedcase-sprout.git
+uv add git+https://github.com/seedcase-project/seedcase-sprout.git
 ```
 
 You can check that Sprout has been installed correctly by running the following
 command in your terminal:
 
 ``` {.bash filename="Terminal"}
-poetry show seedcase_sprout
+uv pip show seedcase_sprout
 ```
 
 If it installed successfully, it will show details about Sprout.
