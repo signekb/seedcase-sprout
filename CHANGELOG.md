@@ -1,3 +1,9 @@
+## 0.30.0 (2025-04-09)
+
+### Feat
+
+- :sparkles: add example data frame (#1244)
+
 ## 0.29.1 (2025-04-08)
 
 ### Fix
