@@ -12,7 +12,13 @@
 from .as_readme_text import as_readme_text
 from .create_resource_properties import create_resource_properties
 from .create_resource_structure import create_resource_structure
-from .examples import example_package_properties, example_resource_properties
+from .examples import (
+    example_data,
+    example_data_all_types,
+    example_package_properties,
+    example_resource_properties,
+    example_resource_properties_all_types,
+)
 from .extract_resource_properties import extract_resource_properties
 from .paths import PackagePath
 from .properties import (
@@ -62,6 +68,9 @@ __all__ = [
     # Example properties -----
     "example_package_properties",
     "example_resource_properties",
+    "example_data",
+    "example_data_all_types",
+    "example_resource_properties_all_types",
     # Packages -----
     "update_package_properties",
     "edit_package_properties",
