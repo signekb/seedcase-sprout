@@ -214,8 +214,8 @@ def example_data_all_types() -> pl.DataFrame:
                 '{"outer": "value", "inner": {"prop1": 123, "prop2": true}}',
             ],
             "my_string": ["some text", "æøåäöü£$%^&*()\\''", "μῆνιν ἄειδε θεὰ"],
-            "my_any": pl.Series([{"prop": "value"}] * 3, dtype=pl.Object),
-            "my_none": pl.Series([{"prop": "value"}] * 3, dtype=pl.Object),
+            "my_any": pl.Series([[1]] * 3, dtype=pl.List),
+            "my_none": pl.Series([[1]] * 3, dtype=pl.List),
             "my_duration": ["P1Y2M3DT10H30M45.343S", "P1Y2M3DT10H30M45", "P33Y6M4D"],
             "my_geojson": ["{}"] * 3,
         }

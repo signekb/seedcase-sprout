@@ -1,5 +1,15 @@
-# ruff: noqa
-def check_data(data: DataFrame, resource_properties: ResourceProperties) -> DataFrame:
+import polars as pl
+
+from seedcase_sprout.core.properties import ResourceProperties
+from seedcase_sprout.core.sprout_checks._check_column_types import _check_column_types
+from seedcase_sprout.core.sprout_checks.check_resource_properties import (
+    check_resource_properties,
+)
+
+
+def check_data(
+    data: pl.DataFrame, resource_properties: ResourceProperties
+) -> pl.DataFrame:
     """Checks that the DataFrame matches the requirements in the resource properties.
 
     Runs a few checks to compare between the data and the properties on the items:
@@ -43,9 +53,8 @@ def check_data(data: DataFrame, resource_properties: ResourceProperties) -> Data
     """
     check_resource_properties(resource_properties)
 
-    # TODO: These individual checks have their own pseudocode files.
-    _check_column_names(data, resource_properties)
+    # _check_column_names(data, resource_properties)
     _check_column_types(data, resource_properties)
-    _check_column_values_constraints(data, resource_properties)
+    # _check_column_values_constraints(data, resource_properties)
 
     return data
