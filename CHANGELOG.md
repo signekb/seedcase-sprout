@@ -1,3 +1,9 @@
+## 0.32.1 (2025-04-11)
+
+### Refactor
+
+- :recycle: match `check_properties()` with design (#1255)
+
 ## 0.32.0 (2025-04-11)
 
 ### Feat
