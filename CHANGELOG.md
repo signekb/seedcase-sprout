@@ -1,3 +1,9 @@
+## 0.32.0 (2025-04-11)
+
+### Feat
+
+- :sparkles: check column names in `check_data()` (#1247)
+
 ## 0.31.0 (2025-04-11)
 
 ### Feat
