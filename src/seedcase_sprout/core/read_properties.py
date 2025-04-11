@@ -1,6 +1,5 @@
 from pathlib import Path
 
-from seedcase_sprout.core.check_datapackage import CheckErrorMatcher
 from seedcase_sprout.core.check_is_file import check_is_file
 from seedcase_sprout.core.properties import PackageProperties
 from seedcase_sprout.core.read_json import read_json
@@ -49,8 +48,6 @@ def read_properties(path: Path) -> PackageProperties:
     """
     check_is_file(path)
     properties = read_json(path)
-    check_properties(
-        properties,
-        ignore=[CheckErrorMatcher(validator="required", json_path=r"resources$")],
-    )
-    return PackageProperties.from_dict(properties)
+    properties = PackageProperties.from_dict(properties)
+    check_properties(properties)
+    return properties

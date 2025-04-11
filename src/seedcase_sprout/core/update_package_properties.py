@@ -1,9 +1,7 @@
-from seedcase_sprout.core.check_datapackage import CheckErrorMatcher
 from seedcase_sprout.core.properties import PackageProperties
-from seedcase_sprout.core.sprout_checks.check_package_properties import (
-    check_package_properties,
+from seedcase_sprout.core.sprout_checks.check_properties import (
+    check_properties,
 )
-from seedcase_sprout.core.sprout_checks.check_properties import check_properties
 
 
 def update_package_properties(
@@ -71,22 +69,13 @@ def update_package_properties(
             )
         ```
     """
+    # In case someone adds a resource to the `update_properties`, we need to
+    # remove it since this function doesn't add resources.
     update_properties.resources = None
-    check_package_properties(
-        update_properties, ignore=[CheckErrorMatcher(validator="required")]
-    )
+    check_properties(current_properties)
 
-    check_properties(
-        current_properties,
-        ignore=[CheckErrorMatcher(validator="required")],
-    )
+    updated_properties_dict = current_properties.compact_dict
+    updated_properties_dict.update(update_properties.compact_dict)
+    updated_properties = PackageProperties.from_dict(updated_properties_dict)
 
-    updated_properties = current_properties.compact_dict
-    updated_properties.update(update_properties.compact_dict)
-
-    check_properties(
-        updated_properties,
-        ignore=[CheckErrorMatcher(validator="required", json_path="resources")],
-    )
-
-    return PackageProperties.from_dict(updated_properties)
+    return check_properties(updated_properties)

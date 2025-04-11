@@ -1,6 +1,5 @@
 from pathlib import Path
 
-from seedcase_sprout.core.check_datapackage import CheckErrorMatcher
 from seedcase_sprout.core.properties import PackageProperties
 from seedcase_sprout.core.sprout_checks.check_properties import check_properties
 from seedcase_sprout.core.write_json import write_json
@@ -30,8 +29,5 @@ def write_package_properties(properties: PackageProperties, path: Path) -> Path:
         ExceptionGroup: If there is an error in the properties. A group of
             `CheckError`s, one error for each failed check.
     """
-    check_properties(
-        properties,
-        ignore=[CheckErrorMatcher(validator="required", json_path=r"resources$")],
-    )
+    check_properties(properties)
     return write_json(properties.compact_dict, path)

@@ -3,10 +3,8 @@ from seedcase_sprout.core.examples import (
     example_resource_properties,
     example_resource_properties_all_types,
 )
-from seedcase_sprout.core.sprout_checks.check_package_properties import (
+from seedcase_sprout.core.sprout_checks.check_properties import (
     check_package_properties,
-)
-from seedcase_sprout.core.sprout_checks.check_resource_properties import (
     check_resource_properties,
 )
 

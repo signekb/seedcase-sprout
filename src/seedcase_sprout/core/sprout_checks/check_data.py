@@ -3,7 +3,7 @@ import polars as pl
 from seedcase_sprout.core.properties import ResourceProperties
 from seedcase_sprout.core.sprout_checks._check_column_names import _check_column_names
 from seedcase_sprout.core.sprout_checks._check_column_types import _check_column_types
-from seedcase_sprout.core.sprout_checks.check_resource_properties import (
+from seedcase_sprout.core.sprout_checks.check_properties import (
     check_resource_properties,
 )
 

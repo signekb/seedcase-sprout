@@ -164,37 +164,6 @@ def test_throws_error_if_data_path_malformed_on_new_resource(
     assert errors[0].json_path == "$.path"
 
 
-def test_throws_error_if_data_path_malformed_on_existing_resource(
-    tmp_path, resource_properties_1, resource_properties_2
-):
-    """Should throw a `CheckError` if the data path of an existing resource is
-    malformed."""
-    # given
-    resource_properties_1.path = str(Path("no", "id"))
-    package_properties = PackageProperties(
-        name="my-package",
-        id="123-abc-123",
-        title="My Package",
-        description="This is my package.",
-        version="2.0.0",
-        created="2024-05-14T05:00:01+00:00",
-        resources=[resource_properties_1],
-        licenses=[LicenseProperties(name="license")],
-    )
-    package_properties_path = write_json(
-        package_properties.compact_dict, tmp_path / "datapackage.json"
-    )
-
-    # when + then
-    with raises(ExceptionGroup) as error_info:
-        write_resource_properties(package_properties_path, resource_properties_2)
-
-    errors = error_info.value.exceptions
-    assert len(errors) == 1
-    assert errors[0].validator == "pattern"
-    assert errors[0].json_path == "$.resources[0].path"
-
-
 def test_throws_error_if_package_properties_have_missing_required_fields(
     tmp_path, resource_properties_1
 ):

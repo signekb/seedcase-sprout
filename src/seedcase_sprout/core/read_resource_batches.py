@@ -13,7 +13,7 @@ from seedcase_sprout.core.constants import (
 from seedcase_sprout.core.properties import ResourceProperties
 
 # from seedcase_sprout.core.checks.check_data import check_data
-from seedcase_sprout.core.sprout_checks.check_resource_properties import (
+from seedcase_sprout.core.sprout_checks.check_properties import (
     check_resource_properties,
 )
 
