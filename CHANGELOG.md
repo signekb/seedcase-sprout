@@ -1,3 +1,9 @@
+## 0.32.2 (2025-04-11)
+
+### Refactor
+
+- :recycle: simplify imports and `__init__.py` file (#1257)
+
 ## 0.32.1 (2025-04-11)
 
 ### Refactor
