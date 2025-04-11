@@ -1,9 +1,9 @@
-from seedcase_sprout.core.as_readme_text import as_readme_text
-from seedcase_sprout.core.properties import (
+from seedcase_sprout.core import (
     ContributorProperties,
     LicenseProperties,
     PackageProperties,
     ResourceProperties,
+    as_readme_text,
 )
 
 
