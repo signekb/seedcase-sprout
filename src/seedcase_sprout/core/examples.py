@@ -90,7 +90,8 @@ def example_resource_properties() -> ResourceProperties:
                     description="Value of the record.",
                     type="number",
                 ),
-            ]
+            ],
+            primary_key=["id"],
         ),
     )
 
@@ -153,7 +154,7 @@ def example_resource_properties_all_types() -> ResourceProperties:
                 FieldProperties(name="my_none", type=None),
                 FieldProperties(name="my_duration", type="duration"),
                 FieldProperties(name="my_geojson", type="geojson"),
-            ]
+            ],
         ),
     )
 

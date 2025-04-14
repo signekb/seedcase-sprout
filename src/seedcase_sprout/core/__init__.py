@@ -20,6 +20,7 @@ from .examples import (
     example_resource_properties_all_types,
 )
 from .extract_resource_properties import extract_resource_properties
+from .join_resource_batches import join_resource_batches
 from .paths import PackagePath
 from .properties import (
     ConstraintsProperties,
@@ -80,6 +81,7 @@ __all__ = [
     "create_resource_structure",
     "create_resource_properties",
     "extract_resource_properties",
+    "join_resource_batches",
     "read_resource_batches",
     # "update_resource_properties",
     # "write_resource_data_to_batch",
