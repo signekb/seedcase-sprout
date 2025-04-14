@@ -1,3 +1,5 @@
+import os
+
 from seedcase_sprout.core import PackagePath
 
 
@@ -14,3 +16,15 @@ def test_package_path_outputs_an_absolute_path(tmp_path):
     assert path.resource_data("test").is_absolute()
     assert path.resource_batch("test").is_absolute()
     # TODO: Test `resource_batch_files()` after deciding whether to do a check first?
+
+
+def test_path_defaults_to_cwd_at_call_time(tmp_path):
+    """When no root path is provided, the root path should default to the cwd of the
+    calling script."""
+    original_cwd = os.getcwd()
+    try:
+        os.chdir(tmp_path)
+        package_path = PackagePath()
+        assert package_path.path == tmp_path
+    finally:
+        os.chdir(original_cwd)

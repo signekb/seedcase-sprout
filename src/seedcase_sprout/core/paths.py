@@ -46,9 +46,9 @@ class PackagePath:
         ```
     """
 
-    def __init__(self, path: Path = Path.cwd()) -> Path:
+    def __init__(self, path: Path | None = None) -> Path:
         """Set the base path."""
-        self.path = path
+        self.path = path or Path.cwd()
 
     def properties(self) -> Path:
         """Path to the `datapackage.json` file."""
