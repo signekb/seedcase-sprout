@@ -13,6 +13,9 @@ from seedcase_sprout.core.properties import (
 from seedcase_sprout.core.read_resource_batches import (
     read_resource_batches,
 )
+from tests.core.assert_raises_errors import (
+    assert_raises_check_errors,
+)
 from tests.core.directory_structure_setup import (
     create_test_data_package,
 )
@@ -161,28 +164,23 @@ def test_if_multiple_correct_timestamps_in_file_name_use_first_one(resource_path
     assert data_list[0][BATCH_TIMESTAMP_COLUMN_NAME][0] == "2025-03-26T100346Z"
 
 
-def xtest_raises_error_when_properties_do_not_match_data(resource_paths):
+def test_raises_error_when_properties_do_not_match_data(resource_paths):
     """Raises errors from checks when the resource properties don't match the data."""
     # Given
     resource_properties.schema.fields[0].name = "not-id"
 
     # When, Then
-    # TODO: Uncomment and add asserts when `check_data()` is implemented.
-    # with raises(ExceptionGroup) as error_info:
-    #     read_resource_batches(
-    #         paths=resource_paths, resource_properties=resource_properties
-    #     )
-
-    # errors = error_info.value.exceptions
+    with raises(ValueError):
+        read_resource_batches(
+            paths=resource_paths, resource_properties=resource_properties
+        )
 
 
-def xtest_raises_error_with_empty_resource_properties():
+def test_raises_error_with_empty_resource_properties(resource_paths):
     """Raises errors from checks if the resource properties are empty."""
     # When, Then
-    # TODO: Uncomment and add asserts when `check_data()` is implemented.
-    # with raises(ExceptionGroup) as error_info:
-    #     read_resource_batches(
-    #         paths=resource_paths, resource_properties=ResourceProperties()
-    #     )
-
-    # errors = error_info.value.exceptions
+    assert_raises_check_errors(
+        lambda: read_resource_batches(
+            paths=resource_paths, resource_properties=ResourceProperties()
+        )
+    )

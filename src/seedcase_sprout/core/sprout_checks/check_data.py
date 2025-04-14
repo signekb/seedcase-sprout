@@ -39,14 +39,15 @@ def check_data(
         Output the `data` if checks all pass.
 
     Raises:
-        ExceptionGroup: A list of messages that highlight where there are differences
-            between the data and the properties.
+        ExceptionGroup[CheckError]: If the resource properties are incorrect.
+        ValueError: If column names in the data are incorrect.
+        ExceptionGroup[ValueError]: If data types in the data are incorrect.
 
     Examples:
         ```{python}
-        import seedcase_sprout as sp
+        import seedcase_sprout.core as sp
 
-        check_data(
+        sp.check_data(
             data=sp.example_data(),
             resource_properties=sp.example_resource_properties()
         )

@@ -20,6 +20,10 @@ from seedcase_sprout.core.sprout_checks._check_column_types import (
     _FRICTIONLESS_TO_ALLOWED_POLARS_TYPES,
 )
 from seedcase_sprout.core.sprout_checks.check_data import check_data
+from tests.core.assert_raises_errors import (
+    assert_raises_check_errors,
+    assert_raises_errors,
+)
 
 string_field = FieldProperties(name="my_string", type="string")
 bool_field = FieldProperties(name="my_bool", type="boolean")
@@ -193,11 +197,7 @@ def test_rejects_geopoint_with_incorrect_size():
         FieldProperties(name="my_geopoint", type="geopoint")
     ]
 
-    with raises(ExceptionGroup) as error_info:
-        check_data(data, resource_properties)
-
-    errors = error_info.value.exceptions
-    assert len(errors) == 1
+    assert_raises_errors(lambda: check_data(data, resource_properties), ValueError, 1)
 
 
 def test_rejects_geopoint_with_incorrect_inner_type():
@@ -211,8 +211,9 @@ def test_rejects_geopoint_with_incorrect_inner_type():
         FieldProperties(name="my_geopoint", type="geopoint")
     ]
 
-    with raises(ExceptionGroup) as error_info:
-        check_data(data, resource_properties)
+    assert_raises_errors(lambda: check_data(data, resource_properties), ValueError, 1)
 
-    errors = error_info.value.exceptions
-    assert len(errors) == 1
+
+def test_rejects_incorrect_resource_properties():
+    """Should throw an error if the resource properties are incorrect."""
+    assert_raises_check_errors(lambda: check_data(example_data(), ResourceProperties()))

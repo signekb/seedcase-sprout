@@ -11,8 +11,7 @@ from seedcase_sprout.core.constants import (
     BATCH_TIMESTAMP_PATTERN,
 )
 from seedcase_sprout.core.properties import ResourceProperties
-
-# from seedcase_sprout.core.checks.check_data import check_data
+from seedcase_sprout.core.sprout_checks.check_data import check_data
 from seedcase_sprout.core.sprout_checks.check_properties import (
     check_resource_properties,
 )
@@ -84,16 +83,12 @@ def read_resource_batches(
     """
     list(map(check_is_file, paths))
     check_resource_properties(resource_properties)
-
-    data_list = list(map(_read_parquet_batch_file, paths))
-
-    # TODO: Uncomment and test when `check_data` is implemented
-    # list(map(check_data, data_list, resource_properties))
-
-    return data_list
+    return [_read_parquet_batch_file(path, resource_properties) for path in paths]
 
 
-def _read_parquet_batch_file(path: Path) -> pl.DataFrame:
+def _read_parquet_batch_file(
+    path: Path, resource_properties: ResourceProperties
+) -> pl.DataFrame:
     """Reads a Parquet batch file and adds the timestamp as a column.
 
     This function reads a Parquet batch file into a Polars DataFrame and adds
@@ -101,11 +96,14 @@ def _read_parquet_batch_file(path: Path) -> pl.DataFrame:
 
     Args:
         path: Path to the Parquet batch file.
+        resource_properties: The resource properties to check the data against.
 
     Returns:
         The Parquet file as a DataFrame with a timestamp column added.
     """
     data = pl.read_parquet(path)
+    check_data(data, resource_properties)
+
     timestamp = _extract_timestamp_from_batch_file_path(path)
     _check_batch_file_timestamp(timestamp)
     data = _add_timestamp_as_column(data, timestamp)
