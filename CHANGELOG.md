@@ -1,3 +1,9 @@
+## 0.33.0 (2025-04-14)
+
+### Feat
+
+- :sparkles: use `check_data()` in `read_resource_batches()` (#1263)
+
 ## 0.32.2 (2025-04-11)
 
 ### Refactor
