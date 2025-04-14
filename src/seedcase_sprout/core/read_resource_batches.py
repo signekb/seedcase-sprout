@@ -70,7 +70,7 @@ def read_resource_batches(
                 {
                     "id": [1, 2, 3],
                     "name": ["anne", "belinda", "charlotte"],
-                    "value": [10, 20, 30],
+                    "value": [10.2, 20.1, 30.2],
                 }
             )
             data.write_parquet(batch_file_path)
