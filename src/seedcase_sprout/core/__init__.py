@@ -46,6 +46,7 @@ from .sprout_checks.check_properties import (
 from .update_package_properties import update_package_properties
 from .write_file import write_file
 from .write_package_properties import write_package_properties
+from .write_resource_batch import write_resource_batch
 
 # from .update_resource_properties import *
 # from .write_resource_data_to_batch import *
@@ -83,6 +84,7 @@ __all__ = [
     "extract_resource_properties",
     "join_resource_batches",
     "read_resource_batches",
+    "write_resource_batch",
     # "update_resource_properties",
     # "write_resource_data_to_batch",
     # "write_resource_parquet",
