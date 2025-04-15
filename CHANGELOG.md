@@ -1,3 +1,9 @@
+## 0.36.1 (2025-04-15)
+
+### Refactor
+
+- :recycle: create a simpler map functional (#1270)
+
 ## 0.36.0 (2025-04-14)
 
 ### Feat
