@@ -1,3 +1,9 @@
+## 0.38.1 (2025-04-15)
+
+### Refactor
+
+- :recycle: move all `check_data()` internals into same file (#1275)
+
 ## 0.38.0 (2025-04-15)
 
 ### Feat
