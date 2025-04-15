@@ -1,3 +1,9 @@
+## 0.37.1 (2025-04-15)
+
+### Refactor
+
+- :recycle: move `write_json()` into internals module (#1274)
+
 ## 0.37.0 (2025-04-15)
 
 ### Feat
