@@ -2,7 +2,7 @@ from pathlib import Path
 
 import polars as pl
 
-from seedcase_sprout.core.check_is_file import check_is_file
+from seedcase_sprout.core.internals import _check_is_file
 
 
 def read_csv(data_path: Path) -> pl.DataFrame:
@@ -22,7 +22,7 @@ def read_csv(data_path: Path) -> pl.DataFrame:
         pl.exceptions.ComputeError: If the data cannot be loaded into a data frame.
         ValueError: If the data has a row that is longer than the header row.
     """
-    check_is_file(data_path)
+    _check_is_file(data_path)
     if data_path.suffix != ".csv":
         raise ValueError(f"{data_path} is not a CSV file.")
 

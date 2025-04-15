@@ -1,9 +1,9 @@
 from pathlib import Path
 
-from seedcase_sprout.core.check_is_dir import check_is_dir
 from seedcase_sprout.core.create_relative_resource_data_path import (
     create_relative_resource_data_path,
 )
+from seedcase_sprout.core.internals import _check_is_dir
 from seedcase_sprout.core.properties import ResourceProperties
 from seedcase_sprout.core.sprout_checks.check_properties import (
     check_resource_properties,
@@ -67,6 +67,6 @@ def create_resource_properties(
             # )
         ```
     """
-    check_is_dir(path)
+    _check_is_dir(path)
     properties.path = str(create_relative_resource_data_path(path))
     return check_resource_properties(properties)

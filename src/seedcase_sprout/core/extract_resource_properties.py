@@ -4,8 +4,8 @@ from frictionless import describe
 from frictionless.resources import JsonResource
 
 from seedcase_sprout.core.check_datapackage import check_resource_properties
-from seedcase_sprout.core.check_is_file import check_is_file
 from seedcase_sprout.core.check_is_supported_format import check_is_supported_format
+from seedcase_sprout.core.internals import _check_is_file
 from seedcase_sprout.core.properties import ResourceProperties
 
 
@@ -26,7 +26,7 @@ def extract_resource_properties(data_path: Path) -> ResourceProperties:
         Outputs a `ResourceProperties` object. Use `write_resource_properties()`
             to save the object to the `datapackage.json` file.
     """
-    check_is_file(data_path)
+    _check_is_file(data_path)
     check_is_supported_format(data_path)
 
     properties = describe(data_path).to_dict()

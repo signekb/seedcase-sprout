@@ -1,11 +1,11 @@
 from pathlib import Path
 
-from seedcase_sprout.core.check_is_dir import check_is_dir
 from seedcase_sprout.core.create_dirs import create_dirs
 from seedcase_sprout.core.create_id_path import create_id_path
 from seedcase_sprout.core.create_next_id import create_next_id
 from seedcase_sprout.core.create_resource_batch_path import create_resource_batch_path
 from seedcase_sprout.core.get_ids import get_ids
+from seedcase_sprout.core.internals import _check_is_dir
 
 
 def create_resource_structure(path: Path) -> list[Path]:
@@ -51,7 +51,7 @@ def create_resource_structure(path: Path) -> list[Path]:
             sp.create_resource_structure(path=temp_path)
         ```
     """
-    check_is_dir(path)
+    _check_is_dir(path)
     path_resources = path / "resources"
     path_resources.mkdir(exist_ok=True)
 
