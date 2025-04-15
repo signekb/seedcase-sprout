@@ -1,3 +1,9 @@
+## 0.38.0 (2025-04-15)
+
+### Feat
+
+- :sparkles: add example package (#1265)
+
 ## 0.37.1 (2025-04-15)
 
 ### Refactor
