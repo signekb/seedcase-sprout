@@ -1,3 +1,9 @@
+## 0.36.3 (2025-04-15)
+
+### Refactor
+
+- :recycle: use `_map2()` in `read_resource_batches()` (#1276)
+
 ## 0.36.2 (2025-04-15)
 
 ### Refactor
