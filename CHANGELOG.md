@@ -1,3 +1,9 @@
+## 0.38.3 (2025-04-15)
+
+### Refactor
+
+- :recycle: move `check_properties.py` into root code folder (#1278)
+
 ## 0.38.2 (2025-04-15)
 
 ### Refactor
