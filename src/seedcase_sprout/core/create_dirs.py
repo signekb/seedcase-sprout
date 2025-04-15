@@ -1,5 +1,7 @@
 from pathlib import Path
 
+from seedcase_sprout.core.internals import _map
+
 
 def create_dir(path: Path) -> Path:
     """Creates a directory from a path.
@@ -25,5 +27,5 @@ def create_dirs(paths: list[Path]) -> list[Path]:
     Returns:
         A list of paths to the newly created directories.
     """
-    created_dirs = [create_dir(path) for path in paths]
+    created_dirs = _map(paths, create_dir)
     return created_dirs
