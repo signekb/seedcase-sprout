@@ -1,3 +1,9 @@
+## 0.38.2 (2025-04-15)
+
+### Refactor
+
+- :recycle: move `cdp` constant into `constants.py` (#1279)
+
 ## 0.38.1 (2025-04-15)
 
 ### Refactor
