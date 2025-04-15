@@ -1,3 +1,9 @@
+## 0.36.4 (2025-04-15)
+
+### Refactor
+
+- :recycle: move `read_*` functions (one) into internal module (#1273)
+
 ## 0.36.3 (2025-04-15)
 
 ### Refactor
