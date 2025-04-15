@@ -2,12 +2,12 @@ from pathlib import Path
 
 import polars as pl
 
+from seedcase_sprout.core.check_data import check_data
 from seedcase_sprout.core.create_batch_file_name import create_batch_file_name
 
 # from seedcase_sprout.core.checks.check_data import check_data
 from seedcase_sprout.core.paths import PackagePath
 from seedcase_sprout.core.properties import ResourceProperties
-from seedcase_sprout.core.sprout_checks.check_data import check_data
 from seedcase_sprout.core.sprout_checks.check_properties import (
     check_resource_properties,
 )

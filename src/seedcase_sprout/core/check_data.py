@@ -8,6 +8,115 @@ from seedcase_sprout.core.properties import (
     FieldType,
     ResourceProperties,
 )
+from seedcase_sprout.core.sprout_checks.check_properties import (
+    check_resource_properties,
+)
+
+
+def check_data(
+    data: pl.DataFrame, resource_properties: ResourceProperties
+) -> pl.DataFrame:
+    """Checks that the DataFrame matches the requirements in the resource properties.
+
+    Runs a few checks to compare between the data and the properties on the items:
+
+    | Data | Properties |
+    |:------|:------------|
+    | Column names | `field.name` |
+    | Column types | `field.types` |
+    | Column values' types | `field.types` |
+    | Column values' constraints | `field.constraints` |
+
+    Error messages output generally in the format of:
+
+    > # {data item}:
+    >
+    > There is a mismatch found:
+    >
+    > - In the properties: {mismatch}
+    > - In the data: {mismatch}
+
+    Args:
+        data: A Polars DataFrame.
+        resource_properties: The specific `ResourceProperties` for the `data`.
+
+    Returns:
+        Output the `data` if checks all pass.
+
+    Raises:
+        ExceptionGroup[CheckError]: If the resource properties are incorrect.
+        ValueError: If column names in the data are incorrect.
+        ExceptionGroup[ValueError]: If data types in the data are incorrect.
+
+    Examples:
+        ```{python}
+        import seedcase_sprout.core as sp
+
+        sp.check_data(
+            data=sp.example_data(),
+            resource_properties=sp.example_resource_properties()
+        )
+        ```
+    """
+    check_resource_properties(resource_properties)
+    _check_column_names(data, resource_properties)
+    _check_column_types(data, resource_properties)
+    # _check_column_values_constraints(data, resource_properties)
+
+    return data
+
+
+def _check_column_names(
+    data: pl.DataFrame, resource_properties: ResourceProperties
+) -> str:
+    """Checks that column names in `data` match those in `resource_properties`.
+
+    Columns may appear in any order.
+
+    Args:
+        data: The data to check.
+        resource_properties: The resource properties to check against.
+
+    Returns:
+        The data if the column names match.
+
+    Raises:
+        ValueError: If the column names don't match the names in
+            `resource_properties`.
+    """
+    columns_in_data = data.schema.names()
+    columns_in_resource = [
+        field.name
+        for field in get_nested_attr(resource_properties, "schema.fields", default=[])
+    ]
+    extra_columns_in_data = [
+        name for name in columns_in_data if name not in columns_in_resource
+    ]
+    missing_columns_in_data = [
+        name for name in columns_in_resource if name not in columns_in_data
+    ]
+
+    if extra_columns_in_data or missing_columns_in_data:
+        raise ValueError(
+            _format_column_name_error_message(
+                extra_columns_in_data, missing_columns_in_data
+            )
+        )
+
+    return data
+
+
+def _format_column_name_error_message(
+    extra_columns_in_data: list[str], missing_columns_in_data: list[str]
+) -> str:
+    message = (
+        "Column names in the data do not match column names in the resource properties:"
+    )
+    if extra_columns_in_data:
+        message += f"\n- Unexpected column(s) in data: {extra_columns_in_data}"
+    if missing_columns_in_data:
+        message += f"\n- Missing column(s) in data: {missing_columns_in_data}"
+    return message
 
 
 def _check_column_types(
