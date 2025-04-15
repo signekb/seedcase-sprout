@@ -50,6 +50,10 @@ class PackagePath:
         """Set the base path."""
         self.path = path or Path.cwd()
 
+    def root(self) -> Path:
+        """Path to the root folder of the package."""
+        return self.path
+
     def properties(self) -> Path:
         """Path to the `datapackage.json` file."""
         return Path(self.path) / "datapackage.json"

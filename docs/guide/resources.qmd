@@ -46,7 +46,7 @@ from urllib.request import urlretrieve
 
 temp_path = Path(mkdtemp())
 package_path = sp.PackagePath(temp_path / "diabetes-study")
-package_path.path.mkdir()
+package_path.root().mkdir()
 
 package_properties = sp.example_package_properties()
 sp.write_package_properties(
@@ -167,14 +167,14 @@ as a `PackagePath` object in the `package_path` variable. In this guide,
 the root folder of the package is in a temporary folder:
 
 ```{python}
-print(package_path.path)
+print(package_path.root())
 ```
 
 Let's take a look at the current files and folders in the data package:
 
 ```{python}
 #| echo: false
-print(list(package_path.path.glob("**/*")))
+print(list(package_path.root().glob("**/*")))
 ```
 
 This shows that the data package already includes a `datapackage.json`
@@ -185,7 +185,7 @@ directory. To point it to another location, pass it the path to your
 data package folder, like in the example below.
 
 ```{python}
-resource_path, _ = sp.create_resource_structure(path=package_path.path)
+resource_path, _ = sp.create_resource_structure(path=package_path.root())
 resource_properties = sp.create_resource_properties(
     path=resource_path,
     properties=resource_properties
