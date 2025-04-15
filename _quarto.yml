@@ -131,6 +131,10 @@ quartodoc:
       contents:
         - example_package_properties
         - example_resource_properties
+        - example_resource_properties_all_types
+        - example_data
+        - example_data_all_types
+        - ExamplePackage
         - write_file
 
 metadata-files:
