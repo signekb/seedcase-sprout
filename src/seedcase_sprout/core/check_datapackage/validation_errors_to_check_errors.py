@@ -3,12 +3,11 @@ from typing import Iterator
 from jsonschema import ValidationError
 
 from seedcase_sprout.core.check_datapackage.check_error import CheckError
+from seedcase_sprout.core.check_datapackage.constants import COMPLEX_VALIDATORS
 from seedcase_sprout.core.check_datapackage.get_full_json_path_from_error import (
     get_full_json_path_from_error,
 )
 from seedcase_sprout.core.check_datapackage.unwrap_errors import unwrap_errors
-
-COMPLEX_VALIDATORS = {"allOf", "anyOf", "oneOf"}
 
 
 def validation_errors_to_check_errors(

@@ -5,7 +5,7 @@ from seedcase_sprout.core.check_datapackage.check_error import CheckError
 from seedcase_sprout.core.check_datapackage.check_object_against_json_schema import (
     check_object_against_json_schema,
 )
-from seedcase_sprout.core.check_datapackage.config import (
+from seedcase_sprout.core.check_datapackage.constants import (
     DATA_PACKAGE_SCHEMA_PATH,
 )
 from seedcase_sprout.core.internals import _read_json
