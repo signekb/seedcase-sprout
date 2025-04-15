@@ -1,3 +1,9 @@
+## 0.37.0 (2025-04-15)
+
+### Feat
+
+- :sparkles: add simple `root()` method in `PackagePath` (#1280)
+
 ## 0.36.4 (2025-04-15)
 
 ### Refactor
