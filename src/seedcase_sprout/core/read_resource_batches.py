@@ -5,6 +5,9 @@ from pathlib import Path
 import polars as pl
 
 from seedcase_sprout.core.check_data import check_data
+from seedcase_sprout.core.check_properties import (
+    check_resource_properties,
+)
 from seedcase_sprout.core.constants import (
     BATCH_TIMESTAMP_COLUMN_NAME,
     BATCH_TIMESTAMP_FORMAT,
@@ -12,9 +15,6 @@ from seedcase_sprout.core.constants import (
 )
 from seedcase_sprout.core.internals import _check_is_file, _map, _map2
 from seedcase_sprout.core.properties import ResourceProperties
-from seedcase_sprout.core.sprout_checks.check_properties import (
-    check_resource_properties,
-)
 
 
 def read_resource_batches(

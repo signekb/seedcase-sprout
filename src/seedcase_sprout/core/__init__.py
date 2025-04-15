@@ -11,6 +11,11 @@
 
 from .as_readme_text import as_readme_text
 from .check_data import check_data
+from .check_properties import (
+    check_package_properties,
+    check_properties,
+    check_resource_properties,
+)
 from .create_resource_properties import create_resource_properties
 from .create_resource_structure import create_resource_structure
 from .examples import (
@@ -39,11 +44,6 @@ from .properties import (
 )
 from .read_properties import read_properties
 from .read_resource_batches import read_resource_batches
-from .sprout_checks.check_properties import (
-    check_package_properties,
-    check_properties,
-    check_resource_properties,
-)
 from .update_package_properties import update_package_properties
 from .write_file import write_file
 from .write_package_properties import write_package_properties

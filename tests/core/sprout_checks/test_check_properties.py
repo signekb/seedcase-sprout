@@ -3,12 +3,12 @@ from pathlib import Path
 from pytest import fixture, mark, raises
 
 from seedcase_sprout.core.check_datapackage import CheckError
-from seedcase_sprout.core.properties import PackageProperties, ResourceProperties
-from seedcase_sprout.core.sprout_checks.check_properties import (
+from seedcase_sprout.core.check_properties import (
     check_package_properties,
     check_properties,
     check_resource_properties,
 )
+from seedcase_sprout.core.properties import PackageProperties, ResourceProperties
 from seedcase_sprout.core.sprout_checks.get_blank_value_for_type import (
     get_blank_value_for_type,
 )

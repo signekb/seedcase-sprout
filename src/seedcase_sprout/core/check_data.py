@@ -2,14 +2,14 @@ from typing import Callable
 
 import polars as pl
 
+from seedcase_sprout.core.check_properties import (
+    check_resource_properties,
+)
 from seedcase_sprout.core.get_nested_attr import get_nested_attr
 from seedcase_sprout.core.properties import (
     FieldProperties,
     FieldType,
     ResourceProperties,
-)
-from seedcase_sprout.core.sprout_checks.check_properties import (
-    check_resource_properties,
 )
 
 

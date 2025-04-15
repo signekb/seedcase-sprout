@@ -1,7 +1,7 @@
-from seedcase_sprout.core.properties import PackageProperties
-from seedcase_sprout.core.sprout_checks.check_properties import (
+from seedcase_sprout.core.check_properties import (
     check_properties,
 )
+from seedcase_sprout.core.properties import PackageProperties
 
 
 def update_package_properties(

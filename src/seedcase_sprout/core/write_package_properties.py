@@ -1,8 +1,8 @@
 from pathlib import Path
 
+from seedcase_sprout.core.check_properties import check_properties
 from seedcase_sprout.core.internals import _write_json
 from seedcase_sprout.core.properties import PackageProperties
-from seedcase_sprout.core.sprout_checks.check_properties import check_properties
 
 
 def write_package_properties(properties: PackageProperties, path: Path) -> Path:
