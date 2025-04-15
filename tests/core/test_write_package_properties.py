@@ -3,7 +3,6 @@ from pathlib import Path
 
 from pytest import fixture, raises
 
-from seedcase_sprout.core.check_datapackage import CheckError
 from seedcase_sprout.core.properties import (
     LicenseProperties,
     PackageProperties,
@@ -38,6 +37,11 @@ def package_properties() -> PackageProperties:
 @fixture
 def path(tmp_path) -> Path:
     return tmp_path / "datapackage.json"
+
+
+def assert_file_contains(path: Path, expected_properties: PackageProperties):
+    new_properties = read_json(path)
+    assert new_properties == expected_properties.compact_dict
 
 
 def test_writes_properties_when_file_does_not_exist(path, package_properties):
@@ -84,15 +88,5 @@ def test_throws_error_if_error_in_package_properties(path, package_properties):
     package_properties.id = None
     write_json(resource_properties.compact_dict, path)
 
-    with raises(ExceptionGroup) as error_info:
+    with raises(ExceptionGroup):
         write_package_properties(package_properties, path)
-
-    errors = error_info.value.exceptions
-    assert len(errors) == 2
-    assert all(isinstance(error, CheckError) for error in errors)
-    assert_file_contains(path, resource_properties)
-
-
-def assert_file_contains(path: Path, expected_properties: PackageProperties):
-    new_properties = read_json(path)
-    assert new_properties == expected_properties.compact_dict

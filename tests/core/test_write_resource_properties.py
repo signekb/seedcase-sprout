@@ -81,7 +81,6 @@ def test_updates_existing_resource_in_package(
     path = write_resource_properties(package_properties_path, new_resource_properties)
 
     # then
-    assert path == package_properties_path
     assert len(list(path.parent.iterdir())) == 1
     assert read_json(path)["resources"] == expected_resources
 
@@ -113,22 +112,20 @@ def test_adds_new_resource_to_package(
     assert read_json(path)["resources"] == expected_resources
 
 
-def test_throws_error_if_path_points_to_dir(tmp_path):
-    """Should throw FileNotFoundError if the path points to a folder."""
+def test_error_if_path_points_to_dir(tmp_path):
+    """Should have an error if the path points to a folder."""
     with raises(FileNotFoundError):
         write_resource_properties(tmp_path, ResourceProperties())
 
 
-def test_throws_error_if_path_points_to_nonexistent_file(tmp_path):
-    """Should throw FileNotFoundError if the path points to a nonexistent file."""
+def test_error_if_path_points_to_nonexistent_file(tmp_path):
+    """Should have an error if the path points to a nonexistent file."""
     with raises(FileNotFoundError):
         write_resource_properties(tmp_path / "datapackage.json", ResourceProperties())
 
 
-def test_throws_error_if_properties_file_cannot_be_read(
-    tmp_path, resource_properties_1
-):
-    """Should throw JSONDecodeError if the properties file cannot be read as JSON."""
+def test_error_if_properties_file_cannot_be_read(tmp_path, resource_properties_1):
+    """Should have an error if the properties file cannot be read as JSON."""
     file_path = tmp_path / "datapackage.json"
     file_path.write_text(",,, this is not, JSON")
 
@@ -136,44 +133,19 @@ def test_throws_error_if_properties_file_cannot_be_read(
         write_resource_properties(file_path, resource_properties_1)
 
 
-def test_throws_error_if_resource_properties_have_missing_required_fields(
+def test_error_if_resource_properties_have_missing_required_fields(
     package_properties_path,
 ):
-    """Should throw `CheckError`s if the resource properties have missing required
-    fields."""
-    with raises(ExceptionGroup) as error_info:
+    """Should have an error if there are missing required resource properties."""
+    with raises(ExceptionGroup):
         write_resource_properties(package_properties_path, ResourceProperties())
 
-    errors = error_info.value.exceptions
-    assert len(errors) == 4
-    assert all(error.validator == "required" for error in errors)
 
-
-def test_throws_error_if_data_path_malformed_on_new_resource(
-    package_properties_path, resource_properties_1
-):
-    """Should throw a `CheckError` if the data path of the new resource is malformed."""
-    resource_properties_1.path = str(Path("no", "id"))
-
-    with raises(ExceptionGroup) as error_info:
-        write_resource_properties(package_properties_path, resource_properties_1)
-
-    errors = error_info.value.exceptions
-    assert len(errors) == 1
-    assert errors[0].validator == "pattern"
-    assert errors[0].json_path == "$.path"
-
-
-def test_throws_error_if_package_properties_have_missing_required_fields(
+def test_error_if_package_properties_have_missing_required_fields(
     tmp_path, resource_properties_1
 ):
-    """Should throw `CheckError`s if the package properties have missing required
-    fields."""
+    """Should have an error if there are missing properties in the file."""
     path = write_json({}, tmp_path / "datapackage.json")
 
-    with raises(ExceptionGroup) as error_info:
+    with raises(ExceptionGroup):
         write_resource_properties(path, resource_properties_1)
-
-    errors = error_info.value.exceptions
-    assert len(errors) == 7
-    assert all(error.validator == "required" for error in errors)

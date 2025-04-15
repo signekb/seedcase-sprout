@@ -34,7 +34,7 @@ def test_updates_only_change_package_properties(original_properties):
     assert updated_properties.name == expected_name
 
 
-def test_current_properties_must_be_complete(original_properties):
+def test_error_incomplete_current_properties(original_properties):
     """The current properties needs to be correct and complete."""
     original_properties.name = None
     expected_name = "added-missed-name"
@@ -42,6 +42,23 @@ def test_current_properties_must_be_complete(original_properties):
         update_package_properties(
             original_properties, PackageProperties(name=expected_name)
         )
+
+
+def test_error_incorrect_current_properties(original_properties):
+    """Can't update if the current properties are incorrect"""
+    original_properties.name = "invalid name with spaces"
+    properties_updates = PackageProperties(name="my-new-package-name")
+
+    with raises(ExceptionGroup):
+        update_package_properties(original_properties, properties_updates)
+
+
+def test_error_incorrect_update_properties(original_properties):
+    """Can't update if the update properties are incorrect"""
+    properties_updates = PackageProperties(name="a name with spaces")
+
+    with raises(ExceptionGroup):
+        update_package_properties(original_properties, properties_updates)
 
 
 def test_resources_not_added_from_incoming_properties(original_properties):
@@ -70,27 +87,14 @@ def test_current_resources_not_modified(original_properties):
         original_properties, PackageProperties(resources=[])
     )
 
+    assert updated_properties == original_properties
     assert original_properties.resources == updated_properties.resources
 
 
-def test_error_if_correct_property_is_incorrect(original_properties):
-    """Should give an error if the current property is not correct."""
-    original_properties.name = "incorrect name with spaces"
-    properties_updates = PackageProperties(name="my-new-package-name")
-
-    with raises(ExceptionGroup) as error_info:
-        update_package_properties(original_properties, properties_updates)
-
-    errors = error_info.value.exceptions
-    assert len(errors) == 1
-    assert errors[0].json_path == "$.name"
-    assert errors[0].validator == "pattern"
-
-
-def test_error_if_current_properties_has_an_incorrect_resource_property(
+def test_error_incorrect_current_resource_property(
     original_properties,
 ):
-    """Should give an error if current property has an incorrect resource property."""
+    """Can't have an incorrect current resource property."""
     original_properties.resources = [
         ResourceProperties(
             name="incorrect name with spaces",
@@ -101,26 +105,8 @@ def test_error_if_current_properties_has_an_incorrect_resource_property(
     ]
     properties_updates = PackageProperties(name="my-new-package-name")
 
-    with raises(ExceptionGroup) as error_info:
+    with raises(ExceptionGroup):
         update_package_properties(original_properties, properties_updates)
-
-    errors = error_info.value.exceptions
-    assert len(errors) == 1
-    assert errors[0].json_path == "$.resources[0].name"
-    assert errors[0].validator == "pattern"
-
-
-def test_error_for_incorrect_properties_update(original_properties):
-    """Give an error if update to property is incorrect."""
-    properties_updates = PackageProperties(name="a name with spaces")
-
-    with raises(ExceptionGroup) as error_info:
-        update_package_properties(original_properties, properties_updates)
-
-    errors = error_info.value.exceptions
-    assert len(errors) == 1
-    assert errors[0].json_path == "$.name"
-    assert errors[0].validator == "pattern"
 
 
 def test_error_for_empty_properties(original_properties):

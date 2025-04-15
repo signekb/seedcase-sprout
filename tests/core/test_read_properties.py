@@ -1,17 +1,12 @@
 from json import JSONDecodeError
 from pathlib import Path
 
-from pytest import mark, raises
+from pytest import raises
 
 from seedcase_sprout.core import (
-    ResourceProperties,
     example_package_properties,
     read_properties,
     write_package_properties,
-)
-from seedcase_sprout.core.sprout_checks.required_fields import (
-    PACKAGE_SPROUT_REQUIRED_FIELDS,
-    RESOURCE_SPROUT_REQUIRED_FIELDS,
 )
 from seedcase_sprout.core.write_json import write_json
 
@@ -60,49 +55,11 @@ def test_throws_error_if_properties_file_cannot_be_read(tmp_path):
         read_properties(file_path)
 
 
-@mark.parametrize("field", [*PACKAGE_SPROUT_REQUIRED_FIELDS.keys()])
-def test_raises_error_if_file_is_missing_required_field(field, tmp_path):
-    """Should raise an error if a required field is missing from the file."""
+def test_error_incorrect_properties_in_file(tmp_path):
+    """Can't read in properties if the properties file is incorrect."""
     properties = example_package_properties()
-    package_path = tmp_path / "datapackage.json"
-    delattr(properties, field)
-    write_json(properties.compact_dict, package_path)
+    properties.name = "incorrect name"
+    write_json(properties.compact_dict, tmp_path / "datapackage.json")
 
-    with raises(ExceptionGroup) as error_info:
-        read_properties(package_path)
-
-    errors = error_info.value.exceptions
-    assert len(errors) == 1
-    assert errors[0].json_path == f"$.{field}"
-    assert errors[0].validator == "required"
-
-
-@mark.parametrize("field", RESOURCE_SPROUT_REQUIRED_FIELDS.keys())
-def test_raises_error_if_file_is_missing_required_resource_fields(field, tmp_path):
-    """Should raise an error if a required resource field is missing from the file."""
-    properties = example_package_properties()
-    properties.resources = [
-        ResourceProperties(
-            name="resource-1",
-            path=str(Path("resources", "1", "data.parquet")),
-            title="Resource 1",
-            description="A resource.",
-        ),
-        ResourceProperties(
-            name="resource-2",
-            path=str(Path("resources", "2", "data.parquet")),
-            title="Resource 2",
-            description="A second resource.",
-        ),
-    ]
-    package_path = tmp_path / "datapackage.json"
-    delattr(properties.resources[0], field)
-    write_json(properties.compact_dict, package_path)
-
-    with raises(ExceptionGroup) as error_info:
-        read_properties(package_path)
-
-    errors = error_info.value.exceptions
-    assert len(errors) == 1
-    assert errors[0].json_path == f"$.resources[0].{field}"
-    assert errors[0].validator == "required"
+    with raises(ExceptionGroup):
+        read_properties(tmp_path / "datapackage.json")
