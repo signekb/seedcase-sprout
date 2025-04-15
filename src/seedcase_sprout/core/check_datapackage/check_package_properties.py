@@ -8,7 +8,7 @@ from seedcase_sprout.core.check_datapackage.check_object_against_json_schema imp
 from seedcase_sprout.core.check_datapackage.config import (
     DATA_PACKAGE_SCHEMA_PATH,
 )
-from seedcase_sprout.core.read_json import read_json
+from seedcase_sprout.core.internals import _read_json
 
 
 def check_package_properties(
@@ -33,7 +33,7 @@ def check_package_properties(
     Returns:
         A list of errors. An empty list, if no errors are found.
     """
-    schema = read_json(DATA_PACKAGE_SCHEMA_PATH)
+    schema = _read_json(DATA_PACKAGE_SCHEMA_PATH)
 
     # Recommendations from the Data Package standard
     if check_recommendations:

@@ -6,12 +6,12 @@ from pytest import fixture, raises
 from seedcase_sprout.core.create_relative_resource_data_path import (
     create_relative_resource_data_path,
 )
+from seedcase_sprout.core.internals import _read_json
 from seedcase_sprout.core.properties import (
     LicenseProperties,
     PackageProperties,
     ResourceProperties,
 )
-from seedcase_sprout.core.read_json import read_json
 from seedcase_sprout.core.write_json import write_json
 from seedcase_sprout.core.write_resource_properties import write_resource_properties
 
@@ -82,7 +82,7 @@ def test_updates_existing_resource_in_package(
 
     # then
     assert len(list(path.parent.iterdir())) == 1
-    assert read_json(path)["resources"] == expected_resources
+    assert _read_json(path)["resources"] == expected_resources
 
 
 def test_adds_new_resource_to_package(
@@ -109,7 +109,7 @@ def test_adds_new_resource_to_package(
     # then
     assert path == package_properties_path
     assert len(list(path.parent.iterdir())) == 1
-    assert read_json(path)["resources"] == expected_resources
+    assert _read_json(path)["resources"] == expected_resources
 
 
 def test_error_if_path_points_to_dir(tmp_path):

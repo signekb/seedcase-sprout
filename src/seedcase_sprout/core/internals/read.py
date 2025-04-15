@@ -2,7 +2,7 @@ from json import loads
 from pathlib import Path
 
 
-def read_json(path: Path) -> list | dict:
+def _read_json(path: Path) -> list | dict:
     """Reads the contents of a JSON file into an object.
 
     Args:
@@ -12,6 +12,6 @@ def read_json(path: Path) -> list | dict:
         The contents of the file as an object.
 
     Raises:
-        JSONDecodeError: If the contents of the file cannot be deserialised as JSON.
+        JSONDecodeError: If the contents of the file cannot be de-serialised as JSON.
     """
     return loads(path.read_text())

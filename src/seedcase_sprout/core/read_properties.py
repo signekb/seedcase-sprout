@@ -1,8 +1,7 @@
 from pathlib import Path
 
-from seedcase_sprout.core.internals import _check_is_file
+from seedcase_sprout.core.internals import _check_is_file, _read_json
 from seedcase_sprout.core.properties import PackageProperties
-from seedcase_sprout.core.read_json import read_json
 from seedcase_sprout.core.sprout_checks.check_properties import check_properties
 
 
@@ -47,7 +46,7 @@ def read_properties(path: Path) -> PackageProperties:
         JSONDecodeError: If the `datapackage.json` file couldn't be read.
     """
     _check_is_file(path)
-    properties = read_json(path)
+    properties = _read_json(path)
     properties = PackageProperties.from_dict(properties)
     check_properties(properties)
     return properties
