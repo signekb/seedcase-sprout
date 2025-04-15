@@ -1,8 +1,8 @@
 from pathlib import Path
 
+from seedcase_sprout.core.internals import _write_json
 from seedcase_sprout.core.properties import PackageProperties
 from seedcase_sprout.core.sprout_checks.check_properties import check_properties
-from seedcase_sprout.core.write_json import write_json
 
 
 def write_package_properties(properties: PackageProperties, path: Path) -> Path:
@@ -30,4 +30,4 @@ def write_package_properties(properties: PackageProperties, path: Path) -> Path:
             `CheckError`s, one error for each failed check.
     """
     check_properties(properties)
-    return write_json(properties.compact_dict, path)
+    return _write_json(properties.compact_dict, path)

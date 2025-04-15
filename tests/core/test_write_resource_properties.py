@@ -6,13 +6,12 @@ from pytest import fixture, raises
 from seedcase_sprout.core.create_relative_resource_data_path import (
     create_relative_resource_data_path,
 )
-from seedcase_sprout.core.internals import _read_json
+from seedcase_sprout.core.internals import _read_json, _write_json
 from seedcase_sprout.core.properties import (
     LicenseProperties,
     PackageProperties,
     ResourceProperties,
 )
-from seedcase_sprout.core.write_json import write_json
 from seedcase_sprout.core.write_resource_properties import write_resource_properties
 
 
@@ -57,7 +56,7 @@ def package_properties_path(
         ],
         licenses=[LicenseProperties(name="license")],
     )
-    return write_json(package_properties.compact_dict, tmp_path / "datapackage.json")
+    return _write_json(package_properties.compact_dict, tmp_path / "datapackage.json")
 
 
 def test_updates_existing_resource_in_package(
@@ -145,7 +144,7 @@ def test_error_if_package_properties_have_missing_required_fields(
     tmp_path, resource_properties_1
 ):
     """Should have an error if there are missing properties in the file."""
-    path = write_json({}, tmp_path / "datapackage.json")
+    path = _write_json({}, tmp_path / "datapackage.json")
 
     with raises(ExceptionGroup):
         write_resource_properties(path, resource_properties_1)

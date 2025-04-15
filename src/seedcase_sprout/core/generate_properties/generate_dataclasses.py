@@ -2,7 +2,7 @@ import subprocess
 from pathlib import Path
 
 from seedcase_sprout.core.get_json_from_url import get_json_from_url
-from seedcase_sprout.core.write_json import write_json
+from seedcase_sprout.core.internals import _write_json
 
 SCHEMA_URL = "https://datapackage.org/profiles/2.0/datapackage.json"
 ROOT = Path("sprout", "core", "generate_properties")
@@ -71,7 +71,7 @@ def main():
         ]
         del table_schema_fkey_items["oneOf"]
 
-        write_json(schema, SCHEMA_PATH)
+        _write_json(schema, SCHEMA_PATH)
 
         run_codegen()
     except Exception as e:

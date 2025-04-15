@@ -8,7 +8,7 @@ from seedcase_sprout.core import (
     read_properties,
     write_package_properties,
 )
-from seedcase_sprout.core.write_json import write_json
+from seedcase_sprout.core.internals import _write_json
 
 
 def test_reads_in_as_package_properties(tmp_path):
@@ -59,7 +59,7 @@ def test_error_incorrect_properties_in_file(tmp_path):
     """Can't read in properties if the properties file is incorrect."""
     properties = example_package_properties()
     properties.name = "incorrect name"
-    write_json(properties.compact_dict, tmp_path / "datapackage.json")
+    _write_json(properties.compact_dict, tmp_path / "datapackage.json")
 
     with raises(ExceptionGroup):
         read_properties(tmp_path / "datapackage.json")

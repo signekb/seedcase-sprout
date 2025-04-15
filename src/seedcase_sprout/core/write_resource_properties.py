@@ -1,13 +1,12 @@
 from pathlib import Path
 
-from seedcase_sprout.core.internals import _check_is_file, _read_json
+from seedcase_sprout.core.internals import _check_is_file, _read_json, _write_json
 from seedcase_sprout.core.nested_update import nested_update
 from seedcase_sprout.core.properties import PackageProperties, ResourceProperties
 from seedcase_sprout.core.sprout_checks.check_properties import (
     check_package_properties,
     check_resource_properties,
 )
-from seedcase_sprout.core.write_json import write_json
 
 
 def write_resource_properties(
@@ -93,7 +92,7 @@ def write_resource_properties(
         resources = package_properties.get("resources", [])
         package_properties["resources"] = resources + [resource_properties]
 
-    return write_json(package_properties, path)
+    return _write_json(package_properties, path)
 
 
 def get_resource_properties(package_properties: dict, resource_id: int) -> dict | None:

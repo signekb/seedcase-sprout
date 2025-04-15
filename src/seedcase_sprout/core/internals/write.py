@@ -4,7 +4,7 @@ from pathlib import Path
 from seedcase_sprout.core.write_file import write_file
 
 
-def write_json(json_object: list | dict, path: Path) -> Path:
+def _write_json(json_object: list | dict, path: Path) -> Path:
     """Writes an object as an indented JSON string to the specified location.
 
     Args:
