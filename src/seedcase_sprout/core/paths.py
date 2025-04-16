@@ -100,5 +100,4 @@ class PackagePath:
             resource_name: The name of the resource. Use `ResourceProperties.name` to
                 get the correct resource name.
         """
-        batch_folder = self.resource_batch(resource_name)
-        return list(batch_folder.iterdir()) if batch_folder.is_dir() else []
+        return list(self.resource_batch(resource_name).glob("*.parquet"))

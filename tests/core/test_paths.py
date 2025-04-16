@@ -42,16 +42,17 @@ def test_resource_batch_files_returns_empty_list_when_no_batches(tmp_path):
 
 def test_resource_batch_files_returns_file_paths_when_batches(tmp_path):
     """resource_batch_files() should return the file paths to the batch files of the
-    resource."""
+    resource. Only Parquet files should be returned."""
     package_path = PackagePath(tmp_path)
     # Add batches for 2 resources
-    for file in ["test1", "test2"]:
-        batch_folder = package_path.resource_batch(file)
+    for resource in ["test1", "test2"]:
+        batch_folder = package_path.resource_batch(resource)
         batch_folder.mkdir(parents=True)
-        (batch_folder / "file.txt").touch()
+        (batch_folder / "sub-folder").mkdir()
+        [(batch_folder / file).touch() for file in ["file", "file.txt", "file.parquet"]]
 
     # Only the batch file for the given resource should be returned
-    assert package_path.resource_batch_files("test2") == [batch_folder / "file.txt"]
+    assert package_path.resource_batch_files("test2") == [batch_folder / "file.parquet"]
 
 
 def test_path_defaults_to_cwd_at_call_time(tmp_cwd):
