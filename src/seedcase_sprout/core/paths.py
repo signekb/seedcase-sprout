@@ -28,7 +28,7 @@ class PackagePath:
             directory.
 
     Returns:
-        The absolute path to the data package's file or folder.
+        A `PackagePath` object representing the structure of a data package.
 
     Examples:
         ```{python}
@@ -56,15 +56,15 @@ class PackagePath:
 
     def properties(self) -> Path:
         """Path to the `datapackage.json` file."""
-        return Path(self.path) / "datapackage.json"
+        return self.root() / "datapackage.json"
 
     def readme(self) -> Path:
         """Path to the `README.md` file."""
-        return Path(self.path) / "README.md"
+        return self.root() / "README.md"
 
     def resources(self) -> Path:
         """Path to the `resources/` folder."""
-        return Path(self.path) / "resources"
+        return self.root() / "resources"
 
     def resource(self, resource_name: str) -> Path:
         """Path to the specified `resources/<name>/` folder.
@@ -73,7 +73,7 @@ class PackagePath:
             resource_name: The name of the resource. Use `ResourceProperties.name` to
                 get the correct resource name.
         """
-        return Path(self.path) / "resources" / str(resource_name)
+        return self.resources() / str(resource_name)
 
     def resource_data(self, resource_name: str) -> Path:
         """Path to the specific resource's data file.
@@ -82,7 +82,7 @@ class PackagePath:
             resource_name: The name of the resource. Use `ResourceProperties.name` to
                 get the correct resource name.
         """
-        return Path(self.path) / "resources" / str(resource_name) / "data.parquet"
+        return self.resource(resource_name) / "data.parquet"
 
     def resource_batch(self, resource_name: str) -> Path:
         """Path to the specific resource's `batch/` folder.
@@ -91,16 +91,14 @@ class PackagePath:
             resource_name: The name of the resource. Use `ResourceProperties.name` to
                 get the correct resource name.
         """
-        return Path(self.path) / "resources" / str(resource_name) / "batch"
+        return self.resource(resource_name) / "batch"
 
-    def resource_batch_files(self, resource_name: str) -> Path:
-        """Path to all the files in the specific resource's `batch/` folder.
+    def resource_batch_files(self, resource_name: str) -> list[Path]:
+        """Paths to all the files in the specific resource's `batch/` folder.
 
         Args:
             resource_name: The name of the resource. Use `ResourceProperties.name` to
                 get the correct resource name.
         """
-        # TODO: This needs a check if the folder exists?
-        return list(
-            Path(Path(self.path) / "resources" / str(resource_name) / "batch").iterdir()
-        )
+        batch_folder = self.resource_batch(resource_name)
+        return list(batch_folder.iterdir()) if batch_folder.is_dir() else []
