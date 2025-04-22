@@ -21,6 +21,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 jobs:
   build:
     uses: seedcase-project/.github/.github/workflows/reusable-build-python.yml@main
