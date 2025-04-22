@@ -6,11 +6,29 @@ run-all: install-deps format-python check-python test-python check-commits build
 
 # Install Python package dependencies
 install-deps:
-  uv sync
+  uv sync --all-extras --dev
 
 # Run the Python tests
 test-python:
-  uv run pytest
+  # - A short traceback (tb) mode to make it easier to view
+  # - Use the `src/` package (importlib)
+  # - Use code coverage on the `src/` package
+  # - If tests fail, do not generate coverage report
+  # - Create the coverage report in XML (for badge), terminal, and HTML
+  # - Trigger failure if below 90% code coverage
+  uv run pytest \
+    --tb=short \
+    --import-mode=importlib \
+    --cov=src \
+    --no-cov-on-fail \
+    --cov-report=term \
+    --cov-report=xml \
+    --cov-report=html \
+    --cov-fail-under=90
+  # Make the badge from the coverage report
+  uv run genbadge coverage \
+    -i coverage.xml \
+    -o htmlcov/coverage.svg
 
 # Check Python code with the linter for any errors that need manual attention
 check-python:
