@@ -1,3 +1,9 @@
+## 0.40.1 (2025-04-22)
+
+### Fix
+
+- :lock: fixed bandit flagged issues, moved dataclass gen into `tools/` (#1292)
+
 ## 0.40.0 (2025-04-16)
 
 ### Feat
