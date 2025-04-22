@@ -2,7 +2,7 @@
     just --list --unsorted
 
 # Run all build-related recipes in the justfile
-run-all: install-deps format-python check-python test-python check-commits build-website
+run-all: install-deps format-python check-python test-python check-security check-commits build-website
 
 # Install Python package dependencies
 install-deps:
@@ -60,3 +60,6 @@ check-commits:
   else
     echo "Can't either be on ${branch_name} or have more than ${number_of_commits}."
   fi
+
+check-security:
+  uv run bandit -r src/

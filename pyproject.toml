@@ -38,7 +38,6 @@ dependencies = [
     "frictionless[excel,json,parquet]>=5.18.1",
     "jsonschema>=4.23.0",
     "polars>=1.26.0",
-    "requests>=2.32.3",
 ]
 
 [project.urls]
@@ -49,6 +48,7 @@ issues = "https://github.com/seedcase-project/seedcase-sprout/issues"
 
 [dependency-groups]
 dev = [
+    "bandit>=1.8.3",
     "commitizen>=4.5.0",
     "datamodel-code-generator>=0.28.5",
     "genbadge>=1.1.2",
