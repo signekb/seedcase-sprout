@@ -25,7 +25,7 @@ def as_readme_text(properties: PackageProperties) -> str:
     Returns:
         A string with the README text based on the properties.
     """
-    env = Environment(loader=FileSystemLoader(TEMPLATES_PATH))
+    env = Environment(loader=FileSystemLoader(TEMPLATES_PATH), autoescape=True)
     env.filters["join_names"] = join_names
     env.filters["format_date"] = format_date
     env.filters["inline_code"] = inline_code
