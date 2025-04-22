@@ -61,5 +61,6 @@ check-commits:
     echo "Can't either be on ${branch_name} or have more than ${number_of_commits}."
   fi
 
+# Run basic security checks on the package
 check-security:
   uv run bandit -r src/
