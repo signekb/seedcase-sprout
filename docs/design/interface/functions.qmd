@@ -136,7 +136,7 @@ flowchart
     function --> out
 ```
 
-### {{< var wip >}} `read_resource_batches(paths, resource_properties)`
+### {{< var wip >}} `read_resource_batches(resource_properties, paths)`
 
 See the help documentation with `help(read_resource_batches)` for more
 details.

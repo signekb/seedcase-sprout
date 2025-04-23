@@ -34,18 +34,21 @@ batch_data_2 = pl.DataFrame(
     }
 )
 
-resource_properties = ResourceProperties(
-    name="test-resource",
-    path=str(Path("resources", "1", "data.parquet")),
-    title="Test resource",
-    description="A test resource",
-    schema=TableSchemaProperties(
-        [
-            FieldProperties(name="id", type="integer"),
-            FieldProperties(name="name", type="string"),
-        ]
-    ),
-)
+
+@fixture
+def resource_properties() -> ResourceProperties:
+    return ResourceProperties(
+        name="1",
+        path=str(Path("resources", "1", "data.parquet")),
+        title="Test resource",
+        description="A test resource",
+        schema=TableSchemaProperties(
+            fields=[
+                FieldProperties(name="id", type="integer"),
+                FieldProperties(name="name", type="string"),
+            ]
+        ),
+    )
 
 
 @fixture
@@ -67,11 +70,11 @@ def resource_paths(test_package):
     return list((test_package / "resources" / "1" / "batch").iterdir())
 
 
-def test_reads_resource_batches_correctly(resource_paths):
+def test_reads_resource_batches_correctly(resource_paths, resource_properties):
     """Reads the resource batches correctly with the expected timestamp column."""
     # Given, When
     data_list = read_resource_batches(
-        paths=resource_paths, resource_properties=resource_properties
+        resource_properties=resource_properties, paths=resource_paths
     )
     timestamp_column = [
         data_list[0][BATCH_TIMESTAMP_COLUMN_NAME],
@@ -87,7 +90,7 @@ def test_reads_resource_batches_correctly(resource_paths):
     )
 
 
-def test_raises_error_when_file_does_not_exist(resource_paths):
+def test_raises_error_when_file_does_not_exist(resource_paths, resource_properties):
     """Raises FileNotFoundError when a file in the list of paths doesn't exist"""
     # Given
     resource_paths.append(Path("non-existent-file.parquet"))
@@ -95,11 +98,13 @@ def test_raises_error_when_file_does_not_exist(resource_paths):
     # When, Then
     with raises(FileNotFoundError):
         read_resource_batches(
-            paths=resource_paths, resource_properties=resource_properties
+            resource_properties=resource_properties, paths=resource_paths
         )
 
 
-def test_raises_error_when_timestamp_column_matches_existing_column(resource_paths):
+def test_raises_error_when_timestamp_column_matches_existing_column(
+    resource_paths, resource_properties
+):
     """Raises ValueError when the timestamp column name matches an existing column."""
     # Given
     batch_path = resource_paths[0].parent
@@ -116,7 +121,7 @@ def test_raises_error_when_timestamp_column_matches_existing_column(resource_pat
     # When, Then
     with raises(ValueError):
         read_resource_batches(
-            paths=[batch_path], resource_properties=resource_properties
+            resource_properties=resource_properties, paths=[batch_path]
         )
 
 
@@ -131,7 +136,7 @@ def test_raises_error_when_timestamp_column_matches_existing_column(resource_pat
     ],
 )
 def test_raises_error_when_file_name_timestamp_does_not_match_pattern(
-    resource_paths, incorrect_timestamp
+    resource_paths, resource_properties, incorrect_timestamp
 ):
     """Raises ValueError when the batch file name is not in the expected pattern."""
     # Given
@@ -142,11 +147,13 @@ def test_raises_error_when_file_name_timestamp_does_not_match_pattern(
     # When, Then
     with raises(ValueError):
         read_resource_batches(
-            paths=[batch_file_path], resource_properties=resource_properties
+            resource_properties=resource_properties, paths=[batch_file_path]
         )
 
 
-def test_if_multiple_correct_timestamps_in_file_name_use_first_one(resource_paths):
+def test_if_multiple_correct_timestamps_in_file_name_use_first_one(
+    resource_paths, resource_properties
+):
     """If multiple timestamps are found in the file name, the first one is used."""
     # Given
     batch_path = resource_paths[0].parent
@@ -157,14 +164,16 @@ def test_if_multiple_correct_timestamps_in_file_name_use_first_one(resource_path
 
     # When
     data_list = read_resource_batches(
-        paths=[batch_file_path], resource_properties=resource_properties
+        resource_properties=resource_properties, paths=[batch_file_path]
     )
 
     # Then
     assert data_list[0][BATCH_TIMESTAMP_COLUMN_NAME][0] == "2025-03-26T100346Z"
 
 
-def test_raises_error_when_properties_do_not_match_data(resource_paths):
+def test_raises_error_when_properties_do_not_match_data(
+    resource_paths, resource_properties
+):
     """Raises errors from checks when the resource properties don't match the data."""
     # Given
     resource_properties.schema.fields[0].name = "not-id"
@@ -172,7 +181,7 @@ def test_raises_error_when_properties_do_not_match_data(resource_paths):
     # When, Then
     with raises(ValueError):
         read_resource_batches(
-            paths=resource_paths, resource_properties=resource_properties
+            resource_properties=resource_properties, paths=resource_paths
         )
 
 
@@ -181,6 +190,24 @@ def test_raises_error_with_empty_resource_properties(resource_paths):
     # When, Then
     assert_raises_check_errors(
         lambda: read_resource_batches(
-            paths=resource_paths, resource_properties=ResourceProperties()
+            resource_properties=ResourceProperties(), paths=resource_paths
         )
     )
+
+
+def test_uses_cwd_if_no_paths(tmp_cwd, test_package, resource_properties):
+    """If no paths are provided, should use the cwd as the package root to retrieve
+    batch files from resource."""
+    data_list = read_resource_batches(resource_properties)
+
+    assert len(data_list) == 2
+
+
+def test_no_error_thrown_when_no_batches_using_cwd_as_default(
+    tmp_cwd, resource_properties
+):
+    """No error should be thrown if the cwd has no batch files for the given
+    resource."""
+    data_list = read_resource_batches(resource_properties)
+
+    assert len(data_list) == 0

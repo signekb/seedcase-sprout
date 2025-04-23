@@ -10,6 +10,7 @@ from seedcase_sprout.core.examples import (
     example_data,
     example_resource_properties,
 )
+from seedcase_sprout.core.paths import PackagePath
 from seedcase_sprout.core.write_resource_batch import write_resource_batch
 
 
@@ -64,3 +65,18 @@ def test_throws_error_if_data_do_not_match_resource_properties(tmp_path):
     # When
     with raises(ValueError):
         write_resource_batch(data, example_resource_properties(), tmp_path)
+
+
+def test_uses_cwd_if_no_path_provided(tmp_cwd):
+    """If no path is provided, should use the cwd as the package root."""
+    # Given
+    package_path = PackagePath(tmp_cwd)
+    resource_properties = example_resource_properties()
+    package_path.resource(resource_properties.name).mkdir(parents=True)
+
+    # When
+    batch_file = write_resource_batch(example_data(), resource_properties)
+
+    # Then
+    assert batch_file.exists()
+    assert package_path.resource_batch(resource_properties.name) in batch_file.parents

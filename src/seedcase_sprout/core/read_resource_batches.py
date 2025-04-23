@@ -14,11 +14,12 @@ from seedcase_sprout.core.constants import (
     BATCH_TIMESTAMP_PATTERN,
 )
 from seedcase_sprout.core.internals import _check_is_file, _map, _map2
+from seedcase_sprout.core.paths import PackagePath
 from seedcase_sprout.core.properties import ResourceProperties
 
 
 def read_resource_batches(
-    paths: list[Path], resource_properties: ResourceProperties
+    resource_properties: ResourceProperties, paths: list[Path] | None = None
 ) -> list[pl.DataFrame]:
     """Reads all the batch resource file(s) into a list of (Polars) DataFrames.
 
@@ -31,11 +32,11 @@ def read_resource_batches(
     data are correct by comparing to the properties.
 
     Args:
-        paths: A list of paths for all the files in the resource's `batch/` folder.
-            Use `path_resource_batch_files()` to help provide the correct paths to the
-            batch files.
         resource_properties: The `ResourceProperties` object that contains the
             properties of the resource you want to check the data against.
+        paths: A list of paths for all the files in the resource's `batch/` folder.
+            Use `path_resource_batch_files()` to help provide the correct paths to the
+            batch files. Defaults to the batch files of the given resource.
 
     Returns:
         Outputs a list of DataFrame objects from all the batch files.
@@ -76,13 +77,16 @@ def read_resource_batches(
             data.write_parquet(batch_file_path)
 
             sp.read_resource_batches(
-                paths=sp.PackagePath(tmp_dir).resource_batch_files(1),
                 resource_properties=sp.example_resource_properties(),
+                paths=sp.PackagePath(tmp_dir).resource_batch_files(1),
             )
         ```
     """
-    _map(paths, _check_is_file)
     check_resource_properties(resource_properties)
+    if paths is None:
+        paths = PackagePath().resource_batch_files(resource_properties.name)
+
+    _map(paths, _check_is_file)
     return _map2(paths, [resource_properties], _read_parquet_batch_file)
 
 

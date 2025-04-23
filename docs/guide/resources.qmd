@@ -187,8 +187,8 @@ data package folder, like in the example below.
 ```{python}
 resource_path, _ = sp.create_resource_structure(path=package_path.root())
 resource_properties = sp.create_resource_properties(
+    properties=resource_properties,
     path=resource_path,
-    properties=resource_properties
 )
 ```
 
@@ -201,8 +201,8 @@ on the path to your package.
 
 ```{python}
 sp.write_resource_properties(
-    path=package_path.properties(),
     resource_properties=resource_properties,
+    path=package_path.properties(),
 )
 ```
 
@@ -322,8 +322,8 @@ Finally, to write your changes back to `datapackage.json`, use the
 
 ```{python}
 sp.write_resource_properties(
-    path=package_path.properties(),
     resource_properties=resource_properties,
+    path=package_path.properties(),
 )
 ```
 

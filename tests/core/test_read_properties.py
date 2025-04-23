@@ -9,6 +9,7 @@ from seedcase_sprout.core import (
     write_package_properties,
 )
 from seedcase_sprout.core.internals import _write_json
+from seedcase_sprout.core.paths import PackagePath
 
 
 def test_reads_in_as_package_properties(tmp_path):
@@ -63,3 +64,18 @@ def test_error_incorrect_properties_in_file(tmp_path):
 
     with raises(ExceptionGroup):
         read_properties(tmp_path / "datapackage.json")
+
+
+def test_reads_properties_from_cwd_if_no_path_provided(tmp_cwd):
+    """If no path is provided, should read datapackage.json from the cwd."""
+    properties = example_package_properties()
+    write_package_properties(properties, PackagePath(tmp_cwd).properties())
+
+    assert read_properties() == properties
+
+
+def test_fails_correctly_if_no_path_provided_and_no_properties_in_cwd(tmp_cwd):
+    """Should throw the expected error if no path is provided and there is no
+    datapackage.json in the cwd."""
+    with raises(FileNotFoundError):
+        read_properties()

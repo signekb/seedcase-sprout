@@ -6,12 +6,15 @@ from pytest import fixture, raises
 from seedcase_sprout.core.create_relative_resource_data_path import (
     create_relative_resource_data_path,
 )
+from seedcase_sprout.core.examples import example_package_properties
 from seedcase_sprout.core.internals import _read_json, _write_json
+from seedcase_sprout.core.paths import PackagePath
 from seedcase_sprout.core.properties import (
     LicenseProperties,
     PackageProperties,
     ResourceProperties,
 )
+from seedcase_sprout.core.write_package_properties import write_package_properties
 from seedcase_sprout.core.write_resource_properties import write_resource_properties
 
 
@@ -77,7 +80,7 @@ def test_updates_existing_resource_in_package(
     ]
 
     # when
-    path = write_resource_properties(package_properties_path, new_resource_properties)
+    path = write_resource_properties(new_resource_properties, package_properties_path)
 
     # then
     assert len(list(path.parent.iterdir())) == 1
@@ -103,7 +106,7 @@ def test_adds_new_resource_to_package(
     ]
 
     # when
-    path = write_resource_properties(package_properties_path, resource_properties_3)
+    path = write_resource_properties(resource_properties_3, package_properties_path)
 
     # then
     assert path == package_properties_path
@@ -114,13 +117,13 @@ def test_adds_new_resource_to_package(
 def test_error_if_path_points_to_dir(tmp_path):
     """Should have an error if the path points to a folder."""
     with raises(FileNotFoundError):
-        write_resource_properties(tmp_path, ResourceProperties())
+        write_resource_properties(ResourceProperties(), tmp_path)
 
 
 def test_error_if_path_points_to_nonexistent_file(tmp_path):
     """Should have an error if the path points to a nonexistent file."""
     with raises(FileNotFoundError):
-        write_resource_properties(tmp_path / "datapackage.json", ResourceProperties())
+        write_resource_properties(ResourceProperties(), tmp_path / "datapackage.json")
 
 
 def test_error_if_properties_file_cannot_be_read(tmp_path, resource_properties_1):
@@ -129,7 +132,7 @@ def test_error_if_properties_file_cannot_be_read(tmp_path, resource_properties_1
     file_path.write_text(",,, this is not, JSON")
 
     with raises(JSONDecodeError):
-        write_resource_properties(file_path, resource_properties_1)
+        write_resource_properties(resource_properties_1, file_path)
 
 
 def test_error_if_resource_properties_have_missing_required_fields(
@@ -137,7 +140,7 @@ def test_error_if_resource_properties_have_missing_required_fields(
 ):
     """Should have an error if there are missing required resource properties."""
     with raises(ExceptionGroup):
-        write_resource_properties(package_properties_path, ResourceProperties())
+        write_resource_properties(ResourceProperties(), package_properties_path)
 
 
 def test_error_if_package_properties_have_missing_required_fields(
@@ -147,4 +150,21 @@ def test_error_if_package_properties_have_missing_required_fields(
     path = _write_json({}, tmp_path / "datapackage.json")
 
     with raises(ExceptionGroup):
-        write_resource_properties(path, resource_properties_1)
+        write_resource_properties(resource_properties_1, path)
+
+
+def test_writes_properties_to_cwd_if_no_path_provided(tmp_cwd, resource_properties_1):
+    """If no path is provided, should use datapackage.json in the cwd."""
+    properties_path = PackagePath(tmp_cwd).properties()
+    write_package_properties(example_package_properties(), properties_path)
+
+    assert write_resource_properties(resource_properties_1) == properties_path
+
+
+def test_fails_correctly_if_no_path_provided_and_no_properties_in_cwd(
+    tmp_cwd, resource_properties_1
+):
+    """Should throw the expected error if no path is provided and there is no
+    datapackage.json in the cwd."""
+    with raises(FileNotFoundError):
+        write_resource_properties(resource_properties_1)

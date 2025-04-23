@@ -32,17 +32,18 @@ class PackagePath:
 
     Examples:
         ```{python}
-        import tempfile
+        from pathlib import Path
+
         import seedcase_sprout.core as sp
 
+        # With default path
         sp.PackagePath().properties()
         sp.PackagePath().readme()
 
-        # Create a temporary directory for the example to show
-        # how to use the function with a different path
-        with tempfile.TemporaryDirectory() as temp_path:
-            sp.PackagePath(temp_path).properties()
-            sp.PackagePath(temp_path).readme()
+        # With custom path
+        my_path = Path("my/path")
+        sp.PackagePath(my_path).properties()
+        sp.PackagePath(my_path).readme()
         ```
     """
 

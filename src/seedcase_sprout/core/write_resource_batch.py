@@ -7,8 +7,6 @@ from seedcase_sprout.core.check_properties import (
     check_resource_properties,
 )
 from seedcase_sprout.core.create_batch_file_name import create_batch_file_name
-
-# from seedcase_sprout.core.checks.check_data import check_data
 from seedcase_sprout.core.paths import PackagePath
 from seedcase_sprout.core.properties import ResourceProperties
 
@@ -16,7 +14,7 @@ from seedcase_sprout.core.properties import ResourceProperties
 def write_resource_batch(
     data: pl.DataFrame,
     resource_properties: ResourceProperties,
-    package_path: Path = Path.cwd(),
+    package_path: Path | None = None,
 ) -> Path:
     """Writes the tidied, original data into the resource's batch data folder.
 
@@ -34,7 +32,7 @@ def write_resource_batch(
             Use `read_properties()` to read the properties for the resource
             and `get_resource_properties()` to get the correct resource properties.
         package_path: The path to the data package root folder (where `datapackage.json`
-            is located).
+            is located). Defaults to the current working directory.
 
     Returns:
         The path to the written Parquet resource file.
@@ -45,31 +43,13 @@ def write_resource_batch(
 
     Examples:
         ```{python}
-        import tempfile
-        from pathlib import Path
-
-        import polars as pl
-
         import seedcase_sprout.core as sp
 
-        # Create a temporary directory for the example
-        with tempfile.TemporaryDirectory() as temp_path:
-            # TODO: Update to use Sprout functions instead of creating folders manually
-            (Path(temp_path) / "resources/example-resource").mkdir(parents=True)
-
-            tidy_data = pl.DataFrame(
-                {
-                    "id": [0, 1, 2],
-                    "name": ["anne", "belinda", "catherine"],
-                    "value": [1.1, 2.2, 3.3],
-                }
-            )
-            resource_properties = sp.example_resource_properties()
-
+        with sp.ExamplePackage() as package_path:
+            resource_properties = sp.read_properties().resources[0]
             sp.write_resource_batch(
-                data=tidy_data,
+                data=sp.example_data(),
                 resource_properties=resource_properties,
-                package_path=temp_path,
             )
         ```
     """
