@@ -1,3 +1,9 @@
+## 0.41.0 (2025-04-23)
+
+### Feat
+
+- :sparkles: add default path for path functions (#1285)
+
 ## 0.40.1 (2025-04-22)
 
 ### Fix
