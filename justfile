@@ -10,21 +10,7 @@ install-deps:
 
 # Run the Python tests
 test-python:
-  # - A short traceback (tb) mode to make it easier to view
-  # - Use the `src/` package (importlib)
-  # - Use code coverage on the `src/` package
-  # - If tests fail, do not generate coverage report
-  # - Create the coverage report in XML (for badge), terminal, and HTML
-  # - Trigger failure if below 90% code coverage
-  uv run pytest \
-    --tb=short \
-    --import-mode=importlib \
-    --cov=src \
-    --no-cov-on-fail \
-    --cov-report=term \
-    --cov-report=xml \
-    --cov-report=html \
-    --cov-fail-under=90
+  uv run pytest
   # Make the badge from the coverage report
   uv run genbadge coverage \
     -i coverage.xml \
