@@ -1,3 +1,9 @@
+## 0.41.2 (2025-04-24)
+
+### Refactor
+
+- :recycle: moved functions into internals/location of use (#1298)
+
 ## 0.41.1 (2025-04-24)
 
 ### Refactor
