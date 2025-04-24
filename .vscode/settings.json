@@ -32,10 +32,6 @@
   "python.defaultInterpreterPath": "${workspaceFolder}/.venv",
   "python.languageServer": "Pylance",
   "files.insertFinalNewline": true,
-  "cSpell.enabledFileTypes": {
-    "quarto": true
-  },
-  "cSpell.language": "en,en-GB",
   "python.testing.pytestEnabled": true,
   "python.testing.pytestPath": "${workspaceFolder}/.venv/bin/pytest",
 }

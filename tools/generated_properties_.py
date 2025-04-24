@@ -77,7 +77,7 @@ class TableDialectProperties:
         header_join (str | None):
         comment_rows (list[int] | None):
         comment_char (str | None): Specifies that any row beginning with this
-            one-character string, without preceeding whitespace, causes the entire
+            one-character string, without preceding whitespace, causes the entire
             line to be ignored.
         delimiter (str | None): A character sequence to use as the field
             separator.
