@@ -5,16 +5,12 @@ import polars as pl
 from polars.testing import assert_frame_equal
 from pytest import fixture, mark, raises
 
-from seedcase_sprout.core.check_data import (
-    _FRICTIONLESS_TO_ALLOWED_POLARS_TYPES,
-    check_data,
-)
+from seedcase_sprout.core.check_data import check_data
 from seedcase_sprout.core.examples import (
     example_data,
-    example_data_all_types,
     example_resource_properties,
-    example_resource_properties_all_types,
 )
+from seedcase_sprout.core.map_data_types import _get_allowed_polars_types
 from seedcase_sprout.core.properties import (
     FieldProperties,
     ResourceProperties,
@@ -41,44 +37,41 @@ def resource_properties() -> ResourceProperties:
     )
 
 
-def test_accepts_correct_columns():
+@mark.parametrize(
+    "fr_type, pl_types",
+    [
+        ("number", [pl.Float32, pl.Float64, pl.Decimal]),
+        ("integer", [pl.Int16, pl.UInt8, pl.Duration]),
+        ("string", [pl.String, pl.Categorical, pl.Enum(["A"]), pl.Binary]),
+        ("date", [pl.Date]),
+        ("datetime", [pl.Datetime]),
+        ("time", [pl.Time]),
+        ("boolean", [pl.Boolean]),
+        ("array", [pl.String, pl.Array, pl.List]),
+        ("object", [pl.String, pl.Struct, pl.Object]),
+        (
+            "geopoint",
+            [pl.Array(pl.Int128, 2), pl.Array(pl.Float32, 2), pl.Array(pl.Decimal, 2)],
+        ),
+        ("geojson", [pl.String, pl.Struct, pl.Object]),
+        ("year", [pl.Int32, pl.UInt8, pl.Int64]),
+        ("yearmonth", [pl.Date]),
+        ("duration", [pl.String]),
+        ("any", [pl.Unknown, pl.Null, pl.Object, pl.Int128, pl.Boolean]),
+    ],
+)
+def test_accepts_correct_columns(fr_type, pl_types):
     """Should not raise an error when columns in the data match columns in the
     resource properties."""
-    resource_properties = example_resource_properties_all_types()
-    resource_properties.schema.fields += [
-        FieldProperties(name="my_categorical", type="string"),
-        FieldProperties(name="my_enum", type="string"),
-        FieldProperties(name="my_int8", type="integer"),
-        FieldProperties(name="my_int8_year", type="year"),
-        FieldProperties(name="my_uint64", type="integer"),
-        FieldProperties(name="my_float32", type="number"),
-        FieldProperties(name="my_decimal", type="number"),
-        FieldProperties(name="my_int_geopoint", type="geopoint"),
+    resource_properties = example_resource_properties()
+    resource_properties.schema.fields = [
+        FieldProperties(name=str(pl_type), type=fr_type) for pl_type in pl_types
     ]
-    data = example_data_all_types().with_columns(
-        [
-            pl.Series(
-                "my_categorical", ["low", "medium", "high"], dtype=pl.Categorical
-            ),
-            pl.Series(
-                "my_enum",
-                ["low", "low", "high"],
-                dtype=pl.Enum(["low", "medium", "high"]),
-            ),
-            pl.Series("my_int8", [1, 22, 33], dtype=pl.Int8),
-            pl.Series("my_int8_year", [1, 22, 33], dtype=pl.Int8),
-            pl.Series("my_uint64", [1, 22, 33], dtype=pl.UInt64),
-            pl.Series("my_float32", [1.1, 2.2, 3.3], dtype=pl.Float32),
-            pl.Series("my_decimal", ["1.20", "2.56", "3.39"], dtype=pl.Decimal),
-            pl.Series(
-                "my_int_geopoint",
-                [[3, 4], [5, 45], [12, -4]],
-                dtype=pl.Array(pl.Int16, 2),
-            ),
-        ]
+    data = pl.DataFrame(
+        {str(pl_type): pl.Series([], dtype=pl_type) for pl_type in pl_types}
     )
 
-    assert_frame_equal(check_data(data, resource_properties), data)
+    assert check_data(data, resource_properties) is data
 
 
 def test_accepts_columns_in_any_order():
@@ -147,10 +140,9 @@ def test_throws_error_when_data_has_extra_and_missing_columns(resource_propertie
         "geojson",
     ],
 )
-def test_rejects_incorrect_column_type(frictionless_type):
+def test_rejects_incorrect_column_type(frictionless_type, resource_properties):
     """Should raise an error if the Polars type does not match the Frictionless type."""
-    data = pl.DataFrame({"my_col": pl.Series([{"prop": "value"}] * 3, dtype=pl.Object)})
-    resource_properties = example_resource_properties()
+    data = pl.DataFrame({"my_col": pl.Series([], dtype=pl.Null)})
     resource_properties.schema.fields = [
         FieldProperties(name="my_col", type=frictionless_type)
     ]
@@ -161,10 +153,8 @@ def test_rejects_incorrect_column_type(frictionless_type):
     errors = error_info.value.exceptions
     assert len(errors) == 1
     polars_type = re.escape(str(data.schema.dtypes()[0]))
-    allowed_types = _FRICTIONLESS_TO_ALLOWED_POLARS_TYPES[frictionless_type]
-    assert re.search(
-        rf"'my_col'.*{allowed_types}.*found '{polars_type}'", str(errors[0])
-    )
+    allowed_types = _get_allowed_polars_types(frictionless_type)
+    assert re.search(rf"'my_col'.*{allowed_types}.*found {polars_type}", str(errors[0]))
 
 
 def test_rejects_multiple_incorrect_column_types():
@@ -180,9 +170,9 @@ def test_rejects_multiple_incorrect_column_types():
     assert len(errors) == data.width
     for error, field in zip(errors, resource_properties.schema.fields):
         polars_type = re.escape(str(data.schema[field.name]))
-        allowed_types = _FRICTIONLESS_TO_ALLOWED_POLARS_TYPES[field.type]
+        allowed_types = _get_allowed_polars_types(field.type)
         assert re.search(
-            rf"'{field.name}'.*{allowed_types}.*found '{polars_type}'", str(error)
+            rf"'{field.name}'.*{allowed_types}.*found {polars_type}", str(error)
         )
 
 
