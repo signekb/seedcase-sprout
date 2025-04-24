@@ -23,12 +23,11 @@ class PackagePath:
     -   If the wrong `resource_name` is given, an error message will include a
         list of all the actual `resource_name`'s for a specific package.
 
+    Outputs a `PackagePath` object representing the structure of a data package.
+
     Args:
         path: Provide a path to the package directory. Defaults to the current working
             directory.
-
-    Returns:
-        A `PackagePath` object representing the structure of a data package.
 
     Examples:
         ```{python}

@@ -9,7 +9,7 @@ import polars as pl
 from seedcase_sprout.core.as_readme_text import as_readme_text
 from seedcase_sprout.core.create_resource_properties import create_resource_properties
 from seedcase_sprout.core.create_resource_structure import create_resource_structure
-from seedcase_sprout.core.get_iso_timestamp import get_iso_timestamp
+from seedcase_sprout.core.internals import _get_iso_timestamp
 from seedcase_sprout.core.paths import PackagePath
 from seedcase_sprout.core.properties import (
     ContributorProperties,
@@ -38,7 +38,7 @@ def example_package_properties() -> PackageProperties:
     properties = PackageProperties(
         name="example-package",
         version="0.1.0",
-        created=get_iso_timestamp(),
+        created=_get_iso_timestamp(),
         id=str(uuid4()),
         title="Example fake data package",
         description="Data from a fake data package on something.",

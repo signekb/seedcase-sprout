@@ -15,7 +15,7 @@ from uuid import uuid4
 
 from dacite import from_dict
 
-from seedcase_sprout.core.get_iso_timestamp import get_iso_timestamp
+from seedcase_sprout.core.internals import _get_iso_timestamp
 
 
 class Properties(ABC):
@@ -609,5 +609,5 @@ class PackageProperties(Properties):
         return cls(
             id=str(uuid4()),
             version="0.1.0",
-            created=get_iso_timestamp(),
+            created=_get_iso_timestamp(),
         )

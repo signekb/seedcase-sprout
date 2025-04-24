@@ -117,7 +117,7 @@ def _read_parquet_batch_file(
 def _extract_timestamp_from_batch_file_path(path: Path) -> str:
     """Extracts the timestamp from the file name.
 
-    Since the batch file name has been created by `create_batch_file_name()`,
+    Since the batch file name has been created by `_create_batch_file_name()`,
     it should contain a timestamp in the format defined by BATCH_TIMESTAMP_PATTERN.
 
     If multiple timestamps are found in the file name, the first one is used.
