@@ -280,6 +280,7 @@ class ExamplePackage(AbstractContextManager):
             resource_properties = create_resource_properties(
                 path=resource_path, properties=resource_properties
             )
+            # TODO: delete after data path is refactored to use name
             resource_properties.name = resource_path.stem
 
         # Save properties

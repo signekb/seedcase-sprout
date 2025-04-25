@@ -48,38 +48,16 @@ def join_resource_batches(
 
     Examples:
         ```{python}
-        import polars as pl
-
         import seedcase_sprout.core as sp
-        # TODO: Remove this once read_properties/examples is done
-        from seedcase_sprout.core.constants import BATCH_TIMESTAMP_COLUMN_NAME
 
-        data_list = [
-            pl.DataFrame(
-                {
-                    "id": [0, 1],
-                    "name": ["anne", "belinda"],
-                    "value": [0.0, 1.1],
-                    # timestamp col from `read_resource_batches`
-                    BATCH_TIMESTAMP_COLUMN_NAME: ["2025-03-26T100000Z"] * 2,
-                }
-            ),
-            pl.DataFrame(
-                {
-                    "id": [2, 3, 0, 0, 0],
-                    "name": ["catherine", "dorothy", "anne", "anne", "alberta"],
-                    "value": [2.2, 3.3, 0.0, 9.9, 0.0],
-                    # timestamp col from `read_resource_batches`
-                    BATCH_TIMESTAMP_COLUMN_NAME: ["2024-03-26T100000Z"] * 5,
-                }
-            ),
-        ]
+        with sp.ExamplePackage():
+            resource_properties = sp.example_resource_properties()
+            # TODO: do not have to change name after data path is refactored to use name
+            resource_properties.name = "1"
+            sp.write_resource_batch(sp.example_data(), resource_properties)
+            batches = sp.read_resource_batches(resource_properties=resource_properties)
 
-        # Only the latest row with id = 0 is kept
-        sp.join_resource_batches(
-            data_list=data_list,
-            resource_properties=sp.example_resource_properties(),
-        )
+            sp.join_resource_batches(batches, resource_properties)
         ```
     """
     check_resource_properties(resource_properties)

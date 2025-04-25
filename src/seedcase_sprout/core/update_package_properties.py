@@ -39,34 +39,16 @@ def update_package_properties(
 
     Examples:
         ```{python}
-        #| eval: false
-        # TODO: This needs to be updated to match using `write_package_properties()`.
-        import tempfile
-        from pathlib import Path
-
         import seedcase_sprout.core as sp
 
-        # Create a temporary directory for the example
-        with tempfile.TemporaryDirectory() as temp_dir:
-            temp_path = Path(temp_dir)
-            properties_path=sp.PackagePath(temp_path).properties()
-
-            # Create a package structure first
-            sp.write_package_properties(
-                properties=sp.example_package_properties(),
-                path=properties_path
-            )
-
-            # Edit package properties
-            properties = sp.read_properties(properties_path)
-            sp.update_package_properties(
-                current_properties=properties,
-                update_properties=sp.PackageProperties(
-                    title="New Package Title",
-                    name="new-package-name",
-                    description="New Description",
-                )
-            )
+        sp.update_package_properties(
+            current_properties=sp.example_package_properties(),
+            update_properties=sp.PackageProperties(
+                title="New Package Title",
+                name="new-package-name",
+                description="New Description",
+            ),
+        )
         ```
     """
     # In case someone adds a resource to the `update_properties`, we need to

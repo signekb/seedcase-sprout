@@ -49,37 +49,15 @@ def read_resource_batches(
 
     Examples:
         ``` {python}
-        import tempfile
-        from pathlib import Path
-
-        import polars as pl
-
         import seedcase_sprout.core as sp
 
-        # Create a temporary directory for the example
-        with tempfile.TemporaryDirectory() as temp_dir:
-            tmp_dir = Path(temp_dir)
+        with sp.ExamplePackage():
+            resource_properties = sp.example_resource_properties()
+            # TODO: do not have to change name after data path is refactored to use name
+            resource_properties.name = "1"
+            sp.write_resource_batch(sp.example_data(), resource_properties)
 
-            # Create folders for the example
-            resource_batch_dir = tmp_dir / "resources/1/batch"
-            resource_batch_dir.mkdir(parents=True)
-
-            # TODO: Use `write_resource_batch()` to create the batch file
-            # Create a temporary batch file
-            batch_file_path = resource_batch_dir / "2025-03-26T100346Z-12345678.parquet"
-            data = pl.DataFrame(
-                {
-                    "id": [1, 2, 3],
-                    "name": ["anne", "belinda", "charlotte"],
-                    "value": [10.2, 20.1, 30.2],
-                }
-            )
-            data.write_parquet(batch_file_path)
-
-            sp.read_resource_batches(
-                resource_properties=sp.example_resource_properties(),
-                paths=sp.PackagePath(tmp_dir).resource_batch_files(1),
-            )
+            sp.read_resource_batches(resource_properties)
         ```
     """
     check_resource_properties(resource_properties)

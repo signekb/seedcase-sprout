@@ -23,24 +23,10 @@ def read_properties(path: Path | None = None) -> PackageProperties:
 
     Examples:
         ```{python}
-        import tempfile
-        from pathlib import Path
-
         import seedcase_sprout.core as sp
 
-        # Create a temporary directory for the example
-        with tempfile.TemporaryDirectory() as temp_dir:
-            temp_path = Path(temp_dir)
-
-            properties_path = sp.PackagePath(temp_path).properties()
-            # Create a package structure first
-            sp.write_package_properties(
-                properties=sp.example_package_properties(),
-                path=properties_path
-            )
-
-            # Read package properties
-            sp.read_properties(properties_path)
+        with sp.ExamplePackage():
+            sp.read_properties()
         ```
 
     Raises:

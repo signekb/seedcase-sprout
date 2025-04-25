@@ -38,33 +38,13 @@ def create_resource_properties(
 
     Examples:
         ```{python}
-        import tempfile
-        from pathlib import Path
-
         import seedcase_sprout.core as sp
 
-        # Create a temporary directory for the example
-        with tempfile.TemporaryDirectory() as temp_dir:
-            temp_path = Path(temp_dir)
-
-            # Create a package and resource structure first
-            sp.write_package_properties(
-                properties=sp.example_package_properties(),
-                path=sp.PackagePath(temp_path).properties()
-            )
-
-            # TODO: Update after converting to "local-first"
-            # sp.create_resource_structure(path=temp_path / "1" / "resources")
-            # Create resource properties
-            # sp.create_resource_properties(
-            #     properties=sp.ResourceProperties(
-            #         name="new-resource-name",
-            #         path="data.parquet",
-            #         title="Resource Title",
-            #         description="This resource contains data about...",
-            #     ),
-            #     path=temp_path / "1" / "resources" / "1",
-            # )
+        with sp.ExamplePackage():
+            resource_properties = sp.example_resource_properties()
+            # TODO: do not have to change name after data path is refactored to use name
+            resource_properties.name = "1"
+            sp.create_resource_properties(properties=resource_properties)
         ```
     """
     path = path or PackagePath().resource(properties.name)
