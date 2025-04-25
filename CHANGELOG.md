@@ -1,3 +1,9 @@
+## 0.42.0 (2025-04-25)
+
+### Feat
+
+- :sparkles: `write_resource_data()` (#1302)
+
 ## 0.41.2 (2025-04-24)
 
 ### Refactor
