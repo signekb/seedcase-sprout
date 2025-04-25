@@ -1,3 +1,9 @@
+## 0.42.1 (2025-04-25)
+
+### Refactor
+
+- :recycle: use `ExamplePackage` in examples (#1301)
+
 ## 0.42.0 (2025-04-25)
 
 ### Feat
