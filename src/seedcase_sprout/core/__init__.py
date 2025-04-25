@@ -50,8 +50,7 @@ from .write_package_properties import write_package_properties
 from .write_resource_batch import write_resource_batch
 
 # from .update_resource_properties import *
-# from .write_resource_data_to_batch import *
-# from .write_resource_parquet import *
+from .write_resource_data import write_resource_data
 from .write_resource_properties import write_resource_properties
 
 __all__ = [
@@ -88,8 +87,7 @@ __all__ = [
     "read_resource_batches",
     "write_resource_batch",
     # "update_resource_properties",
-    # "write_resource_data_to_batch",
-    # "write_resource_parquet",
+    "write_resource_data",
     "write_resource_properties",
     # "delete_resource_batch_file",
     # "delete_resource_data",
