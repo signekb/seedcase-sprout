@@ -18,4 +18,4 @@ def _write_json(json_object: list | dict, path: Path) -> Path:
         FileNotFoundError: If the parent folder of the file doesn't exist.
         TypeError: If the object is not JSON serialisable.
     """
-    return write_file(json.dumps(json_object, indent=2), path)
+    return write_file(json.dumps(json_object, indent=2, ensure_ascii=False), path)
