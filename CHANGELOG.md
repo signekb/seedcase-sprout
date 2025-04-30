@@ -1,3 +1,9 @@
+## 0.42.2 (2025-04-30)
+
+### Fix
+
+- :bug: do not escape non-ASCII characters when writing JSON (#1305)
+
 ## 0.42.1 (2025-04-25)
 
 ### Refactor
