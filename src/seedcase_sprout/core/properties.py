@@ -8,7 +8,7 @@ are intended to help users with the correct structure and content of the propert
 # `generate_properties/generated_properties.py` file. Update the auto-generated
 # properties file to add more dataclasses and move them into this file.
 
-from abc import ABC, abstractmethod
+from abc import ABC
 from dataclasses import asdict, dataclass
 from typing import Any, Literal, Self
 from uuid import uuid4
@@ -20,12 +20,6 @@ from seedcase_sprout.core.internals import _get_iso_timestamp
 
 class Properties(ABC):
     """An abstract base class for all `*Properties` classes holding common logic."""
-
-    @classmethod
-    @abstractmethod
-    def default(cls: type[Self]) -> Self:
-        """Creates a dataclass `*Properties` object with default values."""
-        pass
 
     @property
     def compact_dict(self) -> dict:
@@ -97,23 +91,6 @@ class ContributorProperties(Properties):
     organization: str | None = None
     roles: list[str] | None = None
 
-    @classmethod
-    def default(cls: type[Self]) -> Self:
-        """Creates a `ContributorProperties` object with default values.
-
-        Returns:
-            A `ContributorProperties` object with default values.
-        """
-        return cls(
-            title="",
-            path="",
-            email="",
-            given_name="",
-            family_name="",
-            organization="",
-            roles=[],
-        )
-
 
 @dataclass
 class LicenseProperties(Properties):
@@ -140,15 +117,6 @@ class LicenseProperties(Properties):
     path: str | None = None
     title: str | None = None
 
-    @classmethod
-    def default(cls: type[Self]) -> Self:
-        """Creates a `LicenseProperties` object with default values.
-
-        Returns:
-            A `LicenseProperties` object with default values.
-        """
-        return cls(name="", path="", title="")
-
 
 @dataclass
 class SourceProperties(Properties):
@@ -166,15 +134,6 @@ class SourceProperties(Properties):
     email: str | None = None
     version: str | None = None
 
-    @classmethod
-    def default(cls: type[Self]) -> Self:
-        """Creates a `SourceProperties` dataclass with default values.
-
-        Returns:
-            A `SourceProperties` object with default values.
-        """
-        return cls(title="", path="", email="", version="")
-
 
 @dataclass
 class ReferenceProperties(Properties):
@@ -190,15 +149,6 @@ class ReferenceProperties(Properties):
 
     resource: str | None = None
     fields: list[str] | None = None
-
-    @classmethod
-    def default(cls: type[Self]) -> Self:
-        """Creates a `ReferenceProperties` dataclass with default values.
-
-        Returns:
-            A `ReferenceProperties` dataclass with default values.
-        """
-        return cls(resource="", fields=[])
 
 
 @dataclass
@@ -219,15 +169,6 @@ class TableSchemaForeignKeyProperties(Properties):
     fields: list[str] | None = None
     reference: ReferenceProperties | None = None
 
-    @classmethod
-    def default(cls: type[Self]) -> Self:
-        """Creates a `TableSchemaForeignKeyProperties` dataclass with default values.
-
-        Returns:
-            A `TableSchemaForeignKeyProperties` dataclass with default values.
-        """
-        return cls(fields=[])
-
 
 @dataclass
 class MissingValueProperties(Properties):
@@ -240,15 +181,6 @@ class MissingValueProperties(Properties):
 
     value: str | None = None
     label: str | None = None
-
-    @classmethod
-    def default(cls: type[Self]) -> Self:
-        """Creates a `MissingValueProperties` dataclass with default values.
-
-        Returns:
-            A `MissingValueProperties` dataclass with default values.
-        """
-        return cls(value="", label="")
 
 
 # Allowed types for a field in a table schema.
@@ -316,22 +248,6 @@ class ConstraintsProperties(Properties):
     exclusive_maximum: str | float | int | None = None
     json_schema: dict[str, Any] | None = None
 
-    @classmethod
-    def default(cls: type[Self]) -> Self:
-        """Creates a `ConstraintsProperties` dataclass with default values.
-
-        Returns:
-            A `ConstraintsProperties` dataclass with default values.
-        """
-        return cls(
-            required=False,
-            unique=False,
-            pattern="",
-            enum=[],
-            min_length=0,
-            json_schema={},
-        )
-
 
 @dataclass
 class FieldProperties(Properties):
@@ -370,25 +286,6 @@ class FieldProperties(Properties):
     categories: list[str] | list[int] | None = None
     categories_ordered: bool | None = None
     missing_values: list[str] | list[MissingValueProperties] | None = None
-
-    @classmethod
-    def default(cls: "type[Self]") -> Self:
-        """Creates a `FieldProperties` dataclass with default values.
-
-        Returns:
-            A `FieldProperties` dataclass with default values.
-        """
-        return cls(
-            name="",
-            title="",
-            type="string",
-            format="default",
-            description="",
-            example="",
-            categories=[],
-            categories_ordered=False,
-            missing_values=[],
-        )
 
 
 # Allowed strategies for matching fields in the table schema to fields the data source.
@@ -434,22 +331,6 @@ class TableSchemaProperties(Properties):
     unique_keys: list[list[str]] | None = None
     foreign_keys: list[TableSchemaForeignKeyProperties] | None = None
     missing_values: list[str] | list[MissingValueProperties] | None = None
-
-    @classmethod
-    def default(cls: type[Self]) -> Self:
-        """Creates a `TableSchemaProperties` dataclass with default values.
-
-        Returns:
-            A `TableSchemaProperties` dataclass with default values.
-        """
-        return cls(
-            fields=[],
-            fields_match="exact",
-            primary_key="",
-            unique_keys=[],
-            foreign_keys=[],
-            missing_values=[],
-        )
 
 
 @dataclass
@@ -509,28 +390,6 @@ class ResourceProperties(Properties):
     bytes: int | None = None
     hash: str | None = None
     schema: TableSchemaProperties | None = None
-
-    @classmethod
-    def default(cls: "type[Self]") -> Self:
-        """Creates a `ResourcesProperties` dataclass with default values.
-
-        Returns:
-            A `ResourceProperties` dataclass with default values.
-        """
-        return cls(
-            name="",
-            path="",
-            type="table",
-            title="",
-            description="",
-            sources=[],
-            licenses=[],
-            format="",
-            mediatype="",
-            encoding="utf-8",
-            bytes=0,
-            hash="",
-        )
 
 
 @dataclass
@@ -600,14 +459,74 @@ class PackageProperties(Properties):
     sources: list[SourceProperties] | None = None
 
     @classmethod
-    def default(cls: type[Self]) -> Self:
+    def from_default(
+        cls,
+        *,
+        name: str | None = None,
+        id: str | None = None,
+        title: str | None = None,
+        description: str | None = None,
+        homepage: str | None = None,
+        version: str | None = None,
+        created: str | None = None,
+        contributors: list[ContributorProperties] | None = None,
+        keywords: list[str] | None = None,
+        image: str | None = None,
+        licenses: list[LicenseProperties] | None = None,
+        resources: list[ResourceProperties] | None = None,
+        sources: list[SourceProperties] | None = None,
+    ) -> Self:
         """Creates a `PackageProperties` dataclass with default values.
+
+        Default values (`id`, `version`, and `created`) can be overridden and unset
+        values can be set using keyword arguments.
+
+        Args:
+            name (str | None): A simple name or identifier to be used for this package.
+                Should consist only of lowercase English alphanumeric characters plus
+                characters in `.-_`.
+            id (str | None): The unique identifier of this package.
+            title (str | None): A human-readable title.
+            description (str | None): A text description. Markdown is encouraged.
+            homepage (str | None): The home on the web that is related to this package.
+            version (str | None): A version string identifying the version of this
+                package.
+            created (str | None): The datetime on which this package was created.
+            contributors (list[ContributorProperties] | None): The people or
+                organizations
+                who contributed to this package.
+            keywords (list[str] | None): A list of keywords that describe this package.
+            image (str | None): An image to represent this package.
+            licenses (list[LicenseProperties] | None): The license(s) under which this
+                package is published.
+            resources (list[ResourceProperties] | None): Specifies the data resources
+                in this data package, each compliant with the data resource
+                specification.
+            sources (list[SourceProperties] | None): The raw sources for this data
+                package.
 
         Returns:
             A `PackageProperties` dataclass with default values.
+
+        Examples:
+            ```{python}
+            import seedcase_sprout.core as sp
+
+            sp.PackageProperties.from_default(name="my-package", title="My Package...")
+            ```
         """
         return cls(
-            id=str(uuid4()),
-            version="0.1.0",
-            created=_get_iso_timestamp(),
+            name=name,
+            id=id or str(uuid4()),
+            title=title,
+            description=description,
+            homepage=homepage,
+            version=version or "0.1.0",
+            created=created or _get_iso_timestamp(),
+            contributors=contributors,
+            keywords=keywords,
+            image=image,
+            licenses=licenses,
+            resources=resources,
+            sources=sources,
         )

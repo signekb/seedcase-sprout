@@ -90,11 +90,23 @@ def test_compact_dict_removes_none_values_in_nested_objects():
 @patch("seedcase_sprout.core.properties.uuid4", return_value=UUID(int=1))
 @time_machine.travel(datetime(2024, 5, 14, 5, 0, 1, tzinfo=ZoneInfo("UTC")), tick=False)
 def test_creates_package_properties_with_correct_defaults(mock_uuid):
-    """Should return a dictionary of package properties containing correct defaults for
-    PackageProperties specific values: id, version, and created"""
-    properties = PackageProperties.default()
+    """`from_default` should create `PackageProperties` with correct defaults for id,
+    version, and created."""
+    properties = PackageProperties.from_default()
 
     assert properties.id == str(mock_uuid())
+    assert properties.version == "0.1.0"
+    assert properties.created == "2024-05-14T05:00:01+00:00"
+
+
+@time_machine.travel(datetime(2024, 5, 14, 5, 0, 1, tzinfo=ZoneInfo("UTC")), tick=False)
+def test_allows_overriding_defaults():
+    """It should be possible to override defaults with non-None values when creating
+    `PackageProperties` using `from_default`."""
+    properties = PackageProperties.from_default(id="abc", name="my-name", created=None)
+
+    assert properties.name == "my-name"
+    assert properties.id == "abc"
     assert properties.version == "0.1.0"
     assert properties.created == "2024-05-14T05:00:01+00:00"
 

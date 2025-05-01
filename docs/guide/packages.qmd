@@ -48,22 +48,11 @@ import seedcase_sprout.core as sp
 
 There are a few properties that are required for a data package, such as
 `version`, `id`, and `created`. While you could fill these in manually,
-it's much easier to use the `default()` method of the
-`PackageProperties`:
+it's much easier to use the `from_default()` method of the
+`PackageProperties` class:
 
 ```{python}
-# TODO: This could be improved.
-default_properties = sp.PackageProperties.default().compact_dict
-print(default_properties)
-```
-
-Then you can add some basic properties for your data package:
-
-```{python}
-properties = sp.PackageProperties(
-    # TODO: This could be improved.
-    # Insert in the default properties.
-    **default_properties,
+properties = sp.PackageProperties.from_default(
     name="diabetes-hypertension-study",
     title="Diabetes and Hypertension Study",
     description="Data from the 2021 study on diabetes and hypertension",
