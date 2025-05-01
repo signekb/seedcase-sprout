@@ -1,3 +1,9 @@
+## 0.42.3 (2025-05-01)
+
+### Refactor
+
+- :recycle: have a default method only for `PackageProperties` (#1304)
+
 ## 0.42.2 (2025-04-30)
 
 ### Fix
