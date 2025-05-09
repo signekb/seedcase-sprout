@@ -38,7 +38,7 @@ jobs:
 
       - name: Trim changelog increment file
         run: |
-          head -n -2 body.md > trimmed_body.md
+          head -n -3 body.md > trimmed_body.md
 
       - name: Release
         uses: softprops/action-gh-release@v2
