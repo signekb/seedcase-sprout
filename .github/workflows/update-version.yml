@@ -33,12 +33,12 @@ jobs:
         uses: commitizen-tools/commitizen-action@0.24.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          # changelog_increment_filename: body.md
+          changelog_increment_filename: body.md
           changelog: true
 
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
-          # body_path: "body.md"
+          body_path: "body.md"
           generate_release_notes: true
           tag_name : ${{ env.REVISION }}
