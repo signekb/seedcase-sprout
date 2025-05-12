@@ -85,7 +85,9 @@ def test_changes_cwd_to_package_root_in_package_context():
     After exiting the context, the cwd should be reset to the original location."""
     original_cwd = Path.cwd()
     with ExamplePackage() as package_path:
-        assert Path.cwd() == package_path.path
+        # Resolve paths to ensure symlinks are compared correctly on MacOS as well
+        # (i.e., `/var` -> `/private/var` on MacOS)
+        assert Path.cwd().resolve() == package_path.path.resolve()
 
     assert Path.cwd() == original_cwd
 

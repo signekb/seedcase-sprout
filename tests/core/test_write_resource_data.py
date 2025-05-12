@@ -21,18 +21,20 @@ def test_writes_data_to_correct_location():
     with ExamplePackage() as package_path:
         resource_properties = read_properties().resources[0]
         data = example_data()
-        expected_path = package_path.resource_data(resource_properties.name)
+        # Resolve paths to ensure symlinks are compared correctly on MacOS as well
+        # (i.e., `/var` -> `/private/var` on MacOS)
+        expected_path = package_path.resource_data(resource_properties.name).resolve()
 
         # With custom path
         data_path = write_resource_data(data, resource_properties, package_path.root())
 
-        assert data_path == expected_path
+        assert data_path.resolve() == expected_path
         assert_frame_equal(pl.read_parquet(data_path), data)
 
         # With default path
         data_path = write_resource_data(data, resource_properties)
 
-        assert data_path == expected_path
+        assert data_path.resolve() == expected_path
         assert_frame_equal(pl.read_parquet(data_path), data)
 
 
