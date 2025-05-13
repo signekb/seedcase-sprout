@@ -1,3 +1,9 @@
+## 0.52.1 (2025-05-13)
+
+### Refactor
+
+- :recycle: remove "hello" again
+
 ## 0.52.0 (2025-05-13)
 
 ### Feat
