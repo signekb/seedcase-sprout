@@ -40,4 +40,3 @@ jobs:
         with:
           body_path: "trimmed_body.md"
           generate_release_notes: true
-          tag_name : ${{ env.REVISION }}
