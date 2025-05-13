@@ -1,5 +1,8 @@
 {
   "recommendations": [
+    "eamodio.gitlens",
+    "github.vscode-github-actions",
+    "redhat.vscode-yaml",
     "donjayamanne.githistory",
     "felipecaputo.git-project-manager",
     "GitHub.vscode-pull-request-github",
@@ -11,7 +14,8 @@
     "vivaxy.vscode-conventional-commits",
     "charliermarsh.ruff",
     "pshaddel.conventional-branch",
-    "tekumara.typos-vscode"
+    "tekumara.typos-vscode",
+    "EditorConfig.EditorConfig"
   ],
   // List of extensions recommended by VS Code that should not be recommended for users of this workspace.
   "unwantedRecommendations": []

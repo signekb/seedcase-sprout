@@ -19,6 +19,7 @@ jobs:
     uses: seedcase-project/.github/.github/workflows/reusable-add-to-project.yml@main
     with:
       board-number: 18
+      app-id: ${{ vars.ADD_TO_BOARD_APP_ID }}
     secrets:
       add-to-board-token: ${{ secrets.ADD_TO_BOARD }}
       gh-token: ${{ secrets.GITHUB_TOKEN }}

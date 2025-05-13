@@ -1,4 +1,4 @@
-name: Build website of documentation
+name: Build website
 
 on:
   push:
