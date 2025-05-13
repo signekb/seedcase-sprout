@@ -23,11 +23,6 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-      - name: Push version and tag
-        run: |
-          npm version ${{ github.event.inputs.version }}
-          git push
-
       - id: cz
         name: Update version and changelog
         uses: commitizen-tools/commitizen-action@0.24.0
