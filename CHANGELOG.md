@@ -1,3 +1,9 @@
+## 0.42.4 (2025-05-13)
+
+### Fix
+
+- :bug: resolve temp paths so tests pass on MacOS as well (#1322)
+
 ## 0.42.3 (2025-05-01)
 
 ### Refactor
