@@ -1,3 +1,9 @@
+## 0.53.0 (2025-05-13)
+
+### Feat
+
+- :technologist: add "hello, hello, hello"
+
 ## 0.52.1 (2025-05-13)
 
 ### Refactor
