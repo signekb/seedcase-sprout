@@ -8,5 +8,7 @@ on:
 jobs:
   update-version:
     uses: seedcase-project/.github/.github/workflows/reusable-update-python-project-version.yml@main
+    with:
+      app-id: ${{ vars.UPDATE_VERSION_APP_ID }}
     secrets:
       update-version-gh-token: ${{ secrets.UPDATE_VERSION_TOKEN }}
