@@ -1,3 +1,5 @@
+Hello, hello, hello!
+
 <p align=center> 
     <a href="https://sprout.seedcase-project.org/">
         <img src="_extensions/seedcase-project/seedcase-theme/logos/navbar-logo-seedcase-sprout.svg" height="150" alt="Sprout website"/>
