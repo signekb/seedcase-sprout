@@ -2,7 +2,7 @@
     just --list --unsorted
 
 # Run all build-related recipes in the justfile
-run-all: install-deps format-python check-python test-python check-security check-spelling check-commits build-website
+run-all: install-deps format-python check-python test-python check-security check-spelling check-commits build-website check-unused
 
 # Install Python package dependencies
 install-deps:
@@ -54,3 +54,13 @@ check-security:
 # Check for spelling errors in files
 check-spelling:
   uv run typos
+
+# Check for unused code in the package and its tests
+check-unused:
+  # exit code=0: No unused code was found
+  # exit code=3: Unused code was found
+  # Three confidence values:
+  # - 100 %: function/method/class argument, unreachable code
+  # - 90 %: import
+  # - 60 %: attribute, class, function, method, property, variable
+  vulture src/ tests/
