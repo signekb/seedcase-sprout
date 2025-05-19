@@ -1,3 +1,9 @@
+## 0.42.5 (2025-05-19)
+
+### Fix
+
+- :bug: raise a more informative error when the data list is empty (#1308)
+
 ## 0.42.4 (2025-05-13)
 
 ### Fix
