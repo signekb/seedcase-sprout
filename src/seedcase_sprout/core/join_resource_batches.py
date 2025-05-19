@@ -40,6 +40,7 @@ def join_resource_batches(
             observational units removed.
 
     Raises:
+        ValueError: If an empty `data_list` is provided.
         polars.exceptions.ShapeError: Raised when dataframes in data_list have different
             shapes, such as mismatched column names or numbers.
 
@@ -61,6 +62,13 @@ def join_resource_batches(
         ```
     """
     check_resource_properties(resource_properties)
+
+    if data_list == []:
+        raise ValueError(
+            "Could not join resource batches because an empty `data_list` was "
+            f"provided. The batch folder for the resource '{resource_properties.name}' "
+            "may be empty."
+        )
 
     data = pl.concat(data_list)
     primary_key = resource_properties.schema.primary_key

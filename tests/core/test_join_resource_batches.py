@@ -222,3 +222,11 @@ def test_single_dataframe_in_data_list(data_list, resource_properties):
     # Then
     expected_joined_batches = data_list[0].drop(BATCH_TIMESTAMP_COLUMN_NAME)
     assert_frame_equal(joined_batches, expected_joined_batches, check_row_order=False)
+
+
+def test_throws_error_with_empty_data_list(resource_properties):
+    """Should throw an informative error if an empty data list is provided."""
+    with raises(ValueError) as error:
+        join_resource_batches([], resource_properties)
+
+    assert resource_properties.name in str(error)
