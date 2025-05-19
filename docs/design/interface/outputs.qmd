@@ -7,8 +7,9 @@ standardized, coherent, and consistent way. At the base of how data is
 structured and stored are the files and folders. So, this document
 describes the main file and folder structure output when using Sprout.
 
-We follow our [naming scheme](/docs/design/architecture/naming.qmd), as
-well as the [Frictionless Data
+We follow our [naming
+scheme](/docs/design/architecture/naming.qmd#naming), as well as the
+[Frictionless Data
 specification](https://decisions.seedcase-project.org/why-frictionless-data/),
 to decide on the structure and name of the files and folders. All data
 stored in Sprout for a specific set of conditions is called a data

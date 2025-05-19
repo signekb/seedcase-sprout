@@ -35,6 +35,17 @@ build-website:
   uv run quartodoc build
   uv run quarto render --execute
 
+# Build the documentation as PDF using Quarto
+build-pdf:
+  # To let Quarto know where python is.
+  export QUARTO_PYTHON=.venv/bin/python3
+  uv run quarto install tinytex
+  # For generating images from Mermaid diagrams
+  uv run quarto install chromium
+  uv run quarto render --profile pdf --to pdf
+  find docs -name "mermaid-figure-*.png" -delete
+
+
 # Run checks on commits with non-main branches
 check-commits:
   #!/bin/zsh

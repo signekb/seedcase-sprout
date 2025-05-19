@@ -72,7 +72,8 @@ uv pip show seedcase_sprout
 If it installed successfully, it will show details about Sprout.
 
 Get started with your first data package by following the guide on
-[Creating and managing data packages](/docs/guide/packages.qmd).
+[Creating and managing data
+packages](/docs/guide/packages.qmd#creating-a-data-package).
 
 ## Use anywhere on the computer or in the Terminal
 

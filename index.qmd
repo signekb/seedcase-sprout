@@ -1,6 +1,8 @@
 ---
 title: Grow structured, organized, and *usable* data
-toc: false
+format:
+  seedcase-theme-html:
+    toc: false
 page-layout: custom
 section-divs: false
 sidebar: false
@@ -62,6 +64,8 @@ share your ideas or contribute code. Your input makes us better!
 <!-- TODO: Add link to a guide on how to contribute in more detail -->
 :::
 
+::: {.content-hidden when-format="pdf"}
 ::: landing-page-block
 ## Image by [Storyset](https://storyset.com/data) {.appendix}
+:::
 :::

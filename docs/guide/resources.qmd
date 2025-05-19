@@ -4,11 +4,12 @@ order: 2
 jupyter: python3
 ---
 
-In each [data package](/docs/design/interface/outputs.qmd) are [data
-resources](/docs/design/interface/outputs.qmd), which contain
-conceptually standalone sets of data. This page shows you how to create
-and manage data resources inside a data package using Sprout. You will
-need to have already [created a data package](packages.qmd).
+In each [data package](/docs/design/interface/outputs.qmd#outputs) are
+[data resources](/docs/design/interface/outputs.qmd#outputs), which
+contain conceptually standalone sets of data. This page shows you how to
+create and manage data resources inside a data package using Sprout. You
+will need to have already [created a data
+package](packages.qmd#creating-a-data-package).
 
 {{< include _preamble.qmd >}}
 
@@ -162,9 +163,10 @@ within the data package and save the resource properties to the
 `datapackage.json` file of the package.
 
 We assume that you've already created a data package (for example, by
-following the [package guide](packages.qmd)) and stored the path to it
-as a `PackagePath` object in the `package_path` variable. In this guide,
-the root folder of the package is in a temporary folder:
+following the [package guide](packages.qmd#creating-a-data-package)) and
+stored the path to it as a `PackagePath` object in the `package_path`
+variable. In this guide, the root folder of the package is in a
+temporary folder:
 
 ```{python}
 print(package_path.root())
@@ -216,7 +218,7 @@ pprint(sp.read_properties(package_path.properties()))
 ## Storing a backup of the raw data as a batch file
 
 ::: callout-note
-See the [flow diagrams](/docs/design/interface/flows.qmd) for a
+See the [flow diagrams](/docs/design/interface/flows.qmd#flows) for a
 simplified flow of steps involved in adding batch files.
 :::
 

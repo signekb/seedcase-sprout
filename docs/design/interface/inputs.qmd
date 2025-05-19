@@ -2,13 +2,14 @@
 title: "Inputs"
 ---
 
-In this
-document we describe the inputs to Sprout at a technical level. For a more general description of what domain we expect data to come from and how it may look like conceptually, see the [input
-data](/docs/design/architecture/input-data.qmd) document.
+In this document we describe the inputs to Sprout at a technical level.
+For a more general description of what domain we expect data to come
+from and how it may look like conceptually, see the [input
+data](/docs/design/architecture/input-data.qmd#input-data) document.
 
-The
-objects we primarily incorporate in the interface are paths,
-properties, and data, as described in the [naming](/docs/design/architecture/naming.qmd) document.
+The objects we primarily incorporate in the interface are paths,
+properties, and data, as described in the
+[naming](/docs/design/architecture/naming.qmd#naming) document.
 
 Paths
 

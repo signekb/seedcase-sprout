@@ -15,12 +15,12 @@ show you how to create and manage data packages using Sprout.
 
 We've designed Sprout to be used in a similar way that Git repositories
 or Python virtual environments are used (for instance, as we recommend
-in the [installation guide](installation.qmd)). This means that we
-assume and expect that you will be creating and managing a data package
-in the root of your Python (or Git) project. The same folder where your
-`.git/` folder or `pyproject.toml` file is will also contain your
-`datapackage.json` file. With this design, many of Sprout's helper path
-functions assume that the working directory is where the
+in the [installation guide](installation.qmd#installation)). This means
+that we assume and expect that you will be creating and managing a data
+package in the root of your Python (or Git) project. The same folder
+where your `.git/` folder or `pyproject.toml` file is will also contain
+your `datapackage.json` file. With this design, many of Sprout's helper
+path functions assume that the working directory is where the
 `datapackage.json` file is (or will be) and where the `pyproject.toml`
 file (or `.git/` folder) is stored.
 
@@ -37,8 +37,8 @@ you need to establish our properties.
 Sprout has several helper classes, such as `PackageProperties`,
 `LicenseProperties`, and `ContributorProperties`, to make it easier for
 you to make properties with the correct fields filled in. See the guide
-on [properties](/docs/guide/properties.qmd) for more information about
-these classes.
+on [properties](/docs/guide/properties.qmd#properties) for more
+information about these classes.
 
 First, import the necessary modules and set up the environment:
 

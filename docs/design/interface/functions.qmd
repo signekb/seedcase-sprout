@@ -19,10 +19,10 @@ functions will likely change quite a bit and may even be deleted later
 when they are no longer needed.
 :::
 
-Based on the [naming scheme](/docs/design/architecture/naming.qmd) and
+Based on the [naming scheme](/docs/design/architecture/naming.qmd#naming) and
 the [Frictionless Data Package standard](https://datapackage.org), these
 are the core external-facing functions in Sprout. See the
-[Outputs](outputs.qmd) section for an overview and explanation of the
+[Outputs](outputs.qmd#outputs) section for an overview and explanation of the
 different outputs provided by Sprout.
 
 Nearly all functions have a `path` argument. Depending on what the
@@ -329,7 +329,7 @@ This function checks the data against the properties in the
 the `field.name` properties, the columns' data types against the
 `fields.type` properties, and the data itself against the constraints
 given in the `fields.constraints` properties (if it exists). See the
-[function flow](flows.qmd) for more details on the internal flow of this
+[function flow](flows.qmd#flows) for more details on the internal flow of this
 particular function.
 
 ```{mermaid}
