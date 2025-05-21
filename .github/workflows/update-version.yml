@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 jobs:
   update-version:
     uses: seedcase-project/.github/.github/workflows/reusable-update-python-project-version.yml@main
