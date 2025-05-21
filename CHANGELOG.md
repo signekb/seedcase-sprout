@@ -1,3 +1,9 @@
+## 0.43.0 (2025-05-21)
+
+### Feat
+
+- :sparkles: add custom package name to `ExamplePackage` (#1309)
+
 ## 0.42.5 (2025-05-19)
 
 ### Fix
