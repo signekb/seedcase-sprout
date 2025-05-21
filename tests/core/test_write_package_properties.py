@@ -14,7 +14,6 @@ from seedcase_sprout.core.write_package_properties import write_package_properti
 
 resource_properties = ResourceProperties(
     name="resource-1",
-    path=str(Path("resources", "1", "data.parquet")),
     title="My First Resource",
     description="This is my first resource.",
 )

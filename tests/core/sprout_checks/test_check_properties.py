@@ -33,13 +33,11 @@ def properties():
         resources=[
             ResourceProperties(
                 name="resource-1",
-                path=str(Path("resources", "1", "data.parquet")),
                 title="Resource 1",
                 description="A resource.",
             ),
             ResourceProperties(
                 name="resource-2",
-                path=str(Path("resources", "2", "data.parquet")),
                 title="Resource 2",
                 description="A second resource.",
             ),
@@ -256,15 +254,9 @@ def test_error_blank_resource_properties(properties, name, type):
     assert blank_errors[0].json_path == f"$.{name}"
 
 
-@mark.parametrize(
-    "item,value,validator",
-    [
-        ("name", "a name with spaces", "pattern"),
-    ],
-)
-def test_error_incorrect_resource_property_values(properties, item, value, validator):
+def test_error_incorrect_resource_property_values(properties):
     """Should be an error when the property value is incorrect."""
-    setattr(properties.resources[0], item, value)
+    properties.resources[0].title = 123
 
     with raises(ExceptionGroup) as error_info:
         check_resource_properties(properties.resources[0])
@@ -272,8 +264,8 @@ def test_error_incorrect_resource_property_values(properties, item, value, valid
     errors = error_info.value.exceptions
     assert len(errors) == 1
     assert isinstance(errors[0], CheckError)
-    assert errors[0].json_path == f"$.{item}"
-    assert errors[0].validator == f"{validator}"
+    assert errors[0].json_path == "$.title"
+    assert errors[0].validator == "type"
 
     with raises(ExceptionGroup) as error_info:
         check_properties(properties)
@@ -281,8 +273,8 @@ def test_error_incorrect_resource_property_values(properties, item, value, valid
     errors = error_info.value.exceptions
     assert len(errors) == 1
     assert isinstance(errors[0], CheckError)
-    assert errors[0].json_path == f"$.resources[0].{item}"
-    assert errors[0].validator == f"{validator}"
+    assert errors[0].json_path == "$.resources[0].title"
+    assert errors[0].validator == "type"
 
 
 @mark.parametrize(

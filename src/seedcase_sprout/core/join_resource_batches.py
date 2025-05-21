@@ -53,8 +53,6 @@ def join_resource_batches(
 
         with sp.ExamplePackage():
             resource_properties = sp.example_resource_properties()
-            # TODO: do not have to change name after data path is refactored to use name
-            resource_properties.name = "1"
             sp.write_resource_batch(sp.example_data(), resource_properties)
             batches = sp.read_resource_batches(resource_properties=resource_properties)
 

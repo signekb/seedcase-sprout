@@ -45,6 +45,7 @@ def test_rewrites_data_file():
         old_data = example_data()
         new_resource_properties = example_resource_properties_all_types()
         new_resource_properties.name = old_resource_properties.name
+        new_resource_properties.path = old_resource_properties.path
         new_data = example_data_all_types()
         write_resource_data(old_data, old_resource_properties)
 

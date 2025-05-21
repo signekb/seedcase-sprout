@@ -1,5 +1,3 @@
-from pathlib import Path
-
 from pytest import fixture, raises
 
 from seedcase_sprout.core.properties import (
@@ -78,7 +76,6 @@ def test_current_resources_not_modified(original_properties):
     original_properties.resources = [
         ResourceProperties(
             name="resource-1",
-            path=str(Path("resources", "1", "data.parquet")),
             title="Resource 1",
             description="A resource.",
         )
@@ -98,7 +95,6 @@ def test_error_incorrect_current_resource_property(
     original_properties.resources = [
         ResourceProperties(
             name="incorrect name with spaces",
-            path=str(Path("resources", "1", "data.parquet")),
             title="Resource 1",
             description="A resource.",
         )

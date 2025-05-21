@@ -1,5 +1,4 @@
 import re
-from pathlib import Path
 
 import polars as pl
 from polars.testing import assert_frame_equal
@@ -31,7 +30,6 @@ def resource_properties() -> ResourceProperties:
     return ResourceProperties(
         name="data",
         title="data",
-        path=str(Path("resources", "1", "data.csv")),
         description="My data...",
         schema=TableSchemaProperties(),
     )

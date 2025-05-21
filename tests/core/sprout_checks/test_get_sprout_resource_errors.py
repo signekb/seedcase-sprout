@@ -21,7 +21,6 @@ from seedcase_sprout.core.sprout_checks.required_fields import (
 def properties():
     return ResourceProperties(
         name="resource-1",
-        path=str(Path("resources", "1", "data.parquet")),
         title="Resource 1",
         description="A resource.",
     ).compact_dict
@@ -51,10 +50,10 @@ def test_error_found_if_fields_are_blank(properties, name, type, index):
     properties[name] = get_blank_value_for_type(type)
 
     errors = get_sprout_resource_errors(properties, index=index)
-    blank_errors = [error for error in errors if error.validator == "blank"]
 
-    assert len(blank_errors) == 1
-    assert blank_errors[0].json_path == get_json_path_to_resource_field(name, index)
+    assert len(errors) == 1
+    assert errors[0].json_path == get_json_path_to_resource_field(name, index)
+    assert errors[0].validator == "blank"
 
 
 @mark.parametrize("index", [None, 2])
@@ -64,18 +63,26 @@ def test_error_found_if_required_fields_are_missing(properties, name, index):
     del properties[name]
 
     errors = get_sprout_resource_errors(properties, index=index)
-    required_errors = [error for error in errors if error.validator == "required"]
 
-    assert len(required_errors) == 1
-    assert required_errors[0].json_path == get_json_path_to_resource_field(name, index)
+    assert len(errors) == 1
+    assert errors[0].json_path == get_json_path_to_resource_field(name, index)
+    assert errors[0].validator == "required"
 
 
 @mark.parametrize("path", ["", [], str(Path("resources", "1"))])
 def test_error_found_if_data_path_is_incorrect_(properties, path):
-    """Should find at least one error if `path` contains no resource ID, is not a
-    string, or is otherwise malformed."""
+    """Should find one error if `path` is not a string or has the wrong format."""
     properties["path"] = path
 
     errors = get_sprout_resource_errors(properties)
 
-    assert len(errors) >= 1
+    assert len(errors) == 1
+    assert errors[0].json_path == get_json_path_to_resource_field("path")
+
+
+def test_ignores_path_if_name_incorrect(properties):
+    """Should not check the path if the name is incorrect."""
+    properties["name"] = "name with spaces"
+    properties["path"] = "bad/path"
+
+    assert get_sprout_resource_errors(properties) == []

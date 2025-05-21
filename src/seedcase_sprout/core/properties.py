@@ -16,6 +16,9 @@ from uuid import uuid4
 from dacite import from_dict
 
 from seedcase_sprout.core.internals import _get_iso_timestamp
+from seedcase_sprout.core.internals._create_relative_resource_data_path import (
+    _create_relative_resource_data_path,
+)
 
 
 class Properties(ABC):
@@ -373,7 +376,7 @@ class ResourceProperties(Properties):
         ```{python}
         import seedcase_sprout.core as sp
         print(sp.ResourceProperties())
-        print(sp.ResourceProperties(name="Blood samples", path="data.csv"))
+        print(sp.ResourceProperties(name="blood-samples", title="Blood samples"))
         ```
     """
 
@@ -390,6 +393,10 @@ class ResourceProperties(Properties):
     bytes: int | None = None
     hash: str | None = None
     schema: TableSchemaProperties | None = None
+
+    def __post_init__(self):
+        """Generates the path from the resource name after object creation."""
+        self.path = _create_relative_resource_data_path(self.name)
 
 
 @dataclass

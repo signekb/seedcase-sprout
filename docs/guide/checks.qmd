@@ -146,7 +146,6 @@ An error will be raised for each problem:
 #| error: true
 resource_properties = sp.ResourceProperties(
     name="Woolly Dormice (2015, Toros Dağları)",
-    path="resources/1/data.parquet",
 )
 sp.check_resource_properties(resource_properties)
 ```
@@ -192,8 +191,6 @@ previous section:
 | seedcase_sprout.core.check_datapackage.check_error.CheckError: Error at `$.description` caused by `required`: 'description' is a required property
 +---------------- 2 ----------------
 | seedcase_sprout.core.check_datapackage.check_error.CheckError: Error at `$.resources[0].description` caused by `required`: 'description' is a required property
-+---------------- 3 ----------------
-| seedcase_sprout.core.check_datapackage.check_error.CheckError: Error at `$.resources[0].path` caused by `pattern`: 'path' should contain the resource ID
 +------------------------------------
 ```
 

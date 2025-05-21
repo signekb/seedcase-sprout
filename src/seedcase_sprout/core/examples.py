@@ -6,8 +6,6 @@ from pathlib import Path
 import polars as pl
 
 from seedcase_sprout.core.as_readme_text import as_readme_text
-from seedcase_sprout.core.create_resource_properties import create_resource_properties
-from seedcase_sprout.core.create_resource_structure import create_resource_structure
 from seedcase_sprout.core.paths import PackagePath
 from seedcase_sprout.core.properties import (
     ContributorProperties,
@@ -72,7 +70,6 @@ def example_resource_properties() -> ResourceProperties:
         name="example-resource",
         title="Example fake data resource",
         description="Data from a fake resource on something.",
-        path="resources/1/data.parquet",
         schema=TableSchemaProperties(
             fields=[
                 FieldProperties(
@@ -136,7 +133,6 @@ def example_resource_properties_all_types() -> ResourceProperties:
     return ResourceProperties(
         name="data",
         title="data",
-        path=str(Path("resources", "1", "data.parquet")),
         description="My data...",
         schema=TableSchemaProperties(
             fields=[
@@ -269,14 +265,9 @@ class ExamplePackage(AbstractContextManager):
             package_properties.resources = [resource_properties]
 
             # Create resource folders
-            # TODO: update after resource creation is refactored
-            package_path.resources().mkdir(exist_ok=True)
-            resource_path, _ = create_resource_structure(path=package_path.path)
-            resource_properties = create_resource_properties(
-                path=resource_path, properties=resource_properties
+            package_path.resource(resource_properties.name).mkdir(
+                exist_ok=True, parents=True
             )
-            # TODO: delete after data path is refactored to use name
-            resource_properties.name = resource_path.stem
 
         # Save properties
         write_package_properties(

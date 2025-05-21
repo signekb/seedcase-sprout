@@ -3,10 +3,10 @@ from pathlib import Path
 
 from pytest import fixture, raises
 
-from seedcase_sprout.core.create_relative_resource_data_path import (
-    create_relative_resource_data_path,
+from seedcase_sprout.core.examples import (
+    ExamplePackage,
+    example_package_properties,
 )
-from seedcase_sprout.core.examples import example_package_properties
 from seedcase_sprout.core.internals import _read_json, _write_json
 from seedcase_sprout.core.paths import PackagePath
 from seedcase_sprout.core.properties import (
@@ -16,17 +16,13 @@ from seedcase_sprout.core.properties import (
 )
 from seedcase_sprout.core.write_package_properties import write_package_properties
 from seedcase_sprout.core.write_resource_properties import write_resource_properties
-
-
-def create_data_path(resource_id: int) -> str:
-    return str(create_relative_resource_data_path(Path("resources", str(resource_id))))
+from tests.core.assert_raises_errors import assert_raises_check_errors
 
 
 @fixture
 def resource_properties_1() -> ResourceProperties:
     return ResourceProperties(
         name="resource-1",
-        path=create_data_path(1),
         title="My First Resource",
         description="This is my first resource.",
     )
@@ -36,7 +32,6 @@ def resource_properties_1() -> ResourceProperties:
 def resource_properties_2() -> ResourceProperties:
     return ResourceProperties(
         name="resource-2",
-        path=create_data_path(2),
         title="My Second Resource",
         description="This is my second resource.",
     )
@@ -65,12 +60,11 @@ def package_properties_path(
 def test_updates_existing_resource_in_package(
     package_properties_path, resource_properties_2
 ):
-    """Given a package with a resource having the same ID, should update the properties
-    of this resource."""
+    """Given a package with a matching resource, should update the properties of
+    this resource."""
     # given
     new_resource_properties = ResourceProperties(
         name="resource-1",
-        path=create_data_path(1),
         title="My New Title",
         description="This is my updated resource.",
     )
@@ -90,12 +84,11 @@ def test_updates_existing_resource_in_package(
 def test_adds_new_resource_to_package(
     package_properties_path, resource_properties_1, resource_properties_2
 ):
-    """Given a package without a resource with a matching ID, should add a new set of
+    """Given a package without a matching resource, should add a new set of
     resource properties."""
     # given
     resource_properties_3 = ResourceProperties(
         name="resource-3",
-        path=create_data_path(3),
         title="My Third Resource",
         description="This is my third resource.",
     )
@@ -135,12 +128,28 @@ def test_error_if_properties_file_cannot_be_read(tmp_path, resource_properties_1
         write_resource_properties(resource_properties_1, file_path)
 
 
-def test_error_if_resource_properties_have_missing_required_fields(
+def test_error_if_input_resource_properties_are_incorrect(
     package_properties_path,
 ):
-    """Should have an error if there are missing required resource properties."""
-    with raises(ExceptionGroup):
-        write_resource_properties(ResourceProperties(), package_properties_path)
+    """Should raise an error if the input resource properties are incorrect."""
+    assert_raises_check_errors(
+        lambda: write_resource_properties(ResourceProperties(), package_properties_path)
+    )
+
+
+def test_error_if_existing_resource_properties_are_incorrect(
+    resource_properties_1, resource_properties_2
+):
+    """Should raise an error if the existing resource properties are incorrect."""
+    delattr(resource_properties_1, "name")
+    package_properties = example_package_properties()
+    package_properties.resources = [resource_properties_1]
+    with ExamplePackage() as package_path:
+        _write_json(package_properties.compact_dict, package_path.properties())
+
+        assert_raises_check_errors(
+            lambda: write_resource_properties(resource_properties_2)
+        )
 
 
 def test_error_if_package_properties_have_missing_required_fields(

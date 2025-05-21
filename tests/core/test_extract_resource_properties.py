@@ -3,6 +3,9 @@ from pytest import mark
 from xlwt import Workbook
 
 from seedcase_sprout.core.extract_resource_properties import extract_resource_properties
+from seedcase_sprout.core.internals._create_relative_resource_data_path import (
+    _create_relative_resource_data_path,
+)
 
 empty_data = pl.DataFrame([])
 schema_empty_data = {"fields": []}
@@ -145,7 +148,7 @@ def test_returns_expected_resource_properties_from_csv_file(
 
     expected_properties_compact_dict = {
         "name": "data",
-        "path": str(file_path),
+        "path": _create_relative_resource_data_path("data"),
         "type": "table",
         "format": "csv",
         "mediatype": "text/csv",
@@ -177,7 +180,7 @@ def test_returns_expected_resource_properties_from_tsv_file(
 
     expected_properties_compact_dict = {
         "name": "data",
-        "path": str(file_path),
+        "path": _create_relative_resource_data_path("data"),
         "type": "table",
         "format": "tsv",
         "mediatype": "text/tsv",
@@ -210,7 +213,7 @@ def test_returns_expected_resource_properties_from_parquet_file(
 
     expected_properties_compact_dict = {
         "name": "data",
-        "path": str(file_path),
+        "path": _create_relative_resource_data_path("data"),
         "type": "table",
         "format": f"{extension}",
         "mediatype": "application/parquet",
@@ -241,7 +244,7 @@ def test_returns_expected_resource_properties_from_xlsx_file(
 
     expected_properties_compact_dict = {
         "name": "data",
-        "path": str(file_path),
+        "path": _create_relative_resource_data_path("data"),
         "type": "table",
         "format": "xlsx",
         "mediatype": "application/vnd.ms-excel",
@@ -281,7 +284,7 @@ def test_returns_expected_resource_properties_from_xls_file(
 
     expected_properties_compact_dict = {
         "name": "data",
-        "path": str(file_path),
+        "path": _create_relative_resource_data_path("data"),
         "type": "table",
         "format": "xls",
         "mediatype": "application/vnd.ms-excel",
@@ -312,7 +315,7 @@ def test_returns_expected_resource_properties_from_json_file(
 
     expected_properties_compact_dict = {
         "name": "data",
-        "path": str(file_path),
+        "path": _create_relative_resource_data_path("data"),
         "type": "table",
         "format": "json",
         "mediatype": "text/json",
@@ -344,7 +347,7 @@ def test_returns_expected_resource_properties_from_newline_delimited_json_file(
 
     expected_properties_compact_dict = {
         "name": "data",
-        "path": str(file_path),
+        "path": _create_relative_resource_data_path("data"),
         "type": "table",
         "format": f"{extension}",
         "mediatype": f"text/{extension}",

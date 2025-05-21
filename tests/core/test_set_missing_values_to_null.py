@@ -1,5 +1,3 @@
-from pathlib import Path
-
 import polars as pl
 from polars.testing import assert_frame_equal
 from pytest import fixture, mark
@@ -19,7 +17,6 @@ def resource_properties() -> ResourceProperties:
     return ResourceProperties(
         name="data",
         title="data",
-        path=str(Path("resources", "1", "data.csv")),
         description="My data...",
         schema=TableSchemaProperties(),
     )

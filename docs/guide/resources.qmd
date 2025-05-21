@@ -180,19 +180,7 @@ print(list(package_path.root().glob("**/*")))
 ```
 
 This shows that the data package already includes a `datapackage.json`
-file and a `README.md` file. Now, to create the resource structure in
-this package, use `create_resource_structure()`. By default, this
-function assumes that the data package is located in the current working
-directory. To point it to another location, pass it the path to your
-data package folder, like in the example below.
-
-```{python}
-resource_path, _ = sp.create_resource_structure(path=package_path.root())
-resource_properties = sp.create_resource_properties(
-    properties=resource_properties,
-    path=resource_path,
-)
-```
+file and a `README.md` file.
 
 The next step is to write the resource properties to the
 `datapackage.json` file. Before they are added, they will be checked to

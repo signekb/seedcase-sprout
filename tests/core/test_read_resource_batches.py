@@ -39,7 +39,6 @@ batch_data_2 = pl.DataFrame(
 def resource_properties() -> ResourceProperties:
     return ResourceProperties(
         name="1",
-        path=str(Path("resources", "1", "data.parquet")),
         title="Test resource",
         description="A test resource",
         schema=TableSchemaProperties(
