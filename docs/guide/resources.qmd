@@ -21,9 +21,9 @@ that you have a record of the steps taken to clean and transform the
 data.
 :::
 
-Putting your raw data into a data package makes it easier for yourself
-and others to use later on. The steps you'll take to get your data into
-the structure used by Sprout are:
+Putting your data into a data package makes it easier for yourself and
+others to use later on. The steps you'll take to get your data into the
+structure used by Sprout are:
 
 1.  Create the properties for the resource, using the original data as a
     starting point, and edit as needed.
@@ -40,6 +40,7 @@ the structure used by Sprout are:
 ```{python setup}
 #| include: false
 # This `setup` code chunk creates a package and downloads some data.
+import polars as pl
 import seedcase_sprout.core as sp
 from tempfile import mkdtemp
 from pathlib import Path
@@ -65,6 +66,8 @@ urlretrieve(
     url,
     raw_data_path
 )
+
+data = pl.read_csv(raw_data_path)
 ```
 
 Making a data resource requires that you have data that can be made into
@@ -73,23 +76,14 @@ starts out in a bit of a "raw" shape that needs some working. This work
 needs to be done before adding the data as a data package, since Sprout
 assumes that the data is already
 [tidy](https://design.seedcase-project.org/data/). For this guide, we
-use a (fake) data file that is already tidy and that looks like:
+use (fake) data that is already tidy and loaded into a Polars DataFrame:
 
 ```{python}
-#| echo: false
-with open(raw_data_path, "r") as f:
-    print(f.read())
+data.head(5)
 ```
 
 If you want to follow this guide with the same data, you can find it
 [here](https://raw.githubusercontent.com/seedcase-project/data/refs/heads/main/patients/patients.csv).
-The path to this data, which is stored in a variable called
-`raw_data_path`, is:
-
-```{python}
-#| echo: false
-print(raw_data_path)
-```
 
 Before we start, you need to import Sprout as well as other helper
 packages:
@@ -105,7 +99,7 @@ from pprint import pprint
 from textwrap import dedent
 ```
 
-## Extracting resource properties from raw data
+## Extracting resource properties from the data
 
 You'll start by creating the resource's properties. Before you can store
 data in your data package, you need to describe it using properties
@@ -118,7 +112,8 @@ you can create a resource properties object manually using
 you, for example, have many columns in your data. To make this process
 easier, `extract_resource_properties()` allows you to create an initial
 resource properties object by extracting as much information as possible
-from the raw data. Afterwards, you can edit these properties as needed.
+from the Polars DataFrame with your data. Afterwards, you can edit these
+properties as needed.
 
 Now you are ready to use `extract_resource_properties()` to extract the
 resource properties from the data. This function tries to infer the data
@@ -129,10 +124,14 @@ or the unit of the data.
 
 ```{python}
 resource_properties = sp.extract_resource_properties(
-    data_path=raw_data_path
+    data=data
 )
-pprint(resource_properties)
+print(resource_properties)
 ```
+
+<!-- TODO: pprint doesn't work well with nested objects like resource_properties above.
+So, for now, we'll use print here. but, we should find an alternative.
+ -->
 
 You may be able to see that some things are missing, for instance, the
 individual columns (called `fields`) don't have any descriptions. You
@@ -149,9 +148,13 @@ Time to fill in the missing fields of the resource properties:
 ```{python}
 # TODO: Need to consider/design how editing can be done in an easier, user-friendly way.
 # TODO: Add more detail when we know what can and can't be extracted.
+resource_properties.name = "patient-data"
+resource_properties.path = "resources/patient-data/data.parquet"
 resource_properties.title = "Patient Data"
 resource_properties.description = "This data resource contains data about..."
 ```
+
+<!-- TODO: The last required field `Path` is still missing at this point -->
 
 ## Creating a data resource
 
@@ -200,19 +203,23 @@ Let's check the contents of the `datapackage.json` file to see that the
 resource properties have been added:
 
 ```{python}
-pprint(sp.read_properties(package_path.properties()))
+print(sp.read_properties(package_path.properties()))
 ```
 
-## Storing a backup of the raw data as a batch file
+<!-- TODO: pprint doesn't work well with nested objects like resource_properties above.
+So, for now, we'll use print here. but, we should find an alternative.
+ -->
+
+## Storing a backup of the data as a batch file
 
 ::: callout-note
 See the [flow diagrams](/docs/design/interface/flows.qmd#flows) for a
 simplified flow of steps involved in adding batch files.
 :::
 
-As shown above, the data is currently stored in the path called
-`raw_data_path`. Time to store this data in the resource's folder by
-using:
+As shown above, the data is currently stored loaded as a Polars
+DataFrame called `data`. Now, it's time to store this data in the
+resource's folder by using:
 
 ```{python}
 #| eval: false
@@ -249,7 +256,7 @@ sp.join_resource_batches(
 ```
 
 ::: callout-tip
-If you add more raw data to the resource later on, you can update this
+If you add more data to the resource later on, you can update this
 Parquet file to include all data in the batch folder using the
 `build_resource_parquet()` function like shown above.
 :::
