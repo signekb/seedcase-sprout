@@ -232,18 +232,27 @@ class ExamplePackage(AbstractContextManager):
         with sp.ExamplePackage() as package_path:
             properties = sp.read_properties(package_path.properties())
 
-        with sp.ExamplePackage(with_resources=False) as package_path:
-            properties = sp.read_properties(package_path.properties())
+        with sp.ExamplePackage(with_resources=False):
+            properties = sp.read_properties()
+
+        with sp.ExamplePackage(package_name="my-package"):
+            properties = sp.read_properties()
         ```
     """
 
-    def __init__(self, with_resources: bool = True):
+    def __init__(
+        self,
+        package_name: str = example_package_properties().name,
+        with_resources: bool = True,
+    ):
         """Initialise the `ExamplePackage` context manager.
 
         Args:
+            package_name: The name of the package and its root folder.
             with_resources: Whether resources should be added when creating the package.
                 Defaults to True.
         """
+        self.package_name = package_name
         self.with_resources = with_resources
         self.calling_dir = Path.cwd()
         self.temp_dir = tempfile.TemporaryDirectory()
@@ -254,10 +263,13 @@ class ExamplePackage(AbstractContextManager):
         Returns:
             A `PackagePath` object pointing to the root of the temporary package.
         """
-        package_path = PackagePath(Path(self.temp_dir.name))
+        package_dir = Path(self.temp_dir.name) / self.package_name
+        package_dir.mkdir(exist_ok=True)
+        package_path = PackagePath(package_dir)
 
         # Create package properties
         package_properties = example_package_properties()
+        package_properties.name = self.package_name
 
         # Create resource properties
         if self.with_resources:
@@ -277,7 +289,7 @@ class ExamplePackage(AbstractContextManager):
         # Write README
         write_file(as_readme_text(package_properties), package_path.readme())
 
-        os.chdir(package_path.path)
+        os.chdir(package_path.root())
 
         return package_path
 
