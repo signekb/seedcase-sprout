@@ -1,3 +1,9 @@
+## 0.43.1 (2025-05-21)
+
+### Refactor
+
+- :recycle: update `extract_resource_properties()` to take `pl.DataFrame` (#1264)
+
 ## 0.43.0 (2025-05-21)
 
 ### Feat
