@@ -100,15 +100,3 @@ def _get_allowed_polars_types(
         for polars_type, datapackage_types in _POLARS_TO_DATAPACKAGE.items()
         if datapackage_type in datapackage_types
     ]
-
-
-def _polars_to_frictionless(polars_type: pl.DataType) -> FieldType:
-    """Return the Data Package type that is the best match for the given Polars type.
-
-    Args:
-        polars_type: The Polars type to match.
-
-    Returns:
-        The best-match Data Package type.
-    """
-    return _get_allowed_datapackage_types(polars_type)[0]

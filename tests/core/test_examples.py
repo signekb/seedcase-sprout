@@ -113,9 +113,9 @@ def test_manages_temp_folder_correctly():
 
 
 # TODO: run test when path functions have default paths
-def xtest_can_use_context_without_referencing_package_path_explicitly():
-    """It should be possible to omit the package path from function calls within the
-    context."""
-    with ExamplePackage():
-        properties = read_properties()
-        assert check_properties(properties)
+# def xtest_can_use_context_without_referencing_package_path_explicitly():
+#     """It should be possible to omit the package path from function calls within the
+#     context."""
+#     with ExamplePackage():
+#         properties = read_properties()
+#         assert check_properties(properties)

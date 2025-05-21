@@ -45,7 +45,6 @@ build-pdf:
   uv run quarto render --profile pdf --to pdf
   find docs -name "mermaid-figure-*.png" -delete
 
-
 # Run checks on commits with non-main branches
 check-commits:
   #!/bin/zsh
@@ -74,4 +73,4 @@ check-unused:
   # - 100 %: function/method/class argument, unreachable code
   # - 90 %: import
   # - 60 %: attribute, class, function, method, property, variable
-  vulture src/ tests/
+  uv run vulture src/ tests/ **/vulture-allowlist.py
