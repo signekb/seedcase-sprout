@@ -1,3 +1,9 @@
+## 0.43.3 (2025-05-22)
+
+### Refactor
+
+- :truck: remove `core` folders (#1336)
+
 ## 0.43.2 (2025-05-22)
 
 ### Refactor
