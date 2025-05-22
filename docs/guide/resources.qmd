@@ -93,11 +93,19 @@ import seedcase_sprout.core as sp
 
 # For pretty printing of output
 from pprint import pprint
-
-# TODO: This could be a wrapper helper function instead
-# To be able to write multiline strings without indentation
-from textwrap import dedent
 ```
+
+Since Sprout only works with [Polars DataFrames](https://pola.rs/), we
+will need to load in the data using Polars:
+
+```{python}
+import polars as pl
+
+original_data = pl.read_csv(raw_data_path)
+print(original_data)
+```
+
+Then we can continue with the next steps.
 
 ## Extracting resource properties from the data
 
@@ -159,11 +167,10 @@ resource_properties.description = "This data resource contains data about..."
 ## Creating a data resource
 
 Now that you have the properties for the resource, you can create the
-resource itself within your existing data package. As a data package can
-contain multiple resources, each resource is stored in a separate
-folder. So in this step you will make a folder for the new resource
-within the data package and save the resource properties to the
-`datapackage.json` file of the package.
+properties for the resource within your existing data package. A data
+package can contain multiple resources, so their `name` property
+must be unique. This `name` property is what will be used later
+to create the folder structure for that resource.
 
 We assume that you've already created a data package (for example, by
 following the [package guide](packages.qmd#creating-a-data-package)) and
@@ -217,22 +224,28 @@ See the [flow diagrams](/docs/design/interface/flows.qmd#flows) for a
 simplified flow of steps involved in adding batch files.
 :::
 
+Batch files are used to store data in a data package each time you add
+data to a resource. These batch files will be used to create the data
+file that is actually used as the resource at the path `resource/<name>/data.parquet`.
+The first time a batch file is saved, it will create the folders necessary for the resource.
+
 As shown above, the data is currently stored loaded as a Polars
 DataFrame called `data`. Now, it's time to store this data in the
 resource's folder by using:
 
+<!-- TODO: Convert to save to temp location -->
+
 ```{python}
-#| eval: false
-# TODO: eval when function implemented
 sp.write_resource_batch(
-    data=...,
+    data=original_data,
     resource_properties=resource_properties
 )
 ```
 
 This function uses the properties object to determine where to store the
 data as a batch file, which is in the `batch/` folder of the resource's
-folder. You can check the newly added file by using:
+folder. If this is the first time adding a batch file, all the folders
+will be set up. You can check the newly added file by using:
 
 ```{python}
 print(package_path.resource_batch_files(1))

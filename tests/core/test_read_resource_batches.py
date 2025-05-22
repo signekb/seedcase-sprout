@@ -52,6 +52,7 @@ def resource_properties() -> ResourceProperties:
 
 @fixture
 def test_package(tmp_path):
+    # TODO: Switch to using examples
     create_test_data_package(tmp_path)
     batch_path = tmp_path / "resources" / "1" / "batch"
     batch_path.mkdir(parents=True)

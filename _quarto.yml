@@ -3,6 +3,8 @@ project:
   render:
     - "docs/*"
     - "index.qmd"
+  post-render:
+    - find resources/patient-data/batch/ -iname "*.parquet" -delete
 
 website:
   title: "Seedcase Sprout"
@@ -91,7 +93,6 @@ quartodoc:
       desc: "Functions to work with and manage data resources found within a data package."
       package: "seedcase_sprout.core"
       contents:
-        - create_resource_structure
         - extract_resource_properties
         - join_resource_batches
         - read_resource_batches
