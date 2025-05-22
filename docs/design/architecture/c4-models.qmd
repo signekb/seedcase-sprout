@@ -32,10 +32,10 @@ Firefox. To see them, try using a different browser like Chrome or Edge.
 %%| fig-width: 6.3
 %%| fig-cap: "C4 Context diagram showing a very basic overview of Sprout and its anticipated users."
 flowchart LR
-    user_owner(["Owner/creator<br>[person]<br><br>Creates and owns a<br>project that generates<br>data. Uses Sprout Core<br>for more control."])
-    user_admin(["Administrator<br>[person]<br><br>Manages data and<br>metadata from a<br>project for an owner.<br>Uses Sprout Core for<br>more control."])
-    user_swe(["Software engineer<br>[person]<br><br>Creates and develops<br>data infrastructure.<br>Uses Sprout Core to<br>build extensions and<br>customizations."])
-    user_de(["Data engineer<br>[person]<br><br>Develops data pipelines<br>and infrastructures.<br>Uses Sprout Core to<br>build and customize<br>the pipelines."])
+    user_owner(["Owner/creator<br>[person]<br><br>Creates and owns a<br>project that generates<br>data. Uses Sprout<br>for more control."])
+    user_admin(["Administrator<br>[person]<br><br>Manages data and<br>metadata from a<br>project for an owner.<br>Uses Sprout for<br>more control."])
+    user_swe(["Software engineer<br>[person]<br><br>Creates and develops<br>data infrastructure.<br>Uses Sprout to<br>build extensions and<br>customizations."])
+    user_de(["Data engineer<br>[person]<br><br>Develops data pipelines<br>and infrastructures.<br>Uses Sprout to<br>build and customize<br>the pipelines."])
     sprout["Seedcase Sprout<br>[system]<br><br>Allows users fine-<br>grained control over<br>building, managing,<br>and structuring data<br>in a way that makes<br>it easier to share<br>with collaborators<br>and to analyze.<br>Structures data<br>following the<br>Frictionless Data<br>Package Standard."]
     output[("Filesystem (local or server)<br>[system]<br><br>Structured data from<br>Sprout that is stored<br>in a filesystem for<br>later use. This can<br>be on a server or<br>on a local, personal<br>computer, depending<br>on the privacy of<br>the data.")]
 

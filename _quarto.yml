@@ -78,20 +78,15 @@ quartodoc:
     table_style: description-list
     show_signature_annotations: true
   sections:
-    - title: "Core functions"
-      desc: "Core functions that support the creation and management of data packages and data resources."
-
-    - subtitle: "Data package functions"
+    - title: "Data package functions"
       desc: "Functions to work with and manage data packages, but not the data resources within them."
-      package: "seedcase_sprout.core"
       contents:
         - write_package_properties
         - update_package_properties
         - as_readme_text
 
-    - subtitle: "Data resource functions"
+    - title: "Data resource functions"
       desc: "Functions to work with and manage data resources found within a data package."
-      package: "seedcase_sprout.core"
       contents:
         - extract_resource_properties
         - join_resource_batches
@@ -100,9 +95,8 @@ quartodoc:
         - write_resource_data
         - write_resource_properties
 
-    - subtitle: "Property dataclasses"
+    - title: "Property dataclasses"
       desc: "Dataclasses that support creating correct data package properties."
-      package: "seedcase_sprout.core"
       contents:
         - ConstraintsProperties
         - ContributorProperties
@@ -116,21 +110,18 @@ quartodoc:
         - TableSchemaForeignKeyProperties
         - TableSchemaProperties
 
-    - subtitle: "Property functions"
+    - title: "Property functions"
       desc: "Functions used to work with properties."
-      package: "seedcase_sprout.core"
       contents:
         - read_properties
 
-    - subtitle: "Path functions"
+    - title: "Path functions"
       desc: "Functions to support providing the correct file paths to files and folders in a data package for other functions."
-      package: "seedcase_sprout.core"
       contents:
         - PackagePath
 
-    - subtitle: "Helper functions"
-      desc: "Functions to support working with data packages and running code within Sprout Core."
-      package: "seedcase_sprout.core"
+    - title: "Helper functions"
+      desc: "Functions to support working with data packages and running code within Seedcase Sprout."
       contents:
         - example_package_properties
         - example_resource_properties

@@ -41,7 +41,7 @@ structure used by Sprout are:
 #| include: false
 # This `setup` code chunk creates a package and downloads some data.
 import polars as pl
-import seedcase_sprout.core as sp
+import seedcase_sprout as sp
 from tempfile import mkdtemp
 from pathlib import Path
 from urllib.request import urlretrieve
@@ -89,7 +89,7 @@ Before we start, you need to import Sprout as well as other helper
 packages:
 
 ```{python}
-import seedcase_sprout.core as sp
+import seedcase_sprout as sp
 
 # For pretty printing of output
 from pprint import pprint

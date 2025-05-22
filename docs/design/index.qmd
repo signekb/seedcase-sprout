@@ -40,7 +40,7 @@ research contexts. Specifically, Sprout aims to:
 
 Aligning with our modular design pattern to build software that has a
 focused and narrow scope as well as that can be easily extended or
-customized, *Sprout core* (this package) has an additional aim to:
+customized, *Sprout* (this package) has an additional aim to:
 
 1.  Build a flexible, extensible, and fine-grained set of
     functionalities that implement Sprout's overall design, enabling
@@ -84,16 +84,6 @@ Overall, Sprout must:
     changes and provide a way to show, track, and manage versions of the
     data. This is also necessary for legal compliance, auditing and
     record-keeping.
-
-In general, Sprout will not:
-
--   Run any analytic computing or data science work: While some data
-    processing and analysis will occur, it will be limited to running
-    checks on the quality of the data and metadata.
-
-Aside from the overall requirements for Sprout, the requirements for
-this *core* module of Sprout are:
-
 -   Individual pieces of functionality should be independent: To keep it
     flexible and extensible, each functionality should (ideally) be able
     to run on its own without needing to depend on other functionality.
@@ -105,3 +95,9 @@ this *core* module of Sprout are:
     package should not be designed to be (too) opinionated about the
     order steps are taken, what steps are taken, where they are taken,
     and other specific details.
+
+In general, Sprout will not:
+
+-   Run any analytic computing or data science work: While some data
+    processing and analysis will occur, it will be limited to running
+    checks on the quality of the data and metadata.

@@ -4,7 +4,7 @@ from pathlib import Path
 import requests
 from datamodel_code_generator import DataModelType, InputFileType, generate
 
-from seedcase_sprout.core.internals import _write_json
+from seedcase_sprout.internals import _write_json
 
 
 def get_schema(path):

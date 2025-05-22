@@ -43,7 +43,7 @@ information about these classes.
 First, import the necessary modules and set up the environment:
 
 ```{python}
-import seedcase_sprout.core as sp
+import seedcase_sprout as sp
 ```
 
 There are a few properties that are required for a data package, such as

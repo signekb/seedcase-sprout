@@ -21,7 +21,7 @@ when they are no longer needed.
 
 Based on the [naming scheme](/docs/design/architecture/naming.qmd#naming) and
 the [Frictionless Data Package standard](https://datapackage.org), these
-are the core external-facing functions in Sprout. See the
+are the external-facing functions in Sprout. See the
 [Outputs](outputs.qmd#outputs) section for an overview and explanation of the
 different outputs provided by Sprout.
 

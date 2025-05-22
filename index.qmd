@@ -44,11 +44,10 @@ div.quarto-about-jolla {
 Project**](https://seedcase-project.org), offering a flexible solution
 to structure and manage your data.
 
-Sprout Core is a **Python package** with a flexible interface that
-encapsulates Sprout's core functionalities, directed at developers and
-those who want lots of control. It's designed to be easily extended and
-customized to fit your needs, such as to build a command-line interface
-or web app.
+Sprout is a **Python package** with a flexible interface directed at
+developers and those who want lots of control. It's designed to be
+easily extended and customized to fit your needs, such as to build a
+command-line interface or web app.
 :::
 ::::
 :::::

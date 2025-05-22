@@ -28,7 +28,7 @@ A set of package properties with only the required fields filled in
 might look like:
 
 ```{python}
-import seedcase_sprout.core as sp
+import seedcase_sprout as sp
 from textwrap import dedent
 
 # For pretty printing of output
@@ -188,16 +188,16 @@ previous section:
 | ExceptionGroup: The following checks failed on the properties:
 | PackageProperties(name='woolly-dormice', id='123-abc-123', title='Hibernation Physiology of the Woolly Dormouse: A Scoping Review.', description=None, homepage=None, version='1.0.0', created='2014-05-14T05:00:01+00:00', contributors=None, keywords=None, image=None, licenses=[LicenseProperties(name='odc-pddl', path=None, title=None)], resources=[ResourceProperties(name='woolly-dormice-2015', path='https://en.wikipedia.org/wiki/Woolly_dormouse', type=None, title='Body fat percentage in the hibernating woolly dormouse', description=None, sources=None, licenses=None, format=None, mediatype=None, encoding=None, bytes=None, hash=None, dialect=None, schema=None)], sources=None) (3 sub-exceptions)
 +-+---------------- 1 ----------------
-| seedcase_sprout.core.check_datapackage.check_error.CheckError: Error at `$.description` caused by `required`: 'description' is a required property
+| seedcase_sprout.check_datapackage.check_error.CheckError: Error at `$.description` caused by `required`: 'description' is a required property
 +---------------- 2 ----------------
-| seedcase_sprout.core.check_datapackage.check_error.CheckError: Error at `$.resources[0].description` caused by `required`: 'description' is a required property
+| seedcase_sprout.check_datapackage.check_error.CheckError: Error at `$.resources[0].description` caused by `required`: 'description' is a required property
 +------------------------------------
 ```
 
 First, the offending properties are printed, followed by the list of
 errors. Error messages are composed of the following parts:
 
--   "seedcase_sprout.core.check_datapackage.check_error.CheckError": the class
+-   "seedcase_sprout.check_datapackage.check_error.CheckError": the class
     representing the error. Check functions will always throw
     `CheckError`s for failing checks.
 -   "Error at `$.resources[0].description`": the location of the error
