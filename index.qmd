@@ -17,7 +17,7 @@ about:
   links:
     - text: "Install Sprout"
       href: "https://sprout.seedcase-project.org/docs/guide/installation"
-    - text: "Explore tutorials"
+    - text: "Explore guide"
       href: "https://sprout.seedcase-project.org/docs/guide"
 ---
 
