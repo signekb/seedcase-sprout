@@ -1,3 +1,9 @@
+## 0.43.2 (2025-05-22)
+
+### Refactor
+
+- :recycle: action of `create_resource_structure()` into `write_resource_batch()` (#1295)
+
 ## 0.43.1 (2025-05-21)
 
 ### Refactor
