@@ -4,6 +4,15 @@
 # Run all build-related recipes in the justfile
 run-all: install-deps format-python check-python check-unused test-python check-security check-spelling check-commits build-website
 
+# Install the pre-commit hooks
+install-precommit:
+  # Install pre-commit hooks
+  uvx pre-commit install
+  # Run pre-commit hooks on all files
+  uvx pre-commit run --all-files
+  # Update versions of pre-commit hooks
+  uvx pre-commit autoupdate
+
 # Install Python package dependencies
 install-deps:
   uv sync --all-extras --dev
@@ -74,4 +83,5 @@ check-unused:
   # - 90 %: import
   # - 60 %: attribute, class, function, method, property, variable
   # There are some things should be ignored though, with the allowlist.
+  # Create an allowlist with `vulture --make-allowlist`
   uv run vulture src/ tests/ **/vulture-allowlist.py
