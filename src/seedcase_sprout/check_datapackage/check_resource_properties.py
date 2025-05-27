@@ -1,12 +1,10 @@
-from seedcase_sprout.check_datapackage.add_resource_recommendations import (
-    add_resource_recommendations,
-)
 from seedcase_sprout.check_datapackage.check_error import CheckError
-from seedcase_sprout.check_datapackage.check_object_against_json_schema import (
-    check_object_against_json_schema,
-)
 from seedcase_sprout.check_datapackage.constants import DATA_PACKAGE_SCHEMA_PATH
-from seedcase_sprout.internals import _read_json
+from seedcase_sprout.check_datapackage.internals import (
+    _add_resource_recommendations,
+    _check_object_against_json_schema,
+    _read_json,
+)
 
 
 def check_resource_properties(
@@ -34,8 +32,8 @@ def check_resource_properties(
 
     # Recommendations from the Data Package standard
     if check_recommendations:
-        add_resource_recommendations(schema)
+        _add_resource_recommendations(schema)
 
     # Consider only Data Resource schema
     schema = schema["properties"]["resources"]["items"]
-    return check_object_against_json_schema(properties, schema)
+    return _check_object_against_json_schema(properties, schema)

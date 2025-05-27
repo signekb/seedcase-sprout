@@ -1,7 +1,16 @@
+from enum import Enum
 from importlib.resources import files
 from pathlib import Path
 
-from seedcase_sprout.check_datapackage.required_fields import RequiredFieldType
+
+# Data Package standard required fields and their types
+class RequiredFieldType(str, Enum):
+    """A class enumerating allowed types for required fields."""
+
+    str = "str"
+    list = "list"
+    any = "any"
+
 
 COMPLEX_VALIDATORS = {"allOf", "anyOf", "oneOf"}
 
