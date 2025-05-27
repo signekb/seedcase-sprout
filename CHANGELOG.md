@@ -1,3 +1,9 @@
+## 0.43.4 (2025-05-27)
+
+### Refactor
+
+- :recycle: simplify and make `check_datapackage` self-contained (#1342)
+
 ## 0.43.3 (2025-05-22)
 
 ### Refactor
