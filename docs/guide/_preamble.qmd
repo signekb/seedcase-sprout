@@ -1,7 +1,5 @@
 ::: {.callout-important appearance="default" icon="true"}
-The Sprout Python package assumes you have full control
-over the folders and files of the system, or at least your user's home
-directory. This includes being given space on a server that mostly has
-access through a Terminal, where you have control over the directories
-you can write to.
+Sprout assumes you have control over your system's files and folders, or
+at least your user's home directory. This includes having access to a
+server through the Terminal where you can write to specific folders.
 :::
