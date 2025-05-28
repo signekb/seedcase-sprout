@@ -120,7 +120,7 @@ flowchart
     function --> out
 ```
 
-### {{< var wip >}} `write_resource_batch(data, resource_properties)`
+### {{< var done >}} `write_resource_batch(data, resource_properties)`
 
 See the help documentation with `help(write_resource_batch)` for
 more details.
@@ -136,7 +136,7 @@ flowchart
     function --> out
 ```
 
-### {{< var wip >}} `read_resource_batches(resource_properties, paths)`
+### {{< var done >}} `read_resource_batches(resource_properties, paths)`
 
 See the help documentation with `help(read_resource_batches)` for more
 details.
@@ -152,7 +152,7 @@ flowchart
     function --> out
 ```
 
-### {{< var wip >}} `join_resource_batches(data_list, resource_properties)`
+### {{< var done >}} `join_resource_batches(data_list, resource_properties)`
 
 See the help documentation with `help(join_resource_batches)` for more
 details.
@@ -168,7 +168,7 @@ flowchart
     function --> out
 ```
 
-### {{< var wip >}} `write_resource_data(data, resource_properties)`
+### {{< var done >}} `write_resource_data(data, resource_properties)`
 
 See the help documentation with `help(write_resource_data)` for more
 details.
@@ -321,7 +321,7 @@ flowchart
     function --> out
 ```
 
-### {{< var wip >}} `check_data(data, resource_properties)`
+### {{< var done >}} `check_data(data, resource_properties)`
 
 See the help documentation with `help(check_data)` for more details.
 This function checks the data against the properties in the
