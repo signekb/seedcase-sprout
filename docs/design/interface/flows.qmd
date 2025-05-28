@@ -34,12 +34,17 @@ Edge.
 :::
 
 
-## Creating a new package
+## Creating or updating a package
 
 This is the flow for making a new package. The
 `write_package_properties()` will internally call `check_properties()`,
 but it can also be called separately to check the properties before
-writing them to the `datapackage.json` file.
+writing them to the `datapackage.json` file. The `PackageProperties`
+are written in a Python script in folder that has the `datapackage.json`
+and you'd run that script to generate the `datapackage.json`. To update
+the properties in the `datapackage.json` file, you would edit the
+Python script directly and then run it again to overwrite the
+`datapackage.json` file with the new properties.
 
 ```{mermaid}
 %%| label: fig-flow-new-package
@@ -56,35 +61,6 @@ flowchart
     path_properties --> write_package_properties
 ```
 
-## Updating properties in an existing package
-
-The flow for updating properties in an existing package. The
-`update_package_properties()` function will internally call
-`check_properties()`, but it can also be called separately to check the
-properties before updating them in the `datapackage.json` file.
-
-```{mermaid}
-%%| label: fig-flow-update-package
-%%| fig-cap: "Diagram showing the flow of objects and functions to update properties in an existing package."
-%%| fig-alt: "A flow diagram showing the steps to updating properties in an existing package."
-flowchart
-    properties_current[("PackageProperties<br>(current)")]
-    properties_updates[("PackageProperties<br>(updates)")]
-    properties_updated[("PackageProperties<br>(updated)")]
-    path_properties("PackagePath().properties()")
-    update_package_properties("update_package_properties()")
-    read_package_properties("read_package_properties()")
-    write_package_properties("write_package_properties()")
-
-    path_properties --> read_package_properties
-    read_package_properties --> properties_current
-    properties_current --> update_package_properties
-    properties_updates --> update_package_properties
-    update_package_properties --> properties_updated
-    properties_updated --> write_package_properties
-    path_properties --> write_package_properties
-```
-
 ## Extract resource properties from data
 
 The flow for extracting resource properties from data. This is useful
@@ -93,9 +69,13 @@ as a CSV file with a header row that contains the column names. The
 `extract_resource_properties()` function cannot extract all required
 properties from the data, so they must be updated by the user. So both
 `TableSchemaProperties` and `ResourceProperties` will need many of their
-fields filled in after using `extract_resource_properties()`. The
-`update_resource_properties()` function will internally call
-`check_resource_properties()`.
+fields filled in after using `extract_resource_properties()`. The output
+of the function `extract_resource_properties()` can be used to generate
+a Python script from a template to give you a starting point for
+writing the resource properties. Afterwards, if you want to update
+the resource properties, you'll edit the Python script
+with the properties and then re-run your build process to generate
+the `datapackage.json` file with the updated properties.
 
 ```{mermaid}
 %%| label: fig-flow-extract-resource-properties
@@ -104,22 +84,12 @@ fields filled in after using `extract_resource_properties()`. The
 flowchart
     data[("DataFrame<br>(Tidy)")]
     properties_extracted[("ResourceProperties<br>(extracted)")]
-    properties_updates[("ResourceProperties<br>(additions)")]
-    schema_properties_updates[("TableSchemaProperties<br>(additions)")]
-    properties_updated[("ResourceProperties<br>(updated)")]
-    update_resource_properties("update_resource_properties()")
-    path_properties("PackagePath().properties()")
     extract_resource_properties("extract_resource_properties()")
-    write_resource_properties("write_resource_properties()")
+    python_script("Python script<br>(generated with<br>extracted properties)")
 
     data --> extract_resource_properties
     extract_resource_properties --> properties_extracted
-    properties_extracted --> update_resource_properties
-    schema_properties_updates --> properties_updates
-    properties_updates --> update_resource_properties
-    update_resource_properties --> properties_updated
-    properties_updated --> write_resource_properties
-    path_properties --> write_resource_properties
+    properties_extracted --> python_script
 ```
 
 ## Update README after changing package or resource properties
@@ -139,13 +109,13 @@ to the file.
 flowchart
     properties[(PackageProperties)]
     path_properties("PackagePath().properties()")
-    read_package_properties("read_package_properties()")
+    read_properties("read_properties()")
     as_readme_text("as_readme_text()")
     write_file("write_file()")
     path_readme("PackagePath().readme()")
 
-    path_properties --> read_package_properties
-    read_package_properties --> properties
+    path_properties --> read_properties
+    read_properties --> properties
     properties --> as_readme_text
     as_readme_text --> write_file
     path_readme --> write_file
@@ -173,43 +143,6 @@ flowchart
     properties -.-> check_resource_properties
     properties --> write_resource_properties
     path_properties --> write_resource_properties
-```
-
-## Update resource properties
-
-If you want to make a change to one or more of the fields inside the
-resource properties, this would be the flow you use. While the
-`update_resource_properties()` and `write_resource_properties()`
-functions will internally call `check_resource_properties()`, they can
-also be called separately to check the properties before updating them
-in the `datapackage.json` file.
-
-```{mermaid}
-%%| label: fig-flow-update-resource-properties
-%%| fig-cap: "Diagram showing the flow of objects and functions to update a resource's properties."
-%%| fig-alt: "A flow diagram showing the steps to update resource properties."
-flowchart
-    resource_name[("string<br>(name of resource)")]
-    properties_current[("ResourceProperties<br>(current)")]
-    properties_updates[("ResourceProperties<br>(updates)")]
-    properties_updated[("ResourceProperties<br>(updated)")]
-    path_properties("PackagePath().properties()")
-    update_resource_properties("update_resource_properties()")
-    read_properties("read_properties()")
-    get_resource_properties("get_resource_properties()")
-    write_resource_properties("write_resource_properties()")
-    check_resource_properties("check_resource_properties()")
-
-    path_properties --> read_properties
-    read_properties --> get_resource_properties
-    get_resource_properties --> properties_current
-    properties_current --> update_resource_properties
-    properties_updates --> update_resource_properties
-    update_resource_properties --> properties_updated
-    properties_updated --> write_resource_properties
-    path_properties --> write_resource_properties
-    resource_name --> get_resource_properties
-    properties_updated -.-> check_resource_properties
 ```
 
 ## Checking the properties of packages or resources

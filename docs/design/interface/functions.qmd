@@ -70,22 +70,6 @@ flowchart
     function --> out
 ```
 
-### {{< var done >}} `update_package_properties(current_properties, update_properties)`
-
-See the help documentation with `help(update_package_properties())` for
-more details.
-
-```{mermaid}
-flowchart
-    in_current[/current_properties/]
-    in_updates[/update_properties/]
-    function("update_package_properties()")
-    out[("PackageProperties")]
-    in_current --> function
-    in_updates --> function
-    function --> out
-```
-
 ### {{< var done >}} `write_package_properties(properties, path)`
 
 See the help documentation with `help(write_package_properties)` for

@@ -150,46 +150,10 @@ sp.write_file(
 ## Editing package properties
 
 If you made a mistake and want to update the properties in the current
-`datapackage.json`. You likely want to edit the properties in the
-`datapackage.json` file so you first need to read in the properties from
-the file. You can do this with the `read_properties()` function that
-takes the path to the `datapackage.json` file as an argument.
-
-```{python}
-current_properties = sp.read_properties(
-  path=sp.PackagePath(package_path).properties(),
-)
-```
-
-Then you you can use the `update_package_properties()` function
-while using the helper `PackagePath().properties()` function to point to the
-`datapackage.json` file. The default behavior of the `PackagePath().properties()`
-function is to look in the current working directory, but for this
-guide, it is pointing to the temporary folder created from above.
-
-```{python}
-updated_package_properties = sp.update_package_properties(
-  current_properties=current_properties,
-  update_properties=sp.PackageProperties(name="diabetes-study"),
-)
-```
-
-::: callout-important
-The `update_package_properties()` function will give an error if the
-required fields are not filled in correctly and so will not create a
-`datapackage.json` file.
-:::
-
-This function only takes the properties and updates them, but does not
-save it back to the `datapackage.json` file. To save it back to the
-file, run:
-
-```{python}
-sp.write_package_properties(
-  properties=updated_package_properties,
-  path=sp.PackagePath(package_path).properties(),
-)
-```
+`datapackage.json`, you can edit the Python script directly where you
+previously made the properties. Since everything is written in Python
+scripts, updating those scripts and re-running your build pipeline
+will then update everything again.
 
 If you need help with filling in the right properties, see the
 documentation for the `PackageProperties` classes or run e.g.,
