@@ -1,3 +1,9 @@
+## 0.43.5 (2025-05-28)
+
+### Refactor
+
+- :recycle: remove `update_package_properties()` and revise docs (#1355)
+
 ## 0.43.4 (2025-05-27)
 
 ### Refactor
