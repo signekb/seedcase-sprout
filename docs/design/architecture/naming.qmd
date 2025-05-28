@@ -43,8 +43,6 @@ We may also occasionally use "properties" to refer to the file itself.
 | path | A file path listing the location of folders or files that Sprout interacts with. |
 | data | The data file within a resource. Within Sprout, this includes the Parquet data and batch files. |
 | identifier | A unique identifier for a package (*only for server environments*) or resource, denoted as `id`. |
-| changes | The changes made to the data package that will be stored in the version control repository of the data package. |
-| version | The version of the data package, denoted as `version`. |
 | observational unit | The unit of observation, meaning the data associated with a specific entity at a specific time, e.g. a person who had their weight measured on their 30th birthday. |
 
 : General objects used throughout Sprout.
@@ -64,7 +62,6 @@ We may also occasionally use "properties" to refer to the file itself.
 
 | Action | Description |
 |----------------------------|--------------------------------------------|
-| commit | Saves changes made in a data package to the version control system. |
 | update | Update an object, mainly of the properties or version objects. |
 | write | Write an object to a file. |
 | read | Reads an object from a file. |
