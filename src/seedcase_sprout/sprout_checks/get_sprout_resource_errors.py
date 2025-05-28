@@ -1,6 +1,6 @@
 import seedcase_sprout.check_datapackage as cdp
-from seedcase_sprout.internals._create_relative_resource_data_path import (
-    _create_relative_resource_data_path,
+from seedcase_sprout.internals import (
+    _create_resource_data_path,
 )
 from seedcase_sprout.sprout_checks.check_fields_not_blank import (
     check_fields_not_blank,
@@ -61,7 +61,6 @@ def _check_resource_path_format(
     """
     name = properties.get("name")
     path = properties.get("path")
-    expected_path = _create_relative_resource_data_path(name)
 
     if (
         # Do not check path if name is incorrect
@@ -70,8 +69,11 @@ def _check_resource_path_format(
         or not isinstance(path, str)
         # Do not flag blank errors twice
         or path == ""
-        or path == expected_path
     ):
+        return []
+
+    expected_path = _create_resource_data_path(name)
+    if path == expected_path:
         return []
 
     return [
