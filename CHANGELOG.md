@@ -1,3 +1,9 @@
+## 0.43.6 (2025-05-28)
+
+### Refactor
+
+- :recycle: simplify and move into internals (#1348)
+
 ## 0.43.5 (2025-05-28)
 
 ### Refactor
