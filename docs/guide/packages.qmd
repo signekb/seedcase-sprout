@@ -13,32 +13,34 @@ show you how to create and manage data packages using Sprout.
 
 ## Creating a data package
 
-We've designed Sprout to be used in a similar way that Git repositories
-or Python virtual environments are used (for instance, as we recommend
-in the [installation guide](installation.qmd#installation)). This means
-that we assume and expect that you will be creating and managing a data
-package in the root of your Python (or Git) project. The same folder
-where your `.git/` folder or `pyproject.toml` file is will also contain
-your `datapackage.json` file. With this design, many of Sprout's helper
-path functions assume that the working directory is where the
-`datapackage.json` file is (or will be) and where the `pyproject.toml`
-file (or `.git/` folder) is stored.
+Sprout is designed to work in the root of your Python project---where
+your `.git/` folder and/or `pyproject.toml` file is located (see the
+[installation guide](installation.qmd#installation) for how to install
+Sprout in a virtual environment). By default, Sprout's helper functions
+expect the working directory to be the root of your project. Throughout
+this guide we will refer to the root folder of the Python project as the
+root folder of the data package.
+
+<!-- TODO: Update the section below after the properties templates have been implemented -->
 
 With that in mind, let's make a data package! A data package always
-needs a `datapackage.json` file. This file contains a set of
-[{{< glossary "properties">}}](../glossary.qmd), or metadata, about the
-data package and, eventually, about the data resources within it. To set
-up this `datapackage.json` file, you first need a set of properties you
-want to add to the data package. Then, you can use the
+needs a `datapackage.json` file. This file will be located at the root
+of your data package and contains a set of
+[{{< glossary "properties">}}](../glossary.qmd), or metadata about the
+data package and the data resources within it. To set up this
+`datapackage.json` file, you first need a set of properties you want to
+add to the data package. Then, you can use the
 `write_package_properties()` function that takes the properties and the
 path where you want to store the data package as arguments. So first,
 you need to establish our properties.
 
-Sprout has several helper classes, such as `PackageProperties`,
+Sprout includes several data classes, such as `PackageProperties`,
 `LicenseProperties`, and `ContributorProperties`, to make it easier for
 you to make properties with the correct fields filled in. See the guide
 on [properties](/docs/guide/properties.qmd#properties) for more
-information about these classes.
+information about these data classes.
+
+<!-- TODO: Add properties guide referenced above -->
 
 First, import the necessary modules and set up the environment:
 
@@ -124,10 +126,10 @@ print(package_path.glob("**/*"))
 
 Having a *human-readable* version of what is contained in the
 `datapackage.json` file is useful for others who may be working with or
-wanting to learn more about your data package. You can use `as_readme_text()` to
-convert the properties information into text that can be added to a
-README file. Let's create a README file with the properties of the data
-package you just created:
+wanting to learn more about your data package. You can use
+`as_readme_text()` to convert the properties into text that can be added
+to a README file. Let's create a README file with the properties of the
+data package you just created:
 
 ```{python}
 readme_text = sp.as_readme_text(properties)
