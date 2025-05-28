@@ -407,19 +407,3 @@ flowchart
 ### {{< var done >}} `write_file(text, path)`
 
 See the help documentation with `help(write_file)` for more details.
-
-### {{< var wip >}} `delete_file(path, confirm)`
-
-Given a path, delete that file. This is mostly a wrapper around standard
-functions in Python. The `confirm` argument defaults to `false` so that
-the user needs to explicitly provide `true` to the function argument as
-confirmation. This is done to prevent accidental deletion. Outputs `true`
-if the deletion was successful.
-
-### {{< var wip >}} `delete_dir(path, confirm)`
-
-Given a path, delete that directory and everything inside. This is mostly a
-wrapper around standard functions in Python. The `confirm` argument defaults to
-`false` so that the user needs to explicitly provide `true` to the function
-argument as confirmation. This is done to prevent accidental deletion. Outputs
-`true` if the deletion was successful.
