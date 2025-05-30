@@ -81,8 +81,9 @@ quartodoc:
     - title: "Data package functions"
       desc: "Functions to work with and manage data packages, but not the data resources within them."
       contents:
-        - write_package_properties
         - as_readme_text
+        - update_package_properties
+        - write_package_properties
 
     - title: "Data resource functions"
       desc: "Functions to work with and manage data resources found within a data package."
@@ -94,18 +95,22 @@ quartodoc:
         - write_resource_data
         - write_resource_properties
 
-    - title: "Property dataclasses"
-      desc: "Dataclasses that support creating correct data package properties."
+    - title: "Package property dataclasses"
+      desc: "Dataclasses to help create properties at the package level."
+      contents:
+        - ContributorProperties
+        - LicenseProperties
+        - PackageProperties
+        - SourceProperties
+
+    - title: "Resource property dataclasses"
+      desc: "Dataclasses to help create properties at the resource level."
       contents:
         - ConstraintsProperties
-        - ContributorProperties
         - FieldProperties
-        - LicenseProperties
         - MissingValueProperties
-        - PackageProperties
         - ReferenceProperties
         - ResourceProperties
-        - SourceProperties
         - TableSchemaForeignKeyProperties
         - TableSchemaProperties
 
