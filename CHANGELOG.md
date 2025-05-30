@@ -1,3 +1,9 @@
+## 0.44.0 (2025-05-30)
+
+### Feat
+
+- :sparkles: add properties template (#1345)
+
 ## 0.43.6 (2025-05-28)
 
 ### Refactor
