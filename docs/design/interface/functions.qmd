@@ -56,7 +56,6 @@ Edge.
 
 ## Data package functions
 
-
 ### {{< var done >}} `as_readme_text(properties)`
 
 See the help documentation with `help(as_readme_text)` for more details.
@@ -165,6 +164,25 @@ flowchart
     out[("./resources/{name}/data.parquet")]
     in_data --> function
     in_properties --> function
+    function --> out
+```
+
+### {{< var wip >}} `read_resource_data(resource_name, path)`
+
+This function takes the name of the resource you want to read and
+optionally the path to the `datapackage.json` file and will read in
+the data resource (as a Parquet file) into a Polars DataFrame. If
+the `path` is not given, it will look for the `datapackage.json` file
+in the current working directory.
+
+```{mermaid}
+flowchart
+    in_name[/resource_name/]
+    in_path[/path/]
+    function("read_resource_data()")
+    out[("DataFrame")]
+    in_name --> function
+    in_path --> function
     function --> out
 ```
 
