@@ -82,7 +82,6 @@ quartodoc:
       desc: "Functions to work with and manage data packages, but not the data resources within them."
       contents:
         - as_readme_text
-        - update_package_properties
         - write_package_properties
 
     - title: "Data resource functions"
@@ -117,6 +116,7 @@ quartodoc:
     - title: "Property functions"
       desc: "Functions used to work with properties."
       contents:
+        - create_properties_template
         - read_properties
 
     - title: "Path functions"
