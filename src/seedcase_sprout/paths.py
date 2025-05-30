@@ -46,7 +46,7 @@ class PackagePath:
         ```
     """
 
-    def __init__(self, path: Path | None = None) -> Path:
+    def __init__(self, path: Path | None = None):
         """Set the base path."""
         self.path = path or Path.cwd()
 
@@ -101,3 +101,7 @@ class PackagePath:
                 get the correct resource name.
         """
         return list(self.resource_batch(resource_name).glob("*.parquet"))
+
+    def properties_template(self) -> Path:
+        """Path to the properties template."""
+        return self.root() / "scripts" / "properties.py"

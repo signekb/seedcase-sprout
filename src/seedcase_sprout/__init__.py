@@ -16,6 +16,7 @@ from .check_properties import (
     check_properties,
     check_resource_properties,
 )
+from .create_properties_template import create_properties_template
 from .examples import (
     ExamplePackage,
     example_data,
@@ -64,6 +65,7 @@ __all__ = [
     "TableSchemaForeignKeyProperties",
     "TableSchemaProperties",
     "read_properties",
+    "create_properties_template",
     # Example properties -----
     "example_package_properties",
     "example_resource_properties",

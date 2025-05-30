@@ -1,3 +1,6 @@
+from importlib.resources import files
+from pathlib import Path
+
 """Constants in the seedcase_sprout module."""
 
 """The format of the timestamp used in batch file names."""
@@ -9,3 +12,5 @@ BATCH_TIMESTAMP_PATTERN = r"\d{4}-\d{2}-\d{2}T\d{6}Z"
 
 """The name of the timestamp column added to the batch data (only used internally)."""
 BATCH_TIMESTAMP_COLUMN_NAME = "_batch_file_timestamp_"
+
+TEMPLATES_PATH: Path = files("seedcase_sprout").joinpath("templates")
