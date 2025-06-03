@@ -1,3 +1,9 @@
+## 0.44.1 (2025-06-03)
+
+### Refactor
+
+- ♻️ simplify to only `write_properties()` (#1366)
+
 ## 0.44.0 (2025-05-30)
 
 ### Feat
