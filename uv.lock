@@ -1823,6 +1823,7 @@ source = { editable = "." }
 dependencies = [
     { name = "dacite" },
     { name = "deepmerge" },
+    { name = "jinja2" },
     { name = "jsonschema" },
     { name = "polars" },
 ]
@@ -1849,6 +1850,7 @@ dev = [
 requires-dist = [
     { name = "dacite", specifier = ">=1.9.2" },
     { name = "deepmerge", specifier = ">=2.0" },
+    { name = "jinja2", specifier = ">=3.1.6" },
     { name = "jsonschema", specifier = ">=4.23.0" },
     { name = "polars", specifier = ">=1.26.0" },
 ]
