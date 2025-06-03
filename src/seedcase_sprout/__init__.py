@@ -44,12 +44,11 @@ from .properties import (
 from .read_properties import read_properties
 from .read_resource_batches import read_resource_batches
 from .write_file import write_file
-from .write_package_properties import write_package_properties
+from .write_properties import write_properties
 from .write_resource_batch import write_resource_batch
 
 # from .update_resource_properties import *
 from .write_resource_data import write_resource_data
-from .write_resource_properties import write_resource_properties
 
 __all__ = [
     # Properties -----
@@ -74,7 +73,7 @@ __all__ = [
     "example_resource_properties_all_types",
     "ExamplePackage",
     # Packages -----
-    "write_package_properties",
+    write_properties,
     "as_readme_text",
     # "delete_package",
     # Resources -----
@@ -84,7 +83,6 @@ __all__ = [
     "write_resource_batch",
     # "update_resource_properties",
     "write_resource_data",
-    "write_resource_properties",
     # "delete_resource_batch_file",
     # "delete_resource_data",
     # "delete_resource_properties",

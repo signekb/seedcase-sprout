@@ -82,7 +82,7 @@ quartodoc:
       desc: "Functions to work with and manage data packages, but not the data resources within them."
       contents:
         - as_readme_text
-        - write_package_properties
+        - write_properties
 
     - title: "Data resource functions"
       desc: "Functions to work with and manage data resources found within a data package."
@@ -92,7 +92,6 @@ quartodoc:
         - read_resource_batches
         - write_resource_batch
         - write_resource_data
-        - write_resource_properties
 
     - title: "Package property dataclasses"
       desc: "Dataclasses to help create properties at the package level."

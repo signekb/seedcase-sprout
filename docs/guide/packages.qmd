@@ -30,7 +30,7 @@ of your data package and contains a set of
 data package and the data resources within it. To set up this
 `datapackage.json` file, you first need a set of properties you want to
 add to the data package. Then, you can use the
-`write_package_properties()` function that takes the properties and the
+`write_properties()` function that takes the properties and the
 path where you want to store the data package as arguments. So first,
 you need to establish our properties.
 
@@ -99,21 +99,21 @@ package_path.mkdir(parents=True)
 :::
 
 ```{python}
-sp.write_package_properties(
+sp.write_properties(
     properties=properties,
     path=sp.PackagePath(package_path).properties()
 )
 ```
 
 ::: callout-important
-The `write_package_properties()` function will give an error if the
+The `write_properties()` function will give an error if the
 `PackageProperties` object is missing some of its required fields or if
 they are not filled in correctly. In that case, a `datapackage.json`
 file won't be created.
 :::
 
 This creates the initial structure of your new package. The
-`write_package_properties()` function created the `datapackage.json`
+`write_properties()` function created the `datapackage.json`
 file in your data package `diabetes-study` folder, which contains the
 properties you added to it. The newly created file would be:
 

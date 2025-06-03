@@ -2,7 +2,7 @@ from pathlib import Path
 
 from seedcase_sprout import (
     example_package_properties,
-    write_package_properties,
+    write_properties,
 )
 
 
@@ -16,7 +16,7 @@ def create_test_data_package(tmp_path: Path) -> Path:
         Path of package.
     """
     tmp_path.mkdir(parents=True, exist_ok=True)
-    write_package_properties(
+    write_properties(
         properties=example_package_properties(), path=tmp_path / "datapackage.json"
     )
 

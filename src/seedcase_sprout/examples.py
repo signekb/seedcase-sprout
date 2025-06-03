@@ -16,7 +16,7 @@ from seedcase_sprout.properties import (
     TableSchemaProperties,
 )
 from seedcase_sprout.write_file import write_file
-from seedcase_sprout.write_package_properties import write_package_properties
+from seedcase_sprout.write_properties import write_properties
 
 
 def example_package_properties() -> PackageProperties:
@@ -380,9 +380,7 @@ class ExamplePackage(AbstractContextManager):
             )
 
         # Save properties
-        write_package_properties(
-            properties=package_properties, path=package_path.properties()
-        )
+        write_properties(properties=package_properties, path=package_path.properties())
 
         # Write README
         write_file(as_readme_text(package_properties), package_path.readme())

@@ -6,7 +6,7 @@ from pytest import raises
 from seedcase_sprout import (
     example_package_properties,
     read_properties,
-    write_package_properties,
+    write_properties,
 )
 from seedcase_sprout.internals import _write_json
 from seedcase_sprout.paths import PackagePath
@@ -17,7 +17,7 @@ def test_reads_in_as_package_properties(tmp_path):
 
     expected_properties = example_package_properties()
     properties_path = tmp_path / "datapackage.json"
-    properties_path = write_package_properties(expected_properties, properties_path)
+    properties_path = write_properties(expected_properties, properties_path)
     actual_properties = read_properties(properties_path)
 
     assert expected_properties == actual_properties
@@ -29,7 +29,7 @@ def test_reads_when_resource_not_exists(tmp_path):
     expected_properties = example_package_properties()
     expected_properties.resources = None
     properties_path = tmp_path / "datapackage.json"
-    properties_path = write_package_properties(expected_properties, properties_path)
+    properties_path = write_properties(expected_properties, properties_path)
     actual_properties = read_properties(properties_path)
 
     assert expected_properties == actual_properties
@@ -69,7 +69,7 @@ def test_error_incorrect_properties_in_file(tmp_path):
 def test_reads_properties_from_cwd_if_no_path_provided(tmp_cwd):
     """If no path is provided, should read datapackage.json from the cwd."""
     properties = example_package_properties()
-    write_package_properties(properties, PackagePath(tmp_cwd).properties())
+    write_properties(properties, PackagePath(tmp_cwd).properties())
 
     assert read_properties() == properties
 

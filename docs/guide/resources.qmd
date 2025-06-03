@@ -51,7 +51,7 @@ package_path = sp.PackagePath(temp_path / "diabetes-study")
 package_path.root().mkdir()
 
 package_properties = sp.example_package_properties()
-sp.write_package_properties(
+sp.write_properties(
     properties=package_properties,
     path=package_path.properties(),
 )
@@ -200,8 +200,10 @@ function to give you the location of the `datapackage.json` file based
 on the path to your package.
 
 ```{python}
-sp.write_resource_properties(
-    resource_properties=resource_properties,
+#| eval: false
+# TODO: Update to use template when it has been implemented
+sp.write_properties(
+    properties=properties,
     path=package_path.properties(),
 )
 ```
@@ -328,11 +330,13 @@ pprint(resource_properties)
 ```
 
 Finally, to write your changes back to `datapackage.json`, use the
-`write_resource_properties()` function:
+`write_properties()` function:
 
 ```{python}
-sp.write_resource_properties(
-    resource_properties=resource_properties,
+#| eval: false
+# TODO: Update to use template when it has been implemented
+sp.write_properties(
+    properties=properties,
     path=package_path.properties(),
 )
 ```
