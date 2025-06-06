@@ -4,26 +4,16 @@ on:
   pull_request:
     branches:
       - main
-    paths-ignore:
-      # Config files
-      - ".github/**"
-      - ".vscode/**"
-      - ".gitignore"
-      # Documentation
-      - "docs/**"
-      - "*.md"
-      - "*.qmd"
-      # Website files
-      - _quarto.yml
-      - _publish.yml
-      - _extensions/**
   push:
     branches:
       - main
 
-permissions:
-  contents: write
+# Limit token permissions for security
+permissions: read-all
 
 jobs:
   build:
     uses: seedcase-project/.github/.github/workflows/reusable-build-python.yml@main
+    # Permissions needed for pushing to the coverage branch.
+    permissions:
+      contents: write
