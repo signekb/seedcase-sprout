@@ -176,19 +176,6 @@ class TableSchemaForeignKeyProperties(Properties):
     reference: ReferenceProperties | None = None
 
 
-@dataclass
-class MissingValueProperties(Properties):
-    """Values that, when encountered in the source, should be considered as not present.
-
-    Attributes:
-        value (str | None): String representing the missing value.
-        label (str | None): A human-readable label for the missing value.
-    """
-
-    value: str | None = None
-    label: str | None = None
-
-
 # Allowed types for a field in a table schema.
 FieldType = Literal[
     "string",
@@ -277,9 +264,6 @@ class FieldProperties(Properties):
         categories_ordered (bool | None): Specifies whether the order of appearance
             of the values in the `categories` property should be regarded as their
             natural order.
-        missing_values (list[str] | list[MissingValueProperties] | None): Values that,
-            when encountered in the field, should be considered as not present. Takes
-            precedence over the schema-level property.
     """
 
     name: str | None = None
@@ -291,7 +275,6 @@ class FieldProperties(Properties):
     constraints: ConstraintsProperties | None = None
     categories: list[str] | list[int] | None = None
     categories_ordered: bool | None = None
-    missing_values: list[str] | list[MissingValueProperties] | None = None
 
 
 # Allowed strategies for matching fields in the table schema to fields the data source.
@@ -321,8 +304,6 @@ class TableSchemaProperties(Properties):
             values in a field (or fields) on the table (resource) described by this
             table schema connect to values in a field (or fields) on this or a separate
             table (resource).
-        missing_values (list[str] | list[MissingValueProperties] | None): Values that,
-            when encountered in the source, should be considered as not present.
 
     Examples:
         ```{python}
@@ -336,7 +317,6 @@ class TableSchemaProperties(Properties):
     primary_key: list[str] | str | None = None
     unique_keys: list[list[str]] | None = None
     foreign_keys: list[TableSchemaForeignKeyProperties] | None = None
-    missing_values: list[str] | list[MissingValueProperties] | None = None
 
 
 @dataclass
