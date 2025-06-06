@@ -1,3 +1,9 @@
+## 0.44.3 (2025-06-06)
+
+### Refactor
+
+- :recycle: rename to properties_script (#1375)
+
 ## 0.44.2 (2025-06-06)
 
 ### Refactor
