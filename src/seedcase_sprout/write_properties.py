@@ -13,7 +13,7 @@ def write_properties(properties: PackageProperties, path: Path | None = None) ->
     a new file will be created.
 
     Args:
-        properties: The properties to write. Use `create_properties_template()` to
+        properties: The properties to write. Use `create_properties_script()` to
         create a file with your properties object.
         path: A `Path` to the `datapackage.json` file.
 

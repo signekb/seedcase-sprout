@@ -8,20 +8,20 @@ from seedcase_sprout.properties import PackageProperties
 from seedcase_sprout.write_file import write_file
 
 
-def create_properties_template(path: Path | None = None) -> Path:
-    """Creates the properties template with default values.
+def create_properties_script(path: Path | None = None) -> Path:
+    """Creates the properties script with default values.
 
     Args:
         path: The path to the package folder. Defaults to the current working directory.
 
     Returns:
-        The path to the template file.
+        The path to the newly created properties script.
 
     Examples:
         ```{python}
         import seedcase_sprout as sp
 
-        sp.create_properties_template()
+        sp.create_properties_script()
         ```
     """
     package_path = PackagePath(path)
@@ -32,6 +32,6 @@ def create_properties_template(path: Path | None = None) -> Path:
         properties=PackageProperties.from_default(name=package_path.root().name)
     )
 
-    template_path = package_path.properties_template()
-    template_path.parent.mkdir(exist_ok=True)
-    return write_file(text, template_path)
+    script_path = package_path.properties_script()
+    script_path.parent.mkdir(exist_ok=True)
+    return write_file(text, script_path)
