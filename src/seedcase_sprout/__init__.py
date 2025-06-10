@@ -71,7 +71,7 @@ __all__ = [
     "example_resource_properties_all_types",
     "ExamplePackage",
     # Packages -----
-    write_properties,
+    "write_properties",
     "as_readme_text",
     # "delete_package",
     # Resources -----
