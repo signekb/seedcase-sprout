@@ -1,3 +1,9 @@
+## 0.44.5 (2025-06-10)
+
+### Refactor
+
+- :recycle: re-export pprint and textwrap (#1385)
+
 ## 0.44.4 (2025-06-10)
 
 ### Fix
