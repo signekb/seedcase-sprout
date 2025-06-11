@@ -4,7 +4,7 @@ from seedcase_sprout.check_properties import (
     check_resource_properties,
 )
 from seedcase_sprout.get_nested_attr import get_nested_attr
-from seedcase_sprout.internals.functionals import _map
+from seedcase_sprout.internals import _map
 from seedcase_sprout.map_data_types import (
     _get_allowed_polars_types,
     _polars_and_datapackage_types_match,

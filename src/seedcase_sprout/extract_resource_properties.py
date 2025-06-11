@@ -1,6 +1,6 @@
 import polars as pl
 
-from seedcase_sprout.internals.functionals import _map, _map2
+from seedcase_sprout.internals import _map, _map2
 from seedcase_sprout.map_data_types import (
     _polars_to_datapackage,
 )

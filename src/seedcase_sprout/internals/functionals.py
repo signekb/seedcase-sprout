@@ -56,7 +56,7 @@ def _map2(x: list, y: list, fn: Callable) -> list:
 
     Examples:
         ```{python}
-        from seedcase_sprout.internals.functionals import _map2
+        from seedcase_sprout.internals import _map2
         def add(a, b):
             return a + b
         _map2(
