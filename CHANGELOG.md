@@ -1,3 +1,9 @@
+## 0.44.6 (2025-06-11)
+
+### Fix
+
+- :bug: use camel case in JSON dict (#1389)
+
 ## 0.44.5 (2025-06-10)
 
 ### Refactor
