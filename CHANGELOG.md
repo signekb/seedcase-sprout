@@ -1,3 +1,9 @@
+## 0.44.7 (2025-06-11)
+
+### Refactor
+
+- :recycle: import from `internals` only, not sub-modules of it (#1382)
+
 ## 0.44.6 (2025-06-11)
 
 ### Fix
