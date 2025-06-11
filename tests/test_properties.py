@@ -81,7 +81,7 @@ def test_compact_dict_removes_none_values_in_nested_objects():
 
     assert properties.compact_dict == {
         "resources": [
-            {"schema": {"fields": [{"constraints": {"json_schema": {"test": "test"}}}]}}
+            {"schema": {"fields": [{"constraints": {"jsonSchema": {"test": "test"}}}]}}
         ]
     }
 
@@ -113,14 +113,14 @@ def test_allows_overriding_defaults():
 @mark.parametrize(
     "dict, expected_properties",
     [
-        ({"family_name": "Doe"}, ContributorProperties(family_name="Doe")),
+        ({"familyName": "Doe"}, ContributorProperties(family_name="Doe")),
         ({"name": "a licence"}, LicenseProperties(name="a licence")),
         ({"title": "a source"}, SourceProperties(title="a source")),
         ({"resource": "a resource"}, ReferenceProperties(resource="a resource")),
         ({"fields": ["a field"]}, TableSchemaForeignKeyProperties(fields=["a field"])),
         ({"required": False}, ConstraintsProperties(required=False)),
         ({"name": "a field name"}, FieldProperties(name="a field name")),
-        ({"fields_match": "exact"}, TableSchemaProperties(fields_match="exact")),
+        ({"fieldsMatch": "exact"}, TableSchemaProperties(fields_match="exact")),
         (
             {
                 "name": "resource-name",
@@ -132,7 +132,7 @@ def test_allows_overriding_defaults():
             ),
         ),
         (
-            {"version": "1.0.0", "contributors": [{"family_name": "Doe"}]},
+            {"version": "1.0.0", "contributors": [{"familyName": "Doe"}]},
             PackageProperties(
                 version="1.0.0", contributors=[ContributorProperties(family_name="Doe")]
             ),

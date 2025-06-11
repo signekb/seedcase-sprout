@@ -8,6 +8,7 @@ from seedcase_sprout.check_properties import (
     check_properties,
     check_resource_properties,
 )
+from seedcase_sprout.examples import example_resource_properties
 from seedcase_sprout.properties import PackageProperties, ResourceProperties
 from seedcase_sprout.sprout_checks.get_blank_value_for_type import (
     get_blank_value_for_type,
@@ -252,6 +253,20 @@ def test_error_blank_resource_properties(properties, name, type):
 
     assert len(blank_errors) == 1
     assert blank_errors[0].json_path == f"$.{name}"
+
+
+def test_errors_flagged_for_fields_with_multipart_name():
+    """Errors should be flagged when the name of the field has more than one word."""
+    properties = example_resource_properties()
+    properties.schema.primary_key = []
+
+    with raises(ExceptionGroup) as error_info:
+        check_resource_properties(properties)
+
+    assert all(
+        error.json_path == "$.schema.primaryKey"
+        for error in error_info.value.exceptions
+    )
 
 
 def test_error_incorrect_resource_property_values(properties):

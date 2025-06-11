@@ -13,11 +13,12 @@ from dataclasses import asdict, dataclass
 from typing import Any, Literal, Self
 from uuid import uuid4
 
-from dacite import from_dict
+from dacite import Config, from_dict
 
 from seedcase_sprout.internals import (
     _create_resource_data_path,
     _get_iso_timestamp,
+    _to_camel_case,
 )
 from seedcase_sprout.sprout_checks.is_resource_name_correct import (
     _is_resource_name_correct,
@@ -29,7 +30,7 @@ class Properties(ABC):
 
     @property
     def compact_dict(self) -> dict:
-        """Converts the dataclass `*Properties` object to a dictionary.
+        """Converts the dataclass `*Properties` object to a `camelCase` dictionary.
 
         Applies recursively to nested `*Properties` objects. Also removes any keys with
         None values.
@@ -41,7 +42,7 @@ class Properties(ABC):
         return asdict(
             obj=self,
             dict_factory=lambda tuples: {
-                key: value for key, value in tuples if value is not None
+                _to_camel_case(key): value for key, value in tuples if value is not None
             },
         )
 
@@ -56,7 +57,14 @@ class Properties(ABC):
         Returns:
             A `*Properties` object with the properties from the dictionary.
         """
-        return from_dict(data_class=cls, data=data)
+        return from_dict(
+            data_class=cls,
+            data=data,
+            config=Config(
+                # Expect keys in the input to be in camel case
+                convert_key=_to_camel_case,
+            ),
+        )
 
 
 @dataclass
