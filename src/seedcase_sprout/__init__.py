@@ -2,13 +2,6 @@
 # This exposes only the functions we want exposed when
 # the package is imported via `from seedcase_sprout import *`.
 
-# Packages -----
-# from .delete_package import *
-# Resources -----
-# from .delete_resource_batch_file import *
-# from .delete_resource_data import *
-# from .delete_resource_properties import *
-
 from pprint import pprint
 from textwrap import dedent
 
@@ -48,8 +41,6 @@ from .read_resource_batches import read_resource_batches
 from .write_file import write_file
 from .write_properties import write_properties
 from .write_resource_batch import write_resource_batch
-
-# from .update_resource_properties import *
 from .write_resource_data import write_resource_data
 
 __all__ = [
@@ -76,17 +67,12 @@ __all__ = [
     # Packages -----
     "write_properties",
     "as_readme_text",
-    # "delete_package",
     # Resources -----
     "extract_resource_properties",
     "join_resource_batches",
     "read_resource_batches",
     "write_resource_batch",
-    # "update_resource_properties",
     "write_resource_data",
-    # "delete_resource_batch_file",
-    # "delete_resource_data",
-    # "delete_resource_properties",
     # Path -----
     "PackagePath",
     # Helpers -----
