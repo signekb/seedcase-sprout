@@ -1,3 +1,9 @@
+## 0.44.8 (2025-06-12)
+
+### Refactor
+
+- :recycle: don't overwrite the `properties.py` script (#1383)
+
 ## 0.44.7 (2025-06-11)
 
 ### Refactor
