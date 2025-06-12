@@ -45,3 +45,18 @@ def load_properties(path: Path) -> PackageProperties:
     module = module_from_spec(spec)
     spec.loader.exec_module(module)
     return module.properties
+
+
+def test_does_not_overwrite_existing_script(tmp_path):
+    """Should not overwrite an existing script."""
+    script_path = create_properties_script(tmp_path)
+
+    # Create a file at the script path>
+    script_path.write_text("This is a test file.")
+
+    # Call the function again.
+    new_script_path = create_properties_script(tmp_path)
+
+    # The path should be the same, and the content should not change.
+    assert new_script_path == script_path
+    assert script_path.read_text() == "This is a test file."
