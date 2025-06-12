@@ -45,9 +45,14 @@ Project**](https://seedcase-project.org), offering a flexible solution
 to structure and manage your data.
 
 Sprout is a **Python package** with a flexible interface directed at
-developers and those who want lots of control. It's designed to be
-easily extended and customized to fit your needs, such as to build a
-command-line interface or web app.
+those whose task is to build up and organise data for a project or
+research study, as well as those who want more control over
+individual steps in the data processing and management workflow.
+
+We designed this package mainly for computationally technical personnel,
+such as data engineers or software developers. It's designed to be
+easily extended and customized to fit your needs, within a framework
+that ensures your data is structured, organized, and usable.
 :::
 ::::
 :::::
@@ -55,16 +60,15 @@ command-line interface or web app.
 ::: landing-page-block
 ## Want to contribute?
 
-We’re a community-driven project and would love your feedback! Head over
-to our [GitHub
+We would love your feedback or contributions! Head over to our [GitHub
 repository](https://github.com/seedcase-project/seedcase-sprout) to
 share your ideas or contribute code. Your input makes us better!
 
 <!-- TODO: Add link to a guide on how to contribute in more detail -->
 :::
 
-::: {.content-hidden when-format="pdf"}
+:::: {.content-hidden when-format="pdf"}
 ::: landing-page-block
 ## Image by [Storyset](https://storyset.com/data) {.appendix}
 :::
-:::
+::::
