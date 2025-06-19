@@ -20,7 +20,7 @@ There are two main sections of this design documentation:
     expected users, and how the system will be organized and structured.
 -   [Interface](interface/index.qmd): The interface section gives a much
     more detailed description of the design of the software interface.
-    The detail is at the level of exact Python functions, as well as
+    The detail is at the level of specific Python functions, as well as
     their arguments, inputs, and outputs.
 
 ## Purpose
@@ -39,14 +39,14 @@ research contexts. Specifically, Sprout aims to:
     metadata to the data.
 
 Aligning with our modular design pattern to build software that has a
-focused and narrow scope as well as that can be easily extended or
-customized, *Sprout* (this package) has an additional aim to:
+focused and narrow scope as well as being extensible or customizable,
+*Sprout* (this package) has an additional aim to:
 
 1.  Build a flexible, extensible, and fine-grained set of
     functionalities that implement Sprout's overall design, enabling
     users to configure and customize Sprout to their own needs.
-    Specifically, to build functionality that supports us in building
-    more opinionated interfaces and extensions of Sprout.
+    Specifically, to build functionality that supports us in developing
+    more opinionated interfaces and extensions to Sprout.
 
 ## Requirements
 
@@ -86,18 +86,18 @@ Overall, Sprout must:
     record-keeping.
 -   Individual pieces of functionality should be independent: To keep it
     flexible and extensible, each functionality should (ideally) be able
-    to run on its own without needing to depend on other functionality.
+    to run on its own without depending on other functionality.
 -   Assume as little as possible about the environment: For each
     functionality, ideally assume as little about the current state of
     the environment as possible. For instance, what the exact path is on
     the filesystem or where in the filesystem the software is running.
--   Make as few assumptions and expectations as is reasonable: This
-    package should not be designed to be (too) opinionated about the
-    order steps are taken, what steps are taken, where they are taken,
-    and other specific details.
+-   Rely on as few assumptions and expectations as possible: This
+    package should not be (too) opinionated about the order steps are
+    taken, what steps are taken, where they are taken, and other
+    specific details.
 
 In general, Sprout will not:
 
--   Run any analytic computing or data science work: While some data
+-   Do any analytic computing or data science work: While some data
     processing and analysis will occur, it will be limited to running
     checks on the quality of the data and metadata.
