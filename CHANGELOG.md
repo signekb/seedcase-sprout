@@ -1,3 +1,9 @@
+## 0.44.9 (2025-06-19)
+
+### Fix
+
+- :adhesive_bandage: use a temp folder in example code (#1396)
+
 ## 0.44.8 (2025-06-12)
 
 ### Refactor
