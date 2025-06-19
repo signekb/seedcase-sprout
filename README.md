@@ -1,6 +1,6 @@
 <p align=center>
     <a href="https://sprout.seedcase-project.org/">
-        <img src="_extensions/seedcase-project/seedcase-theme/logos/navbar-logo-seedcase-sprout.svg" height="150" alt="Sprout website"/>
+        <img src="https://raw.githubusercontent.com/seedcase-project/seedcase-sprout/main/_extensions/seedcase-project/seedcase-theme/logos/navbar-logo-seedcase-sprout.svg" height="150" alt="Link to Sprout website"/>
     </a>
 </p>
 
