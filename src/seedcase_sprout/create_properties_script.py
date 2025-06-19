@@ -23,7 +23,8 @@ def create_properties_script(path: Path | None = None) -> Path:
         ```{python}
         import seedcase_sprout as sp
 
-        sp.create_properties_script()
+        with sp.ExamplePackage():
+            sp.create_properties_script()
         ```
     """
     package_path = PackagePath(path)
