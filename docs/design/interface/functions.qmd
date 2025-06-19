@@ -19,29 +19,30 @@ functions will likely change quite a bit and may even be deleted later
 when they are no longer needed.
 :::
 
-Based on the [naming scheme](/docs/design/architecture/naming.qmd#naming) and
-the [Frictionless Data Package standard](https://datapackage.org), these
-are the external-facing functions in Sprout. See the
-[Outputs](outputs.qmd#outputs) section for an overview and explanation of the
-different outputs provided by Sprout.
+Based on the [naming
+scheme](/docs/design/architecture/naming.qmd#naming) and the
+[Frictionless Data Package standard](https://datapackage.org), these are
+the external-facing functions in Sprout. See the
+[Outputs](outputs.qmd#outputs) section for an overview and explanation
+of the different outputs provided by Sprout.
 
 Nearly all functions have a `path` argument. Depending on what the
-function does, the path object will be different. Use the `PackagePath.*()`
-functions to get the correct path object for the specific function. It's
-designed this way to make it more flexible to where individual packages
-and resources are stored and to make it a bit easier to write tests for
-the functions. For a similar reason, most of the functions output either
-a `dict` Python object, a custom `Properties` dataclass, or a path
-object to make them easier to test.
+function does, the path object will represent a different location. Use
+the `PackagePath.*()` functions to get the correct path object for the
+specific function. It's designed this way to make it more flexible to
+where individual packages and resources are stored and to make it a bit
+easier to write tests for the functions. For similar reasons, most of
+the functions output either a `dict` Python object, a custom
+`Properties` dataclass, or a path object.
 
 Several of the functions have an argument called `properties`. The
-properties argument is a list of key-value pairs (as a JSON-style `dict`
-object), built using the `Properties` object, that describes the package
-and resource(s) in the package. This metadata is stored in the
+properties argument is a custom `Properties` dataclass (a collection of
+key-value pairs, much like a JSON-style `dict` object) that describes
+the package and its resource(s). This metadata is stored in the
 `datapackage.json` file and follows the Frictionless Data specification.
 
-`write_*()` functions will always overwrite the file and they
-will always create the folders to the file if they don't exist.
+`write_*()` functions always overwrite their target file and always
+create the parent folders of the file if they don't exist.
 
 ::: callout-important
 Functions shown with a {{< var wip >}} icon are not yet implemented
@@ -69,16 +70,16 @@ flowchart
     function --> out
 ```
 
-### {{< var done >}} `write_package_properties(properties, path)`
+### {{< var done >}} `write_properties(properties, path)`
 
-See the help documentation with `help(write_package_properties)` for
-more details.
+See the help documentation with `help(write_properties)` for more
+details.
 
 ```{mermaid}
 flowchart
     in_properties[/properties/]
     in_path[/path/]
-    function("write_package_properties()")
+    function("write_properties()")
     out[("Path: ./datapackage.json")]
     in_properties --> function
     in_path --> function
@@ -87,26 +88,10 @@ flowchart
 
 ## Data resource functions
 
-### {{< var done >}} `write_resource_properties(resource_properties, path)`
-
-See the help documentation with `help(write_resource_properties)` for
-more details.
-
-```{mermaid}
-flowchart
-    in_properties[/resource_properties/]
-    in_path[/path/]
-    function("write_resource_properties()")
-    out[("{path}/datapackage.json")]
-    in_properties --> function
-    in_path --> function
-    function --> out
-```
-
 ### {{< var done >}} `write_resource_batch(data, resource_properties)`
 
-See the help documentation with `help(write_resource_batch)` for
-more details.
+See the help documentation with `help(write_resource_batch)` for more
+details.
 
 ```{mermaid}
 flowchart
@@ -170,10 +155,10 @@ flowchart
 ### {{< var wip >}} `read_resource_data(resource_name, path)`
 
 This function takes the name of the resource you want to read and
-optionally the path to the `datapackage.json` file and will read in
-the data resource (as a Parquet file) into a Polars DataFrame. If
-the `path` is not given, it will look for the `datapackage.json` file
-in the current working directory.
+optionally the path to the `datapackage.json` file and will read in the
+data resource (as a Parquet file) into a Polars DataFrame. If the `path`
+is not given, it will look for the `datapackage.json` file in the
+current working directory.
 
 ```{mermaid}
 flowchart
@@ -182,43 +167,6 @@ flowchart
     function("read_resource_data()")
     out[("DataFrame")]
     in_name --> function
-    in_path --> function
-    function --> out
-```
-
-### {{< var wip >}} `update_resource_properties(current, updates)`
-
-Edit the properties of a resource in a package. The `properties`
-argument must be a `ResourceProperties` object. Use the
-`PackagePath().properties()` function to provide the
-correct path location. Outputs a `ResourceProperties` object; use
-`write_resource_properties()` to save the properties object to the
-`datapackage.json` file. This function can also be used to delete all of
-a resource's properties.
-
-```{mermaid}
-flowchart
-    in_path[/path/]
-    in_properties[/resource_properties/]
-    function("update_resource_properties()")
-    out[("ResourceProperties")]
-    in_path --> function
-    in_properties --> function
-    function --> out
-```
-
-### {{< var done >}} `write_resource_properties(resource_properties, path)`
-
-See the help documentation with `help(write_resource_properties)` for
-more details.
-
-```{mermaid}
-flowchart
-    in_properties[/resource_properties/]
-    in_path[/path/]
-    function("write_resource_properties()")
-    out[("{path}/datapackage.json")]
-    in_properties --> function
     in_path --> function
     function --> out
 ```
@@ -239,7 +187,7 @@ flowchart
 
 ## Path functions
 
-See the help documentation for `help(PackagePath)` for more details.
+See the help documentation with `help(PackagePath)` for more details.
 
 ## Properties dataclasses
 
@@ -258,7 +206,8 @@ details on the properties.
 
 ### {{< var done >}} `read_properties(path)`
 
-See the help documentation with `help(read_properties)` for more details.
+See the help documentation with `help(read_properties)` for more
+details.
 
 ```{mermaid}
 flowchart
@@ -274,10 +223,10 @@ outputs a `PackageProperties` object.
 
 ## Check functions
 
-All the check functions check the properties given in the
-`datapackage.json` file against the Frictionless Data Package standard.
-Even the checks on the data itself are based on the properties given in
-the `datapackage.json` file. The checks on the properties are mainly
+All check functions check the properties given in the `datapackage.json`
+file against the Frictionless Data Package standard. Even the checks on
+the data itself are based on the properties given in the
+`datapackage.json` file. The checks on the properties are mainly
 wrappers around the `check_datapackage` "sub-package" (that we will
 eventually split into its own package).
 
@@ -327,12 +276,12 @@ flowchart
 
 See the help documentation with `help(check_data)` for more details.
 This function checks the data against the properties in the
-`datapackage.json` file. It includes checks on the data headers against
-the `field.name` properties, the columns' data types against the
-`fields.type` properties, and the data itself against the constraints
-given in the `fields.constraints` properties (if it exists). See the
-[function flow](flows.qmd#flows) for more details on the internal flow of this
-particular function.
+`datapackage.json` file. It checks column names in the data against
+field names (`field.name`) in the properties, column data types against
+field types (`field.type`), and the data itself against any constraints
+on column values (`field.constraints`). See the [function
+flow](flows.qmd#flows) page for more details on the internal flow of
+this function.
 
 ```{mermaid}
 flowchart
@@ -359,13 +308,14 @@ request that any personally identifiable and sensitive data of theirs be
 deleted in a variation of a ["right to be
 forgotten"](https://en.wikipedia.org/wiki/Right_to_be_forgotten)
 regulation or law. This function makes this process easier by searching
-for all places where their data is stored in the data and deletes it. We
-can not guarantee that all data is deleted in the history (e.g. backups)
-or in projects that have used the data for research purposes, but the
-data will no longer exist in the current data package and all subsequent
-uses of it. This has the potential to be highly destructive, but it
-doesn't yet write back to the files. So be cautious and check that
-everything is correct at this stage before writing back.
+for all places where their information is stored in the data and
+deleting it. We cannot guarantee that all data is deleted in the history
+(e.g. backups) or in projects that have used the data for research
+purposes, but the data will no longer exist in the current data package
+and all subsequent uses of it. This action has the potential to be
+highly destructive, but the function doesn't automatically write back to
+the files. So be cautious and check that everything is correct at this
+stage before writing back.
 
 The data given must be a list of DataFrames, even if it is only a list
 of one DataFrame. The `observational_unit` is a dictionary that contains
