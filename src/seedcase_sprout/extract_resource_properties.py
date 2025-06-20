@@ -45,7 +45,9 @@ def extract_resource_properties(data: pl.DataFrame) -> ResourceProperties:
 
     resource_properties = ResourceProperties()
     resource_properties.type = "table"
-    resource_properties.schema = TableSchemaProperties(fields_match="equal")
+    # The fields_match property is supposed to be a string, but there's an error in the
+    # JSON schema. This should be fixed in datapackage V2.1.
+    resource_properties.schema = TableSchemaProperties(fields_match=["equal"])
     resource_properties.schema.fields = _extract_field_properties(data)
 
     return resource_properties

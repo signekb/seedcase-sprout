@@ -28,7 +28,7 @@ def _keep_extractable_properties(
     )
 
     return ResourceProperties(
-        schema=TableSchemaProperties(fields=fields, fields_match="equal"),
+        schema=TableSchemaProperties(fields=fields, fields_match=["equal"]),
         type="table",
     )
 
