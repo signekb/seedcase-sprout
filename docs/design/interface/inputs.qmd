@@ -21,8 +21,8 @@ Properties
 :   These are Python
     [dataclasses](https://docs.python.org/3/library/dataclasses.html)
     we've created to represent the properties (metadata) of a data
-    package or resource. They are always prefixed with `*Properties`,
-    such as `PackageProperties` and `ResourceProperties`.
+    package or resource. They always use the `*Properties` suffix, such
+    as `PackageProperties` and `ResourceProperties`.
 
 Data
 
@@ -31,10 +31,10 @@ Data
     `DataFrame` objects.
 
 :   Sprout expects the data objects to be in a
-    [tidy](https://vita.had.co.nz/papers/tidy-data.html) format.
-    Tidy data is a conceptual framework around how data
-    should be structured to be optimally usable for analysis. This is
-    similar to what is called [third normal
+    [tidy](https://vita.had.co.nz/papers/tidy-data.html) format. Tidy
+    data is a conceptual framework around how data should be structured
+    to be optimally usable for analysis. This is similar to what is
+    called [third normal
     form](https://en.wikipedia.org/wiki/Third_normal_form) in relational
     database development, excluding the emphasis on creating additional
     tables to reduce redundancy.
@@ -46,14 +46,15 @@ Data
     3.  Each cell has a single value that represents both the column and
         row entity.
 
-    This tidy structure makes it easier to process and use the data for later
-    analysis. If it is already in this form, there is less need to
+    This tidy structure makes it easier to process and use the data for
+    later analysis. If it is already in this form, there is less need to
     transform it later.
 
-:   We have set a requirement on using tidy data frames as it simplifies
-    the workflow and allows a user to use their own, potentially highly
-    customised, workflows for processing their data. This also allows for a more flexible and user-friendly
-    interface to Sprout, since we don't need to support or consider all
-    the wide variety of formats data can be stored or structured.
-    Because data processing and organizing can be so strongly dependent
-    on the domain, we leave this to the user to handle.
+:   We have set a requirement on using tidy data frames because it
+    simplifies the workflow and allows users to use their own,
+    potentially highly customised, workflows for processing their data.
+    This also allows for a more flexible and user-friendly interface to
+    Sprout, since it removes the need to support or consider all the
+    wide variety of formats data can be stored or structured in. Because
+    data processing and organizing can be so strongly dependent on the
+    domain, we leave this to the user to handle.

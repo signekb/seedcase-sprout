@@ -4,8 +4,8 @@ title: "Outputs"
 
 Sprout is designed to structure, organize, and store data in a
 standardized, coherent, and consistent way. At the base of how data is
-structured and stored are the files and folders. So, this document
-describes the main file and folder structure output when using Sprout.
+structured and stored are files and folders. This document describes the
+file and folder structure created by Sprout.
 
 We follow our [naming
 scheme](/docs/design/architecture/naming.qmd#naming), as well as the
@@ -31,8 +31,8 @@ that contain data specific to a given set of conditions. For instance, a
 data package could be a research study that collects information from
 people older than 50 who live in Denmark and who have diabetes. In this
 example data package, there might be data collected on basic
-demographics like gender, ethnicity, or education, or on blood sample
-data like blood glucose, cholesterol, or blood pressure. Here, the basic
+demographics like gender, ethnicity, or education, or blood sample data
+like blood glucose, cholesterol, or blood pressure. Here, the basic
 demographics could be one data resource, while the blood sample data
 could be another data resource within the data package.
 :::
@@ -41,14 +41,14 @@ could be another data resource within the data package.
 
 As per the overall design patterns, the default behaviour of Sprout is
 to create a data package in the working directory or in a new folder for
-the data package. This is referred below as `.`, to indicate the working
-directory.
+the data package. Below, the package folder is taken to be the working
+directory, represented as `.`.
 
 ### Folders
 
 The folders that Sprout creates and uses are:
 
-`./resources/<id>/`
+`./resources/<name>/`
 
 :   Whenever a specific type of data, like demographics data or blood
     sample data, is stored in the data package, it will be stored as a
@@ -56,36 +56,35 @@ The folders that Sprout creates and uses are:
     collected in a specific way and for a specific set of measurements
     from a specific set of input sources for a specific purpose. The
     data resource(s) will always be within one specific package, with
-    each data resource in its own folder based on a number `<id>`, e.g.
-    `./resources/1/`.
+    each data resource in its own folder having a unique resource name
+    `<name>`, e.g. `./resources/blood-samples/`.
 
     ::: callout-note
     Using the demographics and blood sample example above, the reason
     why these sources of data would be considered two separate data
     resources, rather than a single, joint data resource, is because,
     while they both collect data on the same group of people, they
-    collect the data in different ways. The demographic data is usually
+    collect the data in different ways. Demographic data is usually
     collected with a survey by a researcher or technician (or the
-    participant themselves if online) and obtained in a relatively
-    consistent way using some survey software. Meanwhile, the blood
-    sample data is usually taken at a specific time and analyzed by a
-    specific machine by a specific laboratory in a specific way that is
-    output in a specific format. The two types of data are collected in
-    different ways and should be recognized as separate entities and
-    thus separate data resources, even though they contain data about
-    the same group of people.
+    participants themselves if online) in a relatively consistent way
+    using some survey software. Meanwhile, blood sample data is usually
+    taken at a specific time and analyzed by a specific machine by a
+    specific laboratory in a specific way that is output in a specific
+    format. The two types of data are collected in different ways and
+    should be recognized as separate entities and thus separate data
+    resources, even though they contain data about the same group of
+    people.
     :::
 
-`./resources/<id>/batch/`
+`./resources/<name>/batch/`
 
-:   Whenever data is stored and structured for a specific data resource,
-    it is often done in batches, which are bulk collections of data that
-    are processed together. This `batch/` folder is where the data is
-    stored before it is processed and stored in the `data.parquet` file.
-    This folder is partly used to keep track of each time data has been
-    added or updated, and to also use for record-keeping purposes of
-    what data was added and when it was added to the resource. This can
-    help with troubleshooting issues that may arise during data entry or
+:   Data for a specific data resource is often stored and structured in
+    batches. These are bulk collections of data that are processed
+    together. This `batch/` folder is where the data is stored before it
+    is processed and saved in the `data.parquet` file. This folder makes
+    it possible to keep track of data additions and updates, serving as
+    a version history for the data resource. This can help with
+    troubleshooting issues that may arise during data entry or
     processing.
 
 ### Files
@@ -96,7 +95,7 @@ Sprout creates and uses these files:
 
 :   This machine-readable JSON file is the foundation of a data package
     and contains the full [Frictionless Data
-    specification](https://datapackage.org/). This file contains the
+    specification](https://datapackage.org/). This file contains
     metadata on the package (like title, description, and contributors)
     as well as metadata on the data resources (like column names, data
     types, descriptions, and a path to the Parquet file with the data in
@@ -104,14 +103,13 @@ Sprout creates and uses these files:
 
 `./README.md`
 
-:   Since JSON isn't easy for a human to read, this `README.md` file
-    will contain some basic information from the `datapackage.json` file
-    that is structured in a human readable, auto-generated way. This
-    file is largely used to a) adhere to interoperable principles and b)
-    serve as the basis for displaying human-readable information about
-    the data package.
+:   The `README.md` file is a generated, more human readable
+    summary of the information in the `datapackage.json` file. This file
+    is used to a) adhere to interoperable principles and b) serve as the
+    basis for displaying human-readable information about the data
+    package.
 
-`./resources/<id>/batch/<timestamp>-<uuid>.parquet`
+`./resources/<name>/batch/<timestamp>-<uuid>.parquet`
 
 :   These are
     [Parquet](https://decisions.seedcase-project.org/why-parquet/) files
@@ -120,13 +118,13 @@ Sprout creates and uses these files:
     resource and are stored in the `batch/` folder before being
     processed and stored in the `data.parquet` file. The files in the
     `batch/` folder are not linked within the `datapackage.json` file.
-    Every time a user adds or updates data to the data resource, the
-    data file will be processed for correctness and some basic checks
-    against the `datapackage.json` properties, before being stored in
-    the `batch/` folder. All files within this folder are used to
-    (re-)generate the data resource's `data.parquet` file.
+    Every time a user adds or updates data in the data resource, the
+    data file is checked for correctness against the `datapackage.json`
+    properties, before being stored in the `batch/` folder. All files
+    within this folder are used to (re-)generate the data resource's
+    `data.parquet` file.
 
-`./resources/<id>/data.parquet`
+`./resources/<name>/data.parquet`
 
 :   When a user creates a data resource and adds or updates data in the
     resource, all resource data is processed and stored in the
