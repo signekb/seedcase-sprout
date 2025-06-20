@@ -1,3 +1,9 @@
+## 0.44.10 (2025-06-20)
+
+### Fix
+
+- :bug: change `fields_match` to be an array in `extract_resource_properties()` (#1392)
+
 ## 0.44.9 (2025-06-19)
 
 ### Fix
