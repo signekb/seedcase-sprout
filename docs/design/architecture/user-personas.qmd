@@ -2,8 +2,8 @@
 title: User personas
 ---
 
-This document describes the different users we expected and design for,
-as well as some hypothetical user personas.
+This document describes the different users we expect and design for, as
+well as some hypothetical user personas.
 
 ## User types
 
@@ -19,9 +19,8 @@ Administrator
 
 :   The administrator is a user who is assigned to manage the research
     project by the owner. This particular user doesn't have ownership
-    over the project direction, but may either want to independently
-    have more control over how the data is processed and structured, or
-    has been assigned to do so by the owner.
+    over the project direction, but may need more control over how the
+    data is processed and structured.
 
 Software developer/data engineer
 
@@ -77,7 +76,7 @@ the needs of real-world users and their expectations of Sprout.
     have to do on their own because of a limited budget.
 -   Goals:
     -   To design and maintain robust data pipelines for efficient data
-        processing, structuring, and storing.
+        processing, structuring, and storage.
     -   To ensure data integrity and security throughout the data
         lifecycle.
     -   To comply with data governance and privacy regulations.
@@ -88,10 +87,10 @@ the needs of real-world users and their expectations of Sprout.
     -   To use best practices in data engineering while having limited
         resources.
 -   Challenges:
-    -   Handling large volumes of different types of data and from many
+    -   Handling large volumes of different types of data from many
         different research projects.
     -   Having limited time and resources to manage all the tasks, so
-        prefers opinionated and streamlined software.
+        preferring opinionated and streamlined software.
     -   Trying to keep up with new technologies and best practices in
         data engineering.
     -   Troubleshooting and resolving data-related issues promptly.
@@ -104,23 +103,23 @@ the needs of real-world users and their expectations of Sprout.
 
 -   Name: Dr. Maria Garcia
 -   Background: Dr. Garcia is a senior researcher within an academic
-    setting. She has extensive experience in managing research
-    projects and is responsible for overseeing multiple research
-    initiatives. While she has some familiarity with programming, she
-    mainly understands the need to use these tools to work more
-    efficiently and effectively. She also values having control over her
-    projects she is responsible for. She wants to use Sprout to help
-    manage all the data from her research projects so that her research
-    group can more easily use and analyze it.
+    setting. She has extensive experience in managing research projects
+    and is responsible for overseeing multiple research initiatives.
+    While she has some familiarity with programming, she mainly
+    understands the need to use these tools to work more efficiently and
+    effectively. She also values having control over the projects she is
+    responsible for. She wants to use Sprout to help manage all the data
+    from her research projects so that her research group can more
+    easily use and analyze it.
 -   Goals:
-    -   To create and manage data from the new research projects in a
+    -   To create and manage data from new research projects in a
         structured and effective way.
     -   To have full control over the research project and its data and
         metadata.
-    -   To keep an overview of the data and metadata that is being
-        collected and used in the research projects.
-    -   To comply with privacy and legal requirements of the research
-        data.
+    -   To have an overview of the data and metadata collected and used
+        in the research projects.
+    -   To comply with privacy and legal requirements applicable to the
+        research data.
     -   To make it easier for her research group to use and analyze the
         data.
 -   Challenges:
@@ -141,12 +140,12 @@ the needs of real-world users and their expectations of Sprout.
     closely with research project owners to support the technical and
     administrative aspects of research projects. He wants to use Sprout
     to make it easier to manage all his assigned projects, while also
-    balancing the specific needs of the different projects and how
-    their data is structured and stored.
+    balancing the specific needs of the different projects and how their
+    data is structured and stored.
 -   Goals:
     -   To assist research project owners in managing the research
         projects.
-    -   To handle the technical administration of the project, users,
+    -   To handle the technical administration of the projects, users,
         metadata, and data.
     -   To resolve issues related to data quality and user support.
     -   To create and update metadata structures for data uploads.

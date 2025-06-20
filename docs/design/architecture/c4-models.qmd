@@ -8,7 +8,7 @@ architecture of a software system. It breaks the system down into four
 levels of architectural abstraction: Context, Containers, Components,
 and Code. The last level is rarely used nor recommended for most
 software architecture since it is used to visualize a high degree of
-detail that most projects don't need. For our needs, we only needed to
+detail that most projects don't need. For our case, we only needed to
 create the **Context** and **Containers** diagrams.
 
 These diagrams and their content draw from our overall Seedcase [design
