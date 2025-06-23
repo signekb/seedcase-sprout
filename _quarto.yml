@@ -39,9 +39,12 @@ website:
         href: https://seedcase-project.org
         aria-label: "House icon: Seedcase Project home page"
   sidebar:
-    - id: design
+    - id: overview
       pinned: true
       style: "floating"
+      contents:
+        - docs/releases.qmd
+    - id: design
       contents:
         - text: "Design"
           href: docs/design/index.qmd
