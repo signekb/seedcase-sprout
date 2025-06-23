@@ -5,7 +5,7 @@ jupyter: python3
 ---
 
 At the core of Sprout is the
-[{{< glossary "data package">}}](../glossary.qmd), which is a
+["data package"](/docs/glossary.qmd), which is a
 standardized way of structuring and documenting data. This guide will
 show you how to create and manage data packages using Sprout.
 
@@ -26,7 +26,7 @@ root folder of the data package.
 With that in mind, let's make a data package! A data package always
 needs a `datapackage.json` file. This file will be located at the root
 of your data package and contains a set of
-[{{< glossary "properties">}}](../glossary.qmd), or metadata about the
+[properties](/docs/glossary.qmd), or metadata about the
 data package and the data resources within it. To set up this
 `datapackage.json` file, you first need a set of properties you want to
 add to the data package. Then, you can use the

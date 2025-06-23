@@ -4,8 +4,8 @@ order: 2
 jupyter: python3
 ---
 
-In each [data package](/docs/design/interface/outputs.qmd#outputs) are
-[data resources](/docs/design/interface/outputs.qmd#outputs), which
+In each [data package](/docs/glossary.qmd) are
+[data resources](/docs/glossary.qmd), which
 contain conceptually standalone sets of data. This page shows you how to
 create and manage data resources inside a data package using Sprout. You
 will need to have already [created a data
