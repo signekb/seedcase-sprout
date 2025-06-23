@@ -14,9 +14,13 @@ class RequiredFieldType(str, Enum):
 
 COMPLEX_VALIDATORS = {"allOf", "anyOf", "oneOf"}
 
-DATA_PACKAGE_SCHEMA_PATH: Path = files(
-    "seedcase_sprout.check_datapackage.schemas"
-).joinpath("data-package-schema.json")
+DATA_PACKAGE_SCHEMA_PATH = Path(
+    str(
+        files("seedcase_sprout.check_datapackage.schemas").joinpath(
+            "data-package-schema.json"
+        )
+    )
+)
 
 NAME_PATTERN = r"^[a-z0-9._-]+$"
 

@@ -25,6 +25,7 @@ from seedcase_sprout.sprout_checks.is_resource_name_correct import (
 )
 
 
+@dataclass
 class Properties(ABC):
     """An abstract base class for all `*Properties` classes holding common logic."""
 

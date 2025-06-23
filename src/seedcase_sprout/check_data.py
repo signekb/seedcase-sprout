@@ -1,3 +1,5 @@
+from typing import cast
+
 import polars as pl
 
 from seedcase_sprout.check_properties import (
@@ -70,7 +72,7 @@ def check_data(
 
 def _check_column_names(
     data: pl.DataFrame, resource_properties: ResourceProperties
-) -> str:
+) -> pl.DataFrame:
     """Checks that column names in `data` match those in `resource_properties`.
 
     Columns may appear in any order.
@@ -89,7 +91,9 @@ def _check_column_names(
     columns_in_data = data.schema.names()
     columns_in_resource = [
         field.name
-        for field in get_nested_attr(resource_properties, "schema.fields", default=[])
+        for field in cast(
+            list, get_nested_attr(resource_properties, "schema.fields", default=[])
+        )
     ]
     extra_columns_in_data = [
         name for name in columns_in_data if name not in columns_in_resource
@@ -142,15 +146,16 @@ def _check_column_types(
     Raises:
         ExceptionGroup: A group of `ValueError`s, one per incorrectly typed column.
     """
-    fields: list[FieldProperties] = get_nested_attr(
-        resource_properties, "schema.fields", default=[]
+    fields = cast(
+        list[FieldProperties],
+        get_nested_attr(resource_properties, "schema.fields", default=[]),
     )
     polars_schema = data.schema
     errors = [
-        _get_column_type_error(polars_schema[field.name], field)
+        _get_column_type_error(polars_schema[str(field.name)], field)
         for field in fields
         if not _polars_and_datapackage_types_match(
-            polars_schema[field.name], field.type
+            polars_schema[str(field.name)], field.type
         )
     ]
 
@@ -178,16 +183,16 @@ def _get_column_type_error(
         A `ValueError`.
     """
     allowed_types = _map(_get_allowed_polars_types(field.type), str)
-    allowed_types = (
+    allowed_types_str = (
         allowed_types[0]
         if len(allowed_types) == 1
         else f"one of {', '.join(allowed_types)}"
     )
 
     if field.type == "geopoint":
-        allowed_types = "an Array of a numeric type with size 2"
+        allowed_types_str = "an Array of a numeric type with size 2"
 
     return ValueError(
         f"Expected type of column '{field.name}' "
-        f"to be {allowed_types} but found {polars_type}."
+        f"to be {allowed_types_str} but found {polars_type}."
     )

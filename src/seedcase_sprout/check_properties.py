@@ -106,7 +106,8 @@ def check_resource_properties(properties: ResourceProperties) -> ResourcePropert
     # TODO: This probably is better placed in the `check-datapackage` package.
     except ExceptionGroup as error_info:
         for error in error_info.exceptions:
-            error.json_path = error.json_path.replace(".resources[0]", "")
+            if isinstance(error, cdp.CheckError):
+                error.json_path = error.json_path.replace(".resources[0]", "")
         raise error_info
 
     return properties
@@ -141,8 +142,10 @@ def _generic_check_properties(
     errors = cdp.check_properties(properties_dict)
 
     errors += get_sprout_package_errors(properties_dict)
-    if isinstance(properties_dict.get("resources"), list):
-        for index, resource in enumerate(properties_dict.get("resources")):
+
+    resources = properties_dict.get("resources")
+    if isinstance(resources, list):
+        for index, resource in enumerate(resources):
             if isinstance(resource, dict):
                 errors += get_sprout_resource_errors(resource, index)
 

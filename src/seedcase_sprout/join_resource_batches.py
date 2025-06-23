@@ -5,6 +5,7 @@ from seedcase_sprout.check_properties import (
     check_resource_properties,
 )
 from seedcase_sprout.constants import BATCH_TIMESTAMP_COLUMN_NAME
+from seedcase_sprout.get_nested_attr import get_nested_attr
 from seedcase_sprout.properties import ResourceProperties
 
 
@@ -69,7 +70,7 @@ def join_resource_batches(
         )
 
     data = pl.concat(data_list)
-    primary_key = resource_properties.schema.primary_key
+    primary_key = get_nested_attr(resource_properties, "schema.primary_key")
     data = _drop_duplicate_obs_units(data, primary_key)
 
     check_data(data, resource_properties)

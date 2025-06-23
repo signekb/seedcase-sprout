@@ -40,7 +40,7 @@ def join_names(licenses: list[LicenseProperties] | None) -> str:
     Returns:
         A comma-separated list of names.
     """
-    return ", ".join(license.name for license in licenses) if licenses else "N/A"
+    return ", ".join(str(license.name) for license in licenses) if licenses else "N/A"
 
 
 def format_date(created: str | None) -> str:

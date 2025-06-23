@@ -35,7 +35,7 @@ def read_properties(path: Path | None = None) -> PackageProperties:
     """
     path = path or PackagePath().properties()
     _check_is_file(path)
-    properties = _read_json(path)
-    properties = PackageProperties.from_dict(properties)
+    properties_dict = _read_json(path)
+    properties = PackageProperties.from_dict(properties_dict)
     check_properties(properties)
     return properties

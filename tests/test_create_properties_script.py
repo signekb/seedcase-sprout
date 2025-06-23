@@ -42,6 +42,8 @@ def test_works_with_custom_path(tmp_path):
 def load_properties(path: Path) -> PackageProperties:
     """Loads `properties` object from file."""
     spec = spec_from_file_location("test_module", path)
+    assert spec
+    assert spec.loader
     module = module_from_spec(spec)
     spec.loader.exec_module(module)
     return module.properties

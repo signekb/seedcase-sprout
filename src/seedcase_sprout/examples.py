@@ -340,7 +340,7 @@ class ExamplePackage(AbstractContextManager):
 
     def __init__(
         self,
-        package_name: str = example_package_properties().name,
+        package_name: str = str(example_package_properties().name),
         with_resources: bool = True,
     ):
         """Initialise the `ExamplePackage` context manager.
@@ -375,7 +375,7 @@ class ExamplePackage(AbstractContextManager):
             package_properties.resources = [resource_properties]
 
             # Create resource folders
-            package_path.resource(resource_properties.name).mkdir(
+            package_path.resource(str(resource_properties.name)).mkdir(
                 exist_ok=True, parents=True
             )
 

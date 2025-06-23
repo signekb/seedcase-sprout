@@ -73,5 +73,5 @@ def _map2(x: list, y: list, fn: Callable) -> list:
         ```
     """
     if len(y) == 1:
-        y = repeat(y[0], len(x))
+        y = list(repeat(y[0], len(x)))
     return list(map(fn, x, y))

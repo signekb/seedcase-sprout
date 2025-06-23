@@ -72,7 +72,7 @@ def _check_resource_path_format(
     ):
         return []
 
-    expected_path = _create_resource_data_path(name)
+    expected_path = _create_resource_data_path(str(name))
     if path == expected_path:
         return []
 

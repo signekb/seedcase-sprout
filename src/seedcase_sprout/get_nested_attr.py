@@ -36,14 +36,14 @@ def get_nested_attr(
         get_nested_attr(Outer(), "middle.inner")
         ```
     """
-    attributes = attributes.split(".")
-    if any(not attribute.isidentifier() for attribute in attributes):
+    attributes_list = attributes.split(".")
+    if any(not attribute.isidentifier() for attribute in attributes_list):
         raise ValueError(
             "`attributes` should contain valid identifiers separated by `.`."
         )
 
     try:
-        for attribute in attributes:
+        for attribute in attributes_list:
             base_object = getattr(base_object, attribute)
     except AttributeError:
         return default

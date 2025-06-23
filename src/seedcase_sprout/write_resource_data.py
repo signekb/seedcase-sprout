@@ -48,7 +48,7 @@ def write_resource_data(
             sp.write_resource_data(data, resource_properties)
     """
     check_data(data, resource_properties)
-    data_path = PackagePath(package_path).resource_data(resource_properties.name)
+    data_path = PackagePath(package_path).resource_data(str(resource_properties.name))
 
     data.write_parquet(data_path)
     return data_path

@@ -14,7 +14,7 @@ from seedcase_sprout.check_datapackage.constants import (
 )
 
 
-def _read_json(path: Path) -> list | dict:
+def _read_json(path: Path) -> dict:
     """Reads the contents of a JSON file into an object."""
     return loads(path.read_text())
 
@@ -100,7 +100,7 @@ def _validation_errors_to_check_errors(
         CheckError(
             message=error.message,
             json_path=_get_full_json_path_from_error(error),
-            validator=error.validator,
+            validator=str(error.validator),
         )
         for error in _unwrap_errors(list(validation_errors))
         if error.validator not in COMPLEX_VALIDATORS

@@ -19,7 +19,8 @@ def _keep_extractable_properties(
     example_properties: ResourceProperties,
 ) -> ResourceProperties:
     """Filter example properties to only keep the extractable properties."""
-
+    assert example_properties.schema
+    assert example_properties.schema.fields
     fields = list(
         map(
             lambda field: FieldProperties(name=field.name, type=field.type),

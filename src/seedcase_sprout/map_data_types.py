@@ -1,3 +1,5 @@
+from typing import cast
+
 import polars as pl
 
 from seedcase_sprout.properties import FieldType
@@ -49,7 +51,8 @@ def _get_allowed_datapackage_types(polars_type: pl.DataType) -> list[FieldType]:
     Returns:
         The allowed Data Package types.
     """
-    allowed_types = _POLARS_TO_DATAPACKAGE.get(polars_type.base_type(), ["any"])
+    base_type = cast(type[pl.DataType], polars_type.base_type())
+    allowed_types = _POLARS_TO_DATAPACKAGE.get(base_type, ["any"])
 
     if (
         isinstance(polars_type, pl.Array)
