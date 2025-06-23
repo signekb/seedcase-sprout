@@ -23,6 +23,8 @@ website:
     logo: "_extensions/seedcase-project/seedcase-theme/logos/navbar-logo-seedcase-sprout.svg"
     logo-alt: "Seedcase Sprout logo: Main page"
     left:
+      - text: "Overview"
+        href: docs/index.qmd
       - text: "Guide"
         href: docs/guide/index.qmd
       - text: "Design"
