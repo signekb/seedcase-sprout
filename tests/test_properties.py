@@ -120,7 +120,7 @@ def test_allows_overriding_defaults():
         ({"fields": ["a field"]}, TableSchemaForeignKeyProperties(fields=["a field"])),
         ({"required": False}, ConstraintsProperties(required=False)),
         ({"name": "a field name"}, FieldProperties(name="a field name")),
-        ({"fieldsMatch": "exact"}, TableSchemaProperties(fields_match="exact")),
+        ({"fieldsMatch": ["exact"]}, TableSchemaProperties(fields_match=["exact"])),
         (
             {
                 "name": "resource-name",
