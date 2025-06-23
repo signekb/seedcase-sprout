@@ -1,3 +1,9 @@
+## 0.44.11 (2025-06-23)
+
+### Refactor
+
+- :recycle: change `fields_match` type to list (#1410)
+
 ## 0.44.10 (2025-06-20)
 
 ### Fix
