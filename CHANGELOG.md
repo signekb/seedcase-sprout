@@ -1,3 +1,9 @@
+## 0.45.0 (2025-06-23)
+
+### Feat
+
+- :sparkles: add resource properties template (#1369)
+
 ## 0.44.12 (2025-06-23)
 
 ### Refactor
