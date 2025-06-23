@@ -8,6 +8,8 @@ first approach).
 
 from pathlib import Path
 
+from seedcase_sprout.internals import _create_resource_properties_script_filename
+
 
 class PackagePath:
     """Gets the absolute path to a specific file or folder in a data package.
@@ -105,3 +107,15 @@ class PackagePath:
     def properties_script(self) -> Path:
         """Path to the properties script."""
         return self.root() / "scripts" / "properties.py"
+
+    def resource_properties_script(self, resource_name: str = "") -> Path:
+        """Path to a specific resource's resource properties script.
+
+        Args:
+            resource_name: The name of the resource.
+        """
+        return (
+            self.root()
+            / "scripts"
+            / f"{_create_resource_properties_script_filename(resource_name)}.py"
+        )

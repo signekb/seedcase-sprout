@@ -13,6 +13,7 @@ from .check_properties import (
     check_resource_properties,
 )
 from .create_properties_script import create_properties_script
+from .create_resource_properties_script import create_resource_properties_script
 from .examples import (
     ExamplePackage,
     example_data,
@@ -72,6 +73,7 @@ __all__ = [
     "join_resource_batches",
     "read_resource_batches",
     "write_resource_batch",
+    "create_resource_properties_script",
     "write_resource_data",
     # Path -----
     "PackagePath",
