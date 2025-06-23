@@ -10,12 +10,10 @@ on. This means that the flows may change quite substantially until we've
 reached a stable full release at `v1.0.0`.
 :::
 
-Based on the [functions](functions.qmd#functions) that list and describe
-the main functions and classes that make up the interface, this document
-describes and shows how all these objects work together and flow into
-one another, but not necessarily the functions' exact input and output.
-Those are already described in the [functions](functions.qmd#functions)
-document.
+Based on the [functions](functions.qmd#functions) page that lists and
+describes the main functions and classes that make up the interface in
+detail including their input and output, this document describes and
+shows how all these objects work together and flow into one another.
 
 Each diagram uses specific shapes and lines to represent different
 things:
@@ -33,18 +31,16 @@ like Firefox. To see them, try using a different browser like Chrome or
 Edge.
 :::
 
-
 ## Creating or updating a package
 
-This is the flow for making a new package. The
-`write_package_properties()` will internally call `check_properties()`,
-but it can also be called separately to check the properties before
-writing them to the `datapackage.json` file. The `PackageProperties`
-are written in a Python script in folder that has the `datapackage.json`
-and you'd run that script to generate the `datapackage.json`. To update
-the properties in the `datapackage.json` file, you would edit the
-Python script directly and then run it again to overwrite the
-`datapackage.json` file with the new properties.
+This is the flow for making a new package. The `write_properties()`
+function will internally call `check_properties()`, but this can also be
+called separately to check the properties before writing them to the
+`datapackage.json` file. The `PackageProperties` input is imported from
+a Python script in the `scripts/` folder of the data package. To update
+the properties in the `datapackage.json` file, you would edit the Python
+script with the properties directly and then rerun your main script to
+overwrite the `datapackage.json` file with the new properties.
 
 ```{mermaid}
 %%| label: fig-flow-new-package
@@ -54,28 +50,27 @@ flowchart
     properties[(PackageProperties)]
     path_properties("PackagePath().properties()")
     check_properties("check_properties()")
-    write_package_properties("write_package_properties()")
+    write_properties("write_properties()")
 
     properties -.-> check_properties
-    properties --> write_package_properties
-    path_properties --> write_package_properties
+    properties --> write_properties
+    path_properties --> write_properties
 ```
 
-## Extract resource properties from data
+## Extracting resource properties from data
 
 The flow for extracting resource properties from data. This is useful
 when the data is in a format that contains metadata about the data, such
 as a CSV file with a header row that contains the column names. The
 `extract_resource_properties()` function cannot extract all required
-properties from the data, so they must be updated by the user. So both
-`TableSchemaProperties` and `ResourceProperties` will need many of their
-fields filled in after using `extract_resource_properties()`. The output
-of the function `extract_resource_properties()` can be used to generate
-a Python script from a template to give you a starting point for
-writing the resource properties. Afterwards, if you want to update
-the resource properties, you'll edit the Python script
-with the properties and then re-run your build process to generate
-the `datapackage.json` file with the updated properties.
+properties from the data, so both `TableSchemaProperties` and
+`ResourceProperties` will need many of their fields filled in after
+extraction. The output of the `extract_resource_properties()` function
+can be used to generate a Python script to give you a starting point for
+writing the resource properties. Afterwards, if you want to update the
+resource properties, you'll edit this Python script and then re-run your
+build process to generate the `datapackage.json` file with the updated
+properties.
 
 ```{mermaid}
 %%| label: fig-flow-extract-resource-properties
@@ -92,7 +87,7 @@ flowchart
     properties_extracted --> python_script
 ```
 
-## Update README after changing package or resource properties
+## Updating README after changing package or resource properties
 
 The flow for updating the README file after changing the package or
 resource properties. Since the README template text is generated from
@@ -121,43 +116,18 @@ flowchart
     path_readme --> write_file
 ```
 
-## Create resource properties manually
-
-If the user doesn't have a raw data file yet, but the user knows what
-the properties will be, they can use this workflow to add the resource
-properties manually. The `write_resource_properties()` function will
-internally call `check_resource_properties()`, but it can also be called
-separately to check the properties before writing them to the
-`datapackage.json` file.
-
-```{mermaid}
-%%| label: fig-flow-create-resource-properties
-%%| fig-cap: "Diagram showing the flow of objects and functions to create resource properties manually."
-%%| fig-alt: "A flow diagram showing the steps to create resource properties manually."
-flowchart
-    properties[(ResourceProperties)]
-    path_properties("PackagePath().properties()")
-    check_resource_properties("check_resource_properties()")
-    write_resource_properties("write_resource_properties()")
-
-    properties -.-> check_resource_properties
-    properties --> write_resource_properties
-    path_properties --> write_resource_properties
-```
-
 ## Checking the properties of packages or resources
 
 The flow to check the `datapackage.json` file's properties is fairly
-simple. For the `PackageProperties` (that includes or does not include
-resources), you give it to either the `check_properties()` function or
-the `check_package_properties()` function. For the specific resource's
-`ResourceProperties`, you give it to the `check_resource_properties()`
-function. In all cases, these functions are mostly customised wrappers
-using a generic `_check_properties()` function, which includes arguments
-to subset which properties to check. The `_check_properties()` function
-itself is also mostly a wrapper around our "sub-package"
-`check_datapackage` (which we intend to split into its own package
-later).
+simple. You check `PackageProperties` (with or without resources) using
+either the `check_properties()` function or the
+`check_package_properties()` function. You check a specific resource's
+`ResourceProperties` with the `check_resource_properties()` function.
+All these functions are customised wrappers around a generic
+`_check_properties()` function, which uses arguments to decide which
+properties to check. The `_check_properties()` function is itself a
+wrapper around our `check_datapackage` "sub-package" (which we intend to
+split into its own package later).
 
 ```{mermaid}
 %%| label: fig-flow-check-properties
@@ -175,7 +145,7 @@ flowchart
     resource_properties --> check_resource_properties
 ```
 
-## Save new, added, or modified data to batch
+## Saving new or modified data to batch
 
 A data resource needs data, not just properties. You can add data to any
 data resource that has resource properties. Whenever data is added to a
@@ -206,17 +176,14 @@ flowchart
     resource_properties -.-> check_data
 ```
 
-## Check data against the properties
+## Checking data against the properties
 
 The data must always match what is described in the properties. This
-means that the data must have the same column names, column types, type
-of columns' individual values (in rows), and constraints of columns'
-values. The `check_data()` function will internally call several
-separate functions for these specific checks. Each of these functions
-outputs a string with an error message describing what the problems are
-if the check fails, otherwise it outputs a data frame with the same data
-as the input. The `check_data()` then gathers together all the messages
-and gives an error using those messages if there are any.
+means that the data must have the same column names, column types, and
+column constraints. The `check_data()` function will internally call
+several separate functions for these specific checks. Each of these
+functions outputs an error message describing what the problems are if
+the check fails. Otherwise, the input data frame is returned unchanged.
 
 ```{mermaid}
 %%| label: fig-flow-check-data-against-properties
@@ -242,17 +209,16 @@ flowchart
     style Internal fill:#ffffff
 ```
 
-## Create or re-create the resource data
+## Creating or re-creating the resource data
 
-The batch data files are used to keep track of changes to the data
-without deleting the original data, while also keeping the data that
-will be used clean and ready for analysis. With this flow, the batch data is
-converted into the final resource data. These steps are split up so
-that, if needed or desired, you can make modifications to the data
-before it is written to the final resource data. While
-`write_resource_data()` will call `check_data()` internally, it can also
-be called separately to check the data before writing it to the final
-resource data.
+The batch data files are used to keep track of changes to the data. The
+data that will be used is kept clean and ready for analysis, while
+original data is not deleted. This flow converts batch data into the
+final resource data file. The steps are split up so that, if needed or
+desired, you can make modifications to the data before it is written to
+the final resource data. While `write_resource_data()` will call
+`check_data()` internally, this can also be called separately to check
+the data before writing it to the final resource data.
 
 ```{mermaid}
 %%| label: fig-flow-create-resource-data
@@ -281,12 +247,12 @@ flowchart
 ## Modifying data types or table schema
 
 Sometimes you may need to modify the data types or table schema of the
-data in a resource. So you'd first modify the resource properties before
-using this flow. The `update_resource_batches()` function will
-update each batch DataFrame with the new data types or table schema, then
-you can use `write_resource_batch()` to save the updated data back to the
-batch files. The same file name should be used, so it will completely overwrite the
-old batch files.
+data in a resource. Before using this flow, you first need to modify the
+resource properties. The `update_resource_batches()` function will
+update each batch DataFrame with the new data types or table schema.
+Then, you can use `write_resource_batch()` to save the updated data back
+to the batch files. The same file names should be used to overwrite old
+batch files.
 
 ```{mermaid}
 %%| label: fig-flow-modify-data-types
@@ -314,7 +280,7 @@ flowchart
 
 If you need to delete an observational unit from the data, you can use
 this flow. The `delete_observational_unit()` function will delete the
-observational unit from the data about output a list of DataFrames with
+observational unit from the data and output a list of DataFrames with
 the deletions. The `write_resource_batch()` function will save the
 updated data back to the batch files.
 
