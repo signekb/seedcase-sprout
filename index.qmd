@@ -32,6 +32,7 @@ div.quarto-about-jolla {
 
 :::: landing-page-block
 ::: {#hero-heading}
+{{< include /docs/includes/_badges.qmd >}}
 :::
 ::::
 
