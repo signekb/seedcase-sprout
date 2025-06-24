@@ -5,16 +5,34 @@ on:
     branches:
       - main
 
-# Limit token permissions for security
-permissions: read-all
-
 jobs:
-  update-version:
-    # Only give permissions for this job.
-    permissions:
-      contents: write
-    uses: seedcase-project/.github/.github/workflows/reusable-update-python-project-version.yml@main
-    with:
-      app-id: ${{ vars.UPDATE_VERSION_APP_ID }}
-    secrets:
-      update-version-gh-token: ${{ secrets.UPDATE_VERSION_TOKEN }}
+  update-version-and-changelog:
+    if: "!startsWith(github.event.head_commit.message, 'build(version): ')"
+    runs-on: ubuntu-latest
+    name: "Update project's version and changelog"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Only need the last commit from the repo.
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set User
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - id: cz
+        name: Update version and changelog
+        uses: commitizen-tools/commitizen-action@5b0848cd060263e24602d1eba03710e056ef7711 # 0.24.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          changelog: true
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@da05d552573ad5aba039eaac05058a918a7bf631 # v2.2.2
+        with:
+          generate_release_notes: true
+          # env variable containing the new version, created by the Commitizen action
+          tag_name : ${{ env.REVISION }}
