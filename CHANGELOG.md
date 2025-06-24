@@ -1,3 +1,9 @@
+## 0.45.1 (2025-06-24)
+
+### Fix
+
+- remove "hello!" again; still had wrong release tag on GitHub
+
 ## 0.45.0 (2025-06-23)
 
 ### Feat
