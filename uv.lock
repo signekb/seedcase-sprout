@@ -1844,7 +1844,7 @@ wheels = [
 
 [[package]]
 name = "seedcase-sprout"
-version = "0.46.1"
+version = "0.47.0"
 source = { editable = "." }
 dependencies = [
     { name = "dacite" },
