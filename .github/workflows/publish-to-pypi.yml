@@ -59,6 +59,10 @@ jobs:
     permissions:
       id-token: write  # IMPORTANT: mandatory for trusted publishing
     steps:
+    - name: Check the contents of the root directory
+      run: ls
+    - name: Check the contents of the dist/ directory
+      run: ls -l dist/
     - name: Download all the dists
       uses: actions/download-artifact@v4
       with:
