@@ -38,12 +38,6 @@ jobs:
           enable-cache: true
           cache-dependency-glob: "uv.lock"
 
-      - name: Set up Python
-        # uv specifies that this can be faster than using uv python install.
-        uses: actions/setup-python@v5
-        with:
-          python-version-file: "pyproject.toml"
-
       - name: Build
         # Builds dists from source and stores them in the dist/ directory.
         run: uv build
@@ -81,15 +75,6 @@ jobs:
         with:
           enable-cache: true
           cache-dependency-glob: "uv.lock"
-
-      - name: Debug current directory and files
-        run: |
-          pwd
-          ls -la
-      - name: Where's pyproject.toml?
-        run: |
-          ls ../
-          find .. -name "pyproject.toml"
 
       - name: Publish distribution 📦 to TestPyPI
         run: uv publish --index testpypi --trusted-publishing always
