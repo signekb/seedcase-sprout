@@ -51,7 +51,6 @@ jobs:
   publish-to-testpypi:
     name: Publish Python 🐍 distribution 📦 to TestPyPI
     runs-on: ubuntu-latest
-    environment: testpypi
     needs:
       - update-version-and-changelog-and-build-distribution
     permissions:
@@ -82,12 +81,11 @@ jobs:
         # each commit to main and is often used to indicate a healthy release publishing pipeline.
 
   # publish-to-pypi:
-  #   name: >-
-  #     Publish Python 🐍 distribution 📦 to PyPI
+  #   name: Publish Python 🐍 distribution 📦 to PyPI
   #   # Only publish to PyPI on tag pushes.
   #   if: startsWith(github.ref, 'refs/tags/')
   #   needs:
-  #   - build
+  #   - update-version-and-changelog-and-build-distribution
   #   runs-on: ubuntu-latest
   #   environment:
   #     name: pypi
