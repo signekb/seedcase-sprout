@@ -37,7 +37,7 @@ jobs:
           # env variable containing the new version, created by the Commitizen action
           tag_name : ${{ env.REVISION }}
 
-  build-distribution:
+  build:
     name: Build distribution 📦
     runs-on: ubuntu-latest
     steps:
@@ -67,7 +67,7 @@ jobs:
   #   # Only publish to PyPI on tag pushes.
   #   if: startsWith(github.ref, 'refs/tags/')
   #   needs:
-  #   - build-distribution
+  #   - build
   #   runs-on: ubuntu-latest
   #   environment:
   #     name: pypi
@@ -86,7 +86,7 @@ jobs:
   publish-to-testpypi:
     name: Publish Python 🐍 distribution 📦 to TestPyPI
     needs:
-    - build-distribution
+    - build
     runs-on: ubuntu-latest
     environment:
       name: testpypi
