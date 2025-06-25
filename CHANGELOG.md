@@ -1,3 +1,9 @@
+## 0.48.1 (2025-06-25)
+
+### Fix
+
+- :fire: remove specific version of uv
+
 ## 0.48.0 (2025-06-25)
 
 ### Feat
