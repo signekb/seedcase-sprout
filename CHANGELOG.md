@@ -1,3 +1,14 @@
+## 0.48.0 (2025-06-25)
+
+### Feat
+
+- :sparkles: add "Hello!" to `README`
+
+### Fix
+
+- :bug: remove "Hello!" from `README` again
+- :fire: remove "Hello!" again, again
+
 ## 0.47.1 (2025-06-25)
 
 ### Refactor
