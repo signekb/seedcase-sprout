@@ -35,10 +35,8 @@ jobs:
       - name: Set up uv
         uses: astral-sh/setup-uv@445689ea25e0de0a23313031f5fe577c74ae45a1 # v6.3.0
         with:
-          # Install a specific version of uv.
-          version: "0.7.15"
           enable-cache: true
-          cache-dependency-glob: uv.lock
+          cache-dependency-glob: "uv.lock"
 
       - name: Set up Python
         # uv specifies that this can be faster than using uv python install.
@@ -73,10 +71,8 @@ jobs:
       - name: Set up uv
         uses: astral-sh/setup-uv@445689ea25e0de0a23313031f5fe577c74ae45a1
         with:
-          # Install a specific version of uv.
-          version: "0.7.15"
           enable-cache: true
-          cache-dependency-glob: uv.lock
+          cache-dependency-glob: "uv.lock"
       - name: Debug current directory and files
         run: |
           pwd
