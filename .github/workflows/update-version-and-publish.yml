@@ -77,6 +77,10 @@ jobs:
           version: "0.7.15"
           enable-cache: true
           cache-dependency-glob: uv.lock
+      - name: Debug current directory and files
+        run: |
+          pwd
+          ls -la
       - name: Publish distribution 📦 to TestPyPI
         run: uv publish --index testpypi --trusted-publishing always
         # No need for manual approvals for testpypi, since it's designed to run on
