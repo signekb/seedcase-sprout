@@ -1,3 +1,9 @@
+## 0.47.1 (2025-06-25)
+
+### Refactor
+
+- :truck: rename "build" to follow original naming
+
 ## 0.47.0 (2025-06-25)
 
 ### Feat
