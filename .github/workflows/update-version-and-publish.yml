@@ -83,7 +83,7 @@ jobs:
   #           name: python-package-distributions
   #           path: dist/
   #       - name: Publish distribution 📦 to PyPI
-  #         uses: pypa/gh-action-pypi-publish@release/v1
+  #         run: uv publish
 
   publish-to-testpypi:
     name: Publish Python 🐍 distribution 📦 to TestPyPI
@@ -102,8 +102,6 @@ jobs:
         name: python-package-distributions
         path: dist/
     - name: Publish distribution 📦 to TestPyPI
-      uses: pypa/gh-action-pypi-publish@release/v1
+      run: uv publish --index testpypi
       # No need for manual approvals for testpypi, since it's designed to run on
       # each commit to main and is often used to indicate a healthy release publishing pipeline.
-      with:
-        repository-url: https://test.pypi.org/legacy/
