@@ -75,7 +75,7 @@ build-backend = "hatchling.build"
 [[tool.uv.index]]
 name = "testpypi"
 url = "https://test.pypi.org/p/seedcase-sprout"
-repository-url = "https://test.pypi.org/legacy/"
+publish-url = "https://test.pypi.org/legacy/"
 explicit = true
 
 
