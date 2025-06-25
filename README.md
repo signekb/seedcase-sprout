@@ -1,3 +1,5 @@
+Hello!
+
 <p align="center">
     <a href="https://sprout.seedcase-project.org/">
         <img src="https://raw.githubusercontent.com/seedcase-project/seedcase-sprout/main/_extensions/seedcase-project/seedcase-theme/logos/navbar-logo-seedcase-sprout.svg" alt="Link to Sprout website" height="150"/>
