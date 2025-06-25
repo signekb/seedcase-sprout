@@ -32,15 +32,19 @@ jobs:
           # env variable containing the new version, created by the Commitizen action
           tag_name : ${{ env.REVISION }}
 
-      - name: Install uv
+      - name: Set up uv
         uses: astral-sh/setup-uv@445689ea25e0de0a23313031f5fe577c74ae45a1 # v6.3.0
         with:
+          # Install a specific version of uv.
+          version: "0.7.15"
           enable-cache: true
           cache-dependency-glob: uv.lock
 
       - name: Set up Python
-        # uv looks for .python-version file to determine the Python version.
-        run: uv python install
+        # uv specifies that this can be faster than using uv python install.
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: "pyproject.toml"
 
       - name: Build
         # Builds dists from source and stores them in the dist/ directory.
@@ -66,9 +70,11 @@ jobs:
         with:
           name: python-package-distributions
           path: dist/
-      - name: Install uv
-        uses: astral-sh/setup-uv@445689ea25e0de0a23313031f5fe577c74ae45a1 # v6.3.0
+      - name: Set up uv
+        uses: astral-sh/setup-uv@445689ea25e0de0a23313031f5fe577c74ae45a1
         with:
+          # Install a specific version of uv.
+          version: "0.7.15"
           enable-cache: true
           cache-dependency-glob: uv.lock
       - name: Publish distribution 📦 to TestPyPI
