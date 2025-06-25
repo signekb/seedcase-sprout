@@ -21,6 +21,10 @@ jobs:
       uses: astral-sh/setup-uv@445689ea25e0de0a23313031f5fe577c74ae45a1 # v6.3.0
     - name: Build a binary wheel and a source tarball and store them in dist/
       run: uv build
+    - name: Check the contents of the root directory
+      run: ls
+    - name: Check the contents of the dist/ directory
+      run: ls -l dist/
 
   # publish-to-pypi:
   #   name: >-
