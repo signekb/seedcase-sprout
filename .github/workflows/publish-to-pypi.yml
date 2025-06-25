@@ -62,11 +62,11 @@ jobs:
     - name: Check the contents of the root directory
       run: ls
     - name: Check the contents of the dist/ directory
-      run: ls -l dist/
+      run: ls -l $GITHUB_WORKSPACE/dist/
     - name: Download all the dists
       uses: actions/download-artifact@v4
       with:
-        path: dist/
+        path: $GITHUB_WORKSPACE/dist/
     - name: Publish distribution 📦 to TestPyPI
       uses: pypa/gh-action-pypi-publish@release/v1
       # No need for manual approvals for testpypi, since it's designed to run on
