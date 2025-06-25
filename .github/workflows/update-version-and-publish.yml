@@ -51,7 +51,7 @@ jobs:
         run: uv build
 
       - name: Publish distribution 📦 to TestPyPI
-        run: uv publish --index testpypi
+        run: uv publish --index testpypi --trusted-publishing always
         # No need for manual approvals for testpypi, since it's designed to run on
         # each commit to main and is often used to indicate a healthy release publishing pipeline.
 
