@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  update-version-and-changelog-and-build-distribution:
+  update-version-and-changelog:
     name: "Update project's version and changelog and build distribution"
     if: "!startsWith(github.event.head_commit.message, 'build(version): ')"
     runs-on: ubuntu-latest
@@ -32,6 +32,10 @@ jobs:
           # env variable containing the new version, created by the Commitizen action
           tag_name : ${{ env.REVISION }}
 
+  build:
+    name: Build Python 🐍 distribution 📦
+    runs-on: ubuntu-latest
+    steps:
       - name: Set up uv
         uses: astral-sh/setup-uv@445689ea25e0de0a23313031f5fe577c74ae45a1 # v6.3.0
         with:
@@ -43,6 +47,10 @@ jobs:
         run: uv build
 
       - name: Upload Python package distributions
+        # Uploads the built distributions so that they can be used in the next steps.
+        # This is necessary because the next steps needs to run on different environments
+        # (e.g. publish to TestPyPI and PyPI), and the dist/ directory is not persisted
+        # between jobs.
         uses: actions/upload-artifact@v4
         with:
           name: python-package-distributions
@@ -51,22 +59,16 @@ jobs:
   publish-to-testpypi:
     name: Publish Python 🐍 distribution 📦 to TestPyPI
     runs-on: ubuntu-latest
-    environment:
-      name: testpypi
-      url: https://test.pypi.org/simple/
+    environment: testpypi
     needs:
-      - update-version-and-changelog-and-build-distribution
+      - build
     permissions:
       id-token: write  # IMPORTANT: mandatory for trusted publishing.
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          # Fetch all history for all branches and tags.
-          fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Download all the dists
+      - name: Download dists
         uses: actions/download-artifact@v4
         with:
           name: python-package-distributions
@@ -79,27 +81,33 @@ jobs:
           cache-dependency-glob: "uv.lock"
 
       - name: Publish distribution 📦 to TestPyPI
-        run: uv publish --trusted-publishing always
-        # No need for manual approvals for testpypi, since it's designed to run on
-        # each commit to main and is often used to indicate a healthy release publishing pipeline.
+        run: uv publish --index testpypi --trusted-publishing always
 
   # publish-to-pypi:
   #   name: Publish Python 🐍 distribution 📦 to PyPI
   #   # Only publish to PyPI on tag pushes.
   #   if: startsWith(github.ref, 'refs/tags/')
   #   needs:
-  #   - update-version-and-changelog-and-build-distribution
+  #   - build
   #   runs-on: ubuntu-latest
-  #   environment:
-  #     name: pypi
-  #     url: https://pypi.org/p/seedcase-sprout
+  #   environment: pypi
   #   permissions:
   #     id-token: write  # IMPORTANT: mandatory for trusted publishing
   #   steps:
-  #       - name: Download all the dists
+  #       - name: Checkout
+  #         uses: actions/checkout@v4
+
+  #       - name: Download dists
   #         uses: actions/download-artifact@v4
   #         with:
   #           name: python-package-distributions
   #           path: dist/
+
+  #       - name: Set up uv
+  #         uses: astral-sh/setup-uv@445689ea25e0de0a23313031f5fe577c74ae45a1
+  #         with:
+  #           enable-cache: true
+  #           cache-dependency-glob: "uv.lock"
+
   #       - name: Publish distribution 📦 to PyPI
-  #         run: uv publish
+  #         run: uv publish --trusted-publishing always
