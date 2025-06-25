@@ -39,6 +39,8 @@ jobs:
 
   build:
     name: Build distribution 📦
+    needs:
+      - update-version-and-changelog
     runs-on: ubuntu-latest
     steps:
       # For this, we need more than the last commit (as above)
